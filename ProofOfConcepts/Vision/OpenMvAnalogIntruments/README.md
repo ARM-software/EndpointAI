@@ -10,4 +10,3 @@ There is only one part. You need to deploy python file on the OpenMv H7 Camera.
 ### Running the needle detection
 
 read_pressure.py is used to detect needle on the OpenMV Camera trought OpenMv IDE.
-<img alt="Analog instrument demo" src="needle_detection.mp4" width="100%">
