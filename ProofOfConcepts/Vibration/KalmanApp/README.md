@@ -8,7 +8,7 @@ Some sympy scripts are used to generate the code : this demo can be modified to 
 
 There is a Processing script in Orientation folder which can be used to display the result of the simulation. The simulation result should be dumped into build/output.csv for this script to work and display something like that:
 
-![orientation](documentation/Assets/orientation.PNG?raw=true)
+![orientation](Documentation/Assets/orientation.PNG?raw=true)
 
 Processing can be downloaded from [here](https://processing.org/).
 
