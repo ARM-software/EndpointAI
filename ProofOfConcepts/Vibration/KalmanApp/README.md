@@ -12,7 +12,7 @@ There is a Processing script in Orientation folder which can be used to display 
 
 Processing can be downloaded from [here](https://processing.org/).
 
-All the details about the algorithms and the mathematics and described in Documentation/Summary.pdf
+All the details about the algorithms and the mathematics are described in Documentation/Summary.pdf
 
 The source code and python scripts are referring to the equations inside this documentation.
 
