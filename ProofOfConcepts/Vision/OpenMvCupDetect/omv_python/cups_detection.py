@@ -105,7 +105,7 @@ sensor.set_windowing((round((sensor.width() -img_width)/2), round((sensor.height
                       img_width, img_height))    # Limitate the pic size to 160x120 centered
 
 #thresholds used by find_blobs
-thresholds_cups = [ (20, 100, 30, 128, 0, 128), (20, 80, -100, -20, 10, 80), ] # generic red and green thresholds
+thresholds_cups = [ (20, 100, 30, 128, 0, 128), (0, 100, -125, -10, 0, 100), ] # generic red and green thresholds
 
 # tflite loading part
 modelname = "model_cup_quantized_256.tflite"

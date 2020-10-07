@@ -80,3 +80,5 @@ You need to copy the tflite file to the OpenMv camera's memory card and run the 
 Don't forget to adjust the variables present at the beginning of the file in order to adapt the script to the size of the objects to be detected.
 
 coke_cups_detection.py is used to detect cups on the OpenMV Camera
+
+<img alt="Running cups detection" src="docs/Cups_detection_video.mp4" width="30%">
