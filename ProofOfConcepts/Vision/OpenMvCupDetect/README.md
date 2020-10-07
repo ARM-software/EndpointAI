@@ -81,4 +81,4 @@ Don't forget to adjust the variables present at the beginning of the file in ord
 
 coke_cups_detection.py is used to detect cups on the OpenMV Camera
 
-<img alt="Running cups detection" src="docs/Cups_detection_video.mp4" width="30%">
+<img alt="Running cups detection" src="docs/Cups_detection_gif.gif" width="30%">
