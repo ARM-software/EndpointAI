@@ -7,6 +7,10 @@ The workflow of deploying a machine learning model on the device consists of thr
 2. Train the neural network with your dataset
 3. Deploy your network and try it
 
+<p float="center">
+    <img alt="Cups image" src="docs/Cups.jpg" width="100%"/>
+</p>
+
 ## Prerequisites
 
 First step is to clone the git repository in your working tree :
