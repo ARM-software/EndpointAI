@@ -8,7 +8,7 @@ The workflow of deploying a machine learning model on the device consists of thr
 3. Deploy your network and try it
 
 <p float="center">
-    <img alt="Cups image" src="docs/Cups.jpg" width="100%"/>
+    <img alt="Cups image" src="docs/Cups.jpg" width="40%"/>
 </p>
 
 ## Prerequisites
