@@ -111,8 +111,7 @@ Note that the noise component was written:
 G n_{k}
 \end{equation}
 
-Because $n_{k}$ is the noise of a sensor in local coordinates and we can measure it.
-The matrix $G$ is doing a conversion to world coordinate.
+Because $n_{k}$ is the noise of a sensor in local coordinates and we can measure it. If $Q$ is its covariance matrix then the noise on the state variables is $G . Q . G^t$.
 
 
 \subsubsection{Observation}
@@ -132,7 +131,7 @@ where $z_k$ is the observation and $\after{x}$ is our knowledge of the state for
 Using Bayes theorem, we can compute this as:
 
 \begin{equation} 
-p(x | z_k) = \frac{p(z_k | \before{x}) p(\before{x})}{p(z_k)}
+p(\after{x} | z_k) = \frac{p(z_k | \before{x}) p(\before{x})}{p(z_k)}
 \end{equation}
 
 
@@ -160,7 +159,7 @@ And this is the Kalman filter.
 
 \subsection{Quaternion}
 
-Orientation will be described using a normalized quaternion.
+Orientation will be described using a normalized quaternion : it is our state $x$.
 
 A normalized quaternion $(q_0,q_1,q_2,q_3)$ is corresponding to the following rotation matrix:
 
@@ -176,7 +175,7 @@ R = \left(
 
 This matrix $R$ is describing the transformation to apply to the body to get its position in space.
 
-As a consequence, a vector $\overrightarrow{v}$ measured in the body coordinate is corresponding to a vector $R^t . \overrightarrow{v}$ in world coordinates since $R^t$ is the inverse of $R$.
+As a consequence, a vector $\overrightarrow{v}$ measured in the world coordinate is corresponding to a vector $R^t . \overrightarrow{v}$ in body coordinates since $R^t$ is the inverse of $R$.
 
 The body is rotating. To know how the quaternion is transformed due to this rotation in an infinitesimal duration, we need to use the angular speed $(\omega_x, \omega_y, \omega_z)$ and compute the following matrix:
 
@@ -193,7 +192,7 @@ S(\omega) = \left(
 
 The derivative of the quaternion $q$ is given by :
 
-\begin{equation}
+\begin{equation}\label{eq:quatomega}
 q' = \frac{1}{2} S(\omega) q
 \end{equation}
 
@@ -209,13 +208,13 @@ q_3(t+dt) = q_3 + \frac{1}{2} \text{dt} (q_0 \omega_z+q_1 \omega_y-q_2 \omega_x)
 This update equation is corresponding to the Euler integration scheme.
 It is not the most accurate and a Runge–Kutta method may be preferred. 
 
-Note that the speed $\omega$ is expressed in local coordinates. The rotation of the body is in world coordinates. The equation \ref{eq:update} is taking this into account.
+Note that the speed $\omega$ is expressed in local coordinates. The rotation of the body is in world coordinates. The equation \ref{eq:quatomega} is taking this into account.
 
 
 \section{Prediction}
 
 With quaternions, the update equations are no more linear.
-So, to be able to apply the Kalman update formula, we linearise the equations around the current point : it is the extended Kalman filter.
+So, to be able to apply the Kalman update formula, we linearise the equations around the current point : it is the Extended Kalman filter.
 
 The evolution model is a non linear function $f$.
 
@@ -226,8 +225,6 @@ The new update equation is very similar to the ones in \ref{eq:mean} and \ref{eq
 For the update of the mean, $f$ is used instead of the $F$ matrix.
 
 For the update of the covariance, we use the new matrixes $F_k$ and $G_k$.
-
-$F$ is related to the state variables and $G$ to the control ones.
 
 \begin{align}\label{eq:predict}
 \before{x} &= f(\curr{x},c_k)\\
@@ -297,19 +294,19 @@ The rotation matrix $R$ to apply to the body to get its orientation is allowing 
 (In the equation \ref{eq:observe}, $R_k$ is not the rotation but the observation noise covariance. This naming is to be coherent with the source code of the implementation.)
 
 
-So, when we express the body acceleration $\overrightarrow{acc_{body}}$ we should have:
+So, when we express the body acceleration $\overrightarrow{acc_{body}}$ in the body frame of reference, we should have (when the body is not moving):
 
 \begin{equation}\label{eq:accworld}
 \overrightarrow{acc_{body}} = R^t . \left(
 \begin{array}{c}
  0 \\
  0 \\
- -9.815 \\
+ -9.81 \\
 \end{array}
 \right)
 \end{equation}
 
-Similarly, when we express the body magnetic field in the world frame we should get:
+Similarly, when we express the magnetic field in the body frame of reference we should get:
 
 \begin{equation}\label{eq:magworld}
 \overrightarrow{mag_{body}} = R^t . \left(
@@ -425,6 +422,8 @@ A macro is used to access the matrix elements using a (row,column) specification
 
 We update the quaternion using the equation \ref{eq:f}.
 Then we normalize the quaternion because only a normalized quaternion is representing a rotation and we want to prevent rounding errors from breaking this property.
+
+We do this normalization each time although in a final implementation it may not ne needed to do it as often. This normalization is involving a square root so is costly.
 
 \begin{minted}[bgcolor=bg]{c}
 f_update();
