@@ -448,7 +448,9 @@ We update covariance using equation \ref{eq:predict}.
 
 $OmegaErrors$ is the covariance matrix for the gyro errors (in the equation it is named $Q$). Here, in the code, $Q$ is the result after applying the $G_k$ matrix.
 
-We symmetrize the covariance matrix $NP$ by copying the upper triangle onto the lower one. It is to ensure that, in spite of rounding errors, the matrix is still symetric and definite positive.
+We symmetrize the covariance matrix $NP$ by copying the upper triangle onto the lower one. It is to ensure that, in spite of rounding errors, the matrix is still symetric.
+
+It is not enough to ensure that it remains definite positive. More complex update scheme are required for this (for instance by using Cholesky).
 
 $NP$ is $\before{P}$.
 
