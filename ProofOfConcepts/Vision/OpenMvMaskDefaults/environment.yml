@@ -72,7 +72,7 @@ dependencies:
     - attrs==19.3.0
     - backcall==0.2.0
     - bleach==3.1.5
-    - borisml>=0.1.4
+    - lightly>=1.0.0
     - cachetools==4.1.1
     - chardet==3.0.4
     - cycler==0.10.0
