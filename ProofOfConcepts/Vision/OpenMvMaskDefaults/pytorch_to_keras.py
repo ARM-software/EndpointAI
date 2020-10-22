@@ -1,6 +1,6 @@
 import argparse
 
-import boris.models as models
+import lightly.models as models
 import torch
 
 from classifier import Classifier
