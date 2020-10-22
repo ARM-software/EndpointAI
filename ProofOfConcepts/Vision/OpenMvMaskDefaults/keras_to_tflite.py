@@ -4,7 +4,7 @@ import tensorflow.compat.v1.lite as lite
 parser = argparse.ArgumentParser()
 parser.add_argument('--keras_model', type=str, default='checkpoints/keras_model.h5',
                     help='Path to the keras model checkpoint')
-parser.add_argument('--tflite_model', type=str, default='checkpoints/whattolabel_resnet9.tflite',
+parser.add_argument('--tflite_model', type=str, default='checkpoints/lightly_resnet9.tflite',
                     help='Path to the keras model checkpoint')
 parser.add_argument('--quantized_input_lower', type=int, default=0,
                     help='Lower input stat')

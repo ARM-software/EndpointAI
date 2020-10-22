@@ -44,7 +44,7 @@ clock = time.clock()
 
 
 # Load the Tensorflow Lite model
-model = tf.load('whattolabel_resnet9.tflite')
+model = tf.load('lightly_resnet9.tflite')
 
 def setLED(color='none'):
     """Function to set LED to a color (red, green, blue, none)
