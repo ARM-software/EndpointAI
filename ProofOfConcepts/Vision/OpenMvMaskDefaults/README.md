@@ -111,7 +111,7 @@ For the **test data** choose random sampling. This will give you a representativ
 
 <img alt="Image which shows how to sample a test set" src="docs/sample_test_set.png" width="100%">
 
-Download the images from the command line. This will copy the selected images from the source folder to a new directory specified by "to_folder".
+Download the images from the command line. This will copy the selected images from the source folder to a new directory specified by "output_dir".
 ```shell
 mkdir data/train
 lightly-download tag_name='training-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir='data/raw' output_dir='data/train'
