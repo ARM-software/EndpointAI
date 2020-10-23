@@ -105,11 +105,11 @@ After uploading the images and embeddings, the dataset can be filtered. Head to 
 
 For the **training data** choose the coreset filter method as it will sample a diverse set of images. Put the slider to 200 images and save your selection by creating a new tag named "training-data".
 
-<img alt="Image which shows how to sample a training set" src="docs/sample_training_set.png" width="100%">
+<img alt="Image which shows how to sample a training set" src="docs/sample_training_set.PNG" width="100%">
 
 For the **test data** choose random sampling. This will give you a representative subset of the raw data. Put the slider to 500 images and save your selection by creating a new tag named "test-data".
 
-<img alt="Image which shows how to sample a test set" src="docs/sample_test_set.png" width="100%">
+<img alt="Image which shows how to sample a test set" src="docs/sample_test_set.PNG" width="100%">
 
 Download the images from the command line. This will copy the selected images from the source folder to a new directory specified by "output_dir".
 ```shell
