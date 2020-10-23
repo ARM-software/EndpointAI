@@ -31,7 +31,7 @@ cd EndpointAI/ProofOfConcepts/Vision/OpenMvMaskDefaults/
 To get started, create a new conda environment and install the `lightly` pip package with the following commands:
 ```shell
 conda env create -f environment.yml
-conda activate cortex-m7
+conda activate lightly-cortex-m7
 pip install lightly
 ```
 
@@ -41,7 +41,7 @@ You can also use your environment. Please note that we tested the implementation
 - Tensorflow 1.15.0
 - Torch 1.2.0
 - Torchvision 0.4.0
-- lightly 1.0.0
+- Lightly 0.1.0
 
 ## Data Collection and Annotation
 Annotating thousands of images by hand can be exhausting and even if the annotation process is outsourced, it would be more cost-efficient to work on fewer, intelligently selected images. This section shows how the [Lightly web-app](https://app.lightly.ai) can be used to sample a high-quality subset of images as training and test data.
@@ -78,7 +78,7 @@ data/
 
 In a first step, a self-supervised, deep neural network is trained on the raw image data and embeddings are generated for each image based on unique features. These embeddings will accelerate the finetuning on the labeled set of images later. Make sure you have the raw image data at `data/raw`. Then, in the command line type:
 ```shell
-lightly-magic input_dir=data/raw model.name=resnet-9 model.width=0.125 \
+lightly-magic input_dir=data/raw model.name=resnet-9 model.width=0.125 model.num_ftrs=16 \
 > collate.input_size=64 collate.cj_prob=0.5 collate.min_scale=0.5 loader.batch_size=768 \
 > trainer.max_epochs=100 hydra.run.dir=./outputs
 ```
@@ -88,7 +88,7 @@ Furthermore, **if the batch size is too large to fit in memory**, try lowering i
 
 Copy the embeddings and model checkpoint from the output directory to your working directory. Both will be reused in later step. Make sure to replace the `PLACEHOLDER` to match your files.
 ```shell
-mv outputs/lightly_PLACEHOLDER.ckpt checkpoints/pretrained.ckpt
+mv outputs/lightning_logs/version_0/checkpoints/PLACEHOLDER.ckpt checkpoints/pretrained.ckpt
 mv outputs/embeddings.csv data/
 ```
 
@@ -114,12 +114,12 @@ For the **test data** choose random sampling. This will give you a representativ
 Download the images from the command line. This will copy the selected images from the source folder to a new directory specified by "output_dir".
 ```shell
 mkdir data/train
-lightly-download tag_name='training-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir='data/raw' output_dir='data/train'
+lightly-download +tag_name='training-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir='data/raw' output_dir='data/train'
 ```
 
 ```shell
 mkdir data/test
-lightly-download tag_name='test-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir='data/raw' output_dir='data/test'
+lightly-download +tag_name='test-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir='data/raw' output_dir='data/test'
 ```
 
 Now comes the pesky part: Annotate the images by distributing them into subdirectories depending on their labels. Do this by hand or use annotation tools at your disposal. A simple way to annotate the data is to look at each image one-by-one and to move the image to the directory where it belongs. In this tutorial, an image contains a mask if at least 50% of the image is covered by it. The resulting directory tree should look like this:
