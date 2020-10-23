@@ -199,7 +199,7 @@ To get started we need to add the `.tflite` model to our OpenMV H7 board.
  Once you attach the OpenMV H7 board to your computer using the USB interface you should have access to the device folder. It should show as a regular external drive (e.g. USB stick, Memory Card). To access the Tensorflow Lite model from the code you need to copy it to the newly available device (you copy the .tflite model to the device).
 
 Once completed you should end up with the following file structure:
-> <img alt="Image which shows file structure on device" src="docs/file_structure_on_device.png" width="50%">
+> <img alt="Image which shows file structure on device" src="docs/file_structure_on_device.PNG" width="50%">
 
 ### Run the model on OpenMV H7 board
 In the `openmv` folder of this repository, you find a working implementation for this tutorial. Open the OpenMV IDE and run the provided script. Enjoy seeing your classifier in action!
