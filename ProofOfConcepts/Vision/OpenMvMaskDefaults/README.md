@@ -207,7 +207,7 @@ In the `openmv` folder of this repository, you find a working implementation for
 ## Result
 Check out our YouTube video demonstrating the code in action on the OpenMV H7 board.
 
-[<img alt="Check out the YouTube Video demonstrating the code in action" src="https://img.youtube.com/vi/UxO40B2l024/0.jpg" width="50%">](https://youtu.be/3873rBvLPRA)
+[<img alt="Check out the YouTube Video demonstrating the code in action" src="https://img.youtube.com/vi/ba1c1JkBnNc/0.jpg" width="50%">](https://youtu.be/ba1c1JkBnNc)
 
 Are you interested in self-supervised learning? Do you want to contribute to a quickly growing Python library? [Come and visit us! :)](https://github.com/lightly-ai/lightly)
 
