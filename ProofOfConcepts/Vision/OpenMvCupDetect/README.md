@@ -52,7 +52,7 @@ It currently has 2 parts:
 Several scripts have been created to create the training dataset which should have as many examples as possible:
 * coke_cups_batch.py on the camera side and create_dataset_batch.py on the post-treatment side alow to create training image by batch: a picture of several known cups aligned is taken and then divided in the correct number of cups images with the correct label.
 
-Use coke_cups_batch.py python script on OpenMv IDE to catch cups images. You need to edit the variables in the top of the file with your cups size (height, width, ...).
+Use cups_batch.py python script on OpenMv IDE to catch cups images. You need to edit the variables in the top of the file with your cups size (height, width, ...).
 When the script is executed, the images will be saved on the camera's SD card. Then simply copy them into the following project directory : **neural_networks/tflite/cups_batch**
 
 You can now create the dataset from the recorded images. You just have to call the script create_dataset_batch.py by passing the images recorded before in parameters. Before calling the script, you must edit it to adapt it to the size of your images (width, length, ...).
