@@ -50,7 +50,7 @@ It currently has 2 parts:
 ### Creating the neural network training dataset
 
 Several scripts have been created to create the training dataset which should have as many examples as possible:
-* coke_cups_batch.py on the camera side and create_dataset_batch.py on the post-treatment side alow to create training image by batch: a picture of several known cups aligned is taken and then divided in the correct number of cups images with the correct label.
+* cups_batch.py on the camera side and create_dataset_batch.py on the post-treatment side alow to create training image by batch: a picture of several known cups aligned is taken and then divided in the correct number of cups images with the correct label.
 
 Use cups_batch.py python script on OpenMv IDE to catch cups images. You need to edit the variables in the top of the file with your cups size (height, width, ...).
 When the script is executed, the images will be saved on the camera's SD card. Then simply copy them into the following project directory : **neural_networks/tflite/cups_batch**
@@ -61,7 +61,7 @@ For example :
 python create_dataset_batch.py --image_blob ./cups_batch/YOUR_IMAGE.bmp
 ```
 
-* coke_cups_feedback.py on the camera side and create_feedback_dataset.py on the post-treatment side alow to run the neural_network and manually correct its mistake by adding the cups pics with the manually corrected label to the dataset.
+* cups_feedback.py on the camera side and create_feedback_dataset.py on the post-treatment side alow to run the neural_network and manually correct its mistake by adding the cups pics with the manually corrected label to the dataset.
 
 ### Creating and training the tflite neural network
 
@@ -79,6 +79,6 @@ python ./create_and_train_model.py
 You need to copy the tflite file to the OpenMv camera's memory card and run the detection scripts using OpenMv IDE.
 Don't forget to adjust the variables present at the beginning of the file in order to adapt the script to the size of the objects to be detected.
 
-coke_cups_detection.py is used to detect cups on the OpenMV Camera
+cups_detection.py is used to detect cups on the OpenMV Camera
 
 <img alt="Running cups detection" src="docs/Cups_detection_gif.gif" width="30%">
