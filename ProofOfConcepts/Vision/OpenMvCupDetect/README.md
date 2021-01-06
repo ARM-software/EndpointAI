@@ -68,7 +68,7 @@ python create_dataset_batch.py --image_blob ./cups_batch/YOUR_IMAGE.bmp
 create_and_train_model.py based on tensorflow creates and trains the neural network using the dataset that should have been already created.
 The resulting tflite model should then be copied on the camera internal memory or its SD card.
 
-Command to create neural network tflite file (You need to source your TensoFlow virtaul environment before launching the command):
+Command to create neural network tflite file (You need to source your TensoFlow virtual environment before launching the command):
 ```
 source MY_TENSORFLOW_FOLDER/venv/bin/activate
 python ./create_and_train_model.py
