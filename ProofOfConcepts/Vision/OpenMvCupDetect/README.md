@@ -89,9 +89,9 @@ The script starts by using the ratio for the size of the cups that you have prov
 cup_width = 13
 cup_height = 19
 ```
-Then we step through rectangular sub-pictures for each frame until we find a "blob" of color (red or green) which is what we run through the neural net. This allows us to pack specific knoledge (the real world size of the cup) in a way that let's us run the object detection with a lot less data, thus we get a faster algorithm. 
+Then we step through rectangular sub-pictures for each frame until we find a "blob" of color (red or green) which is what we run through the neural net. This allows us to pack specific knoledge (the real world size of the cup) in a way that let's us run the object detection with a lot less data and processing, thus we get a faster algorithm. 
 
-We can also provide more information to the algorithm specific to the color of the cups that we are using:
+We can also provide more information to our script so the algorithm has more specific information about the color of the cups that we are using:
 
 ```
 thresholds_cups = [ (20, 100, 30, 128, 0, 128), (20, 80, -100, -20, 10, 80), ] # generic red and green thresholds
