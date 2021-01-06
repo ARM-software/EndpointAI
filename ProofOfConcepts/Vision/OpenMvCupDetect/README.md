@@ -89,6 +89,14 @@ The script starts by using the ratio for the size of the cups that you have prov
 cup_width = 13
 cup_height = 19
 ```
-Then we step through rectangular sub-pictures until we find a "blob" of color (red or green) which is what we run through the neural net. This allows us to pack specific knoledge (the real world size of the cup) in a way that let's us run the object detection with a lot less data, thus we get a faster algorithm. 
+Then we step through rectangular sub-pictures for each frame until we find a "blob" of color (red or green) which is what we run through the neural net. This allows us to pack specific knoledge (the real world size of the cup) in a way that let's us run the object detection with a lot less data, thus we get a faster algorithm. 
+
+We can also provide more information to the algorithm specific to the color of the cups that we are using:
+
+```
+thresholds_cups = [ (20, 100, 30, 128, 0, 128), (20, 80, -100, -20, 10, 80), ] # generic red and green thresholds
+```
+
+Finally, we have to deal with the problem of overlapping sub-pictures in which they both detect a blob which is actually the same cup. For this, we run an overlap detection algorithm which then triggers an averaging from the number of cups we got to try to compensate for the overlap, this results in our final count for the number of cups.
 
 <img alt="Running cups detection" src="docs/Cups_detection_gif.gif" width="30%">
