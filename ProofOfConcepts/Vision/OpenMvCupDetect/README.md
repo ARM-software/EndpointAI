@@ -7,6 +7,8 @@ The workflow of deploying a machine learning model on the device consists of thr
 2. Train the neural network with your dataset
 3. Deploy your network and try it
 
+The following walks through the steps for how to cleverly deploy an object detection algorithm for cups which can also keep track of how many there are in the image. To do this, we'll use a few image processing tricks that will allow us to only scan the relevant parts of the image rather than the whole image; thus reducing processing power requirements and increasing the speed of the algorithm.
+
 <p float="center">
     <img alt="Cups image" src="docs/Cups.jpg" width="40%"/>
 </p>
