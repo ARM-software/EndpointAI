@@ -81,4 +81,12 @@ Don't forget to adjust the variables present at the beginning of the file in ord
 
 cups_detection.py is used to detect cups on the OpenMV Camera
 
+The script starts by using the ratio for the size of the cups that you have provided, 
+
+```
+cup_width = 13
+cup_height = 19
+```
+Then we step through rectangular sub-pictures until we find a "blob" of color (red or green) which is what we run through the neural net. This allows us to pack specific knoledge (the real world size of the cup) in a way that let's us run the object detection with a lot less data, thus we get a faster algorithm. 
+
 <img alt="Running cups detection" src="docs/Cups_detection_gif.gif" width="30%">
