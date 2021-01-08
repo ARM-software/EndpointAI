@@ -91,10 +91,28 @@ cup_height = 19
 ```
 Then we step through rectangular sub-pictures for each frame until we find a "blob" of color (red or green) which is what we run through the neural net. This allows us to pack specific knoledge (the real world size of the cup) in a way that let's us run the object detection with a lot less data and processing, thus we get a faster algorithm. 
 
+Loading the model:
+
+```
+# tflite loading part
+modelname = "model_cup_quantized_256.tflite"
+mytfmodel = tf.load(modelname, True)
+```
+
 We can also provide more information to our script so the algorithm has more specific information about the color of the cups that we are using:
 
 ```
 thresholds_cups = [ (20, 100, 30, 128, 0, 128), (20, 80, -100, -20, 10, 80), ] # generic red and green thresholds
+```
+
+After stepping through the frame we have a list of blobs which we run through the neural net:
+
+```
+ for obj in mytfmodel.classify(img, (woff, hoff, cup_width, cup_height), min_scale=1.0, scale_mul=0.5,
+                                            x_overlap=0.0, y_overlap=0.0):
+                    tf_result = obj.output()
+                    max_result_value = max(tf_result)
+                    most_likely_idx = tf_result.index(max_result_value) # if 1 then red cup 
 ```
 
 Finally, we have to deal with the problem of overlapping sub-pictures in which they both detect a blob which is actually the same cup. For this, we run an overlap detection algorithm which then triggers an averaging from the number of cups we got to try to compensate for the overlap, this results in our final count for the number of cups.
