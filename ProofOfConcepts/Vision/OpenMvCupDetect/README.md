@@ -99,7 +99,7 @@ modelname = "model_cup_quantized_256.tflite"
 mytfmodel = tf.load(modelname, True)
 ```
 
-We can also provide more information to our script so the algorithm has more specific information about the color of the cups that we are using:
+We can also provide more information to our script so the algorithm has more specific information about the [color](https://www.xrite.com/blog/lab-color-space) of the cups that we are using:
 
 ```
 thresholds_cups = [ (20, 100, 30, 128, 0, 128), (20, 80, -100, -20, 10, 80), ] # generic red and green thresholds
