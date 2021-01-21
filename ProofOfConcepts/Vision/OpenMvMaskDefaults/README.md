@@ -1,4 +1,4 @@
-# On-Device Deep Learning with WhatToLabel
+# On-Device Deep Learning with Lightly
 
 > In this tutorial, you learn how to train an image classification model for visual inspection with only 200 labeled images and how to deploy it on the OpenMV H7 board. 
 
@@ -7,7 +7,7 @@ The [OpenMV H7 board](https://openmv.io/products/openmv-cam-h7) with the Cortex-
 2. Train the deep neural network on the annotated images.
 3. Deploy the network on the device.
 
-[WhatToLabel](https://whattolabel.com) integrates perfectly in this workflow as it helps to make an intelligent choice of images to annotate in the process of training the machine learning model. We use WhatToLabel to only annotate the most relevant 200 images out of the 25'000 available ones.
+[Lightly](https://lightly.ai) integrates perfectly in this workflow as it helps to make an intelligent choice of images to annotate in the process of training the machine learning model. We use Lightly to only annotate the most relevant 200 images out of the 25'000 available ones.
 The following tutorial guides through the process of training and deploying a model to distinguish between intact and defect face masks in a production line setting.
 
 **Disclaimer:** The data and model used in this tutorial serve demonstrative purposes only!
@@ -24,15 +24,15 @@ What you need to start:
 >This tutorial has been tested using the OpenMV IDE 2.5.0 and OpenMV firmware 3.6.4 (ships by default with the IDE version 2.5.0)
 
 ```
-git clone https://github.com/mirage-tech/whattolabel-cortex-m7-tutorial.git
-cd whattolabel-cortex-m7-tutorial
+git clone https://github.com/ARM-software/EndpointAI.git
+cd EndpointAI/ProofOfConcepts/Vision/OpenMvMaskDefaults/
 ```
 
-To get started, create a new conda environment and install the BorisML pip package with the following commands:
+To get started, create a new conda environment and install the `lightly` pip package with the following commands:
 ```shell
 conda env create -f environment.yml
-conda activate cortex-m7
-pip install borisml[LIGHTNING]
+conda activate lightly-cortex-m7
+pip install lightly
 ```
 
 You can also use your environment. Please note that we tested the implementation using the following packages:
@@ -41,10 +41,10 @@ You can also use your environment. Please note that we tested the implementation
 - Tensorflow 1.15.0
 - Torch 1.2.0
 - Torchvision 0.4.0
-- boris 0.1.6
+- Lightly 0.1.0
 
 ## Data Collection and Annotation
-Annotating thousands of images by hand can be exhausting and even if the annotation process is outsourced, it would be more cost-efficient to work on fewer, intelligently selected images. This section shows how the [WhatToLabel web-app](https://app.whattolabel.com) can be used to sample a high-quality subset of images as training and test data.
+Annotating thousands of images by hand can be exhausting and even if the annotation process is outsourced, it would be more cost-efficient to work on fewer, intelligently selected images. This section shows how the [Lightly web-app](https://app.lightly.ai) can be used to sample a high-quality subset of images as training and test data.
 
 ### Dataset Format
 We assume you have a folder with images. Rename this folder `raw` since we assume there are no annotations available and add it to the `data` folder. In the next steps of this tutorial we will extract a subset of images for a `train` and a `test` set.
@@ -78,7 +78,7 @@ data/
 
 In a first step, a self-supervised, deep neural network is trained on the raw image data and embeddings are generated for each image based on unique features. These embeddings will accelerate the finetuning on the labeled set of images later. Make sure you have the raw image data at `data/raw`. Then, in the command line type:
 ```shell
-boris-magic from_folder=data/raw model.name=resnet-9 model.width=0.125 \
+lightly-magic input_dir=data/raw model.name=resnet-9 model.width=0.125 model.num_ftrs=16 \
 > collate.input_size=64 collate.cj_prob=0.5 collate.min_scale=0.5 loader.batch_size=768 \
 > trainer.max_epochs=100 hydra.run.dir=./outputs
 ```
@@ -86,40 +86,40 @@ boris-magic from_folder=data/raw model.name=resnet-9 model.width=0.125 \
 
 Furthermore, **if the batch size is too large to fit in memory**, try lowering it until it does, e.g. `loader.batch_size=256`
 
-Copy the embeddings and model checkpoint from the output directory to your working directory. Both will be reused in later step. ;ake sure to replace the `PLACEHOLDER`s with the appropriate files.
+Copy the embeddings and model checkpoint from the output directory to your working directory. Both will be reused in later step. Make sure to replace the `PLACEHOLDER` to match your files.
 ```shell
-mv outputs/lightning_logs/PLACEHOLDER/checkpoints/PLACEHOLDER.ckpt checkpoints/pretrained.ckpt
+mv outputs/lightning_logs/version_0/checkpoints/PLACEHOLDER.ckpt checkpoints/pretrained.ckpt
 mv outputs/embeddings.csv data/
 ```
 
 ### Sample a Subset of Images for Annotation
 
-The second step is to upload the images to the [WhatToLabel web-app](https://app.whattolabel.com). For this, simply login on the web-app and then head to "My Datasets". Upon creating the new dataset with a name such as `masks-dataset`, the command to upload images will be displayed. The command contains the dataset id and your personalized access token. We can use a slightly different version of the command to include the embeddings in our upload as well.
+The second step is to upload the images to the [Lightly web-app](https://app.lightly.ai). For this, simply login on the web-app and then head to "My Datasets". Upon creating the new dataset with a name such as `masks-dataset`, the command to upload images will be displayed. The command contains the dataset id and your personalized access token. We can use a slightly different version of the command to include the embeddings in our upload as well.
 **Hint:** In case of privacy concerns, it is possible to upload **only metadata** of the images - the images will not leave your computer. The upload of the images and embeddings may take a few minutes.
 
 ```shell
-boris-upload dataset_id='MY_DATASET_ID' token='MY_TOKEN' path_to_folder=data/raw path_to_embeddings=data/embeddings.csv upload='metadata'
+lightly-upload dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir=data/raw embeddings=data/embeddings.csv upload='metadata'
 ```
 
 After uploading the images and embeddings, the dataset can be filtered. Head to "Analyze & Filter" -> "Sampling". Sampling a such a large dataset of 25'000 images can take a few minutes. The page will automatically refresh once the sampling is complete.
 
 For the **training data** choose the coreset filter method as it will sample a diverse set of images. Put the slider to 200 images and save your selection by creating a new tag named "training-data".
 
-<img alt="Image which shows how to sample a training set" src="docs/sample_training_set.png" width="100%">
+<img alt="Image which shows how to sample a training set" src="docs/sample_training_set.PNG" width="100%">
 
 For the **test data** choose random sampling. This will give you a representative subset of the raw data. Put the slider to 500 images and save your selection by creating a new tag named "test-data".
 
-<img alt="Image which shows how to sample a test set" src="docs/sample_test_set.png" width="100%">
+<img alt="Image which shows how to sample a test set" src="docs/sample_test_set.PNG" width="100%">
 
-Download the images from the command line. This will copy the selected images from the source folder to a new directory specified by "to_folder".
+Download the images from the command line. This will copy the selected images from the source folder to a new directory specified by "output_dir".
 ```shell
 mkdir data/train
-boris-download tag_name='training-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' from_folder='data/raw' to_folder='data/train'
+lightly-download +tag_name='training-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir='data/raw' output_dir='data/train'
 ```
 
 ```shell
 mkdir data/test
-boris-download tag_name='test-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' from_folder='data/raw' to_folder='data/test'
+lightly-download +tag_name='test-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir='data/raw' output_dir='data/test'
 ```
 
 Now comes the pesky part: Annotate the images by distributing them into subdirectories depending on their labels. Do this by hand or use annotation tools at your disposal. A simple way to annotate the data is to look at each image one-by-one and to move the image to the directory where it belongs. In this tutorial, an image contains a mask if at least 50% of the image is covered by it. The resulting directory tree should look like this:
@@ -164,16 +164,16 @@ python pytorch_to_keras.py --finetuned checkpoints/finetuned.pt
 Use the provided script to quantize the model and convert it from Keras to Tensorflow-Lite. Run the "evaluate.py" to check post-quantization accuracy on the test data. 
 ```shell
 python keras_to_tflite.py --keras_model checkpoints/keras_model.h5
-python evaluate.py --tflite_model checkpoints/whattolabel_resnet9.tflite
+python evaluate.py --tflite_model checkpoints/lightly_resnet9.tflite
 ```
 
 If the accuracy after quantization drops significantly, try out different default ranges with the following arguments (default is (-25, 25)):
 ```shell
 python keras_to_tflite.py --keras_model checkpoints/keras_model.h5 --default_ranges_lower -10 --default_ranges_upper 10
-python evaluate.py --tflite_model checkpoints/whattolabel_resnet9.tflite
+python evaluate.py --tflite_model checkpoints/lightly_resnet9.tflite
 ```
 
-**Congrats** you should now have a uint8 quantized TensorFlow Lite model `checkpoints/whattolabel_resnet9.tflite`
+**Congrats** you should now have a uint8 quantized TensorFlow Lite model `checkpoints/lightly_resnet9.tflite`
 
 ## Run model on OpenMV H7
 
@@ -199,7 +199,7 @@ To get started we need to add the `.tflite` model to our OpenMV H7 board.
  Once you attach the OpenMV H7 board to your computer using the USB interface you should have access to the device folder. It should show as a regular external drive (e.g. USB stick, Memory Card). To access the Tensorflow Lite model from the code you need to copy it to the newly available device (you copy the .tflite model to the device).
 
 Once completed you should end up with the following file structure:
-> <img alt="Image which shows file structure on device" src="docs/file_structure_on_device.png" width="50%">
+> <img alt="Image which shows file structure on device" src="docs/file_structure_on_device.PNG" width="50%">
 
 ### Run the model on OpenMV H7 board
 In the `openmv` folder of this repository, you find a working implementation for this tutorial. Open the OpenMV IDE and run the provided script. Enjoy seeing your classifier in action!
@@ -207,7 +207,9 @@ In the `openmv` folder of this repository, you find a working implementation for
 ## Result
 Check out our YouTube video demonstrating the code in action on the OpenMV H7 board.
 
-[<img alt="Check out the YouTube Video demonstrating the code in action" src="https://img.youtube.com/vi/UxO40B2l024/0.jpg" width="50%">](https://youtu.be/3873rBvLPRA)
+[<img alt="Check out the YouTube Video demonstrating the code in action" src="https://img.youtube.com/vi/ba1c1JkBnNc/0.jpg" width="50%">](https://youtu.be/ba1c1JkBnNc)
+
+Are you interested in self-supervised learning? Do you want to contribute to a quickly growing Python library? [Come and visit us! :)](https://github.com/lightly-ai/lightly)
 
 ## References
 [1] [CMSIS-NN: Efficient Neural Network Kernels for Arm Cortex-M CPUs, Lai et al., 2018](https://arxiv.org/abs/1801.06601)

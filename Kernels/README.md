@@ -1,1 +1,2 @@
-Kernels folder
+
+Critical computing kernels.

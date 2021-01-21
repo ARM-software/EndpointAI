@@ -4,7 +4,7 @@ import tensorflow as tf
 from utils import masks_dataset_gen
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--tflite_model', type=str, default='checkpoints/whattolabel_resnet9.tflite',
+parser.add_argument('--tflite_model', type=str, default='checkpoints/lightly_resnet9.tflite',
                     help='Path to the keras model checkpoint')
 parser.add_argument('--test_data', type=str, default='data/test',
                     help='Path to directory which contains test images')

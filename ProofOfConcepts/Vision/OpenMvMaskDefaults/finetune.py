@@ -7,8 +7,8 @@ import torchvision
 
 import numpy as np
 
-import boris.data as data
-import boris.models as models
+import lightly.data as data
+import lightly.models as models
 
 from classifier import Classifier
 from utils import calculate_class_weight
@@ -117,7 +117,7 @@ augmentations = [
 transforms = torchvision.transforms.Compose(augmentations)
 
 # load training data
-dataset = data.BorisDataset(
+dataset = data.LightlyDataset(
     from_folder=args.data,
     transform=transforms)
 dataloader = torch.utils.data.DataLoader(
@@ -199,7 +199,7 @@ transformations = [
     torchvision.transforms.ToTensor(),
 ]
 transforms = torchvision.transforms.Compose(transformations)
-testset = data.BorisDataset(
+testset = data.LightlyDataset(
     from_folder=args.test_data,
     transform=transforms,
 )
