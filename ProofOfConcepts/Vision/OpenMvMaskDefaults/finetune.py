@@ -7,6 +7,7 @@ import torchvision
 
 import numpy as np
 
+import lightly.cli as cli
 import lightly.data as data
 import lightly.models as models
 
@@ -33,6 +34,8 @@ parser.add_argument('--width', type=float, default=0.125,
                     help='Width of the ResNet')
 parser.add_argument('--input_dim', type=int, default=64,
                     help='Input dimension of the training images')
+parser.add_argument('--num_ftrs', type=int, default=16,
+                    help='Dimension of the feature representations.')
 parser.add_argument('--output_dim', type=int, default=3,
                     help='Output dimension of the ResNet (number of logits)')
 parser.add_argument('--classifier_lr', type=float, default=1e-0,
@@ -80,16 +83,28 @@ def filter_state_dict(state_dict):
     return new_state_dict
     
 # initialize pretrained resnet
-resnet = models.ResNetSimCLR(name=args.model, width=args.width).to(device)
+resnet = models.ResNetGenerator(args.model, args.width)
+last_conv_channels = list(resnet.children())[-1].in_features
+resnet = nn.Sequential(
+    models.batchnorm.get_norm_layer(3, 0),
+    *list(resnet.children())[:-1],
+    nn.Conv2d(last_conv_channels, args.num_ftrs, 1),
+    nn.AdaptiveAvgPool2d(1),
+)
+model = models.SimCLR(
+    resnet,
+    num_ftrs=args.num_ftrs,
+)
+
 if args.pretrained:
-    state_dict = filter_state_dict(torch.load(args.pretrained)['state_dict'])
-    resnet.load_state_dict(state_dict)
+    state_dict = torch.load(args.pretrained, map_location=device)['state_dict']
+    cli._helpers.load_from_state_dict(model, state_dict)
 else:
     print('No checkpoint was specified, weights will be initialized randomly')
 
 # initialize classifier
 classifier = Classifier(
-    resnet,
+    model,
     input_dim=args.input_dim,
     output_dim=args.output_dim
 ).to(device)
@@ -118,7 +133,7 @@ transforms = torchvision.transforms.Compose(augmentations)
 
 # load training data
 dataset = data.LightlyDataset(
-    from_folder=args.data,
+    input_dir=args.data,
     transform=transforms)
 dataloader = torch.utils.data.DataLoader(
     dataset,
@@ -200,7 +215,7 @@ transformations = [
 ]
 transforms = torchvision.transforms.Compose(transformations)
 testset = data.LightlyDataset(
-    from_folder=args.test_data,
+    input_dir=args.test_data,
     transform=transforms,
 )
 testloader = torch.utils.data.DataLoader(
