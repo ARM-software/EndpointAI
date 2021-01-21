@@ -7,7 +7,7 @@ class Classifier(nn.Module):
         
         # feature extractor
         self.features = nn.Sequential(
-            *list(model.features.children())[:-1],
+            *list(model.backbone.children())[:-1],
             nn.AvgPool2d(input_dim // 8, 1),
         )
 
