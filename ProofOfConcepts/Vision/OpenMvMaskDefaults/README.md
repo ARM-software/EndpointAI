@@ -1,13 +1,13 @@
 # On-Device Deep Learning with Lightly
 
-> In this tutorial, you learn how to train an image classification model for visual inspection with only 200 labeled images and how to deploy it on the OpenMV H7 board. 
+> In this tutorial, you learn how to train an image classification model for visual inspection with only 500 labeled images and how to deploy it on the OpenMV H7 board. 
 
 The [OpenMV H7 board](https://openmv.io/products/openmv-cam-h7) with the Cortex-M7 Microcontroller makes on-device machine learning accessible to a broad audience. It allows us to do quick, on-device inference on images with deep neural networks and hence can be a powerful tool for visual inspection, object detection, and more. The workflow of deploying a machine learning model on the device consists of three steps:
 1. Select the training data and annotate the images.
 2. Train the deep neural network on the annotated images.
 3. Deploy the network on the device.
 
-[Lightly](https://lightly.ai) integrates perfectly in this workflow as it helps to make an intelligent choice of images to annotate in the process of training the machine learning model. We use Lightly to only annotate the most relevant 200 images out of the 25'000 available ones.
+[Lightly](https://lightly.ai) integrates perfectly in this workflow as it helps to make an intelligent choice of images to annotate in the process of training the machine learning model. We use Lightly to only annotate the most relevant 500 images out of the 25'000 available ones.
 The following tutorial guides through the process of training and deploying a model to distinguish between intact and defect face masks in a production line setting.
 
 **Disclaimer:** The data and model used in this tutorial serve demonstrative purposes only!
@@ -39,9 +39,9 @@ You can also use your environment. Please note that we tested the implementation
 
 - Python 3.6
 - Tensorflow 1.15.0
-- Torch 1.2.0
-- Torchvision 0.4.0
-- Lightly 0.1.0
+- Torch 1.7.1
+- Torchvision 0.8.2
+- Lightly 1.0.8
 
 ## Data Collection and Annotation
 Annotating thousands of images by hand can be exhausting and even if the annotation process is outsourced, it would be more cost-efficient to work on fewer, intelligently selected images. This section shows how the [Lightly web-app](https://app.lightly.ai) can be used to sample a high-quality subset of images as training and test data.
@@ -88,7 +88,7 @@ Furthermore, **if the batch size is too large to fit in memory**, try lowering i
 
 Copy the embeddings and model checkpoint from the output directory to your working directory. Both will be reused in later step. Make sure to replace the `PLACEHOLDER` to match your files.
 ```shell
-mv outputs/lightning_logs/version_0/checkpoints/PLACEHOLDER.ckpt checkpoints/pretrained.ckpt
+mv outputs/lightly_epoch_PLACEHOLDER.ckpt checkpoints/pretrained.ckpt
 mv outputs/embeddings.csv data/
 ```
 
@@ -114,12 +114,12 @@ For the **test data** choose random sampling. This will give you a representativ
 Download the images from the command line. This will copy the selected images from the source folder to a new directory specified by "output_dir".
 ```shell
 mkdir data/train
-lightly-download +tag_name='training-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir='data/raw' output_dir='data/train'
+lightly-download tag_name='training-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir='data/raw' output_dir='data/train'
 ```
 
 ```shell
 mkdir data/test
-lightly-download +tag_name='test-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir='data/raw' output_dir='data/test'
+lightly-download tag_name='test-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir='data/raw' output_dir='data/test'
 ```
 
 Now comes the pesky part: Annotate the images by distributing them into subdirectories depending on their labels. Do this by hand or use annotation tools at your disposal. A simple way to annotate the data is to look at each image one-by-one and to move the image to the directory where it belongs. In this tutorial, an image contains a mask if at least 50% of the image is covered by it. The resulting directory tree should look like this:
