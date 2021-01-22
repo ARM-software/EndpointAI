@@ -131,7 +131,7 @@ dependencies:
     - pyparsing==2.4.7
     - pyrsistent==0.16.0
     - python-dateutil==2.8.1
-    - pytorch-lightning==0.8.5
+    - pytorch-lightning==1.1.5
     - pytorch2keras==0.2.4
     - pytz==2020.1
     - pyyaml==5.3.1
@@ -153,8 +153,8 @@ dependencies:
     - terminado==0.8.3
     - testpath==0.4.4
     - threadpoolctl==2.1.0
-    - torch==1.2.0
-    - torchvision==0.4.0
+    - torch==1.7.1
+    - torchvision==0.8.2
     - tornado==6.0.4
     - tqdm==4.48.1
     - traitlets==4.3.3
