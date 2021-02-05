@@ -1,0 +1,553 @@
+group Root {
+    class = Root
+
+    group DSP Benchmarks {
+      class = DSPBenchmarks
+      folder = DSP 
+
+      group FFT Benchmarks{
+        class = FFT
+        folder = FFT
+
+        group CFFT Benchmarks{
+              class = CFFT
+              folder = CFFT
+      
+              suite CFFTBenchmarksF32 {
+                  class = CFFTBenchmarksF32
+                  folder = CFFTF32
+        
+                  ParamList {
+                          NB
+                          Summary NB
+                          Names "Number of samples"
+                          Formula "I(NB*log2(NB))"
+                        }
+          
+                  Pattern INPUTC_F32_ID : ComplexInputFFTSamples_Noisy_4096_50_f32.txt 
+                  Pattern INPUTC_IFFT_F32_ID : ComplexInputIFFTSamples_Noisy_4096_50_f32.txt 
+        
+                  Output  TMP_F32_ID : Temp
+                  Output  OUT_F32_ID : Output
+                  Output  STATE_F32_ID : Output
+        
+                        
+                  Params CFFT_PARAM1_ID = {
+                    NB = [16,32,64,256,512,1024]
+                  }
+        
+                  Params CFFT_PARAMDEBUG_ID = {
+                    NB = [256,512,1024]
+                  }
+        
+                  Params CFFT_PARAM2_ID = {
+                    NB = [9,27,81]
+                  }
+        
+                  Params CFFT_PARAM3_ID = {
+                    NB = [5,25,125,400]
+                  }
+        
+                  Params CFFT_PARAM4_ID = {
+                    NB = [6,36,216]
+                  }
+          
+                  Functions {
+                      Complex FFT Radix 2:test_cfft_radix2_f32 -> CFFT_PARAM1_ID
+                      Complex FFT Radix 3:test_cfft_radix3_f32 -> CFFT_PARAM2_ID
+                      Complex FFT Radix 5:test_cfft_radix5_f32 -> CFFT_PARAM3_ID
+                      Complex FFT Radix Mixed:test_cfft_radix_mixed_f32 -> CFFT_PARAM4_ID
+                      
+                      Complex IFFT Radix 2:test_cifft_radix2_f32 -> CFFT_PARAM1_ID
+                      Complex IFFT Radix 3:test_cifft_radix3_f32 -> CFFT_PARAM2_ID
+                      Complex IFFT Radix 5:test_cifft_radix5_f32 -> CFFT_PARAM3_ID
+                      Complex IFFT Radix Mixed:test_cifft_radix_mixed_f32 -> CFFT_PARAM4_ID
+        
+                  } 
+              }
+      
+              suite CFFTBenchmarksF16 {
+                  class = CFFTBenchmarksF16
+                  folder = CFFTF16
+        
+                  ParamList {
+                          NB
+                          Summary NB
+                          Names "Number of samples"
+                          Formula "I(NB*log2(NB))"
+                        }
+          
+                  Pattern INPUTC_F16_ID : ComplexInputFFTSamples_Noisy_4096_50_f16.txt 
+                  Pattern INPUTC_IFFT_F16_ID : ComplexInputIFFTSamples_Noisy_4096_50_f16.txt 
+        
+                  Output  TMP_F16_ID : Temp
+                  Output  OUT_F16_ID : Output
+                  Output  STATE_F16_ID : Output
+        
+                        
+                  Params CFFT_PARAM1_ID = {
+                    NB = [16,32,64,256,512,1024]
+                  }
+        
+                  Params CFFT_PARAMDEBUG_ID = {
+                    NB = [512,1024]
+                  }
+        
+                  Params CFFT_PARAM2_ID = {
+                    NB = [9,27,81]
+                  }
+        
+                  Params CFFT_PARAM3_ID = {
+                    NB = [5,25,125,400]
+                  }
+        
+                  Params CFFT_PARAM4_ID = {
+                    NB = [6,36,216]
+                  }
+          
+                  Functions {
+                      Complex FFT Radix 2:test_cfft_radix2_f16 -> CFFT_PARAM1_ID
+                      Complex FFT Radix 3:test_cfft_radix3_f16 -> CFFT_PARAM2_ID
+                      Complex FFT Radix 5:test_cfft_radix5_f16 -> CFFT_PARAM3_ID
+                      Complex FFT Radix Mixed:test_cfft_radix_mixed_f16 -> CFFT_PARAM4_ID
+                      
+                      Complex IFFT Radix 2:test_cifft_radix2_f16 -> CFFT_PARAM1_ID
+                      Complex IFFT Radix 3:test_cifft_radix3_f16 -> CFFT_PARAM2_ID
+                      Complex IFFT Radix 5:test_cifft_radix5_f16 -> CFFT_PARAM3_ID
+                      Complex IFFT Radix Mixed:test_cifft_radix_mixed_f16 -> CFFT_PARAM4_ID
+        
+                  } 
+              }
+
+              suite CFFTBenchmarksQ31 {
+                  class = CFFTBenchmarksQ31
+                  folder = CFFTQ31
+        
+                  ParamList {
+                          NB
+                          Summary NB
+                          Names "Number of samples"
+                          Formula "I(NB*log2(NB))"
+                        }
+          
+                  Pattern INPUTC_Q31_ID : ComplexInputFFTSamples_Noisy_4096_50_q31.txt 
+                  Pattern INPUTC_IFFT_Q31_ID : ComplexInputIFFTSamples_Noisy_4096_50_q31.txt 
+        
+                  Output  TMP_Q31_ID : Temp
+                  Output  OUT_Q31_ID : Output
+                  Output  STATE_Q31_ID : Output
+        
+                        
+                  Params CFFT_PARAM1_ID = {
+                    NB = [16,32,64,256,512,1024]
+                  }
+        
+                  Params CFFT_PARAMDEBUG_ID = {
+                    NB = [512,1024]
+                  }
+        
+                  Params CFFT_PARAM2_ID = {
+                    NB = [9,27,81]
+                  }
+        
+                  Params CFFT_PARAM3_ID = {
+                    NB = [5,25,125,400]
+                  }
+        
+                  Params CFFT_PARAM4_ID = {
+                    NB = [6,36,216]
+                  }
+          
+                  Functions {
+                      Complex FFT Radix 2:test_cfft_radix2_q31 -> CFFT_PARAM1_ID
+                      Complex FFT Radix 3:test_cfft_radix3_q31 -> CFFT_PARAM2_ID
+                      Complex FFT Radix 5:test_cfft_radix5_q31 -> CFFT_PARAM3_ID
+                      Complex FFT Radix Mixed:test_cfft_radix_mixed_q31 -> CFFT_PARAM4_ID
+                      
+                      Complex IFFT Radix 2:test_cifft_radix2_q31 -> CFFT_PARAM1_ID
+                      Complex IFFT Radix 3:test_cifft_radix3_q31 -> CFFT_PARAM2_ID
+                      Complex IFFT Radix 5:test_cifft_radix5_q31 -> CFFT_PARAM3_ID
+                      Complex IFFT Radix Mixed:test_cifft_radix_mixed_q31 -> CFFT_PARAM4_ID
+        
+                  } 
+              }
+
+              suite CFFTBenchmarksQ15 {
+                  class = CFFTBenchmarksQ15
+                  folder = CFFTQ15
+        
+                  ParamList {
+                          NB
+                          Summary NB
+                          Names "Number of samples"
+                          Formula "I(NB*log2(NB))"
+                        }
+          
+                  Pattern INPUTC_Q15_ID : ComplexInputFFTSamples_Noisy_4096_50_q15.txt 
+                  Pattern INPUTC_IFFT_Q15_ID : ComplexInputIFFTSamples_Noisy_4096_50_q15.txt 
+        
+                  Output  TMP_Q15_ID : Temp
+                  Output  OUT_Q15_ID : Output
+                  Output  STATE_Q15_ID : Output
+        
+                        
+                  Params CFFT_PARAM1_ID = {
+                    NB = [16,32,64,256,512,1024]
+                  }
+        
+                  Params CFFT_PARAMDEBUG_ID = {
+                    NB = [256,512,1024]
+                  }
+        
+                  Params CFFT_PARAM2_ID = {
+                    NB = [9,27,81]
+                  }
+        
+                  Params CFFT_PARAM3_ID = {
+                    NB = [5,25,125,400]
+                  }
+        
+                  Params CFFT_PARAM4_ID = {
+                    NB = [6,36,216]
+                  }
+          
+                  Functions {
+                      Complex FFT Radix 2:test_cfft_radix2_q15 -> CFFT_PARAM1_ID
+                      Complex FFT Radix 3:test_cfft_radix3_q15 -> CFFT_PARAM2_ID
+                      Complex FFT Radix 5:test_cfft_radix5_q15 -> CFFT_PARAM3_ID
+                      Complex FFT Radix Mixed:test_cfft_radix_mixed_q15 -> CFFT_PARAM4_ID
+                      
+                      Complex IFFT Radix 2:test_cifft_radix2_q15 -> CFFT_PARAM1_ID
+                      Complex IFFT Radix 3:test_cifft_radix3_q15 -> CFFT_PARAM2_ID
+                      Complex IFFT Radix 5:test_cifft_radix5_q15 -> CFFT_PARAM3_ID
+                      Complex IFFT Radix Mixed:test_cifft_radix_mixed_q15 -> CFFT_PARAM4_ID
+        
+                  } 
+              }
+        }
+
+
+        group CFFT 2D Benchmarks{
+              class = CFFT2D
+              folder = CFFT2D
+      
+              suite CFFT2DBenchmarksF32 {
+                  class = CFFT2DBenchmarksF32
+                  folder = CFFT2DF32
+        
+                  ParamList {
+                          ROWS,COLS
+                          Summary ROWS,COLS
+                          Names "Number of rows, Number of columns"
+                          Formula "I(ROWS*COLS*log2(ROWS*COLS))"
+                        }
+          
+                  Pattern INPUTC_F32_ID : ComplexInputFFTSamples_Noisy_64_64_3_f32.txt 
+                  Pattern INPUTC_IFFT2D_F32_ID : ComplexInputIFFTSamples_Noisy_64_64_3_f32.txt 
+        
+                  Output  TMP_F32_ID : Temp
+                  Output  OUT_F32_ID : Output
+                  Output  STATE_F32_ID : Output
+        
+                        
+                  Params CFFT2D_PARAM1_ID = {
+                    ROWS = [16,32,64]
+                    COLS = [16,32,64]
+                  }
+        
+                  
+          
+                  Functions {
+                      Complex FFT 2D Radix 2:test_cfft2d_radix2_f32 -> CFFT2D_PARAM1_ID
+                      Complex IFFT 2D Radix 2:test_cifft2d_radix2_f32 -> CFFT2D_PARAM1_ID
+                  } 
+              }
+      
+              suite CFFT2DBenchmarksF16 {
+                  class = CFFT2DBenchmarksF16
+                  folder = CFFT2DF16
+        
+                  ParamList {
+                          ROWS,COLS
+                          Summary ROWS,COLS
+                          Names "Number of rows, Number of columns"
+                          Formula "I(ROWS*COLS*log2(ROWS*COLS))"
+                        }
+          
+                  Pattern INPUTC_F16_ID : ComplexInputFFTSamples_Noisy_64_64_3_f16.txt 
+                  Pattern INPUTC_IFFT2D_F16_ID : ComplexInputIFFTSamples_Noisy_64_64_3_f16.txt 
+        
+                  Output  TMP_F16_ID : Temp
+                  Output  OUT_F16_ID : Output
+                  Output  STATE_F16_ID : Output
+        
+                        
+                  Params CFFT2D_PARAM1_ID = {
+                    ROWS = [16,32,64]
+                    COLS = [16,32,64]
+                  }
+        
+                  
+          
+                  Functions {
+                      Complex FFT 2D Radix 2:test_cfft2d_radix2_f16 -> CFFT2D_PARAM1_ID
+                      Complex IFFT 2D Radix 2:test_cifft2d_radix2_f16 -> CFFT2D_PARAM1_ID
+                  } 
+              }
+        }
+
+        group RFFT Benchmarks{
+              class = RFFT
+              folder = RFFT
+      
+              suite RFFTBenchmarksF32 {
+                  class = RFFTBenchmarksF32
+                  folder = RFFTF32
+        
+                  ParamList {
+                          NB
+                          Summary NB
+                          Names "Number of samples"
+                          Formula "I(NB*log2(NB))"
+                        }
+          
+                  Pattern INPUTR_F32_ID : RealInputRFFTSamples_Noisy_4096_40_f32.txt 
+                  Pattern INPUTR_IFFT_F32_ID : ComplexInputRIFFTSamples_Noisy_4096_40_f32.txt 
+        
+                  Output  TMP_F32_ID : Temp
+                  Output  OUT_F32_ID : Output
+                  Output  STATE_F32_ID : Output
+        
+                        
+                  Params RFFT_PARAM1_ID = {
+                    NB = [16,32,64,256,1024]
+                  }
+        
+                  Params RFFT_PARAMDEBUG_ID = {
+                    NB = [512,1024]
+                  }
+      
+        
+                  Params RFFT_PARAM2_ID = {
+                    NB = [6,36,216]
+                  }
+          
+                  Functions {
+                      Real FFT Radix 2:test_rfft_radix2_f32 -> RFFT_PARAM1_ID
+                      Real FFT Radix Mixed:test_rfft_radix_mixed_f32 -> RFFT_PARAM2_ID
+                      
+                      Real IFFT Radix 2:test_rifft_radix2_f32 -> RFFT_PARAM1_ID
+                      Real IFFT Radix Mixed:test_rifft_radix_mixed_f32 -> RFFT_PARAM2_ID
+        
+                  } 
+              }
+      
+              suite RFFTBenchmarksF16 {
+                  class = RFFTBenchmarksF16
+                  folder = RFFTF16
+        
+                  ParamList {
+                          NB
+                          Summary NB
+                          Names "Number of samples"
+                          Formula "I(NB*log2(NB))"
+                        }
+          
+                  Pattern INPUTR_F16_ID : RealInputRFFTSamples_Noisy_4096_40_f16.txt 
+                  Pattern INPUTR_IFFT_F16_ID : ComplexInputRIFFTSamples_Noisy_4096_40_f16.txt 
+        
+                  Output  TMP_F16_ID : Temp
+                  Output  OUT_F16_ID : Output
+                  Output  STATE_F16_ID : Output
+        
+                        
+                  Params RFFT_PARAM1_ID = {
+                    NB = [16,32,64,256,1024]
+                  }
+        
+                  Params RFFT_PARAMDEBUG_ID = {
+                    NB = [1024]
+                  }
+        
+        
+                  Params RFFT_PARAM2_ID = {
+                    NB = [6,36,216]
+                  }
+          
+                  Functions {
+                      Real FFT Radix 2:test_rfft_radix2_f16 -> RFFT_PARAM1_ID
+                      Real FFT Radix Mixed:test_rfft_radix_mixed_f16 -> RFFT_PARAM2_ID
+                      
+                      Real IFFT Radix 2:test_rifft_radix2_f16 -> RFFT_PARAM1_ID
+                      Real IFFT Radix Mixed:test_rifft_radix_mixed_f16 -> RFFT_PARAM2_ID
+        
+                  } 
+              }
+        }
+
+      }
+
+      group CMSISFFT Benchmarks{
+        class = CMSISFFT
+        folder = FFT
+
+        group CFFT Benchmarks{
+          class = CFFT
+          folder = CFFT
+
+          suite CMSISCFFTBenchmarksF32 {
+            class = CMSISCFFTBenchmarksF32
+            folder = CFFTF32
+  
+            ParamList {
+                    NB
+                    Summary NB
+                    Names "Number of samples"
+                    Formula "I(NB*log2(NB))"
+                  }
+    
+            Pattern INPUTC_F32_ID : ComplexInputFFTSamples_Noisy_4096_50_f32.txt 
+            Pattern INPUTC_IFFT_F32_ID : ComplexInputIFFTSamples_Noisy_4096_50_f32.txt 
+  
+            Output  TMP_F32_ID : Temp
+            Output  OUT_F32_ID : Output
+            Output  STATE_F32_ID : Output
+  
+                  
+            Params CFFT_PARAM1_ID = {
+              NB = [16,32,64,256,1024]
+            }
+  
+            Params CFFT_PARAMDEBUG_ID = {
+              NB = [256,512,1024]
+            }
+  
+           
+            Functions {
+                Complex FFT Radix 2:test_cfft_radix2_f32 -> CFFT_PARAMDEBUG_ID
+                Complex IFFT Radix 2:test_cifft_radix2_f32 -> CFFT_PARAMDEBUG_ID
+                
+  
+            } 
+          }
+
+          suite CMSISCFFTBenchmarksQ31 {
+            class = CMSISCFFTBenchmarksQ31
+            folder = CFFTQ31
+  
+            ParamList {
+                    NB
+                    Summary NB
+                    Names "Number of samples"
+                    Formula "I(NB*log2(NB))"
+                  }
+    
+            Pattern INPUTC_Q31_ID : ComplexInputFFTSamples_Noisy_4096_50_q31.txt 
+            Pattern INPUTC_IFFT_Q31_ID : ComplexInputIFFTSamples_Noisy_4096_50_q31.txt 
+  
+            Output  TMP_Q31_ID : Temp
+            Output  OUT_Q31_ID : Output
+            Output  STATE_Q31_ID : Output
+  
+                  
+            Params CFFT_PARAM1_ID = {
+              NB = [16,32,64,256,1024]
+            }
+  
+            Params CFFT_PARAMDEBUG_ID = {
+              NB = [512,1024]
+            }
+  
+           
+            Functions {
+                Complex FFT Radix 2:test_cfft_radix2_q31 -> CFFT_PARAMDEBUG_ID
+                Complex IFFT Radix 2:test_cifft_radix2_q31 -> CFFT_PARAMDEBUG_ID
+                
+  
+            } 
+          }
+
+          suite CMSISCFFTBenchmarksQ15 {
+            class = CMSISCFFTBenchmarksQ15
+            folder = CFFTQ15
+  
+            ParamList {
+                    NB
+                    Summary NB
+                    Names "Number of samples"
+                    Formula "I(NB*log2(NB))"
+                  }
+    
+            Pattern INPUTC_Q15_ID : ComplexInputFFTSamples_Noisy_4096_50_q15.txt 
+            Pattern INPUTC_IFFT_Q15_ID : ComplexInputIFFTSamples_Noisy_4096_50_q15.txt 
+  
+            Output  TMP_Q15_ID : Temp
+            Output  OUT_Q15_ID : Output
+            Output  STATE_Q15_ID : Output
+  
+                  
+            Params CFFT_PARAM1_ID = {
+              NB = [16,32,64,256,1024]
+            }
+  
+            Params CFFT_PARAMDEBUG_ID = {
+              NB = [256,512,1024]
+            }
+  
+           
+            Functions {
+                Complex FFT Radix 2:test_cfft_radix2_q15 -> CFFT_PARAMDEBUG_ID
+                Complex IFFT Radix 2:test_cifft_radix2_q15 -> CFFT_PARAMDEBUG_ID
+                
+  
+            } 
+          }
+
+        }
+
+        group RFFT Benchmarks{
+          class = RFFT
+          folder = RFFT
+
+          suite CMSISRFFTBenchmarksF32 {
+            class = CMSISRFFTBenchmarksF32
+            folder = RFFTF32
+  
+            ParamList {
+                    NB
+                    Summary NB
+                    Names "Number of samples"
+                    Formula "I(NB*log2(NB))"
+                  }
+    
+            Pattern INPUTR_F32_ID : RealInputRFFTSamples_Noisy_4096_40_f32.txt 
+            Pattern INPUTR_IFFT_F32_ID : ComplexInputRIFFTSamples_Noisy_4096_40_f32.txt 
+  
+            Output  TMP_F32_ID : Temp
+            Output  OUT_F32_ID : Output
+            Output  STATE_F32_ID : Output
+  
+                  
+            Params RFFT_PARAM1_ID = {
+              NB = [32,64,256,1024]
+            }
+  
+            Params RFFT_PARAMDEBUG_ID = {
+              NB = [512,1024]
+            }
+  
+           
+            Functions {
+                Real FFT Radix 2:test_rfft_radix2_f32 -> RFFT_PARAMDEBUG_ID
+                Real IFFT Radix 2:test_rifft_radix2_f32 -> RFFT_PARAMDEBUG_ID
+                
+  
+            } 
+          }
+
+        }
+
+      }
+
+    }
+}
