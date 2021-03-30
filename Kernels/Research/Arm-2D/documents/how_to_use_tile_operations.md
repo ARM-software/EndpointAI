@@ -156,7 +156,7 @@ The so-called Partial Frame Buffer is a special use of the Tile Child scheme. It
 
 **Figure 2-4 How Partial Frame Buffer Works**
 
-<img src="C:\Work\CPMK\Git\cmsis-2d\documents\pictures\Introduction2_3b.png" style="zoom:67%;" /> 
+<img src="../documents/pictures/Introduction2_3b.png" style="zoom:67%;" /> 
 
 More details are shown in a dedicated example project located in "***examples/partial_frame_buffer***" directory.
 
