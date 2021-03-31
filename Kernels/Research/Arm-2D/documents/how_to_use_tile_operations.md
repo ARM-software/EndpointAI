@@ -181,7 +181,7 @@ Base on the feedbacks collected, design considerations will be documented in the
 | **Parameter**    | const arm_2d_region_t * ***ptRegion***   | The relative region inside the target tile                   |
 | **Parameter**    | arm_2d_tile_t * ***ptOutput***           | The address of the new child tile which user should provide. |
 | **Parameter**    | bool ***bClipRegion***                   | Indicates whether clip the region of the new child.          |
-| **Return Value** | (arm_2d_tile_t \*) ***non-null***        | The address of the new child tile which user provide.        |
+| **Return Value** | (arm_2d_tile_t \*) ***non-null***        | The address of the new child tile provided by the caller.    |
 | **Return Value** | ***NULL***                               | The relative region has no intersection point with the target tile |
 
 The behaviour of function ***arm_2d_tile_generate_child()*** is illustrated in the **Figure 4.1**. This function will generate a child from a target tile based on a given relative region inside the tile. The user has to provide a buffer for the child tile.  If there is no intersection between the tile region and the given relative region, i.e. the relative region is out of the tile region, NULL is returned; otherwise, the provided child tile address is returned. 
@@ -290,18 +290,16 @@ In addition to the standard Copy and Fill, operations can be combined with X and
 
 
 
-| Mode                                                         | Description                                          | NOTE                                                         |
-| ------------------------------------------------------------ | ---------------------------------------------------- | ------------------------------------------------------------ |
-| **Arm_2D_CP_MODE_COPY**                                      | Copy the source tile to the target tile              |                                                              |
-| **Arm_2D_CP_MODE_FILL**                                      | Fill a target tile with a given source tile          |                                                              |
-| **Arm_2D_CP_MODE_COPY** \|<br />**Arm_2D_CP_MODE_X_MIRROR**  | Copy the X-mirrored source tile to the target tile   | **Arm_2D_CP_MODE_COPY** can be ignored                       |
-| **Arm_2D_CP_MODE_COPY** \|<br />**Arm_2D_CP_MODE_Y_MIRROR**  | Copy the Y-mirrored source tile to the target tile   | **Arm_2D_CP_MODE_COPY** can be ignored                       |
-| **Arm_2D_CP_MODE_COPY** \|<br />**Arm_2D_CP_MODE_X_MIRROR** \|<br />**Arm_2D_CP_MODE_Y_MIRROR** | Copy the X/Y-mirrored source tile to the target tile | **Arm_2D_CP_MODE_COPY** can be ignored                       |
-| **Arm_2D_CP_MODE_FILL** \|<br />**Arm_2D_CP_MODE_X_MIRROR**  | Fill a target tile with a X-mirrored source tile     | **Not recommended** unless aided by hardware accelerator, see note. |
-| **Arm_2D_CP_MODE_FILL** \|<br />**Arm_2D_CP_MODE_Y_MIRROR**  | Fill a target tile with a Y-mirrored source tile     | **Not recommended** unless aided by hardware accelerator, see note. |
-| **Arm_2D_CP_MODE_FILL** \|<br />**Arm_2D_CP_MODE_X_MIRROR** \|<br /> **Arm_2D_CP_MODE_Y_MIRROR** | Fill a target tile with a X/Y-mirrored source tile   | **Not recommended** unless aided by hardware accelerator, see note. |
-
-**NOTE**: For all the modes which combine Mirroring with Fill, as they might repeat the mirroring work unnecessarily,  cycles are wasted unless a hardware accelerator directly supporting those modes are used. If your GUI follows the **hardware-agnostic principle**, a better alternative would be **1) doing mirroring work once** and **2) fill the target tile with the mirrored one**.  
+| Mode                                                         | Description                                          | NOTE                                   |
+| ------------------------------------------------------------ | ---------------------------------------------------- | -------------------------------------- |
+| **Arm_2D_CP_MODE_COPY**                                      | Copy the source tile to the target tile              |                                        |
+| **Arm_2D_CP_MODE_FILL**                                      | Fill a target tile with a given source tile          |                                        |
+| **Arm_2D_CP_MODE_COPY** \|<br />**Arm_2D_CP_MODE_X_MIRROR**  | Copy the X-mirrored source tile to the target tile   | **Arm_2D_CP_MODE_COPY** can be ignored |
+| **Arm_2D_CP_MODE_COPY** \|<br />**Arm_2D_CP_MODE_Y_MIRROR**  | Copy the Y-mirrored source tile to the target tile   | **Arm_2D_CP_MODE_COPY** can be ignored |
+| **Arm_2D_CP_MODE_COPY** \|<br />**Arm_2D_CP_MODE_X_MIRROR** \|<br />**Arm_2D_CP_MODE_Y_MIRROR** | Copy the X/Y-mirrored source tile to the target tile | **Arm_2D_CP_MODE_COPY** can be ignored |
+| **Arm_2D_CP_MODE_FILL** \|<br />**Arm_2D_CP_MODE_X_MIRROR**  | Fill a target tile with a X-mirrored source tile     |                                        |
+| **Arm_2D_CP_MODE_FILL** \|<br />**Arm_2D_CP_MODE_Y_MIRROR**  | Fill a target tile with a Y-mirrored source tile     |                                        |
+| **Arm_2D_CP_MODE_FILL** \|<br />**Arm_2D_CP_MODE_X_MIRROR** \|<br /> **Arm_2D_CP_MODE_Y_MIRROR** | Fill a target tile with a X/Y-mirrored source tile   |                                        |
 
 
 
@@ -397,4 +395,4 @@ The behaviour of function **arm_2d_rbg32_tile_copy_with_mask_colour** is illustr
 
 ## 5 Reference
 
-1. [Introduction to Arm-2D](./introduction.md)
+1. [Introduction to Arm-2D](./Introduction.md)

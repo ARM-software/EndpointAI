@@ -145,7 +145,7 @@ Since there is no public benchmark available for micro-controllers, we decide to
 
 **Figure 1-4 A snapshot of alpha-blending demos running on MPS3 platform**
 
-<img src="./documents/pictures/TopReadme_1_6_2_a.png" alt="image-20210318232400860" style="zoom: 67%;" /> 
+![Alpha-blending](./documents/pictures/Alpha-blending.gif) 
 
 
 
