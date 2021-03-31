@@ -33,6 +33,7 @@
 #   pragma clang diagnostic ignored "-Wmissing-braces"
 #   pragma clang diagnostic ignored "-Wunused-const-variable"
 #   pragma clang diagnostic ignored "-Wmissing-declarations"
+#   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -40,7 +41,7 @@
 #define __RADIUS    (30.0f)
 
 #ifndef BUSY_WHEEL_SPIN_SPEED
-#   define BUSY_WHEEL_SPIN_SPEED            150
+#   define BUSY_WHEEL_SPIN_SPEED            60
 #endif
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
@@ -55,7 +56,7 @@ extern int64_t clock(void);
 /*============================ LOCAL VARIABLES ===============================*/
 
 extern const uint8_t c_bmpWhiteDot[19*20*sizeof(uint16_t)];
-const static arm_2d_tile_t c_tPictureWhiteDot = {
+const arm_2d_tile_t c_tPictureWhiteDot = {
     .tRegion = {
         .tSize = {
             .iWidth = 19,
@@ -81,7 +82,7 @@ void busy_wheel_init(void)
         s_tAlphaTable[n] = (uint8_t)((float)n * 255.0f / 8.0f);
     }
     s_lLastTime = clock();
-    s_wUnit = SystemCoreClock * BUSY_WHEEL_SPIN_SPEED / 1000;
+    s_wUnit = (SystemCoreClock  / 1000) * BUSY_WHEEL_SPIN_SPEED;
 }
 
 void busy_wheel_show(arm_2d_tile_t *ptTarget)
@@ -95,22 +96,18 @@ void busy_wheel_show(arm_2d_tile_t *ptTarget)
     arm_2d_region_t tTargetRegion = c_tPictureWhiteDot.tRegion;
     
     int64_t lClocks = clock();
-    int32_t nElapsed = (int32_t)(lClocks - s_lLastTime);
+    int32_t nElapsed = (int32_t)((lClocks - s_lLastTime));
     
     if (nElapsed >= (int32_t)s_wUnit) {
         s_lLastTime = lClocks;
         s_chOffset++;
-        if (s_chOffset >= 8) {
-            s_chOffset = 0;
-        }
+        s_chOffset &= 0x07;
     }
     
     for (uint_fast8_t n = 0; n < 8; n++) {
         uint_fast8_t chIndex = n;
         chIndex += s_chOffset;
-        if (chIndex >= 8) {
-            chIndex -= 8;
-        }
+        chIndex &= 0x07;
         
         tTargetRegion.tLocation = tBasePoint;
         tTargetRegion.tLocation.iX += s_tDotsLocation[chIndex].iX;

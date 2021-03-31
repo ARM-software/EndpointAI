@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2020 Arm Limited. All rights reserved.
+ * Copyright (c) 2009-2021 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,19 +22,52 @@
 /*============================ INCLUDES ======================================*/
 #include <assert.h>
 
+#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 201112L
+#   error This demo requires C11. 
+#endif
+#if !defined(__GNUC__)
+#   error This demo requires GNU extensions
+#endif
+
 /*============================ MACROS ========================================*/
-
-#define PBF_BLOCK_SIZE          16
-
-#define BUSY_WHEEL_SPIN_SPEED   500
+#ifndef ITERATION_CNT
+#   define ITERATION_CNT       10
+#endif
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
+
+
 #define ASSERT(...)         assert(__VA_ARGS__)
+
+/*! \note FPB Size
+ *!         8 * 8     128B
+ *!        16 * 16    512B
+ *!        20 * 20    800B
+ *!        24 * 24   1152B
+ *!        32 * 32      2K
+ *!       480 * 2    1920B
+ *!       480 * 1     960B  
+ */
+#define PBF_BLOCK_SIZE_X         GLCD_WIDTH
+#define PBF_BLOCK_SIZE_Y         2
+
+#define BUSY_WHEEL_SPIN_SPEED   100
+
+//#define APP_SCREEN_WIDTH    320
+//#define APP_SCREEN_HEIGHT   240
+
+#ifndef APP_SCREEN_WIDTH 
+#   define APP_SCREEN_WIDTH         GLCD_WIDTH
+#endif
+
+#ifndef APP_SCREEN_HEIGHT 
+#   define APP_SCREEN_HEIGHT        GLCD_HEIGHT
+#endif
+
 
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
-/*============================ LOCAL VARIABLES ===============================*/
 /*============================ PROTOTYPES ====================================*/
 
 

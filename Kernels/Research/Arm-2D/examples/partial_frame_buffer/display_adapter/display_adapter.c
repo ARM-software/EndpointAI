@@ -23,7 +23,22 @@
 #include "../platform/platform.h"
 #include <assert.h>
 
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wcast-qual"
+#   pragma clang diagnostic ignored "-Wsign-conversion"
+#endif
+
 /*============================ MACROS ========================================*/
+#if defined(__STDC_VERSION__) && __STDC_VERSION__>=201112L
+//! C11
+static_assert(  APP_SCREEN_WIDTH <= GLCD_WIDTH, 
+                "APP_SCREEN_WIDTH should be no larger than GLCD_WIDTH");
+
+static_assert(  APP_SCREEN_HEIGHT <= GLCD_HEIGHT, 
+                "APP_SCREEN_HEIGHT should be no larger than GLCD_HEIGHT");
+#endif
+
 #ifndef PBF_BLOCK_SIZE
 #   define PBF_BLOCK_SIZE       20
 #endif
@@ -33,49 +48,46 @@
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ LOCAL VARIABLES ===============================*/
 
-declare_tile(c_tPartialFrameBuffer)    
+static arm_2d_tile_t s_tPartialFrameBuffer;
 
-implement_tile(c_tPartialFrameBuffer, PBF_BLOCK_SIZE, PBF_BLOCK_SIZE, arm_2d_color_rgb565_t);
+ARM_NOINIT static arm_2d_color_rgb565_t                                            
+    s_tPartialFrameBufferBuffer[(PBF_BLOCK_SIZE_X) * (PBF_BLOCK_SIZE_Y)];           
+static  arm_2d_tile_t s_tPartialFrameBuffer = {                                      
+    .tRegion = {                                                    
+        .tSize = {(PBF_BLOCK_SIZE_X), (PBF_BLOCK_SIZE_Y)},                           
+    },                                                              
+    .tInfo.bIsRoot = true,                                          
+    .pchBuffer = (uint8_t *)s_tPartialFrameBufferBuffer,                        
+};
+
+                
 static struct {
     arm_2d_region_t tDrawRegion;
     arm_2d_tile_t   tPFBTile;
 } s_tPFBController = {
     .tDrawRegion = {
-        .tSize = {PBF_BLOCK_SIZE, PBF_BLOCK_SIZE},
+        .tSize = {PBF_BLOCK_SIZE_X, PBF_BLOCK_SIZE_Y},
     },
 };
 
 /*============================ PROTOTYPES ====================================*/
 /*============================ IMPLEMENTATION ================================*/
 
-void platform_disp_fill_tile(const arm_2d_tile_t *ptTile, uint_fast16_t hwColor)
-{
-    DISP_ADAPT_ASSERT(NULL != ptTile);
-    arm_2d_region_t tValidRegion;
-    ptTile = arm_2d_tile_get_root(ptTile, &tValidRegion, NULL);
-    
-    uint_fast32_t n = tValidRegion.tSize.iHeight * tValidRegion.tSize.iWidth;
-    uint16_t *phwSrc = ptTile->phwBuffer;
-    
-    do {
-        *phwSrc++ = (uint16_t)hwColor;
-    } while(--n);
-}
 
 void platform_disp_init(void)
 {
-    platform_disp_fill_tile(&c_tPartialFrameBuffer, GLCD_COLOR_BLACK);
+    
 }
 
 
 arm_fsm_rt_t platform_disp_buffer_refresh(void)
 {
     
-    GLCD_DrawBitmap(s_tPFBController.tDrawRegion.tLocation.iX,
-                    s_tPFBController.tDrawRegion.tLocation.iY, 
+    GLCD_DrawBitmap(((GLCD_WIDTH - APP_SCREEN_WIDTH) >> 1) + s_tPFBController.tDrawRegion.tLocation.iX,
+                    ((GLCD_HEIGHT - APP_SCREEN_HEIGHT) >> 1) + s_tPFBController.tDrawRegion.tLocation.iY, 
                     s_tPFBController.tDrawRegion.tSize.iWidth, 
                     s_tPFBController.tDrawRegion.tSize.iHeight, 
-                    c_tPartialFrameBuffer.pchBuffer);
+                    s_tPartialFrameBuffer.pchBuffer);
     
     return arm_fsm_rt_cpl;
 }
@@ -93,15 +105,24 @@ arm_fsm_rt_t platform_disp_buffer_refresh(void)
  */
 arm_2d_tile_t * drawing_iteration_begin(arm_2d_region_t *ptTargetRegion)
 {
+    ARM_2D_UNUSED(ptTargetRegion);
+
     arm_2d_region_t tTempRegion = {
-        .tSize = { 320, 240 },
+        .tSize = { APP_SCREEN_WIDTH, APP_SCREEN_HEIGHT },
         .tLocation = {
             .iX = -s_tPFBController.tDrawRegion.tLocation.iX,
             .iY = -s_tPFBController.tDrawRegion.tLocation.iY,
         },
     };
     
-    arm_2d_tile_generate_child( &c_tPartialFrameBuffer, 
+    s_tPartialFrameBuffer.tRegion.tSize.iHeight 
+        = MIN(  PBF_BLOCK_SIZE_X, APP_SCREEN_WIDTH 
+            -   s_tPFBController.tDrawRegion.tLocation.iX);
+    s_tPartialFrameBuffer.tRegion.tSize.iHeight 
+        = MIN(  PBF_BLOCK_SIZE_Y, APP_SCREEN_HEIGHT 
+            -   s_tPFBController.tDrawRegion.tLocation.iY);
+            
+    arm_2d_tile_generate_child( &s_tPartialFrameBuffer, 
                                 &tTempRegion, 
                                 &s_tPFBController.tPFBTile, 
                                 false);
@@ -119,12 +140,12 @@ bool drawing_iteration_end(void)
 {
     platform_disp_buffer_refresh();
 
-    s_tPFBController.tDrawRegion.tLocation.iX += PBF_BLOCK_SIZE;
-    if (s_tPFBController.tDrawRegion.tLocation.iX >= 320) {
-        s_tPFBController.tDrawRegion.tLocation.iY += PBF_BLOCK_SIZE;
+    s_tPFBController.tDrawRegion.tLocation.iX += PBF_BLOCK_SIZE_X;
+    if (s_tPFBController.tDrawRegion.tLocation.iX >= APP_SCREEN_WIDTH) {
+        s_tPFBController.tDrawRegion.tLocation.iY += PBF_BLOCK_SIZE_Y;
         s_tPFBController.tDrawRegion.tLocation.iX = 0;
         
-        if (s_tPFBController.tDrawRegion.tLocation.iY >= 240) {
+        if (s_tPFBController.tDrawRegion.tLocation.iY >= APP_SCREEN_HEIGHT) {
             //! finished
             s_tPFBController.tDrawRegion.tLocation.iY = 0;
             return false;

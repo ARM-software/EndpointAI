@@ -95,25 +95,12 @@ const static arm_2d_tile_t c_tPictureCMSISLogo = {
     .pwBuffer = (uint32_t *)c_bmpCMSISLogo,
 };
 
-/*! picture small logo smile */
-extern const uint16_t c_bmpSmile [32 * 32];
-const static arm_2d_tile_t c_tPictureSmile = {
-    .tRegion = {
-        .tSize = {
-            .iWidth = 32,
-            .iHeight = 32
-        },
-    },
-    .tInfo.bIsRoot = true,
-    .phwBuffer = (uint16_t *)c_bmpSmile,
-};
-
-extern const uint8_t c_bmpSun[57*56*sizeof(uint16_t)];
+extern const uint8_t c_bmpSun[56*57*sizeof(uint16_t)];
 const static arm_2d_tile_t c_tPictureSun = {
     .tRegion = {
         .tSize = {
-            .iWidth = 57,
-            .iHeight = 56
+            .iWidth = 56,
+            .iHeight = 57
         },
     },
     .tInfo.bIsRoot = true,
@@ -135,22 +122,22 @@ static arm_2d_layer_t s_ptRefreshLayers[] = {
 
 static floating_range_t s_ptFloatingBoxes[] = {
     {
-        .tRegion = {{0-100, 0-100}, {320 + 200, 256 + 200}},
+        .tRegion = {{0-100, 0-100}, {APP_SCREEN_WIDTH + 200, 256 + 200}},
         .ptLayer = &s_ptRefreshLayers[0],
         .tOffset = {-1, -1},
     },
     {
-        .tRegion = {{0, 0}, {320, 240}},
+        .tRegion = {{0, 0}, {APP_SCREEN_WIDTH, APP_SCREEN_HEIGHT}},
         .ptLayer = &s_ptRefreshLayers[1],
         .tOffset = {5, -2},
     },
     {
-        .tRegion = {{0, 0}, {320, 240}},
+        .tRegion = {{0, 0}, {APP_SCREEN_WIDTH, APP_SCREEN_HEIGHT}},
         .ptLayer = &s_ptRefreshLayers[2],
         .tOffset = {-2, 4},
     },
     {
-        .tRegion = {{-100, -100}, {320+200, 240+200}},
+        .tRegion = {{-100, -100}, {APP_SCREEN_WIDTH+200, APP_SCREEN_HEIGHT+200}},
         .ptLayer = &s_ptRefreshLayers[3],
         .tOffset = {5, 5},
     },
@@ -266,7 +253,7 @@ static void __draw_layers(   arm_2d_tile_t *ptFrameBuffer,
     ASSERT(NULL != ptLayers);
     ASSERT(hwCount > 0);
 
-    static const arm_2d_region_t tFillRegion = {-200, -100, 320 + 200, 240 + 100 };
+    static const arm_2d_region_t tFillRegion = {-200, -100, APP_SCREEN_WIDTH + 200, APP_SCREEN_HEIGHT + 100 };
     
 
     do {

@@ -29,6 +29,15 @@
 #endif
 
 /*============================ MACROS ========================================*/
+#if defined(__STDC_VERSION__) && __STDC_VERSION__>=201112L
+//! C11
+static_assert(  APP_SCREEN_WIDTH <= GLCD_WIDTH, 
+                "APP_SCREEN_WIDTH should be no larger than GLCD_WIDTH");
+
+static_assert(  APP_SCREEN_HEIGHT <= GLCD_HEIGHT, 
+                "APP_SCREEN_HEIGHT should be no larger than GLCD_HEIGHT");
+#endif
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
@@ -36,7 +45,7 @@
 
 declare_tile(c_tLCDDisplayBuffer)    
 
-implement_tile(c_tLCDDisplayBuffer, 320, 240, arm_2d_color_rgb565_t);
+implement_tile(c_tLCDDisplayBuffer, APP_SCREEN_WIDTH, APP_SCREEN_HEIGHT, arm_2d_color_rgb565_t);
 
 
 
@@ -55,7 +64,11 @@ arm_2d_tile_t *platform_disp_buffer_get(void)
 
 arm_fsm_rt_t platform_disp_buffer_refresh(void)
 {
-    GLCD_DrawBitmap(0,0, 320, 240, c_tLCDDisplayBuffer.pchBuffer);
+    GLCD_DrawBitmap((GLCD_WIDTH - APP_SCREEN_WIDTH) >> 1,
+                    (GLCD_HEIGHT - APP_SCREEN_HEIGHT) >> 1, 
+                    APP_SCREEN_WIDTH, 
+                    APP_SCREEN_HEIGHT, 
+                    c_tLCDDisplayBuffer.pchBuffer);
     
     return arm_fsm_rt_cpl;
 }
@@ -70,7 +83,7 @@ arm_fsm_rt_t platform_disp_draw_tile(const arm_2d_tile_t *ptTile,
     
     arm_2d_rgb16_tile_copy(ptTile, &c_tLCDDisplayBuffer, ptRegion, false);
     
-    GLCD_DrawBitmap(0,0, 320, 240, c_tLCDDisplayBuffer.pchBuffer);
+    GLCD_DrawBitmap(0,0, APP_SCREEN_WIDTH, APP_SCREEN_HEIGHT, c_tLCDDisplayBuffer.pchBuffer);
     
     return arm_fsm_rt_cpl;
 }

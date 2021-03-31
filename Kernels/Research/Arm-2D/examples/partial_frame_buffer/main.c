@@ -30,9 +30,18 @@
 #   pragma clang diagnostic ignored "-Wcast-align"
 #   pragma clang diagnostic ignored "-Wmissing-field-initializers"
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #endif
 
 /*============================ MACROS ========================================*/
+#ifndef __STR
+#   define __STR(__A)      #__A
+#endif
+
+#ifndef STR
+#   define STR(__A)         __STR(__A)
+#endif
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
@@ -76,10 +85,13 @@ void display_task(void)
     } while(drawing_iteration_end());
     
 
-    lcd_printf("\r\nFPS %3d:%2d ms (LCD Latency %2d ms)", 
+    lcd_printf("\r\nFPS %3d:%2dms (LCD Latency %2dms) " 
+                STR(APP_SCREEN_WIDTH) "*"
+                STR(APP_SCREEN_HEIGHT) " %dMHz", 
                 SystemCoreClock / nTotalCyclCount, 
                 nTotalCyclCount / (SystemCoreClock / 1000ul),
-                nTotalLCDCycCount / (SystemCoreClock / 1000ul));
+                nTotalLCDCycCount / (SystemCoreClock / 1000ul),
+                SystemCoreClock / 1000000ul);
     
 }        
 

@@ -31,7 +31,7 @@
 #define declare_tile(__NAME)            __declare_tile(__NAME)
 
 #define __implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE)                     \
-            static __TYPE                                                       \
+            ARM_NOINIT static __TYPE                                            \
                 __NAME##Buffer[(__WIDTH) * (__HEIGHT)];                         \
             const arm_2d_tile_t __NAME = {                                      \
                 .tRegion = {                                                    \

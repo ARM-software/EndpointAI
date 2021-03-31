@@ -105,14 +105,14 @@ void GLCD_Print(uint32_t x, uint32_t y, const char *str)
 int lcd_printf(const char *format, ...)
 {
     int real_size;
-    static char s_chBuffer[41];
+    static char s_chBuffer[(GLCD_WIDTH/6)+1];
     __va_list ap;
     va_start(ap, format);
         real_size = vsnprintf(s_chBuffer, sizeof(s_chBuffer)-1, format, ap);
     va_end(ap);
     real_size = MIN(sizeof(s_chBuffer)-1, real_size);
     s_chBuffer[real_size] = '\0';
-    GLCD_Print(0*16, 9*24, s_chBuffer);
+    GLCD_Print(0, GLCD_HEIGHT - 16, s_chBuffer);
     return real_size;
 }
 

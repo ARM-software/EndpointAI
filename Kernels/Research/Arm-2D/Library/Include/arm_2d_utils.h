@@ -81,12 +81,12 @@ extern "C" {
 #   define __IS_COMPILER_LLVM__                1
 #else
 //! \note for gcc
-#ifdef __IS_COMPILER_GCC__
-#   undef __IS_COMPILER_GCC__
-#endif
-#if defined(__GNUC__) && !(__IS_COMPILER_ARM_COMPILER_6__ || __IS_COMPILER_LLVM__)
-#   define __IS_COMPILER_GCC__                 1
-#endif
+#   ifdef __IS_COMPILER_GCC__
+#       undef __IS_COMPILER_GCC__
+#   endif
+#   if defined(__GNUC__) && !(__IS_COMPILER_ARM_COMPILER_6__ || __IS_COMPILER_LLVM__)
+#       define __IS_COMPILER_GCC__                 1
+#   endif
 //! @}
 #endif
 //! @}
@@ -158,8 +158,6 @@ extern "C" {
 #ifndef dimof
 #   define dimof(__array)          (sizeof(__array)/sizeof(__array[0]))
 #endif
-
-#endif /*ifndef __ARM_2D_UTILS_H__ */
 
 #define __ARM_VA_NUM_ARGS_IMPL(   _0,_1,_2,_3,_4,_5,_6,_7,_8,_9,_10,_11,_12,    \
                                     _13,_14,_15,_16,__N,...)      __N
@@ -262,29 +260,29 @@ extern "C" {
 
 
 #ifndef ARM_NONNULL
-#if defined(__IS_COMPILER_ARM_COMPILER_5__) ||\
-    defined(__IS_COMPILER_ARM_COMPILER_6__) ||\
-    defined(__IS_COMPILER_GCC__)            ||\
-    defined(__IS_COMPILER_LLVM__)
-#   define ARM_NONNULL(...)     __attribute__((nonnull(__VA_ARGS__)))
-#else
-#   define ARM_NONNULL(...)     
+#   if  defined(__IS_COMPILER_ARM_COMPILER_5__) ||\
+        defined(__IS_COMPILER_ARM_COMPILER_6__) ||\
+        defined(__IS_COMPILER_GCC__)            ||\
+        defined(__IS_COMPILER_LLVM__)
+#       define ARM_NONNULL(...)     __attribute__((nonnull(__VA_ARGS__)))
+#   else
+#       define ARM_NONNULL(...)     
+#   endif
 #endif
 
 #ifndef ARM_NOINIT
 #   if     defined(__IS_COMPILER_ARM_COMPILER_5__)
-#   define ARM_NOINIT       __attribute__(( section( ".bss.noinit"),zero_init))
+#       define ARM_NOINIT       __attribute__(( section( ".bss.noinit"),zero_init))
 #   elif   defined(__IS_COMPILER_ARM_COMPILER_6__)
-#   define ARM_NOINIT       __attribute__(( section( ".bss.noinit")))
+#       define ARM_NOINIT       __attribute__(( section( ".bss.noinit")))
 #   elif   defined(__IS_COMPILER_IAR__)
-#   define ARM_NOINIT       __no_init
+#       define ARM_NOINIT       __no_init
 #   elif   defined(__IS_COMPILER_GCC__) || defined(__IS_COMPILER_LLVM__)
-#   define ARM_NOINIT       __attribute__(( section( ".bss.noinit")))
+#       define ARM_NOINIT       __attribute__(( section( ".bss.noinit")))
 #   else
-#   define ARM_NOINIT
+#       define ARM_NOINIT
 #   endif
 #endif
-
 
 #ifndef __RESTRICT
 #   define __RESTRICT                __restrict

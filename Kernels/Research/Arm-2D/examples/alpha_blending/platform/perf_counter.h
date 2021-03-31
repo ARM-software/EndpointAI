@@ -31,21 +31,8 @@
 #   define __TPASTE2(a, b)                            a##b
 #endif
 
-#define ____noreturn_cyclesOf(__STR,...)                                        \
-        {                                                                       \
-            int32_t nCycles;                                                    \
-            start_cycle_counter();                                              \
-            __VA_ARGS__;                                                        \
-            nCycles = stop_cycle_counter();                                     \
-            printf( "\r\n-[Cycle Report]"                                       \
-                    "--------------------------------------------\r\n"          \
-                    __STR                                                       \
-                    " total cycle count: %d [%08x]\r\n", nCycles, nCycles);     \
-        }
-#define __noreturn_CyclesOf(__STR, ...)         \
-            ____noreturn_cyclesOf(__STR, __VA_ARGS__)
             
-#define __log_cycles_of(__STR)                                                  \
+#define __cycleof__(__STR)                                                      \
             for (int32_t nCycles = 0,                                           \
                     __TPASTE2(__cycle_count_s_, __LINE__) = 1;                  \
                  __TPASTE2(__cycle_count_s_, __LINE__)-- ?                      \
@@ -59,13 +46,6 @@
                     nCycles = stop_cycle_counter()                              \
                  )
 
-/*                    (                                                       \
-                        printf( "\r\n-[Cycle Report]"                               \
-                        "--------------------------------------------\r\n"          \
-                        __STR                                                       \
-                        " total cycle count: %d [%08x]\r\n", nCycles, nCycles);     \
-                    ,0); 
-                    */
                     
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/

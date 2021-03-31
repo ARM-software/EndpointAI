@@ -98,7 +98,5 @@ void SystemInit (void)
 #endif
   
   SystemCoreClock = SYSTEM_CLOCK;
-  
-extern void uart_config(uint32_t wUARTFrequency);
-  uart_config(SYSTEM_CLOCK);
+ 
 }

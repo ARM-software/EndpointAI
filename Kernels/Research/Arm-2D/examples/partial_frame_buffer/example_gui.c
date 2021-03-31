@@ -53,12 +53,10 @@
 /*============================ LOCAL VARIABLES ===============================*/
 
 declare_tile(c_tLayerA)
-const
 implement_tile(c_tLayerA, 100, 100, arm_2d_color_rgb565_t);
 
 
 declare_tile(c_tLayerB)
-const
 implement_tile(c_tLayerB, 200, 50, arm_2d_color_rgb565_t);
 
 /*! picture helium */
@@ -77,7 +75,7 @@ const static arm_2d_tile_t c_tPictureHeliun = {
 
 /*! picture cmsis_logo */
 extern const uint8_t c_bmpCMSISLogo[163 * 65 * sizeof(uint16_t)];
-const static arm_2d_tile_t c_tPictureCMSISLogo = {
+const static arm_2d_tile_t c_tLogoCMSIS = {
     .tRegion = {
         .tSize = {
             .iWidth = 163,
@@ -86,29 +84,20 @@ const static arm_2d_tile_t c_tPictureCMSISLogo = {
     },
     .tInfo = {
         .bIsRoot = true,
-    },
-    .phwBuffer = (uint16_t *)c_bmpCMSISLogo,
-};
-
-/*! picture small logo smile */
-extern const uint16_t c_bmpSmile [32 * 32];
-const static arm_2d_tile_t c_tPictureSmile = {
-    .tRegion = {
-        .tSize = {
-            .iWidth = 32,
-            .iHeight = 32
+        .bHasEnforcedColour = true,
+        .tColourInfo = {
+            .chScheme = ARM_2D_COLOUR_RGB565,
         },
     },
-    .tInfo.bIsRoot = true,
-    .phwBuffer = (uint16_t *)c_bmpSmile,
+    .pwBuffer = (uint32_t *)c_bmpCMSISLogo,
 };
 
-extern const uint8_t c_bmpSun[57*56*sizeof(uint16_t)];
+extern const uint8_t c_bmpSun[56*57*sizeof(uint16_t)];
 const static arm_2d_tile_t c_tPictureSun = {
     .tRegion = {
         .tSize = {
-            .iWidth = 57,
-            .iHeight = 56
+            .iWidth = 56,
+            .iHeight = 57
         },
     },
     .tInfo.bIsRoot = true,
@@ -130,22 +119,22 @@ static arm_2d_layer_t s_ptRefreshLayers[] = {
 
 static floating_range_t s_ptFloatingBoxes[] = {
     {
-        .tRegion = {{0-100, 0-100}, {320 + 200, 256 + 200}},
+        .tRegion = {{0-100, 0-100}, {APP_SCREEN_WIDTH + 200, 256 + 200}},
         .ptLayer = &s_ptRefreshLayers[0],
         .tOffset = {-1, -1},
     },
     {
-        .tRegion = {{0, 0}, {320, 240}},
+        .tRegion = {{0, 0}, {APP_SCREEN_WIDTH, APP_SCREEN_HEIGHT}},
         .ptLayer = &s_ptRefreshLayers[1],
         .tOffset = {5, -2},
     },
     {
-        .tRegion = {{0, 0}, {320, 240}},
+        .tRegion = {{0, 0}, {APP_SCREEN_WIDTH, APP_SCREEN_HEIGHT}},
         .ptLayer = &s_ptRefreshLayers[2],
         .tOffset = {-2, 4},
     },
     {
-        .tRegion = {{-100, -100}, {320+200, 240+200}},
+        .tRegion = {{-100, -100}, {APP_SCREEN_WIDTH+200, APP_SCREEN_HEIGHT+200}},
         .ptLayer = &s_ptRefreshLayers[3],
         .tOffset = {5, 5},
     },
@@ -168,18 +157,11 @@ void platform_1ms_event_handler(void)
 void example_gui_init(void)
 {
     controls_init();
-
+    
     s_ptRefreshLayers[0].wMode = ARM_2D_CP_MODE_FILL;
 
     arm_2d_rgb16_fill_colour(s_ptRefreshLayers[1].ptTile, NULL, GLCD_COLOR_RED);
     arm_2d_rgb16_fill_colour(s_ptRefreshLayers[2].ptTile, NULL, GLCD_COLOR_GREEN);
-
-    arm_2d_rgb16_tile_copy_with_colour_masking( &c_tPictureSun,
-                                                s_ptRefreshLayers[2].ptTile,
-                                                NULL,
-                                                GLCD_COLOR_WHITE,
-                                                ARM_2D_CP_MODE_FILL);
-
 
     arm_foreach(arm_2d_layer_t, s_ptRefreshLayers) {
         arm_2d_region_t tRegion = _->tRegion;
@@ -265,15 +247,22 @@ static void __draw_layers(   arm_2d_tile_t *ptFrameBuffer,
     ASSERT(NULL != ptLayers);
     ASSERT(hwCount > 0);
 
-    static const arm_2d_region_t tFillRegion = {-200, -100, 320 + 200, 240 + 100 };
+    static const arm_2d_region_t tFillRegion = {-200, -100, APP_SCREEN_WIDTH + 200, APP_SCREEN_HEIGHT + 100 };
     
 
     do {
         
-        arm_2d_rgb16_tile_copy( &c_tPictureCMSISLogo,
+        arm_2d_rgb16_tile_copy( &c_tLogoCMSIS,
                                 ptFrameBuffer,
                                 &tFillRegion,
                                 ptLayers[0].wMode);
+       
+        
+        arm_2d_rgb16_tile_copy_with_colour_masking( &c_tPictureSun,
+                                                    s_ptRefreshLayers[2].ptTile,
+                                                    NULL,
+                                                    GLCD_COLOR_WHITE,
+                                                    ARM_2D_CP_MODE_FILL);
         
         
         arm_foreach(arm_2d_layer_t, ptLayers, hwCount, ptLayer) {

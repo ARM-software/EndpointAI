@@ -48,7 +48,7 @@
  *----------------------------------------------------------------------------*/
 #define  XTAL            (50000000UL)     /* Oscillator frequency */
 
-#define  SYSTEM_CLOCK    32000000UL //(XTAL / 2U)
+#define  SYSTEM_CLOCK    50000000UL //(XTAL / 2U)
 
 /*----------------------------------------------------------------------------
   Exception / Interrupt Vector table
@@ -98,7 +98,5 @@ void SystemInit (void)
 #endif
   
   SystemCoreClock = SYSTEM_CLOCK;
-  
-extern void uart_config(uint32_t wUARTFrequency);
-  uart_config(SYSTEM_CLOCK);
+ 
 }

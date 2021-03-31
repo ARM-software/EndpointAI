@@ -136,7 +136,7 @@ LR_ROM __ROM_BASE __ROM_SIZE  {
 
 **All operations in Arm-2D support region clipping by default**, which means users don't have to handle window/panel clipping manually. In rare cases where users have to intersect regions and/or tiles, Arm-2D provides dedicated APIs to facilitate such operations. 
 
-For more details, please refer to **section 4.1**.
+For more details, please refer to **[section 4.1](#41-basic)**.
 
 
 
@@ -144,7 +144,7 @@ For more details, please refer to **section 4.1**.
 
 Paving Texture on a target display buffer is one of the most commonly used 2D operations. Arm-2D supports this with tile copy APIs, in which a copy mode can be specified, and **Arm_2D_CP_MODE_FILL** is used to enable the texture paving feature. 
 
-For more details, please refer to **section 4.2**. 
+For more details, please refer to **[section 4.2](#42-copy-fill-and-xy-mirroring)**. 
 
 
 

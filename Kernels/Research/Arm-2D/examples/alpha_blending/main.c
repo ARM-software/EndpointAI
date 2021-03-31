@@ -76,6 +76,19 @@ static void display_task(void)
         arm_2d_tile_t *ptDispBufferTile = platform_disp_buffer_get();
         assert(NULL != ptDispBufferTile);
         
+        if (0 == BENCHMARK.wIterations) {
+            GLCD_DrawString(
+                0, GLCD_HEIGHT - 24, 
+                "Cycles   Min    Max   Avrage   FPS     LCD Latency");
+            lcd_printf("\r\n       ");
+            lcd_printf("%d ", BENCHMARK.wMin);
+            lcd_printf("%d ", BENCHMARK.wMax);
+            lcd_printf("%d   ", BENCHMARK.wAverage);
+            lcd_printf("%3d:%dms",
+                                SystemCoreClock / BENCHMARK.wAverage, 
+                                BENCHMARK.wAverage / (SystemCoreClock / 1000ul));
+        }
+        
         start_cycle_counter();
         example_gui_refresh(ptDispBufferTile);
         int32_t nCycles = stop_cycle_counter();
@@ -93,22 +106,11 @@ static void display_task(void)
                     (uint32_t)(BENCHMARK.dwTotal / (uint64_t)ITERATION_CNT);
             }
         } else {
-            GLCD_DrawString(
-                0, 9*24-10, 
-                "Cycles   Min     Max   Avrage   FPS     LCD Latency");
-            lcd_printf("\r\n       ");
-            lcd_printf("%d ", BENCHMARK.wMin);
-            lcd_printf("%d ", BENCHMARK.wMax);
-            lcd_printf("%d ", BENCHMARK.wAverage);
-            lcd_printf("%3d:%d ms",
-                                SystemCoreClock / BENCHMARK.wAverage, 
-                                BENCHMARK.wAverage / (SystemCoreClock / 1000ul));
-            
             start_cycle_counter();
             //! send content to LCD
             platform_disp_buffer_refresh();
             nCycles = stop_cycle_counter();
-            lcd_printf("    %2d ms", nCycles / (SystemCoreClock / 1000ul) );   
+            lcd_printf("   %2dms", nCycles / (SystemCoreClock / 1000ul) );   
         }
     } while(0);
     
@@ -128,7 +130,7 @@ int main (void)
         example_gui_init();
     }
     
-    GLCD_DrawString(0, 8*24, 
+    GLCD_DrawString(0, GLCD_HEIGHT - 24, 
                     "Alpha-blending Test, running " 
                     STR(ITERATION_CNT) 
                     " iterations");

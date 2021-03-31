@@ -36,8 +36,8 @@
 //#include "Board_LED.h"                  // ::Board Support:LED
 //#include "Board_Buttons.h"              // ::Board Support:Buttons
 //#include "Board_Touch.h"                // ::Board Support:Touchscreen
-#include "display_adapter/Board_GLCD.h"                 // ::Board Support:Graphic LCD
-#include "display_adapter/GLCD_Config.h"                // Keil.SAM4E-EK::Board Support:Graphic LCD
+#include "Board_GLCD.h"                 // ::Board Support:Graphic LCD
+#include "GLCD_Config.h"                // Keil.SAM4E-EK::Board Support:Graphic LCD
 
 
 #ifdef __cplusplus

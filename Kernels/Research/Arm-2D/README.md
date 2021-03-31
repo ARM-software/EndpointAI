@@ -59,7 +59,7 @@ In fact, using GUI with microcontrollers isn't new at all. Still, until the rece
 
 On the other hand, seemingly complicated graphical interfaces often only require simple texture paving. Even the so-called transparency effects are not unaffordable for microcontrollers that often run under tens of MHz or even hundreds of MHz. 
 
-Technologies used for 2D graphics have been matured as early as the era of NES. As 8-bit 6502 can achieve very fancy graphics effects, why can't the most advanced Cortex-M processor of the day?
+Technologies used for 2D graphics have been matured as early as the era of 8-bit Gaming Console. As 8-bit 6502 can achieve fancy graphics effects, why can't the most advanced Cortex-M processor of the day?
 
 **Figure 1-1  2D Technologies used in Super-Mario-Brothers on NES** 
 
@@ -191,7 +191,7 @@ Since there is no public benchmark available for micro-controllers, we decide to
 
 - Despite which processor you use, during the compilation, all C source files are safe to be added to the compilation (and we highly recommend you to do this for simplicity reason). For example, when you use Cortex-M4, which doesn't support Helium extension (introduced by Armv8.1-M architecture and first implemented by the Cortex-M55 processor), it is OK to include "***arm_2d_helium.c***" in the compilation process, as the C source files are constructed with environment detection pre-processing mechanisms. 
 
-- In your application, only including "arm_2d.h" is sufficient to get all the services and APIs ready for you. 
+- In your application, only including "***arm_2d.h***" is sufficient to get all the services and APIs ready for you. 
 
 - Make sure that the library is initialised by calling **arm_2d_init()** before using any of the services. 
 
