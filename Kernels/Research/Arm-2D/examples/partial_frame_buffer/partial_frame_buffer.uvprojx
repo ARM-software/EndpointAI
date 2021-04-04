@@ -339,7 +339,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,EXTERANL_DELAY_MS_DECLARE="extern void delay_ms(uint32_t);"</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;..\partial_frame_buffer</IncludePath>
+              <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -622,6 +622,11 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_cde.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1226,7 +1231,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;..\..\Library\Include;..\partial_frame_buffer</IncludePath>
+              <IncludePath>.\platform;..\..\Library\Include;.</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1509,6 +1514,11 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_cde.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2182,7 +2192,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,ITERATION_CNT=10</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;..\partial_frame_buffer;..\..\Library\Include</IncludePath>
+              <IncludePath>.\platform;.;..\..\Library\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2464,6 +2474,11 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_cde.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3137,7 +3152,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,EXTERANL_DELAY_MS_DECLARE="extern void delay_ms(uint32_t);"</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;.\platform\v2m_mps3;..\..\Library\Include;..\partial_frame_buffer</IncludePath>
+              <IncludePath>.\platform;.\platform\v2m_mps3;..\..\Library\Include;.</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3420,6 +3435,11 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_cde.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4024,7 +4044,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,EXTERANL_DELAY_MS_DECLARE="extern void delay_ms(uint32_t);",ARM_MATH_HELIUM</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;..\partial_frame_buffer</IncludePath>
+              <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -4307,6 +4327,11 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_cde.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4980,7 +5005,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;..\..\Library\Include;..\partial_frame_buffer</IncludePath>
+              <IncludePath>.\platform;..\..\Library\Include;.</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -5263,6 +5288,11 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_cde.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5936,7 +5966,7 @@
               <MiscControls>-Omax -Wno-nonportable-include-path</MiscControls>
               <Define>GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;..\..\Library\Include;..\partial_frame_buffer</IncludePath>
+              <IncludePath>.\platform;..\..\Library\Include;.</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -6219,6 +6249,11 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_cde.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6892,7 +6927,7 @@
               <MiscControls>-Wno-nonportable-include-path</MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;..\..\Library\Include;..\partial_frame_buffer;.\platform\stm32f746g-discovery</IncludePath>
+              <IncludePath>.\platform;..\..\Library\Include;.;.\platform\stm32f746g-discovery</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -7175,6 +7210,11 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_cde.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -7848,7 +7888,7 @@
               <MiscControls>-Omax -Wno-padded</MiscControls>
               <Define>LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,EXTERANL_DELAY_MS_DECLARE="extern void delay_ms(uint32_t);",ARM_MATH_HELIUM,__USE_AN547__</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;..\partial_frame_buffer</IncludePath>
+              <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -8131,6 +8171,11 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_cde.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
