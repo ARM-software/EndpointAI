@@ -479,7 +479,7 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process( arm_2d_op_core_t *ptOP)
     arm_fsm_rt_t tResult = (arm_fsm_rt_t)ARM_2D_ERR_OUT_OF_REGION;;
     arm_2d_tile_t tTile = {0};
     arm_2d_region_t tDrawRegion = {0};
-    arm_2d_region_t tTargetRegion;
+    arm_2d_region_t tTargetRegion = {0};
 
     if (!__arm_2d_op_ensure_resource(ptOP, 1)) {
         //! insufficient resources, ask users to try again
@@ -490,9 +490,12 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process( arm_2d_op_core_t *ptOP)
     if (NULL == this.Target.ptRegion) {
         //! use target region instead
         this.Target.ptRegion = &(this.Target.ptTile->tRegion);
-    }
+        
+        tTargetRegion.tSize = (*this.Target.ptRegion).tSize;
+    } else {
 
-    tTargetRegion = *this.Target.ptRegion;
+        tTargetRegion = *this.Target.ptRegion;
+    }
 
     //! handle the offset of the target tile
     do {
@@ -593,7 +596,7 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
     arm_fsm_rt_t tResult;
     arm_2d_tile_t tTile = {0};
     arm_2d_region_t tDrawRegion = {0};
-    arm_2d_region_t tTargetRegion;
+    arm_2d_region_t tTargetRegion = {0};
 
     if (!__arm_2d_op_ensure_resource(ptOP, 4)) {
         //! insufficient resources, ask users to try again
@@ -604,9 +607,12 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
     if (NULL == this.Target.ptRegion) {
         //! use target region instead
         this.Target.ptRegion = &(this.Target.ptTile->tRegion);
-    }
+        
+        tTargetRegion.tSize = (*this.Target.ptRegion).tSize;
+    } else {
 
-    tTargetRegion = *this.Target.ptRegion;
+        tTargetRegion = *this.Target.ptRegion;
+    }
 
     //! handle the offset of the target tile
     do {
