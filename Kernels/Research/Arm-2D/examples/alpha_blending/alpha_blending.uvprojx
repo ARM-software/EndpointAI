@@ -623,11 +623,6 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
-            <File>
-              <FileName>arm_2d_cde.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1514,11 +1509,6 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_cde.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2474,11 +2464,6 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_cde.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3436,11 +3421,6 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
-            <File>
-              <FileName>arm_2d_cde.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -4327,11 +4307,6 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_cde.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5289,11 +5264,6 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
-            <File>
-              <FileName>arm_2d_cde.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -6249,11 +6219,6 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_cde.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -7211,11 +7176,6 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
-            <File>
-              <FileName>arm_2d_cde.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -8171,11 +8131,6 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_cde.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_cde.c</FilePath>
             </File>
           </Files>
         </Group>
