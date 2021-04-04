@@ -63,7 +63,9 @@ static  arm_2d_tile_t s_tPartialFrameBuffer = {
                 
 static struct {
     arm_2d_region_t tDrawRegion;
+    arm_2d_region_t tTargetRegion;
     arm_2d_tile_t   tPFBTile;
+    bool            bFirstIteration;
 } s_tPFBController = {
     .tDrawRegion = {
         .tSize = {PBF_BLOCK_SIZE_X, PBF_BLOCK_SIZE_Y},
@@ -76,17 +78,21 @@ static struct {
 
 void platform_disp_init(void)
 {
-    
+    s_tPFBController.bFirstIteration = true;
 }
 
 
 arm_fsm_rt_t platform_disp_buffer_refresh(void)
 {
     
-    GLCD_DrawBitmap(((GLCD_WIDTH - APP_SCREEN_WIDTH) >> 1) + s_tPFBController.tDrawRegion.tLocation.iX,
-                    ((GLCD_HEIGHT - APP_SCREEN_HEIGHT) >> 1) + s_tPFBController.tDrawRegion.tLocation.iY, 
-                    s_tPFBController.tDrawRegion.tSize.iWidth, 
-                    s_tPFBController.tDrawRegion.tSize.iHeight, 
+    GLCD_DrawBitmap(((GLCD_WIDTH - APP_SCREEN_WIDTH) >> 1) 
+                     +  s_tPFBController.tDrawRegion.tLocation.iX
+                     +  s_tPFBController.tTargetRegion.tLocation.iX,
+                    ((GLCD_HEIGHT - APP_SCREEN_HEIGHT) >> 1) 
+                     +  s_tPFBController.tDrawRegion.tLocation.iY
+                     +  s_tPFBController.tTargetRegion.tLocation.iY,
+                    s_tPartialFrameBuffer.tRegion.tSize.iWidth, 
+                    s_tPartialFrameBuffer.tRegion.tSize.iHeight, 
                     s_tPartialFrameBuffer.pchBuffer);
     
     return arm_fsm_rt_cpl;
@@ -105,21 +111,47 @@ arm_fsm_rt_t platform_disp_buffer_refresh(void)
  */
 arm_2d_tile_t * drawing_iteration_begin(arm_2d_region_t *ptTargetRegion)
 {
-    ARM_2D_UNUSED(ptTargetRegion);
-
+    
+    if (s_tPFBController.bFirstIteration) {
+        s_tPFBController.bFirstIteration = false;
+        
+        if (NULL != ptTargetRegion) {
+            s_tPFBController.tTargetRegion = *ptTargetRegion;
+            
+            assert(ptTargetRegion->tLocation.iX >= 0);
+            assert(ptTargetRegion->tSize.iWidth >= 0);
+            assert(     (ptTargetRegion->tLocation.iX + ptTargetRegion->tSize.iWidth) 
+                    <=  GLCD_WIDTH);
+                    
+            assert(ptTargetRegion->tLocation.iY >= 0);
+            assert(ptTargetRegion->tSize.iHeight >= 0);
+            assert(     (ptTargetRegion->tLocation.iY + ptTargetRegion->tSize.iHeight) 
+                    <=  GLCD_HEIGHT);
+            
+        } else {
+            s_tPFBController.tTargetRegion = (arm_2d_region_t) {
+                                                .tSize = {
+                                                    APP_SCREEN_WIDTH, 
+                                                    APP_SCREEN_HEIGHT,
+                                                },
+                                             };
+        }
+    }
+    
     arm_2d_region_t tTempRegion = {
-        .tSize = { APP_SCREEN_WIDTH, APP_SCREEN_HEIGHT },
+        .tSize = {APP_SCREEN_WIDTH, APP_SCREEN_HEIGHT},
         .tLocation = {
-            .iX = -s_tPFBController.tDrawRegion.tLocation.iX,
-            .iY = -s_tPFBController.tDrawRegion.tLocation.iY,
+            .iX = - (s_tPFBController.tTargetRegion.tLocation.iX + s_tPFBController.tDrawRegion.tLocation.iX),
+            .iY = - (s_tPFBController.tTargetRegion.tLocation.iY + s_tPFBController.tDrawRegion.tLocation.iY),
         },
     };
     
-    s_tPartialFrameBuffer.tRegion.tSize.iHeight 
-        = MIN(  PBF_BLOCK_SIZE_X, APP_SCREEN_WIDTH 
+    
+    s_tPartialFrameBuffer.tRegion.tSize.iWidth 
+        = MIN(  PBF_BLOCK_SIZE_X, s_tPFBController.tTargetRegion.tSize.iWidth 
             -   s_tPFBController.tDrawRegion.tLocation.iX);
     s_tPartialFrameBuffer.tRegion.tSize.iHeight 
-        = MIN(  PBF_BLOCK_SIZE_Y, APP_SCREEN_HEIGHT 
+        = MIN(  PBF_BLOCK_SIZE_Y, s_tPFBController.tTargetRegion.tSize.iHeight 
             -   s_tPFBController.tDrawRegion.tLocation.iY);
             
     arm_2d_tile_generate_child( &s_tPartialFrameBuffer, 
@@ -141,13 +173,14 @@ bool drawing_iteration_end(void)
     platform_disp_buffer_refresh();
 
     s_tPFBController.tDrawRegion.tLocation.iX += PBF_BLOCK_SIZE_X;
-    if (s_tPFBController.tDrawRegion.tLocation.iX >= APP_SCREEN_WIDTH) {
+    if (s_tPFBController.tDrawRegion.tLocation.iX >= s_tPFBController.tTargetRegion.tSize.iWidth) {
         s_tPFBController.tDrawRegion.tLocation.iY += PBF_BLOCK_SIZE_Y;
         s_tPFBController.tDrawRegion.tLocation.iX = 0;
         
-        if (s_tPFBController.tDrawRegion.tLocation.iY >= APP_SCREEN_HEIGHT) {
+        if (s_tPFBController.tDrawRegion.tLocation.iY >= s_tPFBController.tTargetRegion.tSize.iHeight) {
             //! finished
             s_tPFBController.tDrawRegion.tLocation.iY = 0;
+            s_tPFBController.bFirstIteration = true;
             return false;
         }
     }

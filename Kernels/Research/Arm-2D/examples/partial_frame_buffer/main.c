@@ -51,6 +51,14 @@
 
 void display_task(void) 
 {   
+    static const arm_2d_region_t c_tRefreshRegion = {
+        .tLocation = {0,0},
+        .tSize = {
+            .iWidth = APP_SCREEN_WIDTH,
+            .iHeight = APP_SCREEN_HEIGHT - 16,  //!< reserve two lines for benchmark info
+        },
+    };
+
     int32_t nTotalCyclCount = 0;
     int32_t nTotalLCDCycCount = 0;
     
@@ -66,7 +74,7 @@ void display_task(void)
         start_cycle_counter(); 
         do {
             //! request to draw the whole LCD
-            ptFrameBuffer = drawing_iteration_begin(NULL);
+            ptFrameBuffer = drawing_iteration_begin((arm_2d_region_t *)&c_tRefreshRegion);
             if (NULL == ptFrameBuffer) {
                 //wait_for_lcd_ready();    //! wait until lcd is ready
                 continue;
