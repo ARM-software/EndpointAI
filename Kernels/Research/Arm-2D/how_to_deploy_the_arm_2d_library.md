@@ -16,7 +16,7 @@ This document is part of the **Arm-2D** help documents and introduces how to dep
 Regardless of whether there are other methods of release later, you can always get the latest content by cloning the Arm-2D software repository on Github using the following command line:
 
 ```
-clone https://github.com/ARM-software/EndpointAI.git
+git clone https://github.com/ARM-software/EndpointAI.git
 ```
 
 As you can see, the Arm-2D is part of the EndpointAI software package. Considering that EndpointAI will become bigger and bigger, if you only care about the Arm-2D, you can extract the " ***./Kernels/Research/Arm-2D*** " folder out, as it is a standalone library.
