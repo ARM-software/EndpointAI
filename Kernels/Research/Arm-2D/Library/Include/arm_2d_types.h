@@ -247,7 +247,17 @@ struct arm_2d_tile_t {
     };
 };
 
-
+/*----------------------------------------------------------------------------*
+ * Task                                                                       *
+ *----------------------------------------------------------------------------*/
+typedef struct arm_2d_task_t {
+ARM_PRIVATE(
+    arm_fsm_rt_t tResult;
+    uint8_t      chState;
+    
+    void         *ptTask;
+)
+} arm_2d_task_t;
 
 /*----------------------------------------------------------------------------*
  * Operation and Events Handling                                              *
@@ -263,6 +273,7 @@ typedef struct {
     arm_2d_evt_handler_t    *fnHandler; //!< event handler function
     void                    *pTarget;   //!< user attached target
 } arm_2d_evt_t;
+
 
 
 #define ARM_2D_OP_INFO_PARAM_HAS_SOURCE           __BV(0)
@@ -319,7 +330,7 @@ enum {
 
 struct arm_2d_op_core_t {
 ARM_PRIVATE(
-    arm_2d_op_core_t            *ptNext;                //!< pointer for a single list
+    //arm_2d_op_core_t            *ptNext;              //!< pointer for a single list
 
     const __arm_2d_op_info_t    *ptOp;
 
@@ -329,7 +340,7 @@ ARM_PRIVATE(
         uint8_t                                 : 6;    //!< reserved
     }Preference;
 
-    int8_t                      tResult;                //!< state for FSM
+    int8_t                      tResult;                //!< operation result
     union {
         struct {
             uint16_t            u4SubTaskCount  : 4;    //!< sub task count

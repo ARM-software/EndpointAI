@@ -400,8 +400,7 @@ const struct __arm_2d_io_table __ARM_2D_IO_TABLE = {
 - The library currently only provides default software algorithms and a **[Helium](https://developer.arm.com/architectures/instruction-sets/simd-isas/helium) based acceleration library**. 
   - Although planned, no hardware acceleration is implemented or supported for now.
   - Although planned and implemented, the [ACI (Arm Custom Instruction)](https://developer.arm.com/architectures/instruction-sets/custom-instructions) acceleration solutions are not open-source for now. Please contact local Arm FAE for details. 
-- The provided example projects only run on [MPS2](https://developer.arm.com/tools-and-software/development-boards/fpga-prototyping-boards/mps2), [MPS3](https://developer.arm.com/tools-and-software/development-boards/fpga-prototyping-boards/mps3) and [FVP](https://developer.arm.com/tools-and-software/open-source-software/arm-platforms-software/cortex-m-platforms-software) platforms. 
-  - The support for popular 3rd-party development boards (such as STM32F746G-Discovery) will be added later. 
+- The provided example projects only run on [MPS2](https://developer.arm.com/tools-and-software/development-boards/fpga-prototyping-boards/mps2), [MPS3](https://developer.arm.com/tools-and-software/development-boards/fpga-prototyping-boards/mps3), [FVP](https://developer.arm.com/tools-and-software/open-source-software/arm-platforms-software/cortex-m-platforms-software) and some 3rd party development platforms, e.g. STM32F746G-Discovery. 
   - Feel free to try the library on your own devices. The library depends on No specific peripherals. 
 - Example projects are based on MDK (one of the most popular development environments for Cortex-M processors ).
 

@@ -250,6 +250,40 @@ const __arm_2d_op_info_t ARM_2D_OP_TABLE[__ARM_2D_OP_NUMBER] = {
         },
     },
     
+    [ARM_2D_OP_ALPHA_COLOUR_FILL_RGB565] = {
+        .Info = {
+            .Colour = {
+                .chScheme   = ARM_2D_COLOUR_RGB565,
+            },
+            .Param = {
+                .bHasSource     = false,
+                .bHasTarget     = true,
+            },
+            .chOpIndex      = __ARM_2D_OP_IDX_ALPHA_FILL_COLOUR,
+            
+            .LowLevelInterfaceIndex = {
+                .TileProcessLike = __ARM_2D_IO_ALPHA_FILL_COLOUR,
+            },
+        },
+    },
+    
+    [ARM_2D_OP_ALPHA_COLOUR_FILL_RGB888] = {
+        .Info = {
+            .Colour = {
+                .chScheme   = ARM_2D_COLOUR_RGB888,
+            },
+            .Param = {
+                .bHasSource     = false,
+                .bHasTarget     = true,
+            },
+            .chOpIndex      = __ARM_2D_OP_IDX_ALPHA_FILL_COLOUR,
+            
+            .LowLevelInterfaceIndex = {
+                .TileProcessLike = __ARM_2D_IO_ALPHA_FILL_COLOUR,
+            },
+        },
+    },
+    
     [ARM_2D_OP_DRAW_POINT_RGB16] = {
         .Info = {
             .Colour = {
@@ -346,6 +380,9 @@ const struct __arm_2d_io_table __ARM_2D_IO_TABLE = {
         },
         [__ARM_2D_IO_ALPHA_BLENDING_WITH_COLOUR_MASKING] = {
             .SW = (__arm_2d_io_func_t *)&__arm_2d_sw_alpha_blending_with_colour_masking,
+        },
+        [__ARM_2D_IO_ALPHA_FILL_COLOUR] = {
+            .SW = (__arm_2d_io_func_t *)&__arm_2d_sw_colour_filling_with_alpha,
         },
         [__ARM_2D_IO_DRAW_POINT] = {
             .SW = (__arm_2d_io_func_t *)&__arm_2d_sw_draw_point,

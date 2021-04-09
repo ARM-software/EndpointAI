@@ -84,6 +84,8 @@ extern arm_2d_tile_t * drawing_iteration_begin(arm_2d_region_t *ptTargetRegion);
  */
 extern bool drawing_iteration_end(void);
               
-
+/*! \brief wait for LCD ready 
+ */
+extern void platform_wait_for_disp_ready(void);
 
 #endif

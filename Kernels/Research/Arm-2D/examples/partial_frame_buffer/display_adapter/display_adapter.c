@@ -27,6 +27,7 @@
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
+#   pragma clang diagnostic ignored "-Wpadded"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -60,6 +61,12 @@ static  arm_2d_tile_t s_tPartialFrameBuffer = {
     .pchBuffer = (uint8_t *)s_tPartialFrameBufferBuffer,                        
 };
 
+static const arm_2d_region_t c_tLCDRegion = {
+        .tSize = {
+            .iWidth     = APP_SCREEN_WIDTH,
+            .iHeight    = APP_SCREEN_HEIGHT,
+        },
+    };
                 
 static struct {
     arm_2d_region_t tDrawRegion;
@@ -98,7 +105,12 @@ arm_fsm_rt_t platform_disp_buffer_refresh(void)
     return arm_fsm_rt_cpl;
 }
 
-
+/*! \brief wait for LCD ready 
+ */
+void platform_wait_for_disp_ready(void)
+{
+    return ;
+}
 
 /*! \brief begin a iteration of drawing and request a frame buffer from 
  *!        low level display driver.
@@ -113,29 +125,21 @@ arm_2d_tile_t * drawing_iteration_begin(arm_2d_region_t *ptTargetRegion)
 {
     
     if (s_tPFBController.bFirstIteration) {
-        s_tPFBController.bFirstIteration = false;
         
         if (NULL != ptTargetRegion) {
-            s_tPFBController.tTargetRegion = *ptTargetRegion;
             
-            assert(ptTargetRegion->tLocation.iX >= 0);
-            assert(ptTargetRegion->tSize.iWidth >= 0);
-            assert(     (ptTargetRegion->tLocation.iX + ptTargetRegion->tSize.iWidth) 
-                    <=  GLCD_WIDTH);
-                    
-            assert(ptTargetRegion->tLocation.iY >= 0);
-            assert(ptTargetRegion->tSize.iHeight >= 0);
-            assert(     (ptTargetRegion->tLocation.iY + ptTargetRegion->tSize.iHeight) 
-                    <=  GLCD_HEIGHT);
-            
+            //! calculate the valid region
+            if (!arm_2d_region_intersect(   &c_tLCDRegion, 
+                                            ptTargetRegion, 
+                                            &s_tPFBController.tTargetRegion)) {
+                //! out of lcd 
+                return (arm_2d_tile_t *)-1;
+            }
         } else {
-            s_tPFBController.tTargetRegion = (arm_2d_region_t) {
-                                                .tSize = {
-                                                    APP_SCREEN_WIDTH, 
-                                                    APP_SCREEN_HEIGHT,
-                                                },
-                                             };
+            s_tPFBController.tTargetRegion = c_tLCDRegion;
         }
+        
+        s_tPFBController.bFirstIteration = false;
     }
     
     arm_2d_region_t tTempRegion = {

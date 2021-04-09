@@ -28,7 +28,9 @@
  *
  * -------------------------------------------------------------------- */
 
+/*============================ INCLUDES ======================================*/
 #define __ARM_2D_IMPL__
+
 
 #include "arm_2d.h"
 #include "__arm_2d_impl.h"
@@ -52,6 +54,49 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wimplicit-int-conversion"
 #   pragma clang diagnostic ignored "-Wtautological-pointer-compare"
 #endif
+
+/*============================ MACROS ========================================*/
+/*============================ MACROFIED FUNCTIONS ===========================*/
+#define __ARM_2D_PIXEL_BLENDING_RGB565(__SRC_ADDR, __DES_ADDR, __RATIO)         \
+            do {                                                                \
+                __arm_2d_color_fast_rgb_t tSrcPix, tTargetPix;                  \
+                uint16_t *phwTargetPixel = (__DES_ADDR);                        \
+                __arm_2d_rgb565_unpack(*(__SRC_ADDR), &tSrcPix);                \
+                __arm_2d_rgb565_unpack(*phwTargetPixel, &tTargetPix);           \
+                                                                                \
+                for (int i = 0; i < 3; i++) {                                   \
+                    uint16_t        hwTemp =                                    \
+                        (uint16_t) (tSrcPix.RGB[i] * chRatio) +                 \
+                        (tTargetPix.RGB[i] * (__RATIO));                        \
+                    tTargetPix.RGB[i] = (uint16_t) (hwTemp >> 8);               \
+                }                                                               \
+                                                                                \
+                /* pack merged stream */                                        \
+                *phwTargetPixel = __arm_2d_rgb565_pack(&tTargetPix);            \
+            } while(0);
+
+
+#define __ARM_2D_PIXEL_BLENDING_RGB888(__SRC_ADDR, __DES_ADDR, __RATIO)         \
+            do {                                                                \
+                uint_fast8_t n = sizeof(uint32_t);                              \
+                const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
+                uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
+                                                                                \
+                do {                                                            \
+                    *pchDes = ( ((uint_fast16_t)(*pchSrc++) * chRatio)          \
+                              + ((uint_fast16_t)(*pchDes) * (__RATIO))          \
+                              ) >> 8;                                           \
+                     pchDes++;                                                  \
+                } while(--n);                                                   \
+            } while(0)
+
+/*============================ TYPES =========================================*/
+/*============================ GLOBAL VARIABLES ==============================*/
+/*============================ PROTOTYPES ====================================*/
+/*============================ LOCAL VARIABLES ===============================*/
+/*============================ IMPLEMENTATION ================================*/
+
+
 
 
 /*----------------------------------------------------------------------------*
@@ -106,6 +151,21 @@ void __arm_2d_impl_rgb888_alpha_blending_colour_masking(
                                         uint_fast8_t chRatio,
                                         uint_fast32_t wColour);
 
+void __arm_2d_impl_rgb16_colour_filling_with_alpha(
+                                        uint16_t *__RESTRICT phwTarget,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t *__RESTRICT ptCopySize,
+                                        uint16_t hwColour,
+                                        uint_fast8_t chRatio);
+
+
+void __arm_2d_impl_rgb32_colour_filling_with_alpha(
+                                        uint32_t *__RESTRICT pwTarget,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t *__RESTRICT ptCopySize,
+                                        uint32_t wColour,
+                                        uint_fast8_t chRatio);
+                                        
 /*----------------------------------------------------------------------------*
  * Copy tile to destination with specified transparency ratio (0~255)         *
  *----------------------------------------------------------------------------*/
@@ -121,7 +181,7 @@ arm_fsm_rt_t arm_2d_rgb565_alpha_blending(
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_alpha_t);
-    memset(ptThis, 0, sizeof(*ptThis));
+    //memset(ptThis, 0, sizeof(*ptThis));
 
     OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_ALPHA_BLENDING_RGB565];
 
@@ -144,7 +204,7 @@ arm_fsm_rt_t arm_2d_rgb888_alpha_blending(   const arm_2d_tile_t *ptSource,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_alpha_t);
-    memset(ptThis, 0, sizeof(*ptThis));
+    //memset(ptThis, 0, sizeof(*ptThis));
 
     OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_ALPHA_BLENDING_RGB888];
 
@@ -218,7 +278,83 @@ arm_fsm_rt_t __arm_2d_sw_alpha_blending(__arm_2d_sub_task_t *ptTask)
     return arm_fsm_rt_cpl;
 }
 
+/*----------------------------------------------------------------------------*
+ * Fill a specified region with a given colour and transparency ratio (0~255) *
+ *----------------------------------------------------------------------------*/
+ARM_NONNULL(1,2)
+arm_fsm_rt_t arm_2d_rgb565_fill_colour_with_alpha( 
+                                     const arm_2d_tile_t *ptTarget,
+                                     const arm_2d_region_t *ptRegion,
+                                     arm_2d_color_rgb565_t tColour,
+                                     uint_fast8_t chRatio)
+{
+    assert(NULL != ptTarget);
 
+    ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t);
+    //memset(ptThis, 0, sizeof(*ptThis));
+
+    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_ALPHA_COLOUR_FILL_RGB565];
+
+    this.Target.ptTile = ptTarget;
+    this.Target.ptRegion = ptRegion;
+    this.hwColour = tColour.tValue;
+    this.chRatio = chRatio;
+
+    return __arm_2d_op_invoke(NULL);
+}
+ 
+ARM_NONNULL(1,2)
+arm_fsm_rt_t arm_2d_rgb888_fill_colour_with_alpha( 
+                                     const arm_2d_tile_t *ptTarget,
+                                     const arm_2d_region_t *ptRegion,
+                                     arm_2d_color_rgb888_t tColour,
+                                     uint_fast8_t chRatio)
+{
+    assert(NULL != ptTarget);
+
+    ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t);
+    //memset(ptThis, 0, sizeof(*ptThis));
+
+    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_ALPHA_COLOUR_FILL_RGB888];
+
+    this.Target.ptTile = ptTarget;
+    this.Target.ptRegion = ptRegion;
+    this.wColour = tColour.tValue;
+    this.chRatio = chRatio;
+
+    return __arm_2d_op_invoke(NULL);
+}
+
+ 
+arm_fsm_rt_t __arm_2d_sw_colour_filling_with_alpha(
+                                        __arm_2d_sub_task_t *ptTask,
+                                        void *__RESTRICT pTarget,
+                                        int16_t iStride,
+                                        arm_2d_size_t *__RESTRICT ptSize)
+{
+    ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t, ptTask->ptOP)
+
+    switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
+        case ARM_2D_COLOUR_SZ_16BIT:
+            __arm_2d_impl_rgb16_colour_filling_with_alpha(  pTarget,
+                                                            iStride,
+                                                            ptSize,
+                                                            this.hwColour,
+                                                            this.chRatio);
+            break;
+        case ARM_2D_COLOUR_SZ_32BIT:
+            __arm_2d_impl_rgb32_colour_filling_with_alpha(  pTarget,
+                                                            iStride,
+                                                            ptSize,
+                                                            this.wColour,
+                                                            this.chRatio);
+            break;
+        default:
+            return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+    }
+
+    return arm_fsm_rt_cpl;
+}
 
 /*----------------------------------------------------------------------------*
  * Draw a point whose cordinates is stored as float point.                    *
@@ -271,7 +407,7 @@ arm_fsm_rt_t arm_2d_rbg565_alpha_blending_with_colour_masking(
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_alpha_cl_msk_t);
-    memset(ptThis, 0, sizeof(*ptThis));
+    //memset(ptThis, 0, sizeof(*ptThis));
 
     OP_CORE.ptOp =
         &ARM_2D_OP_TABLE[
@@ -280,7 +416,7 @@ arm_fsm_rt_t arm_2d_rbg565_alpha_blending_with_colour_masking(
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
     this.Source.ptTile = ptSource;
-    //this.wMode = 0;
+    this.wMode = 0;
     this.chRatio = chRatio;
     this.hwColour = tColour.tValue;
 
@@ -300,7 +436,7 @@ arm_fsm_rt_t arm_2d_rbg888_alpha_blending_with_colour_masking(
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_alpha_cl_msk_t);
-    memset(ptThis, 0, sizeof(*ptThis));
+    //memset(ptThis, 0, sizeof(*ptThis));
 
     OP_CORE.ptOp =
         &ARM_2D_OP_TABLE[
@@ -309,7 +445,7 @@ arm_fsm_rt_t arm_2d_rbg888_alpha_blending_with_colour_masking(
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
     this.Source.ptTile = ptSource;
-    //this.wMode = 0;
+    this.wMode = 0;
     this.chRatio = chRatio;
     this.wColour = tColour.tValue;
 
@@ -365,7 +501,10 @@ void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *__RESTRICT phwSourceBase,
 {
     uint32_t iHeight = ptCopySize->iHeight;
     uint32_t iWidth  = ptCopySize->iWidth;
-
+    uint16_t        ratioCompl = 256 - chRatio;
+    
+    ARM_2D_UNUSED(ratioCompl);
+    
     for (uint32_t y = 0; y < iHeight; y++) {
 
 #if (defined (__ARM_ARCH_8_1M_MAIN__) && (__ARM_ARCH_8_1M_MAIN__ == 1))
@@ -425,7 +564,7 @@ void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *__RESTRICT phwSourceBase,
               "r4", "r5", "memory"
         );
 #else
-        uint16_t        ratioCompl = 256 - chRatio;
+        
         for (uint32_t x = 0; x < iWidth; x++) {
             __arm_2d_color_fast_rgb_t srcPix, targetPix;
 
@@ -455,7 +594,7 @@ void __arm_2d_impl_rgb888_alpha_blending(   uint32_t *__RESTRICT pwSourceBase,
                                             arm_2d_size_t *__RESTRICT ptCopySize,
                                             uint_fast8_t chRatio)
 {
-
+    uint16_t hwRatioCompl = 256 - chRatio;
     for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
 
         const uint32_t *pwSource = pwSourceBase;
@@ -463,6 +602,7 @@ void __arm_2d_impl_rgb888_alpha_blending(   uint32_t *__RESTRICT pwSourceBase,
 
         for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++) {
 
+        #if 0
             uint_fast8_t n = sizeof(uint32_t);
             const uint8_t *pchSrc = (uint8_t *)(pwSource++);
             uint8_t *pchDes = (uint8_t *)(pwTarget++);
@@ -473,6 +613,11 @@ void __arm_2d_impl_rgb888_alpha_blending(   uint32_t *__RESTRICT pwSourceBase,
                             *   (256 - (uint_fast16_t)chRatio))) >> 8;
                  pchDes++;
             } while(--n);
+        #else
+            __ARM_2D_PIXEL_BLENDING_RGB888( pwSource++, 
+                                            pwTarget++, 
+                                            hwRatioCompl);
+        #endif
         }
 
         pwSourceBase += iSourceStride;
@@ -488,6 +633,10 @@ void __arm_2d_impl_rgb565_alpha_blending_direct(const uint16_t *phwSource,
                                                 uint32_t wPixelCount,
                                                 uint_fast8_t chRatio)
 {
+    uint16_t        ratioCompl = 256 - chRatio;
+    
+    ARM_2D_UNUSED(ratioCompl);
+    
 #if (defined (__ARM_ARCH_8_1M_MAIN__) && (__ARM_ARCH_8_1M_MAIN__ == 1))
         /* M55 NOMVE optimization */
         register unsigned loopCnt  __asm("lr");
@@ -547,7 +696,7 @@ void __arm_2d_impl_rgb565_alpha_blending_direct(const uint16_t *phwSource,
 #else
     do {
         __arm_2d_color_fast_rgb_t wSourcePixel, wBackgroundPixel, wTargetPixel;
-        uint16_t        ratioCompl = 256 - chRatio;
+        
 
         __arm_2d_rgb565_unpack(*phwSource++, &wSourcePixel);
         __arm_2d_rgb565_unpack(*phwBackground++, &wBackgroundPixel);
@@ -564,6 +713,7 @@ void __arm_2d_impl_rgb565_alpha_blending_direct(const uint16_t *phwSource,
 
 #endif
 }
+
 
 __WEAK
 void __arm_2d_impl_rgb888_alpha_blending_direct(const uint32_t *pwSource,
@@ -663,6 +813,57 @@ void __arm_2d_impl_rgb888_alpha_blending_colour_masking(
         }
 
         pwSourceBase += iSourceStride;
+        pwTargetBase += iTargetStride;
+    }
+}
+
+
+__WEAK
+void __arm_2d_impl_rgb16_colour_filling_with_alpha(
+                                        uint16_t *__RESTRICT phwTargetBase,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t *__RESTRICT ptCopySize,
+                                        uint16_t hwColour,
+                                        uint_fast8_t chRatio)
+{
+    uint16_t hwRatioCompl = 256 - chRatio;
+    int_fast16_t iWidth = ptCopySize->iWidth;
+    int_fast16_t iHeight = ptCopySize->iHeight;
+    
+    for (int_fast16_t y = 0; y < iHeight; y++) {
+        uint16_t *__RESTRICT phwTarget = phwTargetBase;
+        for (int_fast16_t x = 0; x < iWidth; x++){
+            __ARM_2D_PIXEL_BLENDING_RGB565(&hwColour, phwTarget++, hwRatioCompl);
+        }
+        phwTargetBase += iTargetStride;
+    }
+}
+
+
+__WEAK
+void __arm_2d_impl_rgb32_colour_filling_with_alpha(
+                                        uint32_t *__RESTRICT pwTargetBase,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t *__RESTRICT ptCopySize,
+                                        uint32_t wColour,
+                                        uint_fast8_t chRatio)
+{
+    uint16_t hwRatioCompl = 256 - chRatio;
+    
+    int_fast16_t iWidth = ptCopySize->iWidth;
+    int_fast16_t iHeight = ptCopySize->iHeight;
+    
+    for (int_fast16_t y = 0; y < iHeight; y++) {
+
+        uint32_t *pwTarget = pwTargetBase;
+
+        for (int_fast16_t x = 0; x < iWidth; x++) {                                                       
+            
+            __ARM_2D_PIXEL_BLENDING_RGB888( &wColour, 
+                                            pwTarget++, 
+                                            hwRatioCompl);
+        }
+
         pwTargetBase += iTargetStride;
     }
 }

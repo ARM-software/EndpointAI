@@ -85,6 +85,20 @@ typedef struct arm_2d_op_alpha_cl_msk_t {
     };
 } arm_2d_op_alpha_cl_msk_t;
 
+/*! \note arm_2d_op_fill_cl_t inherits from arm_2d_op_t explicitly 
+ */
+typedef struct arm_2d_op_alpha_fill_cl_t {
+    inherit(arm_2d_op_core_t);
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile 
+        const arm_2d_region_t   *ptRegion;      //!< target region
+    } Target;
+    union {
+        uint16_t hwColour;
+        uint32_t wColour;
+    };
+    uint_fast8_t chRatio;                       //!< transparency ratio 
+} arm_2d_op_alpha_fill_cl_t;
 
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
@@ -110,6 +124,24 @@ arm_fsm_rt_t arm_2d_rgb888_alpha_blending(
                                      uint_fast8_t chRatio);
                                      
 
+/*----------------------------------------------------------------------------*
+ * Fill a specified region with a given colour and transparency ratio (0~255) *
+ *----------------------------------------------------------------------------*/
+extern 
+ARM_NONNULL(1,2)
+arm_fsm_rt_t arm_2d_rgb565_fill_colour_with_alpha( 
+                                     const arm_2d_tile_t *ptTarget,
+                                     const arm_2d_region_t *ptRegion,
+                                     arm_2d_color_rgb565_t tColour,
+                                     uint_fast8_t chRatio);
+
+extern 
+ARM_NONNULL(1,2)
+arm_fsm_rt_t arm_2d_rgb888_fill_colour_with_alpha( 
+                                     const arm_2d_tile_t *ptTarget,
+                                     const arm_2d_region_t *ptRegion,
+                                     arm_2d_color_rgb888_t tColour,
+                                     uint_fast8_t chRatio);
 
 /*----------------------------------------------------------------------------*
  * Blend tile and background with a specified transparency ratio(0~255) and a *

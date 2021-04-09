@@ -81,24 +81,24 @@ extern "C" {
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
-#define ARM_2D_TRY_ACCELERATION(__ID, __FUNC_PROTOTYPE, ...)                  \
-        if (    (NULL != __ARM_2D_IO_TABLE.OP[__ID].HW)                       \
-            &&  ((__ID) != (uint8_t)__ARM_2D_IO_NONE)) {                      \
+#define ARM_2D_TRY_ACCELERATION(__ID, __FUNC_PROTOTYPE, ...)                    \
+        if (    (NULL != __ARM_2D_IO_TABLE.OP[__ID].HW)                         \
+            &&  ((__ID) != (uint8_t)__ARM_2D_IO_NONE)) {                        \
             tResult =                                                           \
-                (*(__FUNC_PROTOTYPE *)__ARM_2D_IO_TABLE.OP[__ID].HW)(         \
+                (*(__FUNC_PROTOTYPE *)__ARM_2D_IO_TABLE.OP[__ID].HW)(           \
                                         ptTask,                                 \
                                         ##__VA_ARGS__);                         \
         }
 
-#define ARM_2D_RUN_DEFAULT(__ID, __FUNC_PROTOTYPE, ...)                       \
-        if (    (NULL != __ARM_2D_IO_TABLE.OP[__ID].SW)                       \
-            &&  ((__ID) != (uint8_t)__ARM_2D_IO_NONE)) {                      \
+#define ARM_2D_RUN_DEFAULT(__ID, __FUNC_PROTOTYPE, ...)                         \
+        if (    (NULL != __ARM_2D_IO_TABLE.OP[__ID].SW)                         \
+            &&  ((__ID) != (uint8_t)__ARM_2D_IO_NONE)) {                        \
             tResult =                                                           \
-                (*(__FUNC_PROTOTYPE *)__ARM_2D_IO_TABLE.OP[__ID].SW)(         \
+                (*(__FUNC_PROTOTYPE *)__ARM_2D_IO_TABLE.OP[__ID].SW)(           \
                                         ptTask,                                 \
                                         ##__VA_ARGS__);                         \
         } else {                                                                \
-            tResult = (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;                   \
+            tResult = (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;                     \
         }
 
 /*============================ TYPES =========================================*/
@@ -108,7 +108,7 @@ extern "C" {
 //! \name Operation Index: used for logging and debugging purpose
 //! @{
 enum {
-    /*------------ cmsisi-2d operation idx begin ------------*/
+    /*------------ arm-2d operation idx begin --------------*/
     __ARM_2D_OP_IDX_BARRIER,
     __ARM_2D_OP_IDX_SYNC = __ARM_2D_OP_IDX_BARRIER,
     
@@ -131,7 +131,7 @@ enum {
 //! \name Operation Low Level IO Index
 //! @{
 enum {
-    /*------------ cmsisi-2d operation idx begin ------------*/
+    /*------------ arm-2d operation idx begin --------------*/
     __ARM_2D_IO_NONE = -1,
     
     __ARM_2D_IO_COPY,
@@ -156,7 +156,7 @@ enum {
     __ARM_2D_IO_COLOUR_CONVERT_TO_RGB565,
     __ARM_2D_IO_COLOUR_CONVERT_TO_RGB888,
     
-    /*------------ cmsisi-2d operation idx end --------------*/
+    /*------------ arm-2d operation idx end ----------------*/
     __ARM_2D_IO_NUMBER,
     __ARM_2D_IO_DEFAULT_COPY = __ARM_2D_IO_COPY,
     __ARM_2D_IO_DEFAULT_FILL = __ARM_2D_IO_FILL,
@@ -179,6 +179,8 @@ enum {
     ARM_2D_OP_ALPHA_BLENDING_RGB888,
     ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB565,
     ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB888,
+    ARM_2D_OP_ALPHA_COLOUR_FILL_RGB565,
+    ARM_2D_OP_ALPHA_COLOUR_FILL_RGB888,
 
     ARM_2D_OP_DRAW_POINT_RGB16,
     ARM_2D_OP_DRAW_POINT_RGB32,
@@ -278,7 +280,8 @@ ARM_PRIVATE(
         arm_2d_op_src_t            tWithSource;
         arm_2d_op_src_alpha_msk_t  tWithAlphaMask;
         arm_2d_op_alpha_t          tAlpha;
-        arm_2d_op_alpha_cl_msk_t   tAlphaMask;
+        arm_2d_op_alpha_cl_msk_t   tAlphaColourMask;
+        arm_2d_op_alpha_fill_cl_t  tAlphaColourFill;
     } DefaultOP;
 )};
 
@@ -335,6 +338,13 @@ arm_fsm_rt_t __arm_2d_sw_alpha_blending(__arm_2d_sub_task_t *ptTask);
 extern
 arm_fsm_rt_t __arm_2d_sw_alpha_blending_with_colour_masking(
                                         __arm_2d_sub_task_t *ptTask);
+
+extern 
+arm_fsm_rt_t __arm_2d_sw_colour_filling_with_alpha(
+                                        __arm_2d_sub_task_t *ptTask,
+                                        void *__RESTRICT pTarget,
+                                        int16_t iStride,
+                                        arm_2d_size_t *__RESTRICT ptSize);
 
 extern
 arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb565(  

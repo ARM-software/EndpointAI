@@ -106,21 +106,20 @@ extern
 void __arm_2d_init(void);
 
  /*! \brief arm-2d pixel pipeline task entery
-  *! \note  This function is *TRHEAD-SAFE*. If you use dedicated RTOS thread 
-  *!        to run arm_2d_task, please set runtime feature option
-  *!        ARM_2D_RUNTIME_FEATURE.HAS_DEDICATED_THREAD_FOR_2D_TASK to true(1).
-  *!
+  *! \note  This function is *TRHEAD-SAFE*
   *! \param none
-  *! \retval arm_fsm_rt_cpl The sub-task FIFO is empty, the caller i.e. the host
-  *!            RTOS thread can block itself by waiting for a semphare which is
+  *! \retval arm_fsm_rt_cpl The sub-task FIFO is empty, the caller, i.e. the host
+  *!            RTOS thread can block itself by waiting for a semaphore which is
   *!            set by arm_2d_notif_sub_task_fifo_task_arrive()
-  *! \retval arm_fsm_rt_on_going The arm-2d pixel pipleline is just finished 
-  *!            handling one operation and decide to yield. You should keep 
-  *!            calling arm_2d_task again.
-  *! \retval (<0) Errors are detected.
+  *! \retval arm_fsm_rt_on_going The arm_2d_task issued one sub-task without 
+  *!            problem and it yields. 
+  *! \retval arm_fsm_rt_async You shouldn't see this value
+  *! \retval arm_fsm_rt_wait_for_obj some algorithm or hardware accelerator wants
+  *!            to sync-up with applications.
+  *! \retval (<0) Serious error is detected.
   */
 extern
-arm_fsm_rt_t arm_2d_task(void);
+arm_fsm_rt_t arm_2d_task(arm_2d_task_t *ptTask);
 
 #ifdef   __cplusplus
 }

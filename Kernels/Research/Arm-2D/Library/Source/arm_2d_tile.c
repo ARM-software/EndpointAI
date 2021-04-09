@@ -537,7 +537,7 @@ arm_fsm_rt_t arm_2d_rgb16_tile_copy( const arm_2d_tile_t *ptSource,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_cp_t);
-    memset(ptThis, 0, sizeof(*ptThis));
+    //memset(ptThis, 0, sizeof(*ptThis));
     
     OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_TILE_COPY_RGB16];
     
@@ -561,7 +561,7 @@ arm_fsm_rt_t arm_2d_rgb32_tile_copy( const arm_2d_tile_t *ptSource,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_cp_t);
-    memset(ptThis, 0, sizeof(*ptThis));
+    //memset(ptThis, 0, sizeof(*ptThis));
     
     OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_TILE_COPY_RGB32];
     
@@ -595,7 +595,7 @@ arm_fsm_rt_t arm_2d_rgb16_tile_copy_with_colour_masking(
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_cp_cl_msk_t);
-    memset(ptThis, 0, sizeof(*ptThis));
+    //memset(ptThis, 0, sizeof(*ptThis));
     
     //! not support mirror
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
@@ -635,7 +635,7 @@ arm_fsm_rt_t arm_2d_rgb32_tile_copy_with_colour_masking(
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_cp_cl_msk_t);
-    memset(ptThis, 0, sizeof(*ptThis));
+    //memset(ptThis, 0, sizeof(*ptThis));
 
     //! not support mirror
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
