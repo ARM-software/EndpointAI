@@ -36,7 +36,8 @@
 extern GLCD_FONT GLCD_Font_6x8;
 extern GLCD_FONT GLCD_Font_16x24;
 
-static const uint8_t Font_6x8_h[(144-32)*8] = {
+extern const uint8_t Font_6x8_h[(144-32)*8];
+const uint8_t Font_6x8_h[(144-32)*8] = {
   /* 0x20: Space ' ' */
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   /* 0x21: '!' */

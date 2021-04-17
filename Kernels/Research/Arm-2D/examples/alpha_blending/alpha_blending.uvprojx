@@ -623,6 +623,26 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1509,6 +1529,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -2464,6 +2504,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -3421,6 +3481,26 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4307,6 +4387,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -5264,6 +5364,26 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -6219,6 +6339,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -7176,6 +7316,26 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -7837,7 +7997,7 @@
             <uC99>0</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
-            <v6Lang>5</v6Lang>
+            <v6Lang>6</v6Lang>
             <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
@@ -8131,6 +8291,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
             </File>
           </Files>
         </Group>

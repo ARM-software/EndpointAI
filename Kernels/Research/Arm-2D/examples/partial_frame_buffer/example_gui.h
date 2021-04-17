@@ -52,7 +52,7 @@ extern
 void example_gui_init(void);
 
 extern
-void example_gui_refresh(arm_2d_tile_t *ptFrameBuffer);
+void example_gui_refresh(const arm_2d_tile_t *ptFrameBuffer);
                             
 extern
 void example_gui_do_events(void);

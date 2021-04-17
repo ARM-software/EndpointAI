@@ -10,17 +10,18 @@ LR_IROM1 0x08000000 0x00100000  {    ; load region size_region
         .ANY (+XO)
     }
     
-    ARM_LIB_STACK 0x20000000 ALIGN 8 EMPTY 0x00000400 {
-    }
     
-    RW_IRAM +0 {
+    
+    RW_IRAM 0x20000000 {
         * (+RW +ZI)
     }
     
     RW_IRAM_NO_INIT +0 UNINIT  {
         * (.bss.noinit)
     }
-   
+    
+    ARM_LIB_STACK +0 ALIGN 8 EMPTY 0x00000400 {
+    }
 
     ARM_LIB_HEAP  +0 ALIGN 8 EMPTY 0x00000200 {
     }

@@ -33,6 +33,7 @@
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #   pragma clang diagnostic ignored "-Wmissing-braces"
 #   pragma clang diagnostic ignored "-Wunused-const-variable"
+#   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -176,6 +177,13 @@ void example_gui_init(void)
     }
 }
 
+__WEAK 
+void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
+{
+     ARM_2D_UNUSED(ptFrameBuffer);
+}
+
+
 static void example_update_boxes(floating_range_t *ptBoxes, uint_fast16_t hwCount)
 {
     ASSERT(NULL != ptBoxes);
@@ -240,18 +248,21 @@ void example_gui_do_events(void)
 
 
 
-static void __draw_layers(   arm_2d_tile_t *ptFrameBuffer,
+static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                             arm_2d_layer_t *ptLayers, 
                             uint_fast16_t hwCount)
 {
     ASSERT(NULL != ptLayers);
     ASSERT(hwCount > 0);
 
-    static const arm_2d_region_t tFillRegion = {-200, -100, APP_SCREEN_WIDTH + 200, APP_SCREEN_HEIGHT + 100 };
+    static const arm_2d_region_t tFillRegion = {-200, 
+                                                -100, 
+                                                APP_SCREEN_WIDTH + 200, 
+                                                APP_SCREEN_HEIGHT + 100 };
     
 
     do {
-        
+
         arm_2d_rgb16_tile_copy( &c_tLogoCMSIS,
                                 ptFrameBuffer,
                                 &tFillRegion,
@@ -299,11 +310,13 @@ static void __draw_layers(   arm_2d_tile_t *ptFrameBuffer,
         
         //! show progress wheel
         busy_wheel_show(ptFrameBuffer);
+
+        example_gui_on_refresh_evt_handler(ptFrameBuffer);
         
     } while (0);
 }
 
-void example_gui_refresh(arm_2d_tile_t *ptFrameBuffer)
+void example_gui_refresh(const arm_2d_tile_t *ptFrameBuffer)
 {
     __draw_layers(ptFrameBuffer, s_ptRefreshLayers, dimof(s_ptRefreshLayers));
 }

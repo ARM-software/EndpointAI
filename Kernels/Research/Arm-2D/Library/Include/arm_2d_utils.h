@@ -372,6 +372,7 @@ extern "C" {
 #define ARM_LIST_QUEUE_DEQUEUE(__HEAD, __TAIL, __ITEM)  \
             __ARM_LIST_QUEUE_DEQUEUE((__HEAD), (__TAIL), (__ITEM))
 
+
 /*============================ TYPES =========================================*/
 
 typedef struct __arm_slist_node_t __arm_slist_node_t;

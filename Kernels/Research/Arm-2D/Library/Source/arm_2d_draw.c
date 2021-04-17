@@ -75,6 +75,27 @@ void __arm_2d_impl_rgb32_colour_filling(uint32_t *__RESTRICT pwTarget,
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
                                         uint32_t hwColour);
+                                        
+void __arm_2d_impl_rgb16_draw_pattern(  uint8_t *__RESTRICT pchSource,
+                                        int32_t  iOffset,
+                                        int16_t iSourceStride,
+                                        uint16_t *__RESTRICT phwTarget,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t *__RESTRICT ptCopySize,
+                                        uint8_t chMode,
+                                        uint16_t hwForeColour,
+                                        uint16_t hwBackColour);
+                                        
+void __arm_2d_impl_rgb32_draw_pattern(  uint8_t *__RESTRICT pchSource,
+                                        int32_t  iOffset,
+                                        int16_t iSourceStride,
+                                        uint32_t *__RESTRICT phwTarget,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t *__RESTRICT ptCopySize,
+                                        uint8_t chMode,
+                                        uint32_t wForeColour,
+                                        uint32_t wBackColour);
+                                        
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ IMPLEMENTATION ================================*/
 
@@ -232,38 +253,189 @@ arm_fsm_rt_t __arm_2d_sw_colour_filling(__arm_2d_sub_task_t *ptTask,
 }
 
 /*----------------------------------------------------------------------------*
+ * Draw a bit patterns                                                        *
+ *----------------------------------------------------------------------------*/
+
+ARM_NONNULL(1,2)
+arm_fsm_rt_t arm_2d_rgb16_draw_pattern(  const arm_2d_tile_t *ptPattern,
+                                         const arm_2d_tile_t *ptTarget,
+                                         const arm_2d_region_t *ptRegion,
+                                         uint32_t wMode,
+                                         uint16_t hwForeColour,
+                                         uint16_t hwBackColour)
+{
+    assert(NULL != ptPattern);
+    assert(NULL != ptTarget);
+
+    ARM_2D_IMPL(arm_2d_op_drw_patn_t);
+    //memset(ptThis, 0, sizeof(*ptThis));
+    
+    if (    (wMode &   (ARM_2D_DRW_PATN_MODE_NO_FG_COLOR    | 
+                        ARM_2D_DRW_PATH_MODE_COMP_FG_COLOUR |
+                        ARM_2D_DRW_PATN_MODE_WITH_BG_COLOR  ))
+        == (ARM_2D_DRW_PATN_MODE_NO_FG_COLOR)) {
+            
+        //! nothing todo
+        return arm_fsm_rt_cpl;
+    }
+    
+    
+    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_DRAW_PATTERN_RGB16];
+    
+    this.Target.ptTile = ptTarget;
+    this.Target.ptRegion = ptRegion;
+    this.Source.ptTile = ptPattern;
+    this.wMode = wMode;
+    this.Foreground.hwColour = hwForeColour;
+    this.Background.hwColour = hwBackColour;
+
+    return __arm_2d_op_invoke(NULL);
+}
+
+
+ARM_NONNULL(1,2)
+arm_fsm_rt_t arm_2d_rgb32_draw_pattern( const arm_2d_tile_t *ptPattern,
+                                        const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_region_t *ptRegion,
+                                        uint32_t wMode,
+                                        uint32_t wForeColour,
+                                        uint32_t wBackColour)
+{
+
+    assert(NULL != ptPattern);
+    assert(NULL != ptTarget);
+
+    ARM_2D_IMPL(arm_2d_op_drw_patn_t);
+    //memset(ptThis, 0, sizeof(*ptThis));
+    
+    if (    (wMode &   (ARM_2D_DRW_PATN_MODE_NO_FG_COLOR    | 
+                        ARM_2D_DRW_PATH_MODE_COMP_FG_COLOUR |
+                        ARM_2D_DRW_PATN_MODE_WITH_BG_COLOR  ))
+        == (ARM_2D_DRW_PATN_MODE_NO_FG_COLOR)) {
+            
+        //! nothing todo
+        return arm_fsm_rt_cpl;
+    }
+    
+    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_DRAW_PATTERN_RGB32];
+    
+    this.Target.ptTile = ptTarget;
+    this.Target.ptRegion = ptRegion;
+    this.Source.ptTile = ptPattern;
+    this.wMode = wMode;
+    this.Foreground.wColour = wForeColour;
+    this.Background.wColour = wBackColour;
+
+    return __arm_2d_op_invoke(NULL);
+}
+
+arm_fsm_rt_t __arm_2d_sw_draw_pattern( __arm_2d_sub_task_t *ptTask)
+{
+    ARM_2D_IMPL(arm_2d_op_drw_patn_t, ptTask->ptOP);
+    
+    uint32_t wMode = this.wMode;
+    
+#if 0
+    if (!this.Source.ptTile->bHasEnforcedColour) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+    } 
+    
+    if (ARM_2D_COLOUR_SZ_1BIT != this.Source.ptTile->tColourInfo.u3ColourSZ) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+    }
+#endif
+
+    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
+    #if 0
+        //! todo: add support for mirror
+        switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
+            case ARM_2D_COLOUR_SZ_16BIT:
+                __arm_2d_impl_rgb16_draw_pattern_with_mirror(
+                                            ptTask->Param.tCopy.pSource ,
+                                            ptTask->Param.tCopy.iSourceStride,
+                                            ptTask->Param.tCopy.pTarget,
+                                            ptTask->Param.tCopy.iTargetStride,
+                                            &ptTask->Param.tCopy.tCopySize,
+                                            wMode);
+                break;
+            case ARM_2D_COLOUR_SZ_32BIT:
+                __arm_2d_impl_rgb32_draw_pattern_with_mirror(
+                                            ptTask->Param.tCopy.pSource ,
+                                            ptTask->Param.tCopy.iSourceStride,
+                                            ptTask->Param.tCopy.pTarget,
+                                            ptTask->Param.tCopy.iTargetStride,
+                                            &ptTask->Param.tCopy.tCopySize,
+                                            wMode);
+                break;
+            default:
+                return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+        }
+    #endif
+    } else {
+        
+        switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
+            case ARM_2D_COLOUR_SZ_16BIT:
+                    
+                //! draw bit-pattern
+                __arm_2d_impl_rgb16_draw_pattern(
+                                        ptTask->Param.tCopy.pSource,
+                                        ptTask->Param.tCopy.nSrcOffset,
+                                        ptTask->Param.tCopy.iSourceStride,
+                                        ptTask->Param.tCopy.pTarget,
+                                        ptTask->Param.tCopy.iTargetStride,
+                                        &ptTask->Param.tCopy.tCopySize,
+                                        wMode,
+                                        this.Foreground.hwColour,
+                                        this.Background.hwColour);
+                    
+
+                break;
+            case ARM_2D_COLOUR_SZ_32BIT:
+                
+                __arm_2d_impl_rgb32_draw_pattern(
+                                        ptTask->Param.tCopy.pSource,
+                                        ptTask->Param.tCopy.nSrcOffset,
+                                        ptTask->Param.tCopy.iSourceStride,
+                                        ptTask->Param.tCopy.pTarget,
+                                        ptTask->Param.tCopy.iTargetStride,
+                                        &ptTask->Param.tCopy.tCopySize,
+                                        wMode,
+                                        this.Foreground.wColour,
+                                        this.Background.wColour);
+                break;
+            default:
+                return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+        }
+    }
+
+    return arm_fsm_rt_cpl;
+}
+
+/*----------------------------------------------------------------------------*
  * Accelerable Low Level APIs                                                 *
  *----------------------------------------------------------------------------*/
 
-
-__WEAK
-void __arm_2d_impl_rgb16_colour_filling(uint16_t *__RESTRICT phwTarget,
-                                        int16_t iTargetStride,
-                                        arm_2d_size_t *__RESTRICT ptCopySize,
-                                        uint16_t hwColour)
-{
-    for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
-        for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++){
-            phwTarget[x] = hwColour;
-        }
-        phwTarget += iTargetStride;
-    }
-}
+/*! adding support with c code template */
+#define __API_COLOUR        rgb16
+#define __API_INT_TYPE      uint16_t
+#include "__arm_2d_fill_colour.inc"
 
 
-__WEAK
-void __arm_2d_impl_rgb32_colour_filling(uint32_t *__RESTRICT pwTarget,
-                                        int16_t iTargetStride,
-                                        arm_2d_size_t *__RESTRICT ptCopySize,
-                                        uint32_t wColour)
-{
-    for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
-        for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++){
-            pwTarget[x] = wColour;
-        }
-        pwTarget += iTargetStride;
-    }
-}
+#define __API_COLOUR        rgb32
+#define __API_INT_TYPE      uint32_t
+#include "__arm_2d_fill_colour.inc"
+
+
+/*! adding support with c code template */
+#define __API_COLOUR        rgb16
+#define __API_INT_TYPE      uint16_t
+#include "__arm_2d_draw_pattern.inc"
+
+
+#define __API_COLOUR        rgb32
+#define __API_INT_TYPE      uint32_t
+#include "__arm_2d_draw_pattern.inc"
+
 
 
 #if defined(__clang__)

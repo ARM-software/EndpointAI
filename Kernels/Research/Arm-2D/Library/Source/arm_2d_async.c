@@ -60,6 +60,7 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #   pragma clang diagnostic ignored "-Wswitch-enum"
 #   pragma clang diagnostic ignored "-Wswitch"
+#   pragma clang diagnostic ignored "-Wimplicit-fallthrough"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -625,6 +626,7 @@ __OVERRIDE_WEAK
 arm_fsm_rt_t __arm_2d_issue_sub_task_tile_process(  
                                         arm_2d_op_t *ptThis,
                                         void *__RESTRICT pTargetBase,
+                                        int32_t nOffset,
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptTargetSize)
 {    
@@ -635,7 +637,8 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_tile_process(
                     .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
                     .chIOType = __ARM_2D_IO_TYPE_DEFAULT_TILE_PROCESS,
                     .Param.TileProcess = {           
-                        .pTarget = pTargetBase,                               
+                        .pTarget = pTargetBase, 
+                        .nOffset = nOffset,                        
                         .iStride = iTargetStride,         
                         .tSize = *ptTargetSize,
                     },
@@ -649,11 +652,14 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_tile_process(
 }
 
 __OVERRIDE_WEAK
-arm_fsm_rt_t __arm_2d_issue_sub_task_fill(arm_2d_op_cp_t *ptThis,
+arm_fsm_rt_t __arm_2d_issue_sub_task_fill(
+                                    arm_2d_op_cp_t *ptThis,
                                     void *__RESTRICT pSourceBase,
+                                    int32_t nSrcOffset,
                                     int16_t iSourceStride,
                                     arm_2d_region_t *__RESTRICT ptSourceRegion,
                                     void *__RESTRICT pTargetBase,
+                                    int32_t nTargetOffset,
                                     int16_t iTargetStride,
                                     arm_2d_region_t *__RESTRICT ptTargetRegion)
 {
@@ -664,12 +670,14 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_fill(arm_2d_op_cp_t *ptThis,
                     .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
                     .chIOType = __ARM_2D_IO_TYPE_DEFAULT_FILL,
                     .Param.tFill = {
-                        .pSource = pSourceBase,                               
-                        .iSourceStride = iSourceStride,         
-                        .tSourceRegion = *ptSourceRegion,                 
-                        .pTarget = pTargetBase,                               
-                        .iTargetStride = iTargetStride,         
-                        .tTargetRegion = *ptTargetRegion,
+                        .pSource            = pSourceBase, 
+                        .nSrcOffset         = nSrcOffset,                        
+                        .iSourceStride      = iSourceStride,         
+                        .tSourceRegion      = *ptSourceRegion,                 
+                        .pTarget            = pTargetBase,   
+                        .nTargetOffset      = nTargetOffset,                        
+                        .iTargetStride      = iTargetStride,         
+                        .tTargetRegion      = *ptTargetRegion,
                     },
                 };
     
@@ -681,11 +689,14 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_fill(arm_2d_op_cp_t *ptThis,
 }
 
 __OVERRIDE_WEAK
-arm_fsm_rt_t __arm_2d_issue_sub_task_copy(arm_2d_op_cp_t *ptThis,
+arm_fsm_rt_t __arm_2d_issue_sub_task_copy(
+                                    arm_2d_op_cp_t *ptThis,
                                     void *__RESTRICT pSource,
+                                    int32_t nSrcOffset,
                                     int16_t iSourceStride,
                                     arm_2d_region_t *__RESTRICT ptSourceRegion,
                                     void *__RESTRICT pTarget,
+                                    int32_t nTargetOffset,
                                     int16_t iTargetStride,
                                     arm_2d_region_t *__RESTRICT ptTargetRegion,
                                     arm_2d_size_t * __RESTRICT ptCopySize)
@@ -697,13 +708,15 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_copy(arm_2d_op_cp_t *ptThis,
                     .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
                     .chIOType = __ARM_2D_IO_TYPE_DEFAULT_COPY,
                     .Param.tCopy = {
-                        .pSource = pSource,                               
-                        .iSourceStride = iSourceStride,         
-                        .tSourceRegion = *ptSourceRegion,                 
-                        .pTarget = pTarget,                               
-                        .iTargetStride = iTargetStride,         
-                        .tTargetRegion = *ptTargetRegion,
-                        .tCopySize = *ptCopySize,
+                        .pSource            = pSource,   
+                        .nSrcOffset         = nSrcOffset,
+                        .iSourceStride      = iSourceStride,         
+                        .tSourceRegion      = *ptSourceRegion,                 
+                        .pTarget            = pTarget,  
+                        .nTargetOffset      = nTargetOffset,                        
+                        .iTargetStride      = iTargetStride,         
+                        .tTargetRegion      = *ptTargetRegion,
+                        .tCopySize          = *ptCopySize,
                     },
                 };
     OP_CORE.Status.u4SubTaskCount++;

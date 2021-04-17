@@ -140,7 +140,7 @@ void __arm_2d_impl_rgb565_alpha_blending_colour_masking(
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
                                         uint_fast8_t chRatio,
-                                        uint_fast16_t hwColour);
+                                        uint16_t hwColour);
 
 void __arm_2d_impl_rgb888_alpha_blending_colour_masking(
                                         uint32_t *__RESTRICT pwSource,
@@ -149,9 +149,9 @@ void __arm_2d_impl_rgb888_alpha_blending_colour_masking(
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
                                         uint_fast8_t chRatio,
-                                        uint_fast32_t wColour);
+                                        uint32_t wColour);
 
-void __arm_2d_impl_rgb16_colour_filling_with_alpha(
+void __arm_2d_impl_rgb565_colour_filling_with_alpha(
                                         uint16_t *__RESTRICT phwTarget,
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
@@ -159,7 +159,7 @@ void __arm_2d_impl_rgb16_colour_filling_with_alpha(
                                         uint_fast8_t chRatio);
 
 
-void __arm_2d_impl_rgb32_colour_filling_with_alpha(
+void __arm_2d_impl_rgb888_colour_filling_with_alpha(
                                         uint32_t *__RESTRICT pwTarget,
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
@@ -336,14 +336,14 @@ arm_fsm_rt_t __arm_2d_sw_colour_filling_with_alpha(
 
     switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
         case ARM_2D_COLOUR_SZ_16BIT:
-            __arm_2d_impl_rgb16_colour_filling_with_alpha(  pTarget,
+            __arm_2d_impl_rgb565_colour_filling_with_alpha(  pTarget,
                                                             iStride,
                                                             ptSize,
                                                             this.hwColour,
                                                             this.chRatio);
             break;
         case ARM_2D_COLOUR_SZ_32BIT:
-            __arm_2d_impl_rgb32_colour_filling_with_alpha(  pTarget,
+            __arm_2d_impl_rgb888_colour_filling_with_alpha(  pTarget,
                                                             iStride,
                                                             ptSize,
                                                             this.wColour,
@@ -491,6 +491,7 @@ arm_fsm_rt_t __arm_2d_sw_alpha_blending_with_colour_masking(
  * Accelerable Low Level APIs                                                 *
  *----------------------------------------------------------------------------*/
 
+
 __WEAK
 void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *__RESTRICT phwSourceBase,
                                     int16_t iSourceStride,
@@ -586,45 +587,6 @@ void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *__RESTRICT phwSourceBase,
     }
 }
 
-__WEAK
-void __arm_2d_impl_rgb888_alpha_blending(   uint32_t *__RESTRICT pwSourceBase,
-                                            int16_t iSourceStride,
-                                            uint32_t *__RESTRICT pwTargetBase,
-                                            int16_t iTargetStride,
-                                            arm_2d_size_t *__RESTRICT ptCopySize,
-                                            uint_fast8_t chRatio)
-{
-    uint16_t hwRatioCompl = 256 - chRatio;
-    for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
-
-        const uint32_t *pwSource = pwSourceBase;
-        uint32_t *pwTarget = pwTargetBase;
-
-        for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++) {
-
-        #if 0
-            uint_fast8_t n = sizeof(uint32_t);
-            const uint8_t *pchSrc = (uint8_t *)(pwSource++);
-            uint8_t *pchDes = (uint8_t *)(pwTarget++);
-
-            do {
-                *pchDes = ( ((uint_fast16_t)(*pchSrc++) * chRatio)
-                          + (   (uint_fast16_t)(*pchDes)
-                            *   (256 - (uint_fast16_t)chRatio))) >> 8;
-                 pchDes++;
-            } while(--n);
-        #else
-            __ARM_2D_PIXEL_BLENDING_RGB888( pwSource++, 
-                                            pwTarget++, 
-                                            hwRatioCompl);
-        #endif
-        }
-
-        pwSourceBase += iSourceStride;
-        pwTargetBase += iTargetStride;
-    }
-
-}
 
 __WEAK
 void __arm_2d_impl_rgb565_alpha_blending_direct(const uint16_t *phwSource,
@@ -738,135 +700,21 @@ void __arm_2d_impl_rgb888_alpha_blending_direct(const uint32_t *pwSource,
 }
 
 
+/*! adding support with c code template */
+#define __API_COLOUR        rgb565
+#define __API_INT_TYPE      uint16_t
+#define __API_PIXEL_BLENDING            __ARM_2D_PIXEL_BLENDING_RGB565
+#define __PATCH_ALPHA_BLENDING
+
+#include "__arm_2d_alpha_blending.inc"
 
 
-__WEAK
-void __arm_2d_impl_rgb565_alpha_blending_colour_masking(
-                                                uint16_t * __RESTRICT phwSource,
-                                                int16_t         iSourceStride,
-                                                uint16_t * __RESTRICT phwTarget,
-                                                int16_t         iTargetStride,
-                                                arm_2d_size_t * __RESTRICT ptCopySize,
-                                                uint_fast8_t    chRatio,
-                                                uint_fast16_t   hwColour)
-{
-    uint32_t        iHeight = ptCopySize->iHeight;
-    uint32_t        iWidth = ptCopySize->iWidth;
-    uint16_t        ratioCompl = 256 - chRatio;
+/*! adding support with c code template */
+#define __API_COLOUR        rgb888
+#define __API_INT_TYPE      uint32_t
+#define __API_PIXEL_BLENDING            __ARM_2D_PIXEL_BLENDING_RGB888
 
-    for (uint32_t y = 0; y < iHeight; y++) {
-        for (uint32_t x = 0; x < iWidth; x++) {
-
-            if (*phwSource != (uint16_t) hwColour) {
-                __arm_2d_color_fast_rgb_t srcPix, targetPix;
-
-                __arm_2d_rgb565_unpack(*phwSource, &srcPix);
-                __arm_2d_rgb565_unpack(*phwTarget, &targetPix);
-
-                for (int i = 0; i < 3; i++) {
-                    uint16_t        tmp =
-                        (uint16_t) (srcPix.RGB[i] * chRatio) +
-                        (targetPix.RGB[i] * ratioCompl);
-                    srcPix.RGB[i] = (uint16_t) (tmp >> 8);
-                }
-                /* pack merged stream */
-                *phwTarget = __arm_2d_rgb565_pack(&srcPix);
-            }
-            phwSource++;
-            phwTarget++;
-        }
-        phwSource += (iSourceStride - iWidth);
-        phwTarget += (iTargetStride - iWidth);
-    }
-}
-
-
-__WEAK
-void __arm_2d_impl_rgb888_alpha_blending_colour_masking(
-                                        uint32_t *__RESTRICT pwSourceBase,
-                                        int16_t iSourceStride,
-                                        uint32_t *__RESTRICT pwTargetBase,
-                                        int16_t iTargetStride,
-                                        arm_2d_size_t *__RESTRICT ptCopySize,
-                                        uint_fast8_t chRatio,
-                                        uint_fast32_t wColour)
-{
-    for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
-
-        const uint32_t *__RESTRICT pwSource = pwSourceBase;
-        uint32_t *__RESTRICT pwTarget = pwTargetBase;
-
-        for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++) {
-
-            if (*pwSource != wColour) {
-                uint_fast8_t n = sizeof(uint32_t);
-                const uint8_t *__RESTRICT pchSrc = (uint8_t *)(pwSource++);
-                uint8_t *__RESTRICT pchDes = (uint8_t *)(pwTarget++);
-
-                do {
-                    *pchDes = ( ((uint16_t)(*pchSrc++) * chRatio)
-                              + (   (uint16_t)(*pchDes)
-                                *   (256 - (uint16_t)chRatio))) >> 8;
-                     pchDes++;
-                } while(--n);
-            }
-        }
-
-        pwSourceBase += iSourceStride;
-        pwTargetBase += iTargetStride;
-    }
-}
-
-
-__WEAK
-void __arm_2d_impl_rgb16_colour_filling_with_alpha(
-                                        uint16_t *__RESTRICT phwTargetBase,
-                                        int16_t iTargetStride,
-                                        arm_2d_size_t *__RESTRICT ptCopySize,
-                                        uint16_t hwColour,
-                                        uint_fast8_t chRatio)
-{
-    uint16_t hwRatioCompl = 256 - chRatio;
-    int_fast16_t iWidth = ptCopySize->iWidth;
-    int_fast16_t iHeight = ptCopySize->iHeight;
-    
-    for (int_fast16_t y = 0; y < iHeight; y++) {
-        uint16_t *__RESTRICT phwTarget = phwTargetBase;
-        for (int_fast16_t x = 0; x < iWidth; x++){
-            __ARM_2D_PIXEL_BLENDING_RGB565(&hwColour, phwTarget++, hwRatioCompl);
-        }
-        phwTargetBase += iTargetStride;
-    }
-}
-
-
-__WEAK
-void __arm_2d_impl_rgb32_colour_filling_with_alpha(
-                                        uint32_t *__RESTRICT pwTargetBase,
-                                        int16_t iTargetStride,
-                                        arm_2d_size_t *__RESTRICT ptCopySize,
-                                        uint32_t wColour,
-                                        uint_fast8_t chRatio)
-{
-    uint16_t hwRatioCompl = 256 - chRatio;
-    
-    int_fast16_t iWidth = ptCopySize->iWidth;
-    int_fast16_t iHeight = ptCopySize->iHeight;
-    
-    for (int_fast16_t y = 0; y < iHeight; y++) {
-
-        uint32_t *pwTarget = pwTargetBase;
-
-        for (int_fast16_t x = 0; x < iWidth; x++) {                                                       
-            
-            __ARM_2D_PIXEL_BLENDING_RGB888( &wColour, 
-                                            pwTarget++, 
-                                            hwRatioCompl);
-        }
-
-        pwTargetBase += iTargetStride;
-    }
-}
+#include "__arm_2d_alpha_blending.inc"
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

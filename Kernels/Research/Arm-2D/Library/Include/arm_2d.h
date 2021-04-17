@@ -105,6 +105,15 @@ void __arm_2d_acc_init(void);
 extern
 void __arm_2d_init(void);
 
+/*! \brief set the default frame buffer
+ *! \param ptFramebuffer the new frame buffer, if NULL is given, no default
+ *!       frame buffer will be used
+ *! \return the address of the old frame buffer
+ */
+extern 
+arm_2d_tile_t *arm_2d_set_default_frame_buffer(
+                                        const arm_2d_tile_t *ptFrameBuffer);
+
  /*! \brief arm-2d pixel pipeline task entery
   *! \note  This function is *TRHEAD-SAFE*
   *! \param none

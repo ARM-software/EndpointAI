@@ -54,7 +54,6 @@ extern "C" {
  */
 typedef struct arm_2d_op_alpha_t {
     inherit(arm_2d_op_core_t);
-    uint32_t wMode;
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile 
         const arm_2d_region_t   *ptRegion;      //!< target region
@@ -62,6 +61,7 @@ typedef struct arm_2d_op_alpha_t {
     struct {
         const arm_2d_tile_t     *ptTile;        //!< source tile 
     }Source;
+    uint32_t wMode;
     uint8_t chRatio;
 } arm_2d_op_alpha_t;
 
@@ -70,7 +70,6 @@ typedef struct arm_2d_op_alpha_t {
  */
 typedef struct arm_2d_op_alpha_cl_msk_t {
     inherit(arm_2d_op_core_t);
-    uint32_t wMode;
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile 
         const arm_2d_region_t   *ptRegion;      //!< target region
@@ -78,6 +77,7 @@ typedef struct arm_2d_op_alpha_cl_msk_t {
     struct {
         const arm_2d_tile_t     *ptTile;        //!< source tile 
     }Source;
+    uint32_t wMode;
     uint8_t chRatio;
     union {
         uint16_t hwColour;

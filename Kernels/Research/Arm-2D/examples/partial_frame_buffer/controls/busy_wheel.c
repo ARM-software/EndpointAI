@@ -85,7 +85,7 @@ void busy_wheel_init(void)
     s_wUnit = (SystemCoreClock  / 1000) * BUSY_WHEEL_SPIN_SPEED;
 }
 
-void busy_wheel_show(arm_2d_tile_t *ptTarget)
+void busy_wheel_show(const arm_2d_tile_t *ptTarget)
 {
     ASSERT(NULL != ptTarget);
     static uint8_t s_chOffset = 0;

@@ -88,14 +88,16 @@ typedef enum {
 //! \note arm_2d_err_t is compatible with arm_fsm_rt_t
 //! @{
 typedef enum {
-    ARM_2D_ERR_IO_BUSY            = -7,   //!< HW accelerator is busy
-    ARM_2D_ERR_IO_ERROR           = -6,   //!< Generic HW error
-    ARM_2D_ERR_MISSING_PARAM      = -5,   //!< missing mandatory parameter
-    ARM_2D_ERR_INVALID_OP         = -4,   //!< unsupported / invalid operation
-    ARM_2D_ERR_NOT_SUPPORT        = -3,   //!< feature/service/operation is not supported
-    ARM_2D_ERR_OUT_OF_REGION      = -2,   //!< the operation is out of target area
-    ARM_2D_ERR_UNKNOWN            = -1,   //!< generic or unknown errors
-    ARM_2D_ERR_NONE               = 0,    //!< no error
+    ARM_2D_ERR_INSUFFICIENT_RESOURCE    = -9,   //!< insufficient resource
+    ARM_2D_ERR_IO_BUSY                  = -8,   //!< HW accelerator is busy
+    ARM_2D_ERR_IO_ERROR                 = -7,   //!< Generic HW error
+    ARM_2D_ERR_MISSING_PARAM            = -6,   //!< missing mandatory parameter
+    ARM_2D_ERR_INVALID_OP               = -5,   //!< unsupported / invalid operation
+    ARM_2D_ERR_NOT_SUPPORT              = -4,   //!< feature/service/operation is not supported
+    ARM_2D_ERR_OUT_OF_REGION            = -3,   //!< the operation is out of target area
+    ARM_2D_ERR_INVALID_PARAM            = -2,   //!< invalid parameter
+    ARM_2D_ERR_UNKNOWN                  = -1,   //!< generic or unknown errors
+    ARM_2D_ERR_NONE                     = 0,    //!< no error
 } arm_2d_err_t;
 //! @}
 
@@ -176,6 +178,7 @@ enum {
 //! \name colour scheme
 //! @{
 enum {
+    ARM_2D_COLOUR_BIN         =   ARM_2D_COLOUR_SZ_1BIT_msk,
     ARM_2D_COLOUR_RGB16       =   ARM_2D_COLOUR_SZ_16BIT_msk    ,
     ARM_2D_COLOUR_RGB565      =   ARM_2D_COLOUR_RGB16    ,
 
@@ -265,15 +268,21 @@ ARM_PRIVATE(
 
 typedef struct arm_2d_op_core_t arm_2d_op_core_t;
 
-typedef bool arm_2d_evt_handler_t(  arm_2d_op_core_t *ptThisOP,
+typedef bool arm_2d_op_evt_handler_t(  arm_2d_op_core_t *ptThisOP,
                                     arm_fsm_rt_t tResult,
                                     void *pTarget);
 
-typedef struct {
-    arm_2d_evt_handler_t    *fnHandler; //!< event handler function
-    void                    *pTarget;   //!< user attached target
-} arm_2d_evt_t;
+typedef struct arm_2d_op_evt_t {
+    arm_2d_op_evt_handler_t    *fnHandler;                                      //!< event handler
+    void                    *pTarget;                                           //!< user attached target
+} arm_2d_op_evt_t;
 
+typedef bool arm_2d_evt_handler_t(void *pTarget);
+
+typedef struct arm_2d_evt_t {
+    arm_2d_evt_handler_t    *fnHandler;                                         //!< event handler
+    void                    *pTarget;                                           //!< user attached target
+} arm_2d_evt_t;
 
 
 #define ARM_2D_OP_INFO_PARAM_HAS_SOURCE           __BV(0)
@@ -353,7 +362,7 @@ ARM_PRIVATE(
         uint16_t tValue;
     }Status;
 
-    arm_2d_evt_t                evt2DOpCpl;             //!< operation complete event
+    arm_2d_op_evt_t             evt2DOpCpl;             //!< operation complete event
 )};
 
 typedef struct arm_2d_op_t {
@@ -366,7 +375,6 @@ typedef struct arm_2d_op_t {
 
 typedef struct arm_2d_op_src_t {
     inherit(arm_2d_op_core_t);
-    uint32_t wMode;
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile
         const arm_2d_region_t   *ptRegion;      //!< target region
@@ -374,6 +382,7 @@ typedef struct arm_2d_op_src_t {
     struct {
         const arm_2d_tile_t     *ptTile;        //!< source tile
     }Source;
+    uint32_t wMode;
 } arm_2d_op_src_t;
 
 

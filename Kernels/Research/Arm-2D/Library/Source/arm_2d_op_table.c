@@ -318,6 +318,44 @@ const __arm_2d_op_info_t ARM_2D_OP_TABLE[__ARM_2D_OP_NUMBER] = {
         },
     },
     
+    [ARM_2D_OP_DRAW_PATTERN_RGB16] = {
+        .Info = {
+            .Colour = {
+                .chScheme   = ARM_2D_COLOUR_RGB16,
+            },
+            .Param = {
+                .bHasSource             = true,
+                .bHasTarget             = true,
+                .bAllowEnforcedColour   = true,
+            },
+            .chOpIndex      = __ARM_2D_OP_IDX_DRAW_PATTERN,
+            
+            .LowLevelInterfaceIndex = {
+                .CopyLike = __ARM_2D_IO_DRAW_PATTERN,
+                .FillLike = __ARM_2D_IO_NONE,
+            },
+        },
+    },
+    
+    [ARM_2D_OP_DRAW_PATTERN_RGB32] = {
+        .Info = {
+            .Colour = {
+                .chScheme   = ARM_2D_COLOUR_RGB32,
+            },
+            .Param = {
+                .bHasSource             = true,
+                .bHasTarget             = true,
+                .bAllowEnforcedColour   = true,
+            },
+            .chOpIndex      = __ARM_2D_OP_IDX_DRAW_PATTERN,
+            
+            .LowLevelInterfaceIndex = {
+                .CopyLike = __ARM_2D_IO_DRAW_PATTERN,
+                .FillLike = __ARM_2D_IO_NONE,
+            },
+        },
+    },
+    
     [ARM_2D_OP_CONVERT_TO_RGB565] = {
         .Info = {
             .Colour = {
@@ -336,6 +374,8 @@ const __arm_2d_op_info_t ARM_2D_OP_TABLE[__ARM_2D_OP_NUMBER] = {
             },
         },
     },
+    
+    
     [ARM_2D_OP_CONVERT_TO_RGB888] = {
         .Info = {
             .Colour = {
@@ -386,6 +426,9 @@ const struct __arm_2d_io_table __ARM_2D_IO_TABLE = {
         },
         [__ARM_2D_IO_DRAW_POINT] = {
             .SW = (__arm_2d_io_func_t *)&__arm_2d_sw_draw_point,
+        },
+        [__ARM_2D_IO_DRAW_PATTERN] = {
+            .SW = (__arm_2d_io_func_t *)&__arm_2d_sw_draw_pattern,
         },
         [__ARM_2D_IO_COLOUR_CONVERT_TO_RGB565] = {
             .SW = (__arm_2d_io_func_t *)__arm_2d_sw_convert_colour_to_rgb565,

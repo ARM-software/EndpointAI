@@ -595,6 +595,7 @@ The examples and documents for Asynchronous mode will be added soon.
 | ***arm_2d_rbg565_alpha_blending_with_colour_masking*** | Blend a source tile to a target tile with a given transparency ratio and the Colour-Masking scheme. Both tiles should use ***RGB565*** colour format. |      |
 | ***arm_2d_rbg888_alpha_blending_with_colour_masking*** | Blend a source tile to a target tile with a given transparency ratio and the Colour-Masking scheme. Both tiles should use ***RGB888*** colour format. ***RGBA8888*** will be treated as ***RGB888***. |      |
 | ***arm_2d_rgb565_fill_colour_with_alpha***             | Fill a given region in the target tile with a specified colour and transparent ratio. Both the target tile and filled colour will be treated as ***RGB565***. |      |
+| ***arm_2d_rgb888_fill_colour_with_alpha***             | Fill a given region in the target tile with a specified colour and transparent ratio. Both the target tile and filled colour will be treated as ***RGB888***. |      |
 
 
 

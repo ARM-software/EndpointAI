@@ -66,6 +66,47 @@ typedef struct arm_2d_op_fill_cl_t {
  */
 typedef arm_2d_op_fill_cl_t arm_2d_op_drw_pt_t;
 
+
+/*! \note arm_2d_op_drw_patn_t inherits from arm_2d_op_src_t explicitly 
+ */
+typedef struct arm_2d_op_drw_patn_t {
+    inherit(arm_2d_op_core_t);
+    
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile 
+        const arm_2d_region_t   *ptRegion;      //!< target region
+    } Target;
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< source tile 
+    }Source;
+    uint32_t wMode;
+    union {
+        uint16_t hwColour;
+        uint32_t wColour;
+    }Foreground;
+    union {
+        uint16_t hwColour;
+        uint32_t wColour;
+    }Background;
+    
+} arm_2d_op_drw_patn_t;
+
+enum {
+    ARM_2D_DRW_PATN_MODE_COPY               =  0,
+    //ARM_2D_DRW_PATN_MODE_FILL             =  _BV(0),
+    //ARM_2D_DRW_PATN_MODE_Y_MIRROR         =  _BV(2),
+    //ARM_2D_DRW_PATN_MODE_X_MIRROR         =  _BV(3),
+    ARM_2D_DRW_PATN_MODE_WITH_BG_COLOR      =  _BV(4),                          //!< do not use given background colour
+    ARM_2D_DRW_PATN_MODE_NO_FG_COLOR        =  _BV(5),                          //!< do not use given foreground colour
+    
+    /*! use complementary colour as foreground colour
+     *! 
+     *! \note this option is only avaialble when ARM_2D_DRW_PATN_MODE_NO_FG_COLOR
+     *!       is used together.
+     */
+    ARM_2D_DRW_PATH_MODE_COMP_FG_COLOUR   =  _BV(6),                          
+};
+
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
 
@@ -131,6 +172,30 @@ arm_fsm_rt_t arm_2d_rgba8888_draw_point(const arm_2d_tile_t *ptTarget,
                                         const arm_2d_location_t tLocation,
                                         uint32_t wColour);
 #endif 
+
+
+/*----------------------------------------------------------------------------*
+ * Draw a bit patterns                                                        *
+ *----------------------------------------------------------------------------*/
+ 
+extern
+ARM_NONNULL(1,2)
+arm_fsm_rt_t arm_2d_rgb16_draw_pattern(  const arm_2d_tile_t *ptPattern,
+                                         const arm_2d_tile_t *ptTarget,
+                                         const arm_2d_region_t *ptRegion,
+                                         uint32_t wMode,
+                                         uint16_t hwForeColour,
+                                         uint16_t hwBackColour);
+
+extern
+ARM_NONNULL(1,2)
+arm_fsm_rt_t arm_2d_rgb32_draw_pattern(  const arm_2d_tile_t *ptPattern,
+                                         const arm_2d_tile_t *ptTarget,
+                                         const arm_2d_region_t *ptRegion,
+                                         uint32_t wMode,
+                                         uint32_t wForeColour,
+                                         uint32_t wBackColour);
+
 /*----------------------------------------------------------------------------*
  * Fill tile with specified colour                                            *
  *----------------------------------------------------------------------------*/

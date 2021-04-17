@@ -147,7 +147,6 @@ typedef arm_2d_op_src_t arm_2d_op_cp_t;
  */
 typedef struct arm_2d_op_cp_cl_msk_t {
     inherit(arm_2d_op_core_t);
-    uint32_t wMode;
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile 
         const arm_2d_region_t   *ptRegion;      //!< target region
@@ -155,6 +154,7 @@ typedef struct arm_2d_op_cp_cl_msk_t {
     struct {
         const arm_2d_tile_t     *ptTile;        //!< source tile 
     }Source;
+    uint32_t wMode;
     union {
         uint16_t hwColour;
         uint32_t wColour;

@@ -32,6 +32,6 @@ extern
 void busy_wheel_init(void);
 
 extern
-void busy_wheel_show(arm_2d_tile_t *ptTarget);
+void busy_wheel_show(const arm_2d_tile_t *ptTarget);
 
 #endif

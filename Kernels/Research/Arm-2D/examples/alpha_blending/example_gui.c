@@ -161,11 +161,14 @@ void example_gui_init(void)
 {
     controls_init();
     
+    arm_2d_tile_t *ptDispBufferTile = platform_disp_buffer_get();
+    assert(NULL != ptDispBufferTile);
     
+    arm_2d_set_default_frame_buffer(ptDispBufferTile);
 
     s_ptRefreshLayers[0].wMode = ARM_2D_CP_MODE_FILL;
 
-    arm_2d_rgb16_fill_colour(s_ptRefreshLayers[1].ptTile, NULL, GLCD_COLOR_RED);
+    //arm_2d_rgb16_fill_colour(s_ptRefreshLayers[1].ptTile, NULL, GLCD_COLOR_RED);
     arm_2d_rgb16_fill_colour(s_ptRefreshLayers[2].ptTile, NULL, GLCD_COLOR_GREEN);
     arm_2d_convert_colour_to_rgb565(&c_tPictureCMSISLogo, &c_tLogoCMSIS);
 
