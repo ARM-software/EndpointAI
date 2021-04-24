@@ -27,6 +27,11 @@ extern "C" {
 #endif
 
 
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#endif
+
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
@@ -46,7 +51,7 @@ extern "C" {
         } s_tPFBs[__PFB_NUM];                                                   \
                                                                                 \
         arm_2d_helper_pfb_cfg_t tCFG = {                                        \
-            .tDisplayArea.tSize = {                                              \
+            .tDisplayArea.tSize = {                                             \
                 .iWidth = (__SCREEN_WIDTH),                                     \
                 .iHeight = (__SCREEN_HEIGHT),                                   \
             },                                                                  \
@@ -65,12 +70,56 @@ extern "C" {
         arm_2d_helper_pfb_init((__CB_ADDR), &tCFG);                             \
     })
 
+#define __IMPL_ARM_2D_REGION_LIST(__NAME, ...)                                  \
+            enum {                                                              \
+                __NAME##_offset = __COUNTER__,                                  \
+            };                                                                  \
+            __VA_ARGS__                                                         \
+            arm_2d_region_list_item_t __NAME[] = {
+            
+            
+#define IMPL_ARM_2D_REGION_LIST(__NAME, ...)                                    \
+            __IMPL_ARM_2D_REGION_LIST(__NAME,##__VA_ARGS__)
+            
+
+#define END_IMPL_ARM_2D_REGION_LIST(...)                                        \
+            };
+            
+#define __ADD_REGION_TO_LIST(__NAME, ...)                                       \
+            {                                                                   \
+                .ptNext = (arm_2d_region_list_item_t *)                         \
+                            &(__NAME[__COUNTER__ - __NAME##_offset]),           \
+                .tRegion = {                                                    \
+                __VA_ARGS__                                                     \
+                },                                                              \
+            }
+            
+#define ADD_REGION_TO_LIST(__NAME, ...)                                         \
+            __ADD_REGION_TO_LIST(__NAME, ##__VA_ARGS__) 
+            
+           
+#define __ADD_LAST_REGION_TO_LIST(__NAME, ...)                                  \
+            {                                                                   \
+                .ptNext = NULL,                                                 \
+                .tRegion = {                                                    \
+                __VA_ARGS__                                                     \
+                },                                                              \
+            }
+            
+#define ADD_LAST_REGION_TO_LIST(__NAME, ...)                                    \
+            __ADD_LAST_REGION_TO_LIST(__NAME, ##__VA_ARGS__) 
+
 /*============================ TYPES =========================================*/
 
 typedef struct arm_2d_pfb_t {
     struct arm_2d_pfb_t *ptNext;
     arm_2d_tile_t tTile;
 }arm_2d_pfb_t;
+
+typedef struct arm_2d_region_list_item_t {
+    struct arm_2d_region_list_item_t *ptNext;
+    arm_2d_region_t tRegion;
+}arm_2d_region_list_item_t;
 
 
 typedef arm_fsm_rt_t arm_2d_helper_draw_handler_t( 
@@ -103,7 +152,8 @@ typedef struct arm_2d_helper_pfb_cfg_t {
         uint32_t       wBufferSize;
         uint16_t       hwPFBNum;
         uint16_t       bDoNOTUpdateDefaultFrameBuffer   : 1;
-        uint16_t                                        : 15;
+        uint16_t       bDisableDynamicFPBSize           : 1;
+        uint16_t                                        : 14;
     } FrameBuffer;
     
     struct {
@@ -126,16 +176,19 @@ ARM_PRIVATE(
     arm_2d_helper_pfb_cfg_t tCFG;
     
     struct {
-        arm_2d_region_t tDrawRegion;
-        arm_2d_region_t tTargetRegion;
-        arm_2d_tile_t   tPFBTile;
-        bool            bFirstIteration;
-        uint8_t         chPT;
-        uint16_t                     : 16;
+        arm_2d_region_t             tDrawRegion;
+        arm_2d_region_t             tTargetRegion;
+        arm_2d_region_list_item_t  *ptDirtyRegion;
+        arm_2d_tile_t               tPFBTile;
+        arm_2d_size_t               tFrameSize;
+        bool                        bFirstIteration;
+        bool                        bIsRegionChanged;
+        uint8_t                     chPT;
+        uint8_t                                    : 8;
         
-        arm_2d_pfb_t   *ptCurrent;
-        arm_2d_pfb_t   *ptFreeList;
-        arm_2d_tile_t  *ptFrameBuffer;
+        arm_2d_pfb_t               *ptCurrent;
+        arm_2d_pfb_t               *ptFreeList;
+        arm_2d_tile_t               *ptFrameBuffer;
     } Adapter;
 )   
 
@@ -158,15 +211,21 @@ arm_2d_err_t arm_2d_helper_pfb_init(arm_2d_helper_pfb_t *ptThis,
 ARM_NONNULL(1)
 extern
 arm_fsm_rt_t arm_2d_helper_pfb_task(arm_2d_helper_pfb_t *ptThis, 
-                                    arm_2d_region_t *ptPartialRefreshArea);
+                                    arm_2d_region_list_item_t *ptDirtyRegions);
 
 ARM_NONNULL(1,2)
 extern
 void arm_2d_helper_report_rendering_complete(arm_2d_helper_pfb_t *ptThis,
                                              arm_2d_pfb_t *ptPFB);
 
+#if defined(__clang__)
+#   pragma clang diagnostic pop
+#endif
+
 #ifdef   __cplusplus
 }
 #endif
+
+
 
 #endif

@@ -33,6 +33,7 @@
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wimplicit-fallthrough"
+#   pragma clang diagnostic ignored "-Wundef"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -204,6 +205,29 @@ void __arm_2d_helper_low_level_rendering(arm_2d_helper_pfb_t *ptThis)
 }
 
 
+static bool __arm_2d_helper_pfb_get_next_dirty_region(arm_2d_helper_pfb_t *ptThis)
+{
+    if (NULL == this.Adapter.ptDirtyRegion) {
+        //! no dirty region list
+        this.Adapter.bFirstIteration = true;
+        
+        return false;
+    } 
+    
+    this.Adapter.ptDirtyRegion = this.Adapter.ptDirtyRegion->ptNext;
+    
+    if (NULL == this.Adapter.ptDirtyRegion) {
+        //! reach last item in a chain
+        this.Adapter.bFirstIteration = true;
+        
+        return false;
+    } else {
+        this.Adapter.bIsRegionChanged = true;
+    }
+    
+    return true;
+}
+
 /*! \brief begin a iteration of drawing and request a frame buffer from 
  *!        low level display driver.
  *! \param ptTargetRegion the address of the target region in the LCD
@@ -215,8 +239,8 @@ void __arm_2d_helper_low_level_rendering(arm_2d_helper_pfb_t *ptThis)
  */
 static 
 arm_2d_tile_t * __arm_2d_helper_pfb_drawing_iteration_begin(
-                                                arm_2d_helper_pfb_t *ptThis,
-                                                arm_2d_region_t *ptTargetRegion)
+                                    arm_2d_helper_pfb_t *ptThis,
+                                    arm_2d_region_list_item_t *ptDirtyRegions)
 { 
     arm_irq_safe {
         ARM_LIST_STACK_POP(this.Adapter.ptFreeList, this.Adapter.ptCurrent);
@@ -231,22 +255,75 @@ arm_2d_tile_t * __arm_2d_helper_pfb_drawing_iteration_begin(
     
     
     if (this.Adapter.bFirstIteration) {
-        
-        if (NULL != ptTargetRegion) {
-            
-            //! calculate the valid region
-            if (!arm_2d_region_intersect(   &this.tCFG.tDisplayArea, 
-                                            ptTargetRegion, 
-                                            &this.Adapter.tTargetRegion)) {
-                //! out of lcd 
-                return (arm_2d_tile_t *)-1;
-            }
-        } else {
-            this.Adapter.tTargetRegion = this.tCFG.tDisplayArea;
-        }
-        
+        this.Adapter.ptDirtyRegion = ptDirtyRegions;
         this.Adapter.bFirstIteration = false;
+        this.Adapter.bIsRegionChanged = true;
     }
+    
+    
+    do {
+        if (this.Adapter.bIsRegionChanged) {
+        
+            this.Adapter.bIsRegionChanged = false;
+            
+            
+        
+            if (NULL != this.Adapter.ptDirtyRegion) { 
+                //! calculate the valid region
+                if (!arm_2d_region_intersect(   &this.tCFG.tDisplayArea, 
+                                                &(this.Adapter.ptDirtyRegion->tRegion), 
+                                                &this.Adapter.tTargetRegion)) {
+                                                
+                    if (__arm_2d_helper_pfb_get_next_dirty_region(ptThis)) {
+                        //! try next region
+                        continue;
+                    }
+                    //! out of lcd 
+                    return (arm_2d_tile_t *)-1;
+                }
+            } else {
+                this.Adapter.tTargetRegion = this.tCFG.tDisplayArea;
+            }
+
+        #if __ARM_ARCH == 6 || __TARGET_ARCH_THUMB == 3
+            //! reset adapter frame size
+            this.Adapter.tFrameSize = this.tCFG.FrameBuffer.tFrameSize;
+        #else
+            if (this.tCFG.FrameBuffer.bDisableDynamicFPBSize) {
+                //! reset adapter frame size
+                this.Adapter.tFrameSize = this.tCFG.FrameBuffer.tFrameSize;
+
+            } else {                                                            //!< update PFB size
+                uint32_t wTargetPixelCount 
+                    = this.Adapter.tTargetRegion.tSize.iWidth
+                    * this.Adapter.tTargetRegion.tSize.iHeight;
+                
+                uint32_t wPFBPixelCount
+                    = this.tCFG.FrameBuffer.tFrameSize.iWidth
+                    * this.tCFG.FrameBuffer.tFrameSize.iHeight;
+                        
+                if (    (wTargetPixelCount <= wPFBPixelCount)
+                   ||   (   this.Adapter.tTargetRegion.tSize.iWidth 
+                        <   this.tCFG.FrameBuffer.tFrameSize.iWidth)) {
+                    //! redefine the shape of PFB
+                    
+                    this.Adapter.tFrameSize.iWidth 
+                        = this.Adapter.tTargetRegion.tSize.iWidth;
+                        
+                    this.Adapter.tFrameSize.iHeight = (int16_t)(
+                            wPFBPixelCount 
+                        /   (uint32_t)this.Adapter.tTargetRegion.tSize.iWidth);
+                
+                } else {
+                    //! reset adapter frame size
+                    this.Adapter.tFrameSize = this.tCFG.FrameBuffer.tFrameSize;
+                }
+            } 
+        #endif
+        }
+        break;
+    } while(true);
+    
     
     arm_2d_region_t tTempRegion = {
         .tSize = this.tCFG.tDisplayArea.tSize,
@@ -260,11 +337,11 @@ arm_2d_tile_t * __arm_2d_helper_pfb_drawing_iteration_begin(
     
     
     ptPartialFrameBuffer->tRegion.tSize.iWidth 
-        = MIN(  this.tCFG.FrameBuffer.tFrameSize.iWidth, 
+        = MIN(  this.Adapter.tFrameSize.iWidth, 
                 this.Adapter.tTargetRegion.tSize.iWidth 
             -   this.Adapter.tDrawRegion.tLocation.iX);
     ptPartialFrameBuffer->tRegion.tSize.iHeight 
-        = MIN(  this.tCFG.FrameBuffer.tFrameSize.iHeight, 
+        = MIN(  this.Adapter.tFrameSize.iHeight, 
                 this.Adapter.tTargetRegion.tSize.iHeight 
             -   this.Adapter.tDrawRegion.tLocation.iY);
             
@@ -283,6 +360,8 @@ arm_2d_tile_t * __arm_2d_helper_pfb_drawing_iteration_begin(
 
     return (arm_2d_tile_t *)&(this.Adapter.tPFBTile);
 }
+
+
 
 /*! \brief end a drawing iteration and decide wether a new iteration is required
  *!        or not based on the return value
@@ -314,8 +393,9 @@ bool __arm_2d_helper_pfb_drawing_iteration_end(arm_2d_helper_pfb_t *ptThis)
             >=  this.Adapter.tTargetRegion.tSize.iHeight) {
             //! finished
             this.Adapter.tDrawRegion.tLocation.iY = 0;
-            this.Adapter.bFirstIteration = true;
-            return false;
+
+            return __arm_2d_helper_pfb_get_next_dirty_region(ptThis);
+            
         }
     }
 
@@ -349,7 +429,7 @@ void arm_2d_helper_report_rendering_complete(arm_2d_helper_pfb_t *ptThis,
 }
 
 arm_fsm_rt_t arm_2d_helper_pfb_task(arm_2d_helper_pfb_t *ptThis, 
-                                    arm_2d_region_t *ptPartialRefreshArea) 
+                                    arm_2d_region_list_item_t *ptDirtyRegions) 
 {   
     assert(NULL != ptThis);
     assert(NULL != this.tCFG.Dependency.evtOnDrawing.fnHandler);
@@ -398,7 +478,7 @@ ARM_PT_BEGIN(this.Adapter.chPT)
             this.Adapter.ptFrameBuffer = 
                 __arm_2d_helper_pfb_drawing_iteration_begin( 
                                                         ptThis, 
-                                                        ptPartialRefreshArea);
+                                                        ptDirtyRegions);
             if (NULL == this.Adapter.ptFrameBuffer) {
                 if (NULL != this.tCFG.Dependency.evtOnLowLevelSyncUp.fnHandler){
                      //!wait until lcd is ready
@@ -440,3 +520,7 @@ ARM_PT_END(this.Adapter.chPT)
     
     return arm_fsm_rt_cpl;
 }       
+
+#if defined(__clang__)
+#   pragma clang diagnostic pop
+#endif

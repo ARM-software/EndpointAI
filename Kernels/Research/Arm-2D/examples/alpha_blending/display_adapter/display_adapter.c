@@ -29,7 +29,6 @@
 #endif
 
 /*============================ MACROS ========================================*/
-#if 0
 #if defined(__STDC_VERSION__) && __STDC_VERSION__>=201112L
 //! C11
 static_assert(  APP_SCREEN_WIDTH <= GLCD_WIDTH, 
@@ -38,7 +37,7 @@ static_assert(  APP_SCREEN_WIDTH <= GLCD_WIDTH,
 static_assert(  APP_SCREEN_HEIGHT <= GLCD_HEIGHT, 
                 "APP_SCREEN_HEIGHT should be no larger than GLCD_HEIGHT");
 #endif
-#endif
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/

@@ -19,7 +19,6 @@
 /*============================ INCLUDES ======================================*/
 #include <stdio.h>
 #include "platform.h"
-#include "./display_adapter/display_adapter.h"
 #include "arm_2d_helper.h"
 #include "example_gui.h"
 
@@ -59,10 +58,38 @@ static ARM_NOINIT arm_2d_helper_pfb_t s_tExamplePFB;
 
 void display_task(void) 
 {  
+            
+
+IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions, static const)
+    
+    ADD_REGION_TO_LIST(s_tDirtyRegions,
+        .tLocation = {(APP_SCREEN_WIDTH - 80) / 2,
+                      (APP_SCREEN_HEIGHT - 80) / 2},
+        .tSize = {
+            .iWidth = 80,
+            .iHeight = 80,  
+        },
+    ),
+    
+    ADD_LAST_REGION_TO_LIST(s_tDirtyRegions,
+        .tLocation = {0,APP_SCREEN_HEIGHT - 8},
+        .tSize = {
+            .iWidth = APP_SCREEN_WIDTH,
+            .iHeight = 8,  
+        },
+    ),
+
+END_IMPL_ARM_2D_REGION_LIST()
+            
+
+/*! define the partial-flushing area */
+
     example_gui_do_events();
 
     //! call partial framebuffer helper service
-    while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task( &s_tExamplePFB, NULL));
+    while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task( 
+                                &s_tExamplePFB, 
+                                (arm_2d_region_list_item_t *)s_tDirtyRegions));
                                         
     //! update performance info
     do {
