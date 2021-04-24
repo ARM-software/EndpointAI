@@ -55,12 +55,12 @@ void __ARM_2D_FUNC(draw_pattern_fg_only)(uint8_t *__RESTRICT pchSourceBase,
     //! get in byte offset
     iOffset &= 0x07;
     iSourceStride = (iSourceStride + 7) & ~0x07;
-    uint8_t chBitMask = _BV(iOffset);
     
     for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
         
         uint8_t *__RESTRICT pchSrc = pchSourceBase;
         __API_INT_TYPE * __RESTRICT pTarget = pTargetBase;
+        uint8_t chBitMask = _BV(iOffset);
         
         for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++) {
             
@@ -75,7 +75,7 @@ void __ARM_2D_FUNC(draw_pattern_fg_only)(uint8_t *__RESTRICT pchSourceBase,
                 pchSrc++;
             }
         }
-        chBitMask = 1;
+        //chBitMask = 1;
         
         pchSourceBase += (iSourceStride >> 3);
         pTargetBase += iTargetStride;
@@ -94,12 +94,12 @@ void __ARM_2D_FUNC(draw_pattern_no_bg_comp)(
     //! get in byte offset
     iOffset &= 0x07;
     iSourceStride = (iSourceStride + 7) & ~0x07;
-    uint8_t chBitMask = _BV(iOffset);
     
     for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
         
         uint8_t *__RESTRICT pchSrc = pchSourceBase;
         __API_INT_TYPE * __RESTRICT pTarget = pTargetBase;
+        uint8_t chBitMask = _BV(iOffset);
         
         for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++) {
             
@@ -133,12 +133,12 @@ void __ARM_2D_FUNC(draw_pattern_bg_only)(   uint8_t *__RESTRICT pchSourceBase,
     //! get in byte offset
     iOffset &= 0x07;
     iSourceStride = (iSourceStride + 7) & ~0x07;
-    uint8_t chBitMask = _BV(iOffset);
-    
+
     for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
         
         uint8_t *__RESTRICT pchSrc = pchSourceBase;
         __API_INT_TYPE * __RESTRICT pTarget = pTargetBase;
+        uint8_t chBitMask = _BV(iOffset);
         
         for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++) {
             
@@ -174,12 +174,12 @@ void __ARM_2D_FUNC(draw_pattern_bg_fg)( uint8_t *__RESTRICT pchSourceBase,
     //! get in byte offset
     iOffset &= 0x07;
     iSourceStride = (iSourceStride + 7) & ~0x07;
-    uint8_t chBitMask = _BV(iOffset);
     
     for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
         
         uint8_t *__RESTRICT pchSrc = pchSourceBase;
         __API_INT_TYPE * __RESTRICT pTarget = pTargetBase;
+        uint8_t chBitMask = _BV(iOffset);
         
         for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++) {
             
@@ -214,12 +214,12 @@ void __ARM_2D_FUNC(draw_pattern_bg_comp)(   uint8_t *__RESTRICT pchSourceBase,
     //! get in byte offset
     iOffset &= 0x07;
     iSourceStride = (iSourceStride + 7) & ~0x07;
-    uint8_t chBitMask = _BV(iOffset);
     
     for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
         
         uint8_t *__RESTRICT pchSrc = pchSourceBase;
         __API_INT_TYPE * __RESTRICT pTarget = pTargetBase;
+        uint8_t chBitMask = _BV(iOffset);
         
         for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++) {
             
