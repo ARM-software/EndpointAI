@@ -24,7 +24,6 @@
 #include <stdarg.h>
 #include "platform.h"
 #include "app_cfg.h"
-#include "../display_adapter/display_adapter.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

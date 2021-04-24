@@ -41,6 +41,7 @@
 /*! \note FPB Size
  *!         8 * 8     128B
  *!        16 * 16    512B
+ *!        48 * 8     768B
  *!        20 * 20    800B
  *!        24 * 24   1152B
  *!        32 * 32      2K
@@ -49,8 +50,8 @@
  *!       480 * 4    3840B
  *!       480 * 8    7680B
  */
-#define PBF_BLOCK_WIDTH         GLCD_WIDTH
-#define PBF_BLOCK_HEIGHT        1
+#define PBF_BLOCK_WIDTH         48
+#define PBF_BLOCK_HEIGHT        8
 
 #define BUSY_WHEEL_SPIN_SPEED   100
 
