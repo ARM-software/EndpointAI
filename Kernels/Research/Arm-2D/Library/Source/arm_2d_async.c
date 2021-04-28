@@ -61,6 +61,13 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wswitch-enum"
 #   pragma clang diagnostic ignored "-Wswitch"
 #   pragma clang diagnostic ignored "-Wimplicit-fallthrough"
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wswitch"
+#   pragma GCC diagnostic ignored "-Wenum-compare"
+#   pragma GCC diagnostic ignored "-Wpedantic"
+#elif __IS_COMPILER_ARM_COMPILER_5__
+#   pragma diag_suppress 174,177,188,68,513,144
 #endif
 
 /*============================ MACROS ========================================*/
@@ -748,6 +755,10 @@ void __arm_2d_async_init(void)
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic pop
+#elif __IS_COMPILER_ARM_COMPILER_5__
+#   pragma diag_warning 174,177,188,68,513,144
 #endif
 
 #ifdef   __cplusplus

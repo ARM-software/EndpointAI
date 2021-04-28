@@ -34,6 +34,9 @@
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wimplicit-fallthrough"
 #   pragma clang diagnostic ignored "-Wundef"
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wpedantic"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -356,7 +359,8 @@ arm_2d_tile_t * __arm_2d_helper_pfb_drawing_iteration_begin(
         arm_2d_set_default_frame_buffer(&this.Adapter.tPFBTile);
     }
     
-    arm_2d_rgb16_fill_colour(&this.Adapter.tPFBTile, NULL, 0);
+    //! uncomment this when necessary for debug purpose
+    //arm_2d_rgb16_fill_colour(&this.Adapter.tPFBTile, NULL, 0);
 
     return (arm_2d_tile_t *)&(this.Adapter.tPFBTile);
 }
@@ -415,8 +419,8 @@ __WEAK int32_t arm_2d_helper_perf_counter_stop(void)
 
 
 ARM_NONNULL(1,2)
-void arm_2d_helper_report_rendering_complete(arm_2d_helper_pfb_t *ptThis,
-                                             arm_2d_pfb_t *ptPFB)
+void arm_2d_helper_pfb_report_rendering_complete(arm_2d_helper_pfb_t *ptThis,
+                                                 arm_2d_pfb_t *ptPFB)
 {
     assert(NULL != ptThis);
     assert(NULL != ptPFB);
@@ -427,6 +431,37 @@ void arm_2d_helper_report_rendering_complete(arm_2d_helper_pfb_t *ptThis,
         ARM_LIST_STACK_PUSH(this.Adapter.ptFreeList, ptPFB);
     }
 }
+
+
+ARM_NONNULL(1,3)
+arm_2d_err_t arm_2d_helper_pfb_update_dependency(
+                            arm_2d_helper_pfb_t *ptThis, 
+                            uint_fast8_t chMask,
+                            const arm_2d_helper_pfb_dependency_t *ptDependency)
+{
+    assert(NULL != ptThis);
+    assert(NULL != ptDependency);
+    
+    arm_irq_safe {
+        if (chMask & ARM_2D_PFB_DEPEND_ON_LOW_LEVEL_RENDERING) {
+            this.tCFG.Dependency.evtOnLowLevelRendering 
+                = ptDependency->evtOnLowLevelRendering;
+        }
+        
+        if (chMask & ARM_2D_PFB_DEPEND_ON_DRAWING) {
+            this.tCFG.Dependency.evtOnDrawing 
+                = ptDependency->evtOnDrawing;
+        }
+        
+        if (chMask & ARM_2D_PFB_DEPEND_ON_LOW_LEVEL_SYNC_UP) {
+            this.tCFG.Dependency.evtOnLowLevelSyncUp 
+                = ptDependency->evtOnLowLevelSyncUp;
+        }
+    }
+    
+    return ARM_2D_ERR_NONE;
+}
+
 
 arm_fsm_rt_t arm_2d_helper_pfb_task(arm_2d_helper_pfb_t *ptThis, 
                                     arm_2d_region_list_item_t *ptDirtyRegions) 
@@ -523,4 +558,6 @@ ARM_PT_END(this.Adapter.chPT)
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic pop
 #endif

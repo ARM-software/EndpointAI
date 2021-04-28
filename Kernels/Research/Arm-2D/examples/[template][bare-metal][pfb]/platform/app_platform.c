@@ -41,14 +41,24 @@ extern void _ttywrch(int ch);
 __WEAK
 void platform_1ms_event_handler(void);
 
+
+__OVERRIDE_WEAK
 void SysTick_Handler(void)
 {
     platform_1ms_event_handler();
+    
+#if __IS_COMPILER_GCC__
+    extern void HAL_IncTick(void);
+    HAL_IncTick();
+    
+    extern void user_code_insert_to_systick_handler(void);
+    user_code_insert_to_systick_handler();
+#endif
 }
 
 void delay_ms(uint32_t wMS)
 {
-    platform_delay_ms(wMS);
+    //platform_delay_ms(wMS);
 }
 
 
@@ -59,7 +69,7 @@ bool device_specific_init(void)
 }
 
 __attribute__((used, constructor(255)))
-static void app_platform_init(void)
+void app_platform_init(void)
 {
     init_cycle_counter(device_specific_init());
 

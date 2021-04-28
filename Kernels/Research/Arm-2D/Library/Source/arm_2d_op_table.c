@@ -52,6 +52,8 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wimplicit-int-conversion"
 #   pragma clang diagnostic ignored "-Wtautological-pointer-compare"
 #   pragma clang diagnostic ignored "-Wsign-compare"
+#elif __IS_COMPILER_ARM_COMPILER_5__
+#   pragma diag_suppress 174,177,188,68,513,144
 #endif
 
 const __arm_2d_op_info_t ARM_2D_OP_TABLE[__ARM_2D_OP_NUMBER] = {
@@ -442,6 +444,8 @@ const struct __arm_2d_io_table __ARM_2D_IO_TABLE = {
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
+#elif __IS_COMPILER_ARM_COMPILER_5__
+#   pragma diag_warning 174,177,188,68,513,144
 #endif
 
 #ifdef   __cplusplus

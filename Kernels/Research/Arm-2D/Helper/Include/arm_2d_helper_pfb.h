@@ -141,6 +141,22 @@ typedef struct arm_2d_helper_draw_evt_t {
 } arm_2d_helper_draw_evt_t;
 
 
+enum {
+    ARM_2D_PFB_DEPEND_ON_LOW_LEVEL_RENDERING    = _BV(0),
+    ARM_2D_PFB_DEPEND_ON_DRAWING                = _BV(1),
+    ARM_2D_PFB_DEPEND_ON_LOW_LEVEL_SYNC_UP      = _BV(2),
+};
+
+typedef struct arm_2d_helper_pfb_dependency_t {
+    //! event handler for low level rendering
+    arm_2d_helper_render_evt_t  evtOnLowLevelRendering;                           
+
+    //!< event handler for drawing GUI
+    arm_2d_helper_draw_evt_t    evtOnDrawing;  
+
+    //!< low level rendering handler wants to sync-up (return arm_fsm_rt_wait_for_obj)
+    arm_2d_evt_t                evtOnLowLevelSyncUp;     
+} arm_2d_helper_pfb_dependency_t;
 
 typedef struct arm_2d_helper_pfb_cfg_t {
 
@@ -156,16 +172,7 @@ typedef struct arm_2d_helper_pfb_cfg_t {
         uint16_t                                        : 14;
     } FrameBuffer;
     
-    struct {
-        //! event handler for low level rendering
-        arm_2d_helper_render_evt_t  evtOnLowLevelRendering;                           
-        
-        //!< event handler for drawing GUI
-        arm_2d_helper_draw_evt_t    evtOnDrawing;  
-
-        //!< low level rendering handler wants to sync-up (return arm_fsm_rt_wait_for_obj)
-        arm_2d_evt_t                evtOnLowLevelSyncUp;                              
-    } Dependency;
+    arm_2d_helper_pfb_dependency_t Dependency;
 
 } arm_2d_helper_pfb_cfg_t;
 
@@ -212,11 +219,20 @@ ARM_NONNULL(1)
 extern
 arm_fsm_rt_t arm_2d_helper_pfb_task(arm_2d_helper_pfb_t *ptThis, 
                                     arm_2d_region_list_item_t *ptDirtyRegions);
+                                    
+
+ARM_NONNULL(1,3)
+extern
+arm_2d_err_t arm_2d_helper_pfb_update_dependency(
+                            arm_2d_helper_pfb_t *ptThis, 
+                            uint_fast8_t chMask,
+                            const arm_2d_helper_pfb_dependency_t *ptDependency);
+
 
 ARM_NONNULL(1,2)
 extern
-void arm_2d_helper_report_rendering_complete(arm_2d_helper_pfb_t *ptThis,
-                                             arm_2d_pfb_t *ptPFB);
+void arm_2d_helper_pfb_report_rendering_complete(   arm_2d_helper_pfb_t *ptThis,
+                                                    arm_2d_pfb_t *ptPFB);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

@@ -54,6 +54,11 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wtautological-pointer-compare"
 #   pragma clang diagnostic ignored "-Wsign-compare"
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
+#elif __IS_COMPILER_ARM_COMPILER_5__
+#   pragma diag_suppress 174,177,188,68,513,144
 #endif
 
 
@@ -230,7 +235,7 @@ void __arm_2d_impl_rgb32_fill_colour_masking(
                                         uint32_t * __RESTRICT pTargetBase,
                                         int16_t iTargetStride,
                                         arm_2d_size_t * __RESTRICT ptTargetSize,
-                                        uint_fast32_t wColour);
+                                        uint32_t wColour);
 
                                         
 /*----------------------------------------------------------------------------*
@@ -1117,7 +1122,8 @@ __WEAK void __arm_2d_impl_rgb16_fill_colour_masking(
                                                     hwColour);
 }
 
-__WEAK void __arm_2d_impl_rgb32_fill_colour_masking(
+__WEAK 
+void __arm_2d_impl_rgb32_fill_colour_masking(
                                         uint32_t * __RESTRICT pSourceBase,
                                         int16_t iSourceStride,
                                         arm_2d_size_t * __RESTRICT ptSourceSize,
@@ -1147,6 +1153,10 @@ __WEAK void __arm_2d_impl_rgb32_fill_colour_masking(
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic pop
+#elif __IS_COMPILER_ARM_COMPILER_5__
+#   pragma diag_warning 174,177,188,68,513,144
 #endif
 
 #ifdef   __cplusplus

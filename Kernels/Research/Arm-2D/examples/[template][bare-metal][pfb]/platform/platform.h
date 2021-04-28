@@ -75,6 +75,8 @@ extern const GLCD_FONT    GLCD_Font_6x8;
 extern uint32_t SystemCoreClock;
 /*============================ PROTOTYPES ====================================*/
 
+extern void app_platform_init(void);
+
 extern void delay_ms(uint32_t wMS);
 
 extern

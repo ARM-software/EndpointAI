@@ -20,7 +20,7 @@
 
 ## Features of the Arm-2D Library
 
-#### In this release ( ver0.9.0 )
+#### In this release ( ver0.9.3 )
 
 The Arm-2D library provides **Low-Level 2D Image Processing Services** that are mainly used in **Display system**. Those servers include but not limited to:
 
@@ -391,7 +391,7 @@ const struct __arm_2d_io_table __ARM_2D_IO_TABLE = {
 
 ### 5.2 The Temporary Limitations
 
-- The library currently is developed and validated using Arm Compiler 6. 
+- The library currently is developed and validated using Arm Compiler 6, Arm Compiler 5 and GCC.
 - The library currently can only be used in the C environment. C++ support will be added later.
 - The library currently only supports two specific colours, i.e. **RGB565** and **RGB888**
 - Anti-aliasing algorithms haven't been implemented yet.

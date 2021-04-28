@@ -53,6 +53,8 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wimplicit-float-conversion"
 #   pragma clang diagnostic ignored "-Wimplicit-int-conversion"
 #   pragma clang diagnostic ignored "-Wtautological-pointer-compare"
+#elif __IS_COMPILER_ARM_COMPILER_5__
+#   pragma diag_suppress 174,177,188,68,513,144
 #endif
 
 /*============================ MACROS ========================================*/
@@ -221,9 +223,10 @@ arm_fsm_rt_t __arm_2d_sw_alpha_blending(__arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_alpha_t, ptTask->ptOP)
 
-    if (    ptTask->Param.tCopy.iSourceStride
-        ==  ptTask->Param.tCopy.iTargetStride
-        ==  ptTask->Param.tCopy.tCopySize.iWidth) {
+    if (   (ptTask->Param.tCopy.iSourceStride
+        ==  ptTask->Param.tCopy.iTargetStride)
+        && (ptTask->Param.tCopy.iSourceStride
+        ==  ptTask->Param.tCopy.tCopySize.iWidth)) {
 
         //! direct blending
         switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
@@ -360,6 +363,7 @@ arm_fsm_rt_t __arm_2d_sw_colour_filling_with_alpha(
  * Draw a point whose cordinates is stored as float point.                    *
  *----------------------------------------------------------------------------*/
 
+#if 0
 static arm_2d_region_t *__arm_2d_calculate_region(  const arm_2d_point_float_t *ptLocation,
                                                     arm_2d_region_t *ptRegion)
 {
@@ -389,6 +393,7 @@ static arm_2d_region_t *__arm_2d_calculate_region(  const arm_2d_point_float_t *
 
     return ptRegion;
 }
+#endif
 
 
 /*----------------------------------------------------------------------------*
@@ -718,6 +723,8 @@ void __arm_2d_impl_rgb888_alpha_blending_direct(const uint32_t *pwSource,
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
+#elif __IS_COMPILER_ARM_COMPILER_5__
+#   pragma diag_warning 174,177,188,68,513,144
 #endif
 
 #ifdef   __cplusplus

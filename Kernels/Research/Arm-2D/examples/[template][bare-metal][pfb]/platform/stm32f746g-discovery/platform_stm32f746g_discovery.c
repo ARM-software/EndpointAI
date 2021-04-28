@@ -55,6 +55,7 @@ static void Error_Handler(void)
     /* USER CODE END Error_Handler_Debug */
 }
 
+#if !__IS_COMPILER_GCC__
 extern void $Super$$platform_1ms_event_handler(void);
 
 void $Sub$$platform_1ms_event_handler(void)
@@ -63,6 +64,7 @@ void $Sub$$platform_1ms_event_handler(void)
     
     $Super$$platform_1ms_event_handler();
 }
+#endif
 
 __OVERRIDE_WEAK 
 bool device_specific_init(void)

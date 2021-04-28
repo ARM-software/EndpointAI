@@ -43,6 +43,9 @@ extern "C" {
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -726,6 +729,8 @@ typedef struct arm_2d_rgb32_cl_msk_paving_fct_t {
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic pop
 #endif
 
 

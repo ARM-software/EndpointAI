@@ -37,6 +37,9 @@ extern "C" {
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 //#   pragma clang diagnostic ignored "-Wpadded"
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wpedantic"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -298,10 +301,19 @@ extern "C" {
 #define ARM_PIX_VECTYP(sz)     ARM_CONNECT2(vec_rgb,sz)
 
 #undef arm_irq_safe
+
+#if __IS_COMPILER_GCC__
+
+#define arm_irq_safe                                                            \
+            arm_using(  uint32_t ARM_CONNECT2(temp,__LINE__) =                  \
+                        ({uint32_t temp=__get_PRIMASK();__disable_irq();temp;}),\
+                        __set_PRIMASK(ARM_CONNECT2(temp,__LINE__))) 
+#else
+
 #define arm_irq_safe                                                            \
             arm_using(  uint32_t ARM_CONNECT2(temp,__LINE__) = __disable_irq(), \
                         __set_PRIMASK(ARM_CONNECT2(temp,__LINE__)))  
-
+#endif
 
 
 /*----------------------------------------------------------------------------*
@@ -386,6 +398,8 @@ struct __arm_slist_node_t {
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic pop
 #endif
 
 #ifdef   __cplusplus

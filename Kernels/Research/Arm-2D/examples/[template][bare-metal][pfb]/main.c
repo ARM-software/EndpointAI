@@ -33,6 +33,10 @@
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wunused-variable"
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wformat="
+#   pragma GCC diagnostic ignored "-Wpedantic"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -158,8 +162,8 @@ static void __pfb_render_handler( void *pTarget, const arm_2d_pfb_t *ptPFB)
                     ptTile->tRegion.tSize.iHeight,
                     ptTile->pchBuffer);
                     
-    arm_2d_helper_report_rendering_complete(&s_tExamplePFB, 
-                                            (arm_2d_pfb_t *)ptPFB);
+    arm_2d_helper_pfb_report_rendering_complete(&s_tExamplePFB, 
+                                                (arm_2d_pfb_t *)ptPFB);
 }
 
 
@@ -169,6 +173,10 @@ static void __pfb_render_handler( void *pTarget, const arm_2d_pfb_t *ptPFB)
  *----------------------------------------------------------------------------*/
 int main (void) 
 {
+#if __IS_COMPILER_GCC__
+    app_platform_init();
+#endif
+
     arm_irq_safe {
         arm_2d_init();
         /* put your code here */

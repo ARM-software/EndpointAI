@@ -129,8 +129,8 @@ static void __pfb_render_handler( void *pTarget, const arm_2d_pfb_t *ptPFB)
                     ptTile->tRegion.tSize.iHeight,
                     ptTile->pchBuffer);
                     
-    arm_2d_helper_report_rendering_complete(&s_tExamplePFB, 
-                                            (arm_2d_pfb_t *)ptPFB);
+    arm_2d_helper_pfb_report_rendering_complete(&s_tExamplePFB, 
+                                                (arm_2d_pfb_t *)ptPFB);
 }
 
 

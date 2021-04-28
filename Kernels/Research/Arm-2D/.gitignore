@@ -21,3 +21,5 @@ examples/tile_operation/Out/tile_operation.htm
 *.tmp
 *._ia
 *.dbgconf
+*.crf
+*.elf

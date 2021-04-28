@@ -29,13 +29,20 @@
 #endif
 
 /*============================ MACROS ========================================*/
+
+
 #if defined(__STDC_VERSION__) && __STDC_VERSION__>=201112L
+
+#if !(__IS_COMPILER_ARM_COMPILER_6__ && __ARMCC_VERSION < 6160001)
+
 //! C11
 static_assert(  APP_SCREEN_WIDTH <= GLCD_WIDTH, 
                 "APP_SCREEN_WIDTH should be no larger than GLCD_WIDTH");
 
 static_assert(  APP_SCREEN_HEIGHT <= GLCD_HEIGHT, 
                 "APP_SCREEN_HEIGHT should be no larger than GLCD_HEIGHT");
+                
+#endif
 #endif
 
 /*============================ MACROFIED FUNCTIONS ===========================*/

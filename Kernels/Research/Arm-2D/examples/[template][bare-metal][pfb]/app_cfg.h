@@ -22,9 +22,6 @@
 /*============================ INCLUDES ======================================*/
 #include <assert.h>
 
-#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 201112L
-#   error This demo requires C11. 
-#endif
 #if !defined(__GNUC__)
 #   error This demo requires GNU extensions
 #endif
