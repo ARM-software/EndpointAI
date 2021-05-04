@@ -362,6 +362,7 @@ Colour-masking is a commonly used scheme to implement non-rectangular UI element
 | **Parameter**    | const arm_2d_tile_t * **ptTarget**            | The target tile address                                      |
 | **Parameter**    | const arm_2d_region_t * **ptRegion**          | The relative region inside the target tile                   |
 | **Parameter**    | uint16_t **hwMaskColour**                     | The colour used to mask the unwanted part in the source tile |
+| **Parameter**    | uint32_t ***wMode***                          | The mode of the copy, please refer to the copy mode description for more details. |
 | **Return Value** | < 0 or **arm_fsm_rt_err** (-1)                | Error code                                                   |
 | **Return Value** | **arm_fsm_rt_cpl** (0)                        | Operation **completed**                                      |
 | **Return Value** | **arm_fsm_rt_on_going** (1)                   | Operation is **on-going**, and you have to keep calling this function until another value is returned.  This usually means that the function is working/implemented in **synchronous mode**. For more, please refer to [Introduction.md](./Introduction.md). |
@@ -382,6 +383,7 @@ The behaviour of function **arm_2d_rbg16_tile_copy_with_mask_colour** is illustr
 | **Parameter**    | const arm_2d_tile_t * ***ptTarget***          | The target tile address                                      |
 | **Parameter**    | const arm_2d_region_t * ***ptRegion***        | The relative region inside the target tile                   |
 | **Parameter**    | uint16_t ***hwMaskColour***                   | The colour used to mask the unwanted part in the source tile |
+| **Parameter**    | uint32_t ***wMode***                          | The mode of the copy, please refer to the copy mode description for more details. |
 | **Return Value** | < 0 or ***arm_fsm_rt_err*** (-1)              | Error code                                                   |
 | **Return Value** | ***arm_fsm_rt_cpl*** (0)                      | Operation **completed**                                      |
 | **Return Value** | ***arm_fsm_rt_on_going*** (1)                 | Operation is **on-going**, and you have to keep calling this function until another value is returned.  This usually means that the function is working/implemented in **synchronous mode**. For more, please refer to [Introduction.md](./Introduction.md). |

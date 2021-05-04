@@ -42,7 +42,10 @@ extern "C" {
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#   pragma clang diagnostic ignored "-Wmissing-declarations"
 //#   pragma clang diagnostic ignored "-Wpadded"
+#elif __IS_COMPILER_ARM_COMPILER_5__
+#   pragma diag_suppress 174,177,188,68,513,144,64
 #elif __IS_COMPILER_GCC__
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wunused-value"
@@ -108,6 +111,8 @@ enum {
     __ARM_2D_OP_IDX_DRAW_PATTERN,
     
     __ARM_2D_OP_IDX_COLOUR_FORMAT_CONVERSION,
+    
+    __ARM_2D_OP_IDX_ROTATE,
     /*------------ cmsisi-2d operation idx end --------------*/
 };
 //! @}
@@ -142,6 +147,8 @@ enum {
     __ARM_2D_IO_COLOUR_CONVERT_TO_RGB565,
     __ARM_2D_IO_COLOUR_CONVERT_TO_RGB888,
     
+    __ARM_2D_IO_ROTATE,
+    
     /*------------ arm-2d operation idx end ----------------*/
     __ARM_2D_IO_NUMBER,
     __ARM_2D_IO_DEFAULT_COPY = __ARM_2D_IO_COPY,
@@ -175,6 +182,9 @@ enum {
     
     ARM_2D_OP_CONVERT_TO_RGB565,
     ARM_2D_OP_CONVERT_TO_RGB888,
+    
+    ARM_2D_OP_ROTATE_RGB565,
+    ARM_2D_OP_ROTATE_RGB888,
 
     __ARM_2D_OP_NUMBER,
 };
@@ -200,35 +210,38 @@ ARM_PRIVATE(
     }OP[__ARM_2D_IO_NUMBER ];
 )};
 
-
-enum {
-    __ARM_2D_IO_TYPE_DEFAULT_TILE_PROCESS = 0,
-    __ARM_2D_IO_TYPE_DEFAULT_COPY,
-    __ARM_2D_IO_TYPE_DEFAULT_FILL,
-};
+typedef struct __arm_2d_tile_param_t {
+    void *              pBuffer;
+    int32_t             nOffset;
+    int16_t             iStride;
+    uint16_t                        : 16;
+    arm_2d_region_t     tValidRegion;
+} __arm_2d_tile_param_t;
 
 typedef struct __arm_2d_param_copy_t {
-    void *              pSource;
-    void *              pTarget;
-    int32_t             nSrcOffset;
-    int32_t             nTargetOffset;
-    int16_t             iSourceStride;
-    int16_t             iTargetStride;
-    arm_2d_region_t     tSourceRegion;
-    arm_2d_region_t     tTargetRegion;
+    __arm_2d_tile_param_t tSource;
+    __arm_2d_tile_param_t tTarget;
     arm_2d_size_t       tCopySize;
 } __arm_2d_param_copy_t;
 
+typedef struct __arm_2d_param_copy_orig_t {
+    implement(__arm_2d_param_copy_t);
+    
+    __arm_2d_tile_param_t tOrigin;
+    
+} __arm_2d_param_copy_orig_t;
+
 typedef struct __arm_2d_param_fill_t {
-    void *              pSource;
-    void *              pTarget;
-    int32_t             nSrcOffset;
-    int32_t             nTargetOffset;
-    int16_t             iSourceStride;
-    int16_t             iTargetStride;
-    arm_2d_region_t     tSourceRegion;
-    arm_2d_region_t     tTargetRegion;
+    __arm_2d_tile_param_t tSource;
+    __arm_2d_tile_param_t tTarget;
 } __arm_2d_param_fill_t;
+
+typedef struct __arm_2d_param_fill_orig_t {
+    implement(__arm_2d_param_fill_t);
+    
+    __arm_2d_tile_param_t tOrigin;
+    
+} __arm_2d_param_fill_orig_t;
 
 struct __arm_2d_sub_task_t{
 ARM_PRIVATE(
@@ -236,21 +249,17 @@ ARM_PRIVATE(
     
     arm_2d_op_core_t            *ptOP;
     
-    uint8_t      chIOType;                                                      //!< the type of IO interface
-    uint8_t                                 : 8;
-    uint16_t     bIsCPL                     : 1;
-    uint16_t                                : 15;
+    uint8_t         chLowLeveIOIndex;                                              //!< the type of IO interface
+    uint8_t         bIsCPL              : 1;
+    uint8_t                             : 7;
+    uint16_t                            : 16;
     
     union {
-        struct {
-            void *              pTarget;
-            int32_t             nOffset;
-            arm_2d_size_t       tSize;
-            int16_t             iStride;
-            uint16_t                        : 16;
-        } TileProcess;
-        __arm_2d_param_copy_t   tCopy;
-        __arm_2d_param_fill_t   tFill;
+        __arm_2d_tile_param_t           tTileProcess;
+        __arm_2d_param_copy_t           tCopy;
+        __arm_2d_param_fill_t           tFill;
+        __arm_2d_param_copy_orig_t      tCopyOrig;
+        __arm_2d_param_fill_orig_t      tFillOrig;
     }Param;
 )};
 
@@ -303,16 +312,10 @@ arm_fsm_rt_t __arm_2d_op_invoke(arm_2d_op_core_t *ptOP);
  *----------------------------------------------------------------------------*/
  
 extern 
-arm_fsm_rt_t __arm_2d_sw_colour_filling(__arm_2d_sub_task_t *ptTask,
-                                        void *__RESTRICT pTarget,
-                                        int16_t iStride,
-                                        arm_2d_size_t *__RESTRICT ptSize);
+arm_fsm_rt_t __arm_2d_sw_colour_filling(__arm_2d_sub_task_t *ptTask);
         
 extern 
-arm_fsm_rt_t __arm_2d_sw_draw_point(    __arm_2d_sub_task_t *ptTask,
-                                        void *__RESTRICT pTarget,
-                                        int16_t iStride,
-                                        arm_2d_size_t *__RESTRICT ptSize);        
+arm_fsm_rt_t __arm_2d_sw_draw_point(__arm_2d_sub_task_t *ptTask);        
 
 extern 
 arm_fsm_rt_t __arm_2d_sw_draw_pattern( __arm_2d_sub_task_t *ptTask);
@@ -340,10 +343,7 @@ arm_fsm_rt_t __arm_2d_sw_alpha_blending_with_colour_masking(
 
 extern 
 arm_fsm_rt_t __arm_2d_sw_colour_filling_with_alpha(
-                                        __arm_2d_sub_task_t *ptTask,
-                                        void *__RESTRICT pTarget,
-                                        int16_t iStride,
-                                        arm_2d_size_t *__RESTRICT ptSize);
+                                        __arm_2d_sub_task_t *ptTask);
 
 extern
 arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb565(  
@@ -355,6 +355,8 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb888(
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
+#elif __IS_COMPILER_ARM_COMPILER_5__
+#   pragma diag_warning 174,177,188,68,513,144,64
 #endif
 
 #ifdef   __cplusplus

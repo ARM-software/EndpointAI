@@ -20,7 +20,8 @@
 #include <stdio.h>
 #include "platform.h"
 #include "example_gui.h"
-#include "./display_adapter/display_adapter.h"
+#include "arm_2d.h"
+#include "arm_2d_helper.h"
 #include "./controls/controls.h"
 
 #if defined(__clang__)

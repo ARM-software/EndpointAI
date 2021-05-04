@@ -24,7 +24,6 @@
 #include <stdarg.h>
 #include "platform.h"
 #include "app_cfg.h"
-#include "../display_adapter/display_adapter.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -38,6 +37,10 @@
 
 extern void SysTick_Handler(void);
 extern void _ttywrch(int ch);
+
+
+extern const GLCD_FONT    GLCD_Font_16x24;
+extern const GLCD_FONT    GLCD_Font_6x8;
 
 __WEAK
 void platform_1ms_event_handler(void);
@@ -78,156 +81,6 @@ static void app_platform_init(void)
         //GLCD_SetBackgroundColor(GLCD_COLOR_BLUE);
         GLCD_SetForegroundColor(GLCD_COLOR_GREEN);
     //}
-}
-
-static struct {
-    arm_2d_region_t tRegion;
-    struct {
-        uint8_t         chX;
-        uint8_t         chY;
-    } tTextLocation;
-} s_tLCDTextControl = {
-    .tRegion = { 
-        .tSize = {
-            .iWidth = GLCD_WIDTH,
-            .iHeight = GLCD_HEIGHT,
-        },
-    },
-};
-
-void lcd_text_location(uint8_t chY, uint8_t chX)
-{
-    s_tLCDTextControl.tTextLocation.chX = chX;
-    s_tLCDTextControl.tTextLocation.chY = chY;
-    
-    if (    s_tLCDTextControl.tTextLocation.chX * GLCD_Font_6x8.width 
-        >=  s_tLCDTextControl.tRegion.tSize.iWidth ) {
-        s_tLCDTextControl.tTextLocation.chX = 0;
-        s_tLCDTextControl.tTextLocation.chY++;
-        if (    s_tLCDTextControl.tTextLocation.chY * GLCD_Font_6x8.height 
-            >= s_tLCDTextControl.tRegion.tSize.iHeight) {
-            s_tLCDTextControl.tTextLocation.chY = 0;
-        }
-    }
-}
-
-static void lcd_draw_char(int16_t iX, int16_t iY, char chChar)
-{
-    //! use default frame buffer
-    arm_2d_tile_t *ptFrameBuffer = (arm_2d_tile_t *) -1;
-
-extern
-const uint8_t Font_6x8_h[(144-32)*8];
-
-    const static arm_2d_tile_t s_tileFont6x8 = {
-        .tRegion = {
-            .tSize = {
-                .iWidth = 6,
-                .iHeight = 8 * 112,
-            },
-        },
-        .tInfo = {
-            .bIsRoot = true,
-            .bHasEnforcedColour = true,
-            .tColourInfo = {
-                .chScheme = ARM_2D_COLOUR_BIN,
-            },
-        },
-        .pchBuffer = (uint8_t *)Font_6x8_h,
-    };
-    
-    static arm_2d_tile_t s_tileChar = {
-        .tRegion = {
-            .tSize = {
-                .iWidth = 6,
-                .iHeight = 8,
-            },
-        },
-        .ptParent = (arm_2d_tile_t *)&s_tileFont6x8,
-    };
-    
-    
-    //s_tileChar.pchBuffer = (uint8_t *)GLCD_Font_6x8.bitmap;
-    s_tileChar.tRegion.tLocation.iY = (chChar - (int16_t)GLCD_Font_6x8.offset) * 8;
-    
-    arm_2d_region_t tDrawRegion = {
-        .tLocation = {.iX = iX, .iY = iY},
-        .tSize = s_tileChar.tRegion.tSize,
-    };
-    
-    arm_2d_rgb16_draw_pattern(  &s_tileChar, 
-                                ptFrameBuffer, 
-                                &tDrawRegion,
-                                    ARM_2D_DRW_PATN_MODE_COPY           
-                                //| ARM_2D_DRW_PATN_MODE_NO_FG_COLOR    
-                                //| ARM_2D_DRW_PATH_MODE_COMP_FG_COLOUR 
-                                ,
-                                GLCD_COLOR_GREEN,
-                                GLCD_COLOR_BLACK);
-    
-}
-
-void lcd_puts(const char *str)
-{
-    //static uint_fast16_t s_hwXOffset = 0;
-
-    while(*str) {
-        if (*str == '\r') {
-            s_tLCDTextControl.tTextLocation.chX = 0;
-        } else if (*str == '\n') {
-            s_tLCDTextControl.tTextLocation.chX = 0;
-            s_tLCDTextControl.tTextLocation.chY++;
-        } else if (*str == '\t') { 
-            s_tLCDTextControl.tTextLocation.chX += 8;
-            s_tLCDTextControl.tTextLocation.chX &= ~(_BV(3)-1);
-
-            if (    s_tLCDTextControl.tTextLocation.chX * GLCD_Font_6x8.width 
-                >=  s_tLCDTextControl.tRegion.tSize.iWidth ) {
-                s_tLCDTextControl.tTextLocation.chX = 0;
-                s_tLCDTextControl.tTextLocation.chY++;
-            }
-        }else if (*str == '\b') {
-            if (s_tLCDTextControl.tTextLocation.chX) {
-                s_tLCDTextControl.tTextLocation.chX--;
-            }
-        } else {
-        
-            int16_t iX = s_tLCDTextControl.tTextLocation.chX * GLCD_Font_6x8.width;
-            int16_t iY = s_tLCDTextControl.tTextLocation.chY * GLCD_Font_6x8.height;
-        
-            lcd_draw_char(  s_tLCDTextControl.tRegion.tLocation.iX + iX, 
-                            iY, 
-                            *str);
-                            
-            s_tLCDTextControl.tTextLocation.chX++;
-            if (    s_tLCDTextControl.tTextLocation.chX * GLCD_Font_6x8.width 
-                >=  s_tLCDTextControl.tRegion.tSize.iWidth ) {
-                s_tLCDTextControl.tTextLocation.chX = 0;
-                s_tLCDTextControl.tTextLocation.chY++;
-                if (    s_tLCDTextControl.tTextLocation.chY * GLCD_Font_6x8.height 
-                    >= s_tLCDTextControl.tRegion.tSize.iHeight) {
-                    s_tLCDTextControl.tTextLocation.chY = 0;
-                }
-            }
-        }
-        
-        str++;
-    }
-}
-
-
-int lcd_printf(const char *format, ...)
-{
-    int real_size;
-    static char s_chBuffer[(GLCD_WIDTH/6)+1];
-    __va_list ap;
-    va_start(ap, format);
-        real_size = vsnprintf(s_chBuffer, sizeof(s_chBuffer)-1, format, ap);
-    va_end(ap);
-    real_size = MIN(sizeof(s_chBuffer)-1, real_size);
-    s_chBuffer[real_size] = '\0';
-    lcd_puts(s_chBuffer);
-    return real_size;
 }
 
 #if __IS_COMPILER_ARM_COMPILER_6__

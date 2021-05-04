@@ -453,6 +453,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\GLCD_Fonts.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -602,6 +612,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -1340,6 +1370,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\GLCD_Fonts.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1489,6 +1529,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -2180,7 +2240,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,ITERATION_CNT=10</Define>
+              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;.;..\..\Library\Include;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -2294,6 +2354,16 @@
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2444,6 +2514,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -3251,6 +3341,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\GLCD_Fonts.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3400,6 +3500,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -4138,6 +4258,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\GLCD_Fonts.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4287,6 +4417,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -5094,6 +5244,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\GLCD_Fonts.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -5243,6 +5403,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -6050,6 +6230,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\GLCD_Fonts.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -6199,6 +6389,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -6866,7 +7076,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>5</Optim>
+            <Optim>0</Optim>
             <oTime>1</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -6885,12 +7095,12 @@
             <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
-            <v6Lto>0</v6Lto>
+            <v6Lto>1</v6Lto>
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Wno-nonportable-include-path</MiscControls>
-              <Define></Define>
+              <MiscControls>-Wno-nonportable-include-path -Omax</MiscControls>
+              <Define>NDEBUG</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;..\..\Library\Include;.;.\platform\stm32f746g-discovery;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -7005,6 +7215,16 @@
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -7155,6 +7375,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -7845,7 +8085,7 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Omax -Wno-padded</MiscControls>
+              <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,EXTERANL_DELAY_MS_DECLARE="extern void delay_ms(uint32_t);",ARM_MATH_HELIUM,__USE_AN547__</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include</IncludePath>
@@ -7961,6 +8201,16 @@
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -8111,6 +8361,26 @@
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_blending.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_copy.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_draw_pattern.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_fill_colour.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
             </File>
           </Files>
         </Group>

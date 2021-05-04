@@ -19,15 +19,17 @@
 /* ----------------------------------------------------------------------
  * Project:      Arm-2D Library
  * Title:        arm-2d_op_table.c
- * Description:  Basic Tile operations
+ * Description:  Tables for pixel pipeline OPs
  *
- * $Date:        01. December 2020
- * $Revision:    V.0.5.0
+ * $Date:        29 April 2021
+ * $Revision:    V.0.8.0
  *
  * Target Processor:  Cortex-M cores
  *
  * -------------------------------------------------------------------- */
 
+
+/*============================ INCLUDES ======================================*/
 #define __ARM_2D_IMPL__
 
 #include "arm_2d.h"
@@ -55,6 +57,13 @@ extern "C" {
 #elif __IS_COMPILER_ARM_COMPILER_5__
 #   pragma diag_suppress 174,177,188,68,513,144
 #endif
+
+
+/*============================ MACROS ========================================*/
+/*============================ MACROFIED FUNCTIONS ===========================*/
+/*============================ TYPES =========================================*/
+/*============================ GLOBAL VARIABLES ==============================*/
+
 
 const __arm_2d_op_info_t ARM_2D_OP_TABLE[__ARM_2D_OP_NUMBER] = {
 
@@ -438,9 +447,12 @@ const struct __arm_2d_io_table __ARM_2D_IO_TABLE = {
         [__ARM_2D_IO_COLOUR_CONVERT_TO_RGB888] = {
             .SW = (__arm_2d_io_func_t *)__arm_2d_sw_convert_colour_to_rgb888,
         },
-        
     },
 };
+
+/*============================ PROTOTYPES ====================================*/
+/*============================ LOCAL VARIABLES ===============================*/
+/*============================ IMPLEMENTATION ================================*/
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

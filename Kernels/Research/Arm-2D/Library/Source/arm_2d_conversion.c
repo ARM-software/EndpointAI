@@ -19,10 +19,10 @@
 /* ----------------------------------------------------------------------
  * Project:      Arm-2D Library
  * Title:        arm-2d_draw.c
- * Description:  Basic Tile operations
+ * Description:  APIs for colour format conversion
  *
- * $Date:        22. Febrary 2020
- * $Revision:    V.0.5.0
+ * $Date:        29. April 2021
+ * $Revision:    V.0.8.0
  *
  * Target Processor:  Cortex-M cores
  *
@@ -142,10 +142,10 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb565(
             /* no need to convert, return cpl directly */
             break;
         case ARM_2D_COLOUR_SZ_32BIT:
-            __arm_2d_impl_rgb888_to_rgb565( ptTask->Param.tCopy.pSource,
-                                            ptTask->Param.tCopy.iSourceStride,
-                                            ptTask->Param.tCopy.pTarget,
-                                            ptTask->Param.tCopy.iTargetStride,
+            __arm_2d_impl_rgb888_to_rgb565( ptTask->Param.tCopy.tSource.pBuffer,
+                                            ptTask->Param.tCopy.tSource.iStride,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.iStride,
                                             &(ptTask->Param.tCopy.tCopySize));
             break;
         default:
@@ -167,10 +167,10 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb888(
 
     switch ( this.Source.ptTile->tInfo.tColourInfo.u3ColourSZ) {
         case ARM_2D_COLOUR_SZ_16BIT:
-            __arm_2d_impl_rgb565_to_rgb888( ptTask->Param.tCopy.pSource,
-                                            ptTask->Param.tCopy.iSourceStride,
-                                            ptTask->Param.tCopy.pTarget,
-                                            ptTask->Param.tCopy.iTargetStride,
+            __arm_2d_impl_rgb565_to_rgb888( ptTask->Param.tCopy.tSource.pBuffer,
+                                            ptTask->Param.tCopy.tSource.iStride,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.iStride,
                                             &(ptTask->Param.tCopy.tCopySize));
             break;
         case ARM_2D_COLOUR_SZ_32BIT:

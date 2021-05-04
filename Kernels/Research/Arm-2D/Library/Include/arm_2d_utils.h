@@ -27,6 +27,8 @@
 
 /*============================ INCLUDES ======================================*/
 
+/*! \note arm-2d relies on CMSIS 5.4.0 and above. 
+ */
 #include "cmsis_compiler.h"
 
 #ifdef   __cplusplus
@@ -57,7 +59,7 @@ extern "C" {
 #   undef __IS_COMPILER_IAR__
 #endif
 #if defined(__IAR_SYSTEMS_ICC__)
-#   define __IS_COMPILER_IAR__                 1
+#   define __IS_COMPILER_IAR__                  1
 #endif
 
 //! \note for arm compiler 5
@@ -65,7 +67,7 @@ extern "C" {
 #   undef __IS_COMPILER_ARM_COMPILER_5__
 #endif
 #if ((__ARMCC_VERSION >= 5000000) && (__ARMCC_VERSION < 6000000))
-#   define __IS_COMPILER_ARM_COMPILER_5__      1
+#   define __IS_COMPILER_ARM_COMPILER_5__       1
 #endif
 //! @}
 
@@ -74,21 +76,23 @@ extern "C" {
 #   undef __IS_COMPILER_ARM_COMPILER_6__
 #endif
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
-#   define __IS_COMPILER_ARM_COMPILER_6__      1
+#   define __IS_COMPILER_ARM_COMPILER_6__       1
 #endif
 
 #ifdef __IS_COMPILER_LLVM__
 #   undef  __IS_COMPILER_LLVM__
 #endif
 #if defined(__clang__) && !__IS_COMPILER_ARM_COMPILER_6__
-#   define __IS_COMPILER_LLVM__                1
+#   define __IS_COMPILER_LLVM__                 1
 #else
 //! \note for gcc
 #   ifdef __IS_COMPILER_GCC__
 #       undef __IS_COMPILER_GCC__
 #   endif
-#   if defined(__GNUC__) && !(__IS_COMPILER_ARM_COMPILER_6__ || __IS_COMPILER_LLVM__)
-#       define __IS_COMPILER_GCC__                 1
+#   if defined(__GNUC__) && !(  defined(__IS_COMPILER_ARM_COMPILER_5__)         \
+                            ||  defined(__IS_COMPILER_ARM_COMPILER_6__)         \
+                            ||  defined(__IS_COMPILER_LLVM__))
+#       define __IS_COMPILER_GCC__              1
 #   endif
 //! @}
 #endif
@@ -104,6 +108,8 @@ extern "C" {
 #undef __implement
 #undef implement
 #undef implement_ex
+#undef inherit
+#undef inherit_ex
 
 #define __implement_ex(__type, __name)                                          \
             union {                                                             \
@@ -152,10 +158,6 @@ extern "C" {
 
 #ifndef ARM_TEST_BITS
 #   define ARM_TEST_BITS(__VALUE, __BITS)   ((__BITS) == ((__VALUE) & (__BITS)))
-#endif
-
-#ifndef __BV
-#   define __BV(__N)            ((uint32_t)1<<(__N))
 #endif
 
 #ifndef dimof
@@ -302,7 +304,7 @@ extern "C" {
 
 #undef arm_irq_safe
 
-#if __IS_COMPILER_GCC__
+#if defined(__IS_COMPILER_GCC__)
 
 #define arm_irq_safe                                                            \
             arm_using(  uint32_t ARM_CONNECT2(temp,__LINE__) =                  \
@@ -398,6 +400,7 @@ struct __arm_slist_node_t {
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
+#elif __IS_COMPILER_ARM_COMPILER_5__
 #elif __IS_COMPILER_GCC__
 #   pragma GCC diagnostic pop
 #endif

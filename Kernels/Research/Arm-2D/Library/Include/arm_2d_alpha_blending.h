@@ -108,7 +108,7 @@ typedef struct arm_2d_op_alpha_fill_cl_t {
  *----------------------------------------------------------------------------*/
 
 extern 
-ARM_NONNULL(1,2,3)
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_rgb565_alpha_blending( 
                                      const arm_2d_tile_t *ptSource,
                                      const arm_2d_tile_t *ptTarget,
@@ -116,7 +116,7 @@ arm_fsm_rt_t arm_2d_rgb565_alpha_blending(
                                      uint_fast8_t chRatio);
 
 extern 
-ARM_NONNULL(1,2,3)
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_rgb888_alpha_blending( 
                                      const arm_2d_tile_t *ptSource,
                                      const arm_2d_tile_t *ptTarget,
@@ -128,7 +128,6 @@ arm_fsm_rt_t arm_2d_rgb888_alpha_blending(
  * Fill a specified region with a given colour and transparency ratio (0~255) *
  *----------------------------------------------------------------------------*/
 extern 
-ARM_NONNULL(1,2)
 arm_fsm_rt_t arm_2d_rgb565_fill_colour_with_alpha( 
                                      const arm_2d_tile_t *ptTarget,
                                      const arm_2d_region_t *ptRegion,
@@ -136,7 +135,6 @@ arm_fsm_rt_t arm_2d_rgb565_fill_colour_with_alpha(
                                      uint_fast8_t chRatio);
 
 extern 
-ARM_NONNULL(1,2)
 arm_fsm_rt_t arm_2d_rgb888_fill_colour_with_alpha( 
                                      const arm_2d_tile_t *ptTarget,
                                      const arm_2d_region_t *ptRegion,
@@ -148,7 +146,7 @@ arm_fsm_rt_t arm_2d_rgb888_fill_colour_with_alpha(
  * specified transparency color mask                                          *
  *----------------------------------------------------------------------------*/
 extern
-ARM_NONNULL(1,2,3)
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_rbg565_alpha_blending_with_colour_masking(
                                             const arm_2d_tile_t *ptSource, 
                                             const arm_2d_tile_t *ptTarget, 
@@ -157,7 +155,7 @@ arm_fsm_rt_t arm_2d_rbg565_alpha_blending_with_colour_masking(
                                             arm_2d_color_rgb565_t tColour);
                                             
 extern
-ARM_NONNULL(1,2,3)
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_rbg888_alpha_blending_with_colour_masking(
                                             const arm_2d_tile_t *ptSource, 
                                             const arm_2d_tile_t *ptTarget,

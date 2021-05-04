@@ -19,10 +19,10 @@
 /* ----------------------------------------------------------------------
  * Project:      Arm-2D Library
  * Title:        arm-2d_async.c
- * Description:  Basic Tile operations
+ * Description:  Pixel pipeline extensions for support hardware acceleration.
  *
- * $Date:        29. Jan 2021
- * $Revision:    V.0.5.0
+ * $Date:        29. April 2021
+ * $Revision:    V.0.8.0
  *
  * Target Processor:  Cortex-M cores
  *
@@ -61,13 +61,13 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wswitch-enum"
 #   pragma clang diagnostic ignored "-Wswitch"
 #   pragma clang diagnostic ignored "-Wimplicit-fallthrough"
+#elif __IS_COMPILER_ARM_COMPILER_5__
+#   pragma diag_suppress 174,177,188,68,513,144
 #elif __IS_COMPILER_GCC__
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wswitch"
 #   pragma GCC diagnostic ignored "-Wenum-compare"
 #   pragma GCC diagnostic ignored "-Wpedantic"
-#elif __IS_COMPILER_ARM_COMPILER_5__
-#   pragma diag_suppress 174,177,188,68,513,144
 #endif
 
 /*============================ MACROS ========================================*/
@@ -295,104 +295,6 @@ arm_fsm_rt_t __arm_2d_call_default_io(  __arm_2d_sub_task_t *ptTask,
     return tResult;
 }
 
-static 
-arm_fsm_rt_t __arm_2d_call_default_tile_process_io(__arm_2d_sub_task_t *ptTask)
-{
-    assert(NULL != ptTask);
-
-    arm_fsm_rt_t tResult = (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
-    ARM_2D_IMPL(arm_2d_op_t, ptTask->ptOP);
-    uint_fast8_t chAccPreference = OP_CORE.Preference.u2ACCMethods;
-    
-    do {
-        if (chAccPreference != ARM_2D_PREF_ACC_SW_ONLY) {
-        /* call hardware accelerator */
-        /*! \note the HW accelerator service routine will check the paratmer
-         *!       and decide whether the requested service is supported or
-         *!       not:
-         *!       - if it is not supported, ARM_2D_ERR_NOT_SUPPORT will be
-         *!         returned. 
-         *!
-         *!       - if it is supported and the service is to be done later,
-         *!         the sub-task will be queued and arm_fsm_rt_async is 
-         *!         returned. Once the sub-task is complete, 
-         *!         __arm_2d_notify_sub_task_cpl() should be called by HW 
-         *!         accelerator service routine/tasks.
-         *!
-         *!       - if it is supported and the service is complete immediately
-         *!         the arm_fsm_rt_cpl is returned. 
-         *!
-         *!       - if there are any error detected, negative error code will be
-         *!         returned. 
-         */
-            ARM_2D_TRY_ACCELERATION(  
-                            OP_CORE.ptOp->Info.LowLevelInterfaceIndex.TileProcessLike, 
-                            __arm_2d_io_tile_default_tile_process_t,
-                            ptTask->Param.TileProcess.pTarget,
-                            ptTask->Param.TileProcess.iStride,
-                            &(ptTask->Param.TileProcess.tSize));
-                            
-            assert(tResult != arm_fsm_rt_on_going);
-            
-            switch (tResult) {
-                case arm_fsm_rt_wait_for_obj:
-                    /*! \note the HW accelerator wants to sync-up with user 
-                     *!       application
-                     */
-                    if (chAccPreference == ARM_2D_PREF_ACC_DONT_CARE) {
-                        /* since people choose don't care, then use SW */
-                        break;
-                    }
-                    return tResult;
-                    
-                case arm_fsm_rt_on_going:
-                    /*! \note HW accelerator should NOT return on_going otherwise
-                     *!       it will be treated as ARM_2D_ERR_IO_BUSY
-                     */
-                    if (chAccPreference == ARM_2D_PREF_ACC_DONT_CARE) {
-                        /* since people choose don't care, then use SW */
-                        break;
-                    }
-                    return (arm_fsm_rt_t)ARM_2D_ERR_IO_BUSY;
-                    
-                case ARM_2D_ERR_NOT_SUPPORT:
-                    break;
-                
-                case arm_fsm_rt_async:
-                case arm_fsm_rt_cpl:
-                default:
-                    /* other errors */
-                    return tResult;
-            }
-             
-            if (    (chAccPreference == ARM_2D_PREF_ACC_HW_ONLY)  
-                &&  (ARM_2D_ERR_NOT_SUPPORT == tResult)) {                
-                //! the hardware acceleration isn't avaialble
-                break;
-            }
-        }
-    
-        /* call default software implementation */
-        /*! \note the default software implemenation will only return following
-         *!       values:
-         *!       - arm_fsm_rt_cpl          the service is complete.
-         *!       - arm_fsm_rt_on_going     the software algorithm wants to yield
-         *!       - arm_fsm_rt_wait_for_obj the software algorithm wants to sync
-         *!                                 with user application
-         *!       - arm_fsm_rt_async        the software algorithm is implemented
-         *!                                 in asynchronous mode
-         *!       - negative error code
-         */
-        ARM_2D_RUN_DEFAULT(       
-                            OP_CORE.ptOp->Info.LowLevelInterfaceIndex.TileProcessLike, 
-                            __arm_2d_io_tile_default_tile_process_t,
-                            ptTask->Param.TileProcess.pTarget,
-                            ptTask->Param.TileProcess.iStride,
-                            &(ptTask->Param.TileProcess.tSize));
-    } while(0);
-    return tResult;
-}
-
 
 __WEAK 
 void arm_2d_notif_aync_sub_task_cpl(void)
@@ -465,29 +367,16 @@ void __arm_2d_notify_sub_task_cpl(__arm_2d_sub_task_t *ptTask,
  */ 
 arm_fsm_rt_t __arm_2d_sub_task_dispatch(__arm_2d_sub_task_t *ptTask)
 {
+
     arm_fsm_rt_t tResult = (arm_fsm_rt_t)ARM_2D_ERR_INVALID_OP;
-    ARM_2D_IMPL(arm_2d_op_t, ptTask->ptOP);
+    //ARM_2D_IMPL(arm_2d_op_t, ptTask->ptOP);
     
-    //! call low level io
-    switch (ptTask->chIOType) {
-        case __ARM_2D_IO_TYPE_DEFAULT_TILE_PROCESS:
-            tResult = __arm_2d_call_default_tile_process_io(ptTask);
-            break;
-    
-        case __ARM_2D_IO_TYPE_DEFAULT_COPY: 
-            tResult = __arm_2d_call_default_io(
-                            ptTask, 
-                            OP_CORE.ptOp->Info.LowLevelInterfaceIndex.CopyLike);
-            break;
-            
-        case __ARM_2D_IO_TYPE_DEFAULT_FILL:                                   
-            tResult = __arm_2d_call_default_io(
-                            ptTask, 
-                            OP_CORE.ptOp->Info.LowLevelInterfaceIndex.FillLike);
-            break;
+    if (ptTask->chLowLeveIOIndex < dimof(__ARM_2D_IO_TABLE.OP)) {
+        tResult = __arm_2d_call_default_io( ptTask, ptTask->chLowLeveIOIndex);
     }
     
     return tResult;
+
 }
 
 
@@ -632,23 +521,15 @@ arm_fsm_rt_t __arm_2d_op_frontend_on_leave( arm_2d_op_core_t *ptThis,
 __OVERRIDE_WEAK
 arm_fsm_rt_t __arm_2d_issue_sub_task_tile_process(  
                                         arm_2d_op_t *ptThis,
-                                        void *__RESTRICT pTargetBase,
-                                        int32_t nOffset,
-                                        int16_t iTargetStride,
-                                        arm_2d_size_t *__RESTRICT ptTargetSize)
+                                        __arm_2d_tile_param_t *ptParam)
 {    
     __arm_2d_sub_task_t *ptTask = __arm_2d_sub_task_new();
     assert(NULL != ptTask);         
 
     (*ptTask) = (__arm_2d_sub_task_t) {
                     .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
-                    .chIOType = __ARM_2D_IO_TYPE_DEFAULT_TILE_PROCESS,
-                    .Param.TileProcess = {           
-                        .pTarget = pTargetBase, 
-                        .nOffset = nOffset,                        
-                        .iStride = iTargetStride,         
-                        .tSize = *ptTargetSize,
-                    },
+                    .chLowLeveIOIndex = OP_CORE.ptOp->Info.LowLevelInterfaceIndex.TileProcessLike,
+                    .Param.tTileProcess = *ptParam,
                 };
     
     OP_CORE.Status.u4SubTaskCount++;
@@ -661,30 +542,18 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_tile_process(
 __OVERRIDE_WEAK
 arm_fsm_rt_t __arm_2d_issue_sub_task_fill(
                                     arm_2d_op_cp_t *ptThis,
-                                    void *__RESTRICT pSourceBase,
-                                    int32_t nSrcOffset,
-                                    int16_t iSourceStride,
-                                    arm_2d_region_t *__RESTRICT ptSourceRegion,
-                                    void *__RESTRICT pTargetBase,
-                                    int32_t nTargetOffset,
-                                    int16_t iTargetStride,
-                                    arm_2d_region_t *__RESTRICT ptTargetRegion)
+                                    __arm_2d_tile_param_t *ptSource,
+                                    __arm_2d_tile_param_t *ptTarget)
 {
     __arm_2d_sub_task_t *ptTask = __arm_2d_sub_task_new();
     assert(NULL != ptTask);         
 
     (*ptTask) = (__arm_2d_sub_task_t) {
                     .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
-                    .chIOType = __ARM_2D_IO_TYPE_DEFAULT_FILL,
+                    .chLowLeveIOIndex = OP_CORE.ptOp->Info.LowLevelInterfaceIndex.FillLike,
                     .Param.tFill = {
-                        .pSource            = pSourceBase, 
-                        .nSrcOffset         = nSrcOffset,                        
-                        .iSourceStride      = iSourceStride,         
-                        .tSourceRegion      = *ptSourceRegion,                 
-                        .pTarget            = pTargetBase,   
-                        .nTargetOffset      = nTargetOffset,                        
-                        .iTargetStride      = iTargetStride,         
-                        .tTargetRegion      = *ptTargetRegion,
+                        .tSource    = *ptSource,
+                        .tTarget    = *ptTarget,
                     },
                 };
     
@@ -698,31 +567,19 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_fill(
 __OVERRIDE_WEAK
 arm_fsm_rt_t __arm_2d_issue_sub_task_copy(
                                     arm_2d_op_cp_t *ptThis,
-                                    void *__RESTRICT pSource,
-                                    int32_t nSrcOffset,
-                                    int16_t iSourceStride,
-                                    arm_2d_region_t *__RESTRICT ptSourceRegion,
-                                    void *__RESTRICT pTarget,
-                                    int32_t nTargetOffset,
-                                    int16_t iTargetStride,
-                                    arm_2d_region_t *__RESTRICT ptTargetRegion,
-                                    arm_2d_size_t * __RESTRICT ptCopySize)
+                                    __arm_2d_tile_param_t *ptSource,
+                                    __arm_2d_tile_param_t *ptTarget,
+                                    arm_2d_size_t * ptCopySize)
 {
     __arm_2d_sub_task_t *ptTask = __arm_2d_sub_task_new();
     assert(NULL != ptTask);         
 
     (*ptTask) = (__arm_2d_sub_task_t) {
                     .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
-                    .chIOType = __ARM_2D_IO_TYPE_DEFAULT_COPY,
+                    .chLowLeveIOIndex = OP_CORE.ptOp->Info.LowLevelInterfaceIndex.CopyLike,
                     .Param.tCopy = {
-                        .pSource            = pSource,   
-                        .nSrcOffset         = nSrcOffset,
-                        .iSourceStride      = iSourceStride,         
-                        .tSourceRegion      = *ptSourceRegion,                 
-                        .pTarget            = pTarget,  
-                        .nTargetOffset      = nTargetOffset,                        
-                        .iTargetStride      = iTargetStride,         
-                        .tTargetRegion      = *ptTargetRegion,
+                        .tSource            = *ptSource,
+                        .tTarget            = *ptTarget,
                         .tCopySize          = *ptCopySize,
                     },
                 };
@@ -755,10 +612,10 @@ void __arm_2d_async_init(void)
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
-#elif __IS_COMPILER_GCC__
-#   pragma GCC diagnostic pop
 #elif __IS_COMPILER_ARM_COMPILER_5__
 #   pragma diag_warning 174,177,188,68,513,144
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic pop
 #endif
 
 #ifdef   __cplusplus

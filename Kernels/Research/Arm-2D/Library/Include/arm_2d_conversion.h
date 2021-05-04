@@ -94,12 +94,12 @@ __STATIC_INLINE uint16_t __arm_2d_rgb565_pack(__arm_2d_color_fast_rgb_t * ptRGB)
 
 
 extern
-ARM_NONNULL(1,2)
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_convert_colour_to_rbg888(   const arm_2d_tile_t *ptSource,
                                                 const arm_2d_tile_t *ptTarget);
 
 extern
-ARM_NONNULL(1,2)
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_convert_colour_to_rgb565(   const arm_2d_tile_t *ptSource,
                                                 const arm_2d_tile_t *ptTarget);
 

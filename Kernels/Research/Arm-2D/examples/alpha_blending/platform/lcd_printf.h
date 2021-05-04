@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2020 Arm Limited. All rights reserved.
+ * Copyright (c) 2009-2021 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -16,22 +16,41 @@
  * limitations under the License.
  */
 
-#include "../app_cfg.h"
-
-#ifndef __DISPLAY_ADAPTER_APP_CFG_H__
-#define __DISPLAY_ADAPTER_APP_CFG_H__
+#ifndef __LCD_PRINTF_H__
+#define __LCD_PRINTF_H__
 
 /*============================ INCLUDES ======================================*/
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
-#ifndef DISP_ADAPT_ASSERT
-#   define DISP_ADAPT_ASSERT(...)           ASSERT(__VA_ARGS__)
-#endif
+#define __PRINT_BANNER(__STR)                                                   \
+        do {                                                                    \
+            lcd_text_location(  (GLCD_HEIGHT / 8) / 2 - 1,                      \
+                                ((GLCD_WIDTH / 6) - sizeof(__STR)) / 2);        \
+            lcd_puts(__STR);                                                    \
+        } while(0)
 
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
-/*============================ LOCAL VARIABLES ===============================*/
 /*============================ PROTOTYPES ====================================*/
 
+
+extern
+int lcd_printf(const char *format, ...);
+
+extern
+void lcd_puts(const char *str);
+
+extern 
+void lcd_text_location(uint8_t chY, uint8_t chX);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

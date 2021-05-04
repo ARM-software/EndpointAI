@@ -58,12 +58,12 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #   pragma clang diagnostic ignored "-Wswitch-enum"
 #   pragma clang diagnostic ignored "-Wswitch"
+#elif __IS_COMPILER_ARM_COMPILER_5__
+#   pragma diag_suppress 174,177,188,68,513
 #elif __IS_COMPILER_GCC__
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wenum-compare"
 #   pragma GCC diagnostic ignored "-Wpedantic"
-#elif __IS_COMPILER_ARM_COMPILER_5__
-#   pragma diag_suppress 174,177,188,68,513
 #endif
 
 /*============================ MACROS ========================================*/
@@ -115,20 +115,12 @@ struct __arm_2d_op_control ARM_2D_CTRL;
 __WEAK
 arm_fsm_rt_t __arm_2d_issue_sub_task_tile_process(  
                                         arm_2d_op_t *ptThis,
-                                        void *__RESTRICT pTargetBase,
-                                        int32_t nOffset,
-                                        int16_t iTargetStride,
-                                        arm_2d_size_t *__RESTRICT ptTargetSize)
+                                        __arm_2d_tile_param_t *ptParam)
 {
     arm_fsm_rt_t tResult = (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
     __arm_2d_sub_task_t *ptTask = &(__arm_2d_sub_task_t){
         .ptOP = (arm_2d_op_core_t *)ptThis,
-        .Param.TileProcess = {                
-            .pTarget    = pTargetBase,  
-            .nOffset    = nOffset,        
-            .iStride    = iTargetStride,         
-            .tSize      = *ptTargetSize,
-        },
+        .Param.tTileProcess = *ptParam,
     };
 
     /* todo: update the tile process interface */
@@ -136,10 +128,7 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_tile_process(
     /* call default software implementation */
     ARM_2D_RUN_DEFAULT(   
                     OP_CORE.ptOp->Info.LowLevelInterfaceIndex.TileProcessLike, 
-                    __arm_2d_io_tile_default_tile_process_t,                
-                    pTargetBase,                               
-                    iTargetStride,         
-                    ptTargetSize);
+                    __arm_2d_io_func_t);
     return tResult;
 }
 
@@ -147,61 +136,40 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_tile_process(
 __WEAK
 arm_fsm_rt_t __arm_2d_issue_sub_task_fill(
                                     arm_2d_op_cp_t *ptThis,
-                                    void *__RESTRICT pSourceBase,
-                                    int32_t nSrcOffset,
-                                    int16_t iSourceStride,
-                                    arm_2d_region_t *__RESTRICT ptSourceRegion,
-                                    void *__RESTRICT pTargetBase,
-                                    int32_t nTargetOffset,
-                                    int16_t iTargetStride,
-                                    arm_2d_region_t *__RESTRICT ptTargetRegion)
+                                    __arm_2d_tile_param_t *ptSource,
+                                    __arm_2d_tile_param_t *ptTarget)
 {
     arm_fsm_rt_t tResult = (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+    
+    
     __arm_2d_sub_task_t *ptTask = &(__arm_2d_sub_task_t){
         .ptOP = (arm_2d_op_core_t *)ptThis,
         .Param.tFill = {
-            .pSource            = pSourceBase, 
-            .nSrcOffset         = nSrcOffset,
-            .iSourceStride      = iSourceStride,         
-            .tSourceRegion      = *ptSourceRegion,                 
-            .pTarget            = pTargetBase,  
-            .nTargetOffset      = nTargetOffset,        
-            .iTargetStride      = iTargetStride,         
-            .tTargetRegion      = *ptTargetRegion,
+            .tSource        = *ptSource,
+            .tTarget        = *ptTarget,
         },
     };
 
     /* call default software implementation */
     ARM_2D_RUN_DEFAULT( OP_CORE.ptOp->Info.LowLevelInterfaceIndex.FillLike, 
                           __arm_2d_io_func_t );
+
     return tResult;
 }
 
 __WEAK
 arm_fsm_rt_t __arm_2d_issue_sub_task_copy(arm_2d_op_cp_t *ptThis,
-                                    void *__RESTRICT pSource,
-                                    int32_t nSrcOffset,
-                                    int16_t iSourceStride,
-                                    arm_2d_region_t *__RESTRICT ptSourceRegion,
-                                    void *__RESTRICT pTarget,
-                                    int32_t nTargetOffset,
-                                    int16_t iTargetStride,
-                                    arm_2d_region_t *__RESTRICT ptTargetRegion,
+                                    __arm_2d_tile_param_t *ptSource,
+                                    __arm_2d_tile_param_t *ptTarget,
                                     arm_2d_size_t * __RESTRICT ptCopySize)
 {
     arm_fsm_rt_t tResult = (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
     __arm_2d_sub_task_t *ptTask = &(__arm_2d_sub_task_t){
         .ptOP = (arm_2d_op_core_t *)ptThis,
         .Param.tCopy = {
-            .pSource            = pSource,  
-            .nSrcOffset         = nSrcOffset,       
-            .iSourceStride      = iSourceStride,         
-            .tSourceRegion      = *ptSourceRegion,                 
-            .pTarget            = pTarget,
-            .nTargetOffset      = nTargetOffset,            
-            .iTargetStride      = iTargetStride,         
-            .tTargetRegion      = *ptTargetRegion,
-            .tCopySize          = *ptCopySize,
+            .tSource        = *ptSource,
+            .tTarget        = *ptTarget,
+            .tCopySize      = *ptCopySize,
         },
     };
     
@@ -212,6 +180,67 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_copy(arm_2d_op_cp_t *ptThis,
     return tResult;
 }
 
+ARM_NONNULL(1,2)
+static const arm_2d_tile_t * __arm_2d_tile_region_caculator( 
+                                            const arm_2d_tile_t *ptTile,
+                                            __arm_2d_tile_param_t *ptOut,
+                                            uint_fast8_t *pchPixelLenInBit,
+                                            bool bAllowEnforcedColour,
+                                            uint32_t wMode)
+{
+    arm_2d_region_t tValidRegion;                                                     
+    int32_t nOffset = 0;
+    uint8_t *pchBuffer = NULL;                                            
+                                    
+    assert(NULL != ptTile);
+    assert(NULL != ptOut);
+    
+    ptTile = arm_2d_tile_get_root(  ptTile,                           
+                                    &tValidRegion,                   
+                                    NULL);                
+             
+    if (NULL != (ptTile)) {    
+
+        //! check if enforced colour is allowed
+        if (bAllowEnforcedColour) {
+            if (ptTile->tInfo.bHasEnforcedColour) {
+                *pchPixelLenInBit = _BV(ptTile->tInfo.tColourInfo.u3ColourSZ);
+            }
+        }
+        
+        uint_fast8_t chPixelLenInBit = *pchPixelLenInBit;
+    
+        arm_2d_location_t tOffset = tValidRegion.tLocation;              
+        if ((wMode) & ARM_2D_CP_MODE_X_MIRROR) {                             
+            tOffset.iX = 0;                                                     
+        }                                                                       
+        if ((wMode) & ARM_2D_CP_MODE_Y_MIRROR) {                             
+            tOffset.iY = 0;                                                     
+        }                          
+
+        if (chPixelLenInBit >= 8) {
+            nOffset = ptTile->tRegion.tSize.iWidth * tOffset.iY + tOffset.iX;
+            pchBuffer = ptTile->pchBuffer  
+                      + (nOffset * chPixelLenInBit >> 3);            
+        } else {
+        
+            nOffset = tOffset.iX;
+        
+            pchBuffer = ptTile->pchBuffer 
+                      + ((ptTile->tRegion.tSize.iWidth 
+                         *  chPixelLenInBit + 7) >> 3) * tOffset.iY
+                      + ((tOffset.iX * chPixelLenInBit) >> 3);
+        }
+                                   
+    }
+    
+    ptOut->iStride = ptTile->tRegion.tSize.iWidth;
+    ptOut->nOffset = nOffset;
+    ptOut->pBuffer = pchBuffer;
+    ptOut->tValidRegion = tValidRegion;
+        
+    return ptTile;
+}
 
 
 ARM_NONNULL(1,2)
@@ -223,38 +252,21 @@ arm_fsm_rt_t __arm_2d_tile_process( arm_2d_op_t *ptThis,
     assert(OP_CORE.ptOp->Info.Colour.u3ColourSZ >= ARM_2D_COLOUR_SZ_8BIT);
     
     arm_fsm_rt_t tResult = (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
-    uint_fast8_t chPixelLen = _BV(  OP_CORE.ptOp->Info.Colour.u3ColourSZ 
-                                 -  ARM_2D_COLOUR_SZ_8BIT);
+
+    uint_fast8_t chPixelLenInBit = _BV(OP_CORE.ptOp->Info.Colour.u3ColourSZ);
+
+    __arm_2d_tile_param_t tTileParam;
+    __arm_2d_tile_region_caculator( 
+                                ptTarget, 
+                                &tTileParam,
+                                &chPixelLenInBit,
+                                OP_CORE.ptOp->Info.Param.bAllowEnforcedColour,
+                                0);
+                                    
+    tResult = __arm_2d_issue_sub_task_tile_process( ptThis, &tTileParam); 
     
-    /* process target region, tile and buffer address */
-    arm_2d_region_t tTargetRegion;                                         
-    uint8_t *pchTarget = NULL;                                            
-    int32_t nOffset = 0;                                                              
-    ptTarget = arm_2d_tile_get_root(ptTarget, &tTargetRegion, NULL);                
-                                                                                
-    if (NULL != ptTarget) {              
-        nOffset =  ptTarget->tRegion.tSize.iWidth 
-                  * tTargetRegion.tLocation.iY                
-                  + tTargetRegion.tLocation.iX;
-        pchTarget = ptTarget->pchBuffer + nOffset * chPixelLen;                     
-    }
-
-
-    if (NULL == ptTarget) {
-        return (arm_fsm_rt_t)ARM_2D_ERR_OUT_OF_REGION;
-    }
-
-
-    tResult = __arm_2d_issue_sub_task_tile_process( 
-                                                ptThis,    
-                                                pchTarget,    
-                                                nOffset,                                                
-                                                ptTarget->tRegion.tSize.iWidth,         
-                                                &(tTargetRegion.tSize));
-
     return tResult;
 }
-
 
 ARM_NONNULL(1,2)
 static
@@ -271,87 +283,23 @@ arm_fsm_rt_t __arm_2d_big_pixel_tile_pave(  arm_2d_op_cp_t *ptThis,
     uint_fast8_t chSourcePixelLenInBit = _BV(OP_CORE.ptOp->Info.Colour.u3ColourSZ);
     uint_fast8_t chTargetPixelLenInBit = chSourcePixelLenInBit;
     
+    __arm_2d_tile_param_t tSourceTileParam;
+    __arm_2d_tile_param_t tOriginTileParam;
+    __arm_2d_tile_param_t tTargetTileParam;
+
+    ptSource = __arm_2d_tile_region_caculator( 
+                                ptSource, 
+                                &tSourceTileParam,
+                                &chSourcePixelLenInBit,
+                                OP_CORE.ptOp->Info.Param.bAllowEnforcedColour,
+                                wMode); 
     
-    
-    /* process source region, tile and buffer address */
-    arm_2d_region_t tSourceRegion;                                                     
-    int32_t nSrcOffset = 0;
-    uint8_t *pchSource = NULL;                                            
-                                                                                
-    ptSource = arm_2d_tile_get_root(ptSource,                           
-                                    &tSourceRegion,                   
-                                    NULL);                
-             
-    if (NULL != (ptSource)) {    
-
-        //! check if enforced colour is allowed
-        if (OP_CORE.ptOp->Info.Param.bAllowEnforcedColour) {
-            if (ptSource->tInfo.bHasEnforcedColour) {
-                chSourcePixelLenInBit =  _BV(ptSource->tInfo.tColourInfo.u3ColourSZ);
-            }
-        }
-    
-        arm_2d_location_t tOffset = tSourceRegion.tLocation;              
-        if ((wMode) & ARM_2D_CP_MODE_X_MIRROR) {                             
-            tOffset.iX = 0;                                                     
-        }                                                                       
-        if ((wMode) & ARM_2D_CP_MODE_Y_MIRROR) {                             
-            tOffset.iY = 0;                                                     
-        }                          
-
-        
-        
-        
-        if (chSourcePixelLenInBit >= 8) {
-            nSrcOffset = ptSource->tRegion.tSize.iWidth * tOffset.iY + tOffset.iX;
-            pchSource = ptSource->pchBuffer  
-                      + (nSrcOffset * chSourcePixelLenInBit >> 3);            
-        } else {
-        
-            nSrcOffset = tOffset.iX;
-        
-            pchSource = ptSource->pchBuffer 
-                      + ((ptSource->tRegion.tSize.iWidth 
-                         *  chSourcePixelLenInBit + 7) >> 3) * tOffset.iY
-                      + ((tOffset.iX * chSourcePixelLenInBit) >> 3);
-        }
-                                   
-    }
-
-    /* process target region, tile and buffer address */
-    arm_2d_region_t tTargetRegion;                                         
-    uint8_t *pchTarget = NULL;                                            
-    int32_t nTargetOffset = 0;                                                  
-    ptTarget = arm_2d_tile_get_root(ptTarget, &tTargetRegion, NULL);                
-                                                                                
-    if (NULL != ptTarget) {    
-
-        //! check if enforced colour is allowed
-        if (OP_CORE.ptOp->Info.Param.bAllowEnforcedColour) {
-            if (ptTarget->tInfo.bHasEnforcedColour) {
-                chTargetPixelLenInBit = _BV(ptTarget->tInfo.tColourInfo.u3ColourSZ);
-            }
-        }
-
-            
-
-        if (chTargetPixelLenInBit >= 8) {
-            nTargetOffset =  ptTarget->tRegion.tSize.iWidth 
-                        * tTargetRegion.tLocation.iY                
-                        + tTargetRegion.tLocation.iX; 
-        
-            pchTarget = ptTarget->pchBuffer 
-                      + (nTargetOffset * chTargetPixelLenInBit >> 3);            
-        } else {
-            nTargetOffset = tTargetRegion.tLocation.iX;
-        
-            pchTarget = ptTarget->pchBuffer 
-                      + ((ptTarget->tRegion.tSize.iWidth 
-                         *  chTargetPixelLenInBit + 7) >> 3) * tTargetRegion.tLocation.iY
-                      + ((tTargetRegion.tLocation.iX * chTargetPixelLenInBit) >> 3);
-        }
-    }
-
+    ptTarget = __arm_2d_tile_region_caculator( 
+                                ptTarget, 
+                                &tTargetTileParam,
+                                &chTargetPixelLenInBit,
+                                OP_CORE.ptOp->Info.Param.bAllowEnforcedColour,
+                                0);
 
     if (NULL == ptSource || NULL == ptTarget) {
         return (arm_fsm_rt_t)ARM_2D_ERR_OUT_OF_REGION;
@@ -359,21 +307,15 @@ arm_fsm_rt_t __arm_2d_big_pixel_tile_pave(  arm_2d_op_cp_t *ptThis,
 
     if (wMode & ARM_2D_CP_MODE_FILL) {
         tResult = __arm_2d_issue_sub_task_fill( ptThis, 
-                                                pchSource,
-                                                nSrcOffset,
-                                                ptSource->tRegion.tSize.iWidth,         
-                                                &(tSourceRegion),                 
-                                                pchTarget,      
-                                                nTargetOffset,
-                                                ptTarget->tRegion.tSize.iWidth,         
-                                                &(tTargetRegion));
+                                                &tSourceTileParam,
+                                                &tTargetTileParam);
     
     } else {
         arm_2d_size_t tActualSize = {
-            .iWidth = MIN(  tSourceRegion.tSize.iWidth, 
-                            tTargetRegion.tSize.iWidth),
-            .iHeight = MIN( tSourceRegion.tSize.iHeight, 
-                            tTargetRegion.tSize.iHeight),
+            .iWidth = MIN(  tSourceTileParam.tValidRegion.tSize.iWidth, 
+                            tTargetTileParam.tValidRegion.tSize.iWidth),
+            .iHeight = MIN( tSourceTileParam.tValidRegion.tSize.iHeight, 
+                            tTargetTileParam.tValidRegion.tSize.iHeight),
         };
         
         //! right and/or bottom alignment
@@ -382,28 +324,28 @@ arm_fsm_rt_t __arm_2d_big_pixel_tile_pave(  arm_2d_op_cp_t *ptThis,
             
             //! right alignment 
             if (wMode & ARM_2D_CP_MODE_X_MIRROR) {
-                tOffset.iWidth  = tSourceRegion.tSize.iWidth 
+                tOffset.iWidth  = tSourceTileParam.tValidRegion.tSize.iWidth 
                                 - tActualSize.iWidth;
             }
             
             //! bottom alignment 
             if (wMode & ARM_2D_CP_MODE_Y_MIRROR) {
-                tOffset.iHeight = tSourceRegion.tSize.iHeight 
+                tOffset.iHeight = tSourceTileParam.tValidRegion.tSize.iHeight 
                                 - tActualSize.iHeight;
             }
                         
                       
             if (chSourcePixelLenInBit >= 8) {
-            
-                nSrcOffset += ( tOffset.iHeight * ptSource->tRegion.tSize.iWidth 
+                
+                tSourceTileParam.nOffset += ( tOffset.iHeight * ptSource->tRegion.tSize.iWidth 
                             + tOffset.iWidth);
-            
-                pchSource = ptSource->pchBuffer 
-                          + (nSrcOffset * chSourcePixelLenInBit >> 3);
+                
+                tSourceTileParam.pBuffer = ptSource->pchBuffer 
+                          + (tSourceTileParam.nOffset * chSourcePixelLenInBit >> 3);
             } else {
-                nSrcOffset += tOffset.iWidth;
+                tSourceTileParam.nOffset += tOffset.iWidth;
             
-                pchSource += 
+                (*(uintptr_t *)&tSourceTileParam.pBuffer) += 
                           + ((ptSource->tRegion.tSize.iWidth 
                              *  chSourcePixelLenInBit + 7) >> 3) * tOffset.iHeight
                           + ((tOffset.iWidth * chSourcePixelLenInBit) >> 3);
@@ -412,14 +354,8 @@ arm_fsm_rt_t __arm_2d_big_pixel_tile_pave(  arm_2d_op_cp_t *ptThis,
         } while(0);
     
         tResult = __arm_2d_issue_sub_task_copy( ptThis, 
-                                                pchSource,   
-                                                nSrcOffset,
-                                                ptSource->tRegion.tSize.iWidth,         
-                                                &(tSourceRegion),                 
-                                                pchTarget,      
-                                                nTargetOffset,
-                                                ptTarget->tRegion.tSize.iWidth,         
-                                                &(tTargetRegion),
+                                                &tSourceTileParam,
+                                                &tTargetTileParam,
                                                 &tActualSize);
     }
 
@@ -439,8 +375,6 @@ arm_fsm_rt_t __tile_clipped_pave(
     arm_2d_tile_t tTargetTile = {0};
     tempRegion.tLocation.iX = -ptRegion->tLocation.iX;
     tempRegion.tLocation.iY = -ptRegion->tLocation.iY;
-    //tempRegion.tSize.iWidth += ptRegion->tLocation.iX > 0 ? ptRegion->tLocation.iX : 0;
-    //tempRegion.tSize.iHeight += ptRegion->tLocation.iY > 0 ? ptRegion->tLocation.iY : 0;
     tempRegion.tSize.iWidth += ptRegion->tLocation.iX;
     tempRegion.tSize.iHeight += ptRegion->tLocation.iY;
 
@@ -581,17 +515,15 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process( arm_2d_op_core_t *ptOP)
 
         //! calculate the valid region in the view of the target tile
         tValidRegion.tLocation = tOffset;
-        //if (tOffset.iX != 0 || tOffset.iY != 0) {
-            this.Target.ptTile = arm_2d_tile_generate_child(  this.Target.ptTile,
-                                                    &tValidRegion,
-                                                    &tTile,
-                                                    true);
-            assert(NULL != this.Target.ptTile);
-            tTargetRegion.tLocation.iX -= tOffset.iX;
-            tTargetRegion.tLocation.iY -= tOffset.iY;
-        //}
+        this.Target.ptTile = arm_2d_tile_generate_child(  this.Target.ptTile,
+                                                &tValidRegion,
+                                                &tTile,
+                                                true);
+        assert(NULL != this.Target.ptTile);
+        tTargetRegion.tLocation.iX -= tOffset.iX;
+        tTargetRegion.tLocation.iY -= tOffset.iY;
 
-    } while(false);
+    } while(0);
 
     tDrawRegion.tSize = this.Target.ptTile->tRegion.tSize;
     if (!arm_2d_region_intersect(   &tDrawRegion, 
@@ -634,21 +566,14 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process( arm_2d_op_core_t *ptOP)
         }
     #endif
     } while(0);
-
-
-                                            
+   
     if (ARM_2D_ERR_OUT_OF_REGION == tResult) {
                                         
         if (ARM_2D_RUNTIME_FEATURE.TREAT_OUT_OF_RANGE_AS_COMPLETE) {
             //! nothing to draw
             return arm_fsm_rt_cpl;
         } 
-        
-        return tResult;
-        
-    } else if (tResult < 0) {
-        return tResult;
-    }
+    } 
 
     return tResult;
 }
@@ -804,10 +729,7 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
             |                                                                 |
             |                                                                 |
             +---------------------------------------------------------- ... --+
-
             */
-
-
 
             if  (tClippdRegion.tSize.iWidth < tDrawRegion.tSize.iWidth) {
                 //! something left to draw
@@ -856,7 +778,6 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
             |     |//////////////////////////////|         |
             +-----+------------------------------+-- ... --+
             */
-
 
             if  (tClippdRegion.tSize.iHeight < tDrawRegion.tSize.iHeight) {
                 //! something left to draw
@@ -991,6 +912,7 @@ arm_fsm_rt_t __arm_2d_op_invoke(arm_2d_op_core_t *ptOP)
     //! decode operation
     switch (this.ptOp->Info.Param.chValue & 
                 (   ARM_2D_OP_INFO_PARAM_HAS_SOURCE 
+                //|   ARM_2D_OP_INFO_PARAM_HAS_ORIGIN
                 |   ARM_2D_OP_INFO_PARAM_HAS_TARGET
                 |   ARM_2D_OP_INFO_PARAM_HAS_ALPHA_MASK)) {
                 
@@ -1068,10 +990,10 @@ arm_fsm_rt_t arm_2d_task(arm_2d_task_t *ptTask)
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
-#elif __IS_COMPILER_GCC__
-#   pragma GCC diagnostic pop
 #elif __IS_COMPILER_ARM_COMPILER_5__
 #   pragma diag_warning 174,177,188,68,513,144
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic pop
 #endif
 
 #ifdef   __cplusplus

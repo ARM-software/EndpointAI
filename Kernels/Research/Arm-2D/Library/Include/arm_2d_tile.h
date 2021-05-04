@@ -270,14 +270,14 @@ enum {
 };
 
 extern
-ARM_NONNULL(1,2)
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_rgb16_tile_copy( const arm_2d_tile_t *ptSource,
                                      const arm_2d_tile_t *ptTarget,
                                      const arm_2d_region_t *ptRegion,
                                      uint32_t wMode);
                                      
 extern
-ARM_NONNULL(1,2)
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_rgb32_tile_copy( const arm_2d_tile_t *ptSource,
                                      const arm_2d_tile_t *ptTarget,
                                      const arm_2d_region_t *ptRegion,
@@ -299,7 +299,7 @@ arm_fsm_rt_t arm_2d_rgb32_tile_copy( const arm_2d_tile_t *ptSource,
  *! \note  alpha channel is not handled, i.e. rgba5551
  */
 extern
-ARM_NONNULL(1,2)
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_rgb16_tile_copy_with_colour_masking(
                                             const arm_2d_tile_t *ptSource, 
                                             const arm_2d_tile_t *ptTarget,
@@ -318,7 +318,7 @@ arm_fsm_rt_t arm_2d_rgb16_tile_copy_with_colour_masking(
  *! \note  alpha channel is not handled.
  */
 extern
-ARM_NONNULL(1,2)
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_rgb32_tile_copy_with_colour_masking(
                                             const arm_2d_tile_t *ptSource, 
                                             const arm_2d_tile_t *ptTarget,

@@ -53,14 +53,114 @@
 #define __ARM_2D_TYPE(__NAME)   ___ARM_2D_TYPE(__NAME, __API_COLOUR)
 
 
-static
-void __ARM_2D_FUNC(fill_generic)(   const __API_INT_TYPE * __RESTRICT pSourceBase,
+
+/*----------------------------------------------------------------------------*
+ * Accelerable Low Level APIs                                                 *
+ *----------------------------------------------------------------------------*/
+
+
+void __ARM_2D_FUNC(copy)(   __API_INT_TYPE *__RESTRICT phwSource,
+                            int16_t iSourceStride,
+                            __API_INT_TYPE *__RESTRICT phwTarget,
+                            int16_t iTargetStride,
+                            arm_2d_size_t *__RESTRICT ptCopySize);
+
+void __ARM_2D_FUNC(copy_colour_masking)(__API_INT_TYPE *__RESTRICT phwSource,
+                                        int16_t iSourceStride,
+                                        __API_INT_TYPE *__RESTRICT phwTarget,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t *__RESTRICT ptCopySize,
+                                        __API_INT_TYPE hwColour);
+
+void __ARM_2D_FUNC(_fill)(  __API_INT_TYPE *__RESTRICT phwSourceBase,
+                            int16_t iSourceStride,
+                            arm_2d_size_t *__RESTRICT ptSourceSize,
+                            __API_INT_TYPE *__RESTRICT phwTargetBase,
+                            int16_t iTargetStride,
+                            arm_2d_size_t *__RESTRICT ptTargetSize);
+
+
+
+void __ARM_2D_FUNC(fill_mirror)(__API_INT_TYPE *__RESTRICT phwSourceBase,
+                                int16_t iSourceStride,
+                                arm_2d_size_t *__RESTRICT ptSourceSize,
+                                __API_INT_TYPE *__RESTRICT phwTargetBase,
+                                int16_t iTargetStride,
+                                arm_2d_size_t *__RESTRICT ptTargetSize,
+                                uint32_t wMode);
+
+
+void __ARM_2D_FUNC(fill_colour_masking_mirror)(   
+                                    __API_INT_TYPE *__RESTRICT phwSourceBase,
                                     int16_t iSourceStride,
-                                    const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                    __API_INT_TYPE * __RESTRICT pTargetBase,
+                                    arm_2d_size_t *__RESTRICT ptSourceSize,
+                                    __API_INT_TYPE *__RESTRICT phwTargetBase,
                                     int16_t iTargetStride,
-                                    const arm_2d_size_t * __RESTRICT ptTargetSize,
-                                    const __ARM_2D_TYPE(paving_fct_t) * __RESTRICT pPavFct)
+                                    arm_2d_size_t *__RESTRICT ptTargetSize,
+                                    uint32_t wMode,
+                                    __API_INT_TYPE hwColour);
+
+
+void __ARM_2D_FUNC(copy_mirror)(__API_INT_TYPE *__RESTRICT phwSource,
+                                int16_t iSourceStride,
+                                __API_INT_TYPE *__RESTRICT phwTarget,
+                                int16_t iTargetStride,
+                                arm_2d_size_t *__RESTRICT ptCopySize,
+                                uint32_t wMode);
+
+
+void __ARM_2D_FUNC(copy_colour_masking_mirror)(   
+                                        __API_INT_TYPE *__RESTRICT phwSource,
+                                        int16_t iSourceStride,
+                                        __API_INT_TYPE *__RESTRICT phwTarget,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t *__RESTRICT ptCopySize,
+                                        uint32_t wMode,
+                                        __API_INT_TYPE hwColour);
+
+void __ARM_2D_FUNC(fill_colour_masking)(__API_INT_TYPE * __RESTRICT pSourceBase,
+                                        int16_t iSourceStride,
+                                        arm_2d_size_t * __RESTRICT ptSourceSize,
+                                        __API_INT_TYPE * __RESTRICT pTargetBase,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t * __RESTRICT ptTargetSize,
+                                        uint_fast16_t hwColour);
+
+
+/*----------------------------------------------------------------------------*
+ * Fill with mirroring                                                        *
+ *----------------------------------------------------------------------------*/
+
+void __ARM_2D_FUNC(fill_x_mirror)(  __API_INT_TYPE * __RESTRICT phwSourceBase,
+                                    int16_t iSourceStride,
+                                    arm_2d_size_t * __RESTRICT ptSourceSize,
+                                    __API_INT_TYPE * __RESTRICT phwTargetBase,
+                                    int16_t iTargetStride,
+                                    arm_2d_size_t * __RESTRICT ptTargetSize);
+
+void __ARM_2D_FUNC(fill_y_mirror)( __API_INT_TYPE * __RESTRICT phwSourceBase,
+                                    int16_t iSourceStride,
+                                    arm_2d_size_t * __RESTRICT ptSourceSize,
+                                    __API_INT_TYPE * __RESTRICT phwTargetBase,
+                                    int16_t iTargetStride,
+                                    arm_2d_size_t * __RESTRICT ptTargetSize);
+
+void __ARM_2D_FUNC(fill_xy_mirror)( __API_INT_TYPE * __RESTRICT phwSourceBase,
+                                    int16_t iSourceStride,
+                                    arm_2d_size_t * __RESTRICT ptSourceSize,
+                                    __API_INT_TYPE * __RESTRICT phwTargetBase,
+                                    int16_t iTargetStride,
+                                    arm_2d_size_t * __RESTRICT ptTargetSize);
+                                       
+static
+void __ARM_2D_FUNC(fill_generic)(   
+                        const __API_INT_TYPE * __RESTRICT pSourceBase,
+                        int16_t iSourceStride,
+                        const arm_2d_size_t * __RESTRICT ptSourceSize,
+                        __API_INT_TYPE * __RESTRICT pTargetBase,
+                        int16_t iTargetStride,
+                        const arm_2d_size_t * __RESTRICT ptTargetSize,
+                        const __ARM_2D_TYPE(paving_fct_t) * __RESTRICT pPavFct)
 {
     __ARM_2D_MEM_FILL_GENERIC(  pSourceBase, 
                                 iSourceStride,
@@ -72,56 +172,115 @@ void __ARM_2D_FUNC(fill_generic)(   const __API_INT_TYPE * __RESTRICT pSourceBas
 }
 
 
+/*----------------------------------------------------------------------------*
+ * Copy with mirroring                                                        *
+ *----------------------------------------------------------------------------*/
+void __ARM_2D_FUNC(copy_x_mirror)( __API_INT_TYPE *__RESTRICT phwSource,
+                                    int16_t iSourceStride,
+                                    __API_INT_TYPE *__RESTRICT phwTarget,
+                                    int16_t iTargetStride,
+                                    arm_2d_size_t *__RESTRICT ptCopySize);   
+                                        
+void __ARM_2D_FUNC(copy_y_mirror)( __API_INT_TYPE *__RESTRICT phwSource,
+                                    int16_t iSourceStride,
+                                    __API_INT_TYPE *__RESTRICT phwTarget,
+                                    int16_t iTargetStride,
+                                    arm_2d_size_t *__RESTRICT ptCopySize);
 
+void __ARM_2D_FUNC(copy_xy_mirror)( __API_INT_TYPE *__RESTRICT phwSource,
+                                    int16_t iSourceStride,
+                                    __API_INT_TYPE *__RESTRICT phwTarget,
+                                    int16_t iTargetStride,
+                                    arm_2d_size_t *__RESTRICT ptCopySize);
+                                    
+/*----------------------------------------------------------------------------*
+ * Fill with colour maksing and mirroring                                     *
+ *----------------------------------------------------------------------------*/
+ 
+ void __ARM_2D_FUNC(fill_colour_masking_x_mirror)(  
+                                    __API_INT_TYPE * __RESTRICT phwSourceBase,
+                                    int16_t iSourceStride,
+                                    arm_2d_size_t * __RESTRICT ptSourceSize,
+                                    __API_INT_TYPE * __RESTRICT phwTargetBase,
+                                    int16_t iTargetStride,
+                                    arm_2d_size_t * __RESTRICT ptTargetSize,
+                                    __API_INT_TYPE Colour);
 
+void __ARM_2D_FUNC(fill_colour_masking_y_mirror)( 
+                                    __API_INT_TYPE * __RESTRICT phwSourceBase,
+                                    int16_t iSourceStride,
+                                    arm_2d_size_t * __RESTRICT ptSourceSize,
+                                    __API_INT_TYPE * __RESTRICT phwTargetBase,
+                                    int16_t iTargetStride,
+                                    arm_2d_size_t * __RESTRICT ptTargetSize,
+                                    __API_INT_TYPE Colour);
 
-__WEAK
-void __ARM_2D_FUNC(fill_mirror)( __API_INT_TYPE * __RESTRICT pSourceBase,
-                                 int16_t iSourceStride,
-                                 arm_2d_size_t * __RESTRICT ptSourceSize,
-                                 __API_INT_TYPE * __RESTRICT pTargetBase,
-                                 int16_t iTargetStride,
-                                 arm_2d_size_t * __RESTRICT ptTargetSize,
-                                 uint32_t wMode)
+void __ARM_2D_FUNC(fill_colour_masking_xy_mirror)( 
+                                    __API_INT_TYPE * __RESTRICT phwSourceBase,
+                                    int16_t iSourceStride,
+                                    arm_2d_size_t * __RESTRICT ptSourceSize,
+                                    __API_INT_TYPE * __RESTRICT phwTargetBase,
+                                    int16_t iTargetStride,
+                                    arm_2d_size_t * __RESTRICT ptTargetSize,
+                                    __API_INT_TYPE Colour);
+
+static
+void __ARM_2D_FUNC(fill_colour_masking_generic)(   
+                const __API_INT_TYPE * __RESTRICT pSourceBase,
+                int16_t iSourceStride,
+                const arm_2d_size_t * __RESTRICT ptSourceSize,
+                __API_INT_TYPE * __RESTRICT pTargetBase,
+                int16_t iTargetStride,
+                const arm_2d_size_t * __RESTRICT ptTargetSize,
+                const __ARM_2D_TYPE(cl_msk_paving_fct_t) * __RESTRICT pPavFct,
+                uint_fast16_t hwColour)
 {
-    switch (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-        case ARM_2D_CP_MODE_X_MIRROR:
-            __ARM_2D_FUNC(fill_x_mirror)(
-                    pSourceBase, iSourceStride, ptSourceSize,
-                    pTargetBase, iTargetStride, ptTargetSize);
-            break;
-        case ARM_2D_CP_MODE_Y_MIRROR:
-            __ARM_2D_FUNC(fill_y_mirror)(
-                    pSourceBase, iSourceStride, ptSourceSize,
-                    pTargetBase, iTargetStride, ptTargetSize);
-            break;
-        case ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR :
-            __ARM_2D_FUNC(fill_xy_mirror)(
-                    pSourceBase, iSourceStride, ptSourceSize, 
-                    pTargetBase, iTargetStride, ptTargetSize);
-            break;
-        default:
-            assert(false);  /*! this should not happen */
-            //break;
-    }
+    __ARM_2D_MEM_FILL_GENERIC(  pSourceBase, 
+                                iSourceStride,
+                                ptSourceSize, 
+                                pTargetBase, 
+                                iTargetStride, 
+                                ptTargetSize,
+                                pPavFct,
+                                hwColour);
 }
 
 
- __WEAK
-void __ARM_2D_FUNC(copy)(   __API_INT_TYPE *__RESTRICT pSource,
-                            int16_t iSourceStride,
-                            __API_INT_TYPE *__RESTRICT pTarget,
-                            int16_t iTargetStride,
-                            arm_2d_size_t *__RESTRICT ptCopySize)
-{
-    for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
-        memcpy(pTarget, pSource, ptCopySize->iWidth * sizeof(*pSource));
-        pSource += iSourceStride;
-        pTarget += iTargetStride;
-    }
-}
+/*----------------------------------------------------------------------------*
+ * Copy with colour maksing and mirroring                                     *
+ *----------------------------------------------------------------------------*/
+void __ARM_2D_FUNC(copy_colour_masking_x_mirror)( 
+                                    __API_INT_TYPE *__RESTRICT phwSource,
+                                    int16_t iSourceStride,
+                                    __API_INT_TYPE *__RESTRICT phwTarget,
+                                    int16_t iTargetStride,
+                                    arm_2d_size_t *__RESTRICT ptCopySize,
+                                    __API_INT_TYPE Colour);   
+                                        
+void __ARM_2D_FUNC(copy_colour_masking_y_mirror)( 
+                                    __API_INT_TYPE *__RESTRICT phwSource,
+                                    int16_t iSourceStride,
+                                    __API_INT_TYPE *__RESTRICT phwTarget,
+                                    int16_t iTargetStride,
+                                    arm_2d_size_t *__RESTRICT ptCopySize,
+                                    __API_INT_TYPE Colour);   
+
+void __ARM_2D_FUNC(copy_colour_masking_xy_mirror)( 
+                                    __API_INT_TYPE *__RESTRICT phwSource,
+                                    int16_t iSourceStride,
+                                    __API_INT_TYPE *__RESTRICT phwTarget,
+                                    int16_t iTargetStride,
+                                    arm_2d_size_t *__RESTRICT ptCopySize,
+                                    __API_INT_TYPE Colour);   
+                                        
 
 
+
+
+
+/*----------------------------------------------------------------------------*
+ * Paving                                                                     *
+ *----------------------------------------------------------------------------*/
 __WEAK 
 void __ARM_2D_FUNC(2x2_paving)(const __API_INT_TYPE *__RESTRICT pSourceBase,
                                 int16_t iSourceStride,
@@ -328,12 +487,13 @@ void __ARM_2D_FUNC(1x1_paving)(const __API_INT_TYPE * __RESTRICT pSource,
                         PAVING_DIRECT_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM));
 }
 
-__WEAK void __ARM_2D_FUNC(1x1_paving_x_mirror)(const __API_INT_TYPE * __RESTRICT pSource,
-                                       int16_t iSourceStride,
-                                       __API_INT_TYPE * __RESTRICT pTarget,
-                                       int16_t iTargetStride,
-                                       const arm_2d_size_t * __RESTRICT ptSrcCopySize,
-                                       const arm_2d_size_t * __RESTRICT ptDstCopySize)
+__WEAK void __ARM_2D_FUNC(1x1_paving_x_mirror)(
+                                        const __API_INT_TYPE * __RESTRICT pSource,
+                                        int16_t iSourceStride,
+                                        __API_INT_TYPE * __RESTRICT pTarget,
+                                        int16_t iTargetStride,
+                                        const arm_2d_size_t * __RESTRICT ptSrcCopySize,
+                                        const arm_2d_size_t * __RESTRICT ptDstCopySize)
 {
     __ARM_2D_PAVING_1x1(__API_INT_TYPE_BIT_NUM,
                         PAVING_X_MIRROR_START_OFFS(_, _),
@@ -342,12 +502,13 @@ __WEAK void __ARM_2D_FUNC(1x1_paving_x_mirror)(const __API_INT_TYPE * __RESTRICT
 }
 
 
-__WEAK void __ARM_2D_FUNC(1x1_paving_y_mirror)(const __API_INT_TYPE * __RESTRICT pSource,
-                                       int16_t iSourceStride,
-                                       __API_INT_TYPE * __RESTRICT pTarget,
-                                       int16_t iTargetStride,
-                                       const arm_2d_size_t * __RESTRICT ptSrcCopySize,
-                                       const arm_2d_size_t * __RESTRICT ptDstCopySize)
+__WEAK void __ARM_2D_FUNC(1x1_paving_y_mirror)(
+                                        const __API_INT_TYPE * __RESTRICT pSource,
+                                        int16_t iSourceStride,
+                                        __API_INT_TYPE * __RESTRICT pTarget,
+                                        int16_t iTargetStride,
+                                        const arm_2d_size_t * __RESTRICT ptSrcCopySize,
+                                        const arm_2d_size_t * __RESTRICT ptDstCopySize)
 {
     __ARM_2D_PAVING_1x1(__API_INT_TYPE_BIT_NUM,
                         PAVING_Y_MIRROR_START_OFFS(iSourceStride, ptSrcCopySize->iHeight),
@@ -373,6 +534,356 @@ __WEAK void __ARM_2D_FUNC(1x1_paving_xy_mirror)(const __API_INT_TYPE * __RESTRIC
 
 
 
+/*----------------------------------------------------------------------------*
+ * Paving with colour masking                                                 *
+ *----------------------------------------------------------------------------*/
+__WEAK 
+void __ARM_2D_FUNC(2x2_cl_msk_paving)(const __API_INT_TYPE *__RESTRICT pSourceBase,
+                                int16_t iSourceStride,
+                                const arm_2d_size_t * __RESTRICT ptSourceSize,
+                                __API_INT_TYPE * __RESTRICT pTargetBase,
+                                int16_t iTargetStride,
+                                uint16_t tilePairRows,
+                                uint16_t tilePairCols,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_2x2(__API_INT_TYPE_BIT_NUM,
+                        PAVING_DIRECT_START_OFFS(_, _),
+                        PAVING_DIRECT_READ_DIR,
+                        PAVING_DIRECT_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_DIRECT_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+
+__WEAK void __ARM_2D_FUNC(2x2_cl_msk_paving_x_mirror)(
+                                const __API_INT_TYPE *__RESTRICT pSourceBase,
+                                int16_t iSourceStride,
+                                const arm_2d_size_t * __RESTRICT ptSourceSize,
+                                __API_INT_TYPE * __RESTRICT pTargetBase,
+                                int16_t iTargetStride,
+                                uint16_t tilePairRows,
+                                uint16_t tilePairCols,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_2x2(__API_INT_TYPE_BIT_NUM,
+                        PAVING_X_MIRROR_START_OFFS(_, _),
+                        PAVING_X_MIRROR_READ_DIR,
+                        PAVING_X_MIRROR_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_X_MIRROR_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+
+__WEAK void __ARM_2D_FUNC(2x2_cl_msk_paving_y_mirror)(
+                                const __API_INT_TYPE *__RESTRICT pSourceBase,
+                                int16_t iSourceStride,
+                                const arm_2d_size_t * __RESTRICT ptSourceSize,
+                                __API_INT_TYPE * __RESTRICT pTargetBase,
+                                int16_t iTargetStride,
+                                uint16_t tilePairRows,
+                                uint16_t tilePairCols,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_2x2(__API_INT_TYPE_BIT_NUM,
+                        PAVING_Y_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
+                        PAVING_Y_MIRROR_READ_DIR,
+                        PAVING_Y_MIRROR_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_Y_MIRROR_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+__WEAK void __ARM_2D_FUNC(2x2_cl_msk_paving_xy_mirror)(
+                                const __API_INT_TYPE *__RESTRICT pSourceBase,
+                                int16_t iSourceStride,
+                                const arm_2d_size_t * __RESTRICT ptSourceSize,
+                                __API_INT_TYPE * __RESTRICT pTargetBase,
+                                int16_t iTargetStride,
+                                uint16_t tilePairRows,
+                                uint16_t tilePairCols,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_2x2(__API_INT_TYPE_BIT_NUM,
+                        PAVING_XY_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
+                        PAVING_XY_MIRROR_READ_DIR,
+                        PAVING_XY_MIRROR_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_XY_MIRROR_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+
+__WEAK 
+void __ARM_2D_FUNC(1x2_cl_msk_paving)( 
+                                const __API_INT_TYPE * __RESTRICT pSourceBase,
+                                int16_t iSourceStride,
+                                const arm_2d_size_t * __RESTRICT ptSourceSize,
+                                __API_INT_TYPE * __RESTRICT pTargetBase,
+                                int16_t iTargetStride,
+                                uint32_t destWidth,
+                                uint16_t tilePairRows,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_1x2(__API_INT_TYPE_BIT_NUM,
+                        PAVING_DIRECT_START_OFFS(_, _),
+                        PAVING_DIRECT_READ_DIR,
+                        PAVING_DIRECT_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_DIRECT_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+__WEAK void __ARM_2D_FUNC(1x2_cl_msk_paving_x_mirror)(
+                                const __API_INT_TYPE * __RESTRICT pSourceBase,
+                                int16_t iSourceStride,
+                                const arm_2d_size_t * __RESTRICT ptSourceSize,
+                                __API_INT_TYPE * __RESTRICT pTargetBase,
+                                int16_t iTargetStride,
+                                uint32_t destWidth,
+                                uint16_t tilePairRows,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_1x2(__API_INT_TYPE_BIT_NUM,
+                        PAVING_X_MIRROR_START_OFFS(_, _),
+                        PAVING_X_MIRROR_READ_DIR,
+                        PAVING_X_MIRROR_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_X_MIRROR_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+__WEAK void __ARM_2D_FUNC(1x2_cl_msk_paving_y_mirror)(
+                                const __API_INT_TYPE * __RESTRICT pSourceBase,
+                               int16_t iSourceStride,
+                               const arm_2d_size_t * __RESTRICT ptSourceSize,
+                               __API_INT_TYPE * __RESTRICT pTargetBase,
+                               int16_t iTargetStride,
+                               uint32_t destWidth,
+                               uint16_t tilePairRows,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_1x2(__API_INT_TYPE_BIT_NUM,
+                        PAVING_Y_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
+                        PAVING_Y_MIRROR_READ_DIR,
+                        PAVING_Y_MIRROR_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_Y_MIRROR_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+
+__WEAK void __ARM_2D_FUNC(1x2_cl_msk_paving_xy_mirror)(
+                                const __API_INT_TYPE * __RESTRICT pSourceBase,
+                                int16_t iSourceStride,
+                                const arm_2d_size_t * __RESTRICT ptSourceSize,
+                                __API_INT_TYPE * __RESTRICT pTargetBase,
+                                int16_t iTargetStride,
+                                uint32_t destWidth,
+                                uint16_t tilePairRows,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_1x2(__API_INT_TYPE_BIT_NUM,
+                        PAVING_XY_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
+                        PAVING_XY_MIRROR_READ_DIR,
+                        PAVING_XY_MIRROR_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_XY_MIRROR_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+
+__WEAK 
+void __ARM_2D_FUNC(2x1_cl_msk_paving)( 
+                                const __API_INT_TYPE * __RESTRICT pSourceBase,
+                                int16_t iSourceStride,
+                                const arm_2d_size_t * __RESTRICT ptSourceSize,
+                                __API_INT_TYPE * __RESTRICT pTargetBase,
+                                int16_t iTargetStride,
+                                uint16_t tilePairCols,
+                                uint16_t destHeight,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_2x1(__API_INT_TYPE_BIT_NUM,
+                        PAVING_DIRECT_START_OFFS(_, _),
+                        PAVING_DIRECT_READ_DIR,
+                        PAVING_DIRECT_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_DIRECT_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+__WEAK void __ARM_2D_FUNC(2x1_cl_msk_paving_x_mirror)(
+                                const __API_INT_TYPE * __RESTRICT pSourceBase,
+                                int16_t iSourceStride,
+                                const arm_2d_size_t * __RESTRICT ptSourceSize,
+                                __API_INT_TYPE * __RESTRICT pTargetBase,
+                                int16_t iTargetStride,
+                                uint16_t tilePairCols,
+                                uint16_t destHeight,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_2x1(__API_INT_TYPE_BIT_NUM,
+                        PAVING_X_MIRROR_START_OFFS(_, _),
+                        PAVING_X_MIRROR_READ_DIR,
+                        PAVING_X_MIRROR_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_X_MIRROR_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+__WEAK void __ARM_2D_FUNC(2x1_cl_msk_paving_y_mirror)(
+                                const __API_INT_TYPE * __RESTRICT pSourceBase,
+                                int16_t iSourceStride,
+                                const arm_2d_size_t * __RESTRICT ptSourceSize,
+                                __API_INT_TYPE * __RESTRICT pTargetBase,
+                                int16_t iTargetStride,
+                                uint16_t tilePairCols,
+                                uint16_t destHeight,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_2x1(__API_INT_TYPE_BIT_NUM,
+                        PAVING_Y_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
+                        PAVING_Y_MIRROR_READ_DIR,
+                        PAVING_Y_MIRROR_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_Y_MIRROR_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+
+__WEAK void __ARM_2D_FUNC(2x1_cl_msk_paving_xy_mirror)(
+                                const __API_INT_TYPE * __RESTRICT pSourceBase,
+                                int16_t iSourceStride,
+                                const arm_2d_size_t * __RESTRICT ptSourceSize,
+                                __API_INT_TYPE * __RESTRICT pTargetBase,
+                                int16_t iTargetStride,
+                                uint16_t tilePairCols,
+                                uint16_t destHeight,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_2x1(__API_INT_TYPE_BIT_NUM,
+                        PAVING_XY_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
+                        PAVING_XY_MIRROR_READ_DIR,
+                        PAVING_XY_MIRROR_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_XY_MIRROR_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+
+
+__WEAK 
+void __ARM_2D_FUNC(1x1_cl_msk_paving)(
+                                const __API_INT_TYPE * __RESTRICT pSource,
+                                int16_t iSourceStride,
+                                __API_INT_TYPE * __RESTRICT pTarget,
+                                int16_t iTargetStride,
+                                const arm_2d_size_t * __RESTRICT ptSrcCopySize,
+                                const arm_2d_size_t * __RESTRICT ptDstCopySize,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_1x1(__API_INT_TYPE_BIT_NUM,
+                        PAVING_DIRECT_START_OFFS(_, _),
+                        PAVING_DIRECT_READ_DIR,
+                        PAVING_DIRECT_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_DIRECT_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+__WEAK void __ARM_2D_FUNC(1x1_cl_msk_paving_x_mirror)(
+                                const __API_INT_TYPE * __RESTRICT pSource,
+                                int16_t iSourceStride,
+                                __API_INT_TYPE * __RESTRICT pTarget,
+                                int16_t iTargetStride,
+                                const arm_2d_size_t * __RESTRICT ptSrcCopySize,
+                                const arm_2d_size_t * __RESTRICT ptDstCopySize,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_1x1(__API_INT_TYPE_BIT_NUM,
+                        PAVING_X_MIRROR_START_OFFS(_, _),
+                        PAVING_X_MIRROR_READ_DIR, 
+                        PAVING_X_MIRROR_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_X_MIRROR_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+
+__WEAK void __ARM_2D_FUNC(1x1_cl_msk_paving_y_mirror)(
+                                const __API_INT_TYPE * __RESTRICT pSource,
+                                int16_t iSourceStride,
+                                __API_INT_TYPE * __RESTRICT pTarget,
+                                int16_t iTargetStride,
+                                const arm_2d_size_t * __RESTRICT ptSrcCopySize,
+                                const arm_2d_size_t * __RESTRICT ptDstCopySize,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_1x1(__API_INT_TYPE_BIT_NUM,
+                        PAVING_Y_MIRROR_START_OFFS(iSourceStride, ptSrcCopySize->iHeight),
+                        PAVING_Y_MIRROR_READ_DIR,
+                        PAVING_Y_MIRROR_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_Y_MIRROR_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+
+__WEAK void __ARM_2D_FUNC(1x1_cl_msk_paving_xy_mirror)(const __API_INT_TYPE * __RESTRICT pSource,
+                               int16_t iSourceStride,
+                               __API_INT_TYPE * __RESTRICT pTarget,
+                               int16_t iTargetStride,
+                               const arm_2d_size_t * __RESTRICT ptSrcCopySize,
+                               const arm_2d_size_t * __RESTRICT ptDstCopySize,
+                                __API_INT_TYPE Colour)
+{
+    __ARM_2D_PAVING_1x1(__API_INT_TYPE_BIT_NUM,
+                        PAVING_XY_MIRROR_START_OFFS(iSourceStride, ptSrcCopySize->iHeight),
+                        PAVING_XY_MIRROR_READ_DIR,
+                        PAVING_XY_MIRROR_SETUP_COPY(__API_INT_TYPE_BIT_NUM),
+                        PAVING_XY_MIRROR_LOAD_PATTERN(__API_INT_TYPE_BIT_NUM),
+                        (in != Colour));
+}
+
+
+
+/*----------------------------------------------------------------------------*
+ * Copy                                                                       *
+ *----------------------------------------------------------------------------*/
+
+
+__WEAK
+void __ARM_2D_FUNC(copy)(   __API_INT_TYPE *__RESTRICT pSource,
+                            int16_t iSourceStride,
+                            __API_INT_TYPE *__RESTRICT pTarget,
+                            int16_t iTargetStride,
+                            arm_2d_size_t *__RESTRICT ptCopySize)
+{
+    for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+        memcpy(pTarget, pSource, ptCopySize->iWidth * sizeof(*pSource));
+        pSource += iSourceStride;
+        pTarget += iTargetStride;
+    }
+}
+
+
+__WEAK
+void __ARM_2D_FUNC(copy_mirror)( __API_INT_TYPE * __RESTRICT pSource,
+                                 int16_t iSourceStride,
+                                 __API_INT_TYPE * __RESTRICT pTarget,
+                                 int16_t iTargetStride,
+                                 arm_2d_size_t * __RESTRICT ptCopySize,
+                                 uint32_t wMode)
+{
+    switch (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
+      case ARM_2D_CP_MODE_X_MIRROR:
+          __ARM_2D_FUNC(copy_x_mirror)( pSource, iSourceStride,
+                                        pTarget, iTargetStride, 
+                                        ptCopySize);
+          break;
+      case ARM_2D_CP_MODE_Y_MIRROR:
+          __ARM_2D_FUNC(copy_y_mirror)( pSource, iSourceStride,
+                                        pTarget, iTargetStride, 
+                                        ptCopySize);
+          break;
+      case ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR:
+          __ARM_2D_FUNC(copy_xy_mirror)(pSource, iSourceStride,
+                                        pTarget, iTargetStride, 
+                                        ptCopySize);
+          break;
+      default:
+          assert(false);        /*! this should not happen */
+          //break;
+    }
+}
 
 __WEAK 
 void __ARM_2D_FUNC(copy_y_mirror)(  __API_INT_TYPE * __RESTRICT pSource,
@@ -404,8 +915,6 @@ void __ARM_2D_FUNC(copy_x_mirror)(__API_INT_TYPE * __RESTRICT pSource,
                                         ptCopySize);
 }
 
-
-
 __WEAK 
 void __ARM_2D_FUNC(copy_xy_mirror)( __API_INT_TYPE * __RESTRICT pSource,
                                     int16_t iSourceStride,
@@ -423,6 +932,10 @@ void __ARM_2D_FUNC(copy_xy_mirror)( __API_INT_TYPE * __RESTRICT pSource,
 }
 
 
+
+/*----------------------------------------------------------------------------*
+ * Fill                                                                       *
+ *----------------------------------------------------------------------------*/
 __WEAK 
 void __ARM_2D_FUNC(fill)(__API_INT_TYPE * __RESTRICT pSourceBase,
                          int16_t iSourceStride,
@@ -447,8 +960,39 @@ void __ARM_2D_FUNC(fill)(__API_INT_TYPE * __RESTRICT pSourceBase,
                                 &pav_func);
 }
 
+__WEAK
+void __ARM_2D_FUNC(fill_mirror)( __API_INT_TYPE * __RESTRICT pSourceBase,
+                                 int16_t iSourceStride,
+                                 arm_2d_size_t * __RESTRICT ptSourceSize,
+                                 __API_INT_TYPE * __RESTRICT pTargetBase,
+                                 int16_t iTargetStride,
+                                 arm_2d_size_t * __RESTRICT ptTargetSize,
+                                 uint32_t wMode)
+{
+    switch (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
+        case ARM_2D_CP_MODE_X_MIRROR:
+            __ARM_2D_FUNC(fill_x_mirror)(
+                    pSourceBase, iSourceStride, ptSourceSize,
+                    pTargetBase, iTargetStride, ptTargetSize);
+            break;
+        case ARM_2D_CP_MODE_Y_MIRROR:
+            __ARM_2D_FUNC(fill_y_mirror)(
+                    pSourceBase, iSourceStride, ptSourceSize,
+                    pTargetBase, iTargetStride, ptTargetSize);
+            break;
+        case ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR :
+            __ARM_2D_FUNC(fill_xy_mirror)(
+                    pSourceBase, iSourceStride, ptSourceSize, 
+                    pTargetBase, iTargetStride, ptTargetSize);
+            break;
+        default:
+            assert(false);  /*! this should not happen */
+            //break;
+    }
+}
 
-__WEAK void __ARM_2D_FUNC(fill_x_mirror)(__API_INT_TYPE * __RESTRICT pSourceBase,
+__WEAK 
+void __ARM_2D_FUNC(fill_x_mirror)(__API_INT_TYPE * __RESTRICT pSourceBase,
                                       int16_t iSourceStride,
                                       arm_2d_size_t * __RESTRICT ptSourceSize,
                                       __API_INT_TYPE * __RESTRICT pTargetBase,
@@ -512,35 +1056,273 @@ __WEAK void __ARM_2D_FUNC(fill_xy_mirror)(__API_INT_TYPE * __RESTRICT pSourceBas
                                 iTargetStride, ptTargetSize, &pav_func);
 }
 
+/*----------------------------------------------------------------------------*
+ * Copy with colour masking                                                   *
+ *----------------------------------------------------------------------------*/
+
+
 __WEAK
-void __ARM_2D_FUNC(copy_mirror)( __API_INT_TYPE * __RESTRICT pSource,
-                                 int16_t iSourceStride,
-                                 __API_INT_TYPE * __RESTRICT pTarget,
-                                 int16_t iTargetStride,
-                                 arm_2d_size_t * __RESTRICT ptCopySize,
-                                 uint32_t wMode)
+void __ARM_2D_FUNC(copy_colour_masking)(   
+                            __API_INT_TYPE *__RESTRICT pSource,
+                            int16_t iSourceStride,
+                            __API_INT_TYPE *__RESTRICT pTarget,
+                            int16_t iTargetStride,
+                            arm_2d_size_t *__RESTRICT ptCopySize,
+                            __API_INT_TYPE Colour)
+{
+    for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+        for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++){
+            if (pSource[x] == Colour) {
+                continue;
+            }
+            pTarget[x] = pSource[x];
+        }
+        pSource += iSourceStride;
+        pTarget += iTargetStride;
+    }
+}
+
+
+__WEAK
+void __ARM_2D_FUNC(copy_colour_masking_mirror)( 
+                                        __API_INT_TYPE * __RESTRICT pSource,
+                                        int16_t iSourceStride,
+                                        __API_INT_TYPE * __RESTRICT pTarget,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t * __RESTRICT ptCopySize,
+                                        uint32_t wMode,
+                                        __API_INT_TYPE Colour)
 {
     switch (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
       case ARM_2D_CP_MODE_X_MIRROR:
-          __ARM_2D_FUNC(copy_x_mirror)( pSource, iSourceStride,
+          __ARM_2D_FUNC(copy_colour_masking_x_mirror)( 
+                                        pSource, iSourceStride,
                                         pTarget, iTargetStride, 
-                                        ptCopySize);
+                                        ptCopySize,
+                                        Colour);
           break;
       case ARM_2D_CP_MODE_Y_MIRROR:
-          __ARM_2D_FUNC(copy_y_mirror)( pSource, iSourceStride,
+          __ARM_2D_FUNC(copy_colour_masking_y_mirror)( pSource, iSourceStride,
                                         pTarget, iTargetStride, 
-                                        ptCopySize);
+                                        ptCopySize,
+                                        Colour);
           break;
       case ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR:
-          __ARM_2D_FUNC(copy_xy_mirror)(pSource, iSourceStride,
+          __ARM_2D_FUNC(copy_colour_masking_xy_mirror)(pSource, iSourceStride,
                                         pTarget, iTargetStride, 
-                                        ptCopySize);
+                                        ptCopySize,
+                                        Colour);
           break;
       default:
           assert(false);        /*! this should not happen */
           //break;
     }
 }
+
+__WEAK 
+void __ARM_2D_FUNC(copy_colour_masking_y_mirror)(   
+                                        __API_INT_TYPE * __RESTRICT pSource,
+                                        int16_t iSourceStride,
+                                        __API_INT_TYPE * __RESTRICT pTarget,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t * __RESTRICT ptCopySize,
+                                        __API_INT_TYPE Colour)
+{
+    __ARM_2D_FUNC(1x1_cl_msk_paving_y_mirror)(  pSource,
+                                                iSourceStride,
+                                                pTarget,
+                                                iTargetStride,
+                                                ptCopySize,
+                                                ptCopySize,
+                                                Colour);
+}
+
+__WEAK 
+void __ARM_2D_FUNC(copy_colour_masking_x_mirror)(
+                                        __API_INT_TYPE * __RESTRICT pSource,
+                                        int16_t iSourceStride,
+                                        __API_INT_TYPE * __RESTRICT pTarget,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t * __RESTRICT ptCopySize,
+                                        __API_INT_TYPE Colour)
+{
+    __ARM_2D_FUNC(1x1_cl_msk_paving_x_mirror)(  pSource,
+                                                iSourceStride,
+                                                pTarget,
+                                                iTargetStride,
+                                                ptCopySize,
+                                                ptCopySize,
+                                                Colour);
+}
+
+__WEAK 
+void __ARM_2D_FUNC(copy_colour_masking_xy_mirror)( 
+                                        __API_INT_TYPE * __RESTRICT pSource,
+                                        int16_t iSourceStride,
+                                        __API_INT_TYPE * __RESTRICT pTarget,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t * __RESTRICT ptCopySize,
+                                        __API_INT_TYPE Colour)
+{
+    __ARM_2D_FUNC(1x1_cl_msk_paving_xy_mirror)( pSource,
+                                                iSourceStride,
+                                                pTarget,
+                                                iTargetStride,
+                                                ptCopySize,
+                                                ptCopySize,
+                                                Colour);
+
+}
+
+
+/*----------------------------------------------------------------------------*
+ * Fill with Colour Masking                                                   *
+ *----------------------------------------------------------------------------*/
+
+__WEAK 
+void __ARM_2D_FUNC(fill_colour_masking)(__API_INT_TYPE * __RESTRICT pSourceBase,
+                         int16_t iSourceStride,
+                         arm_2d_size_t * __RESTRICT ptSourceSize,
+                         __API_INT_TYPE * __RESTRICT pTargetBase,
+                         int16_t iTargetStride,
+                         arm_2d_size_t * __RESTRICT ptTargetSize,
+                         uint_fast16_t hwColour)
+{
+
+    static const __ARM_2D_TYPE(cl_msk_paving_fct_t) pav_func = {
+        .pav_2x2 = &__ARM_2D_FUNC(2x2_cl_msk_paving),
+        .pav_1x2 = &__ARM_2D_FUNC(1x2_cl_msk_paving),
+        .pav_2x1 = &__ARM_2D_FUNC(2x1_cl_msk_paving),
+        .pav_1x1 = &__ARM_2D_FUNC(1x1_cl_msk_paving),
+    };
+
+    __ARM_2D_FUNC(fill_colour_masking_generic)( pSourceBase,
+                                                iSourceStride,
+                                                ptSourceSize,
+                                                pTargetBase,
+                                                iTargetStride, 
+                                                ptTargetSize, 
+                                                &pav_func,
+                                                hwColour);
+
+}
+
+__WEAK
+void __ARM_2D_FUNC(fill_colour_masking_mirror)( 
+                                 __API_INT_TYPE * __RESTRICT pSourceBase,
+                                 int16_t iSourceStride,
+                                 arm_2d_size_t * __RESTRICT ptSourceSize,
+                                 __API_INT_TYPE * __RESTRICT pTargetBase,
+                                 int16_t iTargetStride,
+                                 arm_2d_size_t * __RESTRICT ptTargetSize,
+                                 uint32_t wMode,
+                                 __API_INT_TYPE Colour)
+{
+    switch (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
+        case ARM_2D_CP_MODE_X_MIRROR:
+            __ARM_2D_FUNC(fill_colour_masking_x_mirror)(
+                    pSourceBase, iSourceStride, ptSourceSize,
+                    pTargetBase, iTargetStride, ptTargetSize,
+                    Colour);
+            break;
+        case ARM_2D_CP_MODE_Y_MIRROR:
+            __ARM_2D_FUNC(fill_colour_masking_y_mirror)(
+                    pSourceBase, iSourceStride, ptSourceSize,
+                    pTargetBase, iTargetStride, ptTargetSize,
+                    Colour);
+            break;
+        case ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR :
+            __ARM_2D_FUNC(fill_colour_masking_xy_mirror)(
+                    pSourceBase, iSourceStride, ptSourceSize, 
+                    pTargetBase, iTargetStride, ptTargetSize,
+                    Colour);
+            break;
+        default:
+            assert(false);  /*! this should not happen */
+            //break;
+    }
+}
+
+__WEAK 
+void __ARM_2D_FUNC(fill_colour_masking_x_mirror)(__API_INT_TYPE * __RESTRICT pSourceBase,
+                                      int16_t iSourceStride,
+                                      arm_2d_size_t * __RESTRICT ptSourceSize,
+                                      __API_INT_TYPE * __RESTRICT pTargetBase,
+                                      int16_t iTargetStride,
+                                      arm_2d_size_t * __RESTRICT ptTargetSize,
+                                    __API_INT_TYPE Colour)
+{
+    static __ARM_2D_TYPE(cl_msk_paving_fct_t) pav_func = {
+        .pav_2x2 = &__ARM_2D_FUNC(2x2_cl_msk_paving_x_mirror),
+        .pav_1x2 = &__ARM_2D_FUNC(1x2_cl_msk_paving_x_mirror),
+        .pav_2x1 = &__ARM_2D_FUNC(2x1_cl_msk_paving_x_mirror),
+        .pav_1x1 = &__ARM_2D_FUNC(1x1_cl_msk_paving_x_mirror)
+    };
+
+    __ARM_2D_FUNC(fill_colour_masking_generic)( pSourceBase,
+                                                iSourceStride,
+                                                ptSourceSize,
+                                                pTargetBase,
+                                                iTargetStride, 
+                                                ptTargetSize, 
+                                                &pav_func,
+                                                Colour);
+}
+
+__WEAK void __ARM_2D_FUNC(fill_colour_masking_y_mirror)(
+                                        __API_INT_TYPE * __RESTRICT pSourceBase,
+                                        int16_t iSourceStride,
+                                        arm_2d_size_t * __RESTRICT ptSourceSize,
+                                        __API_INT_TYPE * __RESTRICT pTargetBase,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t * __RESTRICT ptTargetSize,
+                                        __API_INT_TYPE Colour)
+{
+    static __ARM_2D_TYPE(cl_msk_paving_fct_t) pav_func = {
+        .pav_2x2 = &__ARM_2D_FUNC(2x2_cl_msk_paving_y_mirror),
+        .pav_1x2 = &__ARM_2D_FUNC(1x2_cl_msk_paving_y_mirror),
+        .pav_2x1 = &__ARM_2D_FUNC(2x1_cl_msk_paving_y_mirror),
+        .pav_1x1 = &__ARM_2D_FUNC(1x1_cl_msk_paving_y_mirror)
+    };
+
+    __ARM_2D_FUNC(fill_colour_masking_generic)( pSourceBase,
+                                                iSourceStride,
+                                                ptSourceSize,
+                                                pTargetBase,
+                                                iTargetStride, 
+                                                ptTargetSize, 
+                                                &pav_func,
+                                                Colour);
+}
+
+
+__WEAK void __ARM_2D_FUNC(fill_colour_masking_xy_mirror)(
+                                        __API_INT_TYPE * __RESTRICT pSourceBase,
+                                        int16_t iSourceStride,
+                                        arm_2d_size_t * __RESTRICT ptSourceSize,
+                                        __API_INT_TYPE * __RESTRICT pTargetBase,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t * __RESTRICT ptTargetSize,
+                                        __API_INT_TYPE Colour)
+{
+    static __ARM_2D_TYPE(cl_msk_paving_fct_t) pav_func = {
+        .pav_2x2 = &__ARM_2D_FUNC(2x2_cl_msk_paving_xy_mirror),
+        .pav_1x2 = &__ARM_2D_FUNC(1x2_cl_msk_paving_xy_mirror),
+        .pav_2x1 = &__ARM_2D_FUNC(2x1_cl_msk_paving_xy_mirror),
+        .pav_1x1 = &__ARM_2D_FUNC(1x1_cl_msk_paving_xy_mirror)
+    };
+
+    __ARM_2D_FUNC(fill_colour_masking_generic)( pSourceBase,
+                                                iSourceStride,
+                                                ptSourceSize,
+                                                pTargetBase,
+                                                iTargetStride, 
+                                                ptTargetSize, 
+                                                &pav_func,
+                                                Colour);
+}
+
+
 
 
 #undef ____ARM_2D_FUNC

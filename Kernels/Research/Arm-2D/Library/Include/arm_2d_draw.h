@@ -179,7 +179,7 @@ arm_fsm_rt_t arm_2d_rgba8888_draw_point(const arm_2d_tile_t *ptTarget,
  *----------------------------------------------------------------------------*/
  
 extern
-ARM_NONNULL(1,2)
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_rgb16_draw_pattern(  const arm_2d_tile_t *ptPattern,
                                          const arm_2d_tile_t *ptTarget,
                                          const arm_2d_region_t *ptRegion,
@@ -188,7 +188,7 @@ arm_fsm_rt_t arm_2d_rgb16_draw_pattern(  const arm_2d_tile_t *ptPattern,
                                          uint16_t hwBackColour);
 
 extern
-ARM_NONNULL(1,2)
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_rgb32_draw_pattern(  const arm_2d_tile_t *ptPattern,
                                          const arm_2d_tile_t *ptTarget,
                                          const arm_2d_region_t *ptRegion,

@@ -19,10 +19,10 @@
 /* ----------------------------------------------------------------------
  * Project:      Arm-2D Library
  * Title:        arm-2d.c
- * Description:  Basic Tile operations
+ * Description:  APIs for various alpha related operations
  *
- * $Date:        01. December 2020
- * $Revision:    V.0.5.0
+ * $Date:        29. April 2021
+ * $Revision:    V.0.8.0
  *
  * Target Processor:  Cortex-M cores
  *
@@ -223,27 +223,27 @@ arm_fsm_rt_t __arm_2d_sw_alpha_blending(__arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_alpha_t, ptTask->ptOP)
 
-    if (   (ptTask->Param.tCopy.iSourceStride
-        ==  ptTask->Param.tCopy.iTargetStride)
-        && (ptTask->Param.tCopy.iSourceStride
+    if (   (ptTask->Param.tCopy.tSource.iStride
+        ==  ptTask->Param.tCopy.tTarget.iStride)
+        && (ptTask->Param.tCopy.tSource.iStride
         ==  ptTask->Param.tCopy.tCopySize.iWidth)) {
 
         //! direct blending
         switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
             case ARM_2D_COLOUR_SZ_16BIT:
                 __arm_2d_impl_rgb565_alpha_blending_direct(
-                                            ptTask->Param.tCopy.pSource,
-                                            ptTask->Param.tCopy.pTarget,
-                                            ptTask->Param.tCopy.pTarget,
+                                            ptTask->Param.tCopy.tSource.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
                                             ptTask->Param.tCopy.tCopySize.iHeight
                                                 * ptTask->Param.tCopy.tCopySize.iWidth,
                                             this.chRatio);
                 break;
             case ARM_2D_COLOUR_SZ_32BIT:
                 __arm_2d_impl_rgb888_alpha_blending_direct(
-                                            ptTask->Param.tCopy.pSource,
-                                            ptTask->Param.tCopy.pTarget,
-                                            ptTask->Param.tCopy.pTarget,
+                                            ptTask->Param.tCopy.tSource.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
                                             ptTask->Param.tCopy.tCopySize.iHeight
                                                 * ptTask->Param.tCopy.tCopySize.iWidth,
                                             this.chRatio);
@@ -256,19 +256,19 @@ arm_fsm_rt_t __arm_2d_sw_alpha_blending(__arm_2d_sub_task_t *ptTask)
         switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
             case ARM_2D_COLOUR_SZ_16BIT:
                 __arm_2d_impl_rgb565_alpha_blending(
-                                            ptTask->Param.tCopy.pSource,
-                                            ptTask->Param.tCopy.iSourceStride,
-                                            ptTask->Param.tCopy.pTarget,
-                                            ptTask->Param.tCopy.iTargetStride,
+                                            ptTask->Param.tCopy.tSource.pBuffer,
+                                            ptTask->Param.tCopy.tSource.iStride,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.iStride,
                                             &(ptTask->Param.tCopy.tCopySize),
                                             this.chRatio);
                 break;
             case ARM_2D_COLOUR_SZ_32BIT:
                 __arm_2d_impl_rgb888_alpha_blending(
-                                            ptTask->Param.tCopy.pSource,
-                                            ptTask->Param.tCopy.iSourceStride,
-                                            ptTask->Param.tCopy.pTarget,
-                                            ptTask->Param.tCopy.iTargetStride,
+                                            ptTask->Param.tCopy.tSource.pBuffer,
+                                            ptTask->Param.tCopy.tSource.iStride,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.iStride,
                                             &(ptTask->Param.tCopy.tCopySize),
                                             this.chRatio);
                 break;
@@ -330,27 +330,26 @@ arm_fsm_rt_t arm_2d_rgb888_fill_colour_with_alpha(
 
  
 arm_fsm_rt_t __arm_2d_sw_colour_filling_with_alpha(
-                                        __arm_2d_sub_task_t *ptTask,
-                                        void *__RESTRICT pTarget,
-                                        int16_t iStride,
-                                        arm_2d_size_t *__RESTRICT ptSize)
+                                        __arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t, ptTask->ptOP)
 
     switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
         case ARM_2D_COLOUR_SZ_16BIT:
-            __arm_2d_impl_rgb565_colour_filling_with_alpha(  pTarget,
-                                                            iStride,
-                                                            ptSize,
-                                                            this.hwColour,
-                                                            this.chRatio);
+            __arm_2d_impl_rgb565_colour_filling_with_alpha(  
+                            ptTask->Param.tTileProcess.pBuffer,
+                            ptTask->Param.tTileProcess.iStride,
+                            &(ptTask->Param.tTileProcess.tValidRegion.tSize),
+                            this.hwColour,
+                            this.chRatio);
             break;
         case ARM_2D_COLOUR_SZ_32BIT:
-            __arm_2d_impl_rgb888_colour_filling_with_alpha(  pTarget,
-                                                            iStride,
-                                                            ptSize,
-                                                            this.wColour,
-                                                            this.chRatio);
+            __arm_2d_impl_rgb888_colour_filling_with_alpha(  
+                            ptTask->Param.tTileProcess.pBuffer,
+                            ptTask->Param.tTileProcess.iStride,
+                            &(ptTask->Param.tTileProcess.tValidRegion.tSize),
+                            this.wColour,
+                            this.chRatio);
             break;
         default:
             return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
@@ -466,20 +465,20 @@ arm_fsm_rt_t __arm_2d_sw_alpha_blending_with_colour_masking(
     switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
         case ARM_2D_COLOUR_SZ_16BIT:
             __arm_2d_impl_rgb565_alpha_blending_colour_masking(
-                                            ptTask->Param.tCopy.pSource ,
-                                            ptTask->Param.tCopy.iSourceStride,
-                                            ptTask->Param.tCopy.pTarget,
-                                            ptTask->Param.tCopy.iTargetStride,
+                                            ptTask->Param.tCopy.tSource.pBuffer,
+                                            ptTask->Param.tCopy.tSource.iStride,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.iStride,
                                             &ptTask->Param.tCopy.tCopySize,
                                             this.chRatio,
                                             this.hwColour);
             break;
         case ARM_2D_COLOUR_SZ_32BIT:
             __arm_2d_impl_rgb888_alpha_blending_colour_masking(
-                                            ptTask->Param.tCopy.pSource ,
-                                            ptTask->Param.tCopy.iSourceStride,
-                                            ptTask->Param.tCopy.pTarget,
-                                            ptTask->Param.tCopy.iTargetStride,
+                                            ptTask->Param.tCopy.tSource.pBuffer,
+                                            ptTask->Param.tCopy.tSource.iStride,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.iStride,
                                             &ptTask->Param.tCopy.tCopySize,
                                             this.chRatio,
                                             this.wColour);

@@ -19,10 +19,10 @@
 /* ----------------------------------------------------------------------
  * Project:      Arm-2D Library
  * Title:        arm-2d_draw.c
- * Description:  Basic Tile operations
+ * Description:  APIs for basic drawing 
  *
- * $Date:        22. Febrary 2020
- * $Revision:    V.0.5.0
+ * $Date:        29. April 2021
+ * $Revision:    V.0.8.0
  *
  * Target Processor:  Cortex-M cores
  *
@@ -157,22 +157,16 @@ arm_fsm_rt_t arm_2d_rgb32_draw_point(   const arm_2d_tile_t *ptTarget,
     return __arm_2d_op_invoke(NULL);
 }
 
-arm_fsm_rt_t __arm_2d_sw_draw_point(__arm_2d_sub_task_t *ptTask,
-                                    void *__RESTRICT pTarget,
-                                    int16_t iStride,
-                                    arm_2d_size_t *__RESTRICT ptSize)
+arm_fsm_rt_t __arm_2d_sw_draw_point(__arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_drw_pt_t, ptTask->ptOP)
-    
-    ARM_2D_UNUSED(ptSize);
-    ARM_2D_UNUSED(iStride);
 
     switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
         case ARM_2D_COLOUR_SZ_16BIT:
-            (*(uint16_t *)pTarget) = this.hwColour;
+            (*(uint16_t *)ptTask->Param.tTileProcess.pBuffer) = this.hwColour;
             break;
         case ARM_2D_COLOUR_SZ_32BIT:
-            (*(uint32_t *)pTarget) = this.wColour;
+            (*(uint32_t *)ptTask->Param.tTileProcess.pBuffer) = this.wColour;
             break;
         default:
             return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
@@ -227,25 +221,24 @@ arm_fsm_rt_t arm_2d_rgb32_fill_colour(  const arm_2d_tile_t *ptTarget,
 
 
 
-arm_fsm_rt_t __arm_2d_sw_colour_filling(__arm_2d_sub_task_t *ptTask,
-                                        void *__RESTRICT pTarget,
-                                        int16_t iStride,
-                                        arm_2d_size_t *__RESTRICT ptSize)
+arm_fsm_rt_t __arm_2d_sw_colour_filling(__arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_fill_cl_t, ptTask->ptOP)
 
     switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
         case ARM_2D_COLOUR_SZ_16BIT:
-            __arm_2d_impl_rgb16_colour_filling( pTarget,
-                                                iStride,
-                                                ptSize,
-                                                this.hwColour);
+            __arm_2d_impl_rgb16_colour_filling( 
+                            ptTask->Param.tTileProcess.pBuffer,
+                            ptTask->Param.tTileProcess.iStride,
+                            &(ptTask->Param.tTileProcess.tValidRegion.tSize),
+                            this.hwColour);
             break;
         case ARM_2D_COLOUR_SZ_32BIT:
-            __arm_2d_impl_rgb32_colour_filling( pTarget,
-                                                iStride,
-                                                ptSize,
-                                                this.wColour);
+            __arm_2d_impl_rgb32_colour_filling( 
+                            ptTask->Param.tTileProcess.pBuffer,
+                            ptTask->Param.tTileProcess.iStride,
+                            &(ptTask->Param.tTileProcess.tValidRegion.tSize),
+                            this.wColour);
             break;
         default:
             return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
@@ -380,11 +373,11 @@ arm_fsm_rt_t __arm_2d_sw_draw_pattern( __arm_2d_sub_task_t *ptTask)
                     
                 //! draw bit-pattern
                 __arm_2d_impl_rgb16_draw_pattern(
-                                        ptTask->Param.tCopy.pSource,
-                                        ptTask->Param.tCopy.nSrcOffset,
-                                        ptTask->Param.tCopy.iSourceStride,
-                                        ptTask->Param.tCopy.pTarget,
-                                        ptTask->Param.tCopy.iTargetStride,
+                                        ptTask->Param.tCopy.tSource.pBuffer,
+                                        ptTask->Param.tCopy.tSource.nOffset,
+                                        ptTask->Param.tCopy.tSource.iStride,
+                                        ptTask->Param.tCopy.tTarget.pBuffer,
+                                        ptTask->Param.tCopy.tTarget.iStride,
                                         &ptTask->Param.tCopy.tCopySize,
                                         wMode,
                                         this.Foreground.hwColour,
@@ -395,11 +388,11 @@ arm_fsm_rt_t __arm_2d_sw_draw_pattern( __arm_2d_sub_task_t *ptTask)
             case ARM_2D_COLOUR_SZ_32BIT:
                 
                 __arm_2d_impl_rgb32_draw_pattern(
-                                        ptTask->Param.tCopy.pSource,
-                                        ptTask->Param.tCopy.nSrcOffset,
-                                        ptTask->Param.tCopy.iSourceStride,
-                                        ptTask->Param.tCopy.pTarget,
-                                        ptTask->Param.tCopy.iTargetStride,
+                                        ptTask->Param.tCopy.tSource.pBuffer,
+                                        ptTask->Param.tCopy.tSource.nOffset,
+                                        ptTask->Param.tCopy.tSource.iStride,
+                                        ptTask->Param.tCopy.tTarget.pBuffer,
+                                        ptTask->Param.tCopy.tTarget.iStride,
                                         &ptTask->Param.tCopy.tCopySize,
                                         wMode,
                                         this.Foreground.wColour,

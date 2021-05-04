@@ -295,10 +295,10 @@ typedef struct arm_2d_evt_t {
 } arm_2d_evt_t;
 
 
-#define ARM_2D_OP_INFO_PARAM_HAS_SOURCE           __BV(0)
-#define ARM_2D_OP_INFO_PARAM_HAS_ORIGIN           __BV(1)
-#define ARM_2D_OP_INFO_PARAM_HAS_TARGET           __BV(2)
-#define ARM_2D_OP_INFO_PARAM_HAS_ALPHA_MASK       __BV(3)
+#define ARM_2D_OP_INFO_PARAM_HAS_SOURCE           _BV(0)
+#define ARM_2D_OP_INFO_PARAM_HAS_ORIGIN           _BV(1)
+#define ARM_2D_OP_INFO_PARAM_HAS_TARGET           _BV(2)
+#define ARM_2D_OP_INFO_PARAM_HAS_ALPHA_MASK       _BV(3)
 
 
 typedef union __arm_2d_op_info_t {
@@ -324,6 +324,10 @@ typedef union __arm_2d_op_info_t {
             struct {
                 uint8_t CopyLike;
                 uint8_t FillLike;
+            };
+            struct {
+                uint8_t CopyOrigLike;
+                uint8_t FillOrigLike;
             };
             struct {
                 uint8_t TileProcessLike;
@@ -397,6 +401,26 @@ typedef struct arm_2d_op_src_t {
     }Source;
     uint32_t wMode;
 } arm_2d_op_src_t;
+
+/*! \brief arm_2d_op_src_orig_t is inherit from arm_2d_op_src_t
+ */
+typedef struct arm_2d_op_src_orig_t {
+    inherit(arm_2d_op_core_t);
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+        const arm_2d_region_t   *ptRegion;      //!< target region
+    } Target;
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< source tile
+    }Source;
+    uint32_t wMode;
+    
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< the origin tile
+        arm_2d_tile_t           tSource;        //!< the buffer for the source
+    }Origin;
+    
+} arm_2d_op_src_orig_t;
 
 
 typedef struct arm_2d_op_src_alpha_msk_t {

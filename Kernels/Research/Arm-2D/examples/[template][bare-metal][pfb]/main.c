@@ -33,6 +33,7 @@
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wunused-variable"
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#elif __IS_COMPILER_ARM_COMPILER_5__
 #elif __IS_COMPILER_GCC__
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wformat="
@@ -141,11 +142,22 @@ int32_t arm_2d_helper_perf_counter_stop(void)
 }
 
 
-static arm_fsm_rt_t __pfb_draw_handler_t( void *pTarget,
+static arm_fsm_rt_t __pfb_draw_handler( void *pTarget,
                                           const arm_2d_tile_t *ptTile)
 {
     ARM_2D_UNUSED(pTarget);
     example_gui_refresh(ptTile);
+
+    return arm_fsm_rt_cpl;
+}
+
+static arm_fsm_rt_t __pfb_draw_background_handler( 
+                                            void *pTarget,
+                                            const arm_2d_tile_t *ptTile)
+{
+    ARM_2D_UNUSED(pTarget);
+
+    arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLUE);
 
     return arm_fsm_rt_cpl;
 }
@@ -199,14 +211,26 @@ int main (void)
                 },
                 .evtOnDrawing = {
                     //! callback for drawing GUI 
-                    .fnHandler = &__pfb_draw_handler_t, 
+                    .fnHandler = &__pfb_draw_background_handler, 
                 },
             }
         ) < 0) {
         //! error detected
         assert(false);
     }
-
+    
+    //! draw background first
+    while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task(&s_tExamplePFB,NULL));
+    
+    //! update draw function
+    arm_2d_helper_pfb_update_dependency(&s_tExamplePFB,
+                                        ARM_2D_PFB_DEPEND_ON_DRAWING,
+                                        &(arm_2d_helper_pfb_dependency_t) {
+                                            .evtOnDrawing = {
+                                                .fnHandler = &__pfb_draw_handler,
+                                                .pTarget = NULL,
+                                            },
+                                        });
     
     while (1) {
         display_task();

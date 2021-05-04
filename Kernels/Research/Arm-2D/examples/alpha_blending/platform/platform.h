@@ -30,6 +30,7 @@
 #include <string.h>
 
 #include "arm_2d.h"
+#include "lcd_printf.h"
 
 //#include "Device.h"                     // Keil::Board Support:V2M-MPS2:Common
 #include "RTE_Components.h"             // Component selection
@@ -46,45 +47,14 @@ extern "C" {
 
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
-
-#define SAFE_ATOM_CODE(...)             \
-{                                       \
-    uint32_t wOrig = __disable_irq();   \
-    __VA_ARGS__;                        \
-    __set_PRIMASK(wOrig);               \
-}
-
-#ifndef _BV
-#   define _BV(__N)                ((uint32_t)1 << (__N))
-#endif
-
-
-#define __PRINT_BANNER(__STR)                                                   \
-        do {                                                                    \
-            lcd_text_location(  (GLCD_HEIGHT / 8) / 2 - 1,                      \
-                                ((GLCD_WIDTH / 6) - sizeof(__STR)) / 2);        \
-            lcd_puts(__STR);                                                    \
-        } while(0)
-
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
-
-extern const GLCD_FONT    GLCD_Font_16x24;
-extern const GLCD_FONT    GLCD_Font_6x8;
 
 extern uint32_t SystemCoreClock;
 /*============================ PROTOTYPES ====================================*/
 
 extern void delay_ms(uint32_t wMS);
 
-extern
-int lcd_printf(const char *format, ...);
-
-extern
-void lcd_puts(const char *str);
-
-extern 
-void lcd_text_location(uint8_t chY, uint8_t chX);
 
 #ifdef __cplusplus
 }

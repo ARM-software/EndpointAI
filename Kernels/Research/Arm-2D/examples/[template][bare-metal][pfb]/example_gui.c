@@ -93,7 +93,7 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
 
 void example_gui_refresh(const arm_2d_tile_t *ptFrameBuffer)
 {
-    arm_2d_rgb16_fill_colour(ptFrameBuffer, NULL, GLCD_COLOR_BLACK);
+    arm_2d_rgb16_fill_colour(ptFrameBuffer, NULL, GLCD_COLOR_BLUE);
     
     busy_wheel_show(ptFrameBuffer);
 

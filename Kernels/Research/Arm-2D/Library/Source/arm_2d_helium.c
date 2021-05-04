@@ -19,7 +19,7 @@
 /* ----------------------------------------------------------------------
  * Project:      Arm-2D Library
  * Title:        arm-2d_helium.c
- * Description:  Basic Tile operations
+ * Description:  Acceleration extensions using Helium. 
  *
  * $Date:        12. Jan 2021
  * $Revision:    V.0.5.0

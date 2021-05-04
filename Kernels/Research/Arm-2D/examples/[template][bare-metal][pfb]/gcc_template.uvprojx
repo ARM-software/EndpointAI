@@ -339,6 +339,16 @@
               <FileType>1</FileType>
               <FilePath>.\gcc\perf_counter.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
