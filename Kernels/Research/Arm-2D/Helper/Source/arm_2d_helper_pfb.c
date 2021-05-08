@@ -34,6 +34,7 @@
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wimplicit-fallthrough"
 #   pragma clang diagnostic ignored "-Wundef"
+#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
 #elif __IS_COMPILER_GCC__
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wpedantic"
@@ -203,7 +204,10 @@ void __arm_2d_helper_low_level_rendering(arm_2d_helper_pfb_t *ptThis)
     //! call handler
     (*this.tCFG.Dependency.evtOnLowLevelRendering.fnHandler)(
                     this.tCFG.Dependency.evtOnLowLevelRendering.pTarget,
-                    this.Adapter.ptCurrent);
+                    this.Adapter.ptCurrent,
+                    this.Adapter.bFirstIteration);
+    
+    this.Adapter.bFirstIteration = false;
 
 }
 
@@ -259,7 +263,7 @@ arm_2d_tile_t * __arm_2d_helper_pfb_drawing_iteration_begin(
     
     if (this.Adapter.bFirstIteration) {
         this.Adapter.ptDirtyRegion = ptDirtyRegions;
-        this.Adapter.bFirstIteration = false;
+        //this.Adapter.bFirstIteration = false;
         this.Adapter.bIsRegionChanged = true;
     }
     
@@ -474,7 +478,7 @@ ARM_PT_BEGIN(this.Adapter.chPT)
 
     this.Statistics.nTotalCycle = 0;
     this.Statistics.nRenderingCycle = 0;
-    
+    this.Adapter.bIsNewFrame = true;
     arm_2d_helper_perf_counter_start(); 
     do {
         this.Statistics.nRenderingCycle += arm_2d_helper_perf_counter_stop(); 
@@ -534,7 +538,9 @@ ARM_PT_BEGIN(this.Adapter.chPT)
         //! draw all the gui elements on target frame buffer
         tResult = this.tCFG.Dependency.evtOnDrawing.fnHandler(
                                         this.tCFG.Dependency.evtOnDrawing.pTarget,
-                                        this.Adapter.ptFrameBuffer);
+                                        this.Adapter.ptFrameBuffer,
+                                        this.Adapter.bIsNewFrame);
+        this.Adapter.bIsNewFrame = false;
         this.Statistics.nTotalCycle += arm_2d_helper_perf_counter_stop();                                 
         
         if (arm_fsm_rt_on_going == tResult) {

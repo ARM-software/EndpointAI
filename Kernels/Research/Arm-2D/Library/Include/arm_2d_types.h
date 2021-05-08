@@ -300,6 +300,8 @@ typedef struct arm_2d_evt_t {
 #define ARM_2D_OP_INFO_PARAM_HAS_TARGET           _BV(2)
 #define ARM_2D_OP_INFO_PARAM_HAS_ALPHA_MASK       _BV(3)
 
+//! an imcomplete defintion which is only used for defining pointers
+typedef struct __arm_2d_low_level_io_t __arm_2d_low_level_io_t;
 
 typedef union __arm_2d_op_info_t {
     struct {
@@ -333,6 +335,23 @@ typedef union __arm_2d_op_info_t {
                 uint8_t TileProcessLike;
             };
         }LowLevelInterfaceIndex;
+        
+        union {
+            const __arm_2d_low_level_io_t *IO[2];
+            
+            struct {
+                const __arm_2d_low_level_io_t *ptCopyLike;
+                const __arm_2d_low_level_io_t *ptFillLike;
+            };
+            struct {
+                const __arm_2d_low_level_io_t *ptCopyOrigLike;
+                const __arm_2d_low_level_io_t *ptFillOrigLike;
+            };
+            struct {
+                const __arm_2d_low_level_io_t *ptTileProcessLike;
+            };
+        }LowLevelIO;
+        
     }Info;
     uint32_t    wID;                    //!< ID for a specific operation
 } __arm_2d_op_info_t;
@@ -417,7 +436,7 @@ typedef struct arm_2d_op_src_orig_t {
     
     struct {
         const arm_2d_tile_t     *ptTile;        //!< the origin tile
-        arm_2d_tile_t           tSource;        //!< the buffer for the source
+        arm_2d_tile_t           tDummySource;   //!< the buffer for the source
     }Origin;
     
 } arm_2d_op_src_orig_t;

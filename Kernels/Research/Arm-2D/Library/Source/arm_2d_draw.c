@@ -121,7 +121,7 @@ arm_fsm_rt_t arm_2d_rgb16_draw_point(   const arm_2d_tile_t *ptTarget,
         .tSize = {1,1},
     };
 
-    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_DRAW_POINT_RGB16];
+    OP_CORE.ptOp = &ARM_2D_OP_DRAW_POINT_RGB16;
     OP_CORE.Preference.u2ACCMethods = ARM_2D_PREF_ACC_SW_ONLY;
 
     this.Target.ptTile = ptTarget;
@@ -147,7 +147,7 @@ arm_fsm_rt_t arm_2d_rgb32_draw_point(   const arm_2d_tile_t *ptTarget,
         .tSize = {1,1},
     };
 
-    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_DRAW_POINT_RGB32];
+    OP_CORE.ptOp = &ARM_2D_OP_DRAW_POINT_RGB32;
     OP_CORE.Preference.u2ACCMethods = ARM_2D_PREF_ACC_SW_ONLY;
     
     this.Target.ptTile = ptTarget;
@@ -190,7 +190,7 @@ arm_fsm_rt_t arm_2d_rgb16_fill_colour(  const arm_2d_tile_t *ptTarget,
     ARM_2D_IMPL(arm_2d_op_fill_cl_t);
     memset(ptThis, 0, sizeof(*ptThis));
     
-    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_COLOUR_FILL_RGB16];
+    OP_CORE.ptOp = &ARM_2D_OP_COLOUR_FILL_RGB16;
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -210,7 +210,7 @@ arm_fsm_rt_t arm_2d_rgb32_fill_colour(  const arm_2d_tile_t *ptTarget,
     ARM_2D_IMPL(arm_2d_op_fill_cl_t);
     memset(ptThis, 0, sizeof(*ptThis));
     
-    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_COLOUR_FILL_RGB32];
+    OP_CORE.ptOp = &ARM_2D_OP_COLOUR_FILL_RGB32;
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -221,28 +221,30 @@ arm_fsm_rt_t arm_2d_rgb32_fill_colour(  const arm_2d_tile_t *ptTarget,
 
 
 
-arm_fsm_rt_t __arm_2d_sw_colour_filling(__arm_2d_sub_task_t *ptTask)
+arm_fsm_rt_t __arm_2d_rgb16_sw_colour_filling(__arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_fill_cl_t, ptTask->ptOP)
+    assert(ARM_2D_COLOUR_SZ_16BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
+    
+    __arm_2d_impl_rgb16_colour_filling( 
+                    ptTask->Param.tTileProcess.pBuffer,
+                    ptTask->Param.tTileProcess.iStride,
+                    &(ptTask->Param.tTileProcess.tValidRegion.tSize),
+                    this.hwColour);
 
-    switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
-        case ARM_2D_COLOUR_SZ_16BIT:
-            __arm_2d_impl_rgb16_colour_filling( 
-                            ptTask->Param.tTileProcess.pBuffer,
-                            ptTask->Param.tTileProcess.iStride,
-                            &(ptTask->Param.tTileProcess.tValidRegion.tSize),
-                            this.hwColour);
-            break;
-        case ARM_2D_COLOUR_SZ_32BIT:
-            __arm_2d_impl_rgb32_colour_filling( 
-                            ptTask->Param.tTileProcess.pBuffer,
-                            ptTask->Param.tTileProcess.iStride,
-                            &(ptTask->Param.tTileProcess.tValidRegion.tSize),
-                            this.wColour);
-            break;
-        default:
-            return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
-    }
+    return arm_fsm_rt_cpl;
+}
+
+arm_fsm_rt_t __arm_2d_rgb32_sw_colour_filling(__arm_2d_sub_task_t *ptTask)
+{
+    ARM_2D_IMPL(arm_2d_op_fill_cl_t, ptTask->ptOP)
+    assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
+   
+    __arm_2d_impl_rgb32_colour_filling( 
+                    ptTask->Param.tTileProcess.pBuffer,
+                    ptTask->Param.tTileProcess.iStride,
+                    &(ptTask->Param.tTileProcess.tValidRegion.tSize),
+                    this.wColour);
 
     return arm_fsm_rt_cpl;
 }
@@ -275,7 +277,7 @@ arm_fsm_rt_t arm_2d_rgb16_draw_pattern(  const arm_2d_tile_t *ptPattern,
     }
     
     
-    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_DRAW_PATTERN_RGB16];
+    OP_CORE.ptOp = &ARM_2D_OP_DRAW_PATTERN_RGB16;
     
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -312,7 +314,7 @@ arm_fsm_rt_t arm_2d_rgb32_draw_pattern( const arm_2d_tile_t *ptPattern,
         return arm_fsm_rt_cpl;
     }
     
-    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_DRAW_PATTERN_RGB32];
+    OP_CORE.ptOp = &ARM_2D_OP_DRAW_PATTERN_RGB32;
     
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -324,10 +326,10 @@ arm_fsm_rt_t arm_2d_rgb32_draw_pattern( const arm_2d_tile_t *ptPattern,
     return __arm_2d_op_invoke(NULL);
 }
 
-arm_fsm_rt_t __arm_2d_sw_draw_pattern( __arm_2d_sub_task_t *ptTask)
+arm_fsm_rt_t __arm_2d_rgb16_sw_draw_pattern( __arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_drw_patn_t, ptTask->ptOP);
-    
+    assert(ARM_2D_COLOUR_SZ_16BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
     uint32_t wMode = this.wMode;
     
 #if 0
@@ -343,64 +345,71 @@ arm_fsm_rt_t __arm_2d_sw_draw_pattern( __arm_2d_sub_task_t *ptTask)
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
     #if 0
         //! todo: add support for mirror
-        switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
-            case ARM_2D_COLOUR_SZ_16BIT:
-                __arm_2d_impl_rgb16_draw_pattern_with_mirror(
-                                            ptTask->Param.tCopy.pSource ,
-                                            ptTask->Param.tCopy.iSourceStride,
-                                            ptTask->Param.tCopy.pTarget,
-                                            ptTask->Param.tCopy.iTargetStride,
-                                            &ptTask->Param.tCopy.tCopySize,
-                                            wMode);
-                break;
-            case ARM_2D_COLOUR_SZ_32BIT:
-                __arm_2d_impl_rgb32_draw_pattern_with_mirror(
-                                            ptTask->Param.tCopy.pSource ,
-                                            ptTask->Param.tCopy.iSourceStride,
-                                            ptTask->Param.tCopy.pTarget,
-                                            ptTask->Param.tCopy.iTargetStride,
-                                            &ptTask->Param.tCopy.tCopySize,
-                                            wMode);
-                break;
-            default:
-                return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
-        }
+        __arm_2d_impl_rgb16_draw_pattern_with_mirror(
+                                    ptTask->Param.tCopy.pSource ,
+                                    ptTask->Param.tCopy.iSourceStride,
+                                    ptTask->Param.tCopy.pTarget,
+                                    ptTask->Param.tCopy.iTargetStride,
+                                    &ptTask->Param.tCopy.tCopySize,
+                                    wMode);
+        break;
+
     #endif
     } else {
-        
-        switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
-            case ARM_2D_COLOUR_SZ_16BIT:
-                    
-                //! draw bit-pattern
-                __arm_2d_impl_rgb16_draw_pattern(
-                                        ptTask->Param.tCopy.tSource.pBuffer,
-                                        ptTask->Param.tCopy.tSource.nOffset,
-                                        ptTask->Param.tCopy.tSource.iStride,
-                                        ptTask->Param.tCopy.tTarget.pBuffer,
-                                        ptTask->Param.tCopy.tTarget.iStride,
-                                        &ptTask->Param.tCopy.tCopySize,
-                                        wMode,
-                                        this.Foreground.hwColour,
-                                        this.Background.hwColour);
-                    
+        //! draw bit-pattern
+        __arm_2d_impl_rgb16_draw_pattern(
+                                ptTask->Param.tCopy.tSource.pBuffer,
+                                ptTask->Param.tCopy.tSource.nOffset,
+                                ptTask->Param.tCopy.tSource.iStride,
+                                ptTask->Param.tCopy.tTarget.pBuffer,
+                                ptTask->Param.tCopy.tTarget.iStride,
+                                &ptTask->Param.tCopy.tCopySize,
+                                wMode,
+                                this.Foreground.hwColour,
+                                this.Background.hwColour);
+    }
 
-                break;
-            case ARM_2D_COLOUR_SZ_32BIT:
-                
-                __arm_2d_impl_rgb32_draw_pattern(
-                                        ptTask->Param.tCopy.tSource.pBuffer,
-                                        ptTask->Param.tCopy.tSource.nOffset,
-                                        ptTask->Param.tCopy.tSource.iStride,
-                                        ptTask->Param.tCopy.tTarget.pBuffer,
-                                        ptTask->Param.tCopy.tTarget.iStride,
-                                        &ptTask->Param.tCopy.tCopySize,
-                                        wMode,
-                                        this.Foreground.wColour,
-                                        this.Background.wColour);
-                break;
-            default:
-                return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
-        }
+    return arm_fsm_rt_cpl;
+}
+
+arm_fsm_rt_t __arm_2d_rgb32_sw_draw_pattern( __arm_2d_sub_task_t *ptTask)
+{
+    ARM_2D_IMPL(arm_2d_op_drw_patn_t, ptTask->ptOP);
+    assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
+    uint32_t wMode = this.wMode;
+    
+#if 0
+    if (!this.Source.ptTile->bHasEnforcedColour) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+    } 
+    
+    if (ARM_2D_COLOUR_SZ_1BIT != this.Source.ptTile->tColourInfo.u3ColourSZ) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+    }
+#endif
+
+    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
+    #if 0
+        //! todo: add support for mirror
+        __arm_2d_impl_rgb32_draw_pattern_with_mirror(
+                                    ptTask->Param.tCopy.pSource ,
+                                    ptTask->Param.tCopy.iSourceStride,
+                                    ptTask->Param.tCopy.pTarget,
+                                    ptTask->Param.tCopy.iTargetStride,
+                                    &ptTask->Param.tCopy.tCopySize,
+                                    wMode);
+    #endif
+    } else {
+        __arm_2d_impl_rgb32_draw_pattern(
+                                ptTask->Param.tCopy.tSource.pBuffer,
+                                ptTask->Param.tCopy.tSource.nOffset,
+                                ptTask->Param.tCopy.tSource.iStride,
+                                ptTask->Param.tCopy.tTarget.pBuffer,
+                                ptTask->Param.tCopy.tTarget.iStride,
+                                &ptTask->Param.tCopy.tCopySize,
+                                wMode,
+                                this.Foreground.wColour,
+                                this.Background.wColour);
     }
 
     return arm_fsm_rt_cpl;

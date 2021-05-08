@@ -61,6 +61,7 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wswitch-enum"
 #   pragma clang diagnostic ignored "-Wswitch"
 #   pragma clang diagnostic ignored "-Wimplicit-fallthrough"
+#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
 #elif __IS_COMPILER_ARM_COMPILER_5__
 #   pragma diag_suppress 174,177,188,68,513,144
 #elif __IS_COMPILER_GCC__
@@ -371,9 +372,9 @@ arm_fsm_rt_t __arm_2d_sub_task_dispatch(__arm_2d_sub_task_t *ptTask)
     arm_fsm_rt_t tResult = (arm_fsm_rt_t)ARM_2D_ERR_INVALID_OP;
     //ARM_2D_IMPL(arm_2d_op_t, ptTask->ptOP);
     
-    if (ptTask->chLowLeveIOIndex < dimof(__ARM_2D_IO_TABLE.OP)) {
+    //if (ptTask->chLowLeveIOIndex < dimof(__ARM_2D_IO_TABLE.OP)) {
         tResult = __arm_2d_call_default_io( ptTask, ptTask->chLowLeveIOIndex);
-    }
+    //}
     
     return tResult;
 
@@ -528,7 +529,7 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_tile_process(
 
     (*ptTask) = (__arm_2d_sub_task_t) {
                     .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
-                    .chLowLeveIOIndex = OP_CORE.ptOp->Info.LowLevelInterfaceIndex.TileProcessLike,
+                    .chLowLeveIOIndex = 0,//OP_CORE.ptOp->Info.LowLevelInterfaceIndex.TileProcessLike,
                     .Param.tTileProcess = *ptParam,
                 };
     
@@ -550,7 +551,7 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_fill(
 
     (*ptTask) = (__arm_2d_sub_task_t) {
                     .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
-                    .chLowLeveIOIndex = OP_CORE.ptOp->Info.LowLevelInterfaceIndex.FillLike,
+                    .chLowLeveIOIndex = 1,
                     .Param.tFill = {
                         .tSource    = *ptSource,
                         .tTarget    = *ptTarget,
@@ -576,7 +577,7 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_copy(
 
     (*ptTask) = (__arm_2d_sub_task_t) {
                     .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
-                    .chLowLeveIOIndex = OP_CORE.ptOp->Info.LowLevelInterfaceIndex.CopyLike,
+                    .chLowLeveIOIndex = 0,
                     .Param.tCopy = {
                         .tSource            = *ptSource,
                         .tTarget            = *ptTarget,
@@ -589,6 +590,67 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_copy(
 
     return arm_fsm_rt_async;
 }
+
+
+__OVERRIDE_WEAK
+arm_fsm_rt_t __arm_2d_issue_sub_task_fill_origin(
+                                    arm_2d_op_cp_t *ptThis,
+                                    __arm_2d_tile_param_t *ptSource,
+                                    __arm_2d_tile_param_t *ptOrigin,
+                                    __arm_2d_tile_param_t *ptTarget)
+{
+    __arm_2d_sub_task_t *ptTask = __arm_2d_sub_task_new();
+    assert(NULL != ptTask);         
+
+    (*ptTask) = (__arm_2d_sub_task_t) {
+                    .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
+                    .chLowLeveIOIndex = 1,
+                    .Param.tFillOrig = {
+                        .use_as____arm_2d_param_fill_t = {
+                            .tSource    = *ptSource,
+                            .tTarget    = *ptTarget,
+                        },
+                        .tOrigin        = *ptOrigin,
+                    },
+                };
+    
+    OP_CORE.Status.u4SubTaskCount++;
+    
+    __arm_2d_sub_task_add(ptTask);
+
+    return arm_fsm_rt_async;
+}
+
+__OVERRIDE_WEAK
+arm_fsm_rt_t __arm_2d_issue_sub_task_copy_origin(
+                                    arm_2d_op_cp_t *ptThis,
+                                    __arm_2d_tile_param_t *ptSource,
+                                    __arm_2d_tile_param_t *ptOrigin,
+                                    __arm_2d_tile_param_t *ptTarget,
+                                    arm_2d_size_t * __RESTRICT ptCopySize)
+{
+    __arm_2d_sub_task_t *ptTask = __arm_2d_sub_task_new();
+    assert(NULL != ptTask);         
+
+    (*ptTask) = (__arm_2d_sub_task_t) {
+                    .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
+                    .chLowLeveIOIndex = 0,
+                    .Param.tCopyOrig = {
+                        .use_as____arm_2d_param_copy_t = {
+                            .tSource            = *ptSource,
+                            .tTarget            = *ptTarget,
+                            .tCopySize          = *ptCopySize,
+                        },
+                        .tOrigin                = *ptOrigin,
+                    },
+                };
+    OP_CORE.Status.u4SubTaskCount++;
+    
+    __arm_2d_sub_task_add(ptTask);
+
+    return arm_fsm_rt_async;
+}
+
 
 /*! \brief initialise the whole arm-2d service
  *! \param none

@@ -67,19 +67,19 @@ extern "C" {
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
 #define ARM_2D_TRY_ACCELERATION(__ID, __FUNC_PROTOTYPE, ...)                    \
-        if (    (NULL != __ARM_2D_IO_TABLE.OP[__ID].HW)                         \
-            &&  ((__ID) != (uint8_t)__ARM_2D_IO_NONE)) {                        \
+        if (    (NULL != OP_CORE.ptOp->Info.LowLevelIO.IO[__ID]->HW)            \
+            &&  (NULL != OP_CORE.ptOp->Info.LowLevelIO.IO[__ID])) {            \
             tResult =                                                           \
-                (*(__FUNC_PROTOTYPE *)__ARM_2D_IO_TABLE.OP[__ID].HW)(           \
+            (*(__FUNC_PROTOTYPE *)OP_CORE.ptOp->Info.LowLevelIO.IO[__ID]->HW)(  \
                                         ptTask,                                 \
                                         ##__VA_ARGS__);                         \
         }
 
 #define ARM_2D_RUN_DEFAULT(__ID, __FUNC_PROTOTYPE, ...)                         \
-        if (    (NULL != __ARM_2D_IO_TABLE.OP[__ID].SW)                         \
-            &&  ((__ID) != (uint8_t)__ARM_2D_IO_NONE)) {                        \
+        if (    (NULL != OP_CORE.ptOp->Info.LowLevelIO.IO[__ID]->SW)            \
+            &&  (NULL != OP_CORE.ptOp->Info.LowLevelIO.IO[__ID])) {            \
             tResult =                                                           \
-                (*(__FUNC_PROTOTYPE *)__ARM_2D_IO_TABLE.OP[__ID].SW)(           \
+            (*(__FUNC_PROTOTYPE *)OP_CORE.ptOp->Info.LowLevelIO.IO[__ID]->SW)(  \
                                         ptTask,                                 \
                                         ##__VA_ARGS__);                         \
         } else {                                                                \
@@ -118,97 +118,16 @@ enum {
 //! @}
 
 
-//! \name Operation Low Level IO Index
-//! @{
-enum {
-    /*------------ arm-2d operation idx begin --------------*/
-    __ARM_2D_IO_NONE = -1,
-    
-    __ARM_2D_IO_COPY,
-    __ARM_2D_IO_FILL,
-    
-    __ARM_2D_IO_COPY_WITH_COLOUR_MASKING,
-    __ARM_2D_IO_FILL_WITH_COLOUR_MASKING,
-    
-    __ARM_2D_IO_FILL_COLOUR,
-    __ARM_2D_IO_FILL_COLOUR_WITH_COLOUR_MASKING,
-    
-    __ARM_2D_IO_ALPHA_BLENDING,
-    __ARM_2D_IO_ALPHA_BLENDING_WITH_FILL,
-    
-    __ARM_2D_IO_ALPHA_BLENDING_WITH_COLOUR_MASKING,
-    __ARM_2D_IO_ALPHA_BLENDING_WITH_FILL_AND_COLOUR_MASKING,
-    
-    __ARM_2D_IO_ALPHA_FILL_COLOUR,
-    __ARM_2D_IO_ALPHA_FILL_COLOUR_WITH_COLOUR_MASKING,
-    
-    __ARM_2D_IO_DRAW_POINT,
-    __ARM_2D_IO_DRAW_PATTERN,
-    __ARM_2D_IO_COLOUR_CONVERT_TO_RGB565,
-    __ARM_2D_IO_COLOUR_CONVERT_TO_RGB888,
-    
-    __ARM_2D_IO_ROTATE,
-    
-    /*------------ arm-2d operation idx end ----------------*/
-    __ARM_2D_IO_NUMBER,
-    __ARM_2D_IO_DEFAULT_COPY = __ARM_2D_IO_COPY,
-    __ARM_2D_IO_DEFAULT_FILL = __ARM_2D_IO_FILL,
-};
-//! @}
-
-
-enum {
-    ARM_2D_OP_SYNC,
-    ARM_2D_OP_BARRIER = ARM_2D_OP_SYNC,
-    
-
-    ARM_2D_OP_TILE_COPY_RGB16,
-    ARM_2D_OP_TILE_COPY_RGB32,
-    ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB16,
-    ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB32,
-    ARM_2D_OP_COLOUR_FILL_RGB16,
-    ARM_2D_OP_COLOUR_FILL_RGB32,
-    ARM_2D_OP_ALPHA_BLENDING_RGB565,
-    ARM_2D_OP_ALPHA_BLENDING_RGB888,
-    ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB565,
-    ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB888,
-    ARM_2D_OP_ALPHA_COLOUR_FILL_RGB565,
-    ARM_2D_OP_ALPHA_COLOUR_FILL_RGB888,
-
-    ARM_2D_OP_DRAW_POINT_RGB16,
-    ARM_2D_OP_DRAW_POINT_RGB32,
-    ARM_2D_OP_DRAW_PATTERN_RGB16,
-    ARM_2D_OP_DRAW_PATTERN_RGB32,
-    
-    ARM_2D_OP_CONVERT_TO_RGB565,
-    ARM_2D_OP_CONVERT_TO_RGB888,
-    
-    ARM_2D_OP_ROTATE_RGB565,
-    ARM_2D_OP_ROTATE_RGB888,
-
-    __ARM_2D_OP_NUMBER,
-};
-
-
 typedef struct __arm_2d_sub_task_t __arm_2d_sub_task_t;
-
-typedef
-arm_fsm_rt_t __arm_2d_io_tile_default_tile_process_t(   
-                                        __arm_2d_sub_task_t *ptTask,
-                                        void *__RESTRICT pTarget,
-                                        int16_t iStride,
-                                        arm_2d_size_t *__RESTRICT ptSize);
 
 
 typedef arm_fsm_rt_t __arm_2d_io_func_t(__arm_2d_sub_task_t *ptTask);
 
-struct __arm_2d_io_table {
-ARM_PRIVATE(
-    struct {
-        arm_fsm_rt_t    (*SW)(__arm_2d_sub_task_t *ptTask);
-        arm_fsm_rt_t    (*HW)(__arm_2d_sub_task_t *ptTask);
-    }OP[__ARM_2D_IO_NUMBER ];
-)};
+typedef struct __arm_2d_low_level_io_t {
+    __arm_2d_io_func_t *SW;
+    __arm_2d_io_func_t *HW;
+} __arm_2d_low_level_io_t;
+
 
 typedef struct __arm_2d_tile_param_t {
     void *              pBuffer;
@@ -287,6 +206,7 @@ ARM_PRIVATE(
         arm_2d_op_alpha_cl_msk_t   tAlphaColourMask;
         arm_2d_op_alpha_fill_cl_t  tAlphaColourFill;
         arm_2d_op_drw_patn_t       tDrawPattern;
+        arm_2d_op_rotate_t         tRotate;
     } DefaultOP;
 )};
 
@@ -296,9 +216,6 @@ ARM_PRIVATE(
 extern 
 const struct __arm_2d_io_table __ARM_2D_IO_TABLE;
 
-extern
-const __arm_2d_op_info_t ARM_2D_OP_TABLE[__ARM_2D_OP_NUMBER];
-
 extern struct __arm_2d_op_control ARM_2D_CTRL;
 
 /*============================ PROTOTYPES ====================================*/
@@ -307,42 +224,85 @@ extern
 arm_fsm_rt_t __arm_2d_op_invoke(arm_2d_op_core_t *ptOP);
 
 
+
+/*! \note This API should be called by both arm_2d_task and hardware 
+ *!       accelerator to indicate the completion of a sub task
+ */
+extern
+void __arm_2d_notify_sub_task_cpl(__arm_2d_sub_task_t *ptTask, 
+                                    arm_fsm_rt_t tResult,
+                                    bool bFromHW);
+
 /*----------------------------------------------------------------------------*
  * Default Software Implementations                                           *
  *----------------------------------------------------------------------------*/
  
-extern 
-arm_fsm_rt_t __arm_2d_sw_colour_filling(__arm_2d_sub_task_t *ptTask);
+
         
 extern 
-arm_fsm_rt_t __arm_2d_sw_draw_point(__arm_2d_sub_task_t *ptTask);        
+arm_fsm_rt_t __arm_2d_sw_draw_point(__arm_2d_sub_task_t *ptTask);      
 
 extern 
-arm_fsm_rt_t __arm_2d_sw_draw_pattern( __arm_2d_sub_task_t *ptTask);
-
-extern
-arm_fsm_rt_t __arm_2d_sw_tile_fill( __arm_2d_sub_task_t *ptTask);
-
-extern
-arm_fsm_rt_t __arm_2d_sw_tile_copy(  __arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_rgb16_sw_draw_pattern( __arm_2d_sub_task_t *ptTask);
 
 extern 
-arm_fsm_rt_t __arm_2d_sw_tile_copy_with_colour_masking(
+arm_fsm_rt_t __arm_2d_rgb32_sw_draw_pattern( __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill( __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill( __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy(  __arm_2d_sub_task_t *ptTask);
+
+extern 
+arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy_with_colour_masking(
+                                        __arm_2d_sub_task_t *ptTask);
+                           
+extern 
+arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy_with_colour_masking(
+                                        __arm_2d_sub_task_t *ptTask);
+                           
+extern
+arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill_with_colour_masking( 
+                                        __arm_2d_sub_task_t *ptTask);
+
+
+extern
+arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill_with_colour_masking( 
+                                        __arm_2d_sub_task_t *ptTask);
+                                        
+extern 
+arm_fsm_rt_t __arm_2d_rgb16_sw_colour_filling(__arm_2d_sub_task_t *ptTask);
+
+extern 
+arm_fsm_rt_t __arm_2d_rgb32_sw_colour_filling(__arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb565_sw_alpha_blending(__arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb888_sw_alpha_blending(__arm_2d_sub_task_t *ptTask);
+                                        
+extern
+arm_fsm_rt_t __arm_2d_rgb565_sw_alpha_blending_with_colour_masking(
                                         __arm_2d_sub_task_t *ptTask);
                                         
 extern
-arm_fsm_rt_t __arm_2d_sw_tile_fill_with_colour_masking( 
-                                        __arm_2d_sub_task_t *ptTask);
-
-extern
-arm_fsm_rt_t __arm_2d_sw_alpha_blending(__arm_2d_sub_task_t *ptTask);
-                                        
-extern
-arm_fsm_rt_t __arm_2d_sw_alpha_blending_with_colour_masking(
+arm_fsm_rt_t __arm_2d_rgb888_sw_alpha_blending_with_colour_masking(
                                         __arm_2d_sub_task_t *ptTask);
 
 extern 
-arm_fsm_rt_t __arm_2d_sw_colour_filling_with_alpha(
+arm_fsm_rt_t __arm_2d_rgb565_sw_colour_filling_with_alpha(
+                                        __arm_2d_sub_task_t *ptTask);
+
+extern 
+arm_fsm_rt_t __arm_2d_rgb888_sw_colour_filling_with_alpha(
                                         __arm_2d_sub_task_t *ptTask);
 
 extern
@@ -352,6 +312,12 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb565(
 extern
 arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb888(  
                                     __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb565_sw_rotate(__arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb888_sw_rotate(__arm_2d_sub_task_t *ptTask);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

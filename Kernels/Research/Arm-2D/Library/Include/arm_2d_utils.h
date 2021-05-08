@@ -302,20 +302,16 @@ extern "C" {
 #define ARM_PIX_SCLTYP(sz)     ARM_CONNECT2(ARM_CONNECT2(uint, sz), _t)
 #define ARM_PIX_VECTYP(sz)     ARM_CONNECT2(vec_rgb,sz)
 
-#undef arm_irq_safe
+#define ARM_2D_ANGLE(__ANGLE)  ((float)((float)(__ANGLE) * 3.1416926f / 180.0f))
 
-#if defined(__IS_COMPILER_GCC__)
+
+#undef arm_irq_safe
 
 #define arm_irq_safe                                                            \
             arm_using(  uint32_t ARM_CONNECT2(temp,__LINE__) =                  \
                         ({uint32_t temp=__get_PRIMASK();__disable_irq();temp;}),\
                         __set_PRIMASK(ARM_CONNECT2(temp,__LINE__))) 
-#else
 
-#define arm_irq_safe                                                            \
-            arm_using(  uint32_t ARM_CONNECT2(temp,__LINE__) = __disable_irq(), \
-                        __set_PRIMASK(ARM_CONNECT2(temp,__LINE__)))  
-#endif
 
 
 /*----------------------------------------------------------------------------*
@@ -386,6 +382,22 @@ extern "C" {
 #define ARM_LIST_QUEUE_DEQUEUE(__HEAD, __TAIL, __ITEM)  \
             __ARM_LIST_QUEUE_DEQUEUE((__HEAD), (__TAIL), (__ITEM))
 
+
+/*----------------------------------------------------------------------------*
+ * Definition Template                                                        *
+ *----------------------------------------------------------------------------*/
+
+#define __def_low_lv_io(__NAME, __SW, ...)                                      \
+const __arm_2d_low_level_io_t LOW_LEVEL_IO##__NAME = {                          \
+    .SW = (__arm_2d_io_func_t *)&(__SW),                                        \
+    .HW = (NULL, ##__VA_ARGS__)                                                 \
+}
+#define def_low_lv_io(__NAME, __SW, ...)                                        \
+            __def_low_lv_io(__NAME, __SW, ##__VA_ARGS__)
+
+
+#define __ref_low_lv_io(__NAME)     &LOW_LEVEL_IO##__NAME
+#define ref_low_lv_io(__NAME)       __ref_low_lv_io(__NAME)
 
 /*============================ TYPES =========================================*/
 

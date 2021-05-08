@@ -85,7 +85,7 @@ void busy_wheel_init(void)
     s_wUnit = (SystemCoreClock  / 1000) * BUSY_WHEEL_SPIN_SPEED;
 }
 
-void busy_wheel_show(const arm_2d_tile_t *ptTarget)
+void busy_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
 {
     ASSERT(NULL != ptTarget);
     static uint8_t s_chOffset = 0;
@@ -95,13 +95,15 @@ void busy_wheel_show(const arm_2d_tile_t *ptTarget)
     };
     arm_2d_region_t tTargetRegion = c_tPictureWhiteDot.tRegion;
     
-    int64_t lClocks = clock();
-    int32_t nElapsed = (int32_t)((lClocks - s_lLastTime));
-    
-    if (nElapsed >= (int32_t)s_wUnit) {
-        s_lLastTime = lClocks;
-        s_chOffset++;
-        s_chOffset &= 0x07;
+    if (bIsNewFrame) {
+        int64_t lClocks = clock();
+        int32_t nElapsed = (int32_t)((lClocks - s_lLastTime));
+        
+        if (nElapsed >= (int32_t)s_wUnit) {
+            s_lLastTime = lClocks;
+            s_chOffset++;
+            s_chOffset &= 0x07;
+        }
     }
     
     for (uint_fast8_t n = 0; n < 8; n++) {

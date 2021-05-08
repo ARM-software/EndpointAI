@@ -108,6 +108,41 @@ extern "C" {
             
 #define ADD_LAST_REGION_TO_LIST(__NAME, ...)                                    \
             __ADD_LAST_REGION_TO_LIST(__NAME, ##__VA_ARGS__) 
+            
+/*! \note add macros in lower-case and make sure everyone can choose what they 
+ *!       like. 
+ */
+//@{
+#define init_arm_2d_helper_pfb( __CB_ADDR,                                      \
+                                __SCREEN_WIDTH,                                 \
+                                __SCREEN_HEIGHT,                                \
+                                __PIXEL_TYPE,                                   \
+                                __WIDTH,                                        \
+                                __HEIGHT,                                       \
+                                __PFB_NUM,                                      \
+                                ...                                             \
+                                )                                               \
+            ARM_2D_HELPER_PFB_INIT(                                             \
+                                __CB_ADDR,                                      \
+                                __SCREEN_WIDTH,                                 \
+                                __SCREEN_HEIGHT,                                \
+                                __PIXEL_TYPE,                                   \
+                                __WIDTH,                                        \
+                                __HEIGHT,                                       \
+                                __PFB_NUM,                                      \
+                                ##__VA_ARGS__                                   \
+                                )
+ 
+
+#define impl_arm_2d_region_list(__NAME, ...)                                    \
+            IMPL_ARM_2D_REGION_LIST(__NAME,##__VA_ARGS__)
+#define add_region_to_list(__NAME, ...)                                         \
+            ADD_REGION_TO_LIST(__NAME, ##__VA_ARGS__) 
+#define add_last_region_to_list(__NAME, ...)                                    \
+            ADD_LAST_REGION_TO_LIST(__NAME, ##__VA_ARGS__)
+#define end_impl_arm_2d_region_list(...)                                        \
+            END_IMPL_ARM_2D_REGION_LIST(__VA_ARGS__)
+//! @}
 
 /*============================ TYPES =========================================*/
 
@@ -124,11 +159,13 @@ typedef struct arm_2d_region_list_item_t {
 
 typedef arm_fsm_rt_t arm_2d_helper_draw_handler_t( 
                                           void *pTarget,
-                                          const arm_2d_tile_t *ptTile);
+                                          const arm_2d_tile_t *ptTile,
+                                          bool bIsNewFrame);
 
 typedef void arm_2d_helper_render_handler_t( 
                                           void *pTarget,
-                                          const arm_2d_pfb_t *ptPFB);
+                                          const arm_2d_pfb_t *ptPFB,
+                                          bool bIsNewFrame);
 
 typedef struct arm_2d_helper_render_evt_t {
     arm_2d_helper_render_handler_t *fnHandler;                                     //!< event handler function
@@ -191,7 +228,7 @@ ARM_PRIVATE(
         bool                        bFirstIteration;
         bool                        bIsRegionChanged;
         uint8_t                     chPT;
-        uint8_t                                    : 8;
+        uint8_t                     bIsNewFrame;
         
         arm_2d_pfb_t               *ptCurrent;
         arm_2d_pfb_t               *ptFreeList;

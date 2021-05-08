@@ -185,7 +185,7 @@ arm_fsm_rt_t arm_2d_rgb565_alpha_blending(
     ARM_2D_IMPL(arm_2d_op_alpha_t);
     //memset(ptThis, 0, sizeof(*ptThis));
 
-    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_ALPHA_BLENDING_RGB565];
+    OP_CORE.ptOp = &ARM_2D_OP_ALPHA_BLENDING_RGB565;
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -208,7 +208,7 @@ arm_fsm_rt_t arm_2d_rgb888_alpha_blending(   const arm_2d_tile_t *ptSource,
     ARM_2D_IMPL(arm_2d_op_alpha_t);
     //memset(ptThis, 0, sizeof(*ptThis));
 
-    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_ALPHA_BLENDING_RGB888];
+    OP_CORE.ptOp = &ARM_2D_OP_ALPHA_BLENDING_RGB888;
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -219,9 +219,11 @@ arm_fsm_rt_t arm_2d_rgb888_alpha_blending(   const arm_2d_tile_t *ptSource,
     return __arm_2d_op_invoke(NULL);
 }
 
-arm_fsm_rt_t __arm_2d_sw_alpha_blending(__arm_2d_sub_task_t *ptTask)
+arm_fsm_rt_t __arm_2d_rgb565_sw_alpha_blending(__arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_alpha_t, ptTask->ptOP)
+    assert(ARM_2D_COLOUR_RGB565 == OP_CORE.ptOp->Info.Colour.chScheme);
+    
 
     if (   (ptTask->Param.tCopy.tSource.iStride
         ==  ptTask->Param.tCopy.tTarget.iStride)
@@ -229,53 +231,53 @@ arm_fsm_rt_t __arm_2d_sw_alpha_blending(__arm_2d_sub_task_t *ptTask)
         ==  ptTask->Param.tCopy.tCopySize.iWidth)) {
 
         //! direct blending
-        switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
-            case ARM_2D_COLOUR_SZ_16BIT:
-                __arm_2d_impl_rgb565_alpha_blending_direct(
-                                            ptTask->Param.tCopy.tSource.pBuffer,
-                                            ptTask->Param.tCopy.tTarget.pBuffer,
-                                            ptTask->Param.tCopy.tTarget.pBuffer,
-                                            ptTask->Param.tCopy.tCopySize.iHeight
-                                                * ptTask->Param.tCopy.tCopySize.iWidth,
-                                            this.chRatio);
-                break;
-            case ARM_2D_COLOUR_SZ_32BIT:
-                __arm_2d_impl_rgb888_alpha_blending_direct(
-                                            ptTask->Param.tCopy.tSource.pBuffer,
-                                            ptTask->Param.tCopy.tTarget.pBuffer,
-                                            ptTask->Param.tCopy.tTarget.pBuffer,
-                                            ptTask->Param.tCopy.tCopySize.iHeight
-                                                * ptTask->Param.tCopy.tCopySize.iWidth,
-                                            this.chRatio);
-                break;
-            default:
-                return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
-        }
+        __arm_2d_impl_rgb565_alpha_blending_direct(
+                                    ptTask->Param.tCopy.tSource.pBuffer,
+                                    ptTask->Param.tCopy.tTarget.pBuffer,
+                                    ptTask->Param.tCopy.tTarget.pBuffer,
+                                    ptTask->Param.tCopy.tCopySize.iHeight
+                                        * ptTask->Param.tCopy.tCopySize.iWidth,
+                                    this.chRatio);
     } else {
+        __arm_2d_impl_rgb565_alpha_blending(
+                                    ptTask->Param.tCopy.tSource.pBuffer,
+                                    ptTask->Param.tCopy.tSource.iStride,
+                                    ptTask->Param.tCopy.tTarget.pBuffer,
+                                    ptTask->Param.tCopy.tTarget.iStride,
+                                    &(ptTask->Param.tCopy.tCopySize),
+                                    this.chRatio);
+    }
 
-        switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
-            case ARM_2D_COLOUR_SZ_16BIT:
-                __arm_2d_impl_rgb565_alpha_blending(
-                                            ptTask->Param.tCopy.tSource.pBuffer,
-                                            ptTask->Param.tCopy.tSource.iStride,
-                                            ptTask->Param.tCopy.tTarget.pBuffer,
-                                            ptTask->Param.tCopy.tTarget.iStride,
-                                            &(ptTask->Param.tCopy.tCopySize),
-                                            this.chRatio);
-                break;
-            case ARM_2D_COLOUR_SZ_32BIT:
-                __arm_2d_impl_rgb888_alpha_blending(
-                                            ptTask->Param.tCopy.tSource.pBuffer,
-                                            ptTask->Param.tCopy.tSource.iStride,
-                                            ptTask->Param.tCopy.tTarget.pBuffer,
-                                            ptTask->Param.tCopy.tTarget.iStride,
-                                            &(ptTask->Param.tCopy.tCopySize),
-                                            this.chRatio);
-                break;
-            default:
-                return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+    return arm_fsm_rt_cpl;
+}
 
-        }
+
+arm_fsm_rt_t __arm_2d_rgb888_sw_alpha_blending(__arm_2d_sub_task_t *ptTask)
+{
+    ARM_2D_IMPL(arm_2d_op_alpha_t, ptTask->ptOP)
+    assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
+
+    if (   (ptTask->Param.tCopy.tSource.iStride
+        ==  ptTask->Param.tCopy.tTarget.iStride)
+        && (ptTask->Param.tCopy.tSource.iStride
+        ==  ptTask->Param.tCopy.tCopySize.iWidth)) {
+
+        //! direct blending
+        __arm_2d_impl_rgb888_alpha_blending_direct(
+                                    ptTask->Param.tCopy.tSource.pBuffer,
+                                    ptTask->Param.tCopy.tTarget.pBuffer,
+                                    ptTask->Param.tCopy.tTarget.pBuffer,
+                                    ptTask->Param.tCopy.tCopySize.iHeight
+                                        * ptTask->Param.tCopy.tCopySize.iWidth,
+                                    this.chRatio);
+    } else {
+        __arm_2d_impl_rgb888_alpha_blending(
+                                    ptTask->Param.tCopy.tSource.pBuffer,
+                                    ptTask->Param.tCopy.tSource.iStride,
+                                    ptTask->Param.tCopy.tTarget.pBuffer,
+                                    ptTask->Param.tCopy.tTarget.iStride,
+                                    &(ptTask->Param.tCopy.tCopySize),
+                                    this.chRatio);
     }
 
     return arm_fsm_rt_cpl;
@@ -296,7 +298,7 @@ arm_fsm_rt_t arm_2d_rgb565_fill_colour_with_alpha(
     ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t);
     //memset(ptThis, 0, sizeof(*ptThis));
 
-    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_ALPHA_COLOUR_FILL_RGB565];
+    OP_CORE.ptOp = &ARM_2D_OP_ALPHA_COLOUR_FILL_RGB565;
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -318,7 +320,7 @@ arm_fsm_rt_t arm_2d_rgb888_fill_colour_with_alpha(
     ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t);
     //memset(ptThis, 0, sizeof(*ptThis));
 
-    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_ALPHA_COLOUR_FILL_RGB888];
+    OP_CORE.ptOp = &ARM_2D_OP_ALPHA_COLOUR_FILL_RGB888;
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -329,70 +331,37 @@ arm_fsm_rt_t arm_2d_rgb888_fill_colour_with_alpha(
 }
 
  
-arm_fsm_rt_t __arm_2d_sw_colour_filling_with_alpha(
+arm_fsm_rt_t __arm_2d_rgb565_sw_colour_filling_with_alpha(
                                         __arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t, ptTask->ptOP)
-
-    switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
-        case ARM_2D_COLOUR_SZ_16BIT:
-            __arm_2d_impl_rgb565_colour_filling_with_alpha(  
-                            ptTask->Param.tTileProcess.pBuffer,
-                            ptTask->Param.tTileProcess.iStride,
-                            &(ptTask->Param.tTileProcess.tValidRegion.tSize),
-                            this.hwColour,
-                            this.chRatio);
-            break;
-        case ARM_2D_COLOUR_SZ_32BIT:
-            __arm_2d_impl_rgb888_colour_filling_with_alpha(  
-                            ptTask->Param.tTileProcess.pBuffer,
-                            ptTask->Param.tTileProcess.iStride,
-                            &(ptTask->Param.tTileProcess.tValidRegion.tSize),
-                            this.wColour,
-                            this.chRatio);
-            break;
-        default:
-            return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
-    }
+    assert(ARM_2D_COLOUR_RGB565 == OP_CORE.ptOp->Info.Colour.chScheme);
+    
+    __arm_2d_impl_rgb565_colour_filling_with_alpha(  
+                    ptTask->Param.tTileProcess.pBuffer,
+                    ptTask->Param.tTileProcess.iStride,
+                    &(ptTask->Param.tTileProcess.tValidRegion.tSize),
+                    this.hwColour,
+                    this.chRatio);
 
     return arm_fsm_rt_cpl;
 }
 
-/*----------------------------------------------------------------------------*
- * Draw a point whose cordinates is stored as float point.                    *
- *----------------------------------------------------------------------------*/
-
-#if 0
-static arm_2d_region_t *__arm_2d_calculate_region(  const arm_2d_point_float_t *ptLocation,
-                                                    arm_2d_region_t *ptRegion)
+arm_fsm_rt_t __arm_2d_rgb888_sw_colour_filling_with_alpha(
+                                        __arm_2d_sub_task_t *ptTask)
 {
-    assert(NULL != ptLocation);
-    assert(NULL != ptRegion);
+    ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t, ptTask->ptOP)
+    assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
+    
+    __arm_2d_impl_rgb888_colour_filling_with_alpha(  
+                    ptTask->Param.tTileProcess.pBuffer,
+                    ptTask->Param.tTileProcess.iStride,
+                    &(ptTask->Param.tTileProcess.tValidRegion.tSize),
+                    this.wColour,
+                    this.chRatio);
 
-    /* +-----+-----+
-     * |  P0 |  P1 |
-     * +---- p ----+
-     * |  P2 |  -- |
-     * +-----+-----+
-     */
-
-    arm_2d_location_t tPoints[3];
-
-    tPoints[0].iX = (int16_t)ptLocation->fX;
-    tPoints[2].iX = (int16_t)ptLocation->fX;
-    tPoints[1].iX = (int16_t)(ptLocation->fX + 0.99f);
-    ptRegion->tSize.iWidth = tPoints[1].iX - tPoints[0].iX + 1;
-
-    tPoints[0].iY = (int16_t)ptLocation->fY;
-    tPoints[2].iY = (int16_t)ptLocation->fY;
-    tPoints[1].iY = (int16_t)(ptLocation->fY + 0.99f);
-    ptRegion->tSize.iHeight = tPoints[2].iY - tPoints[0].iY + 1;
-
-    ptRegion->tLocation = tPoints[0];
-
-    return ptRegion;
+    return arm_fsm_rt_cpl;
 }
-#endif
 
 
 /*----------------------------------------------------------------------------*
@@ -413,9 +382,7 @@ arm_fsm_rt_t arm_2d_rbg565_alpha_blending_with_colour_masking(
     ARM_2D_IMPL(arm_2d_op_alpha_cl_msk_t);
     //memset(ptThis, 0, sizeof(*ptThis));
 
-    OP_CORE.ptOp =
-        &ARM_2D_OP_TABLE[
-            ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB565];
+    OP_CORE.ptOp = &ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB565;
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -442,9 +409,7 @@ arm_fsm_rt_t arm_2d_rbg888_alpha_blending_with_colour_masking(
     ARM_2D_IMPL(arm_2d_op_alpha_cl_msk_t);
     //memset(ptThis, 0, sizeof(*ptThis));
 
-    OP_CORE.ptOp =
-        &ARM_2D_OP_TABLE[
-            ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB888];
+    OP_CORE.ptOp = & ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB888;
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -456,37 +421,41 @@ arm_fsm_rt_t arm_2d_rbg888_alpha_blending_with_colour_masking(
     return __arm_2d_op_invoke(NULL);
 }
 
-arm_fsm_rt_t __arm_2d_sw_alpha_blending_with_colour_masking(
+arm_fsm_rt_t __arm_2d_rgb565_sw_alpha_blending_with_colour_masking(
                                         __arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_alpha_cl_msk_t, ptTask->ptOP)
+    assert(ARM_2D_COLOUR_RGB565 == OP_CORE.ptOp->Info.Colour.chScheme);
 
 
-    switch (OP_CORE.ptOp->Info.Colour.u3ColourSZ) {
-        case ARM_2D_COLOUR_SZ_16BIT:
-            __arm_2d_impl_rgb565_alpha_blending_colour_masking(
-                                            ptTask->Param.tCopy.tSource.pBuffer,
-                                            ptTask->Param.tCopy.tSource.iStride,
-                                            ptTask->Param.tCopy.tTarget.pBuffer,
-                                            ptTask->Param.tCopy.tTarget.iStride,
-                                            &ptTask->Param.tCopy.tCopySize,
-                                            this.chRatio,
-                                            this.hwColour);
-            break;
-        case ARM_2D_COLOUR_SZ_32BIT:
-            __arm_2d_impl_rgb888_alpha_blending_colour_masking(
-                                            ptTask->Param.tCopy.tSource.pBuffer,
-                                            ptTask->Param.tCopy.tSource.iStride,
-                                            ptTask->Param.tCopy.tTarget.pBuffer,
-                                            ptTask->Param.tCopy.tTarget.iStride,
-                                            &ptTask->Param.tCopy.tCopySize,
-                                            this.chRatio,
-                                            this.wColour);
-            break;
-        default:
-            return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+    __arm_2d_impl_rgb565_alpha_blending_colour_masking(
+                                    ptTask->Param.tCopy.tSource.pBuffer,
+                                    ptTask->Param.tCopy.tSource.iStride,
+                                    ptTask->Param.tCopy.tTarget.pBuffer,
+                                    ptTask->Param.tCopy.tTarget.iStride,
+                                    &ptTask->Param.tCopy.tCopySize,
+                                    this.chRatio,
+                                    this.hwColour);
 
-    }
+
+
+    return arm_fsm_rt_cpl;
+}
+
+arm_fsm_rt_t __arm_2d_rgb888_sw_alpha_blending_with_colour_masking(
+                                        __arm_2d_sub_task_t *ptTask)
+{
+    ARM_2D_IMPL(arm_2d_op_alpha_cl_msk_t, ptTask->ptOP)
+    assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
+
+    __arm_2d_impl_rgb888_alpha_blending_colour_masking(
+                                    ptTask->Param.tCopy.tSource.pBuffer,
+                                    ptTask->Param.tCopy.tSource.iStride,
+                                    ptTask->Param.tCopy.tTarget.pBuffer,
+                                    ptTask->Param.tCopy.tTarget.iStride,
+                                    &ptTask->Param.tCopy.tCopySize,
+                                    this.chRatio,
+                                    this.wColour);
 
     return arm_fsm_rt_cpl;
 }

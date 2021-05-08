@@ -33,10 +33,12 @@
 
 /*============================ INCLUDES ======================================*/
 #include "arm_2d_types.h"
+#include "arm_2d_op.h"
 #include "arm_2d_tile.h"
 #include "arm_2d_draw.h"
 #include "arm_2d_conversion.h"
 #include "arm_2d_alpha_blending.h"
+#include "arm_2d_rotation.h"
 
 #ifdef   __cplusplus
 extern "C" {

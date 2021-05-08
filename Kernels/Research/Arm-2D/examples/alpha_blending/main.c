@@ -32,6 +32,7 @@
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #   pragma clang diagnostic ignored "-Wmissing-braces"
 #   pragma clang diagnostic ignored "-Wunused-const-variable"
+#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
 #endif
 
 /*============================ MACROS ========================================*/

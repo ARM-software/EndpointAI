@@ -75,6 +75,10 @@ extern "C" {
 #   endif
 #endif
 
+#ifndef __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#   define __ARM_2D_HAS_INTERPOLATION_ROTATION__        0
+#endif
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
 #if defined(__ARM_2D_HAS_CDE__) && !__ARM_2D_HAS_CDE__

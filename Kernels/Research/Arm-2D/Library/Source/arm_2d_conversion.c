@@ -97,7 +97,7 @@ arm_fsm_rt_t arm_2d_convert_colour_to_rbg888(   const arm_2d_tile_t *ptSource,
     ARM_2D_IMPL(arm_2d_op_cl_convt_t);
     memset(ptThis, 0, sizeof(*ptThis));
 
-    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_CONVERT_TO_RGB888];
+    OP_CORE.ptOp = &ARM_2D_OP_CONVERT_TO_RGB888;
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = NULL;
@@ -116,7 +116,7 @@ arm_fsm_rt_t arm_2d_convert_colour_to_rgb565(   const arm_2d_tile_t *ptSource,
     ARM_2D_IMPL(arm_2d_op_cl_convt_t);
     memset(ptThis, 0, sizeof(*ptThis));
 
-    OP_CORE.ptOp = &ARM_2D_OP_TABLE[ARM_2D_OP_CONVERT_TO_RGB565];
+    OP_CORE.ptOp = &ARM_2D_OP_CONVERT_TO_RGB565;
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = NULL;

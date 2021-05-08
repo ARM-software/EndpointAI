@@ -143,30 +143,36 @@ int32_t arm_2d_helper_perf_counter_stop(void)
 
 
 static arm_fsm_rt_t __pfb_draw_handler( void *pTarget,
-                                          const arm_2d_tile_t *ptTile)
+                                        const arm_2d_tile_t *ptTile,
+                                        bool bIsNewFrame)
 {
     ARM_2D_UNUSED(pTarget);
-    example_gui_refresh(ptTile);
+    example_gui_refresh(ptTile, bIsNewFrame);
 
     return arm_fsm_rt_cpl;
 }
 
 static arm_fsm_rt_t __pfb_draw_background_handler( 
                                             void *pTarget,
-                                            const arm_2d_tile_t *ptTile)
+                                            const arm_2d_tile_t *ptTile,
+                                            bool bIsNewFrame)
 {
     ARM_2D_UNUSED(pTarget);
+    ARM_2D_UNUSED(bIsNewFrame);
 
     arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLUE);
 
     return arm_fsm_rt_cpl;
 }
 
-static void __pfb_render_handler( void *pTarget, const arm_2d_pfb_t *ptPFB)
+static void __pfb_render_handler(   void *pTarget, 
+                                    const arm_2d_pfb_t *ptPFB,
+                                    bool bIsNewFrame)
 {
     const arm_2d_tile_t *ptTile = &(ptPFB->tTile);
 
     ARM_2D_UNUSED(pTarget);
+    ARM_2D_UNUSED(bIsNewFrame);
 
     GLCD_DrawBitmap(ptTile->tRegion.tLocation.iX,
                     ptTile->tRegion.tLocation.iY,
@@ -185,7 +191,7 @@ static void __pfb_render_handler( void *pTarget, const arm_2d_pfb_t *ptPFB)
  *----------------------------------------------------------------------------*/
 int main (void) 
 {
-#if __IS_COMPILER_GCC__
+#if defined(__IS_COMPILER_GCC__)
     app_platform_init();
 #endif
 

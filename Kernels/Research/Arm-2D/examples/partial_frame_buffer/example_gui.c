@@ -251,7 +251,8 @@ void example_gui_do_events(void)
 
 static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                             arm_2d_layer_t *ptLayers, 
-                            uint_fast16_t hwCount)
+                            uint_fast16_t hwCount,
+                            bool bIsNewFrame)
 {
     ASSERT(NULL != ptLayers);
     ASSERT(hwCount > 0);
@@ -310,16 +311,19 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                                                 255 - s_ptRefreshLayers[1].chTransparency);
         
         //! show progress wheel
-        busy_wheel_show(ptFrameBuffer);
+        busy_wheel_show(ptFrameBuffer, bIsNewFrame);
 
         example_gui_on_refresh_evt_handler(ptFrameBuffer);
         
     } while (0);
 }
 
-void example_gui_refresh(const arm_2d_tile_t *ptFrameBuffer)
+void example_gui_refresh(const arm_2d_tile_t *ptFrameBuffer, bool bIsNewFrame)
 {
-    __draw_layers(ptFrameBuffer, s_ptRefreshLayers, dimof(s_ptRefreshLayers));
+    __draw_layers(  ptFrameBuffer, 
+                    s_ptRefreshLayers, 
+                    dimof(s_ptRefreshLayers),
+                    bIsNewFrame);
 }
 
 
