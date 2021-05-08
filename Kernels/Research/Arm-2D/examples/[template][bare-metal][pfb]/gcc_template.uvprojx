@@ -241,7 +241,7 @@
             <wLevel>3</wLevel>
             <uThumb>1</uThumb>
             <VariousControls>
-              <MiscControls>-Ofast -fms-extensions -mcpu=cortex-m7 -mfloat-abi=hard -mfpu=fpv5-sp-d16 --specs=nosys.specs -std=gnu11</MiscControls>
+              <MiscControls>-Ofast -ffunction-sections -fms-extensions -mcpu=cortex-m7 -mfloat-abi=hard -mfpu=fpv5-sp-d16 --specs=nosys.specs -std=gnu11</MiscControls>
               <Define></Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;..\..\Library\Include;.\platform\stm32f746g-discovery;.;..\..\Helper\Include</IncludePath>
