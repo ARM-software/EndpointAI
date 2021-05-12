@@ -97,6 +97,7 @@ extern
 const arm_2d_tile_t c_tileGear02;
 
 typedef struct {
+    arm_2d_op_rotate_t tOP;
     const arm_2d_tile_t *ptTile;
     float fAngle;
     float fAngleSpeed;
@@ -104,11 +105,11 @@ typedef struct {
     arm_2d_region_t tRegion;
 } demo_gears_t;
 
-static demo_gears_t s_tGears[] = {
+demo_gears_t s_tGears[] = {
 
     {
         .ptTile = &c_tileGear02,
-        .fAngleSpeed = -4,
+        .fAngleSpeed = -3,
         .tCentre = {
             .iX = 20,
             .iY = 20,
@@ -127,7 +128,7 @@ static demo_gears_t s_tGears[] = {
 
     {
         .ptTile = &c_tileGear01,
-        .fAngleSpeed = 2,
+        .fAngleSpeed = 0.5,
         .tCentre = {
             .iX = 61,
             .iY = 60,
@@ -143,7 +144,7 @@ static demo_gears_t s_tGears[] = {
             },
         },
     },
-    
+
 
     
 };
@@ -161,16 +162,20 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
             if (s_fAngle >= ARM_2D_ANGLE(360)) {
                 s_fAngle -= ARM_2D_ANGLE(360);
             }
+            
+            arm_2dp_rgb565_tile_rotation_prepare(
+                                        &(_->tOP),
+                                        _->ptTile,          //!< source tile 
+                                        _->tCentre,         //!< center point
+                                        _->fAngle,          //!< rotation angle
+                                        GLCD_COLOR_BLACK);  //!< masking colour
+
         }
-    
-        arm_2d_rgb565_tile_rotation_prepare(_->ptTile, 
-                                            ptTile, 
-                                            &(_->tRegion),
-                                            _->tCentre,
-                                            _->fAngle,
-                                            GLCD_COLOR_BLACK);
-        
-        arm_2d_tile_rotate();
+
+        arm_2dp_tile_rotate( &(_->tOP),
+                            ptTile,             //!< target tile
+                            &(_->tRegion));     //!< target region
+                            
     }
 
     example_gui_on_refresh_evt_handler(ptTile);
@@ -182,3 +187,4 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 #endif
 
 
+ 

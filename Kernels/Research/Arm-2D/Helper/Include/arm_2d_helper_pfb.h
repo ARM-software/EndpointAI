@@ -35,14 +35,14 @@ extern "C" {
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
-#define ARM_2D_HELPER_PFB_INIT( __CB_ADDR,                                      \
-                                __SCREEN_WIDTH,                                 \
-                                __SCREEN_HEIGHT,                                \
-                                __PIXEL_TYPE,                                   \
-                                __WIDTH,                                        \
-                                __HEIGHT,                                       \
-                                __PFB_NUM,                                      \
-                                ...                                             \
+#define ARM_2D_HELPER_PFB_INIT( __CB_ADDR,      /* PFB Helper object address */ \
+                                __SCREEN_WIDTH, /* Screen width */              \
+                                __SCREEN_HEIGHT,/* Screen height */             \
+                                __PIXEL_TYPE,   /* The type of the pixels */    \
+                                __WIDTH,        /* The width of the PFB block */\
+                                __HEIGHT,       /* The height of the PFB block*/\
+                                __PFB_NUM,      /* Block count in the PFB pool*/\
+                                ...             /* Event Handler */             \
                                 )                                               \
     ({                                                                          \
         ARM_NOINIT static struct {                                              \
@@ -69,6 +69,21 @@ extern "C" {
                                                                                 \
         arm_2d_helper_pfb_init((__CB_ADDR), &tCFG);                             \
     })
+
+
+#define ARM_2D_HELPER_PFB_UPDATE_ON_DRAW_HANDLER(                               \
+                                    __CB_ADDR, /* PFB Helper object address */  \
+                                    __HANDLER, /* new on-draw-handler function*/\
+                                    ...)       /* An optional target address */ \
+    arm_2d_helper_pfb_update_dependency((__CB_ADDR),                            \
+                                        ARM_2D_PFB_DEPEND_ON_DRAWING,           \
+                                        &(arm_2d_helper_pfb_dependency_t) {     \
+                                            .evtOnDrawing = {                   \
+                                                .fnHandler = __HANDLER,         \
+                                                .pTarget = (NULL,##__VA_ARGS__),\
+                                            },                                  \
+                                        })
+
 
 #define __IMPL_ARM_2D_REGION_LIST(__NAME, ...)                                  \
             enum {                                                              \

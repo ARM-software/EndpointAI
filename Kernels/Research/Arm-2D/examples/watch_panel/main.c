@@ -231,16 +231,9 @@ int main (void)
     
     //! draw background first
     while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task(&s_tExamplePFB,NULL));
-    
-    //! update draw function
-    arm_2d_helper_pfb_update_dependency(&s_tExamplePFB,
-                                        ARM_2D_PFB_DEPEND_ON_DRAWING,
-                                        &(arm_2d_helper_pfb_dependency_t) {
-                                            .evtOnDrawing = {
-                                                .fnHandler = &__pfb_draw_handler,
-                                                .pTarget = NULL,
-                                            },
-                                        });
+
+    ARM_2D_HELPER_PFB_UPDATE_ON_DRAW_HANDLER(   &s_tExamplePFB, 
+                                                &__pfb_draw_handler);
     
     while (1) {
         display_task();

@@ -146,7 +146,7 @@ arm_2d_point_float_t *__arm_2d_rotate_point(const arm_2d_location_t *ptLocation,
 }
 
 
-static arm_2d_err_t __arm_2d_rotate_preprocess(arm_2d_op_rotate_t *ptThis)
+static arm_2d_err_t __arm_2d_rotate_preprocess_source(arm_2d_op_rotate_t *ptThis)
 {
     arm_2d_tile_t *ptSource = this.Source.ptTile;
     
@@ -236,11 +236,17 @@ static arm_2d_err_t __arm_2d_rotate_preprocess(arm_2d_op_rotate_t *ptThis)
         ptSource->tRegion.tSize.iHeight = tBottomRight.iY - tTopLeft.iY + 1;
         ptSource->tRegion.tSize.iWidth = tBottomRight.iX - tTopLeft.iX + 1;
 
-        this.tRotate.tTargetRegion.tSize = ptSource->tRegion.tSize;
+        //this.tRotate.tTargetRegion.tSize = ptSource->tRegion.tSize;
     } while(0);
-    
-    
-    
+
+    return ARM_2D_ERR_NONE;
+}
+
+
+static void __arm_2d_rotate_preprocess_target(arm_2d_op_rotate_t *ptThis)
+{
+    this.tRotate.tTargetRegion.tSize = this.Source.ptTile->tRegion.tSize;
+
     arm_2d_region_t *ptTargetRegion = this.Target.ptRegion;
     if (NULL == ptTargetRegion) {
         ptTargetRegion = &this.Target.ptTile->tRegion;
@@ -248,8 +254,7 @@ static arm_2d_err_t __arm_2d_rotate_preprocess(arm_2d_op_rotate_t *ptThis)
     this.Target.ptRegion = &this.tRotate.tTargetRegion;
     
     this.tRotate.tTargetRegion.tLocation = ptTargetRegion->tLocation;
-    
-    
+
     //! align with the specified center point
     do {
     
@@ -269,20 +274,14 @@ static arm_2d_err_t __arm_2d_rotate_preprocess(arm_2d_op_rotate_t *ptThis)
         this.tRotate.tTargetRegion.tLocation.iX += tOffset.iX;
         this.tRotate.tTargetRegion.tLocation.iY += tOffset.iY;
     
-    } while(0);        
-
-    return ARM_2D_ERR_NONE;
+    } while(0);    
 }
 
 
-
-
-
-ARM_NONNULL(1,2)
-arm_2d_err_t arm_2d_rgb565_tile_rotation_prepare(
+ARM_NONNULL(2)
+arm_2d_err_t arm_2dp_rgb565_tile_rotation_prepare(
+                                            arm_2d_op_rotate_t *ptOP,
                                             const arm_2d_tile_t *ptSource,
-                                            const arm_2d_tile_t *ptTarget,
-                                            const arm_2d_region_t *ptRegion,
                                             const arm_2d_location_t tCentre,
                                             float fAngle,
                                             uint16_t hwFillColour)
@@ -290,12 +289,10 @@ arm_2d_err_t arm_2d_rgb565_tile_rotation_prepare(
     assert(NULL != ptSource);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_rotate_t);
+    ARM_2D_IMPL(arm_2d_op_rotate_t, ptOP);
 
     OP_CORE.ptOp = &ARM_2D_OP_ROTATE_RGB565;
 
-    this.Target.ptTile = ptTarget;
-    this.Target.ptRegion = ptRegion;
     this.Source.ptTile = &this.Origin.tDummySource;
     this.Origin.ptTile = ptSource;
     this.wMode = 0;
@@ -303,14 +300,13 @@ arm_2d_err_t arm_2d_rgb565_tile_rotation_prepare(
     this.tRotate.tCenter = tCentre;
     this.tRotate.Mask.hwColour = hwFillColour;
     
-    return __arm_2d_rotate_preprocess(ptThis);
+    return __arm_2d_rotate_preprocess_source(ptThis);
 }
 
-ARM_NONNULL(1,2)
-arm_2d_err_t arm_2d_rgb888_tile_rotation_prepare(
+ARM_NONNULL(2)
+arm_2d_err_t arm_2dp_rgb888_tile_rotation_prepare(
+                                            arm_2d_op_rotate_t *ptOP,
                                             const arm_2d_tile_t *ptSource,
-                                            const arm_2d_tile_t *ptTarget,
-                                            const arm_2d_region_t *ptRegion,
                                             const arm_2d_location_t tCentre,
                                             float fAngle,
                                             uint32_t wFillColour)
@@ -318,12 +314,10 @@ arm_2d_err_t arm_2d_rgb888_tile_rotation_prepare(
     assert(NULL != ptSource);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_rotate_t);
+    ARM_2D_IMPL(arm_2d_op_rotate_t, ptOP);
 
     OP_CORE.ptOp = &ARM_2D_OP_ROTATE_RGB888;
 
-    this.Target.ptTile = ptTarget;
-    this.Target.ptRegion = ptRegion;
     this.Source.ptTile = &this.Origin.tDummySource;
     this.Origin.ptTile = ptSource;
     this.wMode = 0;
@@ -331,15 +325,21 @@ arm_2d_err_t arm_2d_rgb888_tile_rotation_prepare(
     this.tRotate.tCenter = tCentre;
     this.tRotate.Mask.hwColour = wFillColour;
     
-    return __arm_2d_rotate_preprocess(ptThis);
+    return __arm_2d_rotate_preprocess_source(ptThis);
 }
 
 
 
-arm_fsm_rt_t arm_2d_tile_rotate(void)
+arm_fsm_rt_t arm_2dp_tile_rotate(arm_2d_op_rotate_t *ptOP,
+                                 const arm_2d_tile_t *ptTarget,
+                                 const arm_2d_region_t *ptRegion)
 {
-    ARM_2D_IMPL(arm_2d_op_rotate_t);
+    ARM_2D_IMPL(arm_2d_op_rotate_t, ptOP);
     
+    this.Target.ptTile = ptTarget;
+    this.Target.ptRegion = ptRegion;
+    
+    __arm_2d_rotate_preprocess_target(ptThis);
     return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 

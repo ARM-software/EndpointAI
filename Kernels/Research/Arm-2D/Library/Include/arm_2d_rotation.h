@@ -45,6 +45,36 @@ extern "C" {
 
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
+
+#define arm_2d_rgb565_tile_rotation_prepare(__SRC_TILE_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __MSK_COLOUR)                       \
+            arm_2dp_rgb565_tile_rotation_prepare(  NULL,                        \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   (__MSK_COLOUR))
+
+                                     
+#define arm_2d_rgb888_tile_rotation_prepare(__SRC_TILE_ADDR,                    \
+                                            __DES_TILE_ADDR,                    \
+                                            __DES_REGION_ADDR,                  \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __MSK_COLOUR)                       \
+            arm_2dp_rgb888_tile_rotation_prepare(  NULL,                        \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__DES_TILE_ADDR),           \
+                                                   (__DES_REGION_ADDR),         \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   (__MSK_COLOUR))
+
+#define arm_2d_tile_rotate( __DES_TILE_ADDR,                                    \
+                            __DES_REGION_ADDR)                                  \
+            arm_2dp_tile_rotate(NULL, (__DES_TILE_ADDR), (__DES_REGION_ADDR))
+
 /*============================ TYPES =========================================*/
 
 typedef struct __arm_2d_rotate_info_t {
@@ -83,29 +113,28 @@ typedef struct arm_2d_op_rotate_t {
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
 
-
 extern
-ARM_NONNULL(1,2)
-arm_2d_err_t arm_2d_rgb565_tile_rotation_prepare(
+ARM_NONNULL(2)
+arm_2d_err_t arm_2dp_rgb565_tile_rotation_prepare(
+                                        arm_2d_op_rotate_t *ptOP,
                                         const arm_2d_tile_t *ptSource,
-                                        const arm_2d_tile_t *ptTarget,
-                                        const arm_2d_region_t *ptRegion,
                                         const arm_2d_location_t tCentre,
                                         float fAngle,
                                         uint16_t hwFillColour);
                                      
 extern
-ARM_NONNULL(1,2)
-arm_2d_err_t arm_2d_rgb888_tile_rotation_prepare(
+ARM_NONNULL(2)
+arm_2d_err_t arm_2dp_rgb888_tile_rotation_prepare(
+                                        arm_2d_op_rotate_t *ptOP,
                                         const arm_2d_tile_t *ptSource,
-                                        const arm_2d_tile_t *ptTarget,
-                                        const arm_2d_region_t *ptRegion,
                                         const arm_2d_location_t tCentre,
                                         float fAngle,
                                         uint32_t wFillColour);
 
 extern
-arm_fsm_rt_t arm_2d_tile_rotate(void);
+arm_fsm_rt_t arm_2dp_tile_rotate(arm_2d_op_rotate_t *ptOP,
+                                 const arm_2d_tile_t *ptTarget,
+                                 const arm_2d_region_t *ptRegion);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
