@@ -287,7 +287,6 @@ arm_2d_err_t arm_2dp_rgb565_tile_rotation_prepare(
                                             uint16_t hwFillColour)
 {
     assert(NULL != ptSource);
-    assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_rotate_t, ptOP);
 
@@ -312,7 +311,6 @@ arm_2d_err_t arm_2dp_rgb888_tile_rotation_prepare(
                                             uint32_t wFillColour)
 {
     assert(NULL != ptSource);
-    assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_rotate_t, ptOP);
 

@@ -146,9 +146,8 @@ int32_t arm_2d_helper_perf_counter_stop(void)
 }
 
 
-static arm_fsm_rt_t __pfb_draw_handler( void *pTarget,
-                                        const arm_2d_tile_t *ptTile,
-                                        bool bIsNewFrame)
+static 
+IMPL_PFB_ON_DRAW(__pfb_draw_handler)
 {
     ARM_2D_UNUSED(pTarget);
     example_gui_refresh(ptTile, bIsNewFrame);
@@ -156,10 +155,8 @@ static arm_fsm_rt_t __pfb_draw_handler( void *pTarget,
     return arm_fsm_rt_cpl;
 }
 
-static arm_fsm_rt_t __pfb_draw_background_handler( 
-                                            void *pTarget,
-                                            const arm_2d_tile_t *ptTile,
-                                            bool bIsNewFrame)
+static
+IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
 {
     ARM_2D_UNUSED(pTarget);
     ARM_2D_UNUSED(bIsNewFrame);
@@ -169,9 +166,8 @@ static arm_fsm_rt_t __pfb_draw_background_handler(
     return arm_fsm_rt_cpl;
 }
 
-static void __pfb_render_handler(   void *pTarget, 
-                                    const arm_2d_pfb_t *ptPFB,
-                                    bool bIsNewFrame)
+static 
+IMPL_PFB_ON_LOW_LV_RENDERING(__pfb_render_handler)
 {
     const arm_2d_tile_t *ptTile = &(ptPFB->tTile);
 

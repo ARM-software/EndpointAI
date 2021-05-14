@@ -124,6 +124,17 @@ extern "C" {
 #define ADD_LAST_REGION_TO_LIST(__NAME, ...)                                    \
             __ADD_LAST_REGION_TO_LIST(__NAME, ##__VA_ARGS__) 
             
+#define IMPL_PFB_ON_DRAW(__NAME)                                                \
+            arm_fsm_rt_t __NAME(void *pTarget,                                  \
+                                const arm_2d_tile_t *ptTile,                    \
+                                bool bIsNewFrame)    
+
+#define IMPL_PFB_ON_LOW_LV_RENDERING(__NAME)                                    \
+            void __NAME(void *pTarget,                                          \
+                        const arm_2d_pfb_t *ptPFB,                              \
+                        bool bIsNewFrame)    
+
+            
 /*! \note add macros in lower-case and make sure everyone can choose what they 
  *!       like. 
  */
@@ -157,6 +168,10 @@ extern "C" {
             ADD_LAST_REGION_TO_LIST(__NAME, ##__VA_ARGS__)
 #define end_impl_arm_2d_region_list(...)                                        \
             END_IMPL_ARM_2D_REGION_LIST(__VA_ARGS__)
+            
+#define impl_pfb_on_draw(__NAME)    IMPL_PFB_ON_DRAW(__NAME)
+#define impl_pfb_on_low_lv_rendering(__NAME)                                    \
+            IMPL_PFB_ON_LOW_LV_RENDERING(__NAME)
 //! @}
 
 /*============================ TYPES =========================================*/
@@ -170,6 +185,9 @@ typedef struct arm_2d_region_list_item_t {
     struct arm_2d_region_list_item_t *ptNext;
     arm_2d_region_t tRegion;
 }arm_2d_region_list_item_t;
+
+
+
 
 
 typedef arm_fsm_rt_t arm_2d_helper_draw_handler_t( 

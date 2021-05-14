@@ -75,6 +75,82 @@ extern "C" {
                             __DES_REGION_ADDR)                                  \
             arm_2dp_tile_rotate(NULL, (__DES_TILE_ADDR), (__DES_REGION_ADDR))
 
+
+/*! \note arm_2d_2dp_rgb565_tile_rotation() and 
+ *!       arm_2d_2dp_rgb888_tile_rotation() relies on the boolean variable
+ *!       bIsNewFrame. Please make sure you have define it with the correct
+ *!       name and the corresponding value. If you don't use the PFB interfaces
+ *!       for neight the low level rendering nor the high level GUI drawing, 
+ *!       please find such variable with the value "true".
+ */
+#define arm_2d_2dp_rgb565_tile_rotation(__CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR)                           \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_rgb565_tile_rotation_prepare(                               \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR));                        \
+        };                                                                      \
+        arm_2dp_tile_rotate((__CB_ADDR),                                        \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR));                               \
+        })
+
+#define arm_2d_2dp_rgb888_tile_rotation(__CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR)                           \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_rgb888_tile_rotation_prepare(                               \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR));                        \
+        };                                                                      \
+        arm_2dp_tile_rotate((__CB_ADDR),                                        \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR));                               \
+        })
+
+#define arm_2d_2d_rgb565_tile_rotation( __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR)                           \
+        arm_2d_rgb565_tile_rotation_prepare(                                    \
+                                    (__SRC_TILE_ADDR),                          \
+                                    (__CENTRE),                                 \
+                                    (__ANGLE),                                  \
+                                    (__MSK_COLOUR));                            \
+        arm_2d_tile_rotate( (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR))                               \
+
+#define arm_2d_2d_rgb888_tile_rotation( __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR)                           \
+        arm_2d_rgb888_tile_rotation_prepare(                                    \
+                                    (__SRC_TILE_ADDR),                          \
+                                    (__CENTRE),                                 \
+                                    (__ANGLE),                                  \
+                                    (__MSK_COLOUR));                            \
+        arm_2d_tile_rotate( (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR))  
+
 /*============================ TYPES =========================================*/
 
 typedef struct __arm_2d_rotate_info_t {

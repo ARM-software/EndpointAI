@@ -162,19 +162,16 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
             if (s_fAngle >= ARM_2D_ANGLE(360)) {
                 s_fAngle -= ARM_2D_ANGLE(360);
             }
-            
-            arm_2dp_rgb565_tile_rotation_prepare(
-                                        &(_->tOP),
+        }
+
+        arm_2d_2dp_rgb565_tile_rotation(&(  _->tOP),
                                         _->ptTile,          //!< source tile 
+                                        ptTile,             //!< target tile
+                                        &(_->tRegion),      //!< target region
                                         _->tCentre,         //!< center point
                                         _->fAngle,          //!< rotation angle
                                         GLCD_COLOR_BLACK);  //!< masking colour
 
-        }
-
-        arm_2dp_tile_rotate( &(_->tOP),
-                            ptTile,             //!< target tile
-                            &(_->tRegion));     //!< target region
                             
     }
 
