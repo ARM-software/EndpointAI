@@ -35,6 +35,7 @@
 #   pragma clang diagnostic ignored "-Wimplicit-fallthrough"
 #   pragma clang diagnostic ignored "-Wundef"
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#   pragma clang diagnostic ignored "-Wcast-align"
 #elif __IS_COMPILER_GCC__
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wpedantic"
@@ -185,6 +186,34 @@ arm_2d_err_t arm_2d_helper_pfb_init(arm_2d_helper_pfb_t *ptThis,
 }
 
 
+static 
+void __arm_2d_helper_swap_rgb16(uint16_t *phwBuffer, uint32_t wSize)
+{
+    if (0 == wSize) {
+        return ;
+    }
+    
+    //! aligned (4)
+    assert((((uintptr_t) phwBuffer) & 0x03) == 0);
+    
+    uint32_t wWords = wSize >> 1;
+    uint32_t *pwBuffer = (uint32_t *)phwBuffer;
+    
+    if (wWords > 0) {
+        do {
+            uint32_t wTemp = *pwBuffer;
+            *pwBuffer++ = __REV16(wTemp);
+        } while(--wWords);
+    }
+    
+    if (wWords * 2 < wSize) {
+        uint32_t wTemp = *pwBuffer;
+        (*(uint16_t *)pwBuffer) = (uint16_t)__REV16(wTemp);
+    }
+    
+    
+}
+
 
 static
 void __arm_2d_helper_low_level_rendering(arm_2d_helper_pfb_t *ptThis)
@@ -200,6 +229,12 @@ void __arm_2d_helper_low_level_rendering(arm_2d_helper_pfb_t *ptThis)
         .iY = this.Adapter.tDrawRegion.tLocation.iY
             + this.Adapter.tTargetRegion.tLocation.iY,
     };
+
+    if (this.tCFG.FrameBuffer.bSwapRGB16) {
+        __arm_2d_helper_swap_rgb16( this.Adapter.ptCurrent->tTile.phwBuffer, 
+                                    get_tile_buffer_pixel_count(
+                                        this.Adapter.ptCurrent->tTile));
+    }
 
     //! call handler
     (*this.tCFG.Dependency.evtOnLowLevelRendering.fnHandler)(

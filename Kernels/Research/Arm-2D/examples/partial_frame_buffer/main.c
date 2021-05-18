@@ -166,7 +166,8 @@ int main (void)
                     //! callback for drawing GUI 
                     .fnHandler = &__pfb_draw_handler, 
                 },
-            }
+            },
+            //.FrameBuffer.bSwapRGB16 = true
         ) < 0) {
         //! error detected
         assert(false);

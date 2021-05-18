@@ -190,6 +190,12 @@ ARM_PRIVATE(
         __arm_2d_sub_task_t   *ptHead;
         __arm_2d_sub_task_t   *ptTail;
     } TaskFIFO;
+    
+    struct {
+        arm_2d_op_core_t   *ptHead;
+        arm_2d_op_core_t   *ptTail;
+    } OPFIFO;
+    
     uint16_t                hwFreeCount;
     uint16_t                hwTaskCount;
     uint16_t                hwBookCount;
@@ -232,6 +238,9 @@ extern
 void __arm_2d_notify_sub_task_cpl(__arm_2d_sub_task_t *ptTask, 
                                     arm_fsm_rt_t tResult,
                                     bool bFromHW);
+
+extern 
+arm_fsm_rt_t __arm_2d_op_frontend_op_decoder(arm_2d_op_core_t *ptThis);
 
 /*----------------------------------------------------------------------------*
  * Default Software Implementations                                           *

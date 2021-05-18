@@ -35,10 +35,12 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
 - **Region/Window Clipping**
 - **Generic Partial Frame-buffer (PFB) Support**
   - Transparent for upper layer software/GUI services
-  - Easy to implement
+  - Easy to Use
   - No limitation on target screen resolution
   - No limitation on PFB size and shape (it could be line or cube with any size)
   - Support for the Dirty Region List
+  - Support for swapping RGB16 high and low bytes.
+  - Has built-in frame buffer pool and it is easy to support 3FB. 
 - **Rotation**
 - **Unified and User Friendly Programmers' Mode**
   - APIs could be used in Synchronous manner (  **Classic Blocking code** ) and/or Asynchronous manner ( **Event-Driven** )

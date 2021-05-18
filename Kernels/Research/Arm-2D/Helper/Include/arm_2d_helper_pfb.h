@@ -47,6 +47,7 @@ extern "C" {
     ({                                                                          \
         ARM_NOINIT static struct {                                              \
             arm_2d_pfb_t tFPB;                                                  \
+            __ALIGNED(4)                                                        \
             __PIXEL_TYPE tBuffer[(__WIDTH) * (__HEIGHT)];                       \
         } s_tPFBs[__PFB_NUM];                                                   \
                                                                                 \
@@ -64,7 +65,7 @@ extern "C" {
             .FrameBuffer.wBufferSize = sizeof(s_tPFBs[0].tBuffer),              \
             .FrameBuffer.hwPFBNum = dimof(s_tPFBs),                             \
             .Dependency =                                                       \
-            __VA_ARGS__,                                                        \
+            __VA_ARGS__                                                         \
         };                                                                      \
                                                                                 \
         arm_2d_helper_pfb_init((__CB_ADDR), &tCFG);                             \
@@ -239,7 +240,8 @@ typedef struct arm_2d_helper_pfb_cfg_t {
         uint16_t       hwPFBNum;
         uint16_t       bDoNOTUpdateDefaultFrameBuffer   : 1;
         uint16_t       bDisableDynamicFPBSize           : 1;
-        uint16_t                                        : 14;
+        uint16_t       bSwapRGB16                       : 1;
+        uint16_t                                        : 13;
     } FrameBuffer;
     
     arm_2d_helper_pfb_dependency_t Dependency;

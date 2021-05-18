@@ -353,43 +353,43 @@ Colour-masking is a commonly used scheme to implement non-rectangular UI element
 
 
 
-#### 4.3.1 **arm_2d_rbg16_tile_copy_with_mask_colour**
+#### 4.3.1 arm_2d_rbg16_tile_copy_with_colour_masking
 
-| Topic            | Content                                       | Description                                                  |
-| ---------------- | --------------------------------------------- | ------------------------------------------------------------ |
-| **Name**         | ***arm_2d_rbg16_tile_copy_with_mask_colour*** | Type: function                                               |
-| **Parameter**    | const arm_2d_tile_t * **ptSource**            | The source tile address                                      |
-| **Parameter**    | const arm_2d_tile_t * **ptTarget**            | The target tile address                                      |
-| **Parameter**    | const arm_2d_region_t * **ptRegion**          | The relative region inside the target tile                   |
-| **Parameter**    | uint16_t **hwMaskColour**                     | The colour used to mask the unwanted part in the source tile |
-| **Parameter**    | uint32_t ***wMode***                          | The mode of the copy, please refer to the copy mode description for more details. |
-| **Return Value** | < 0 or **arm_fsm_rt_err** (-1)                | Error code                                                   |
-| **Return Value** | **arm_fsm_rt_cpl** (0)                        | Operation **completed**                                      |
-| **Return Value** | **arm_fsm_rt_on_going** (1)                   | Operation is **on-going**, and you have to keep calling this function until another value is returned.  This usually means that the function is working/implemented in **synchronous mode**. For more, please refer to [Introduction.md](./Introduction.md). |
-| **Return Value** | **arm_fsm_rt_asyn**(3)                        | Operation request has been received; no error found so far. If you have registered your own ***2D-Operation-Complete-Handler*** (***arm_2d_evt_t***), you don't have to poll this function anymore; the operation result will be passed to you via the event handler; otherwise, you can poll this function until another value is returned.  This usually means that the function is working/implemented in **asynchronous mode**.  For more, please refer to [Introduction.md](./Introduction.md). |
+| Topic            | Content                                          | Description                                                  |
+| ---------------- | ------------------------------------------------ | ------------------------------------------------------------ |
+| **Name**         | ***arm_2d_rbg16_tile_copy_with_colour_masking*** | Type: function                                               |
+| **Parameter**    | const arm_2d_tile_t * **ptSource**               | The source tile address                                      |
+| **Parameter**    | const arm_2d_tile_t * **ptTarget**               | The target tile address                                      |
+| **Parameter**    | const arm_2d_region_t * **ptRegion**             | The relative region inside the target tile                   |
+| **Parameter**    | uint16_t **hwMaskColour**                        | The colour used to mask the unwanted part in the source tile |
+| **Parameter**    | uint32_t ***wMode***                             | The mode of the copy, please refer to the copy mode description for more details. |
+| **Return Value** | < 0 or **arm_fsm_rt_err** (-1)                   | Error code                                                   |
+| **Return Value** | **arm_fsm_rt_cpl** (0)                           | Operation **completed**                                      |
+| **Return Value** | **arm_fsm_rt_on_going** (1)                      | Operation is **on-going**, and you have to keep calling this function until another value is returned.  This usually means that the function is working/implemented in **synchronous mode**. For more, please refer to [Introduction.md](./Introduction.md). |
+| **Return Value** | **arm_fsm_rt_asyn**(3)                           | Operation request has been received; no error found so far. If you have registered your own ***2D-Operation-Complete-Handler*** (***arm_2d_evt_t***), you don't have to poll this function anymore; the operation result will be passed to you via the event handler; otherwise, you can poll this function until another value is returned.  This usually means that the function is working/implemented in **asynchronous mode**.  For more, please refer to [Introduction.md](./Introduction.md). |
 
-The behaviour of function **arm_2d_rbg16_tile_copy_with_mask_colour** is illustrated in **Figure 4.6**. This function copies a given source tile to a specified region inside a target tile, during this process, user can specify a colour as the masking colour. If the colour of the pixel read from the source tile is the masking colour, the copy operation for that pixel will be ignored, as the result, i.e. the pixel in the background will be used. This function is dedicated to all colour formats with 16-bit pixel.  
+The behaviour of function **arm_2d_rbg16_tile_copy_with_colour_masking** is illustrated in **Figure 4.6**. This function copies a given source tile to a specified region inside a target tile, during this process, user can specify a colour as the masking colour. If the colour of the pixel read from the source tile is the masking colour, the copy operation for that pixel will be ignored, as the result, i.e. the pixel in the background will be used. This function is dedicated to all colour formats with 16-bit pixel.  
 
 **NOTE**: Alpha channels are ignored even if they exist. If you want a version that takes alpha-channel into consideration, please check alpha-blending related APIs.
 
 
 
-#### 4.3.2 **arm_2d_rbg32_tile_copy_with_mask_colour**
+#### 4.3.2 arm_2d_rbg32_tile_copy_with_colour_masking
 
-| Topic            | Content                                       | Description                                                  |
-| ---------------- | --------------------------------------------- | ------------------------------------------------------------ |
-| **Name**         | ***arm_2d_rbg32_tile_copy_with_mask_colour*** | Type: function                                               |
-| **Parameter**    | const arm_2d_tile_t * ***ptSource***          | The source tile address                                      |
-| **Parameter**    | const arm_2d_tile_t * ***ptTarget***          | The target tile address                                      |
-| **Parameter**    | const arm_2d_region_t * ***ptRegion***        | The relative region inside the target tile                   |
-| **Parameter**    | uint16_t ***hwMaskColour***                   | The colour used to mask the unwanted part in the source tile |
-| **Parameter**    | uint32_t ***wMode***                          | The mode of the copy, please refer to the copy mode description for more details. |
-| **Return Value** | < 0 or ***arm_fsm_rt_err*** (-1)              | Error code                                                   |
-| **Return Value** | ***arm_fsm_rt_cpl*** (0)                      | Operation **completed**                                      |
-| **Return Value** | ***arm_fsm_rt_on_going*** (1)                 | Operation is **on-going**, and you have to keep calling this function until another value is returned.  This usually means that the function is working/implemented in **synchronous mode**. For more, please refer to [Introduction.md](./Introduction.md). |
-| **Return Value** | ***arm_fsm_rt_asyn***(3)                      | Operation request has been received; no error found so far. If you have registered your own ***2D-Operation-Complete-Handler*** (***arm_2d_evt_t***), you don't have to poll this function anymore; the operation result will be passed to you via the event handler; otherwise, you can poll this function until another value is returned.  This usually means that the function is working/implemented in **asynchronous mode**.  For more, please refer to [Introduction.md](./Introduction.md). |
+| Topic            | Content                                          | Description                                                  |
+| ---------------- | ------------------------------------------------ | ------------------------------------------------------------ |
+| **Name**         | ***arm_2d_rbg32_tile_copy_with_colour_masking*** | Type: function                                               |
+| **Parameter**    | const arm_2d_tile_t * ***ptSource***             | The source tile address                                      |
+| **Parameter**    | const arm_2d_tile_t * ***ptTarget***             | The target tile address                                      |
+| **Parameter**    | const arm_2d_region_t * ***ptRegion***           | The relative region inside the target tile                   |
+| **Parameter**    | uint16_t ***hwMaskColour***                      | The colour used to mask the unwanted part in the source tile |
+| **Parameter**    | uint32_t ***wMode***                             | The mode of the copy, please refer to the copy mode description for more details. |
+| **Return Value** | < 0 or ***arm_fsm_rt_err*** (-1)                 | Error code                                                   |
+| **Return Value** | ***arm_fsm_rt_cpl*** (0)                         | Operation **completed**                                      |
+| **Return Value** | ***arm_fsm_rt_on_going*** (1)                    | Operation is **on-going**, and you have to keep calling this function until another value is returned.  This usually means that the function is working/implemented in **synchronous mode**. For more, please refer to [Introduction.md](./Introduction.md). |
+| **Return Value** | ***arm_fsm_rt_asyn***(3)                         | Operation request has been received; no error found so far. If you have registered your own ***2D-Operation-Complete-Handler*** (***arm_2d_evt_t***), you don't have to poll this function anymore; the operation result will be passed to you via the event handler; otherwise, you can poll this function until another value is returned.  This usually means that the function is working/implemented in **asynchronous mode**.  For more, please refer to [Introduction.md](./Introduction.md). |
 
-The behaviour of function **arm_2d_rbg32_tile_copy_with_mask_colour** is illustrated in **Figure 4.6**. This function copies a given source tile to a specified region inside a target tile. During this process, the user can specify a colour as the masking colour. If the colour of the pixel read from the source tile is the masking colour, the copy operation for that pixel will be ignored. As a result, i.e. the pixel in the background will be used. This function is dedicated to all colour formats with the 32-bit pixel. 
+The behaviour of function **arm_2d_rbg32_tile_copy_with_colour_masking** is illustrated in **Figure 4.6**. This function copies a given source tile to a specified region inside a target tile. During this process, the user can specify a colour as the masking colour. If the colour of the pixel read from the source tile is the masking colour, the copy operation for that pixel will be ignored. As a result, i.e. the pixel in the background will be used. This function is dedicated to all colour formats with the 32-bit pixel. 
 
 **NOTE**: Alpha channels are ignored even if they exist. If you want a version that takes alpha-channel into consideration, please check alpha-blending related APIs.
 

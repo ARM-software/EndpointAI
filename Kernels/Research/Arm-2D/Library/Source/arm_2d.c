@@ -978,25 +978,11 @@ static void __arm_2d_op_use_default_frame_buffer(arm_2d_op_core_t *ptOP)
         this.Target.ptTile = ARM_2D_CTRL.ptDefaultFrameBuffer;
     }
 }
- 
-arm_fsm_rt_t __arm_2d_op_invoke(arm_2d_op_core_t *ptOP)
-{
-    ARM_2D_IMPL(arm_2d_op_core_t, ptOP)
-    
-    arm_fsm_rt_t tResult;
-    if (this.Status.bIsBusy) {
-        return arm_fsm_rt_async;
-    } else if (this.Status.bOpCpl && this.Status.bIsRequestAsync) {
-        this.Status.tValue = 0;
-        return arm_fsm_rt_cpl;
-    }
 
-    //! initialize operation
-    do {
-        this.tResult = arm_fsm_rt_async;
-        this.Status.tValue = 0;                                                 //! reset status
-        this.Status.bIsBusy = true;                                             //! set busy flag
-    } while(0);
+ 
+arm_fsm_rt_t __arm_2d_op_frontend_op_decoder(arm_2d_op_core_t *ptThis)
+{
+    arm_fsm_rt_t tResult;
     
     //! decode operation
     switch (this.ptOp->Info.Param.chValue & 
@@ -1023,7 +1009,40 @@ arm_fsm_rt_t __arm_2d_op_invoke(arm_2d_op_core_t *ptOP)
         tResult = __arm_2d_op_frontend_control(ptThis);
     }
     
+    return tResult;
+}
+
+
+__WEAK
+arm_fsm_rt_t __arm_2d_op_frontend(arm_2d_op_core_t *ptThis)
+{
+    arm_fsm_rt_t tResult;
+    
+    tResult = __arm_2d_op_frontend_op_decoder(ptThis);
+    
     return  __arm_2d_op_frontend_on_leave(ptThis, tResult);
+}
+
+arm_fsm_rt_t __arm_2d_op_invoke(arm_2d_op_core_t *ptOP)
+{
+    ARM_2D_IMPL(arm_2d_op_core_t, ptOP)
+    
+    
+    if (this.Status.bIsBusy) {
+        return arm_fsm_rt_async;
+    } else if (this.Status.bOpCpl && this.Status.bIsRequestAsync) {
+        this.Status.tValue = 0;
+        return arm_fsm_rt_cpl;
+    }
+
+    //! initialize operation
+    do {
+        this.tResult = arm_fsm_rt_async;
+        this.Status.tValue = 0;                                                 //! reset status
+        this.Status.bIsBusy = true;                                             //! set busy flag
+    } while(0);
+    
+    return  __arm_2d_op_frontend(ptThis);
 }
 
 

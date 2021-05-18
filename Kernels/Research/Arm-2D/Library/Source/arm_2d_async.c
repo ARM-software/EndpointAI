@@ -297,6 +297,54 @@ arm_fsm_rt_t __arm_2d_call_default_io(  __arm_2d_sub_task_t *ptTask,
 }
 
 
+
+
+
+static void __arm_2d_notify_op_cpl(arm_2d_op_core_t *ptOP, arm_fsm_rt_t tResult)
+{
+    assert(tResult != arm_fsm_rt_async);
+    assert(tResult != arm_fsm_rt_on_going);
+    assert(tResult != arm_fsm_rt_wait_for_obj);
+    
+    //! error detected
+    if (tResult < 0) {
+        //! update error info
+        ptOP->tResult = tResult;
+        ptOP->Status.bIOError = true;
+    }
+    
+    //! handle target OP
+
+    
+    if (0 == ptOP->Status.u4SubTaskCount) {
+        //! this is the last sub task 
+        
+        //! no error has ever happened
+        if (ptOP->tResult >= 0) {
+            ptOP->tResult = tResult;
+        }
+        
+        //! call Operation Complete event handler
+        if (NULL != ptOP->evt2DOpCpl.fnHandler) {
+            ptOP->Status.bIsRequestAsync = 
+                (ptOP->evt2DOpCpl.fnHandler) (
+                                        ptOP, 
+                                        ptOP->tResult,
+                                        ptOP->evt2DOpCpl.pTarget) ? 1 : 0;
+            ptOP->evt2DOpCpl.fnHandler = NULL;
+        } 
+        
+        /*! \note complete doesn't mean no err */
+        ptOP->Status.bOpCpl = true;
+        
+        //! reset preference
+        ptOP->Preference.u2ACCMethods = 0;
+        
+        //! only clear busy flag after bOpCpl is set properly.
+        ptOP->Status.bIsBusy = false;
+    }
+}
+
 __WEAK 
 void arm_2d_notif_aync_sub_task_cpl(void)
 {
@@ -305,54 +353,15 @@ void arm_2d_notif_aync_sub_task_cpl(void)
 /*! \note This API should be called by both arm_2d_task and hardware 
  *!       accelerator to indicate the completion of a sub task
  */
-void __arm_2d_notify_sub_task_cpl(__arm_2d_sub_task_t *ptTask, 
+void __arm_2d_notify_sub_task_cpl(  __arm_2d_sub_task_t *ptTask, 
                                     arm_fsm_rt_t tResult,
                                     bool bFromHW)
 {
     assert(NULL != ptTask);
     assert(ptTask->ptOP->Status.u4SubTaskCount > 0);
     
-    assert(tResult != arm_fsm_rt_async);
-    assert(tResult != arm_fsm_rt_on_going);
-    assert(tResult != arm_fsm_rt_wait_for_obj);
-    
-    //! error detected
-    if (tResult < 0) {
-        //! update error info
-        ptTask->ptOP->tResult = tResult;
-        ptTask->ptOP->Status.bIOError = true;
-    }
-    
-    //! handle target OP
-
     ptTask->ptOP->Status.u4SubTaskCount--;
-    if (0 == ptTask->ptOP->Status.u4SubTaskCount) {
-        //! this is the last sub task 
-        
-        //! no error has ever happened
-        if (ptTask->ptOP->tResult >= 0) {
-            ptTask->ptOP->tResult = tResult;
-        }
-        
-        //! call Operation Complete event handler
-        if (NULL != ptTask->ptOP->evt2DOpCpl.fnHandler) {
-            ptTask->ptOP->Status.bIsRequestAsync = 
-                (ptTask->ptOP->evt2DOpCpl.fnHandler) (
-                                        ptTask->ptOP, 
-                                        ptTask->ptOP->tResult,
-                                        ptTask->ptOP->evt2DOpCpl.pTarget) ? 1 : 0;
-            ptTask->ptOP->evt2DOpCpl.fnHandler = NULL;
-        } 
-        
-        /*! \note complete doesn't mean no err */
-        ptTask->ptOP->Status.bOpCpl = true;
-        
-        //! reset preference
-        ptTask->ptOP->Preference.u2ACCMethods = 0;
-        
-        //! only clear busy flag after bOpCpl is set properly.
-        ptTask->ptOP->Status.bIsBusy = false;
-    }
+    __arm_2d_notify_op_cpl(ptTask->ptOP, tResult);
 
     //! free sub task
     __arm_2d_sub_task_free(ptTask);
@@ -381,9 +390,11 @@ arm_fsm_rt_t __arm_2d_sub_task_dispatch(__arm_2d_sub_task_t *ptTask)
 }
 
 
-#define __ARM_2D_TASK_RESET_FSM()     do {this.chState = START;} while(0);
 
- /*! \brief arm-2d pixel pipeline task entery
+
+#define __ARM_2D_BACKEND_TASK_RESET_FSM()     do {this.chState = START;} while(0);
+
+ /*! \brief arm-2d pixel pipeline backend task entery
   *! \note  This function is *TRHEAD-SAFE*
   *! \param none
   *! \retval arm_fsm_rt_cpl The sub-task FIFO is empty, the caller, i.e. the host
@@ -396,7 +407,8 @@ arm_fsm_rt_t __arm_2d_sub_task_dispatch(__arm_2d_sub_task_t *ptTask)
   *!            to sync-up with applications.
   *! \retval (<0) Serious error is detected.
   */
-arm_fsm_rt_t arm_2d_task(arm_2d_task_t *ptThis)
+static 
+arm_fsm_rt_t __arm_2d_backend_task(arm_2d_task_t *ptThis)
 {
     
     enum {
@@ -416,7 +428,7 @@ arm_fsm_rt_t arm_2d_task(arm_2d_task_t *ptThis)
             //! fetch a sub task from FIFO
             this.ptTask = __arm_2d_sub_task_fetch();
             if (NULL == this.ptTask) {
-                __ARM_2D_TASK_RESET_FSM();
+                __ARM_2D_BACKEND_TASK_RESET_FSM();
                 return arm_fsm_rt_cpl;
             }
             this.chState++;
@@ -444,7 +456,7 @@ arm_fsm_rt_t arm_2d_task(arm_2d_task_t *ptThis)
              *!       been handled yet 
              */
             
-            __ARM_2D_TASK_RESET_FSM();
+            __ARM_2D_BACKEND_TASK_RESET_FSM();
             
             //! unsupported operation
             if (ARM_2D_ERR_INVALID_OP == this.tResult){
@@ -458,10 +470,140 @@ arm_fsm_rt_t arm_2d_task(arm_2d_task_t *ptThis)
     return arm_fsm_rt_on_going;
 }
 
+ /*! \brief arm-2d pixel pipeline backend task entery
+  *! \note  This function is *TRHEAD-SAFE*
+  *! \param none
+  *! \retval arm_fsm_rt_cpl The OPCODE FIFO is empty, the caller, i.e. the host
+  *!            RTOS thread can block itself by waiting for a semaphore which is
+  *!            set by arm_2d_notif_sub_task_fifo_task_arrive()
+  *! \retval arm_fsm_rt_on_going The frontend issued one OPCODE without 
+  *!            problem and it yields. 
+  *! \retval arm_fsm_rt_async You shouldn't see this value
+  *! \retval arm_fsm_rt_wait_for_obj some algorithm or hardware accelerator wants
+  *!            to sync-up with applications.
+  *! \retval (<0) Serious error is detected.
+  */
+static 
+arm_fsm_rt_t __arm_2d_frontend_task(arm_2d_task_t *ptThis)
+{
+    arm_2d_op_core_t *ptOP = NULL;
+    arm_fsm_rt_t tResult;
+    
+    arm_irq_safe {
+        ARM_LIST_QUEUE_PEEK(ARM_2D_CTRL.OPFIFO.ptHead, 
+                            ARM_2D_CTRL.OPFIFO.ptTail,
+                            ptOP);
+    }
+    
+    if (NULL == ptOP) {
+        return arm_fsm_rt_cpl;
+    }
+    
+    tResult = __arm_2d_op_frontend_op_decoder(ptOP);
+    
+    if ((arm_fsm_rt_cpl == tResult) || (tResult < 0)) {
+
+        __arm_2d_notify_op_cpl(ptOP, tResult);
+        
+        arm_irq_safe {
+            ARM_LIST_QUEUE_DEQUEUE( ARM_2D_CTRL.OPFIFO.ptHead, 
+                                    ARM_2D_CTRL.OPFIFO.ptTail,
+                                    ptOP);
+        }
+    } 
+    
+    /* release resources here */
+    __arm_2d_sub_task_cancel_booking();
+    
+    if (arm_fsm_rt_wait_for_obj == tResult) {
+        return tResult;
+    }
+    
+    assert(arm_fsm_rt_on_going != tResult);
+
+    return arm_fsm_rt_on_going;
+}
+
+
+ /*! \brief arm-2d pixel pipeline task entery
+  *! \note  This function is *TRHEAD-SAFE*
+  *! \param none
+  *! \retval arm_fsm_rt_cpl The sub-task FIFO is empty, the caller, i.e. the host
+  *!            RTOS thread can block itself by waiting for a semaphore which is
+  *!            set by arm_2d_notif_sub_task_fifo_task_arrive()
+  *! \retval arm_fsm_rt_on_going The arm_2d_task issued one sub-task without 
+  *!            problem and it yields. 
+  *! \retval arm_fsm_rt_async You shouldn't see this value
+  *! \retval arm_fsm_rt_wait_for_obj some algorithm or hardware accelerator wants
+  *!            to sync-up with applications.
+  *! \retval (<0) Serious error is detected.
+  */
+arm_fsm_rt_t arm_2d_task(arm_2d_task_t *ptThis)
+{
+    arm_fsm_rt_t tResult;
+    
+    do {
+        tResult = __arm_2d_backend_task(ptThis);
+        
+        if (arm_fsm_rt_cpl != tResult) {
+            break;
+        }
+        
+        tResult = __arm_2d_frontend_task(ptThis);
+        if (arm_fsm_rt_on_going == tResult){
+            continue;
+        }
+        
+        break;
+        
+    } while(true);
+    
+    return tResult;
+}
+
 
 /*----------------------------------------------------------------------------*
  * Overridden Implementations                                                 *
  *----------------------------------------------------------------------------*/
+
+__OVERRIDE_WEAK
+arm_fsm_rt_t __arm_2d_op_frontend_on_leave( arm_2d_op_core_t *ptThis, 
+                                            arm_fsm_rt_t tResult)
+{  
+
+    
+    if (!ARM_2D_RUNTIME_FEATURE.HAS_DEDICATED_THREAD_FOR_2D_TASK) {
+        arm_fsm_rt_t tTaskResult;
+        arm_2d_task_t tTaskCB = {0};
+        do {
+            tTaskResult = arm_2d_task(&tTaskCB);
+        } while(arm_fsm_rt_on_going == tTaskResult);
+        
+        if (tTaskResult < 0) {
+            //! a serious error is detected
+            tResult = tTaskResult;
+        } else if (arm_fsm_rt_wait_for_obj == tTaskResult) {
+            tResult = tTaskResult;
+        } else {
+            tResult = this.tResult;
+        }
+    }
+   
+    return tResult;
+}
+
+__OVERRIDE_WEAK
+arm_fsm_rt_t __arm_2d_op_frontend(arm_2d_op_core_t *ptThis)
+{
+    
+    arm_irq_safe {
+        ARM_LIST_QUEUE_ENQUEUE( ARM_2D_CTRL.OPFIFO.ptHead, 
+                                ARM_2D_CTRL.OPFIFO.ptTail,
+                                ptThis);
+    }
+    
+    return  __arm_2d_op_frontend_on_leave(ptThis, this.tResult);
+}
 
 __OVERRIDE_WEAK
 bool __arm_2d_op_ensure_resource(   arm_2d_op_core_t *ptOP, 
@@ -481,43 +623,7 @@ bool __arm_2d_op_ensure_resource(   arm_2d_op_core_t *ptOP,
     return bResult;
 }
 
-__OVERRIDE_WEAK
-arm_fsm_rt_t __arm_2d_op_frontend_on_leave( arm_2d_op_core_t *ptThis, 
-                                            arm_fsm_rt_t tResult)
-{
 
-    if (    (arm_fsm_rt_cpl == tResult) 
-        ||  ((arm_fsm_rt_t)ARM_2D_ERR_OUT_OF_REGION == tResult)
-        ||  (tResult < 0)) {
-        
-        this.Status.bIsBusy = 0;
-        this.Status.bOpCpl = true;
-        this.Status.bIOError = (tResult < 0);
-        this.tResult = tResult;
-    } 
-  
-    if (!ARM_2D_RUNTIME_FEATURE.HAS_DEDICATED_THREAD_FOR_2D_TASK) {
-        arm_fsm_rt_t tTaskResult;
-        arm_2d_task_t tTaskCB = {0};
-        do {
-            tTaskResult = arm_2d_task(&tTaskCB);
-        } while(arm_fsm_rt_on_going == tTaskResult);
-        
-        if (tTaskResult < 0) {
-            //! a serious error is detected
-            tResult = tTaskResult;
-        } else if (arm_fsm_rt_wait_for_obj == tTaskResult) {
-            tResult = tTaskResult;
-        } else {
-            tResult = this.tResult;
-        }
-    }
-    
-    /* release resources here */
-    __arm_2d_sub_task_cancel_booking();
-        
-    return tResult;
-}
 
 __OVERRIDE_WEAK
 arm_fsm_rt_t __arm_2d_issue_sub_task_tile_process(  
@@ -650,6 +756,8 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_copy_origin(
 
     return arm_fsm_rt_async;
 }
+
+
 
 
 /*! \brief initialise the whole arm-2d service
