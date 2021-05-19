@@ -189,13 +189,16 @@ enum {
 //! @{
 enum {
     ARM_2D_COLOUR_BIN         =   ARM_2D_COLOUR_SZ_1BIT_msk,
-    ARM_2D_COLOUR_RGB16       =   ARM_2D_COLOUR_SZ_16BIT_msk    ,
-    ARM_2D_COLOUR_RGB565      =   ARM_2D_COLOUR_RGB16    ,
+    ARM_2D_COLOUR_8BIT        =   ARM_2D_COLOUR_SZ_8BIT_msk,
+    ARM_2D_COLOUR_RGB16       =   ARM_2D_COLOUR_SZ_16BIT_msk,
+    ARM_2D_COLOUR_RGB565      =   ARM_2D_COLOUR_RGB16,
+    ARM_2D_COLOUR_RGB565_BE   =   ARM_2D_COLOUR_SZ_16BIT_msk    |
+                                  ARM_2D_COLOUR_BIG_ENDIAN_msk  ,
 
     ARM_2D_COLOUR_RGB32       =   ARM_2D_COLOUR_SZ_32BIT_msk    ,
-    ARM_2D_COLOUR_RGB888      =   ARM_2D_COLOUR_RGB32    ,
+    ARM_2D_COLOUR_RGB888      =   ARM_2D_COLOUR_RGB32           ,
     ARM_2D_COLOUR_RGBA8888    =   ARM_2D_COLOUR_SZ_32BIT_msk    |
-                                    ARM_2D_COLOUR_HAS_ALPHA       ,
+                                    ARM_2D_COLOUR_HAS_ALPHA     ,
 };
 //! @}
 
@@ -375,7 +378,7 @@ enum {
 
 struct arm_2d_op_core_t {
 ARM_PRIVATE(
-    //arm_2d_op_core_t            *ptNext;              //!< pointer for a single list
+    arm_2d_op_core_t            *ptNext;              //!< pointer for a single list
 
     const __arm_2d_op_info_t    *ptOp;
 

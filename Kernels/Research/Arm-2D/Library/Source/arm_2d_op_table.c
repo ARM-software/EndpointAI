@@ -144,6 +144,15 @@ def_low_lv_io(__ARM_2D_IO_ROTATE_RGB888,
                 __arm_2d_rgb888_sw_rotate);
 
 
+__WEAK
+def_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB565, 
+                __arm_2d_rgb565_sw_rotate_with_alpha);
+
+__WEAK
+def_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB888, 
+                __arm_2d_rgb888_sw_rotate_with_alpha);
+
+
 /*----------------------------------------------------------------------------*
  * OP-Table                                                                   *
  *----------------------------------------------------------------------------*/
@@ -522,6 +531,46 @@ const __arm_2d_op_info_t ARM_2D_OP_ROTATE_RGB888 = {
         
         .LowLevelIO = {
             .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_RGB888),
+            .ptFillOrigLike = NULL,
+        },
+    },
+};
+
+
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_WITH_ALPHA_RGB565 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB565,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasOrigin             = true,
+            .bHasTarget             = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_ROTATE_WITH_ALPHA,
+
+        .LowLevelIO = {
+            .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB565),
+            .ptFillOrigLike = NULL,
+        },
+    },
+};
+    
+    
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_WITH_ALPHA_RGB888 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB888,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasOrigin             = true,
+            .bHasTarget             = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_ROTATE_WITH_ALPHA,
+        
+        .LowLevelIO = {
+            .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB888),
             .ptFillOrigLike = NULL,
         },
     },

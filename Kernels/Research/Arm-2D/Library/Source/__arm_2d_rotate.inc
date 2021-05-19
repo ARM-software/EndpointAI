@@ -34,6 +34,9 @@
 #ifndef __API_INT_TYPE
 #   error You have to define the __API_INT_TYPE before using this c template
 #endif
+#ifndef __API_PIXEL_BLENDING
+#   error You have to define __API_PIXEL_BLENDING before using this c template
+#endif
 
 #undef ____ARM_2D_FUNC
 #undef ___ARM_2D_FUNC
@@ -50,8 +53,13 @@ arm_2d_point_float_t *__arm_2d_rotate_point(const arm_2d_location_t *ptLocation,
                                             arm_2d_point_float_t *ptOutBuffer);
 
 extern 
-void __ARM_2D_FUNC(rotate)(   __arm_2d_param_copy_orig_t *ptParam,
-                                    __arm_2d_rotate_info_t *ptInfo);
+void __ARM_2D_FUNC(rotate)( __arm_2d_param_copy_orig_t *ptParam,
+                            __arm_2d_rotate_info_t *ptInfo);
+
+extern 
+void __ARM_2D_FUNC(rotate_alpha)(   __arm_2d_param_copy_orig_t *ptParam,
+                                    __arm_2d_rotate_info_t *ptInfo,
+                                    uint_fast8_t chRatio);
 
 __WEAK 
 __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_float_t *ptPoint,
@@ -59,7 +67,7 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_float_t *ptPoint,
                                             __API_INT_TYPE *pOrigin,
                                             int16_t iOrigStride,
                                             __API_INT_TYPE *pTarget,
-                                            int16_t iTargetSride,
+                                            //int16_t iTargetSride,
                                             __API_INT_TYPE MaskColour)
 {
 #if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__)                          \
@@ -118,8 +126,95 @@ void __ARM_2D_FUNC(rotate)(   __arm_2d_param_copy_orig_t *ptParam,
                                         pOrigin,
                                         iOrigStride,
                                         pTargetBase,
-                                        iTargetStride,
+                                        //iTargetStride,
                                         MaskColour
+                                    );
+            pTargetBase++;
+        }
+        //phwSourceBase += (iSourceStride - iWidth);
+        pTargetBase += (iTargetStride - iWidth);
+    }
+}
+
+
+
+__WEAK 
+__API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(   
+                                            arm_2d_point_float_t *ptPoint,
+                                            arm_2d_region_t *ptOrigValidRegion,
+                                            __API_INT_TYPE *pOrigin,
+                                            int16_t iOrigStride,
+                                            __API_INT_TYPE *pTarget,
+                                            //int16_t iTargetSride,
+                                            __API_INT_TYPE MaskColour,
+                                            uint8_t chOpacity)
+{
+#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__)                          \
+    &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#error "The current version hasn\'t support interpolation in rotation yet."
+#else
+    arm_2d_location_t tOriginLocation;
+
+    tOriginLocation.iX = ptPoint->fX;
+    tOriginLocation.iY = ptPoint->fY;
+    __API_INT_TYPE Pixel = *pTarget;
+    
+    if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tOriginLocation)) {
+        __API_INT_TYPE Temp = pOrigin[   tOriginLocation.iY * iOrigStride 
+                                     +   tOriginLocation.iX];
+        if (Temp != MaskColour) {
+            //Pixel = Temp;
+            
+            __API_PIXEL_BLENDING( &Temp, &Pixel, chOpacity);
+        } 
+    } 
+    
+    return Pixel;
+#endif
+}
+
+
+
+__WEAK
+void __ARM_2D_FUNC(rotate_alpha)(   __arm_2d_param_copy_orig_t *ptParam,
+                                    __arm_2d_rotate_info_t *ptInfo,
+                                    uint_fast8_t chRatio)
+{
+    int_fast16_t iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
+    int_fast16_t iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
+
+    int_fast16_t iTargetStride = ptParam->use_as____arm_2d_param_copy_t.tTarget.iStride;
+    __API_INT_TYPE *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
+    __API_INT_TYPE *pOrigin = ptParam->tOrigin.pBuffer;
+    int_fast16_t iOrigStride = ptParam->tOrigin.iStride;
+    __API_INT_TYPE MaskColour = ptInfo->Mask.hwColour;
+    float fAngle = -ptInfo->fAngle;
+    arm_2d_location_t tOffset = ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
+    
+    uint16_t  hwRatioCompl = 256 - chRatio;
+    
+    for (int_fast16_t y = 0; y < iHeight; y++) {
+
+        for (int_fast16_t x = 0; x < iWidth; x++) {
+            
+            arm_2d_point_float_t tPoint;
+            arm_2d_location_t tSrcPoint = ptInfo->tDummySourceOffset;
+            tSrcPoint.iX += x + tOffset.iX;
+            tSrcPoint.iY += y + tOffset.iY;
+            __arm_2d_rotate_point(  &tSrcPoint,
+                                    &(ptInfo->tCenter),
+                                    fAngle,
+                                    &tPoint);
+            
+            *pTargetBase = __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
+                                        &tPoint,
+                                        &ptParam->tOrigin.tValidRegion,
+                                        pOrigin,
+                                        iOrigStride,
+                                        pTargetBase,
+                                        //iTargetStride,
+                                        MaskColour,
+                                        hwRatioCompl
                                     );
             pTargetBase++;
         }
@@ -135,3 +230,4 @@ void __ARM_2D_FUNC(rotate)(   __arm_2d_param_copy_orig_t *ptParam,
 #undef __ARM_2D_FUNC
 #undef __API_COLOUR
 #undef __API_INT_TYPE
+#undef __API_PIXEL_BLENDING

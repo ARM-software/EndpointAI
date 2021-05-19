@@ -97,18 +97,20 @@ extern
 const arm_2d_tile_t c_tileGear02;
 
 typedef struct {
+    arm_2d_op_rotate_alpha_t tOP;
     const arm_2d_tile_t *ptTile;
     float fAngle;
     float fAngleSpeed;
     arm_2d_location_t tCentre;
     arm_2d_region_t tRegion;
+    uint8_t chOpacity;
 } demo_gears_t;
 
-static demo_gears_t s_tGears[] = {
+demo_gears_t s_tGears[] = {
 
     {
         .ptTile = &c_tileGear02,
-        .fAngleSpeed = -4,
+        .fAngleSpeed = -3,
         .tCentre = {
             .iX = 20,
             .iY = 20,
@@ -123,11 +125,12 @@ static demo_gears_t s_tGears[] = {
                 .iHeight = 41,
             },
         },
+        .chOpacity = 255,
     },
 
     {
         .ptTile = &c_tileGear01,
-        .fAngleSpeed = 2,
+        .fAngleSpeed = 0.8,
         .tCentre = {
             .iX = 61,
             .iY = 60,
@@ -142,8 +145,9 @@ static demo_gears_t s_tGears[] = {
                 .iHeight = 120,
             },
         },
+        .chOpacity = 128,
     },
-    
+
 
     
 };
@@ -162,15 +166,28 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
                 s_fAngle -= ARM_2D_ANGLE(360);
             }
         }
-    
-        arm_2d_rgb565_tile_rotation_prepare(_->ptTile, 
-                                            ptTile, 
-                                            &(_->tRegion),
-                                            _->tCentre,
-                                            _->fAngle,
-                                            GLCD_COLOR_BLACK);
-        
-        arm_2d_tile_rotate();
+
+        if (255 == _->chOpacity) {
+            arm_2d_2dp_rgb565_tile_rotation(  
+                                            (arm_2d_op_rotate_t *)&(_->tOP),
+                                            _->ptTile,          //!< source tile 
+                                            ptTile,             //!< target tile
+                                            &(_->tRegion),      //!< target region
+                                            _->tCentre,         //!< center point
+                                            _->fAngle,          //!< rotation angle
+                                            GLCD_COLOR_BLACK);  //!< masking colour
+                                                          
+        } else {
+            arm_2d_2dp_rgb565_tile_rotation_with_alpha(  
+                                            &(_->tOP),
+                                            _->ptTile,          //!< source tile 
+                                            ptTile,             //!< target tile
+                                            &(_->tRegion),      //!< target region
+                                            _->tCentre,         //!< center point
+                                            _->fAngle,          //!< rotation angle
+                                            GLCD_COLOR_BLACK,   //!< masking colour
+                                            _->chOpacity);      //!< Opacity     
+        }
     }
 
     example_gui_on_refresh_evt_handler(ptTile);
@@ -182,3 +199,4 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 #endif
 
 
+ 

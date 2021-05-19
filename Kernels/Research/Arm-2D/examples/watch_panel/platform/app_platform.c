@@ -115,6 +115,14 @@ __asm(".global __use_no_semihosting\n\t");
 __asm(".global __ARM_use_no_argv\n\t");
 #   endif
 
+//#if defined(__MICRO_LIB)
+_ARMABI_NORETURN 
+__attribute__((__nonnull__(1,2)))
+void __aeabi_assert(const char *cond, const char *line, int err) 
+{
+    while(1);
+}
+//#endif
 
 void _ttywrch(int ch)
 {

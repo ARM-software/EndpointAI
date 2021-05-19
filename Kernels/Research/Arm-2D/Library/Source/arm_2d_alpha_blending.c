@@ -59,39 +59,6 @@ extern "C" {
 
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
-#define __ARM_2D_PIXEL_BLENDING_RGB565(__SRC_ADDR, __DES_ADDR, __RATIO)         \
-            do {                                                                \
-                __arm_2d_color_fast_rgb_t tSrcPix, tTargetPix;                  \
-                uint16_t *phwTargetPixel = (__DES_ADDR);                        \
-                __arm_2d_rgb565_unpack(*(__SRC_ADDR), &tSrcPix);                \
-                __arm_2d_rgb565_unpack(*phwTargetPixel, &tTargetPix);           \
-                                                                                \
-                for (int i = 0; i < 3; i++) {                                   \
-                    uint16_t        hwTemp =                                    \
-                        (uint16_t) (tSrcPix.RGB[i] * chRatio) +                 \
-                        (tTargetPix.RGB[i] * (__RATIO));                        \
-                    tTargetPix.RGB[i] = (uint16_t) (hwTemp >> 8);               \
-                }                                                               \
-                                                                                \
-                /* pack merged stream */                                        \
-                *phwTargetPixel = __arm_2d_rgb565_pack(&tTargetPix);            \
-            } while(0);
-
-
-#define __ARM_2D_PIXEL_BLENDING_RGB888(__SRC_ADDR, __DES_ADDR, __RATIO)         \
-            do {                                                                \
-                uint_fast8_t n = sizeof(uint32_t);                              \
-                const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
-                uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
-                                                                                \
-                do {                                                            \
-                    *pchDes = ( ((uint_fast16_t)(*pchSrc++) * chRatio)          \
-                              + ((uint_fast16_t)(*pchDes) * (__RATIO))          \
-                              ) >> 8;                                           \
-                     pchDes++;                                                  \
-                } while(--n);                                                   \
-            } while(0)
-
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/

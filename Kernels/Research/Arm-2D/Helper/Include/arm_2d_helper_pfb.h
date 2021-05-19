@@ -35,18 +35,19 @@ extern "C" {
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
-#define ARM_2D_HELPER_PFB_INIT( __CB_ADDR,                                      \
-                                __SCREEN_WIDTH,                                 \
-                                __SCREEN_HEIGHT,                                \
-                                __PIXEL_TYPE,                                   \
-                                __WIDTH,                                        \
-                                __HEIGHT,                                       \
-                                __PFB_NUM,                                      \
-                                ...                                             \
+#define ARM_2D_HELPER_PFB_INIT( __CB_ADDR,      /* PFB Helper object address */ \
+                                __SCREEN_WIDTH, /* Screen width */              \
+                                __SCREEN_HEIGHT,/* Screen height */             \
+                                __PIXEL_TYPE,   /* The type of the pixels */    \
+                                __WIDTH,        /* The width of the PFB block */\
+                                __HEIGHT,       /* The height of the PFB block*/\
+                                __PFB_NUM,      /* Block count in the PFB pool*/\
+                                ...             /* Event Handler */             \
                                 )                                               \
     ({                                                                          \
         ARM_NOINIT static struct {                                              \
             arm_2d_pfb_t tFPB;                                                  \
+            __ALIGNED(4)                                                        \
             __PIXEL_TYPE tBuffer[(__WIDTH) * (__HEIGHT)];                       \
         } s_tPFBs[__PFB_NUM];                                                   \
                                                                                 \
@@ -64,11 +65,26 @@ extern "C" {
             .FrameBuffer.wBufferSize = sizeof(s_tPFBs[0].tBuffer),              \
             .FrameBuffer.hwPFBNum = dimof(s_tPFBs),                             \
             .Dependency =                                                       \
-            __VA_ARGS__,                                                        \
+            __VA_ARGS__                                                         \
         };                                                                      \
                                                                                 \
         arm_2d_helper_pfb_init((__CB_ADDR), &tCFG);                             \
     })
+
+
+#define ARM_2D_HELPER_PFB_UPDATE_ON_DRAW_HANDLER(                               \
+                                    __CB_ADDR, /* PFB Helper object address */  \
+                                    __HANDLER, /* new on-draw-handler function*/\
+                                    ...)       /* An optional target address */ \
+    arm_2d_helper_pfb_update_dependency((__CB_ADDR),                            \
+                                        ARM_2D_PFB_DEPEND_ON_DRAWING,           \
+                                        &(arm_2d_helper_pfb_dependency_t) {     \
+                                            .evtOnDrawing = {                   \
+                                                .fnHandler = __HANDLER,         \
+                                                .pTarget = (NULL,##__VA_ARGS__),\
+                                            },                                  \
+                                        })
+
 
 #define __IMPL_ARM_2D_REGION_LIST(__NAME, ...)                                  \
             enum {                                                              \
@@ -109,6 +125,17 @@ extern "C" {
 #define ADD_LAST_REGION_TO_LIST(__NAME, ...)                                    \
             __ADD_LAST_REGION_TO_LIST(__NAME, ##__VA_ARGS__) 
             
+#define IMPL_PFB_ON_DRAW(__NAME)                                                \
+            arm_fsm_rt_t __NAME(void *pTarget,                                  \
+                                const arm_2d_tile_t *ptTile,                    \
+                                bool bIsNewFrame)    
+
+#define IMPL_PFB_ON_LOW_LV_RENDERING(__NAME)                                    \
+            void __NAME(void *pTarget,                                          \
+                        const arm_2d_pfb_t *ptPFB,                              \
+                        bool bIsNewFrame)    
+
+            
 /*! \note add macros in lower-case and make sure everyone can choose what they 
  *!       like. 
  */
@@ -142,6 +169,10 @@ extern "C" {
             ADD_LAST_REGION_TO_LIST(__NAME, ##__VA_ARGS__)
 #define end_impl_arm_2d_region_list(...)                                        \
             END_IMPL_ARM_2D_REGION_LIST(__VA_ARGS__)
+            
+#define impl_pfb_on_draw(__NAME)    IMPL_PFB_ON_DRAW(__NAME)
+#define impl_pfb_on_low_lv_rendering(__NAME)                                    \
+            IMPL_PFB_ON_LOW_LV_RENDERING(__NAME)
 //! @}
 
 /*============================ TYPES =========================================*/
@@ -155,6 +186,9 @@ typedef struct arm_2d_region_list_item_t {
     struct arm_2d_region_list_item_t *ptNext;
     arm_2d_region_t tRegion;
 }arm_2d_region_list_item_t;
+
+
+
 
 
 typedef arm_fsm_rt_t arm_2d_helper_draw_handler_t( 
@@ -206,7 +240,8 @@ typedef struct arm_2d_helper_pfb_cfg_t {
         uint16_t       hwPFBNum;
         uint16_t       bDoNOTUpdateDefaultFrameBuffer   : 1;
         uint16_t       bDisableDynamicFPBSize           : 1;
-        uint16_t                                        : 14;
+        uint16_t       bSwapRGB16                       : 1;
+        uint16_t                                        : 13;
     } FrameBuffer;
     
     arm_2d_helper_pfb_dependency_t Dependency;

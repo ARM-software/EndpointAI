@@ -20,7 +20,7 @@
 
 ## Features of the Arm-2D Library
 
-#### In this release ( ver0.9.5 )
+#### In this release ( ver0.9.6 )
 
 The Arm-2D library provides **Low-Level 2D Image Processing Services** that are mainly used in **Display system**. Those servers include but not limited to:
 
@@ -35,11 +35,15 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
 - **Region/Window Clipping**
 - **Generic Partial Frame-buffer (PFB) Support**
   - Transparent for upper layer software/GUI services
-  - Easy to implement
+  - Easy to Use
   - No limitation on target screen resolution
   - No limitation on PFB size and shape (it could be line or cube with any size)
   - Support for the Dirty Region List
-- **Rotations Algorithms**
+  - Support for swapping RGB16 high and low bytes.
+  - Has built-in frame buffer pool and it is easy to support 3FB. 
+- **Rotation**
+  - Support for the Colour-masking by default
+  - Rotation with/without alpha-blending
 - **Unified and User Friendly Programmers' Mode**
   - APIs could be used in Synchronous manner (  **Classic Blocking code** ) and/or Asynchronous manner ( **Event-Driven** )
   - Support both bare-metal and RTOS
@@ -52,7 +56,7 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
 Following features are planned and to be introduced in the near future:
 
 - **Alpha (bitmap) Masking schemes** 
-  - New APIs will be added for Copy, Paving and Alpha-blending
+  - New APIs will be added to Copy, Paving and Rotation.
 - **Image Filters, e.g. Anti-aliasing algorithms**
 - **Zooming/Stretching Algorithms**
 
@@ -325,7 +329,7 @@ Since there is no public benchmark available for micro-controllers, we decide to
       4. Based on the arguments passed to the function and the capability of your 2D accelerator, you can:
     
          - return "***ARM_2D_ERR_NOT_SUPPORT***" if the hardware isn't capable to do what is requested.
-         - return "***arm_fsm_rt_cpl***" if the task is done immediately and not need to wait.
+         - return "***arm_fsm_rt_cpl***" if the task is done immediately and no need to wait.
          - return "***arm_fsm_rt_async***" if the task is done asynchronously and later report to arm-2d by calling function ***__arm_2d_notify_sub_task_cpl()***. 
     
       ***NOTE***: The Arm-2D pipeline will keep issuing tasks to your ***hardware adaptor***, please quickly check whether the hardware is capable of doing the work or not, and then add the task (an ***__arm_2d_sub_task_t*** object) to a list in ***First-In-First-Out*** manner if your hardware adaptor decides to keep it. After that, your hardware accelerator can fetch tasks one by one.  

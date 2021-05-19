@@ -379,9 +379,16 @@ extern "C" {
             }                                                                   \
         }                                                                       \
     } while(0)
+    
 #define ARM_LIST_QUEUE_DEQUEUE(__HEAD, __TAIL, __ITEM)  \
             __ARM_LIST_QUEUE_DEQUEUE((__HEAD), (__TAIL), (__ITEM))
 
+#define __ARM_LIST_QUEUE_PEEK(__HEAD, __TAIL, __ITEM)                           \
+    do {                                                                        \
+        (*(__arm_slist_node_t **)&(__ITEM)) =  (__arm_slist_node_t *)(__HEAD);  \
+    } while(0)
+#define ARM_LIST_QUEUE_PEEK(__HEAD, __TAIL, __ITEM)  \
+            __ARM_LIST_QUEUE_PEEK((__HEAD), (__TAIL), (__ITEM))                 \
 
 /*----------------------------------------------------------------------------*
  * Definition Template                                                        *

@@ -55,7 +55,7 @@
 /*============================ PROTOTYPES ====================================*/
 /*============================ LOCAL VARIABLES ===============================*/
 
-static char s_chPerformanceInfo[(GLCD_WIDTH/6)+1] = {0};
+static char s_chPerformanceInfo[MIN(((GLCD_WIDTH/6)+1), 54)] = {0};
 
 /*============================ IMPLEMENTATION ================================*/
 
@@ -104,7 +104,8 @@ void display_task(void)
         int32_t nTotalCyclCount = s_tExamplePFB.Statistics.nTotalCycle;
         int32_t nTotalLCDCycCount = s_tExamplePFB.Statistics.nRenderingCycle;
 
-        sprintf(s_chPerformanceInfo, 
+        snprintf(s_chPerformanceInfo, 
+                 sizeof(s_chPerformanceInfo),
                 "UPS %3d:%2dms (LCD Latency %2dms) " 
                 STR(APP_SCREEN_WIDTH) "*"
                 STR(APP_SCREEN_HEIGHT) " %dMHz", 
@@ -142,9 +143,8 @@ int32_t arm_2d_helper_perf_counter_stop(void)
 }
 
 
-static arm_fsm_rt_t __pfb_draw_handler( void *pTarget,
-                                        const arm_2d_tile_t *ptTile,
-                                        bool bIsNewFrame)
+static 
+IMPL_PFB_ON_DRAW(__pfb_draw_handler)
 {
     ARM_2D_UNUSED(pTarget);
     example_gui_refresh(ptTile, bIsNewFrame);
@@ -152,10 +152,8 @@ static arm_fsm_rt_t __pfb_draw_handler( void *pTarget,
     return arm_fsm_rt_cpl;
 }
 
-static arm_fsm_rt_t __pfb_draw_background_handler( 
-                                            void *pTarget,
-                                            const arm_2d_tile_t *ptTile,
-                                            bool bIsNewFrame)
+static 
+IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
 {
     ARM_2D_UNUSED(pTarget);
     ARM_2D_UNUSED(bIsNewFrame);
@@ -165,9 +163,8 @@ static arm_fsm_rt_t __pfb_draw_background_handler(
     return arm_fsm_rt_cpl;
 }
 
-static void __pfb_render_handler(   void *pTarget, 
-                                    const arm_2d_pfb_t *ptPFB,
-                                    bool bIsNewFrame)
+static 
+IMPL_PFB_ON_LOW_LV_RENDERING(__pfb_render_handler)
 {
     const arm_2d_tile_t *ptTile = &(ptPFB->tTile);
 
@@ -229,14 +226,8 @@ int main (void)
     while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task(&s_tExamplePFB,NULL));
     
     //! update draw function
-    arm_2d_helper_pfb_update_dependency(&s_tExamplePFB,
-                                        ARM_2D_PFB_DEPEND_ON_DRAWING,
-                                        &(arm_2d_helper_pfb_dependency_t) {
-                                            .evtOnDrawing = {
-                                                .fnHandler = &__pfb_draw_handler,
-                                                .pTarget = NULL,
-                                            },
-                                        });
+    ARM_2D_HELPER_PFB_UPDATE_ON_DRAW_HANDLER(   &s_tExamplePFB, 
+                                                &__pfb_draw_handler);
     
     while (1) {
         display_task();

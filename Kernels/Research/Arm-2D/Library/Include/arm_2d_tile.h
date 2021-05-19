@@ -111,10 +111,10 @@ extern "C" {
                                                                                 \
     if (NULL != (__TILE_PTR)) {                                                 \
         arm_2d_location_t tOffset = __VALID_REGION_NAME.tLocation;              \
-        if ((__MODE) & ARM_2D_CP_MODE_X_MIRROR) {                             \
+        if ((__MODE) & ARM_2D_CP_MODE_X_MIRROR) {                               \
             tOffset.iX = 0;                                                     \
         }                                                                       \
-        if ((__MODE) & ARM_2D_CP_MODE_Y_MIRROR) {                             \
+        if ((__MODE) & ARM_2D_CP_MODE_Y_MIRROR) {                               \
             tOffset.iY = 0;                                                     \
         }                                                                       \
         (__BUF_PTR_NAME) = ((__TYPE *)((__TILE_PTR)->pchBuffer))                \
