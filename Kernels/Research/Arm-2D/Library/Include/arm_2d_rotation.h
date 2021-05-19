@@ -58,18 +58,42 @@ extern "C" {
 
                                      
 #define arm_2d_rgb888_tile_rotation_prepare(__SRC_TILE_ADDR,                    \
-                                            __DES_TILE_ADDR,                    \
-                                            __DES_REGION_ADDR,                  \
                                             __CENTRE,                           \
                                             __ANGLE,                            \
                                             __MSK_COLOUR)                       \
             arm_2dp_rgb888_tile_rotation_prepare(  NULL,                        \
                                                    (__SRC_TILE_ADDR),           \
-                                                   (__DES_TILE_ADDR),           \
-                                                   (__DES_REGION_ADDR),         \
                                                    (__CENTRE),                  \
                                             (float)(__ANGLE),                   \
                                                    (__MSK_COLOUR))
+
+#define arm_2d_rgb565_tile_rotation_with_alpha_prepare(                         \
+                                            __SRC_TILE_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __MSK_COLOUR,                       \
+                                            __RATIO)                            \
+            arm_2dp_rgb565_tile_rotation_with_alpha_prepare(  NULL,             \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   (__MSK_COLOUR),              \
+                                                   (__RATIO))
+
+                                     
+#define arm_2d_rgb888_tile_rotation_with_alpha_prepare(                         \
+                                            __SRC_TILE_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __MSK_COLOUR,                       \
+                                            __RATIO)                            \
+            arm_2dp_rgb888_tile_rotation_with_alpha_prepare(  NULL,             \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   (__MSK_COLOUR),              \
+                                                   (__RATIO))
+
 
 #define arm_2d_tile_rotate( __DES_TILE_ADDR,                                    \
                             __DES_REGION_ADDR)                                  \
@@ -122,6 +146,52 @@ extern "C" {
                             (__DES_TILE_ADDR),                                  \
                             (__DES_REGION_ADDR));                               \
         })
+        
+#define arm_2d_2dp_rgb565_tile_rotation_with_alpha(                             \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR,                           \
+                                        __RATIO)                                \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_rgb565_tile_rotation_with_alpha_prepare(                    \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR),                         \
+                                        (__RATIO));                             \
+        };                                                                      \
+        arm_2dp_tile_rotate((arm_2d_op_rotate_t *)(__CB_ADDR),                  \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR));                               \
+        })
+
+#define arm_2d_2dp_rgb888_tile_rotation_with_alpha(                             \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR,                           \
+                                        __RATIO)                                \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_rgb888_tile_rotation_with_alpha_prepare(                    \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR),                         \
+                                        (__RATIO));                             \
+        };                                                                      \
+        arm_2dp_tile_rotate((arm_2d_op_rotate_t *)(__CB_ADDR),                  \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR));                               \
+        })
 
 #define arm_2d_2d_rgb565_tile_rotation( __SRC_TILE_ADDR,                        \
                                         __DES_TILE_ADDR,                        \
@@ -135,7 +205,7 @@ extern "C" {
                                     (__ANGLE),                                  \
                                     (__MSK_COLOUR));                            \
         arm_2d_tile_rotate( (__DES_TILE_ADDR),                                  \
-                            (__DES_REGION_ADDR))                               \
+                            (__DES_REGION_ADDR))                                
 
 #define arm_2d_2d_rgb888_tile_rotation( __SRC_TILE_ADDR,                        \
                                         __DES_TILE_ADDR,                        \
@@ -150,6 +220,40 @@ extern "C" {
                                     (__MSK_COLOUR));                            \
         arm_2d_tile_rotate( (__DES_TILE_ADDR),                                  \
                             (__DES_REGION_ADDR))  
+
+#define arm_2d_2d_rgb565_tile_rotation_with_alpha(                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR,                           \
+                                        __RATIO)                                \
+        arm_2d_rgb565_tile_rotation_with_alpha_prepare(                         \
+                                    (__SRC_TILE_ADDR),                          \
+                                    (__CENTRE),                                 \
+                                    (__ANGLE),                                  \
+                                    (__MSK_COLOUR),                             \
+                                    (__RATIO));                                 \
+        arm_2d_tile_rotate( (arm_2d_op_rotate_t *)(__DES_TILE_ADDR),            \
+                            (__DES_REGION_ADDR))
+
+#define arm_2d_2d_rgb888_tile_rotation_with_alpha(                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR,                           \
+                                        __RATIO)                                \
+        arm_2d_rgb565_tile_rotation_with_alpha_prepare(                         \
+                                    (__SRC_TILE_ADDR),                          \
+                                    (__CENTRE),                                 \
+                                    (__ANGLE),                                  \
+                                    (__MSK_COLOUR),                             \
+                                    (__RATIO));                                 \
+        arm_2d_tile_rotate( (arm_2d_op_rotate_t *)(__DES_TILE_ADDR),            \
+                            (__DES_REGION_ADDR))
 
 /*============================ TYPES =========================================*/
 
@@ -186,6 +290,29 @@ typedef struct arm_2d_op_rotate_t {
     
 } arm_2d_op_rotate_t;
 
+/*! \brief arm_2d_op_rotate_alpha_t is inherit from arm_2d_op_rotate_t
+ */
+typedef struct arm_2d_op_rotate_alpha_t {
+    inherit(arm_2d_op_core_t);
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+        const arm_2d_region_t   *ptRegion;      //!< target region
+    } Target;
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< source tile
+    }Source;
+    uint32_t wMode;
+    
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< the origin tile
+        arm_2d_tile_t           tDummySource;   //!< the buffer for the source
+    }Origin;
+    
+    __arm_2d_rotate_info_t      tRotate;
+    uint8_t                     chRatio;
+    
+} arm_2d_op_rotate_alpha_t;
+
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
 
@@ -206,6 +333,28 @@ arm_2d_err_t arm_2dp_rgb888_tile_rotation_prepare(
                                         const arm_2d_location_t tCentre,
                                         float fAngle,
                                         uint32_t wFillColour);
+
+
+extern
+ARM_NONNULL(2)
+arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_alpha_prepare(
+                                        arm_2d_op_rotate_alpha_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_location_t tCentre,
+                                        float fAngle,
+                                        uint16_t hwFillColour,
+                                        uint_fast8_t chRatio);
+                                     
+extern
+ARM_NONNULL(2)
+arm_2d_err_t arm_2dp_rgb888_tile_rotation_with_alpha_prepare(
+                                        arm_2d_op_rotate_alpha_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_location_t tCentre,
+                                        float fAngle,
+                                        uint32_t wFillColour,
+                                        uint_fast8_t chRatio);
+
 
 extern
 arm_fsm_rt_t arm_2dp_tile_rotate(arm_2d_op_rotate_t *ptOP,

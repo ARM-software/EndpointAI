@@ -7057,7 +7057,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>1</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -7204,7 +7204,7 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Omax -Wno-nonportable-include-path</MiscControls>
+              <MiscControls> -Wno-nonportable-include-path -Omax</MiscControls>
               <Define>NDEBUG</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;..\..\Library\Include;.\platform\stm32f746g-discovery;.;..\..\Helper\Include</IncludePath>

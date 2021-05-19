@@ -55,7 +55,7 @@
 /*============================ PROTOTYPES ====================================*/
 /*============================ LOCAL VARIABLES ===============================*/
 
-static char s_chPerformanceInfo[(GLCD_WIDTH/6)+1] = {0};
+static char s_chPerformanceInfo[MIN(((GLCD_WIDTH/6)+1), 54)] = {0};
 
 /*============================ IMPLEMENTATION ================================*/
 
@@ -104,7 +104,8 @@ void display_task(void)
         int32_t nTotalCyclCount = s_tExamplePFB.Statistics.nTotalCycle;
         int32_t nTotalLCDCycCount = s_tExamplePFB.Statistics.nRenderingCycle;
 
-        sprintf(s_chPerformanceInfo, 
+        snprintf(s_chPerformanceInfo, 
+                 sizeof(s_chPerformanceInfo),
                 "UPS %3d:%2dms (LCD Latency %2dms) " 
                 STR(APP_SCREEN_WIDTH) "*"
                 STR(APP_SCREEN_HEIGHT) " %dMHz", 

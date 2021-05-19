@@ -42,6 +42,8 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
   - Support for swapping RGB16 high and low bytes.
   - Has built-in frame buffer pool and it is easy to support 3FB. 
 - **Rotation**
+  - Support for the Colour-masking by default
+  - Rotation with/without alpha-blending
 - **Unified and User Friendly Programmers' Mode**
   - APIs could be used in Synchronous manner (  **Classic Blocking code** ) and/or Asynchronous manner ( **Event-Driven** )
   - Support both bare-metal and RTOS
@@ -54,7 +56,7 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
 Following features are planned and to be introduced in the near future:
 
 - **Alpha (bitmap) Masking schemes** 
-  - New APIs will be added for Copy, Paving and Alpha-blending
+  - New APIs will be added to Copy, Paving and Rotation.
 - **Image Filters, e.g. Anti-aliasing algorithms**
 - **Zooming/Stretching Algorithms**
 
