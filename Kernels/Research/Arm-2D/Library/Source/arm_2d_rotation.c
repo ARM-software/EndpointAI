@@ -59,6 +59,7 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wfloat-conversion"
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wpadded"
+#   pragma clang diagnostic ignored "-Wundef"
 #elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 174,177,188,68,513,144
 #elif __IS_COMPILER_GCC__
@@ -90,8 +91,34 @@ extern "C" {
 #define __PI                3.1415926f
 
 #define __CALIB             0.009f
+/* faster ATAN */
+#define FAST_ATAN_F32_1(x, xabs)    \
+                            (x * (PI / 4.0f) + 0.273f * x * (1.0f - xabs))
+#define EPS_ATAN2           1e-5f
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
+
+/* faster atan(y/x) float version */
+static
+float32_t __atan2_f32(float32_t y, float32_t x)
+{
+    float32_t       xabs = fabsf(x);
+    float32_t       yabs = fabsf(y);
+    float32_t       atan2est, div;
+
+    if (xabs >= yabs) {
+        /* division is in the [-1 +1] range */
+        div = yabs / (xabs + EPS_ATAN2);
+        atan2est = FAST_ATAN_F32_1(div, div);
+    } else {
+        /* division is in the ]1 x*1e5] range */
+        div = xabs / (yabs + EPS_ATAN2);
+        atan2est = PI / 2 - FAST_ATAN_F32_1(div, div);
+    }
+    /* append sign */
+    return copysignf(1.0f, y) * copysignf(1.0f, x) * atan2est;
+}
+
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
@@ -103,36 +130,54 @@ extern "C" {
 
 ARM_NONNULL(1,2,4)
 static
-arm_2d_point_float_t *__arm_2d_rotate_point(const arm_2d_location_t *ptLocation, 
+arm_2d_point_float_t *__arm_2d_rotate_point(const arm_2d_location_t *ptLocation,
                                             const arm_2d_location_t *ptCenter,
                                             float fAngle,
                                             arm_2d_point_float_t *ptOutBuffer)
 {
     int16_t iX = ptLocation->iX - ptCenter->iX;
     int16_t iY = ptLocation->iY - ptCenter->iY;
-    
+
     float fX,fY;
-    
+
     float fR;
-    arm_sqrt_f32( iX * iX + iY * iY, &fR); 
-    
-    float fAlpha = fAngle;
+    arm_sqrt_f32( iX * iX + iY * iY, &fR);
+
+    float fAlpha;
+#ifdef ORIG_ROT
+    fAlpha = fAngle;
     if (0 != iX) {
         fAlpha += atanf((float)iY / (float)iX);
         if (iX < 0) {
             fAlpha += __PI;
-        } 
+        }
     } else if (iY > 0) {
         fAlpha += __PI / 2.0f;
     } else if (iY < 0) {
         fAlpha -= __PI / 2.0f;
     }
+#else
+    /* optimized */
+    fAlpha = __atan2_f32((float)iY,  (float)iX);
+    if (iX < 0) fAlpha += __PI;
+    fAlpha += fAngle;
+#endif
 
     //fX = fR * cosf(fAlpha) + ptCenter->iX;
     //fY = fR * sinf(fAlpha) + ptCenter->iY;
 
-    fX = fR * arm_cos_f32(fAlpha) + ptCenter->iX;
-    fY = fR * arm_sin_f32(fAlpha) + ptCenter->iY;
+
+    float   sinAlpha = arm_sin_f32(fAlpha);
+    float   cosAlpha = arm_cos_f32(fAlpha);
+
+#if 0
+    arm_sqrt_f32(1.0f - cosAlpha*cosAlpha, &sinAlpha);
+	int fAlphaInt = (int)floorf(fAlpha*1.0f/PI);
+    /* apply sign */
+	if(fAlphaInt&1) sinAlpha = -sinAlpha;
+#endif
+    fX = fR * cosAlpha + ptCenter->iX;
+    fY = fR * sinAlpha + ptCenter->iY;
     if (fX > 0) {
         ptOutBuffer->fX = fX + __CALIB;
     } else {
@@ -151,17 +196,20 @@ arm_2d_point_float_t *__arm_2d_rotate_point(const arm_2d_location_t *ptLocation,
 static arm_2d_err_t __arm_2d_rotate_preprocess_source(arm_2d_op_rotate_t *ptThis)
 {
     arm_2d_tile_t *ptSource = this.Source.ptTile;
-    
+
     memset(ptSource, 0, sizeof(*ptSource));
-    
+
     ptSource->tInfo = this.Origin.ptTile->tInfo;
     ptSource->bIsRoot = true;
-    ptSource->pchBuffer = NULL;                 //!< special case        
+    ptSource->pchBuffer = NULL;                 //!< special case
 
     arm_2d_region_t tOrigValidRegion;
     if (NULL == arm_2d_tile_get_root(this.Origin.ptTile, &tOrigValidRegion, NULL)) {
         return ARM_2D_ERR_OUT_OF_REGION;
     }
+
+    //! angle validation
+    this.tRotate.fAngle = fmodf(this.tRotate.fAngle, ARM_2D_ANGLE(360));
 
     //! calculate the source region
     do {
@@ -169,18 +217,18 @@ static arm_2d_err_t __arm_2d_rotate_preprocess_source(arm_2d_op_rotate_t *ptThis
 
         arm_2d_location_t tTopLeft = {.iX = INT16_MAX, .iY = INT16_MAX};
         arm_2d_location_t tBottomRight = {.iX = INT16_MIN, .iY = INT16_MIN};
-        
+
         //! Top Left
         arm_2d_location_t tCornerPoint = tOrigValidRegion.tLocation;
         __arm_2d_rotate_point(  &tCornerPoint,
                                 &this.tRotate.tCenter,
                                 this.tRotate.fAngle,
                                 &tPoint);
-        
+
         do {
             tTopLeft.iX = MIN(tTopLeft.iX, tPoint.fX);
             tTopLeft.iY = MIN(tTopLeft.iY, tPoint.fY);
-            
+
             tBottomRight.iX = MAX(tBottomRight.iX, tPoint.fX);
             tBottomRight.iY = MAX(tBottomRight.iY, tPoint.fY);
         } while(0);
@@ -191,50 +239,50 @@ static arm_2d_err_t __arm_2d_rotate_preprocess_source(arm_2d_op_rotate_t *ptThis
                                 &this.tRotate.tCenter,
                                 this.tRotate.fAngle,
                                 &tPoint);
-        
+
         do {
             tTopLeft.iX = MIN(tTopLeft.iX, tPoint.fX);
             tTopLeft.iY = MIN(tTopLeft.iY, tPoint.fY);
-            
+
             tBottomRight.iX = MAX(tBottomRight.iX, tPoint.fX);
             tBottomRight.iY = MAX(tBottomRight.iY, tPoint.fY);
         } while(0);
-        
+
         //! Top Right
         tCornerPoint = tOrigValidRegion.tLocation;
         tCornerPoint.iX += tOrigValidRegion.tSize.iWidth - 1;
-        
+
         __arm_2d_rotate_point(  &tCornerPoint,
                                 &this.tRotate.tCenter,
                                 this.tRotate.fAngle,
                                 &tPoint);
-        
+
         do {
             tTopLeft.iX = MIN(tTopLeft.iX, tPoint.fX);
             tTopLeft.iY = MIN(tTopLeft.iY, tPoint.fY);
-            
+
             tBottomRight.iX = MAX(tBottomRight.iX, tPoint.fX);
             tBottomRight.iY = MAX(tBottomRight.iY, tPoint.fY);
         } while(0);
-        
+
         //! Bottom Right
         tCornerPoint.iY += tOrigValidRegion.tSize.iHeight - 1;
         __arm_2d_rotate_point(  &tCornerPoint,
                                 &this.tRotate.tCenter,
                                 this.tRotate.fAngle,
                                 &tPoint);
-        
+
         do {
             tTopLeft.iX = MIN(tTopLeft.iX, tPoint.fX);
             tTopLeft.iY = MIN(tTopLeft.iY, tPoint.fY);
-            
+
             tBottomRight.iX = MAX(tBottomRight.iX, tPoint.fX);
             tBottomRight.iY = MAX(tBottomRight.iY, tPoint.fY);
         } while(0);
 
         //! calculate the region
         this.tRotate.tDummySourceOffset = tTopLeft;
-        
+
         ptSource->tRegion.tSize.iHeight = tBottomRight.iY - tTopLeft.iY + 1;
         ptSource->tRegion.tSize.iWidth = tBottomRight.iX - tTopLeft.iX + 1;
 
@@ -254,29 +302,29 @@ static void __arm_2d_rotate_preprocess_target(arm_2d_op_rotate_t *ptThis)
         ptTargetRegion = &this.Target.ptTile->tRegion;
     }
     this.Target.ptRegion = &this.tRotate.tTargetRegion;
-    
+
     this.tRotate.tTargetRegion.tLocation = ptTargetRegion->tLocation;
 
     //! align with the specified center point
     do {
-    
+
         arm_2d_location_t tOffset = {
             .iX = this.tRotate.tCenter.iX - this.tRotate.tDummySourceOffset.iX,
             .iY = this.tRotate.tCenter.iY - this.tRotate.tDummySourceOffset.iY,
         };
-        
+
         arm_2d_location_t tTargetCenter = {
             .iX = ptTargetRegion->tSize.iWidth >> 1,
             .iY = ptTargetRegion->tSize.iHeight >> 1,
         };
-        
+
         tOffset.iX = tTargetCenter.iX - tOffset.iX;
         tOffset.iY = tTargetCenter.iY - tOffset.iY;
-            
+
         this.tRotate.tTargetRegion.tLocation.iX += tOffset.iX;
         this.tRotate.tTargetRegion.tLocation.iY += tOffset.iY;
-    
-    } while(0);    
+
+    } while(0);
 }
 
 
@@ -300,7 +348,7 @@ arm_2d_err_t arm_2dp_rgb565_tile_rotation_prepare(
     this.tRotate.fAngle = fAngle;
     this.tRotate.tCenter = tCentre;
     this.tRotate.Mask.hwColour = hwFillColour;
-    
+
     return __arm_2d_rotate_preprocess_source(ptThis);
 }
 
@@ -324,7 +372,7 @@ arm_2d_err_t arm_2dp_rgb888_tile_rotation_prepare(
     this.tRotate.fAngle = fAngle;
     this.tRotate.tCenter = tCentre;
     this.tRotate.Mask.hwColour = wFillColour;
-    
+
     return __arm_2d_rotate_preprocess_source(ptThis);
 }
 
@@ -344,7 +392,7 @@ arm_fsm_rt_t __arm_2d_rgb888_sw_rotate(__arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_rotate_t, ptTask->ptOP);
     assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-    
+
 
     __arm_2d_impl_rgb888_rotate(&(ptTask->Param.tCopyOrig),
                                 &this.tRotate);
@@ -375,7 +423,7 @@ arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_alpha_prepare(
     this.tRotate.tCenter = tCentre;
     this.tRotate.Mask.hwColour = hwFillColour;
     this.chRatio = chRatio;
-    
+
     return __arm_2d_rotate_preprocess_source((arm_2d_op_rotate_t *)ptThis);
 }
 
@@ -401,7 +449,7 @@ arm_2d_err_t arm_2dp_rgb888_tile_rotation_with_alpha_prepare(
     this.tRotate.tCenter = tCentre;
     this.tRotate.Mask.wColour = wFillColour;
     this.chRatio = chRatio;
-    
+
     return __arm_2d_rotate_preprocess_source((arm_2d_op_rotate_t *)ptThis);
 }
 
@@ -422,7 +470,7 @@ arm_fsm_rt_t __arm_2d_rgb888_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_rotate_alpha_t, ptTask->ptOP);
     assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-    
+
     __arm_2d_impl_rgb888_rotate_alpha(&(ptTask->Param.tCopyOrig),
                                         &this.tRotate,
                                         this.chRatio);
@@ -436,10 +484,10 @@ arm_fsm_rt_t arm_2dp_tile_rotate(arm_2d_op_rotate_t *ptOP,
                                  const arm_2d_region_t *ptRegion)
 {
     ARM_2D_IMPL(arm_2d_op_rotate_t, ptOP);
-    
+
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
-    
+
     __arm_2d_rotate_preprocess_target(ptThis);
     return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }

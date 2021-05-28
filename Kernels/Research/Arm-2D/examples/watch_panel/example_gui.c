@@ -21,6 +21,7 @@
 #include "platform.h"
 #include "example_gui.h"
 #include "./controls/controls.h"
+#include <math.h>
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -33,6 +34,7 @@
 #   pragma clang diagnostic ignored "-Wmissing-braces"
 #   pragma clang diagnostic ignored "-Wunused-const-variable"
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
+#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -106,19 +108,19 @@ typedef struct {
     uint8_t chOpacity;
 } demo_gears_t;
 
+static
 demo_gears_t s_tGears[] = {
-
     {
         .ptTile = &c_tileGear02,
-        .fAngleSpeed = -3,
+        .fAngleSpeed = -3.0f,
         .tCentre = {
             .iX = 20,
             .iY = 20,
         },
         .tRegion = {
             .tLocation = {
-                .iX = ((APP_SCREEN_WIDTH - 41) >> 1) + 10,
-                .iY = ((APP_SCREEN_HEIGHT - 40) >>1) + 10,
+                .iX = ((APP_SCREEN_WIDTH - 41) >> 1) + 30,
+                .iY = ((APP_SCREEN_HEIGHT - 40) >>1) + 30,
             },
             .tSize = {
                 .iWidth = 41,
@@ -130,15 +132,15 @@ demo_gears_t s_tGears[] = {
 
     {
         .ptTile = &c_tileGear01,
-        .fAngleSpeed = 0.8,
+        .fAngleSpeed = 0.8f,
         .tCentre = {
             .iX = 61,
             .iY = 60,
         },
         .tRegion = {
             .tLocation = {
-                .iX = ((APP_SCREEN_WIDTH - 120) >> 1) - 20,
-                .iY = ((APP_SCREEN_HEIGHT - 120) >>1) - 20,
+                .iX = ((APP_SCREEN_WIDTH - 120) >> 1),
+                .iY = ((APP_SCREEN_HEIGHT - 120) >>1),
             },
             .tSize = {
                 .iWidth = 120,
@@ -147,28 +149,30 @@ demo_gears_t s_tGears[] = {
         },
         .chOpacity = 128,
     },
-
-
     
 };
 
 void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 {
-    static float s_fAngle = 0;
-
     arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
-    
+
     arm_foreach (demo_gears_t, s_tGears) {
     
         if (bIsNewFrame) {
             _->fAngle += ARM_2D_ANGLE(_->fAngleSpeed);
-            if (s_fAngle >= ARM_2D_ANGLE(360)) {
-                s_fAngle -= ARM_2D_ANGLE(360);
+            
+            _->fAngle = fmodf(_->fAngle,ARM_2D_ANGLE(360));
+        #if 0
+            if (_->fAngle >= ARM_2D_ANGLE(360)) {
+                _->fAngle -= ARM_2D_ANGLE(360);
+            } else if (_->fAngle <= -ARM_2D_ANGLE(360)) {
+                _->fAngle += ARM_2D_ANGLE(360);
             }
+        #endif
         }
 
         if (255 == _->chOpacity) {
-            arm_2d_2dp_rgb565_tile_rotation(  
+            arm_2dp_rgb565_tile_rotation(  
                                             (arm_2d_op_rotate_t *)&(_->tOP),
                                             _->ptTile,          //!< source tile 
                                             ptTile,             //!< target tile
@@ -178,7 +182,7 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
                                             GLCD_COLOR_BLACK);  //!< masking colour
                                                           
         } else {
-            arm_2d_2dp_rgb565_tile_rotation_with_alpha(  
+            arm_2dp_rgb565_tile_rotation_with_alpha(  
                                             &(_->tOP),
                                             _->ptTile,          //!< source tile 
                                             ptTile,             //!< target tile
@@ -197,6 +201,3 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 #if defined(__clang__)
 #   pragma clang diagnostic pop
 #endif
-
-
- 

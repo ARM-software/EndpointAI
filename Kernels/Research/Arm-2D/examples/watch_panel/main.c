@@ -55,11 +55,29 @@
 /*============================ PROTOTYPES ====================================*/
 /*============================ LOCAL VARIABLES ===============================*/
 
-static char s_chPerformanceInfo[MIN(((GLCD_WIDTH/6)+1), 54)] = {0};
+static char s_chPerformanceInfo[MAX(((GLCD_WIDTH/6)+1), 54)] = {0};
+
+static struct {
+    uint32_t wMin;
+    uint32_t wMax;
+    uint64_t dwTotal;
+    uint32_t wAverage;
+    uint32_t wIterations;
+    uint32_t wLCDLatency;
+} BENCHMARK = {
+    .wMin = UINT32_MAX,
+    .wMax = 0,
+    .dwTotal = 0,
+    .wAverage = 0,
+    .wIterations = ITERATION_CNT,
+};
+
 
 /*============================ IMPLEMENTATION ================================*/
 
 static ARM_NOINIT arm_2d_helper_pfb_t s_tExamplePFB;
+
+static volatile bool s_bDrawInfo = true;
 
 extern const arm_2d_tile_t c_tileArrow;
 
@@ -72,8 +90,8 @@ void display_task(void)
         /* a region for the busy wheel */
         ADD_REGION_TO_LIST(s_tDirtyRegions,
             .tLocation = {
-                .iX = ((APP_SCREEN_WIDTH - 120) >> 1) - 20,
-                .iY = ((APP_SCREEN_HEIGHT - 120) >> 1) - 20,
+                .iX = ((APP_SCREEN_WIDTH - 120) >> 1),
+                .iY = ((APP_SCREEN_HEIGHT - 120) >> 1),
             },
             .tSize = {
                 .iWidth = 120,
@@ -101,22 +119,27 @@ void display_task(void)
     while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task( 
                                 &s_tExamplePFB, 
                                 (arm_2d_region_list_item_t *)s_tDirtyRegions));
-                                        
+         
     //! update performance info
     do {
 
         int32_t nTotalCyclCount = s_tExamplePFB.Statistics.nTotalCycle;
         int32_t nTotalLCDCycCount = s_tExamplePFB.Statistics.nRenderingCycle;
-
-        snprintf(s_chPerformanceInfo, 
-                sizeof(s_chPerformanceInfo),
-                "UPS %3d:%2dms (LCD Latency %2dms) " 
-                STR(APP_SCREEN_WIDTH) "*"
-                STR(APP_SCREEN_HEIGHT) " %dMHz", 
-                (int32_t)SystemCoreClock / nTotalCyclCount, 
-                nTotalCyclCount / ((int32_t)SystemCoreClock / 1000),
-                nTotalLCDCycCount / ((int32_t)SystemCoreClock / 1000),
-                (int32_t)SystemCoreClock / 1000000);
+        BENCHMARK.wLCDLatency = nTotalLCDCycCount;
+        
+        if (BENCHMARK.wIterations) {
+            BENCHMARK.wMin = MIN((uint32_t)nTotalCyclCount, BENCHMARK.wMin);
+            BENCHMARK.wMax = MAX(nTotalCyclCount, (int32_t)BENCHMARK.wMax);
+            BENCHMARK.dwTotal += nTotalCyclCount;
+            BENCHMARK.wIterations--;
+            
+            if (0 == BENCHMARK.wIterations) {
+                BENCHMARK.wAverage = 
+                    (uint32_t)(BENCHMARK.dwTotal / (uint64_t)ITERATION_CNT);
+                
+            }
+            
+        }
 
     } while(0);
 
@@ -128,9 +151,21 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
     ARM_2D_UNUSED(ptFrameBuffer);
     
     //! print performance info
-    lcd_text_location( GLCD_HEIGHT / 8 - 1, 0);
-    //lcd_text_location( 0, 0);
-    lcd_puts(s_chPerformanceInfo);
+    
+    if (0 == BENCHMARK.wIterations) {
+        lcd_text_location( GLCD_HEIGHT / 8 - 1, 0);
+        //lcd_puts(
+        //    "\rCycles\t  Min\t  Max\tAvrage\t  UPS\t  LCD Latency");
+        lcd_puts("\t");
+        lcd_printf("%d\t", BENCHMARK.wMin);
+        lcd_printf("%d\t", BENCHMARK.wMax);
+        lcd_printf("%d\t", BENCHMARK.wAverage);
+        lcd_printf("%3d:%dms",
+                            SystemCoreClock / BENCHMARK.wAverage, 
+                            BENCHMARK.wAverage / (SystemCoreClock / 1000ul));
+        
+        lcd_printf("   %2dms", BENCHMARK.wLCDLatency / (SystemCoreClock / 1000ul) );  
+    }
 }
 
 
@@ -156,6 +191,9 @@ IMPL_PFB_ON_DRAW(__pfb_draw_handler)
     return arm_fsm_rt_cpl;
 }
 
+extern
+const arm_2d_tile_t c_tPictureHeliun;
+
 static
 IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
 {
@@ -163,7 +201,22 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
     ARM_2D_UNUSED(bIsNewFrame);
 
     arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
+    __PRINT_BANNER("Arm-2D Benchmark");
+    
+    lcd_text_location( GLCD_HEIGHT / 8 - 6, 0);
+    lcd_puts(  "Rotation Test, running " 
+                STR(ITERATION_CNT) 
+                " iterations\r\n");
 
+    lcd_printf( "PFB Size: " STR(PBF_BLOCK_WIDTH)"*" STR(PBF_BLOCK_HEIGHT) 
+              "  Screen Size: "STR(APP_SCREEN_WIDTH)"*" STR(APP_SCREEN_HEIGHT)
+              "  %dMHz\r\n", SystemCoreClock / 1000000ul);
+    lcd_puts( "Testing...\r\n\r\n");
+    
+    //lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
+    lcd_puts(
+        "Cycles\t  Min\t  Max\tAvrage\t  UPS\t  LCD Latency");
+    
     return arm_fsm_rt_cpl;
 }
 
@@ -175,12 +228,13 @@ IMPL_PFB_ON_LOW_LV_RENDERING(__pfb_render_handler)
     ARM_2D_UNUSED(pTarget);
     ARM_2D_UNUSED(bIsNewFrame);
 
-    GLCD_DrawBitmap(ptTile->tRegion.tLocation.iX,
-                    ptTile->tRegion.tLocation.iY,
-                    ptTile->tRegion.tSize.iWidth,
-                    ptTile->tRegion.tSize.iHeight,
-                    ptTile->pchBuffer);
-                    
+    if (0 == BENCHMARK.wIterations || s_bDrawInfo) {
+        GLCD_DrawBitmap(ptTile->tRegion.tLocation.iX,
+                        ptTile->tRegion.tLocation.iY,
+                        ptTile->tRegion.tSize.iWidth,
+                        ptTile->tRegion.tSize.iHeight,
+                        ptTile->pchBuffer);
+    }
     arm_2d_helper_pfb_report_rendering_complete(&s_tExamplePFB, 
                                                 (arm_2d_pfb_t *)ptPFB);
 }
@@ -228,6 +282,8 @@ int main (void)
     
     //! draw background first
     while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task(&s_tExamplePFB,NULL));
+
+    s_bDrawInfo = false;
 
     ARM_2D_HELPER_PFB_UPDATE_ON_DRAW_HANDLER(   &s_tExamplePFB, 
                                                 &__pfb_draw_handler);

@@ -115,14 +115,19 @@ __asm(".global __use_no_semihosting\n\t");
 __asm(".global __ARM_use_no_argv\n\t");
 #   endif
 
-//#if defined(__MICRO_LIB)
+#if defined(__MICROLIB)
 _ARMABI_NORETURN 
-__attribute__((__nonnull__(1,2)))
-void __aeabi_assert(const char *cond, const char *line, int err) 
+ARM_NONNULL(1,2)
+void __aeabi_assert(const char *chCond, const char *chLine, int wErrCode) 
 {
-    while(1);
+    ARM_2D_UNUSED(chCond);
+    ARM_2D_UNUSED(chLine);
+    ARM_2D_UNUSED(wErrCode);
+    while(1) {
+        __NOP();
+    }
 }
-//#endif
+#endif
 
 void _ttywrch(int ch)
 {

@@ -58,17 +58,8 @@ declare_tile(c_tLayerB)
 implement_tile(c_tLayerB, 200, 50, arm_2d_color_rgb565_t);
 
 /*! picture helium */
-extern const uint8_t c_bmpHelium[320 * 256 * sizeof(uint16_t)];
-const static arm_2d_tile_t c_tPictureHeliun = {
-    .tRegion = {
-        .tSize = {
-            .iWidth = 320,
-            .iHeight = 256
-        },
-    },
-    .tInfo.bIsRoot = true,
-    .phwBuffer = (uint16_t *)c_bmpHelium,
-};
+extern
+const arm_2d_tile_t c_tPictureHeliun ;
 
 
 /*! picture cmsis_logo */

@@ -20,9 +20,9 @@
 
 ## Features of the Arm-2D Library
 
-#### In this release ( ver0.9.6 )
+#### In this release ( ver0.9.7 )
 
-The Arm-2D library provides **Low-Level 2D Image Processing Services** that are mainly used in **Display system**. Those servers include but not limited to:
+The Arm-2D library provides **Low-Level 2D Image Processing Services** that are mainly used in **Display system**. The supported features include but not limited to:
 
 - **Alpha-Blending**
   - With or without Colour-Masking
@@ -133,8 +133,9 @@ When we look at the conventional GUI graphics architecture in today's embedded e
 
 | Example              | Description                                                  | Folder                         | Note               |
 | -------------------- | ------------------------------------------------------------ | ------------------------------ | ------------------ |
-| Alpha-Blending       | It is an **ALL-IN-ONE** example that demonstrates almost all the features provided by the library. | examples/alpha_blending        | Used as benchmark. |
+| Alpha-Blending       | It is an **ALL-IN-ONE** (except rotation) example that demonstrates almost all the features provided by the library. | examples/alpha_blending        | Used as benchmark. |
 | Partial-Frame-buffer | **It delivers the same visual effects as Alpha-blending example but using Partial-Frame-buffer**. It can be used as a template or reference code for programmers who want to implement a graphical user interface on an MCU with small RAM. In this example, **16*16 FPB (512Bytes) is used, and the total system RAM usage is less than 2.5KByte** (including stack, heap and FPB). | examples/partial_frame_buffer. |                    |
+| watch_panel          | It is a dedicated example for smart-watch like panel. For current version, it is only used to demonstrate rotation algorithms with two spinning gears. Each gear rotates at a different angular velocity and both Colour-masking and alpha-masking schemes are applied.<br />***This example will be updated in the future***. | examples/watch_panel           | Used as benchmark  |
 
 
 
@@ -158,7 +159,7 @@ Since there is no public benchmark available for micro-controllers, we decide to
 
 
 
-**Figure 1-4 A snapshot of alpha-blending demos running on MPS3 platform**
+**Figure 1-4 A snapshot of alpha-blending demo running on MPS3 platform**
 
 ![Alpha-blending](./documents/pictures/Alpha-blending.gif) 
 

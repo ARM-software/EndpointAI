@@ -19,7 +19,7 @@
 /* ----------------------------------------------------------------------
  * Project:      Arm-2D Library
  * Title:        arm-2d_helium.c
- * Description:  Acceleration extensions using Helium. 
+ * Description:  Acceleration extensions using Helium.
  *
  * $Date:        12. Jan 2021
  * $Revision:    V.0.5.0
@@ -31,14 +31,9 @@
 #define __ARM_2D_IMPL__
 
 #include "arm_2d.h"
+#include "__arm_2d_impl.h"
 
 #if defined(__ARM_2D_HAS_HELIUM__) && __ARM_2D_HAS_HELIUM__
-
-#include "__arm_2d_paving_helium.h"
-
-#ifdef   __cplusplus
-extern "C" {
-#endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -57,7 +52,19 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wsign-compare"
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#   pragma clang diagnostic ignored "-Wpadded"   
+#   pragma clang diagnostic ignored "-Wvector-conversion"   
 #endif
+
+
+
+#include "__arm_2d_paving_helium.h"
+#include "__arm_2d_math_helium.h"
+#include "__arm_2d_utils_helium.h"
+#ifdef   __cplusplus
+extern "C" {
+#endif
+
 
 
 /*! \brief initialise the helium service service
@@ -1860,13 +1867,711 @@ void __arm_2d_rgb32_scale(uint32_t * phwSourceBase,
 }
 
 
+
+#if defined(ARM_FLOAT16_SUPPORTED)
+
+/* to be moved in CMSIS DSP */
+
+ALIGN8 const float16_t sinTable_f16[FAST_MATH_TABLE_SIZE + 1] = {
+   0.00000000f, 0.01227154f, 0.02454123f, 0.03680722f, 0.04906767f, 0.06132074f,
+   0.07356456f, 0.08579731f, 0.09801714f, 0.11022221f, 0.12241068f, 0.13458071f,
+   0.14673047f, 0.15885814f, 0.17096189f, 0.18303989f, 0.19509032f, 0.20711138f,
+   0.21910124f, 0.23105811f, 0.24298018f, 0.25486566f, 0.26671276f, 0.27851969f,
+   0.29028468f, 0.30200595f, 0.31368174f, 0.32531029f, 0.33688985f, 0.34841868f,
+   0.35989504f, 0.37131719f, 0.38268343f, 0.39399204f, 0.40524131f, 0.41642956f,
+   0.42755509f, 0.43861624f, 0.44961133f, 0.46053871f, 0.47139674f, 0.48218377f,
+   0.49289819f, 0.50353838f, 0.51410274f, 0.52458968f, 0.53499762f, 0.54532499f,
+   0.55557023f, 0.56573181f, 0.57580819f, 0.58579786f, 0.59569930f, 0.60551104f,
+   0.61523159f, 0.62485949f, 0.63439328f, 0.64383154f, 0.65317284f, 0.66241578f,
+   0.67155895f, 0.68060100f, 0.68954054f, 0.69837625f, 0.70710678f, 0.71573083f,
+   0.72424708f, 0.73265427f, 0.74095113f, 0.74913639f, 0.75720885f, 0.76516727f,
+   0.77301045f, 0.78073723f, 0.78834643f, 0.79583690f, 0.80320753f, 0.81045720f,
+   0.81758481f, 0.82458930f, 0.83146961f, 0.83822471f, 0.84485357f, 0.85135519f,
+   0.85772861f, 0.86397286f, 0.87008699f, 0.87607009f, 0.88192126f, 0.88763962f,
+   0.89322430f, 0.89867447f, 0.90398929f, 0.90916798f, 0.91420976f, 0.91911385f,
+   0.92387953f, 0.92850608f, 0.93299280f, 0.93733901f, 0.94154407f, 0.94560733f,
+   0.94952818f, 0.95330604f, 0.95694034f, 0.96043052f, 0.96377607f, 0.96697647f,
+   0.97003125f, 0.97293995f, 0.97570213f, 0.97831737f, 0.98078528f, 0.98310549f,
+   0.98527764f, 0.98730142f, 0.98917651f, 0.99090264f, 0.99247953f, 0.99390697f,
+   0.99518473f, 0.99631261f, 0.99729046f, 0.99811811f, 0.99879546f, 0.99932238f,
+   0.99969882f, 0.99992470f, 1.00000000f, 0.99992470f, 0.99969882f, 0.99932238f,
+   0.99879546f, 0.99811811f, 0.99729046f, 0.99631261f, 0.99518473f, 0.99390697f,
+   0.99247953f, 0.99090264f, 0.98917651f, 0.98730142f, 0.98527764f, 0.98310549f,
+   0.98078528f, 0.97831737f, 0.97570213f, 0.97293995f, 0.97003125f, 0.96697647f,
+   0.96377607f, 0.96043052f, 0.95694034f, 0.95330604f, 0.94952818f, 0.94560733f,
+   0.94154407f, 0.93733901f, 0.93299280f, 0.92850608f, 0.92387953f, 0.91911385f,
+   0.91420976f, 0.90916798f, 0.90398929f, 0.89867447f, 0.89322430f, 0.88763962f,
+   0.88192126f, 0.87607009f, 0.87008699f, 0.86397286f, 0.85772861f, 0.85135519f,
+   0.84485357f, 0.83822471f, 0.83146961f, 0.82458930f, 0.81758481f, 0.81045720f,
+   0.80320753f, 0.79583690f, 0.78834643f, 0.78073723f, 0.77301045f, 0.76516727f,
+   0.75720885f, 0.74913639f, 0.74095113f, 0.73265427f, 0.72424708f, 0.71573083f,
+   0.70710678f, 0.69837625f, 0.68954054f, 0.68060100f, 0.67155895f, 0.66241578f,
+   0.65317284f, 0.64383154f, 0.63439328f, 0.62485949f, 0.61523159f, 0.60551104f,
+   0.59569930f, 0.58579786f, 0.57580819f, 0.56573181f, 0.55557023f, 0.54532499f,
+   0.53499762f, 0.52458968f, 0.51410274f, 0.50353838f, 0.49289819f, 0.48218377f,
+   0.47139674f, 0.46053871f, 0.44961133f, 0.43861624f, 0.42755509f, 0.41642956f,
+   0.40524131f, 0.39399204f, 0.38268343f, 0.37131719f, 0.35989504f, 0.34841868f,
+   0.33688985f, 0.32531029f, 0.31368174f, 0.30200595f, 0.29028468f, 0.27851969f,
+   0.26671276f, 0.25486566f, 0.24298018f, 0.23105811f, 0.21910124f, 0.20711138f,
+   0.19509032f, 0.18303989f, 0.17096189f, 0.15885814f, 0.14673047f, 0.13458071f,
+   0.12241068f, 0.11022221f, 0.09801714f, 0.08579731f, 0.07356456f, 0.06132074f,
+   0.04906767f, 0.03680722f, 0.02454123f, 0.01227154f, 0.00000000f, -0.01227154f,
+   -0.02454123f, -0.03680722f, -0.04906767f, -0.06132074f, -0.07356456f,
+   -0.08579731f, -0.09801714f, -0.11022221f, -0.12241068f, -0.13458071f,
+   -0.14673047f, -0.15885814f, -0.17096189f, -0.18303989f, -0.19509032f,
+   -0.20711138f, -0.21910124f, -0.23105811f, -0.24298018f, -0.25486566f,
+   -0.26671276f, -0.27851969f, -0.29028468f, -0.30200595f, -0.31368174f,
+   -0.32531029f, -0.33688985f, -0.34841868f, -0.35989504f, -0.37131719f,
+   -0.38268343f, -0.39399204f, -0.40524131f, -0.41642956f, -0.42755509f,
+   -0.43861624f, -0.44961133f, -0.46053871f, -0.47139674f, -0.48218377f,
+   -0.49289819f, -0.50353838f, -0.51410274f, -0.52458968f, -0.53499762f,
+   -0.54532499f, -0.55557023f, -0.56573181f, -0.57580819f, -0.58579786f,
+   -0.59569930f, -0.60551104f, -0.61523159f, -0.62485949f, -0.63439328f,
+   -0.64383154f, -0.65317284f, -0.66241578f, -0.67155895f, -0.68060100f,
+   -0.68954054f, -0.69837625f, -0.70710678f, -0.71573083f, -0.72424708f,
+   -0.73265427f, -0.74095113f, -0.74913639f, -0.75720885f, -0.76516727f,
+   -0.77301045f, -0.78073723f, -0.78834643f, -0.79583690f, -0.80320753f,
+   -0.81045720f, -0.81758481f, -0.82458930f, -0.83146961f, -0.83822471f,
+   -0.84485357f, -0.85135519f, -0.85772861f, -0.86397286f, -0.87008699f,
+   -0.87607009f, -0.88192126f, -0.88763962f, -0.89322430f, -0.89867447f,
+   -0.90398929f, -0.90916798f, -0.91420976f, -0.91911385f, -0.92387953f,
+   -0.92850608f, -0.93299280f, -0.93733901f, -0.94154407f, -0.94560733f,
+   -0.94952818f, -0.95330604f, -0.95694034f, -0.96043052f, -0.96377607f,
+   -0.96697647f, -0.97003125f, -0.97293995f, -0.97570213f, -0.97831737f,
+   -0.98078528f, -0.98310549f, -0.98527764f, -0.98730142f, -0.98917651f,
+   -0.99090264f, -0.99247953f, -0.99390697f, -0.99518473f, -0.99631261f,
+   -0.99729046f, -0.99811811f, -0.99879546f, -0.99932238f, -0.99969882f,
+   -0.99992470f, -1.00000000f, -0.99992470f, -0.99969882f, -0.99932238f,
+   -0.99879546f, -0.99811811f, -0.99729046f, -0.99631261f, -0.99518473f,
+   -0.99390697f, -0.99247953f, -0.99090264f, -0.98917651f, -0.98730142f,
+   -0.98527764f, -0.98310549f, -0.98078528f, -0.97831737f, -0.97570213f,
+   -0.97293995f, -0.97003125f, -0.96697647f, -0.96377607f, -0.96043052f,
+   -0.95694034f, -0.95330604f, -0.94952818f, -0.94560733f, -0.94154407f,
+   -0.93733901f, -0.93299280f, -0.92850608f, -0.92387953f, -0.91911385f,
+   -0.91420976f, -0.90916798f, -0.90398929f, -0.89867447f, -0.89322430f,
+   -0.88763962f, -0.88192126f, -0.87607009f, -0.87008699f, -0.86397286f,
+   -0.85772861f, -0.85135519f, -0.84485357f, -0.83822471f, -0.83146961f,
+   -0.82458930f, -0.81758481f, -0.81045720f, -0.80320753f, -0.79583690f,
+   -0.78834643f, -0.78073723f, -0.77301045f, -0.76516727f, -0.75720885f,
+   -0.74913639f, -0.74095113f, -0.73265427f, -0.72424708f, -0.71573083f,
+   -0.70710678f, -0.69837625f, -0.68954054f, -0.68060100f, -0.67155895f,
+   -0.66241578f, -0.65317284f, -0.64383154f, -0.63439328f, -0.62485949f,
+   -0.61523159f, -0.60551104f, -0.59569930f, -0.58579786f, -0.57580819f,
+   -0.56573181f, -0.55557023f, -0.54532499f, -0.53499762f, -0.52458968f,
+   -0.51410274f, -0.50353838f, -0.49289819f, -0.48218377f, -0.47139674f,
+   -0.46053871f, -0.44961133f, -0.43861624f, -0.42755509f, -0.41642956f,
+   -0.40524131f, -0.39399204f, -0.38268343f, -0.37131719f, -0.35989504f,
+   -0.34841868f, -0.33688985f, -0.32531029f, -0.31368174f, -0.30200595f,
+   -0.29028468f, -0.27851969f, -0.26671276f, -0.25486566f, -0.24298018f,
+   -0.23105811f, -0.21910124f, -0.20711138f, -0.19509032f, -0.18303989f,
+   -0.17096189f, -0.15885814f, -0.14673047f, -0.13458071f, -0.12241068f,
+   -0.11022221f, -0.09801714f, -0.08579731f, -0.07356456f, -0.06132074f,
+   -0.04906767f, -0.03680722f, -0.02454123f, -0.01227154f, -0.00000000f
+};
+
+
+ALIGN8 const float16_t atanf_lut_f16[4] = {
+    ATANF_LUT
+};
+
+
+#define ABS(x) ((x) > 0 ? (x) : -(x))
+
+static
+void __arm_2d_rotate_point_mve(int16x8_t vLocX, int16_t locY,
+                               const arm_2d_location_t * ptCenter,
+                               float fAngle, arm_2d_point_s16x8_t * ptOutBuffer)
+{
+    int16x8_t       iX = vLocX - ptCenter->iX;
+    int16x8_t       iY = vdupq_n_s16(locY - ptCenter->iY);
+
+    /* convert + scale to avoid f16 overflow */
+    /* dividing by 8 enable room for screen up to 2048x2048 pix */
+    float16x8_t     iXf = vcvtq_f16_s16(iX) * 0.125f16;
+    float16x8_t     iYf = vcvtq_f16_s16(iY) * 0.125f16;;
+    float16x8_t     vFr = vsqrtf_f16(iXf * iXf + iYf * iYf);
+    float16x8_t     vatan = vatan_f16(vdiv_f16(iYf, vaddq_n_f16(iXf, __EPSF16)));
+
+
+    // if (iX < 0) fAlpha += __PI
+    vatan = vaddq_m_n_f16(vatan, vatan, __PIF16, vcmpltq_n_s16(iX, 0.0f16));
+
+
+    float32x4_t     fAlpha = vaddq_n_f16(vatan, (float16_t) fAngle);
+
+    float16x8_t     vfX = 8.0f16 * vFr * vcos_f16(fAlpha) + (float16_t) ptCenter->iX;
+    float16x8_t     vfY = 8.0f16 * vFr * vsin_f16(fAlpha) + (float16_t) ptCenter->iY;
+
+    float16x8_t     vfXref = vfX;
+    float16x8_t     vfYref = vfY;
+
+    vfX = vaddq_m_n_f16(vfX, vfX, __CALIBF16, vcmpgtq_n_f16(vfXref, 0.0f16));
+    vfX = vsubq_m_n_f16(vfX, vfX, __CALIBF16, vcmpleq_n_f16(vfXref, 0.0f16));
+
+    vfY = vaddq_m_n_f16(vfY, vfY, __CALIBF16, vcmpgtq_n_f16(vfYref, 0.0f16));
+    vfY = vsubq_m_n_f16(vfY, vfY, __CALIBF16, vcmpleq_n_f16(vfYref, 0.0f16));
+
+
+    ptOutBuffer->X = vcvtq_s16_f16(vfX);
+    ptOutBuffer->Y = vcvtq_s16_f16(vfY);
+}
+
+
+
+
+mve_pred16_t arm_2d_is_point_vec_inside_region_s16(const arm_2d_region_t * ptRegion,
+                                               const arm_2d_point_s16x8_t * ptPoint)
+{
+    mve_pred16_t    p0 = vcmpgeq(ptPoint->X, ptRegion->tLocation.iX);
+    p0 = vcmpgeq_m(ptPoint->Y, ptRegion->tLocation.iY, p0);
+    p0 = vcmpltq_m(ptPoint->X, ptRegion->tLocation.iX + ptRegion->tSize.iWidth, p0);
+    p0 = vcmpltq_m(ptPoint->Y, ptRegion->tLocation.iY + ptRegion->tSize.iHeight, p0);
+
+    return p0;
+}
+
+mve_pred16_t arm_2d_is_point_vec_inside_region_s32(const arm_2d_region_t * ptRegion,
+                                               const arm_2d_point_s32x4_t * ptPoint)
+{
+    mve_pred16_t    p0 = vcmpgeq_n_s32(ptPoint->X, ptRegion->tLocation.iX);
+    p0 = vcmpgeq_m_n_s32(ptPoint->Y, ptRegion->tLocation.iY, p0);
+    p0 = vcmpltq_m_n_s32(ptPoint->X, ptRegion->tLocation.iX + ptRegion->tSize.iWidth, p0);
+    p0 = vcmpltq_m_n_s32(ptPoint->Y, ptRegion->tLocation.iY + ptRegion->tSize.iHeight, p0);
+
+    return p0;
+}
+
+
+void __arm_2d_impl_rgb565_get_pixel_colour_mve(   arm_2d_point_s16x8_t *ptPoint,
+                                            arm_2d_region_t *ptOrigValidRegion,
+                                            uint16_t *pOrigin,
+                                            int16_t iOrigStride,
+                                            uint16_t *pTarget,
+                                            uint16_t MaskColour,
+                                            int16_t elts)
+{
+#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__)                          \
+    &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#error "The current version hasn\'t support interpolation in rotation yet."
+#else
+    /* set vector predicate if point is inside the region */
+    mve_pred16_t    p = arm_2d_is_point_vec_inside_region_s16(ptOrigValidRegion, ptPoint);
+    /* prepare vector of point offsets */
+    uint16x8_t      ptOffs = ptPoint->X + ptPoint->Y * iOrigStride;
+    uint16x8_t      vPixel = vld1q(pTarget);
+    /* retrieve all point values */
+    uint16x8_t      ptVal = vldrhq_gather_shifted_offset_u16(pOrigin, ptOffs);
+
+    /* combine 2 predicates set to true if point is in the region & values different from color mask */
+    vPixel = vpselq_u16(ptVal, vPixel, vcmpneq_m_n_u16(ptVal, MaskColour, p));
+
+    vst1q_p(pTarget, vPixel, vctp16q(elts));
+
+#endif
+}
+
+
+
+void __arm_2d_impl_rgb888_get_pixel_colour_mve(   arm_2d_point_s16x8_t *ptPoint,
+                                            arm_2d_region_t *ptOrigValidRegion,
+                                            uint32_t *pOrigin,
+                                            int16_t iOrigStride,
+                                            uint32_t *pTarget,
+                                            uint32_t MaskColour,
+                                            int16_t elts)
+{
+#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__)                          \
+    &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#error "The current version hasn\'t support interpolation in rotation yet."
+#else
+
+    arm_2d_point_s32x4_t    tPointLo, tPointHi;
+    ALIGN8  int16_t         scratch[8];
+    mve_pred16_t            p;
+
+    /* split 16-bit point vector into 2 x 32-bit vectors */
+    vst1q(scratch, ptPoint->X);
+    tPointLo.X = vldrhq_s32(scratch);
+    tPointHi.X = vldrhq_s32(scratch + 4);
+
+    vst1q(scratch, ptPoint->Y);
+    tPointLo.Y = vldrhq_s32(scratch);
+    tPointHi.Y = vldrhq_s32(scratch + 4);
+
+    /* 1st half */
+
+    /* set vector predicate if point is inside the region */
+    p = arm_2d_is_point_vec_inside_region_s32(ptOrigValidRegion, &tPointLo);
+    /* prepare vector of point offsets */
+    uint32x4_t      ptOffs = tPointLo.X + tPointLo.Y * iOrigStride;
+    uint32x4_t      vPixel = vld1q(pTarget);
+    /* retrieve all point values */
+    uint32x4_t      ptVal = vldrwq_gather_shifted_offset_u32(pOrigin, ptOffs);
+
+    /* combine 2 predicates set to true if point is in the region & values different from color mask */
+    vPixel = vpselq_u32(ptVal, vPixel, vcmpneq_m_n_u32(ptVal, MaskColour, p));
+
+    vst1q_p(pTarget, vPixel, vctp32q(elts));
+
+    elts -= 4;
+    if (elts > 0) {
+
+        /* second half */
+        p = arm_2d_is_point_vec_inside_region_s32(ptOrigValidRegion, &tPointHi);
+        ptOffs = tPointHi.X + tPointHi.Y * iOrigStride;
+        vPixel = vld1q(pTarget + 4);
+
+        ptVal = vldrwq_gather_shifted_offset_u32(pOrigin, ptOffs);
+        vPixel = vpselq_u32(ptVal, vPixel, vcmpneq_m_n_u32(ptVal, MaskColour, p));
+        vst1q_p(pTarget + 4, vPixel, vctp32q(elts));
+    }
+#endif
+}
+
+
+
+void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_mve(
+                                            arm_2d_point_s16x8_t    *ptPoint,
+                                            arm_2d_region_t         *ptOrigValidRegion,
+                                            uint16_t                *pOrigin,
+                                            int16_t                  iOrigStride,
+                                            uint16_t                *pTarget,
+                                            uint16_t                 MaskColour,
+                                            uint8_t                  chOpacity,
+                                            int16_t                  elts)
+{
+#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__)                          \
+    &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#error "The current version hasn\'t support interpolation in rotation yet."
+#else
+    /* set vector predicate if point is inside the region */
+    mve_pred16_t    p = arm_2d_is_point_vec_inside_region_s16(ptOrigValidRegion, ptPoint);
+    /* prepare vector of point offsets */
+    uint16x8_t      ptOffs = ptPoint->X + ptPoint->Y * iOrigStride;
+    uint16x8_t      vPixel = vld1q(pTarget);
+    /* retrieve all point values */
+    uint16x8_t      ptVal = vldrhq_gather_shifted_offset_u16(pOrigin, ptOffs);
+
+    /* alpha blending */
+    uint16x8_t      vBlended =
+        __rgb565_alpha_blending_single_vec(ptVal, vPixel, chOpacity);
+
+    /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
+    vPixel = vpselq_u16(vBlended, vPixel, vcmpneq_m_n_u16(ptVal, MaskColour, p));
+
+    vst1q_p(pTarget, vPixel, vctp16q(elts));
+
+#endif
+}
+
+
+
+void __arm_2d_impl_rgb888_get_pixel_colour_with_alpha_mve(
+                                            arm_2d_point_s16x8_t    *ptPoint,
+                                            arm_2d_region_t         *ptOrigValidRegion,
+                                            uint32_t                *pOrigin,
+                                            int16_t                  iOrigStride,
+                                            uint32_t                *pTarget,
+                                            uint32_t                 MaskColour,
+                                            uint8_t                  chOpacity,
+                                            int16_t                  elts)
+{
+#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__)                          \
+    &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#error "The current version hasn\'t support interpolation in rotation yet."
+#else
+    arm_2d_point_s32x4_t    tPointLo, tPointHi;
+    ALIGN8 int16_t          scratch[8];
+    ALIGN8 uint32_t         blendled[4];
+    mve_pred16_t            p;
+
+    /* split 16-bit point vector into 2 x 32-bit vectors */
+    vst1q(scratch, ptPoint->X);
+    tPointLo.X = vldrhq_s32(scratch);
+    tPointHi.X = vldrhq_s32(scratch + 4);
+
+    vst1q(scratch, ptPoint->Y);
+    tPointLo.Y = vldrhq_s32(scratch);
+    tPointHi.Y = vldrhq_s32(scratch + 4);
+
+    /* 1st half */
+
+    /* set vector predicate if point is inside the region */
+    p = arm_2d_is_point_vec_inside_region_s32(ptOrigValidRegion, &tPointLo);
+    /* prepare vector of point offsets */
+    uint32x4_t      ptOffs = tPointLo.X + tPointLo.Y * iOrigStride;
+    uint32x4_t      vPixel = vld1q(pTarget);
+    /* retrieve all point values */
+    uint32x4_t      ptVal = vldrwq_gather_shifted_offset_u32(pOrigin, ptOffs);
+
+    vstrwq_u32((uint32_t *) scratch, ptVal);
+
+    /* alpha-blending (requires widened inputs) */
+    vstrbq_u16((uint8_t *) blendled,
+               __rgb888_alpha_blending_direct_single_vec(vldrbq_u16((uint8_t const *) scratch),
+                                                         vldrbq_u16((uint8_t const *) pTarget), chOpacity));
+
+    vstrbq_u16((uint8_t *) blendled + 2,
+               __rgb888_alpha_blending_direct_single_vec(vldrbq_u16((uint8_t const *)scratch + 4),
+                                                         vldrbq_u16((uint8_t const *)pTarget + 2), chOpacity));
+
+    uint32x4_t      vBlended = vld1q(blendled);
+
+    /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
+    vPixel = vpselq_u32(vBlended, vPixel, vcmpneq_m_n_u32(ptVal, MaskColour, p));
+
+    vst1q_p(pTarget, vPixel, vctp32q(elts));
+
+    elts -= 4;
+    if(elts > 0) {
+        /* second half */
+
+        p = arm_2d_is_point_vec_inside_region_s32(ptOrigValidRegion, &tPointHi);
+        ptOffs = tPointHi.X + tPointHi.Y * iOrigStride;
+        vPixel = vld1q(pTarget);
+        ptVal = vldrwq_gather_shifted_offset_u32(pOrigin, ptOffs);
+
+        vstrwq_u32((uint32_t *) scratch, ptVal);
+
+        /* alpha-blending (requires widened inputs) */
+        vstrbq_u16((uint8_t *) blendled,
+                   __rgb888_alpha_blending_direct_single_vec(vldrbq_u16((uint8_t const *) scratch),
+                                                             vldrbq_u16((uint8_t const *) pTarget), chOpacity));
+        vstrbq_u16((uint8_t *) blendled + 2,
+                   __rgb888_alpha_blending_direct_single_vec(vldrbq_u16((uint8_t const *)scratch + 4),
+                                                             vldrbq_u16((uint8_t const *)pTarget + 2), chOpacity));
+
+        vBlended = vld1q(blendled);
+
+        /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
+        vPixel = vpselq_u32(vBlended, vPixel, vcmpneq_m_n_u32(ptVal, MaskColour, p));
+
+        vst1q_p(pTarget + 4, vPixel, vctp32q(elts));
+    }
+#endif
+}
+
+#ifdef DBG // to be deleted
+
+#define __PI        (3.1415926f)
+#define __CALIB             0.009f
+
+arm_2d_point_float_t *__arm_2d_rotate_point(const arm_2d_location_t *ptLocation,
+                                            const arm_2d_location_t *ptCenter,
+                                            float fAngle,
+                                            arm_2d_point_float_t *ptOutBuffer)
+{
+    int16_t iX = ptLocation->iX - ptCenter->iX;
+    int16_t iY = ptLocation->iY - ptCenter->iY;
+    float fX,fY;
+    float fR;
+    arm_sqrt_f32( iX * iX + iY * iY, &fR);
+
+    float fAlpha = fAngle;
+    if (0 != iX) {
+        fAlpha += atanf((float)iY / (float)iX);
+        if (iX < 0) {
+            fAlpha += __PI;
+        }
+    } else if (iY > 0) {
+        fAlpha += __PI / 2.0f;
+    } else if (iY < 0) {
+        fAlpha -= __PI / 2.0f;
+    }
+
+    fX = fR * arm_cos_f32(fAlpha) + ptCenter->iX;
+    fY = fR * arm_sin_f32(fAlpha) + ptCenter->iY;
+    if (fX > 0) {
+        ptOutBuffer->fX = fX + __CALIB;
+    } else {
+        ptOutBuffer->fX = fX - __CALIB;
+    }
+    if (fY > 0) {
+        ptOutBuffer->fY = fY + __CALIB;
+    } else {
+        ptOutBuffer->fY = fY - __CALIB;
+    }
+
+    return ptOutBuffer;
+}
+
+
+#define dump_buf(a, buf_sz, wrap, format )                  \
+{                                                           \
+    printf("%s:\n", #a);                                    \
+    for (int i = 0; i < buf_sz; i++)                        \
+        printf(i % wrap == wrap - 1 ? format",\n":format", ", a[i]);  \
+    printf("\n");                                           \
+}
+
+int32_t histX[8]; // -4 -3 -2 -1 0 1 2 3
+int32_t histY[8]; // -4 -3 -2 -1 0 1 2 3
+
+#endif
+void __arm_2d_impl_rgb565_rotate( __arm_2d_param_copy_orig_t *ptParam,
+                            __arm_2d_rotate_info_t *ptInfo)
+{
+    int_fast16_t    iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
+    int_fast16_t    iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
+
+    int_fast16_t    iTargetStride =
+        ptParam->use_as____arm_2d_param_copy_t.tTarget.iStride;
+    uint16_t       *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
+    uint16_t       *pOrigin = ptParam->tOrigin.pBuffer;
+    int_fast16_t    iOrigStride = ptParam->tOrigin.iStride;
+    uint16_t        MaskColour = ptInfo->Mask.hwColour;
+    float           fAngle = -ptInfo->fAngle;
+    arm_2d_location_t tOffset =
+        ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
+    int16_t         tOffsX = ptInfo->tDummySourceOffset.iX + tOffset.iX;
+    int16_t         tOffsY = ptInfo->tDummySourceOffset.iY + tOffset.iY;
+    arm_2d_location_t *pCenter = &(ptInfo->tCenter);
+#ifdef DBG
+    int16_t         refX[iWidth], refY[iWidth];
+    int16_t         refXF16[iWidth + 8], refYF16[iWidth + 8];
+    int16_t         refsrcX[iWidth], refsrcY[iWidth];
+#endif
+
+    for (int_fast16_t y = 0; y < iHeight; y++) {
+
+#ifdef DBG
+        for (int_fast16_t x = 0; x < iWidth; x++) {
+
+            arm_2d_point_float_t tPoint;
+            arm_2d_location_t tSrcPoint = ptInfo->tDummySourceOffset;
+            tSrcPoint.iX += x + tOffset.iX;
+            tSrcPoint.iY += y + tOffset.iY;
+            __arm_2d_rotate_point(&tSrcPoint, &(ptInfo->tCenter), fAngle, &tPoint);
+            refX[x] = (int16_t) tPoint.fX;
+            refY[x] = (int16_t) tPoint.fY;
+
+            refsrcX[x] = (int16_t) tSrcPoint.iX;
+            refsrcY[x] = (int16_t) tSrcPoint.iY;
+        }
+#endif
+        for (int_fast16_t x = 0; x < iWidth; x += 8) {
+            int32_t         nbVecElts = iWidth - x >= 8 ? 8 : iWidth - x;
+            arm_2d_point_s16x8_t tPointV;
+            int16x8_t       vX = (int16x8_t) vidupq_n_u16(tOffsX + x, 1);
+
+            __arm_2d_rotate_point_mve(vX, tOffsY, pCenter, fAngle, &tPointV);
+#ifdef DBG
+            vst1q(&refXF16[x], tPointV.X);
+            vst1q(&refYF16[x], tPointV.Y);
+#endif
+            __arm_2d_impl_rgb565_get_pixel_colour_mve(&tPointV,
+                                                      &ptParam->tOrigin.tValidRegion,
+                                                      pOrigin,
+                                                      iOrigStride,
+                                                      pTargetBase, MaskColour, nbVecElts);
+
+            pTargetBase += nbVecElts;
+        }
+
+#ifdef DBG
+        int             dump = 0;
+        int             badOffsX = 0;
+        int             badOffsY = 0;
+        for (int_fast16_t x = 0; x < iWidth; x++) {
+            int32_t         diff = refX[x] - refXF16[x];
+            diff += 4;
+            if (diff < 0) {
+                diff = 0;
+                badOffsX = x;
+                dump = 1;
+            }
+            if (diff > 7) {
+                diff = 7;
+                badOffsX = x;
+                dump = 1;
+            }
+            histX[diff]++;
+
+            diff = refY[x] - refYF16[x];
+            diff += 4;
+            if (diff < 0) {
+                diff = 0;
+                badOffsY = x;
+                dump = 1;
+            }
+            if (diff > 7) {
+                diff = 7;
+                badOffsY = x;
+                dump = 1;
+            }
+            histY[diff]++;
+        }
+
+        if (dump) {
+            dump_buf(refX, iWidth, 16, "%d");
+            dump_buf(refY, iWidth, 16, "%d");
+            dump_buf(refXF16, iWidth, 16, "%d");
+            dump_buf(refYF16, iWidth, 16, "%d");
+            dump_buf(histX, 8, 16, "%d");
+            dump_buf(histY, 8, 16, "%d");
+            dump_buf(refsrcX, iWidth, 16, "%d");
+            dump_buf(refsrcY, iWidth, 16, "%d");
+            printf("angle %.16f center %d %d off %d %d\n",
+                   fAngle, pCenter->iX, pCenter->iY, badOffsX, badOffsY);
+        }
+#endif
+
+        tOffsY++;
+        pTargetBase += (iTargetStride - iWidth);
+    }
+}
+
+
+
+
+
+
+void __arm_2d_impl_rgb565_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
+                                    __arm_2d_rotate_info_t *ptInfo,
+                                    uint_fast8_t chRatio)
+{
+    int_fast16_t    iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
+    int_fast16_t    iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
+
+    int_fast16_t    iTargetStride =
+        ptParam->use_as____arm_2d_param_copy_t.tTarget.iStride;
+    uint16_t       *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
+    uint16_t       *pOrigin = ptParam->tOrigin.pBuffer;
+    int_fast16_t    iOrigStride = ptParam->tOrigin.iStride;
+    uint16_t        MaskColour = ptInfo->Mask.hwColour;
+    float           fAngle = -ptInfo->fAngle;
+    arm_2d_location_t tOffset =
+        ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
+    int16_t         tOffsX = ptInfo->tDummySourceOffset.iX + tOffset.iX;
+    int16_t         tOffsY = ptInfo->tDummySourceOffset.iY + tOffset.iY;
+    arm_2d_location_t *pCenter = &(ptInfo->tCenter);
+
+    uint16_t        hwRatioCompl = 256 - chRatio;
+
+    for (int_fast16_t y = 0; y < iHeight; y++) {
+
+        for (int_fast16_t x = 0; x < iWidth; x += 8) {
+            int32_t                 nbVecElts = iWidth - x >= 8 ? 8 : iWidth - x;
+            arm_2d_point_s16x8_t    tPointV;
+            int16x8_t               vX = (int16x8_t) vidupq_n_u16(tOffsX + x, 1);
+
+            __arm_2d_rotate_point_mve(vX, tOffsY, pCenter, fAngle, &tPointV);
+
+
+            __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_mve(&tPointV,
+                                                                 &ptParam->tOrigin.
+                                                                 tValidRegion, pOrigin,
+                                                                 iOrigStride, pTargetBase,
+                                                                 MaskColour,
+                                                                 hwRatioCompl, nbVecElts);
+            pTargetBase += nbVecElts;
+        }
+        tOffsY++;
+        pTargetBase += (iTargetStride - iWidth);
+    }
+}
+
+
+/* untested */
+void __arm_2d_impl_rgb888_rotate(   __arm_2d_param_copy_orig_t *ptParam,
+                                    __arm_2d_rotate_info_t *ptInfo)
+{
+    int_fast16_t    iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
+    int_fast16_t    iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
+
+    int_fast16_t    iTargetStride =
+        ptParam->use_as____arm_2d_param_copy_t.tTarget.iStride;
+    uint32_t       *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
+    uint32_t       *pOrigin = ptParam->tOrigin.pBuffer;
+    int_fast16_t    iOrigStride = ptParam->tOrigin.iStride;
+    uint32_t        MaskColour = ptInfo->Mask.hwColour;
+    float           fAngle = -ptInfo->fAngle;
+    arm_2d_location_t tOffset =
+        ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
+    int16_t         tOffsX = ptInfo->tDummySourceOffset.iX + tOffset.iX;
+    int16_t         tOffsY = ptInfo->tDummySourceOffset.iY + tOffset.iY;
+    arm_2d_location_t *pCenter = &(ptInfo->tCenter);
+
+
+    for (int_fast16_t y = 0; y < iHeight; y++) {
+
+        for (int_fast16_t x = 0; x < iWidth; x += 8) {
+            int32_t         nbVecElts = iWidth - x >= 8 ? 8 : iWidth - x;
+            arm_2d_point_s16x8_t tPointV;
+            int16x8_t       vX = (int16x8_t) vidupq_n_u16(tOffsX + x, 1);
+
+            __arm_2d_rotate_point_mve(vX, tOffsY, pCenter, fAngle, &tPointV);
+
+            __arm_2d_impl_rgb888_get_pixel_colour_mve(&tPointV,
+                                                      &ptParam->tOrigin.tValidRegion,
+                                                      pOrigin,
+                                                      iOrigStride,
+                                                      pTargetBase, MaskColour, nbVecElts);
+
+            pTargetBase += nbVecElts;
+        }
+        tOffsY++;
+        pTargetBase += (iTargetStride - iWidth);
+    }
+}
+
+/* untested */
+void __arm_2d_impl_rgb888_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
+                                    __arm_2d_rotate_info_t *ptInfo,
+                                    uint_fast8_t chRatio)
+{
+    int_fast16_t    iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
+    int_fast16_t    iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
+
+    int_fast16_t    iTargetStride =
+        ptParam->use_as____arm_2d_param_copy_t.tTarget.iStride;
+    uint32_t       *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
+    uint32_t       *pOrigin = ptParam->tOrigin.pBuffer;
+    int_fast16_t    iOrigStride = ptParam->tOrigin.iStride;
+    uint32_t        MaskColour = ptInfo->Mask.hwColour;
+    float           fAngle = -ptInfo->fAngle;
+    arm_2d_location_t tOffset =
+        ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
+
+    int16_t         tOffsX = ptInfo->tDummySourceOffset.iX + tOffset.iX;
+    int16_t         tOffsY = ptInfo->tDummySourceOffset.iY + tOffset.iY;
+    arm_2d_location_t *pCenter = &(ptInfo->tCenter);
+
+    uint16_t        hwRatioCompl = 256 - chRatio;
+
+    for (int_fast16_t y = 0; y < iHeight; y++) {
+
+        for (int_fast16_t x = 0; x < iWidth; x += 8) {
+            int32_t                 nbVecElts = iWidth - x >= 8 ? 8 : iWidth - x;
+            arm_2d_point_s16x8_t    tPointV;
+            int16x8_t               vX = (int16x8_t) vidupq_n_u16(tOffsX + x, 1);
+
+            __arm_2d_rotate_point_mve(vX, tOffsY, pCenter, fAngle, &tPointV);
+
+            __arm_2d_impl_rgb888_get_pixel_colour_with_alpha_mve(&tPointV,
+                                                                 &ptParam->
+                                                                 tOrigin.tValidRegion,
+                                                                 pOrigin, iOrigStride,
+                                                                 pTargetBase, MaskColour,
+                                                                 hwRatioCompl, nbVecElts);
+            pTargetBase += nbVecElts;
+        }
+        tOffsY++;
+        pTargetBase += (iTargetStride - iWidth);
+    }
+}
+
+
+
+#endif
+
+
 #ifdef EXPERIMENTAL
 
 /*
  * rotation trial
  */
 
-#include "arm_math.h"
 
 #define PIBy180_Q30             18740330
 #define Q0_TO_Q16(x)            ((x) << 16)
@@ -2370,6 +3075,10 @@ void __arm_2d_rgb32_rotate_fx(uint32_t * phwSourceBase,
         pTarget += iTargetStride;
     }
 }
+
+
+
+
 
 #endif
 

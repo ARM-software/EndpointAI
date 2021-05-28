@@ -55,7 +55,7 @@
 /*============================ PROTOTYPES ====================================*/
 /*============================ LOCAL VARIABLES ===============================*/
 
-static char s_chPerformanceInfo[MIN(((GLCD_WIDTH/6)+1), 54)] = {0};
+static char s_chPerformanceInfo[MAX(((GLCD_WIDTH/6)+1), 54)] = {0};
 
 /*============================ IMPLEMENTATION ================================*/
 
