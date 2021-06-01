@@ -103,13 +103,13 @@ lightly-upload dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir=data/raw em
 
 After uploading the images and embeddings, the dataset can be filtered. Head to "Analyze & Filter" -> "Embedding". Sampling a such a large dataset of 25'000 images can take a few minutes. The page will automatically refresh once the sampling is complete.
 
-For the **training data** choose the coreset filter method as it will sample a diverse set of images. Once you are on the embedding page click on the *create* button to create a new sampling. Pick `CORESET` for the sampling strategy. Move the slider to 200 samples and give the output tag the name `training-data`.
-
 <img alt="Image which shows how to sample a training set" src="docs/embedding_view.png" width="100%">
 
-For the **test data** choose random sampling. This will give you a representative subset of the raw data. Put the slider to 500 images and save your selection by creating a new tag named `test-data`.
+For the **training data** choose the coreset filter method as it will sample a diverse set of images. Once you are on the embedding page click on the *create* button to create a new sampling. Pick `CORESET` for the sampling strategy. Move the slider to 200 samples and give the output tag the name `training-data`.
 
 <img alt="Image which shows how to sample a test set" src="docs/create_new_sampling_view.png" width="100%">
+
+For the **test data** choose random sampling. This will give you a representative subset of the raw data. Put the slider to 500 images and save your selection by creating a new tag named `test-data`.
 
 Download the images from the command line. This will copy the selected images from the source folder to a new directory specified by "output_dir".
 ```shell
