@@ -7,9 +7,9 @@
 - This framework integrates a scheduler and manages the data moves and format changes
 
 The purpose is to :
-1 Avoid the system integrator to worry with software components implementation and interface details
-2 Avoid the software component developer to bother about integration, memory map and peripherals
-3 Let more software developers join our ecosystem, and prepare a path for monetization
-4 Create a graphical environment to enable fast DSP/ML prototyping
-5 Create a safe and secure environement
-6 Solve the limitations of memory-bounded algorithms and get performance scalability with multiprocessing
+- avoid the system integrator to worry with software components implementation and interface details
+- avoid the software component developer to bother about integration, memory map and peripherals
+- let more software developers join our ecosystem, and prepare a path for monetization
+- create a graphical environment to enable fast DSP/ML prototyping
+- create a safe and secure environement
+- solve the limitations of memory-bounded algorithms and get performance scalability with multiprocessing
