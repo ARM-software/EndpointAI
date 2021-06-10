@@ -137,7 +137,7 @@ static floating_range_t s_ptFloatingBoxes[] = {
         .tOffset = {-2, 4},
     },
     {
-        .tRegion = {{-100, -100}, {APP_SCREEN_WIDTH+200, APP_SCREEN_HEIGHT+200}},
+        .tRegion = {{-50, -50}, {APP_SCREEN_WIDTH+100, APP_SCREEN_HEIGHT+100}},
         .ptLayer = &s_ptRefreshLayers[3],
         .tOffset = {5, 5},
     },
@@ -167,9 +167,11 @@ void example_gui_init(void)
     arm_2d_set_default_frame_buffer(ptDispBufferTile);
 
     s_ptRefreshLayers[0].wMode = ARM_2D_CP_MODE_FILL;
+    s_ptRefreshLayers[2].wMode = ARM_2D_CP_MODE_FILL;
+    s_ptRefreshLayers[3].wMode = ARM_2D_CP_MODE_COPY;
 
     //arm_2d_rgb16_fill_colour(s_ptRefreshLayers[1].ptTile, NULL, GLCD_COLOR_RED);
-    arm_2d_rgb16_fill_colour(s_ptRefreshLayers[2].ptTile, NULL, GLCD_COLOR_GREEN);
+    //arm_2d_rgb16_fill_colour(s_ptRefreshLayers[2].ptTile, NULL, GLCD_COLOR_GREEN);
     arm_2d_convert_colour_to_rgb565(&c_tPictureCMSISLogo, &c_tLogoCMSIS);
 
     arm_foreach(arm_2d_layer_t, s_ptRefreshLayers) {
@@ -223,27 +225,36 @@ static void example_update_boxes(floating_range_t *ptBoxes, uint_fast16_t hwCoun
 void example_gui_do_events(void)
 {
     static uint32_t s_wCounter = 0;
+    static uint32_t s_wFrameCounter = 0;
+
+    s_wFrameCounter++;
 
     example_update_boxes(s_ptFloatingBoxes, dimof(s_ptFloatingBoxes));
     
-    if (s_bTimeout) {                       //!< every 1024 ms
-        s_bTimeout = false;
+    if (s_wFrameCounter == 25) {                       //!< every 250 frames
+        s_wFrameCounter = 0;
         
-        if((s_wCounter & 0x0F) < 0x04) {
-            s_ptRefreshLayers[0].wMode =    ARM_2D_CP_MODE_FILL;
-        } else if((s_wCounter & 0x0F) < 0x08) {
-            s_ptRefreshLayers[0].wMode =    ARM_2D_CP_MODE_FILL       | 
-                                            ARM_2D_CP_MODE_X_MIRROR;
-        } else if((s_wCounter & 0x0F) < 0x0C) {
-            s_ptRefreshLayers[0].wMode =    ARM_2D_CP_MODE_FILL       | 
+        switch(s_wCounter++ & 0x03) {
+            case 0:
+                s_ptRefreshLayers[0].wMode =    ARM_2D_CP_MODE_FILL;
+                break;
+            case 1:
+                s_ptRefreshLayers[0].wMode =    ARM_2D_CP_MODE_FILL       | 
+                                                ARM_2D_CP_MODE_X_MIRROR;
+                break;
+            case 2:
+                s_ptRefreshLayers[0].wMode =    ARM_2D_CP_MODE_FILL       | 
                                             ARM_2D_CP_MODE_Y_MIRROR;
-        } else {
-            s_ptRefreshLayers[0].wMode =    ARM_2D_CP_MODE_FILL       | 
-                                            ARM_2D_CP_MODE_X_MIRROR   | 
+                break;
+            case 3:
+                s_ptRefreshLayers[0].wMode =    ARM_2D_CP_MODE_FILL       | 
+                                            ARM_2D_CP_MODE_X_MIRROR       | 
                                             ARM_2D_CP_MODE_Y_MIRROR;
+                break;
         }
         
-        s_wCounter++;
+        s_ptRefreshLayers[2].wMode = s_ptRefreshLayers[0].wMode;
+        s_ptRefreshLayers[3].wMode = s_ptRefreshLayers[0].wMode & ~ARM_2D_CP_MODE_FILL;
     }
 }
 
@@ -264,12 +275,15 @@ static void __draw_layers(   arm_2d_tile_t *ptFrameBuffer,
                                 &tFillRegion,
                                 ptLayers[0].wMode);
        
+        arm_2d_rgb16_fill_colour(s_ptRefreshLayers[2].ptTile, NULL, GLCD_COLOR_GREEN);
         
         arm_2d_rgb16_tile_copy_with_colour_masking( &c_tPictureSun,
                                                     s_ptRefreshLayers[2].ptTile,
                                                     NULL,
                                                     GLCD_COLOR_WHITE,
-                                                    ARM_2D_CP_MODE_FILL);
+                                                    s_ptRefreshLayers[2].wMode);
+                                                    //ARM_2D_CP_MODE_FILL |
+                                                    //ARM_2D_CP_MODE_Y_MIRROR);
         
         arm_foreach(arm_2d_layer_t, ptLayers, hwCount, ptLayer) {
             arm_2d_region_t tRegion = ptLayer->tRegion;
@@ -283,7 +297,7 @@ static void __draw_layers(   arm_2d_tile_t *ptFrameBuffer,
                                             ptFrameBuffer,
                                             &tRegion,
                                             ptLayer->hwMaskingColour,
-                                            ARM_2D_CP_MODE_COPY);
+                                            ptLayer->wMode);
             } else {
                 if (ptLayer->chTransparency) {
                     arm_2d_rgb565_alpha_blending(   ptLayer->ptTile,

@@ -81,78 +81,92 @@ static volatile bool s_bDrawInfo = true;
 
 extern const arm_2d_tile_t c_tileArrow;
 
-void display_task(void) 
-{  
-            
+void display_task(void)
+{
+
     /*! define dirty regions */
     IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions, const static)
-        
+
         /* a region for the busy wheel */
         ADD_REGION_TO_LIST(s_tDirtyRegions,
             .tLocation = {
-                .iX = ((APP_SCREEN_WIDTH - 120) >> 1),
-                .iY = ((APP_SCREEN_HEIGHT - 120) >> 1),
+                .iX = ((APP_SCREEN_WIDTH - 222) >> 1),
+                .iY = ((APP_SCREEN_HEIGHT - 222) >> 1),
             },
             .tSize = {
-                .iWidth = 120,
-                .iHeight = 120,
+                .iWidth = 222,
+                .iHeight = 222,
             },
         ),
-        
+
         /* a region for the status bar on the bottom of the screen */
         ADD_LAST_REGION_TO_LIST(s_tDirtyRegions,
-            .tLocation = {0,APP_SCREEN_HEIGHT - 8},
+            .tLocation = {0,APP_SCREEN_HEIGHT - 16},
             .tSize = {
                 .iWidth = APP_SCREEN_WIDTH,
-                .iHeight = 8,  
+                .iHeight = 16,
             },
         ),
 
     END_IMPL_ARM_2D_REGION_LIST()
-            
+
 
 /*! define the partial-flushing area */
 
     example_gui_do_events();
 
     //! call partial framebuffer helper service
-    while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task( 
-                                &s_tExamplePFB, 
-                                (arm_2d_region_list_item_t *)s_tDirtyRegions));
-         
+    while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task(
+                                //&s_tExamplePFB, NULL));
+                                &s_tExamplePFB, (arm_2d_region_list_item_t *)s_tDirtyRegions));
+
     //! update performance info
     do {
 
         int32_t nTotalCyclCount = s_tExamplePFB.Statistics.nTotalCycle;
         int32_t nTotalLCDCycCount = s_tExamplePFB.Statistics.nRenderingCycle;
         BENCHMARK.wLCDLatency = nTotalLCDCycCount;
-        
+
         if (BENCHMARK.wIterations) {
             BENCHMARK.wMin = MIN((uint32_t)nTotalCyclCount, BENCHMARK.wMin);
             BENCHMARK.wMax = MAX(nTotalCyclCount, (int32_t)BENCHMARK.wMax);
             BENCHMARK.dwTotal += nTotalCyclCount;
             BENCHMARK.wIterations--;
-            
+
             if (0 == BENCHMARK.wIterations) {
-                BENCHMARK.wAverage = 
+                BENCHMARK.wAverage =
                     (uint32_t)(BENCHMARK.dwTotal / (uint64_t)ITERATION_CNT);
-                
+
             }
-            
+
         }
 
     } while(0);
 
-}        
+}
 
-__OVERRIDE_WEAK 
+__OVERRIDE_WEAK
 void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
 {
     ARM_2D_UNUSED(ptFrameBuffer);
-    
+
     //! print performance info
-    
+
     if (0 == BENCHMARK.wIterations) {
+
+        lcd_text_location( GLCD_HEIGHT / 8 - 6, 0);
+        lcd_puts(  "Rotation Test, running "
+                    STR(ITERATION_CNT)
+                    " iterations\r\n");
+
+        lcd_printf( "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
+                  "  Screen Size: "STR(APP_SCREEN_WIDTH)"*" STR(APP_SCREEN_HEIGHT)
+                  "  %dMHz\r\n", SystemCoreClock / 1000000ul);
+        lcd_puts( "Testing...\r\n\r\n");
+        lcd_puts(
+            "Cycles\t  Min\t  Max\tAvrage\t  UPS\t  LCD Latency");
+
+
         lcd_text_location( GLCD_HEIGHT / 8 - 1, 0);
         //lcd_puts(
         //    "\rCycles\t  Min\t  Max\tAvrage\t  UPS\t  LCD Latency");
@@ -161,28 +175,28 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
         lcd_printf("%d\t", BENCHMARK.wMax);
         lcd_printf("%d\t", BENCHMARK.wAverage);
         lcd_printf("%3d:%dms",
-                            SystemCoreClock / BENCHMARK.wAverage, 
+                            SystemCoreClock / BENCHMARK.wAverage,
                             BENCHMARK.wAverage / (SystemCoreClock / 1000ul));
-        
-        lcd_printf("   %2dms", BENCHMARK.wLCDLatency / (SystemCoreClock / 1000ul) );  
+
+        lcd_printf("   %2dms", BENCHMARK.wLCDLatency / (SystemCoreClock / 1000ul) );
     }
 }
 
 
-__OVERRIDE_WEAK 
+__OVERRIDE_WEAK
 void arm_2d_helper_perf_counter_start(void)
 {
     start_cycle_counter();
 }
 
-__OVERRIDE_WEAK 
+__OVERRIDE_WEAK
 int32_t arm_2d_helper_perf_counter_stop(void)
 {
     return stop_cycle_counter();
 }
 
 
-static 
+static
 IMPL_PFB_ON_DRAW(__pfb_draw_handler)
 {
     ARM_2D_UNUSED(pTarget);
@@ -194,33 +208,41 @@ IMPL_PFB_ON_DRAW(__pfb_draw_handler)
 extern
 const arm_2d_tile_t c_tPictureHeliun;
 
+extern 
+const arm_2d_tile_t c_tileBackground;
+
 static
 IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
 {
     ARM_2D_UNUSED(pTarget);
     ARM_2D_UNUSED(bIsNewFrame);
 
-    arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
-    __PRINT_BANNER("Arm-2D Benchmark");
+    //arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
+    arm_2d_rgb16_tile_copy(&c_tileBackground,
+                        ptTile,
+                        NULL,
+                        ARM_2D_CP_MODE_COPY);
     
+    __PRINT_BANNER("Arm-2D Benchmark");
+
     lcd_text_location( GLCD_HEIGHT / 8 - 6, 0);
-    lcd_puts(  "Rotation Test, running " 
-                STR(ITERATION_CNT) 
+    lcd_puts(  "Rotation Test, running "
+                STR(ITERATION_CNT)
                 " iterations\r\n");
 
-    lcd_printf( "PFB Size: " STR(PBF_BLOCK_WIDTH)"*" STR(PBF_BLOCK_HEIGHT) 
+    lcd_printf( "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
               "  Screen Size: "STR(APP_SCREEN_WIDTH)"*" STR(APP_SCREEN_HEIGHT)
               "  %dMHz\r\n", SystemCoreClock / 1000000ul);
     lcd_puts( "Testing...\r\n\r\n");
-    
+
     //lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
     lcd_puts(
         "Cycles\t  Min\t  Max\tAvrage\t  UPS\t  LCD Latency");
-    
+
     return arm_fsm_rt_cpl;
 }
 
-static 
+static
 IMPL_PFB_ON_LOW_LV_RENDERING(__pfb_render_handler)
 {
     const arm_2d_tile_t *ptTile = &(ptPFB->tTile);
@@ -235,7 +257,7 @@ IMPL_PFB_ON_LOW_LV_RENDERING(__pfb_render_handler)
                         ptTile->tRegion.tSize.iHeight,
                         ptTile->pchBuffer);
     }
-    arm_2d_helper_pfb_report_rendering_complete(&s_tExamplePFB, 
+    arm_2d_helper_pfb_report_rendering_complete(&s_tExamplePFB,
                                                 (arm_2d_pfb_t *)ptPFB);
 }
 
@@ -244,7 +266,7 @@ IMPL_PFB_ON_LOW_LV_RENDERING(__pfb_render_handler)
 /*----------------------------------------------------------------------------
   Main function
  *----------------------------------------------------------------------------*/
-int main (void) 
+int main (void)
 {
 #if defined(__IS_COMPILER_GCC__)
     app_platform_init();
@@ -254,40 +276,40 @@ int main (void)
         arm_2d_init();
         /* put your code here */
         example_gui_init();
-    }         
+    }
 
     //! initialise FPB helper
-    if (ARM_2D_HELPER_PFB_INIT( 
+    if (ARM_2D_HELPER_PFB_INIT(
             &s_tExamplePFB,                 //!< FPB Helper object
             APP_SCREEN_WIDTH,               //!< screen width
             APP_SCREEN_HEIGHT,              //!< screen height
             uint16_t,                       //!< colour date type
-            PBF_BLOCK_WIDTH,                //!< PFB block width
-            PBF_BLOCK_HEIGHT,               //!< PFB block height
+            PFB_BLOCK_WIDTH,                //!< PFB block width
+            PFB_BLOCK_HEIGHT,               //!< PFB block height
             1,                              //!< number of PFB in the PFB pool
             {
                 .evtOnLowLevelRendering = {
-                    //! callback for low level rendering 
-                    .fnHandler = &__pfb_render_handler,                         
+                    //! callback for low level rendering
+                    .fnHandler = &__pfb_render_handler,
                 },
                 .evtOnDrawing = {
-                    //! callback for drawing GUI 
-                    .fnHandler = &__pfb_draw_background_handler, 
+                    //! callback for drawing GUI
+                    .fnHandler = &__pfb_draw_background_handler,
                 },
             }
         ) < 0) {
         //! error detected
         assert(false);
     }
-    
+
     //! draw background first
     while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task(&s_tExamplePFB,NULL));
 
     s_bDrawInfo = false;
 
-    ARM_2D_HELPER_PFB_UPDATE_ON_DRAW_HANDLER(   &s_tExamplePFB, 
+    ARM_2D_HELPER_PFB_UPDATE_ON_DRAW_HANDLER(   &s_tExamplePFB,
                                                 &__pfb_draw_handler);
-    
+
     while (1) {
         display_task();
     }

@@ -21,8 +21,8 @@
  * Title:        arm-2d_helium.c
  * Description:  Acceleration extensions using Helium.
  *
- * $Date:        12. Jan 2021
- * $Revision:    V.0.5.0
+ * $Date:        2. Jun 2021
+ * $Revision:    V.0.6.0
  *
  * Target Processor:  Cortex-M cores
  *
@@ -52,8 +52,8 @@
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wsign-compare"
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
-#   pragma clang diagnostic ignored "-Wpadded"   
-#   pragma clang diagnostic ignored "-Wvector-conversion"   
+#   pragma clang diagnostic ignored "-Wpadded"
+#   pragma clang diagnostic ignored "-Wvector-conversion"
 #endif
 
 
@@ -67,6 +67,7 @@ extern "C" {
 
 
 
+
 /*! \brief initialise the helium service service
  *! \param none
  *! \return none
@@ -77,649 +78,22 @@ void __arm_2d_helium_init(void)
 }
 
 
-void __arm_2d_rgb16_2x2_paving(const uint16_t *__RESTRICT pSourceBase,
-                                int16_t iSourceStride,
-                                const arm_2d_size_t * ptSourceSize,
-                                uint16_t * __RESTRICT pTargetBase,
-                                int16_t iTargetStride,
-                                uint16_t tilePairRows,
-                                uint16_t tilePairCols)
-{
-    __ARM_2D_PAVING_2x2(16,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(16),
-                        PAVING_DIRECT_LOAD_PATTERN(16));
-}
+/*----------------------------------------------------------------------------*
+ * Code Template                                                              *
+ *----------------------------------------------------------------------------*/
 
+#define __API_COLOUR                rgb16
+#define __API_INT_TYPE              uint16_t
+#define __API_INT_TYPE_BIT_NUM      16
 
-void __arm_2d_rgb16_2x2_paving_x_mirror(const uint16_t *__RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * ptSourceSize,
-                                        uint16_t * __RESTRICT pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairRows,
-                                        uint16_t tilePairCols)
-{
-    __ARM_2D_PAVING_2x2(16,
-                        PAVING_X_MIRROR_START_OFFS(_, _),
-                        PAVING_X_MIRROR_READ_DIR,
-                        PAVING_X_MIRROR_SETUP_COPY(16),
-                        PAVING_X_MIRROR_LOAD_PATTERN(16));
-}
+#include "__arm_2d_copy_helium.inc"
 
 
-void __arm_2d_rgb16_2x2_paving_y_mirror(const uint16_t *__RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * ptSourceSize,
-                                        uint16_t * __RESTRICT pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairRows,
-                                        uint16_t tilePairCols)
-{
-    __ARM_2D_PAVING_2x2(16,
-                        PAVING_Y_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
-                        PAVING_Y_MIRROR_READ_DIR,
-                        PAVING_Y_MIRROR_SETUP_COPY(16),
-                        PAVING_Y_MIRROR_LOAD_PATTERN(16));
-}
+#define __API_COLOUR                rgb32
+#define __API_INT_TYPE              uint32_t
+#define __API_INT_TYPE_BIT_NUM      32
 
-void __arm_2d_rgb16_2x2_paving_xy_mirror(const uint16_t *__RESTRICT pSourceBase,
-                                            int16_t iSourceStride,
-                                            const arm_2d_size_t * ptSourceSize,
-                                            uint16_t * __RESTRICT pTargetBase,
-                                            int16_t iTargetStride,
-                                            uint16_t tilePairRows,
-                                            uint16_t tilePairCols)
-{
-    __ARM_2D_PAVING_2x2(16,
-                        PAVING_XY_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
-                        PAVING_XY_MIRROR_READ_DIR,
-                        PAVING_XY_MIRROR_SETUP_COPY(16),
-                        PAVING_XY_MIRROR_LOAD_PATTERN(16));
-}
-
-
-void __arm_2d_rgb16_1x2_paving(const uint16_t * __RESTRICT pSourceBase,
-                                       int16_t iSourceStride,
-                                       const arm_2d_size_t * ptSourceSize,
-                                       uint16_t * __RESTRICT pTargetBase,
-                                       int16_t iTargetStride,
-                                       uint32_t destWidth,
-                                       uint16_t tilePairRows)
-{
-    __ARM_2D_PAVING_1x2(16,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(16),
-                        PAVING_DIRECT_LOAD_PATTERN(16));
-}
-
-void __arm_2d_rgb16_1x2_paving_x_mirror(const uint16_t * __RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * ptSourceSize,
-                                        uint16_t * __RESTRICT pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint32_t destWidth,
-                                        uint16_t tilePairRows)
-{
-    __ARM_2D_PAVING_1x2(16,
-                        PAVING_X_MIRROR_START_OFFS(_, _),
-                        PAVING_X_MIRROR_READ_DIR,
-                        PAVING_X_MIRROR_SETUP_COPY(16),
-                        PAVING_X_MIRROR_LOAD_PATTERN(16));
-}
-
-void __arm_2d_rgb16_1x2_paving_y_mirror(const uint16_t * __RESTRICT pSourceBase,
-                                       int16_t iSourceStride,
-                                       const arm_2d_size_t * ptSourceSize,
-                                       uint16_t * __RESTRICT pTargetBase,
-                                       int16_t iTargetStride,
-                                       uint32_t destWidth,
-                                       uint16_t tilePairRows)
-{
-    __ARM_2D_PAVING_1x2(16,
-                        PAVING_Y_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
-                        PAVING_Y_MIRROR_READ_DIR,
-                        PAVING_Y_MIRROR_SETUP_COPY(16),
-                        PAVING_Y_MIRROR_LOAD_PATTERN(16));
-}
-
-
-void __arm_2d_rgb16_1x2_paving_xy_mirror(const uint16_t * __RESTRICT pSourceBase,
-                                       int16_t iSourceStride,
-                                       const arm_2d_size_t * ptSourceSize,
-                                       uint16_t * __RESTRICT pTargetBase,
-                                       int16_t iTargetStride,
-                                       uint32_t destWidth,
-                                       uint16_t tilePairRows)
-{
-    __ARM_2D_PAVING_1x2(16,
-                        PAVING_XY_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
-                        PAVING_XY_MIRROR_READ_DIR,
-                        PAVING_XY_MIRROR_SETUP_COPY(16),
-                        PAVING_XY_MIRROR_LOAD_PATTERN(16));
-}
-
-
-void __arm_2d_rgb16_2x1_paving(const uint16_t * __RESTRICT pSourceBase,
-                                           int16_t iSourceStride,
-                                           const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                           uint16_t * pTargetBase,
-                                           int16_t iTargetStride,
-                                           uint16_t tilePairCols,
-                                           uint16_t destHeight)
-{
-    __ARM_2D_PAVING_2x1(16,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(16),
-                        PAVING_DIRECT_LOAD_PATTERN(16));
-}
-
-void __arm_2d_rgb16_2x1_paving_x_mirror(const uint16_t * __RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                        uint16_t * pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairCols,
-                                        uint16_t destHeight)
-{
-    __ARM_2D_PAVING_2x1(16,
-                        PAVING_X_MIRROR_START_OFFS(_, _),
-                        PAVING_X_MIRROR_READ_DIR,
-                        PAVING_X_MIRROR_SETUP_COPY(16),
-                        PAVING_X_MIRROR_LOAD_PATTERN(16));
-}
-
-void __arm_2d_rgb16_2x1_paving_y_mirror(const uint16_t * __RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                        uint16_t * pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairCols,
-                                        uint16_t destHeight)
-{
-    __ARM_2D_PAVING_2x1(16,
-                        PAVING_Y_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
-                        PAVING_Y_MIRROR_READ_DIR,
-                        PAVING_Y_MIRROR_SETUP_COPY(16),
-                        PAVING_Y_MIRROR_LOAD_PATTERN(16));
-}
-
-
-void __arm_2d_rgb16_2x1_paving_xy_mirror(const uint16_t * __RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                        uint16_t * pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairCols,
-                                        uint16_t destHeight)
-{
-    __ARM_2D_PAVING_2x1(16,
-                        PAVING_XY_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
-                        PAVING_XY_MIRROR_READ_DIR,
-                        PAVING_XY_MIRROR_SETUP_COPY(16),
-                        PAVING_XY_MIRROR_LOAD_PATTERN(16));
-}
-
-
-
-void __arm_2d_rgb16_1x1_paving(const uint16_t * __RESTRICT pSource,
-                               int16_t iSourceStride,
-                               uint16_t * __RESTRICT pTarget,
-                               int16_t iTargetStride,
-                               const arm_2d_size_t * ptSrcCopySize,
-                               const arm_2d_size_t * ptDstCopySize)
-{
-    __ARM_2D_PAVING_1x1(16,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(16),
-                        PAVING_DIRECT_LOAD_PATTERN(16));
-}
-
-void __arm_2d_rgb16_1x1_paving_x_mirror(const uint16_t * __RESTRICT pSource,
-                                       int16_t iSourceStride,
-                                       uint16_t * __RESTRICT pTarget,
-                                       int16_t iTargetStride,
-                                       const arm_2d_size_t * ptSrcCopySize,
-                                       const arm_2d_size_t * ptDstCopySize)
-{
-    __ARM_2D_PAVING_1x1(16,
-                        PAVING_X_MIRROR_START_OFFS(_, _),
-                        PAVING_X_MIRROR_READ_DIR, PAVING_X_MIRROR_SETUP_COPY(16),
-                        PAVING_X_MIRROR_LOAD_PATTERN(16));
-}
-
-
-void __arm_2d_rgb16_1x1_paving_y_mirror(const uint16_t * __RESTRICT pSource,
-                                       int16_t iSourceStride,
-                                       uint16_t * __RESTRICT pTarget,
-                                       int16_t iTargetStride,
-                                       const arm_2d_size_t * ptSrcCopySize,
-                                       const arm_2d_size_t * ptDstCopySize)
-{
-    __ARM_2D_PAVING_1x1(16,
-                        PAVING_Y_MIRROR_START_OFFS(iSourceStride, ptSrcCopySize->iHeight),
-                        PAVING_Y_MIRROR_READ_DIR,
-                        PAVING_Y_MIRROR_SETUP_COPY(16),
-                        PAVING_Y_MIRROR_LOAD_PATTERN(16));
-}
-
-
-void __arm_2d_rgb16_1x1_paving_xy_mirror(const uint16_t * __RESTRICT pSource,
-                                           int16_t iSourceStride,
-                                           uint16_t * __RESTRICT pTarget,
-                                           int16_t iTargetStride,
-                                           const arm_2d_size_t * ptSrcCopySize,
-                                           const arm_2d_size_t * ptDstCopySize)
-{
-    __ARM_2D_PAVING_1x1(16,
-                        PAVING_XY_MIRROR_START_OFFS(iSourceStride, ptSrcCopySize->iHeight),
-                        PAVING_XY_MIRROR_READ_DIR,
-                        PAVING_XY_MIRROR_SETUP_COPY(16),
-                        PAVING_XY_MIRROR_LOAD_PATTERN(16));
-}
-
-
-
-
-void __arm_2d_rgb32_2x2_paving(const uint32_t *__RESTRICT pSourceBase,
-                                int16_t iSourceStride,
-                                const arm_2d_size_t * ptSourceSize,
-                                uint32_t * __RESTRICT pTargetBase,
-                                int16_t iTargetStride,
-                                uint16_t tilePairRows,
-                                uint16_t tilePairCols)
-{
-    __ARM_2D_PAVING_2x2(32,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(32),
-                        PAVING_DIRECT_LOAD_PATTERN(32));
-}
-
-
-void __arm_2d_rgb32_2x2_paving_x_mirror(const uint32_t *__RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * ptSourceSize,
-                                        uint32_t * __RESTRICT pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairRows,
-                                        uint16_t tilePairCols)
-{
-    __ARM_2D_PAVING_2x2(32,
-                        PAVING_X_MIRROR_START_OFFS(_, _),
-                        PAVING_X_MIRROR_READ_DIR,
-                        PAVING_X_MIRROR_SETUP_COPY(32),
-                        PAVING_X_MIRROR_LOAD_PATTERN(32));
-}
-
-
-void __arm_2d_rgb32_2x2_paving_y_mirror(const uint32_t *__RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * ptSourceSize,
-                                        uint32_t * __RESTRICT pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairRows,
-                                        uint16_t tilePairCols)
-{
-    __ARM_2D_PAVING_2x2(32,
-                        PAVING_Y_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
-                        PAVING_Y_MIRROR_READ_DIR,
-                        PAVING_Y_MIRROR_SETUP_COPY(32),
-                        PAVING_Y_MIRROR_LOAD_PATTERN(32));
-}
-
-void __arm_2d_rgb32_2x2_paving_xy_mirror(const uint32_t *__RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * ptSourceSize,
-                                        uint32_t * __RESTRICT pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairRows,
-                                        uint16_t tilePairCols)
-{
-    __ARM_2D_PAVING_2x2(32,
-                        PAVING_XY_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
-                        PAVING_XY_MIRROR_READ_DIR,
-                        PAVING_XY_MIRROR_SETUP_COPY(32),
-                        PAVING_XY_MIRROR_LOAD_PATTERN(32));
-}
-
-
-void __arm_2d_rgb32_1x2_paving(const uint32_t * __RESTRICT pSourceBase,
-                               int16_t iSourceStride,
-                               const arm_2d_size_t * ptSourceSize,
-                               uint32_t * __RESTRICT pTargetBase,
-                               int16_t iTargetStride,
-                               uint32_t destWidth,
-                               uint16_t tilePairRows)
-{
-    __ARM_2D_PAVING_1x2(32,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(32),
-                        PAVING_DIRECT_LOAD_PATTERN(32));
-}
-
-void __arm_2d_rgb32_1x2_paving_x_mirror(const uint32_t * __RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * ptSourceSize,
-                                        uint32_t * __RESTRICT pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint32_t destWidth,
-                                        uint16_t tilePairRows)
-{
-    __ARM_2D_PAVING_1x2(32,
-                        PAVING_X_MIRROR_START_OFFS(_, _),
-                        PAVING_X_MIRROR_READ_DIR,
-                        PAVING_X_MIRROR_SETUP_COPY(32),
-                        PAVING_X_MIRROR_LOAD_PATTERN(32));
-}
-
-void __arm_2d_rgb32_1x2_paving_y_mirror(const uint32_t * __RESTRICT pSourceBase,
-                                       int16_t iSourceStride,
-                                       const arm_2d_size_t * ptSourceSize,
-                                       uint32_t * __RESTRICT pTargetBase,
-                                       int16_t iTargetStride,
-                                       uint32_t destWidth,
-                                       uint16_t tilePairRows)
-{
-    __ARM_2D_PAVING_1x2(32,
-                        PAVING_Y_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
-                        PAVING_Y_MIRROR_READ_DIR,
-                        PAVING_Y_MIRROR_SETUP_COPY(32),
-                        PAVING_Y_MIRROR_LOAD_PATTERN(32));
-}
-
-
-void __arm_2d_rgb32_1x2_paving_xy_mirror(const uint32_t * __RESTRICT pSourceBase,
-                                       int16_t iSourceStride,
-                                       const arm_2d_size_t * ptSourceSize,
-                                       uint32_t * __RESTRICT pTargetBase,
-                                       int16_t iTargetStride,
-                                       uint32_t destWidth,
-                                       uint16_t tilePairRows)
-{
-    __ARM_2D_PAVING_1x2(32,
-                        PAVING_XY_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
-                        PAVING_XY_MIRROR_READ_DIR,
-                        PAVING_XY_MIRROR_SETUP_COPY(32),
-                        PAVING_XY_MIRROR_LOAD_PATTERN(32));
-}
-
-
-void __arm_2d_rgb32_2x1_paving(const uint32_t * __RESTRICT pSourceBase,
-                               int16_t iSourceStride,
-                               const arm_2d_size_t * __RESTRICT ptSourceSize,
-                               uint32_t * pTargetBase,
-                               int16_t iTargetStride,
-                               uint16_t tilePairCols,
-                               uint16_t destHeight)
-{
-    __ARM_2D_PAVING_2x1(32,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(32),
-                        PAVING_DIRECT_LOAD_PATTERN(32));
-}
-
-void __arm_2d_rgb32_2x1_paving_x_mirror(const uint32_t * __RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                        uint32_t * pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairCols,
-                                        uint16_t destHeight)
-{
-    __ARM_2D_PAVING_2x1(32,
-                        PAVING_X_MIRROR_START_OFFS(_, _),
-                        PAVING_X_MIRROR_READ_DIR,
-                        PAVING_X_MIRROR_SETUP_COPY(32),
-                        PAVING_X_MIRROR_LOAD_PATTERN(32));
-}
-
-void __arm_2d_rgb32_2x1_paving_y_mirror(const uint32_t * __RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                        uint32_t * pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairCols,
-                                        uint16_t destHeight)
-{
-    __ARM_2D_PAVING_2x1(32,
-                        PAVING_Y_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
-                        PAVING_Y_MIRROR_READ_DIR,
-                        PAVING_Y_MIRROR_SETUP_COPY(32),
-                        PAVING_Y_MIRROR_LOAD_PATTERN(32));
-}
-
-
-void __arm_2d_rgb32_2x1_paving_xy_mirror(const uint32_t * __RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                        uint32_t * pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairCols,
-                                        uint16_t destHeight)
-{
-    __ARM_2D_PAVING_2x1(32,
-                        PAVING_XY_MIRROR_START_OFFS(iSourceStride, ptSourceSize->iHeight),
-                        PAVING_XY_MIRROR_READ_DIR,
-                        PAVING_XY_MIRROR_SETUP_COPY(32),
-                        PAVING_XY_MIRROR_LOAD_PATTERN(32));
-}
-
-
-
-void __arm_2d_rgb32_1x1_paving(const uint32_t * __RESTRICT pSource,
-                                   int16_t iSourceStride,
-                                   uint32_t * __RESTRICT pTarget,
-                                   int16_t iTargetStride,
-                                   const arm_2d_size_t * ptSrcCopySize,
-                                   const arm_2d_size_t * ptDstCopySize)
-{
-    __ARM_2D_PAVING_1x1(32,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(32),
-                        PAVING_DIRECT_LOAD_PATTERN(32));
-}
-
-void __arm_2d_rgb32_1x1_paving_x_mirror(const uint32_t * __RESTRICT pSource,
-                                       int16_t iSourceStride,
-                                       uint32_t * __RESTRICT pTarget,
-                                       int16_t iTargetStride,
-                                       const arm_2d_size_t * ptSrcCopySize,
-                                       const arm_2d_size_t * ptDstCopySize)
-{
-    __ARM_2D_PAVING_1x1(32,
-                        PAVING_X_MIRROR_START_OFFS(_, _),
-                        PAVING_X_MIRROR_READ_DIR, PAVING_X_MIRROR_SETUP_COPY(32),
-                        PAVING_X_MIRROR_LOAD_PATTERN(32));
-}
-
-
-void __arm_2d_rgb32_1x1_paving_y_mirror(const uint32_t * __RESTRICT pSource,
-                                       int16_t iSourceStride,
-                                       uint32_t * __RESTRICT pTarget,
-                                       int16_t iTargetStride,
-                                       const arm_2d_size_t * ptSrcCopySize,
-                                       const arm_2d_size_t * ptDstCopySize)
-{
-    __ARM_2D_PAVING_1x1(32,
-                        PAVING_Y_MIRROR_START_OFFS(iSourceStride, ptSrcCopySize->iHeight),
-                        PAVING_Y_MIRROR_READ_DIR,
-                        PAVING_Y_MIRROR_SETUP_COPY(32),
-                        PAVING_Y_MIRROR_LOAD_PATTERN(32));
-}
-
-
-void __arm_2d_rgb32_1x1_paving_xy_mirror(const uint32_t * __RESTRICT pSource,
-                                       int16_t iSourceStride,
-                                       uint32_t * __RESTRICT pTarget,
-                                       int16_t iTargetStride,
-                                       const arm_2d_size_t * ptSrcCopySize,
-                                       const arm_2d_size_t * ptDstCopySize)
-{
-    __ARM_2D_PAVING_1x1(32,
-                        PAVING_XY_MIRROR_START_OFFS(iSourceStride, ptSrcCopySize->iHeight),
-                        PAVING_XY_MIRROR_READ_DIR,
-                        PAVING_XY_MIRROR_SETUP_COPY(32),
-                        PAVING_XY_MIRROR_LOAD_PATTERN(32));
-}
-
-/* paving with color masking */
-
-__OVERRIDE_WEAK
-void __arm_2d_rgb16_2x2_cl_msk_paving(  const uint16_t *__RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                        uint16_t * __RESTRICT pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairRows,
-                                        uint16_t tilePairCols,
-                                        uint16_t hwColour)
-{
-    __ARM_2D_PAVING_2x2(16,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(16),
-                        PAVING_DIRECT_LOAD_PATTERN(16),
-                        CMP_CL_MSK(16, hwColour));
-}
-
-
-__OVERRIDE_WEAK
-void __arm_2d_rgb16_1x2_cl_msk_paving(  const uint16_t * __RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                        uint16_t * __RESTRICT pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint32_t destWidth,
-                                        uint16_t tilePairRows,
-                                        uint16_t hwColour)
-{
-    __ARM_2D_PAVING_1x2(16,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(16),
-                        PAVING_DIRECT_LOAD_PATTERN(16),
-                        CMP_CL_MSK(16, hwColour));
-}
-
-__OVERRIDE_WEAK
-void __arm_2d_rgb16_2x1_cl_msk_paving(  const uint16_t * __RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                        uint16_t * __RESTRICT pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairCols,
-                                        uint16_t destHeight,
-                                        uint16_t hwColour)
-{
-    __ARM_2D_PAVING_2x1(16,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(16),
-                        PAVING_DIRECT_LOAD_PATTERN(16),
-                        CMP_CL_MSK(16, hwColour));
-}
-
-__OVERRIDE_WEAK
-void __arm_2d_rgb16_1x1_cl_msk_paving(
-                                const uint16_t * __RESTRICT pSource,
-                                int16_t iSourceStride,
-                                uint16_t * __RESTRICT pTarget,
-                                int16_t iTargetStride,
-                                const arm_2d_size_t * __RESTRICT ptSrcCopySize,
-                                const arm_2d_size_t * __RESTRICT ptDstCopySize,
-                                uint16_t hwColour)
-{
-    __ARM_2D_PAVING_1x1(16,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(16),
-                        PAVING_DIRECT_LOAD_PATTERN(16),
-                        CMP_CL_MSK(16, hwColour));
-}
-
-
-
-__OVERRIDE_WEAK
-void __arm_2d_rgb32_2x2_cl_msk_paving(  const uint32_t *__RESTRICT pSourceBase,
-                                        int16_t iSourceStride,
-                                        const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                        uint32_t * __RESTRICT pTargetBase,
-                                        int16_t iTargetStride,
-                                        uint16_t tilePairRows,
-                                        uint16_t tilePairCols,
-                                        uint32_t wColour)
-{
-    __ARM_2D_PAVING_2x2(32,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(32),
-                        PAVING_DIRECT_LOAD_PATTERN(32),
-                        CMP_CL_MSK(32, wColour));
-}
-
-__OVERRIDE_WEAK
-void __arm_2d_rgb32_1x2_cl_msk_paving(
-                                const uint32_t * __RESTRICT pSourceBase,
-                                int16_t iSourceStride,
-                                const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                uint32_t * __RESTRICT pTargetBase,
-                                int16_t iTargetStride,
-                                uint32_t destWidth,
-                                uint16_t tilePairRows,
-                                uint32_t wColour)
-{
-    __ARM_2D_PAVING_1x2(32,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(32),
-                        PAVING_DIRECT_LOAD_PATTERN(32),
-                        CMP_CL_MSK(32, wColour));
-}
-
-__OVERRIDE_WEAK
-void __arm_2d_rgb32_2x1_cl_msk_paving(
-                                const uint32_t * __RESTRICT pSourceBase,
-                                int16_t iSourceStride,
-                                const arm_2d_size_t * __RESTRICT ptSourceSize,
-                                uint32_t * __RESTRICT pTargetBase,
-                                int16_t iTargetStride,
-                                uint16_t tilePairCols,
-                                uint16_t destHeight,
-                                uint32_t wColour)
-{
-    __ARM_2D_PAVING_2x1(32,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(32),
-                        PAVING_DIRECT_LOAD_PATTERN(32),
-                        CMP_CL_MSK(32, wColour));
-}
-
-__OVERRIDE_WEAK
-void __arm_2d_rgb32_1x1_cl_msk_paving(
-                                const uint32_t * __RESTRICT pSource,
-                                int16_t iSourceStride,
-                                uint32_t * __RESTRICT pTarget,
-                                int16_t iTargetStride,
-                                const arm_2d_size_t * __RESTRICT ptSrcCopySize,
-                                const arm_2d_size_t * __RESTRICT ptDstCopySize,
-                                uint32_t wColour)
-{
-    __ARM_2D_PAVING_1x1(32,
-                        PAVING_DIRECT_START_OFFS(_, _),
-                        PAVING_DIRECT_READ_DIR,
-                        PAVING_DIRECT_SETUP_COPY(32),
-                        PAVING_DIRECT_LOAD_PATTERN(32),
-                        CMP_CL_MSK(32, wColour));
-}
+#include "__arm_2d_copy_helium.inc"
 
 
 /*----------------------------------------------------------------------------*
@@ -1134,7 +508,6 @@ void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *phwSourceBase,
                                             arm_2d_size_t *ptCopySize,
                                             uint_fast8_t chRatio)
 {
-#if defined (ARM_MATH_HELIUM) || defined(ARM_MATH_MVEF) || defined(ARM_MATH_MVEI)
 #ifdef USE_MVE_INTRINSICS
     int32_t         blkCnt;
     uint16_t        ratio1x8 = chRatio * 8;
@@ -1217,25 +590,32 @@ void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *phwSourceBase,
     uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
     uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
     uint16x8_t      vecMaskBpck = vdupq_n_u16(0x00f8);
-
+    uint32_t        iWidth = ptCopySize->iWidth;
     int32_t         row = ptCopySize->iHeight;
+    uint16x8_t      scratch[1];
+
+    vst1q((uint16_t *)scratch, vdupq_n_u16(0x00fc));
+
     do {
-        const uint16_t *phwSource = phwSourceBase;
-        uint16_t       *phwTarget = phwTargetBase;
+        const uint16_t *pSource = phwSourceBase;
+        uint16_t       *pTarget = phwTargetBase;
         register unsigned loopCnt  __asm("lr");
-        loopCnt = ptCopySize->iWidth;
+        loopCnt = iWidth;
 
     __asm volatile(
-        "   vldrh.u16               q4, [%[phwTarget]]           \n"
-        "   vmov.i16                q6, #0x00fc                  \n"
+        ".p2align 2                                              \n"
+        "   vldrh.u16               q4, [%[pTarget]]             \n"
+        "   vldrh.u16               q5, [%[pSource]], #16        \n"
 
-        "   vldrh.u16               q5, [%[phwSource]], #16      \n"
         "   wlstp.16                lr, %[loopCnt], 1f           \n"
         "2:                                                      \n"
         // B target extraction
-        "   vand                    q6, q4, %[vecMaskR]          \n"
-        "   vmul.i16                q6, q6, %[ratio2x8]          \n"
-        "   vshr.u16                q2, q4, #5                   \n"
+        // right shift by 5 (x 1/32) for M55 friendly
+        // IV / Mul pipe interleaving
+        "   vqdmulh.s16             q2, q4, %[rshft5]            \n"
+        "   vand                    q7, q4, %[vecMaskR]          \n"
+
+        "   vmul.i16                q6, q7, %[ratio2x8]          \n"
         // B source extraction
         "   vand                    q7, q5, %[vecMaskR]          \n"
         // B mix
@@ -1253,75 +633,428 @@ void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *phwSourceBase,
         "   vmul.i16                q7, q4, %[ratio2x8]          \n"
         // R extraction
         "   vshr.u16                q5, q5, #11                  \n"
-        "   vshr.u16                q2, q2, #8                   \n"
         // R mix
         "   vmla.u16                q7, q5, %[ratio1x8]          \n"
-        "   vshr.u16                q4, q7, #8                   \n"
 
-        "   vmov.i16                q7, #0x00fc                  \n"
-        "   vand                    q2, q2, q7                   \n"
+        "   vshr.u16                q2, q2, #8                   \n"
+        "   vldrh.16                q5, [%[scratch]]             \n"
+
+        "   vand                    q2, q2, q5                   \n"
         // vmulq((vecG0 & 0x00fc), 8)
         "   vmul.i16                q2, q2, %[eight]             \n"
-        "   vand                    q7, q4, %[vecMaskBpck]       \n"
+        "   vshr.u16                q4, q7, #8                   \n"
         // schedule next source load
-        "   vldrh.u16               q5, [%[phwSource]], #16      \n"
+        "   vldrh.u16               q5, [%[pSource]], #16        \n"
+        "   vand                    q7, q4, %[vecMaskBpck]       \n"
         // pack R & G
         // vmulq((vecG0 & vecMaskGpck), 8) + vmulq((vecR0 & vecMaskRpck), 256)
         "   vmla.u16                q2, q7, %[twofiftysix]       \n"
         // downshift B ((vecB0 >> 8) >> 3)
         "   vshr.u16                q7, q6, #11                  \n"
         // schedule next target load (pre offset as target not imcrementred so far)
-        "   vldrh.u16               q4, [%[phwTarget], #16]      \n"
+        "   vldrh.u16               q4, [%[pTarget], #16]        \n"
         // pack blue with R&G
         "   vorr                    q2, q2, q7                   \n"
-        "   vstrh.16                q2, [%[phwTarget]], #16      \n"
+
+        "   vstrh.16                q2, [%[pTarget]], #16        \n"
         "   letp                    lr, 2b                       \n"
         "1:                                                      \n"
 
-        : [phwSource] "+r"(phwSource),  [phwTarget] "+r" (phwTarget), [loopCnt] "+r"(loopCnt)
+        : [pSource] "+r"(pSource),  [pTarget] "+r" (pTarget), [loopCnt] "+r"(loopCnt)
         : [vecMaskR] "t" (vecMaskR), [vecMaskG] "t" (vecMaskG),
           [vecMaskBpck] "t" (vecMaskBpck),
           [ratio1x8] "r" (ratio1x8), [ratio2x8] "r" (ratio2x8),
           [ratio1x4] "r" (ratio1x4), [ratio2x4] "r" (ratio2x4),
-          [eight] "r" (8), [twofiftysix] "r" (256)
+          [eight] "r" (8), [twofiftysix] "r" (256), [rshft5] "r" (1024), [scratch] "r" (scratch)
         : "q2", "q4", "q5", "q6", "q7", "memory" );
 
         phwSourceBase += iSourceStride;
         phwTargetBase += iTargetStride;
     } while (--row);
 #endif /* USE_MVE_INTRINSICS */
+}
 
-#else
-    /* auto-vectorized */
-    uint32_t iHeight = ptCopySize->iHeight;
-    uint32_t iWidth  = ptCopySize->iWidth;
+
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb565_colour_filling_with_alpha(
+                                        uint16_t *__RESTRICT pTargetBase,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t *__RESTRICT ptCopySize,
+                                        uint16_t Colour,
+                                        uint_fast8_t chRatio)
+{
+#ifdef USE_MVE_INTRINSICS
+    int32_t         blkCnt;
+    uint16_t        ratio1x8 = chRatio * 8;
+    uint16_t        ratio1x4 = chRatio * 4;
+    uint16_t        ratio2x8 = (256 - chRatio) * 8;
+    uint16_t        ratio2x4 = (256 - chRatio) * 4;
+
+    uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
+    uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
+    uint16x8_t      vecMaskBpck = vdupq_n_u16(0x00f8);
+    uint16x8_t      vecMaskGpck = vdupq_n_u16(0x00fc);
+    uint16x8_t      vecIn;
+    uint16x8_t      vecColorR, vecColorB, vecColorG;
+
+    /* unpack color & scale */
+    vecIn = vdupq_n_u16(Colour);
+    vecColorR = (vecIn & vecMaskR) * ratio1x8;
+
+    vecColorB = (vecIn >> 11) * ratio1x8;
+
+    vecColorG = vecIn >> 5;
+    vecColorG = (vecColorG & vecMaskG) * ratio1x4;
 
     for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+        uint16_t       *phwTarget = pTargetBase;
 
-        const uint16_t  *phwSource = phwSourceBase;
-        uint16_t        *phwTarget = phwTargetBase;
-        uint16_t         ratioCompl = 256 - chRatio;
+        blkCnt = ptCopySize->iWidth;
+        do {
+            uint16x8_t      vecR0, vecB0, vecG0;
+            uint16x8_t      vecR1, vecB1, vecG1;
 
-        for (uint32_t x = 0; x < iWidth; x++) {
-            __arm_2d_color_fast_rgb_t wSourcePixel, wTargetPixel;
+            /* unpack stream */
+            vecIn = vld1q(phwTarget);
+            vecR1 = vecIn & vecMaskR;
 
-            __arm_2d_rgb565_unpack(*phwSourceBase++, &wSourcePixel);
-            __arm_2d_rgb565_unpack(*phwTargetBase, &wTargetPixel);
+            vecB1 = vecIn >> 11;
 
-            for (int i = 0; i < 3; i++) {
-                uint16_t        tmp =
-                    (uint16_t) (wSourcePixel.RGB[i] * chRatio) +
-                    (wTargetPixel.RGB[i] * ratioCompl);
-                wTargetPixel.RGB[i] = (uint16_t) (tmp >> 8);
-            }
-            /* pack merged stream */
-            *phwTargetBase++ = __arm_2d_rgb565_pack(&wTargetPixel);
+            vecG1 = vecIn >> 5;
+            vecG1 = vecG1 & vecMaskG;
+
+
+            /* merge */
+            vecR0 = vecColorR + vecR1 * ratio2x8;
+            vecR0 = vecR0 >> 8;
+
+            vecG0 = vecColorG + vecG1 * ratio2x4;
+            vecG0 = vecG0 >> 8;
+
+            vecB0 = vecColorB + vecB1 * ratio2x8;
+            vecB0 = vecB0 >> 8;
+
+            /* pack */
+            uint16x8_t      vOut = vecR0 >> 3 | vmulq((vecG0 & vecMaskGpck), 8)
+                | vmulq((vecB0 & vecMaskBpck), 256);
+
+            vst1q(phwTarget, vOut);
+
+            phwTarget += 8;
+            blkCnt -= 8;
         }
-        phwSourceBase += iSourceStride;
-        phwTargetBase += iTargetStride;
+        while (blkCnt > 0);
+
+        pTargetBase += iTargetStride;
+    }
+
+#else /* USE_MVE_INTRINSICS  */
+
+    uint16_t        ratio1x8 = chRatio * 8;
+    uint16_t        ratio1x4 = chRatio * 4;
+    uint16_t        ratio2x8 = (256 - chRatio) * 8;
+    uint16_t        ratio2x4 = (256 - chRatio) * 4;
+    uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
+    uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
+    uint16x8_t      vecMaskBpck = vdupq_n_u16(0x00f8);
+    uint16x8_t      vecColorR, vecColorB, vecColorG;
+    uint16x8_t      scratch[4];
+
+    /* unpack color */
+    uint16x8_t vecIn = vdupq_n_u16(Colour);
+    vecColorR = vecIn & vecMaskR;
+    vecColorB = vecIn >> 11;
+    vecColorG = vecIn >> 5;
+    vecColorG = vecColorG & vecMaskG;
+    vst1q((uint16_t*)scratch, vecColorR * ratio1x8);
+    vst1q((uint16_t*)&scratch[1], vecColorB * ratio1x8);
+    vst1q((uint16_t*)&scratch[2], vecColorG * ratio1x4);
+    vst1q((uint16_t*)&scratch[3], vdupq_n_u16(0x00fc));
+
+    int32_t         row = ptCopySize->iHeight;
+    do {
+
+        uint16_t       *phwTarget = pTargetBase;
+        register unsigned loopCnt  __asm("lr");
+        loopCnt = ptCopySize->iWidth;
+
+    __asm volatile(
+        "   vldrh.u16               q4, [%[phwTarget]]           \n"
+
+        "   wlstp.16                lr, %[loopCnt], 1f           \n"
+        ".p2align 2                                              \n"
+        "2:                                                      \n"
+        // B target extraction
+        "   vand                    q7, q4, %[vecMaskR]          \n"
+        "   vldrh.u16               q6, [%[scratch]]             \n"
+        "   vshr.u16                q2, q4, #5                   \n"
+
+        // B mix
+        "   vmla.u16                q6, q7, %[ratio2x8]          \n"
+        // G extraction
+        "   vand                    q7, q2, %[vecMaskG]          \n"
+
+        // G extraction
+        "   vldrh.u16               q2, [%[scratch], #32]        \n"
+        // G mix
+        "   vmla.u16                q2, q7, %[ratio2x4]          \n"
+
+        "   vshr.u16                q4, q4, #11                  \n"
+        // R extraction
+        "   vldrh.u16               q7, [%[scratch], #16]        \n"
+        "   vshr.u16                q2, q2, #8                   \n"
+        // R mix
+        "   vmla.u16                q7, q4, %[ratio2x8]          \n"
+        "   vshr.u16                q4, q7, #8                   \n"
+
+        // load duplicated 0xfc mask
+        "   vldrh.u16               q7, [%[scratch], #48]        \n"
+        "   vand                    q2, q2, q7                   \n"
+
+        "   vmul.i16                q2, q2, %[eight]             \n"
+        "   vand                    q7, q4, %[vecMaskBpck]       \n"
+
+        // pack R & G
+        "   vmla.u16                q2, q7, %[twofiftysix]       \n"
+        // downshift B ((vecB0 >> 8) >> 3)
+        "   vshr.u16                q7, q6, #11                  \n"
+        // schedule next target load
+        "   vldrh.u16               q4, [%[phwTarget], #16]      \n"
+        // pack blue with R&G
+        "   vorr                    q2, q2, q7                   \n"
+        "   vstrh.16                q2, [%[phwTarget]], #16      \n"
+        "   letp                    lr, 2b                       \n"
+        "1:                                                      \n"
+        : [phwTarget] "+r" (phwTarget), [loopCnt] "+r"(loopCnt)
+        : [vecMaskR] "t" (vecMaskR), [vecMaskG] "t" (vecMaskG),
+          [vecMaskBpck] "t" (vecMaskBpck),
+          [ratio2x8] "r" (ratio2x8), [ratio2x4] "r" (ratio2x4),
+          [eight] "r" (8), [twofiftysix] "r" (256), [scratch] "r" (scratch)
+        : "q2", "q4", "q5", "q6", "q7", "memory" );
+
+        pTargetBase += iTargetStride;
+    } while (--row);
+
+#endif /* USE_MVE_INTRINSICS */
+
+}
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb565_alpha_blending_colour_masking(
+                                                uint16_t * __RESTRICT phwSource,
+                                                int16_t         iSourceStride,
+                                                uint16_t * __RESTRICT phwTarget,
+                                                int16_t         iTargetStride,
+                                                arm_2d_size_t * __RESTRICT ptCopySize,
+                                                uint_fast8_t    chRatio,
+                                                uint_fast16_t   hwColour)
+{
+#ifdef USE_MVE_INTRINSICS
+    uint32_t        iHeight = ptCopySize->iHeight;
+    uint32_t        iWidth = ptCopySize->iWidth;
+
+    int32_t         blkCnt;
+    uint16_t        ratio1x8 = chRatio * 8;
+    uint16_t        ratio1x4 = chRatio * 4;
+    uint16_t        ratio2x8 = (256 - chRatio) * 8;
+    uint16_t        ratio2x4 = (256 - chRatio) * 4;
+
+    uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
+    uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
+    uint16x8_t      vecMaskBpck = vdupq_n_u16(0x00f8);
+    uint16x8_t      vecMaskGpck = vdupq_n_u16(0x00fc);
+
+    for (uint32_t y = 0; y < iHeight; y++) {
+        // - inconditional blending + predicated dst update
+        const uint16_t *pSource = phwSource;
+        uint16_t       *pTarget = phwTarget;
+        blkCnt = iWidth >> 3;
+
+        while (blkCnt > 0) {
+            uint16x8_t      vecInSrc, vecInDst;
+            uint16x8_t      vecR0, vecB0, vecG0;
+            uint16x8_t      vecR1, vecB1, vecG1;
+
+            /* unpack 1st stream */
+            vecInSrc = vld1q(pSource);
+            vecR0 = vandq(vecInSrc, vecMaskR);
+            vecB0 = vshrq(vecInSrc, 11);
+            vecG0 = vshrq(vecInSrc, 5);
+            vecG0 = vandq(vecG0, vecMaskG);
+
+            /* unpack 2nd stream */
+            vecInDst = vld1q(pTarget);
+            vecR1 = vandq(vecInDst, vecMaskR);
+            vecB1 = vshrq(vecInDst, 11);
+            vecG1 = vshrq(vecInDst, 5);
+            vecG1 = vandq(vecG1, vecMaskG);
+
+            /* merge */
+            vecR0 = vmlaq(vmulq(vecR0, ratio1x8), vecR1, ratio2x8);
+            vecR0 = vshrq(vecR0, 8);
+            vecG0 = vmlaq(vmulq(vecG0, ratio1x4), vecG1, ratio2x4);
+            vecG0 = vshrq(vecG0, 8);
+            vecB0 = vmlaq(vmulq(vecB0, ratio1x8), vecB1, ratio2x8);
+            vecB0 = vshrq(vecB0, 8);
+
+            /* pack */
+            uint16x8_t      vOut = vorrq(vshrq(vecR0, 3),
+                                         vmulq(vandq(vecG0, vecMaskGpck), 8));
+
+            vOut = vorrq(vOut, vmulq(vandq(vecB0, vecMaskBpck), 256));
+
+            vst1q_p(pTarget, vOut, vcmpneq_n_s16(vecInSrc, hwColour));
+
+            pSource += 8;
+            pTarget += 8;
+            blkCnt--;
+
+        }
+
+        blkCnt = iWidth & 7;
+        if (blkCnt > 0U) {
+            uint16x8_t      vecInSrc, vecInDst;
+            uint16x8_t      vecR0, vecB0, vecG0;
+            uint16x8_t      vecR1, vecB1, vecG1;
+
+            /* unpack 1st stream */
+            vecInSrc = vld1q(pSource);
+            vecR0 = vandq(vecInSrc, vecMaskR);
+            vecB0 = vshrq(vecInSrc, 11);
+            vecG0 = vshrq(vecInSrc, 5);
+            vecG0 = vandq(vecG0, vecMaskG);
+
+            /* unpack 2nd stream */
+            vecInDst = vld1q(pTarget);
+            vecR1 = vandq(vecInDst, vecMaskR);
+            vecB1 = vshrq(vecInDst, 11);
+            vecG1 = vshrq(vecInDst, 5);
+            vecG1 = vandq(vecG1, vecMaskG);
+
+            /* merge */
+            vecR0 = vmlaq(vmulq(vecR0, ratio1x8), vecR1, ratio2x8);
+            vecR0 = vshrq(vecR0, 8);
+            vecG0 = vmlaq(vmulq(vecG0, ratio1x4), vecG1, ratio2x4);
+            vecG0 = vshrq(vecG0, 8);
+            vecB0 = vmlaq(vmulq(vecB0, ratio1x8), vecB1, ratio2x8);
+            vecB0 = vshrq(vecB0, 8);
+
+            /* pack */
+            uint16x8_t      vOut = vorrq(vshrq(vecR0, 3),
+                                         vmulq(vandq(vecG0, vecMaskGpck), 8));
+
+            vOut = vorrq(vOut,
+                    vmulq(vandq(vecB0, vecMaskBpck), 256));
+
+            vst1q_p(pTarget, vOut,
+                    vcmpneq_m_n_s16(vecInSrc, hwColour, vctp16q(blkCnt)));
+
+        }
+
+        phwSource += iSourceStride;
+        phwTarget += iTargetStride;
+    }
+#else
+    uint32_t        iHeight = ptCopySize->iHeight;
+    uint32_t        iWidth = ptCopySize->iWidth;
+
+    uint16_t        ratio1x8 = chRatio * 8;
+    uint16_t        ratio1x4 = chRatio * 4;
+    uint16_t        ratio2x8 = (256 - chRatio) * 8;
+    uint16_t        ratio2x4 = (256 - chRatio) * 4;
+
+    uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
+    uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
+    uint16x8_t      vecMaskBpck = vdupq_n_u16(0x00f8);
+    uint16x8_t      scratch[1];
+
+    vst1q((uint16_t *)scratch, vdupq_n_u16(0x00fc));
+
+    for (uint32_t y = 0; y < iHeight; y++) {
+
+        const uint16_t *pSource = phwSource;
+        uint16_t       *pTarget = phwTarget;
+        register unsigned loopCnt  __asm("lr");
+        loopCnt = iWidth;
+
+    __asm volatile(
+        ".p2align 2                                              \n"
+        "   vldrh.u16               q4, [%[pTarget]]             \n"
+        "   vldrh.u16               q5, [%[pSource]], #16        \n"
+        "   vand                    q7, q4, %[vecMaskR]          \n"
+        "   wlstp.16                lr, %[loopCnt], 1f           \n"
+        "2:                                                      \n"
+        // B target extraction
+        "   vshr.u16                q2, q4, #5                   \n"
+        "   vmul.i16                q6, q7, %[ratio2x8]          \n"
+        // B source extraction
+        "   vand                    q7, q5, %[vecMaskR]          \n"
+        // B mix
+        "   vmla.u16                q6, q7, %[ratio1x8]          \n"
+        // G extraction
+        "   vand                    q2, q2, %[vecMaskG]          \n"
+        "   vshr.u16                q7, q5, #5                   \n"
+        "   vmul.i16                q2, q2, %[ratio2x4]          \n"
+        // G extraction
+        "   vand                    q7, q7, %[vecMaskG]          \n"
+        // G mix
+        "   vmla.u16                q2, q7, %[ratio1x4]          \n"
+        // R extraction
+        "   vshr.u16                q4, q4, #11                  \n"
+        "   vmul.i16                q7, q4, %[ratio2x8]          \n"
+        // R extraction
+        "   vshr.u16                q5, q5, #11                  \n"
+        // R mix
+        "   vmla.u16                q7, q5, %[ratio1x8]          \n"
+
+        "   vshr.u16                q2, q2, #8                   \n"
+        "   vldrh.16                q5, [%[scratch]]             \n"
+
+        "   vand                    q2, q2, q5                   \n"
+        // vmulq((vecG0 & 0x00fc), 8)
+        "   vmul.i16                q2, q2, %[eight]             \n"
+        "   vshr.u16                q4, q7, #8                   \n"
+        // schedule next source load
+        "   vldrh.u16               q5, [%[pSource]], #16        \n"
+        "   vand                    q7, q4, %[vecMaskBpck]       \n"
+        // pack R & G
+        // vmulq((vecG0 & vecMaskGpck), 8) + vmulq((vecR0 & vecMaskRpck), 256)
+        "   vmla.u16                q2, q7, %[twofiftysix]       \n"
+        // downshift B ((vecB0 >> 8) >> 3)
+        "   vshr.u16                q7, q6, #11                  \n"
+        // schedule next target load (pre offset as target not imcrementred so far)
+        "   vldrh.u16               q4, [%[pTarget], #16]        \n"
+        // pack blue with R&G
+        "   vorr                    q2, q2, q7                   \n"
+        "   vldrh.u16               q6, [%[pSource], #-32]       \n"
+        "   vand                    q7, q4, %[vecMaskR]          \n"
+        "   vpt.u16                 ne, q6, %[hwColour]          \n"
+        "   vstrht.16               q2, [%[pTarget]], #16        \n"
+        "   letp                    lr, 2b                       \n"
+        "1:                                                      \n"
+
+        : [pSource] "+r"(pSource),  [pTarget] "+r" (pTarget), [loopCnt] "+r"(loopCnt)
+        : [vecMaskR] "t" (vecMaskR), [vecMaskG] "t" (vecMaskG),
+          [vecMaskBpck] "t" (vecMaskBpck),
+          [ratio1x8] "r" (ratio1x8), [ratio2x8] "r" (ratio2x8),
+          [ratio1x4] "r" (ratio1x4), [ratio2x4] "r" (ratio2x4),
+          [eight] "r" (8), [twofiftysix] "r" (256), [hwColour] "r" (hwColour), [scratch] "r" (scratch)
+        : "q2", "q4", "q5", "q6", "q7", "memory" );
+
+        phwSource += (iSourceStride);
+        phwTarget += (iTargetStride);
     }
 #endif
 }
+
+
+
+
+
+
 
 __OVERRIDE_WEAK
 void __arm_2d_impl_rgb888_alpha_blending(   uint32_t *pwSourceBase,
@@ -1331,12 +1064,44 @@ void __arm_2d_impl_rgb888_alpha_blending(   uint32_t *pwSourceBase,
                                             arm_2d_size_t *ptCopySize,
                                             uint_fast8_t chRatio)
 {
-#if defined (ARM_MATH_HELIUM) || defined(ARM_MATH_MVEF) || defined(ARM_MATH_MVEI)
+#ifdef USE_MVE_INTRINSICS
+    uint16_t        chRatioCompl = 256 - (uint16_t) chRatio;
+    int32_t         blkCnt;
+    int32_t         row = ptCopySize->iHeight;
+
+    while (row > 0) {
+
+        const uint32_t *pwSource = pwSourceBase;
+        uint32_t       *pwTarget = pwTargetBase;
+        /* byte extraction into 16-bit vector */
+        uint16x8_t      vecSrc = vldrbq_u16(pwSource);
+        uint16x8_t      vecTrg = vldrbq_u16(pwTarget);
+
+        pwSource += 2;
+        blkCnt = ptCopySize->iWidth;
+
+        while (blkCnt > 0) {
+            vstrbq_u16(pwTarget,
+                       vmlaq(vmulq(vecSrc, chRatio), vecTrg, chRatioCompl) >> 8);
+
+            pwTarget += 2;
+
+            vecSrc = vldrbq_u16(pwSource);
+            vecTrg = vldrbq_u16(pwTarget);
+            pwSource += 2;
+            blkCnt -= 2;
+        }
+
+        pwSourceBase += iSourceStride;
+        pwTargetBase += iTargetStride;
+        row--;
+    }
+#else
     uint16_t        chRatioCompl = 256 - (uint16_t) chRatio;
     register unsigned blkCnt  __asm("lr");
     int32_t row = ptCopySize->iHeight;
 
-    do
+    while(row > 0)
     {
         blkCnt = ptCopySize->iWidth*4;
         const uint32_t *pwSource = pwSourceBase;
@@ -1362,35 +1127,145 @@ void __arm_2d_impl_rgb888_alpha_blending(   uint32_t *pwSourceBase,
             : [chRatio] "r" (chRatio), [chRatioCompl] "r" (chRatioCompl)
             : "q0", "q1", "q2", "memory" );
 
-            pwSourceBase += iSourceStride;
-            pwTargetBase += iTargetStride;
-    } while (--row);
-
-#else /* defined (ARM_MATH_HELIUM) || defined(ARM_MATH_MVEF) || defined(ARM_MATH_MVEI) */
-    for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
-
-        const uint32_t *pwSource = pwSourceBase;
-        uint32_t *pwTarget = pwTargetBase;
-
-        for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++) {
-
-            uint_fast8_t n = sizeof(uint32_t);
-            const uint8_t *pchSrc = (uint8_t *)(pwSource++);
-            uint8_t *pchDes = (uint8_t *)(pwTarget++);
-
-            do {
-                *pchDes = ( ((uint_fast16_t)(*pchSrc++) * chRatio)
-                          + (   (uint_fast16_t)(*pchDes)
-                            *   (256 - (uint_fast16_t)chRatio))) >> 8;
-                 pchDes++;
-            } while(--n);
-        }
-
         pwSourceBase += iSourceStride;
         pwTargetBase += iTargetStride;
+        row--;
     }
 #endif
 }
+
+
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb888_colour_filling_with_alpha(
+                                        uint32_t *__RESTRICT pTargetBase,
+                                        int16_t iTargetStride,
+                                        arm_2d_size_t *__RESTRICT ptCopySize,
+                                        uint32_t Colour,
+                                        uint_fast8_t chRatio)
+{
+#ifdef USE_MVE_INTRINSICS
+    uint16_t        chRatioCompl = 256 - (uint16_t) chRatio;
+    int32_t         blkCnt;
+    int32_t         row = ptCopySize->iHeight;
+    uint32_t        scratch[2];
+    uint16x8_t      vColor;
+
+    scratch[0] = scratch[1] = Colour;
+    vColor = vldrbq_u16((uint8_t *) scratch);
+    vColor = vColor * (uint16_t)chRatio;
+
+    while (row > 0) {
+        uint32_t       *pTarget = pTargetBase;
+        blkCnt = ptCopySize->iWidth;
+
+        while (blkCnt > 0) {
+            /* byte extraction into 16-bit vector */
+            uint16x8_t      vecTrg = vldrbq_u16((uint8_t *)pTarget);
+
+            vstrbq_u16((uint8_t *)pTarget, vmlaq(vColor, vecTrg, chRatioCompl) >> 8);
+
+            pTarget += 2;
+            blkCnt -= 2;
+        }
+        pTargetBase += iTargetStride;
+        row--;
+    }
+#else /* USE_MVE_INTRINSICS  */
+
+    uint16_t        chRatioCompl = 256 - (uint16_t) chRatio;
+    int32_t         blkCnt;
+    int32_t         row = ptCopySize->iHeight;
+    uint32_t        scratch[2];
+    uint16x8_t      vColor;
+
+    scratch[0] = scratch[1] = Colour;
+    vColor = vldrbq_u16((uint8_t *) scratch);
+    vColor = vColor * (uint16_t)chRatio;
+
+    while (row > 0) {
+        uint32_t       *pTarget = pTargetBase;
+        blkCnt = ptCopySize->iWidth*4;
+
+    __asm volatile(
+        /* preload */
+        "   vldrb.u16               q1, [%[pTarget]]               \n"
+
+        "   wlstp.16                lr, %[loopCnt], 1f             \n"
+        ".p2align 2                                                \n"
+        "2:                                                        \n"
+        "   vmov                    q2, %[vColor]                  \n"
+        "   vmla.u16                q2, q1, %[chRatioCompl]        \n"
+        "   vldrb.u16               q1, [%[pTarget], #8]           \n"
+        "   vshr.u16                q2, q2, #8                     \n"
+        "   vstrb.16                q2, [%[pTarget]], #8           \n"
+        "   letp                    lr, 2b                         \n"
+        "1:                                                        \n"
+        : [pTarget] "+l"(pTarget)
+        : [loopCnt] "r"(blkCnt), [chRatioCompl] "r" (chRatioCompl), [vColor] "t" (vColor)
+        : "q0", "q1", "q2", "memory" );
+
+        pTargetBase += iTargetStride;
+        row--;
+    }
+
+#endif /* USE_MVE_INTRINSICS */
+}
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb888_alpha_blending_colour_masking(uint32_t * __RESTRICT pSourceBase,
+                                                       int16_t iSourceStride,
+                                                       uint32_t * __RESTRICT pTargetBase,
+                                                       int16_t iTargetStride,
+                                                       arm_2d_size_t *
+                                                       __RESTRICT ptCopySize,
+                                                       uint_fast8_t chRatio,
+                                                       uint32_t Colour)
+{
+    int_fast16_t    iHeight = ptCopySize->iHeight;
+    int_fast16_t    iWidth = ptCopySize->iWidth;
+    uint16_t        chRatioCompl = 256 - chRatio;
+    uint32_t        scratch[2];
+    uint16x8_t      vColor;
+
+    /* color widening */
+    scratch[0] = scratch[1] = Colour;
+    vColor = vldrbq_u16((uint8_t *) scratch);
+
+    for (int_fast16_t y = 0; y < iHeight; y++) {
+        int32_t         blkCnt = iWidth;
+        const uint32_t *pSource = pSourceBase;
+        uint32_t       *pTarget = pTargetBase;
+        uint16x8_t      vecSrc, vecTrg;
+
+        vecSrc = vldrbq_u16((uint8_t const *) pSource);
+        pSource += 2;
+        vecTrg = vldrbq_u16((uint8_t const *) pTarget);
+        pTarget += 2;
+
+        do {
+            uint16x8_t      vecOut;
+
+            vecOut = vmlaq(vmulq(vecSrc, chRatio), vecTrg, chRatioCompl) >> 8;
+
+            vecSrc = vldrbq_u16((uint8_t const *) pSource);
+            vecTrg = vldrbq_u16((uint8_t const *) pTarget);
+
+            // update if (*pSourceBase != Colour)
+            vstrbq_p_u16((uint8_t *)pTarget, vecOut, vcmpneq_u16(vecSrc, vColor));
+
+            pSource += 2;
+            pTarget += 2;
+            blkCnt -= 2;
+        }
+        while (blkCnt > 0);
+
+        pSourceBase += (iSourceStride - iWidth);
+        pTargetBase += (iTargetStride - iWidth);
+    }
+}
+
 
 __OVERRIDE_WEAK
 void __arm_2d_impl_rgb565_alpha_blending_direct(const uint16_t *phwSource,
@@ -2018,7 +1893,7 @@ void __arm_2d_rotate_point_mve(int16x8_t vLocX, int16_t locY,
 
 
 
-
+static
 mve_pred16_t arm_2d_is_point_vec_inside_region_s16(const arm_2d_region_t * ptRegion,
                                                const arm_2d_point_s16x8_t * ptPoint)
 {
@@ -2030,6 +1905,7 @@ mve_pred16_t arm_2d_is_point_vec_inside_region_s16(const arm_2d_region_t * ptReg
     return p0;
 }
 
+static
 mve_pred16_t arm_2d_is_point_vec_inside_region_s32(const arm_2d_region_t * ptRegion,
                                                const arm_2d_point_s32x4_t * ptPoint)
 {
@@ -2042,6 +1918,7 @@ mve_pred16_t arm_2d_is_point_vec_inside_region_s32(const arm_2d_region_t * ptReg
 }
 
 
+static
 void __arm_2d_impl_rgb565_get_pixel_colour_mve(   arm_2d_point_s16x8_t *ptPoint,
                                             arm_2d_region_t *ptOrigValidRegion,
                                             uint16_t *pOrigin,
@@ -2050,8 +1927,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_mve(   arm_2d_point_s16x8_t *ptPoint,
                                             uint16_t MaskColour,
                                             int16_t elts)
 {
-#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__)                          \
-    &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
 #error "The current version hasn\'t support interpolation in rotation yet."
 #else
     /* set vector predicate if point is inside the region */
@@ -2071,7 +1947,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_mve(   arm_2d_point_s16x8_t *ptPoint,
 }
 
 
-
+static
 void __arm_2d_impl_rgb888_get_pixel_colour_mve(   arm_2d_point_s16x8_t *ptPoint,
                                             arm_2d_region_t *ptOrigValidRegion,
                                             uint32_t *pOrigin,
@@ -2080,8 +1956,7 @@ void __arm_2d_impl_rgb888_get_pixel_colour_mve(   arm_2d_point_s16x8_t *ptPoint,
                                             uint32_t MaskColour,
                                             int16_t elts)
 {
-#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__)                          \
-    &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
 #error "The current version hasn\'t support interpolation in rotation yet."
 #else
 
@@ -2129,7 +2004,7 @@ void __arm_2d_impl_rgb888_get_pixel_colour_mve(   arm_2d_point_s16x8_t *ptPoint,
 }
 
 
-
+static
 void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_mve(
                                             arm_2d_point_s16x8_t    *ptPoint,
                                             arm_2d_region_t         *ptOrigValidRegion,
@@ -2140,8 +2015,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_mve(
                                             uint8_t                  chOpacity,
                                             int16_t                  elts)
 {
-#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__)                          \
-    &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
 #error "The current version hasn\'t support interpolation in rotation yet."
 #else
     /* set vector predicate if point is inside the region */
@@ -2166,6 +2040,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_mve(
 
 
 
+static
 void __arm_2d_impl_rgb888_get_pixel_colour_with_alpha_mve(
                                             arm_2d_point_s16x8_t    *ptPoint,
                                             arm_2d_region_t         *ptOrigValidRegion,
@@ -2176,8 +2051,7 @@ void __arm_2d_impl_rgb888_get_pixel_colour_with_alpha_mve(
                                             uint8_t                  chOpacity,
                                             int16_t                  elts)
 {
-#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__)                          \
-    &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__)  &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
 #error "The current version hasn\'t support interpolation in rotation yet."
 #else
     arm_2d_point_s32x4_t    tPointLo, tPointHi;
@@ -2308,6 +2182,9 @@ int32_t histX[8]; // -4 -3 -2 -1 0 1 2 3
 int32_t histY[8]; // -4 -3 -2 -1 0 1 2 3
 
 #endif
+
+
+__OVERRIDE_WEAK
 void __arm_2d_impl_rgb565_rotate( __arm_2d_param_copy_orig_t *ptParam,
                             __arm_2d_rotate_info_t *ptInfo)
 {
@@ -2425,7 +2302,7 @@ void __arm_2d_impl_rgb565_rotate( __arm_2d_param_copy_orig_t *ptParam,
 
 
 
-
+__OVERRIDE_WEAK
 void __arm_2d_impl_rgb565_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
                                     __arm_2d_rotate_info_t *ptInfo,
                                     uint_fast8_t chRatio)
@@ -2473,6 +2350,7 @@ void __arm_2d_impl_rgb565_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
 
 
 /* untested */
+__OVERRIDE_WEAK
 void __arm_2d_impl_rgb888_rotate(   __arm_2d_param_copy_orig_t *ptParam,
                                     __arm_2d_rotate_info_t *ptInfo)
 {
@@ -2516,6 +2394,7 @@ void __arm_2d_impl_rgb888_rotate(   __arm_2d_param_copy_orig_t *ptParam,
 }
 
 /* untested */
+__OVERRIDE_WEAK
 void __arm_2d_impl_rgb888_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
                                     __arm_2d_rotate_info_t *ptInfo,
                                     uint_fast8_t chRatio)
@@ -2562,8 +2441,1089 @@ void __arm_2d_impl_rgb888_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
 }
 
 
-
 #endif
+
+
+/* rgb16_draw_pattern helpers */
+
+/*
+ * enable to pick gather load offset based on initial offset
+ * e.g. if iOffset = 3
+ * will get {0, 0, 0, 0, 0, 1, 1, 1}
+ */
+static uint16_t __rgb16_draw_pattern_src_incr[16] = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    1, 1, 1, 1, 1, 1, 1, 1
+};
+
+/*
+ * enable to pick vector bitmask based on initial offset
+ * e.g. if iOffset = 3
+ * will get {8, 16, 32, 64, 128, 1, 2, 4}
+ */
+
+static  uint16_t __rgb16_draw_pattern_src_bitmask[16] = {
+    1, 2, 4, 8, 16, 32, 64, 128,
+    1, 2, 4, 8, 16, 32, 64, 128,
+};
+
+
+/* rgb32_draw_pattern helpers */
+
+static uint32_t __rgb32_draw_pattern_src_incr[16] = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    1, 1, 1, 1, 1, 1, 1, 1
+};
+
+
+static  uint32_t __rgb32_draw_pattern_src_bitmask[16] = {
+    1, 2, 4, 8, 16, 32, 64, 128,
+    1, 2, 4, 8, 16, 32, 64, 128,
+};
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb16_draw_pattern_fg_only(uint8_t *__RESTRICT pchSourceBase,
+                                         int32_t  iOffset,
+                                         int16_t iSourceStride,
+                                         uint16_t *__RESTRICT pTargetBase,
+                                         int16_t iTargetStride,
+                                         arm_2d_size_t *__RESTRICT ptCopySize,
+                                         uint16_t hwForeColour)
+{
+    //! get in byte offset
+    iOffset &= 0x07;
+    iSourceStride = (iSourceStride + 7) & ~0x07;
+
+    /* deduces offset vector from iOffset for gather loading */
+    uint16x8_t      offS = vld1q(__rgb16_draw_pattern_src_incr + iOffset);
+    /* deduces bitmask vector with wrap from iOffset */
+    uint16x8_t      vBitMask = vld1q(__rgb16_draw_pattern_src_bitmask + iOffset);
+
+    if (ptCopySize->iWidth <= 8) {
+        /* small width specialization */
+        /* no inner loop */
+        mve_pred16_t    p = vctp16q(ptCopySize->iWidth);
+
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            uint16x8_t      vchSrc = vldrbq_gather_offset_u16(pchSourceBase, offS);
+            uint16x8_t      vTarg = vld1q(pTargetBase);
+
+            vchSrc = vchSrc & vBitMask;
+            vTarg = vdupq_m_n_u16(vTarg, hwForeColour, vcmpneq_n_u16(vchSrc, 0));
+
+            vst1q_p(pTargetBase, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+
+    } else {
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            int32_t         cnt = ptCopySize->iWidth;
+            uint8_t        *pchSourceBaseCur = pchSourceBase;
+            uint16_t       *pTargetBaseCur = pTargetBase;
+
+            while (cnt > 0) {
+                mve_pred16_t    p = vctp16q(cnt);
+                uint16x8_t      vchSrc =
+                    vldrbq_gather_offset_z_u16(pchSourceBaseCur, offS, p);
+                uint16x8_t      vTarg = vld1q_z(pTargetBaseCur, p);
+
+                vchSrc = vandq_x(vchSrc, vBitMask, p);
+                vTarg = vdupq_m_n_u16(vTarg, hwForeColour, vcmpneq_m_n_u16(vchSrc, 0, p));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+
+                pTargetBaseCur += 8;
+                pchSourceBaseCur += 1;
+                cnt -= 8;
+            }
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    }
+}
+
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb16_draw_pattern_no_bg_comp(uint8_t * __RESTRICT pchSourceBase,
+                                                 int32_t iOffset,
+                                                 int16_t iSourceStride,
+                                                 uint16_t * __RESTRICT pTargetBase,
+                                                 int16_t iTargetStride,
+                                                 arm_2d_size_t * __RESTRICT ptCopySize)
+{
+    //! get in byte offset
+    iOffset &= 0x07;
+    iSourceStride = (iSourceStride + 7) & ~0x07;
+
+    /* deduces offset vector from iOffset for gather loading */
+    uint16x8_t      offS = vld1q(__rgb16_draw_pattern_src_incr + iOffset);
+    /* deduces bitmask vector with wrap from iOffset */
+    uint16x8_t      vBitMask = vld1q(__rgb16_draw_pattern_src_bitmask + iOffset);
+
+    if (ptCopySize->iWidth <= 8) {
+        /* small width specialization */
+        /* no inner loop */
+        mve_pred16_t    p = vctp16q(ptCopySize->iWidth);
+
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            uint16x8_t      vchSrc = vldrbq_gather_offset_u16(pchSourceBase, offS);
+            uint16x8_t      vTarg = vld1q(pTargetBase);
+
+            vchSrc = vchSrc & vBitMask;
+            vTarg = vpselq(~vTarg, vTarg, vcmpneq_n_u16(vchSrc, 0));//vTarg = vpselq(vTarg, ~vTarg, vcmpneq_n_u16(vchSrc, 0));
+
+            vst1q_p(pTargetBase, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+
+    } else {
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            int32_t         cnt = ptCopySize->iWidth;
+            uint8_t        *pchSourceBaseCur = pchSourceBase;
+            uint16_t       *pTargetBaseCur = pTargetBase;
+
+            while (cnt > 0) {
+                mve_pred16_t    p = vctp16q(cnt);
+                uint16x8_t      vchSrc =
+                    vldrbq_gather_offset_z_u16(pchSourceBaseCur, offS, p);
+                uint16x8_t      vTarg = vld1q_z(pTargetBaseCur, p);
+
+                vchSrc = vandq_x(vchSrc, vBitMask, p);
+                vTarg = vpselq(vmvnq_x(vTarg, p), vTarg, vcmpneq_m_n_u16(vchSrc, 0, p));//vTarg = vpselq(vTarg, vmvnq_x(vTarg, p), vcmpneq_m_n_u16(vchSrc, 0, p));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+
+                pTargetBaseCur += 8;
+                pchSourceBaseCur += 1;
+                cnt -= 8;
+            }
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    }
+}
+
+
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb16_draw_pattern_bg_only(uint8_t *__RESTRICT pchSourceBase,
+                                         int32_t  iOffset,
+                                         int16_t iSourceStride,
+                                         uint16_t *__RESTRICT pTargetBase,
+                                         int16_t iTargetStride,
+                                         arm_2d_size_t *__RESTRICT ptCopySize,
+                                         uint16_t hwBackColour)
+{
+    //! get in byte offset
+    iOffset &= 0x07;
+    iSourceStride = (iSourceStride + 7) & ~0x07;
+
+    /* deduces offset vector from iOffset for gather loading */
+    uint16x8_t      offS = vld1q(__rgb16_draw_pattern_src_incr + iOffset);
+    /* deduces bitmask vector with wrap from iOffset */
+    uint16x8_t      vBitMask = vld1q(__rgb16_draw_pattern_src_bitmask + iOffset);
+
+    if (ptCopySize->iWidth <= 8) {
+        /* small width specialization */
+        /* no inner loop */
+        mve_pred16_t    p = vctp16q(ptCopySize->iWidth);
+
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            uint16x8_t      vchSrc = vldrbq_gather_offset_u16(pchSourceBase, offS);
+            uint16x8_t      vTarg = vld1q(pTargetBase);
+
+            vchSrc = vchSrc & vBitMask;
+            vTarg = vdupq_m_n_u16(vTarg, hwBackColour, vcmpeqq_n_u16(vchSrc, 0));
+
+            vst1q_p(pTargetBase, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+
+    } else {
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            int32_t         cnt = ptCopySize->iWidth;
+            uint8_t        *pchSourceBaseCur = pchSourceBase;
+            uint16_t       *pTargetBaseCur = pTargetBase;
+
+            while (cnt > 0) {
+                mve_pred16_t    p = vctp16q(cnt);
+                uint16x8_t      vchSrc =
+                    vldrbq_gather_offset_z_u16(pchSourceBaseCur, offS, p);
+                uint16x8_t      vTarg = vld1q_z(pTargetBaseCur, p);
+
+                vchSrc = vandq_x(vchSrc, vBitMask, p);
+                vTarg = vdupq_m_n_u16(vTarg, hwBackColour, vcmpeqq_m_n_u16(vchSrc, 0, p));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+
+                pTargetBaseCur += 8;
+                pchSourceBaseCur += 1;
+                cnt -= 8;
+            }
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    }
+}
+
+
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb16_draw_pattern_bg_fg(uint8_t *__RESTRICT pchSourceBase,
+                                         int32_t  iOffset,
+                                         int16_t iSourceStride,
+                                         uint16_t *__RESTRICT pTargetBase,
+                                         int16_t iTargetStride,
+                                         arm_2d_size_t *__RESTRICT ptCopySize,
+                                         uint16_t hwForeColour,
+                                         uint16_t hwBackColour)
+{
+    //! get in byte offset
+    iOffset &= 0x07;
+    iSourceStride = (iSourceStride + 7) & ~0x07;
+
+    /* deduces offset vector from iOffset for gather loading */
+    uint16x8_t      offS = vld1q(__rgb16_draw_pattern_src_incr + iOffset);
+    /* deduces bitmask vector with wrap from iOffset */
+    uint16x8_t      vBitMask = vld1q(__rgb16_draw_pattern_src_bitmask + iOffset);
+    uint16x8_t      vFgColor = vdupq_n_u16(hwForeColour);
+    uint16x8_t      vBgColor = vdupq_n_u16(hwBackColour);
+
+    if (ptCopySize->iWidth <= 8) {
+        /* small width specialization */
+        /* no inner loop */
+        mve_pred16_t    p = vctp16q(ptCopySize->iWidth);
+
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            uint16x8_t      vchSrc = vldrbq_gather_offset_u16(pchSourceBase, offS);
+            uint16x8_t      vTarg;
+
+            vchSrc = vchSrc & vBitMask;
+            vTarg =
+                vpselq(vFgColor, vBgColor, vcmpneq_n_u16(vchSrc, 0));
+
+            vst1q_p(pTargetBase, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+
+    } else {
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            int32_t         cnt = ptCopySize->iWidth;
+            uint8_t        *pchSourceBaseCur = pchSourceBase;
+            uint16_t       *pTargetBaseCur = pTargetBase;
+
+            while (cnt > 0) {
+                mve_pred16_t    p = vctp16q(cnt);
+                uint16x8_t      vchSrc =
+                    vldrbq_gather_offset_z_u16(pchSourceBaseCur, offS, p);
+                uint16x8_t      vTarg;
+
+                vchSrc = vandq_x(vchSrc, vBitMask, p);
+                vTarg =
+                    vpselq(vFgColor, vBgColor, vcmpneq_m_n_u16(vchSrc, 0, p));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+
+                pTargetBaseCur += 8;
+                pchSourceBaseCur += 1;
+                cnt -= 8;
+            }
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    }
+}
+
+
+
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb16_draw_pattern_bg_comp(uint8_t *__RESTRICT pchSourceBase,
+                                         int32_t  iOffset,
+                                         int16_t iSourceStride,
+                                         uint16_t *__RESTRICT pTargetBase,
+                                         int16_t iTargetStride,
+                                         arm_2d_size_t *__RESTRICT ptCopySize,
+                                         uint16_t hwBackColour)
+{
+    //! get in byte offset
+    iOffset &= 0x07;
+    iSourceStride = (iSourceStride + 7) & ~0x07;
+
+    /* deduces offset vector from iOffset for gather loading */
+    uint16x8_t      offS = vld1q(__rgb16_draw_pattern_src_incr + iOffset);
+    /* deduces bitmask vector with wrap from iOffset */
+    uint16x8_t      vBitMask = vld1q(__rgb16_draw_pattern_src_bitmask + iOffset);
+    uint16x8_t      vBgColor = vdupq_n_u16(hwBackColour);
+
+    if (ptCopySize->iWidth <= 8) {
+        /* small width specialization */
+        /* no inner loop */
+        mve_pred16_t    p = vctp16q(ptCopySize->iWidth);
+
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            uint16x8_t      vchSrc = vldrbq_gather_offset_u16(pchSourceBase, offS);
+            uint16x8_t      vTarg = vld1q(pTargetBase);
+
+            /*
+                if ((*pchSrc) & chBitMask)
+                    *pTarget = ~(*pTarget);
+                else
+                    *pTarget = hwBackColour;
+            */
+            vchSrc = vchSrc & vBitMask;
+            vTarg = vpselq(vmvnq(vTarg), vBgColor, vcmpneq_n_u16(vchSrc, 0));
+
+            vst1q_p(pTargetBase, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+
+    } else {
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            int32_t         cnt = ptCopySize->iWidth;
+            uint8_t        *pchSourceBaseCur = pchSourceBase;
+            uint16_t       *pTargetBaseCur = pTargetBase;
+
+            while (cnt > 0) {
+                mve_pred16_t    p = vctp16q(cnt);
+                uint16x8_t      vchSrc =
+                    vldrbq_gather_offset_z_u16(pchSourceBaseCur, offS, p);
+                uint16x8_t      vTarg = vld1q_z(pTargetBase, p);
+
+                vchSrc = vandq_x(vchSrc, vBitMask, p);
+                vTarg =
+                    vpselq(vmvnq_x(vTarg, p), vBgColor, vcmpneq_m_n_u16(vchSrc, 0, p));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+
+                pTargetBaseCur += 8;
+                pchSourceBaseCur += 1;
+                cnt -= 8;
+            }
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    }
+}
+
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb32_draw_pattern_fg_only(uint8_t *__RESTRICT pchSourceBase,
+                                         int32_t  iOffset,
+                                         int16_t iSourceStride,
+                                         uint32_t *__RESTRICT pTargetBase,
+                                         int16_t iTargetStride,
+                                         arm_2d_size_t *__RESTRICT ptCopySize,
+                                         uint32_t hwForeColour)
+{
+    //! get in byte offset
+    iOffset &= 0x07;
+    iSourceStride = (iSourceStride + 7) & ~0x07;
+
+    /* deduces offset vector from iOffset for gather loading */
+    /* hold  8 contiguous values into 2 32-bit vector pair */
+    uint32x4_t      offSLo = vld1q(__rgb32_draw_pattern_src_incr + iOffset);
+    uint32x4_t      offSHi = vld1q(__rgb32_draw_pattern_src_incr + iOffset + 4);
+    /* deduces bitmask vector with wrap from iOffset */
+    /* hold  8 contiguous values into 2 32-bit vector pair */
+    uint32x4_t      vBitMaskLo = vld1q(__rgb32_draw_pattern_src_bitmask + iOffset);
+    uint32x4_t      vBitMaskHi = vld1q(__rgb32_draw_pattern_src_bitmask + iOffset + 4);
+
+
+    if (ptCopySize->iWidth <= 4) {
+        /* very tall width case */
+        /* only bottom parts of gather load and bitmask needed */
+        /* no inner loop */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            mve_pred16_t    p = vctp32q(ptCopySize->iWidth);
+            uint32x4_t      vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSLo);
+            uint32x4_t      vTarg = vld1q(pTargetBase);
+
+            vchSrc = vandq(vchSrc, vBitMaskLo);
+            vTarg = vdupq_m_n_u32(vTarg, hwForeColour, vcmpneq_n_u32(vchSrc, 0));
+
+            vst1q_p(pTargetBase, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    } else if (ptCopySize->iWidth <= 8) {
+        /* bottom and partial upper parts of gather load and bitmask needed */
+        /* no inner loop */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            mve_pred16_t    p = vctp32q(ptCopySize->iWidth - 4);
+            uint32x4_t      vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSLo);
+            uint32x4_t      vTarg = vld1q(pTargetBase);
+
+            vchSrc = vandq(vchSrc, vBitMaskLo);
+            vTarg = vdupq_m_n_u32(vTarg, hwForeColour, vcmpneq_n_u32(vchSrc, 0));
+
+            vst1q(pTargetBase, vTarg);
+
+            vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSHi);
+            vTarg = vld1q(pTargetBase + 4);
+
+            vchSrc = vandq(vchSrc, vBitMaskHi);
+            vTarg = vdupq_m_n_u32(vTarg, hwForeColour, vcmpneq_n_u32(vchSrc, 0));
+
+            vst1q_p(pTargetBase + 4, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    } else {
+        /* generic case */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            int32_t         cnt = ptCopySize->iWidth;
+            uint8_t        *pchSourceBaseCur = pchSourceBase;
+            uint32_t       *pTargetBaseCur = pTargetBase;
+
+            while (cnt >= 8) {
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg = vld1q(pTargetBaseCur);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg = vdupq_m_n_u32(vTarg, hwForeColour, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                vchSrc = vldrbq_gather_offset_u32(pchSourceBaseCur, offSHi);
+                vTarg = vld1q(pTargetBaseCur);
+
+                vchSrc = vandq(vchSrc, vBitMaskHi);
+                vTarg = vdupq_m_n_u32(vTarg, hwForeColour, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                pchSourceBaseCur += 1;
+                cnt -= 8;
+            }
+
+            /* tail */
+            if (cnt > 4) {
+                /* bottom part + upper residual parts */
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg = vld1q(pTargetBaseCur);
+                cnt -= 4;
+                mve_pred16_t    p = vctp32q(cnt);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg = vdupq_m_n_u32(vTarg, hwForeColour, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                vchSrc = vldrbq_gather_offset_u32(pchSourceBaseCur, offSHi);
+                vTarg = vld1q(pTargetBaseCur);
+
+                vchSrc = vandq(vchSrc, vBitMaskHi);
+                vTarg = vdupq_m_n_u32(vTarg, hwForeColour, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+            } else if (cnt > 0) {
+                /* bottom part residual */
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg = vld1q(pTargetBaseCur);
+                mve_pred16_t    p = vctp32q(cnt);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg = vdupq_m_n_u32(vTarg, hwForeColour, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+            }
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    }
+}
+
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb32_draw_pattern_no_bg_comp(uint8_t *__RESTRICT pchSourceBase,
+                                         int32_t  iOffset,
+                                         int16_t iSourceStride,
+                                         uint32_t *__RESTRICT pTargetBase,
+                                         int16_t iTargetStride,
+                                         arm_2d_size_t *__RESTRICT ptCopySize)
+{
+    //! get in byte offset
+    iOffset &= 0x07;
+    iSourceStride = (iSourceStride + 7) & ~0x07;
+
+    /* deduces offset vector from iOffset for gather loading */
+    /* hold  8 contiguous values into 2 32-bit vector pair */
+    uint32x4_t      offSLo = vld1q(__rgb32_draw_pattern_src_incr + iOffset);
+    uint32x4_t      offSHi = vld1q(__rgb32_draw_pattern_src_incr + iOffset + 4);
+    /* deduces bitmask vector with wrap from iOffset */
+    /* hold  8 contiguous values into 2 32-bit vector pair */
+    uint32x4_t      vBitMaskLo = vld1q(__rgb32_draw_pattern_src_bitmask + iOffset);
+    uint32x4_t      vBitMaskHi = vld1q(__rgb32_draw_pattern_src_bitmask + iOffset + 4);
+
+
+    if (ptCopySize->iWidth <= 4) {
+        /* very tall width case */
+        /* only bottom parts of gather load and bitmask needed */
+        /* no inner loop */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            mve_pred16_t    p = vctp32q(ptCopySize->iWidth);
+            uint32x4_t      vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSLo);
+            uint32x4_t      vTarg = vld1q(pTargetBase);
+
+            vchSrc = vandq(vchSrc, vBitMaskLo);
+            vTarg = vpselq(vTarg, ~vTarg, vcmpneq_n_u32(vchSrc, 0));
+
+            vst1q_p(pTargetBase, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    } else if (ptCopySize->iWidth <= 8) {
+        /* bottom and partial upper parts of gather load and bitmask needed */
+        /* no inner loop */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            mve_pred16_t    p = vctp32q(ptCopySize->iWidth - 4);
+            uint32x4_t      vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSLo);
+            uint32x4_t      vTarg = vld1q(pTargetBase);
+
+            vchSrc = vandq(vchSrc, vBitMaskLo);
+            vTarg = vpselq(vTarg, ~vTarg, vcmpneq_n_u32(vchSrc, 0));
+
+            vst1q(pTargetBase, vTarg);
+
+            vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSHi);
+            vTarg = vld1q(pTargetBase + 4);
+
+            vchSrc = vandq(vchSrc, vBitMaskHi);
+            vTarg = vpselq(vTarg, ~vTarg, vcmpneq_n_u32(vchSrc, 0));
+
+            vst1q_p(pTargetBase + 4, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    } else {
+        /* generic case */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            int32_t         cnt = ptCopySize->iWidth;
+            uint8_t        *pchSourceBaseCur = pchSourceBase;
+            uint32_t       *pTargetBaseCur = pTargetBase;
+
+            while (cnt >= 8) {
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg = vld1q(pTargetBaseCur);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg = vpselq(vTarg, ~vTarg, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                vchSrc = vldrbq_gather_offset_u32(pchSourceBaseCur, offSHi);
+                vTarg = vld1q(pTargetBaseCur);
+
+                vchSrc = vandq(vchSrc, vBitMaskHi);
+                vTarg = vpselq(vTarg, ~vTarg, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                pchSourceBaseCur += 1;
+                cnt -= 8;
+            }
+
+            /* tail */
+            if (cnt > 4) {
+                /* bottom part + upper residual parts */
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg = vld1q(pTargetBaseCur);
+                cnt -= 4;
+                mve_pred16_t    p = vctp32q(cnt);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg = vpselq(vTarg, ~vTarg, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                vchSrc = vldrbq_gather_offset_u32(pchSourceBaseCur, offSHi);
+                vTarg = vld1q(pTargetBaseCur);
+
+                vchSrc = vandq(vchSrc, vBitMaskHi);
+                vTarg = vpselq(vTarg, ~vTarg, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+            } else if (cnt > 0) {
+                /* bottom part residual */
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg = vld1q(pTargetBaseCur);
+                mve_pred16_t    p = vctp32q(cnt);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg = vpselq(vTarg, ~vTarg, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+            }
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    }
+}
+
+
+
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb32_draw_pattern_bg_only(uint8_t *__RESTRICT pchSourceBase,
+                                         int32_t  iOffset,
+                                         int16_t iSourceStride,
+                                         uint32_t *__RESTRICT pTargetBase,
+                                         int16_t iTargetStride,
+                                         arm_2d_size_t *__RESTRICT ptCopySize,
+                                         uint32_t hwBackColour)
+{
+    //! get in byte offset
+    iOffset &= 0x07;
+    iSourceStride = (iSourceStride + 7) & ~0x07;
+
+    /* deduces offset vector from iOffset for gather loading */
+    /* hold  8 contiguous values into 2 32-bit vector pair */
+    uint32x4_t      offSLo = vld1q(__rgb32_draw_pattern_src_incr + iOffset);
+    uint32x4_t      offSHi = vld1q(__rgb32_draw_pattern_src_incr + iOffset + 4);
+    /* deduces bitmask vector with wrap from iOffset */
+    /* hold  8 contiguous values into 2 32-bit vector pair */
+    uint32x4_t      vBitMaskLo = vld1q(__rgb32_draw_pattern_src_bitmask + iOffset);
+    uint32x4_t      vBitMaskHi = vld1q(__rgb32_draw_pattern_src_bitmask + iOffset + 4);
+
+
+    if (ptCopySize->iWidth <= 4) {
+        /* very tall width case */
+        /* only bottom parts of gather load and bitmask needed */
+        /* no inner loop */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            mve_pred16_t    p = vctp32q(ptCopySize->iWidth);
+            uint32x4_t      vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSLo);
+            uint32x4_t      vTarg = vld1q(pTargetBase);
+
+            vchSrc = vandq(vchSrc, vBitMaskLo);
+            vTarg = vdupq_m_n_u32(vTarg, hwBackColour, vcmpeqq_n_u32(vchSrc, 0));
+
+            vst1q_p(pTargetBase, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    } else if (ptCopySize->iWidth <= 8) {
+        /* bottom and partial upper parts of gather load and bitmask needed */
+        /* no inner loop */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            mve_pred16_t    p = vctp32q(ptCopySize->iWidth - 4);
+            uint32x4_t      vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSLo);
+            uint32x4_t      vTarg = vld1q(pTargetBase);
+
+            vchSrc = vandq(vchSrc, vBitMaskLo);
+            vTarg = vdupq_m_n_u32(vTarg, hwBackColour, vcmpeqq_n_u32(vchSrc, 0));
+
+            vst1q(pTargetBase, vTarg);
+
+            vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSHi);
+            vTarg = vld1q(pTargetBase + 4);
+
+            vchSrc = vandq(vchSrc, vBitMaskHi);
+            vTarg = vdupq_m_n_u32(vTarg, hwBackColour, vcmpeqq_n_u32(vchSrc, 0));
+
+            vst1q_p(pTargetBase + 4, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    } else {
+        /* generic case */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            int32_t         cnt = ptCopySize->iWidth;
+            uint8_t        *pchSourceBaseCur = pchSourceBase;
+            uint32_t       *pTargetBaseCur = pTargetBase;
+
+            while (cnt >= 8) {
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg = vld1q(pTargetBaseCur);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg = vdupq_m_n_u32(vTarg, hwBackColour, vcmpeqq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                vchSrc = vldrbq_gather_offset_u32(pchSourceBaseCur, offSHi);
+                vTarg = vld1q(pTargetBaseCur);
+
+                vchSrc = vandq(vchSrc, vBitMaskHi);
+                vTarg = vdupq_m_n_u32(vTarg, hwBackColour, vcmpeqq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                pchSourceBaseCur += 1;
+                cnt -= 8;
+            }
+
+            /* tail */
+            if (cnt > 4) {
+                /* bottom part + upper residual parts */
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg = vld1q(pTargetBaseCur);
+                cnt -= 4;
+                mve_pred16_t    p = vctp32q(cnt);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg = vdupq_m_n_u32(vTarg, hwBackColour, vcmpeqq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                vchSrc = vldrbq_gather_offset_u32(pchSourceBaseCur, offSHi);
+                vTarg = vld1q(pTargetBaseCur);
+
+                vchSrc = vandq(vchSrc, vBitMaskHi);
+                vTarg = vdupq_m_n_u32(vTarg, hwBackColour, vcmpeqq_n_u32(vchSrc, 0));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+            } else if (cnt > 0) {
+                /* bottom part residual */
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg = vld1q(pTargetBaseCur);
+                mve_pred16_t    p = vctp32q(cnt);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg = vdupq_m_n_u32(vTarg, hwBackColour, vcmpeqq_n_u32(vchSrc, 0));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+            }
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    }
+}
+
+
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb32_draw_pattern_bg_fg(uint8_t *__RESTRICT pchSourceBase,
+                                         int32_t  iOffset,
+                                         int16_t iSourceStride,
+                                         uint32_t *__RESTRICT pTargetBase,
+                                         int16_t iTargetStride,
+                                         arm_2d_size_t *__RESTRICT ptCopySize,
+                                         uint32_t hwForeColour,
+                                         uint32_t hwBackColour)
+{
+    //! get in byte offset
+    iOffset &= 0x07;
+    iSourceStride = (iSourceStride + 7) & ~0x07;
+
+    /* deduces offset vector from iOffset for gather loading */
+    /* hold  8 contiguous values into 2 32-bit vector pair */
+    uint32x4_t      offSLo = vld1q(__rgb32_draw_pattern_src_incr + iOffset);
+    uint32x4_t      offSHi = vld1q(__rgb32_draw_pattern_src_incr + iOffset + 4);
+    /* deduces bitmask vector with wrap from iOffset */
+    /* hold  8 contiguous values into 2 32-bit vector pair */
+    uint32x4_t      vBitMaskLo = vld1q(__rgb32_draw_pattern_src_bitmask + iOffset);
+    uint32x4_t      vBitMaskHi = vld1q(__rgb32_draw_pattern_src_bitmask + iOffset + 4);
+    uint32x4_t      vFgColor = vdupq_n_u32(hwForeColour);
+    uint32x4_t      vBgColor = vdupq_n_u32(hwBackColour);
+
+    if (ptCopySize->iWidth <= 4) {
+        /* very tall width case */
+        /* only bottom parts of gather load and bitmask needed */
+        /* no inner loop */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            mve_pred16_t    p = vctp32q(ptCopySize->iWidth);
+            uint32x4_t      vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSLo);
+            uint32x4_t      vTarg;
+
+            vchSrc = vandq(vchSrc, vBitMaskLo);
+            vTarg =
+                vpselq(vFgColor, vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+            vst1q_p(pTargetBase, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    } else if (ptCopySize->iWidth <= 8) {
+        /* bottom and partial upper parts of gather load and bitmask needed */
+        /* no inner loop */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            mve_pred16_t    p = vctp32q(ptCopySize->iWidth - 4);
+            uint32x4_t      vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSLo);
+            uint32x4_t      vTarg;
+
+            vchSrc = vandq(vchSrc, vBitMaskLo);
+            vTarg =
+                vpselq(vFgColor, vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+            vst1q(pTargetBase, vTarg);
+
+            vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSHi);
+
+            vchSrc = vandq(vchSrc, vBitMaskHi);
+            vTarg =
+                vpselq(vFgColor, vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+            vst1q_p(pTargetBase + 4, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    } else {
+        /* generic case */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            int32_t         cnt = ptCopySize->iWidth;
+            uint8_t        *pchSourceBaseCur = pchSourceBase;
+            uint32_t       *pTargetBaseCur = pTargetBase;
+
+            while (cnt >= 8) {
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg;
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg =
+                    vpselq(vFgColor, vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                vchSrc = vldrbq_gather_offset_u32(pchSourceBaseCur, offSHi);
+
+                vchSrc = vandq(vchSrc, vBitMaskHi);
+                vTarg =
+                    vpselq(vFgColor, vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                pchSourceBaseCur += 1;
+                cnt -= 8;
+            }
+
+            /* tail */
+            if (cnt > 4) {
+                /* bottom part + upper residual parts */
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg;
+                cnt -= 4;
+                mve_pred16_t    p = vctp32q(cnt);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg =
+                    vpselq(vFgColor, vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                vchSrc = vldrbq_gather_offset_u32(pchSourceBaseCur, offSHi);
+
+                vchSrc = vandq(vchSrc, vBitMaskHi);
+                vTarg =
+                    vpselq(vFgColor, vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+            } else if (cnt > 0) {
+                /* bottom part residual */
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg;
+                mve_pred16_t    p = vctp32q(cnt);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg =
+                    vpselq(vFgColor, vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+            }
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    }
+}
+
+
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb32_draw_pattern_bg_comp(uint8_t *__RESTRICT pchSourceBase,
+                                         int32_t  iOffset,
+                                         int16_t iSourceStride,
+                                         uint32_t *__RESTRICT pTargetBase,
+                                         int16_t iTargetStride,
+                                         arm_2d_size_t *__RESTRICT ptCopySize,
+                                         uint32_t hwBackColour)
+{
+    //! get in byte offset
+    iOffset &= 0x07;
+    iSourceStride = (iSourceStride + 7) & ~0x07;
+
+    /* deduces offset vector from iOffset for gather loading */
+    /* hold  8 contiguous values into 2 32-bit vector pair */
+    uint32x4_t      offSLo = vld1q(__rgb32_draw_pattern_src_incr + iOffset);
+    uint32x4_t      offSHi = vld1q(__rgb32_draw_pattern_src_incr + iOffset + 4);
+    /* deduces bitmask vector with wrap from iOffset */
+    /* hold  8 contiguous values into 2 32-bit vector pair */
+    uint32x4_t      vBitMaskLo = vld1q(__rgb32_draw_pattern_src_bitmask + iOffset);
+    uint32x4_t      vBitMaskHi = vld1q(__rgb32_draw_pattern_src_bitmask + iOffset + 4);
+    uint32x4_t      vBgColor = vdupq_n_u32(hwBackColour);
+
+
+    if (ptCopySize->iWidth <= 4) {
+        /* very tall width case */
+        /* only bottom parts of gather load and bitmask needed */
+        /* no inner loop */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            mve_pred16_t    p = vctp32q(ptCopySize->iWidth);
+            uint32x4_t      vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSLo);
+            uint32x4_t      vTarg = vld1q(pTargetBase);
+
+            vchSrc = vandq(vchSrc, vBitMaskLo);
+            vTarg = vpselq(vmvnq(vTarg), vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+            vst1q_p(pTargetBase, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    } else if (ptCopySize->iWidth <= 8) {
+        /* bottom and partial upper parts of gather load and bitmask needed */
+        /* no inner loop */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            mve_pred16_t    p = vctp32q(ptCopySize->iWidth - 4);
+            uint32x4_t      vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSLo);
+            uint32x4_t      vTarg = vld1q(pTargetBase);
+
+            vchSrc = vandq(vchSrc, vBitMaskLo);
+            vTarg = vpselq(vmvnq(vTarg), vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+            vst1q(pTargetBase, vTarg);
+
+            vchSrc = vldrbq_gather_offset_u32(pchSourceBase, offSHi);
+            vTarg = vld1q(pTargetBase + 4);
+
+            vchSrc = vandq(vchSrc, vBitMaskHi);
+            vTarg = vpselq(vmvnq(vTarg), vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+            vst1q_p(pTargetBase + 4, vTarg, p);
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    } else {
+        /* generic case */
+        for (int_fast16_t y = 0; y < ptCopySize->iHeight; y++) {
+            int32_t         cnt = ptCopySize->iWidth;
+            uint8_t        *pchSourceBaseCur = pchSourceBase;
+            uint32_t       *pTargetBaseCur = pTargetBase;
+
+            while (cnt >= 8) {
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg = vld1q(pTargetBaseCur);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg = vpselq(vmvnq(vTarg), vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                vchSrc = vldrbq_gather_offset_u32(pchSourceBaseCur, offSHi);
+                vTarg = vld1q(pTargetBaseCur);
+
+                vchSrc = vandq(vchSrc, vBitMaskHi);
+                vTarg = vpselq(vmvnq(vTarg), vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                pchSourceBaseCur += 1;
+                cnt -= 8;
+            }
+
+            /* tail */
+            if (cnt > 4) {
+                /* bottom part + upper residual parts */
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg = vld1q(pTargetBaseCur);
+                cnt -= 4;
+                mve_pred16_t    p = vctp32q(cnt);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg = vpselq(vmvnq(vTarg), vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q(pTargetBaseCur, vTarg);
+                pTargetBaseCur += 4;
+
+                vchSrc = vldrbq_gather_offset_u32(pchSourceBaseCur, offSHi);
+                vTarg = vld1q(pTargetBaseCur);
+
+                vchSrc = vandq(vchSrc, vBitMaskHi);
+                vTarg = vpselq(vmvnq(vTarg), vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+            } else if (cnt > 0) {
+                /* bottom part residual */
+                uint32x4_t      vchSrc =
+                    vldrbq_gather_offset_u32(pchSourceBaseCur, offSLo);
+                uint32x4_t      vTarg = vld1q(pTargetBaseCur);
+                mve_pred16_t    p = vctp32q(cnt);
+
+                vchSrc = vandq(vchSrc, vBitMaskLo);
+                vTarg = vpselq(vmvnq(vTarg), vBgColor, vcmpneq_n_u32(vchSrc, 0));
+
+                vst1q_p(pTargetBaseCur, vTarg, p);
+            }
+
+            pchSourceBase += (iSourceStride >> 3);
+            pTargetBase += iTargetStride;
+        }
+    }
+}
+
+
+
 
 
 #ifdef EXPERIMENTAL

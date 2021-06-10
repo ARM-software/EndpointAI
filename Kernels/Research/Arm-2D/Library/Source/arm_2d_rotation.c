@@ -70,6 +70,18 @@ extern "C" {
 #include <arm_math.h>
 
 
+
+
+/*============================ MACROS ========================================*/
+#undef __PI
+#define __PI                3.1415926f
+
+#define __CALIB             0.009f
+/* faster ATAN */
+#define FAST_ATAN_F32_1(x, xabs)    \
+                            (x * (PI / 4.0f) + 0.273f * x * (1.0f - xabs))
+#define EPS_ATAN2           1e-5f
+
 /*----------------------------------------------------------------------------*
  * Code Template                                                              *
  *----------------------------------------------------------------------------*/
@@ -85,16 +97,6 @@ extern "C" {
 #define __API_PIXEL_BLENDING        __ARM_2D_PIXEL_BLENDING_RGB888
 
 #include "__arm_2d_rotate.inc"
-
-/*============================ MACROS ========================================*/
-#undef __PI
-#define __PI                3.1415926f
-
-#define __CALIB             0.009f
-/* faster ATAN */
-#define FAST_ATAN_F32_1(x, xabs)    \
-                            (x * (PI / 4.0f) + 0.273f * x * (1.0f - xabs))
-#define EPS_ATAN2           1e-5f
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
@@ -125,6 +127,75 @@ float32_t __atan2_f32(float32_t y, float32_t x)
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ IMPLEMENTATION ================================*/
 
+static
+void __arm_2d_rotate_get_rotated_corner(const arm_2d_location_t *ptLocation,
+                                            const arm_2d_location_t *ptCenter,
+                                            float fAngle,
+                                            arm_2d_point_float_t *ptOutBuffer)
+{
+    int16_t         iX = ptLocation->iX - ptCenter->iX;
+    int16_t         iY = ptLocation->iY - ptCenter->iY;
+
+    float           cosAngle = arm_cos_f32(fAngle);
+    float           sinAngle = arm_sin_f32(fAngle);
+
+    ptOutBuffer->fY = (iY * cosAngle + iX * sinAngle + ptCenter->iY);
+    ptOutBuffer->fX = (-iY * sinAngle + iX * cosAngle + ptCenter->iX);
+
+}
+
+
+
+static
+void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
+                                            arm_2d_location_t * pSrcPoint,
+                                            float fAngle,
+                                            arm_2d_location_t * tOffset,
+                                            arm_2d_location_t * ptCenter,
+                                            arm_2d_rot_linear_regr_t regrCoefs[])
+{
+    int_fast16_t    iHeight = ptCopySize->iHeight;
+    int_fast16_t    iWidth = ptCopySize->iWidth;
+    float           invHeight = 1.0f / (float) (iHeight - 1);
+
+
+    arm_2d_point_float_t tPointCorner[2][2];
+
+    /* compute rotated corners */
+    for (int_fast16_t y = 0, idx_y = 0; y <= iHeight; y += iHeight - 1, idx_y++) {
+        for (int_fast16_t x = 0, idx_x = 0; x <= iWidth; x += iWidth - 1, idx_x++) {
+            arm_2d_location_t tSrcPoint;
+
+            tSrcPoint.iX = pSrcPoint->iX + x + tOffset->iX;
+            tSrcPoint.iY = pSrcPoint->iY + y + tOffset->iY;
+
+            __arm_2d_rotate_get_rotated_corner(&tSrcPoint, ptCenter, fAngle,
+                                               &tPointCorner[idx_x][idx_y]);
+        }
+    }
+
+    float           slopeX, slopeY;
+
+    /* interpolation in Y direction for 1st elements column */
+    slopeX = (tPointCorner[0][1].fX - tPointCorner[0][0].fX) * invHeight;
+    slopeY = (tPointCorner[0][1].fY - tPointCorner[0][0].fY) * invHeight;
+
+    regrCoefs[0].slopeY = slopeY;
+    regrCoefs[0].slopeX = slopeX;
+    regrCoefs[0].interceptY = tPointCorner[0][0].fY;
+    regrCoefs[0].interceptX = tPointCorner[0][0].fX;
+
+
+    /* interpolation in Y direction for the last elements column */
+    slopeX = (tPointCorner[1][1].fX - tPointCorner[1][0].fX) * invHeight;
+    slopeY = (tPointCorner[1][1].fY - tPointCorner[1][0].fY) * invHeight;
+
+    regrCoefs[1].slopeY = slopeY;
+    regrCoefs[1].slopeX = slopeX;
+    regrCoefs[1].interceptY = tPointCorner[1][0].fY;
+    regrCoefs[1].interceptX = tPointCorner[1][0].fX;
+
+}
 
 
 
@@ -140,44 +211,12 @@ arm_2d_point_float_t *__arm_2d_rotate_point(const arm_2d_location_t *ptLocation,
 
     float fX,fY;
 
-    float fR;
-    arm_sqrt_f32( iX * iX + iY * iY, &fR);
+    float           cosAngle = arm_cos_f32(fAngle);
+    float           sinAngle = arm_sin_f32(fAngle);
 
-    float fAlpha;
-#ifdef ORIG_ROT
-    fAlpha = fAngle;
-    if (0 != iX) {
-        fAlpha += atanf((float)iY / (float)iX);
-        if (iX < 0) {
-            fAlpha += __PI;
-        }
-    } else if (iY > 0) {
-        fAlpha += __PI / 2.0f;
-    } else if (iY < 0) {
-        fAlpha -= __PI / 2.0f;
-    }
-#else
-    /* optimized */
-    fAlpha = __atan2_f32((float)iY,  (float)iX);
-    if (iX < 0) fAlpha += __PI;
-    fAlpha += fAngle;
-#endif
+    fY = (iY * cosAngle + iX * sinAngle + ptCenter->iY);
+    fX = (-iY * sinAngle + iX * cosAngle + ptCenter->iX);
 
-    //fX = fR * cosf(fAlpha) + ptCenter->iX;
-    //fY = fR * sinf(fAlpha) + ptCenter->iY;
-
-
-    float   sinAlpha = arm_sin_f32(fAlpha);
-    float   cosAlpha = arm_cos_f32(fAlpha);
-
-#if 0
-    arm_sqrt_f32(1.0f - cosAlpha*cosAlpha, &sinAlpha);
-	int fAlphaInt = (int)floorf(fAlpha*1.0f/PI);
-    /* apply sign */
-	if(fAlphaInt&1) sinAlpha = -sinAlpha;
-#endif
-    fX = fR * cosAlpha + ptCenter->iX;
-    fY = fR * sinAlpha + ptCenter->iY;
     if (fX > 0) {
         ptOutBuffer->fX = fX + __CALIB;
     } else {

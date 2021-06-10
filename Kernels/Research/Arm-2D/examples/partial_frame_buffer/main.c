@@ -155,8 +155,8 @@ int main (void)
             APP_SCREEN_WIDTH,               //!< screen width
             APP_SCREEN_HEIGHT,              //!< screen height
             uint16_t,                       //!< colour date type
-            PBF_BLOCK_WIDTH,                //!< PFB block width
-            PBF_BLOCK_HEIGHT,               //!< PFB block height
+            PFB_BLOCK_WIDTH,                //!< PFB block width
+            PFB_BLOCK_HEIGHT,               //!< PFB block height
             1,                              //!< number of PFB in the PFB pool
             {
                 .evtOnLowLevelRendering = {

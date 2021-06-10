@@ -488,6 +488,26 @@
               <FileType>1</FileType>
               <FilePath>.\asset\gear_02.c</FilePath>
             </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\pointer_sec.c</FilePath>
+            </File>
+            <File>
+              <FileName>clockface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\clockface.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\watch_panel.c</FilePath>
+            </File>
+            <File>
+              <FileName>background.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\background.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1419,6 +1439,26 @@
               <FileName>gear_02.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\pointer_sec.c</FilePath>
+            </File>
+            <File>
+              <FileName>clockface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\clockface.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\watch_panel.c</FilePath>
+            </File>
+            <File>
+              <FileName>background.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\background.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2419,6 +2459,26 @@
               <FileName>gear_02.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\pointer_sec.c</FilePath>
+            </File>
+            <File>
+              <FileName>clockface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\clockface.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\watch_panel.c</FilePath>
+            </File>
+            <File>
+              <FileName>background.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\background.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3421,6 +3481,26 @@
               <FileType>1</FileType>
               <FilePath>.\asset\gear_02.c</FilePath>
             </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\pointer_sec.c</FilePath>
+            </File>
+            <File>
+              <FileName>clockface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\clockface.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\watch_panel.c</FilePath>
+            </File>
+            <File>
+              <FileName>background.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\background.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4352,6 +4432,26 @@
               <FileName>gear_02.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\pointer_sec.c</FilePath>
+            </File>
+            <File>
+              <FileName>clockface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\clockface.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\watch_panel.c</FilePath>
+            </File>
+            <File>
+              <FileName>background.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\background.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5354,6 +5454,26 @@
               <FileType>1</FileType>
               <FilePath>.\asset\gear_02.c</FilePath>
             </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\pointer_sec.c</FilePath>
+            </File>
+            <File>
+              <FileName>clockface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\clockface.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\watch_panel.c</FilePath>
+            </File>
+            <File>
+              <FileName>background.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\background.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -6354,6 +6474,26 @@
               <FileName>gear_02.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\pointer_sec.c</FilePath>
+            </File>
+            <File>
+              <FileName>clockface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\clockface.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\watch_panel.c</FilePath>
+            </File>
+            <File>
+              <FileName>background.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\background.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -7356,6 +7496,26 @@
               <FileType>1</FileType>
               <FilePath>.\asset\gear_02.c</FilePath>
             </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\pointer_sec.c</FilePath>
+            </File>
+            <File>
+              <FileName>clockface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\clockface.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\watch_panel.c</FilePath>
+            </File>
+            <File>
+              <FileName>background.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\background.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -8357,6 +8517,26 @@
               <FileType>1</FileType>
               <FilePath>.\asset\gear_02.c</FilePath>
             </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\pointer_sec.c</FilePath>
+            </File>
+            <File>
+              <FileName>clockface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\clockface.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\watch_panel.c</FilePath>
+            </File>
+            <File>
+              <FileName>background.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\background.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -9357,6 +9537,26 @@
               <FileName>gear_02.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\pointer_sec.c</FilePath>
+            </File>
+            <File>
+              <FileName>clockface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\clockface.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\watch_panel.c</FilePath>
+            </File>
+            <File>
+              <FileName>background.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\background.c</FilePath>
             </File>
           </Files>
         </Group>

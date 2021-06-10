@@ -29,7 +29,7 @@
 /*============================ MACROS ========================================*/
 
 #ifndef ITERATION_CNT
-#   define ITERATION_CNT       1000
+#   define ITERATION_CNT       100
 #endif
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
@@ -48,8 +48,11 @@
  *!       480 * 4    3840B
  *!       480 * 8    7680B
  */
-#define PBF_BLOCK_WIDTH         120
-#define PBF_BLOCK_HEIGHT        120
+//#define PFB_BLOCK_WIDTH         120
+//#define PFB_BLOCK_HEIGHT        120
+
+#define PFB_BLOCK_WIDTH         222
+#define PFB_BLOCK_HEIGHT        16
 
 #define BUSY_WHEEL_SPIN_SPEED   100
 

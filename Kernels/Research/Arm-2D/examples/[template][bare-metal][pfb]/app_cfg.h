@@ -47,8 +47,8 @@
  *!       480 * 4    3840B
  *!       480 * 8    7680B
  */
-#define PBF_BLOCK_WIDTH         48
-#define PBF_BLOCK_HEIGHT        8
+#define PFB_BLOCK_WIDTH         48
+#define PFB_BLOCK_HEIGHT        8
 
 #define BUSY_WHEEL_SPIN_SPEED   100
 

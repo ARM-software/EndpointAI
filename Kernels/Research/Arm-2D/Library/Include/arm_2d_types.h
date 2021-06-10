@@ -270,7 +270,7 @@ typedef struct arm_2d_task_t {
 ARM_PRIVATE(
     arm_fsm_rt_t tResult;
     uint8_t      chState;
-    
+
     void         *ptTask;
 )
 } arm_2d_task_t;
@@ -338,10 +338,10 @@ typedef union __arm_2d_op_info_t {
                 uint8_t TileProcessLike;
             };
         }LowLevelInterfaceIndex;
-        
+
         union {
             const __arm_2d_low_level_io_t *IO[2];
-            
+
             struct {
                 const __arm_2d_low_level_io_t *ptCopyLike;
                 const __arm_2d_low_level_io_t *ptFillLike;
@@ -354,7 +354,7 @@ typedef union __arm_2d_op_info_t {
                 const __arm_2d_low_level_io_t *ptTileProcessLike;
             };
         }LowLevelIO;
-        
+
     }Info;
     uint32_t    wID;                    //!< ID for a specific operation
 } __arm_2d_op_info_t;
@@ -436,12 +436,12 @@ typedef struct arm_2d_op_src_orig_t {
         const arm_2d_tile_t     *ptTile;        //!< source tile
     }Source;
     uint32_t wMode;
-    
+
     struct {
         const arm_2d_tile_t     *ptTile;        //!< the origin tile
         arm_2d_tile_t           tDummySource;   //!< the buffer for the source
     }Origin;
-    
+
 } arm_2d_op_src_orig_t;
 
 
@@ -456,6 +456,18 @@ typedef struct arm_2d_op_src_alpha_msk_t {
         const uint8_t *pchAlphaMask;        //!< alpha mask
     }Source;
 } arm_2d_op_src_alpha_msk_t;
+
+
+/*----------------------------------------------------------------------------*
+ * Fast Rotation linear regression structure
+ *----------------------------------------------------------------------------*/
+
+typedef struct arm_2d_rot_linear_regr_t {
+    float   slopeY;
+    float   interceptY;
+    float   slopeX;
+    float   interceptX;
+} arm_2d_rot_linear_regr_t;
 
 
 /*============================ GLOBAL VARIABLES ==============================*/
