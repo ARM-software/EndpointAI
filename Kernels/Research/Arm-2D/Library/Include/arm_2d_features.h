@@ -110,9 +110,15 @@ extern "C" {
 /*! \note DO NOT define macro __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__ unless
  *!       you sure about what you are doing.
  */
-#if !__ARM_2D_HAS_FPU__
+#if !__ARM_2D_HAS_FPU__ && __ARM_2D_HAS_DSP__
 #   undef __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
 #   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   1
+#elif !__ARM_2D_HAS_FPU__ && !__ARM_2D_HAS_DSP__
+    /*! \note For processors without FPU or DSP extensions, 
+     *!       e.g. Cortex-M0/M0+/M1/M3 etc.
+     */
+#   undef __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
+#   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   0
 #elif   !__ARM_2D_HAS_HELIUM__                                                  \
     &&  !defined(__ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__)
     /*! \note For Armv7-m processors and Armv8-m processors that have no Helium 
@@ -131,8 +137,6 @@ extern "C" {
 #ifndef __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
 #   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   0
 #endif
-
-
 
 /*----------------------------------------------------------------------------*
  * Unsafe configurations                                                      *
