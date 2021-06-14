@@ -1,0 +1,4100 @@
+diff --git a/Eigen/Core b/Eigen/Core
+index 5921e15f9..66084fa31 100644
+--- a/Eigen/Core
++++ b/Eigen/Core
+@@ -219,6 +219,20 @@ using std::ptrdiff_t;
+   #include "src/Core/arch/SVE/PacketMath.h"
+   #include "src/Core/arch/SVE/TypeCasting.h"
+   #include "src/Core/arch/SVE/MathFunctions.h"
++#elif defined EIGEN_VECTORIZE_HELIUM
++  #include "src/Core/arch/HELIUM/CommonHelium.h"
++
++  #if defined(EIGEN_VECTORIZE_MVEI)
++      #include "src/Core/arch/HELIUM/MVEI/PacketMathMVEI.h"
++      #include "src/Core/arch/HELIUM/MVEI/TypeCastingMVEI.h"
++  #endif
++
++  #if defined(EIGEN_VECTORIZE_MVEF)
++      #include "src/Core/arch/HELIUM/MVEF/PacketMathMVEF.h"
++      #include "src/Core/arch/HELIUM/MVEF/TypeCastingMVEF.h"
++      #include "src/Core/arch/HELIUM/MVEF/ComplexMVEF.h"
++  #endif
++
+ #elif defined EIGEN_VECTORIZE_ZVECTOR
+   #include "src/Core/arch/ZVector/PacketMath.h"
+   #include "src/Core/arch/ZVector/MathFunctions.h"
+@@ -350,8 +364,11 @@ using std::ptrdiff_t;
+   #include "src/Core/arch/AltiVec/MatrixProduct.h"
+ #elif defined EIGEN_VECTORIZE_NEON
+   #include "src/Core/arch/NEON/GeneralBlockPanelKernel.h"
++#elif defined(EIGEN_VECTORIZE_MVEF)
++  #include "src/Core/arch/HELIUM/MVEF/GebpTraitsMVEF.h"
+ #endif
+ 
++
+ #include "src/Core/BooleanRedux.h"
+ #include "src/Core/Select.h"
+ #include "src/Core/VectorwiseOp.h"
+diff --git a/Eigen/src/Core/arch/Default/Half.h b/Eigen/src/Core/arch/Default/Half.h
+index 9f8e8cc1e..9b53bf2bf 100644
+--- a/Eigen/src/Core/arch/Default/Half.h
++++ b/Eigen/src/Core/arch/Default/Half.h
+@@ -38,7 +38,7 @@
+ 
+ #include <sstream>
+ 
+-#if defined(EIGEN_HAS_GPU_FP16) || defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC)
++#if defined(EIGEN_HAS_GPU_FP16) || defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC) || defined(EIGEN_VECTORIZE_MVEF)
+ // When compiling with GPU support, the "__half_raw" base class as well as
+ // some other routines are defined in the GPU compiler header files
+ // (cuda_fp16.h, hip_fp16.h), and they are not tagged constexpr
+@@ -95,7 +95,7 @@ struct __half_raw {
+ #else
+   EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR __half_raw() : x(0) {}
+ #endif
+-#if defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC)
++#if defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC) || defined(EIGEN_VECTORIZE_MVEF)
+   explicit EIGEN_DEVICE_FUNC EIGEN_CONSTEXPR __half_raw(numext::uint16_t raw) : x(numext::bit_cast<__fp16>(raw)) {
+   }
+   __fp16 x;
+@@ -334,7 +334,57 @@ EIGEN_STRONG_INLINE __device__ bool operator >= (const half& a, const half& b) {
+ }
+ #endif
+ 
+-#if defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC)
++#if defined(EIGEN_VECTORIZE_MVEF)
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC half operator + (const half& a, const half& b) {
++  return half((_Float16)a.x + (_Float16)b.x);
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC half operator * (const half& a, const half& b) {
++  return half((_Float16)a.x *  (_Float16)b.x);
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC half operator - (const half& a, const half& b) {
++  return half((_Float16)a.x - (_Float16)b.x);
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC half operator / (const half& a, const half& b) {
++  return half((_Float16)a.x / (_Float16)b.x);
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC half operator - (const half& a) {
++  return half(-(_Float16)a.x);
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC half& operator += (half& a, const half& b) {
++  a = half((_Float16)a.x + (_Float16)b.x);
++  return a;
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC half& operator *= (half& a, const half& b) {
++  a = half((_Float16)a.x * (_Float16)b.x);
++  return a;
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC half& operator -= (half& a, const half& b) {
++  a = half((_Float16)a.x - (_Float16)b.x);
++  return a;
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC half& operator /= (half& a, const half& b) {
++  a = half((_Float16)a.x / (_Float16)b.x);
++  return a;
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC bool operator == (const half& a, const half& b) {
++  return (a.x == b.x);
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC bool operator != (const half& a, const half& b) {
++  return (a.x != b.x);
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC bool operator < (const half& a, const half& b) {
++  return (a.x < b.x);
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC bool operator <= (const half& a, const half& b) {
++  return (a.x <= b.x);
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC bool operator > (const half& a, const half& b) {
++  return (a.x > b.x);
++}
++EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC bool operator >= (const half& a, const half& b) {
++  return (a.x >= b.x);
++}
++#elif defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC)
+ EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC half operator + (const half& a, const half& b) {
+   return half(vaddh_f16(a.x, b.x));
+ }
+@@ -512,7 +562,7 @@ EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC numext::uint16_t raw_half_as_uint16(const
+   // HIP/CUDA/Default have a member 'x' of type uint16_t.
+   // For ARM64 native half, the member 'x' is of type __fp16, so we need to bit-cast.
+   // For SYCL, cl::sycl::half is _Float16, so cast directly.
+-#if defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC)
++#if defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC) || defined(EIGEN_VECTORIZE_MVEF)
+   return numext::bit_cast<numext::uint16_t>(h.x);
+ #elif defined(SYCL_DEVICE_ONLY)
+   return numext::bit_cast<numext::uint16_t>(h);
+@@ -537,7 +587,7 @@ EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC __half_raw float_to_half_rtne(float ff) {
+   h.x = _cvtss_sh(ff, 0);
+   return h;
+ 
+-#elif defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC)
++#elif defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC) || defined(EIGEN_VECTORIZE_MVEF)
+   __half_raw h;
+   h.x = static_cast<__fp16>(ff);
+   return h;
+@@ -596,7 +646,7 @@ EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC float half_to_float(__half_raw h) {
+   return __half2float(h);
+ #elif defined(EIGEN_HAS_FP16_C)
+   return _cvtsh_ss(h.x);
+-#elif defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC)
++#elif defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC) ||  defined(EIGEN_VECTORIZE_MVEF)
+   return static_cast<float>(h.x);
+ #else
+   const float32_bits magic = { 113 << 23 };
+@@ -623,7 +673,7 @@ EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC float half_to_float(__half_raw h) {
+ // --- standard functions ---
+ 
+ EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC bool (isinf)(const half& a) {
+-#ifdef EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC
++#if defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC) || defined(EIGEN_VECTORIZE_MVEF)
+   return (numext::bit_cast<numext::uint16_t>(a.x) & 0x7fff) == 0x7c00;
+ #else
+   return (a.x & 0x7fff) == 0x7c00;
+@@ -633,7 +683,7 @@ EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC bool (isnan)(const half& a) {
+ #if (defined(EIGEN_HAS_CUDA_FP16) && defined(EIGEN_CUDA_ARCH) && EIGEN_CUDA_ARCH >= 530) || \
+   (defined(EIGEN_HAS_HIP_FP16) && defined(EIGEN_HIP_DEVICE_COMPILE))
+   return __hisnan(a);
+-#elif defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC)
++#elif defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC) || defined(EIGEN_VECTORIZE_MVEF)
+   return (numext::bit_cast<numext::uint16_t>(a.x) & 0x7fff) > 0x7c00;
+ #else
+   return (a.x & 0x7fff) > 0x7c00;
+@@ -644,7 +694,9 @@ EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC bool (isfinite)(const half& a) {
+ }
+ 
+ EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC half abs(const half& a) {
+-#if defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC)
++#if defined(EIGEN_VECTORIZE_MVEF)
++  return half(fabsf(a.x));
++#elif defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC)
+   return half(vabsh_f16(a.x));
+ #else
+   half result;
+@@ -820,7 +872,7 @@ template<> struct NumTraits<Eigen::half>
+ 
+ } // end namespace Eigen
+ 
+-#if defined(EIGEN_HAS_GPU_FP16) || defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC)
++#if defined(EIGEN_HAS_GPU_FP16) || defined(EIGEN_HAS_ARM64_FP16_SCALAR_ARITHMETIC) || defined(EIGEN_VECTORIZE_MVEF)
+   #pragma pop_macro("EIGEN_CONSTEXPR")
+ #endif
+ 
+diff --git a/Eigen/src/Core/arch/HELIUM/CommonHelium.h b/Eigen/src/Core/arch/HELIUM/CommonHelium.h
+new file mode 100644
+index 000000000..b767d7df8
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/CommonHelium.h
+@@ -0,0 +1,254 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_COMMON_HELIUM_H
++#define EIGEN_COMMON_HELIUM_H
++
++// Memory buffers needed to implement lane permutations for different
++// packet templates
++#include "HeliumBuffers.h"
++
++#ifndef EIGEN_GEMM_TO_COEFFBASED_THRESHOLD
++#define EIGEN_GEMM_TO_COEFFBASED_THRESHOLD 65
++#endif
++
++
++#ifndef EIGEN_CACHEFRIENDLY_PRODUCT_THRESHOLD
++#define EIGEN_CACHEFRIENDLY_PRODUCT_THRESHOLD 65
++#endif
++
++// Matrix product closer to CMSIS-DSP with some unrolling done by Eigen
++#ifndef EIGEN_UNROLLING_LIMIT
++#define EIGEN_UNROLLING_LIMIT 110
++#endif
++
++
++#ifndef EIGEN_HAS_SINGLE_INSTRUCTION_MADD
++#define EIGEN_HAS_SINGLE_INSTRUCTION_MADD
++#endif
++
++#ifndef EIGEN_HAS_SINGLE_INSTRUCTION_CJMADD
++#define EIGEN_HAS_SINGLE_INSTRUCTION_CJMADD
++#endif
++
++#ifndef EIGEN_ARCH_DEFAULT_NUMBER_OF_REGISTERS
++#define EIGEN_ARCH_DEFAULT_NUMBER_OF_REGISTERS 8
++#endif
++
++#define EIGEN_ARM_PREFETCH(ADDR)
++
++#define HELIUM_TYPE_CVT(DST,SRC,DSTPACKET,SRCPACKET,DSTEXT,SRCEXT)                   \
++                                                                                     \
++template <>                                                                          \
++struct type_casting_traits<DST, SRC> {                                               \
++  enum { VectorizedCast = 1, SrcCoeffRatio = 1, TgtCoeffRatio = 1 };                 \
++};                                                                                   \
++                                                                                     \
++template <>                                                                          \
++struct type_casting_traits<SRC,DST> {                                                \
++  enum { VectorizedCast = 1, SrcCoeffRatio = 1, TgtCoeffRatio = 1 };                 \
++};                                                                                   \
++                                                                                     \
++template <>                                                                          \
++EIGEN_STRONG_INLINE DSTPACKET pcast< SRCPACKET, DSTPACKET>(const SRCPACKET& a) {     \
++  return vcvtq##_##DSTEXT##_##SRCEXT(a);                                             \
++};                                                                                   \
++                                                                                     \
++template <>                                                                          \
++EIGEN_STRONG_INLINE SRCPACKET pcast< DSTPACKET, SRCPACKET>(const DSTPACKET& a) {     \
++  return vcvtq##_##SRCEXT##_##DSTEXT (a);                                            \
++};                                                                                   \
++                                                                                     \
++                                                                                     \
++template <>                                                                          \
++EIGEN_STRONG_INLINE DSTPACKET preinterpret<DSTPACKET,SRCPACKET>(const SRCPACKET& a) {\
++  return vreinterpretq_##DSTEXT##_##SRCEXT (a);                                      \
++} ;                                                                                  \
++                                                                                     \
++template <>                                                                          \
++EIGEN_STRONG_INLINE SRCPACKET preinterpret<SRCPACKET,DSTPACKET>(const DSTPACKET& a) {\
++  return vreinterpretq_##SRCEXT##_##DSTEXT (a);                                      \
++};
++
++
++namespace Eigen {
++
++
++namespace internal {
++
++
++typedef int32x4_t                          Packet4i;
++typedef int16x8_t                          Packet8i;
++typedef int8x16_t                          Packet16i;
++
++struct Packet2i
++{
++  EIGEN_ALWAYS_INLINE operator Packet4i&() { return v; }
++  EIGEN_ALWAYS_INLINE operator const Packet4i&() const { return v; }
++  EIGEN_ALWAYS_INLINE Packet2i() {}
++  EIGEN_ALWAYS_INLINE Packet2i(const Packet4i &val) : v(val) {}
++  EIGEN_ALWAYS_INLINE Packet2i& operator=(const Packet4i &val) {
++    v = val;
++    return *this;
++  }
++
++ 
++  Packet4i v;
++};
++
++
++typedef uint32x4_t                         Packet4ui;
++typedef uint16x8_t                         Packet8ui;
++typedef uint8x16_t                         Packet16ui;
++
++
++EIGEN_STRONG_INLINE void trans_16bit_8x4(uint16_t *pSrc)
++{
++    uint16x8_t vecIn0,vecIn1,vecIn2,vecIn3,offset;
++
++
++    offset = vld1q_u16(helium_buffer_transpose_offset_u16);
++
++    vecIn0 = vldrhq_gather_shifted_offset_u16(pSrc     , offset);
++    vecIn1 = vldrhq_gather_shifted_offset_u16(pSrc + 2 , offset);
++    vecIn2 = vldrhq_gather_shifted_offset_u16(pSrc + 4 , offset);
++    vecIn3 = vldrhq_gather_shifted_offset_u16(pSrc + 6 , offset);
++
++
++    vst1q_u16(pSrc     , vecIn0);
++    vst1q_u16(pSrc + 8 , vecIn1);
++    vst1q_u16(pSrc + 16, vecIn2);
++    vst1q_u16(pSrc + 24, vecIn3);
++
++}
++
++EIGEN_STRONG_INLINE void trans_8bit_16x4(uint8_t *pSrc)
++{
++    uint8x16_t vecIn0,vecIn1,vecIn2,vecIn3,offset;
++
++
++    offset = vld1q_u8(helium_buffer_transpose_offset_u8);
++
++    vecIn0 = vldrbq_gather_offset_u8(pSrc     , offset);
++    vecIn1 = vldrbq_gather_offset_u8(pSrc + 4 , offset);
++    vecIn2 = vldrbq_gather_offset_u8(pSrc + 8 , offset);
++    vecIn3 = vldrbq_gather_offset_u8(pSrc + 12 , offset);
++
++
++    vst1q_u8(pSrc      , vecIn0);
++    vst1q_u8(pSrc + 16 , vecIn1);
++    vst1q_u8(pSrc + 32 , vecIn2);
++    vst1q_u8(pSrc + 48 , vecIn3);
++
++}
++
++template<int srcRows,int srcCols>
++void trans_16bit_generic(const uint16_t  * pDataSrc,
++    uint16_t  * pDataDest)
++{
++    uint16x8_t    vecOffs;
++    uint32_t        i;
++    uint32_t        blkCnt;
++    uint16_t const *pDataC;
++    uint16_t       *pDataDestR;
++    uint16x8_t    vecIn;
++
++    vecOffs = vidupq_u16((uint32_t)0, 1);
++    vecOffs = vmulq_n_u16(vecOffs , srcCols);
++
++    i = srcCols;
++    while(i > 0U)
++    {
++        pDataC = (uint16_t const *) pDataSrc;
++        pDataDestR = pDataDest;
++
++        blkCnt = srcRows >> 3;
++        while (blkCnt > 0U)
++        {
++            vecIn = vldrhq_gather_shifted_offset_u16(pDataC, vecOffs);
++            vstrhq_u16(pDataDestR, vecIn);
++            pDataDestR += 8;
++            pDataC = pDataC + srcCols * 8;
++            /*
++             * Decrement the blockSize loop counter
++             */
++            blkCnt--;
++        }
++
++        /*
++         * tail
++         */
++        blkCnt = srcRows & 7;
++        if (blkCnt > 0U)
++        {
++            mve_pred16_t p0 = vctp16q(blkCnt);
++            vecIn = vldrhq_gather_shifted_offset_u16(pDataC, vecOffs);
++            vstrhq_p_u16(pDataDestR, vecIn, p0);
++        }
++        pDataSrc += 1;
++        pDataDest += srcRows;
++        i--;
++    }
++
++}
++
++template<int srcRows,int srcCols>
++void trans_8bit_generic(const uint8_t  * pDataSrc,
++    uint8_t  * pDataDest)
++{
++    uint8x16_t    vecOffs;
++    uint32_t        i;
++    uint32_t        blkCnt;
++    uint8_t const *pDataC;
++    uint8_t       *pDataDestR;
++    uint8x16_t    vecIn;
++
++    vecOffs = vidupq_u8((uint32_t)0, 1);
++    vecOffs = vmulq_n_u8(vecOffs , srcCols);
++
++    i = srcCols;
++    while(i > 0U)
++    {
++        pDataC = (uint8_t const *) pDataSrc;
++        pDataDestR = pDataDest;
++
++        blkCnt = srcRows >> 3;
++        while (blkCnt > 0U)
++        {
++            vecIn = vldrbq_gather_offset_u8(pDataC, vecOffs);
++            vstrbq_u8(pDataDestR, vecIn); 
++            pDataDestR += 16;
++            pDataC = pDataC + srcCols * 16;
++            /*
++             * Decrement the blockSize loop counter
++             */
++            blkCnt--;
++        }
++
++        /*
++         * tail
++         */
++        blkCnt = srcRows & 15;
++        if (blkCnt > 0U)
++        {
++            mve_pred16_t p0 = vctp8q(blkCnt);
++            vecIn = vldrbq_gather_offset_u8(pDataC, vecOffs);
++            vstrbq_p_u8(pDataDestR, vecIn, p0);
++        }
++        pDataSrc += 1;
++        pDataDest += srcRows;
++        i--;
++    }
++
++}
++
++} // end namespace internal
++
++} // end namespace Eigen
++#endif // EIGEN_COMMON_HELIUM_H
+\ No newline at end of file
+diff --git a/Eigen/src/Core/arch/HELIUM/HeliumBuffers.h b/Eigen/src/Core/arch/HELIUM/HeliumBuffers.h
+new file mode 100644
+index 000000000..4a1dd3c8e
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/HeliumBuffers.h
+@@ -0,0 +1,144 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN__HELIUM_BUFFER_H
++#define EIGEN__HELIUM_BUFFER_H
++
++/*******************
++
++TRANSPOSITION MACROS
++
++********************/
++
++// Used to change how the U16 transposition buffer is defined.
++// In case of multi-threaded use, this definition must be changed to avoid
++// using the same buffer from different threads.
++#if !defined(HELIUM_BUFFER_PTRANSPOSE_U16_DEFINE)
++#define HELIUM_BUFFER_PTRANSPOSE_U16_DEFINE EIGEN_ALIGN16 static       uint16_t  helium_buffer_ptranspose_u16[64]={0};
++#endif
++
++// Used to change how the U8 transposition buffer is defined.
++// In case of multi-threaded use, this definition must be changed to avoid
++// using the same buffer from different threads.
++#if !defined(HELIUM_BUFFER_PTRANSPOSE_U8_DEFINE)
++#define HELIUM_BUFFER_PTRANSPOSE_U8_DEFINE EIGEN_ALIGN16 static       uint8_t  helium_buffer_ptranspose_u8[256]      = {0};
++#endif
++
++// Used to change how the U16 transposition buffer is declared.
++// In case of multi-threaded use, this definition must be changed to avoid
++// using the same buffer from different threads.
++#if !defined(HELIUM_BUFFER_PTRANSPOSE_U16_DECLARE)
++#define HELIUM_BUFFER_PTRANSPOSE_U16_DECLARE extern       uint16_t  helium_buffer_ptranspose_u16[64];
++#endif
++
++// Used to change how the U8 transposition buffer is declared.
++// In case of multi-threaded use, this definition must be changed to avoid
++// using the same buffer from different threads.
++#if !defined(HELIUM_BUFFER_PTRANSPOSE_U8_DECLARE)
++#define HELIUM_BUFFER_PTRANSPOSE_U8_DECLARE extern       uint8_t  helium_buffer_ptranspose_u8[256];
++#endif
++
++// Macro to use the transposition buffer from the code.
++// In case of multi-threaded use, those macros must be changed to access
++// the right buffer for the thread
++#if !defined(HELIUM_BUFFER_PTRANSPOSE_U16)
++#define HELIUM_BUFFER_PTRANSPOSE_U16 helium_buffer_ptranspose_u16
++#endif
++
++#if !defined(HELIUM_BUFFER_PTRANSPOSE_U8)
++#define HELIUM_BUFFER_PTRANSPOSE_U8 helium_buffer_ptranspose_u8
++#endif
++
++/************************
++
++BUFFER MACROS
++
++*************************/
++
++
++// Static definitions for header only use
++#if !defined(EIGEN_HELIUM_BUFFER_EXTERNAL)
++
++EIGEN_ALIGN16 static const uint32_t  helium_buffer_ploaddup_u32[4]   = {0,0,1,1};
++EIGEN_ALIGN16 static const uint32_t  helium_buffer_preverse_u32[4]   = { 3,2,1,0 };
++HELIUM_BUFFER_PTRANSPOSE_U16_DEFINE
++EIGEN_ALIGN16 static const uint16_t  helium_buffer_ploaddup_u16[8]   = {0,0,1,1,2,2,3,3};
++EIGEN_ALIGN16 static const uint16_t  helium_buffer_ploadquad_u16[8]  = {0,0,0,0,1,1,1,1};
++EIGEN_ALIGN16 static const uint16_t  helium_buffer_preverse_u16[8]   = { 7,6,5,4,3,2,1,0 };
++
++EIGEN_ALIGN16 static const uint16_t  helium_buffer_transpose_offset_u16[8]   = {0, 8, 16, 24, 1, 9, 17, 25};
++EIGEN_ALIGN16 static const uint8_t   helium_buffer_transpose_offset_u8[16]   = {0, 16, 32, 48, 1, 17, 33, 49, 2, 18, 34, 50, 3, 19, 35, 51};
++
++EIGEN_ALIGN16 static const uint32_t  helium_buffer_transpose_offset_u32_2by2[4]   = {0, 2, 1, 3};
++
++#if defined(EIGEN_VECTORIZE_MVEF)
++EIGEN_ALIGN16 static const float     helium_buffer_plset_f32[4]      = {0.0f,1.0f,2.0f,3.0f};
++EIGEN_ALIGN16 static const float32_t helium_buffer_pconj_f32[4]      = { 1.0f, -1.0f, 1.0f, -1.0f };
++
++EIGEN_ALIGN16 static const float16_t helium_buffer_plset_f16[8]      = {0.0f16,1.0f16,2.0f16,3.0f16,4.0f16,5.0f16,6.0f16,7.0f16};
++#endif
++
++#if defined(EIGEN_VECTORIZE_MVEI)
++EIGEN_ALIGN16 static const uint32_t helium_buffer_plset_u32[4]     = {0,1,2,3};
++EIGEN_ALIGN16 static const int32_t  helium_buffer_plset_s32[4]     = {0,1,2,3};
++
++EIGEN_ALIGN16 static const uint16_t helium_buffer_plset_u16[8]     = {0,1,2,3,4,5,6,7};
++EIGEN_ALIGN16 static const int16_t  helium_buffer_plset_s16[8]     = {0,1,2,3,4,5,6,7};
++
++EIGEN_ALIGN16 static const uint8_t  helium_buffer_plset_u8[16]     = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
++EIGEN_ALIGN16 static const int8_t   helium_buffer_plset_s8[16]     = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
++HELIUM_BUFFER_PTRANSPOSE_U8_DEFINE
++EIGEN_ALIGN16 static const uint8_t  helium_buffer_ploaddup_u8[16]  = {0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7};
++EIGEN_ALIGN16 static const uint8_t  helium_buffer_ploadquad_u8[16] = {0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3};
++EIGEN_ALIGN16 static const uint8_t  helium_buffer_preverse_u8[16]  = { 15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0 };
++
++#endif
++
++#else
++
++// Definition in external file to avoid duplicating the arrays
++// and to allow control of the memory section where to map
++// them (Mapping those arrays in TCM memory is advised)
++extern const uint32_t  helium_buffer_ploaddup_u32[4];
++extern const uint32_t  helium_buffer_preverse_u32[4];
++HELIUM_BUFFER_PTRANSPOSE_U16_DECLARE
++extern const uint16_t  helium_buffer_ploaddup_u16[8];
++extern const uint16_t  helium_buffer_ploadquad_u16[8];
++extern const uint16_t  helium_buffer_preverse_u16[8];
++extern const uint16_t  helium_buffer_transpose_offset_u16[8];
++extern const uint8_t   helium_buffer_transpose_offset_u8[16];
++extern const uint32_t  helium_buffer_transpose_offset_u32_2by2[4];
++
++#if defined(EIGEN_VECTORIZE_MVEF)
++extern const float     helium_buffer_plset_f32[4];
++extern const float32_t helium_buffer_pconj_f32[4];
++
++extern const float16_t helium_buffer_plset_f16[8];
++#endif
++
++#if defined(EIGEN_VECTORIZE_MVEI)
++extern const uint32_t helium_buffer_plset_u32[4];
++extern const int32_t  helium_buffer_plset_s32[4];
++
++extern const uint16_t helium_buffer_plset_u16[8];
++extern const int16_t  helium_buffer_plset_s16[8];
++
++extern const uint8_t  helium_buffer_plset_u8[16];
++extern const int8_t   helium_buffer_plset_s8[16];
++HELIUM_BUFFER_PTRANSPOSE_U8_DECLARE
++extern const uint8_t  helium_buffer_ploaddup_u8[16];
++extern const uint8_t  helium_buffer_ploadquad_u8[16];
++extern const uint8_t  helium_buffer_preverse_u8[16];
++
++#endif
++
++#endif // !defined(EIGEN_HELIUM_BUFFER_EXTERNAL)
++
++
++#endif // EIGEN__HELIUM_BUFFER_H
+\ No newline at end of file
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEF/ComplexMVEF.h b/Eigen/src/Core/arch/HELIUM/MVEF/ComplexMVEF.h
+new file mode 100644
+index 000000000..ae7df44c1
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEF/ComplexMVEF.h
+@@ -0,0 +1,16 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_PACKET_MATH_HELIUM_COMPLEX_MVEF_H
++#define EIGEN_PACKET_MATH_HELIUM_COMPLEX_MVEF_H
++
++#include "ComplexMVEF_F32.h"
++
++
++#endif // EIGEN_PACKET_MATH_HELIUM_MVEF_H
+\ No newline at end of file
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEF/ComplexMVEF_F32.h b/Eigen/src/Core/arch/HELIUM/MVEF/ComplexMVEF_F32.h
+new file mode 100644
+index 000000000..41f11cd40
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEF/ComplexMVEF_F32.h
+@@ -0,0 +1,263 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_PACKET_MATH_HELIUM_COMPLEX_MVEF_F32_H
++#define EIGEN_PACKET_MATH_HELIUM_COMPLEX_MVEF_F32_H
++
++namespace Eigen {
++
++
++
++namespace internal {
++
++
++/*********************
++
++FLOAT32
++
++
++*********************/
++
++
++/* re0 im0 re1 im1 */
++struct Packet2cf
++{
++  EIGEN_ALWAYS_INLINE Packet2cf() {}
++  EIGEN_ALWAYS_INLINE explicit Packet2cf(const Packet4f& a) : v(a) {}
++  Packet4f v;
++};
++
++template<> struct packet_traits<std::complex<float> > : default_packet_traits
++{
++  typedef Packet2cf type;
++  typedef Packet2cf half;
++  enum
++  {
++    Vectorizable = 1,
++    AlignedOnScalar = 1,
++    size = 2,
++    HasHalfPacket = 0,
++
++    HasAdd       = 1,
++    HasSub       = 1,
++    HasMul       = 1,
++    HasDiv       = 0,
++    HasNegate    = 1,
++    HasAbs       = 0,
++    HasAbs2      = 0,
++    HasMin       = 0,
++    HasMax       = 0,
++    HasSetLinear = 0
++  };
++};
++
++
++template<> struct unpacket_traits<Packet2cf>
++{
++  typedef std::complex<float> type;
++  typedef Packet2cf half;
++  typedef Packet4f as_real;
++  enum
++  {
++    size = 2,
++    alignment = Aligned16,
++    vectorizable = true,
++    masked_load_available = false,
++    masked_store_available = false
++  };
++};
++
++
++template<> EIGEN_ALWAYS_INLINE Packet2cf pset1<Packet2cf>(const std::complex<float>& from)
++{
++  const uint64_t tmp=*reinterpret_cast<const uint64_t*>(&from);
++  const float32x4_t c = vcreateq_f32(tmp,tmp);
++  return Packet2cf(c);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2cf preverse(const Packet2cf& a)
++{
++  const uint64x2_t a64 = *reinterpret_cast<const uint64x2_t*>(&a);
++  
++  const uint64_t low=vgetq_lane_u64(a64,0);
++  const uint64_t high=vgetq_lane_u64(a64,1);
++  return Packet2cf(vcreateq_f32(high,low));
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet2cf padd<Packet2cf>(const Packet2cf& a, const Packet2cf& b)
++{
++    return Packet2cf(padd<Packet4f>(a.v, b.v));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2cf psub<Packet2cf>(const Packet2cf& a, const Packet2cf& b)
++{
++    return Packet2cf(psub<Packet4f>(a.v, b.v));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2cf pnegate(const Packet2cf& a)
++{
++    return Packet2cf(pnegate<Packet4f>(a.v));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2cf pconj(const Packet2cf& a)
++{
++  float32x4_t vecSign = vld1q_f32(helium_buffer_pconj_f32);
++
++  return Packet2cf(vmulq_f32(a.v, vecSign));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2cf pmul<Packet2cf>(const Packet2cf& a, const Packet2cf& b)
++{
++    float32x4_t vec_acc = vcmulq(a.v, b.v);
++    vec_acc = vcmlaq_rot90(vec_acc, a.v, b.v);
++    return(Packet2cf(vec_acc));
++}
++
++template<> EIGEN_STRONG_INLINE Packet2cf psqrt(const Packet2cf& a) 
++{
++    return(psqrt_complex(a));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2cf pload<Packet2cf>(const std::complex<float>* from)
++{
++    EIGEN_DEBUG_ALIGNED_LOAD return Packet2cf(pload<Packet4f>(reinterpret_cast<const float*>(from)));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2cf ploadu<Packet2cf>(const std::complex<float>* from)
++{
++    EIGEN_DEBUG_UNALIGNED_LOAD return Packet2cf(ploadu<Packet4f>(reinterpret_cast<const float*>(from)));
++}
++
++template<> EIGEN_ALWAYS_INLINE void pstore <std::complex<float> >(std::complex<float> *to, const Packet2cf& from)
++{
++    EIGEN_DEBUG_ALIGNED_STORE pstore(reinterpret_cast<float*>(to), from.v);
++}
++
++template<> EIGEN_ALWAYS_INLINE void pstoreu<std::complex<float> >(std::complex<float> *to, const Packet2cf& from)
++{
++    EIGEN_DEBUG_UNALIGNED_STORE pstoreu(reinterpret_cast<float*>(to), from.v);
++}
++
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet2cf, 2>& kernel)
++{
++    uint32_t * pDataSrc= reinterpret_cast<uint32_t * >(&kernel.packet);
++    uint32x4_t vecOffset={0,1,4,5};
++    uint32x4_t vecIn1;
++    uint32x4_t vecIn2;
++
++    vecIn1 = vldrwq_gather_shifted_offset_u32(pDataSrc,vecOffset);
++    vecOffset=vaddq_n_u32(vecOffset,2);
++    vecIn2 = vldrwq_gather_shifted_offset_u32(pDataSrc,vecOffset);
++
++    vst1q(pDataSrc,vecIn1);
++    pDataSrc += 4;
++    vst1q(pDataSrc,vecIn2);
++
++ }
++
++
++template<> EIGEN_ALWAYS_INLINE std::complex<float> pfirst<Packet2cf>(const Packet2cf& a)
++{
++  EIGEN_ALIGN16 std::complex<float> x[2];
++  vst1q_f32(reinterpret_cast<float*>(x), a.v);
++  return x[0];
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2cf ploaddup<Packet2cf>(const std::complex<float>* from)
++{
++  return pset1<Packet2cf>(*from);
++}
++
++template<> EIGEN_ALWAYS_INLINE std::complex<float> predux<Packet2cf>(const Packet2cf& a)
++{
++  float re = vgetq_lane(a.v, 0) + vgetq_lane(a.v, 2);
++  float im = vgetq_lane(a.v, 1) + vgetq_lane(a.v, 3);
++  return(std::complex<float>(re,im));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2cf pcmp_eq(const Packet2cf& a, const Packet2cf& b)
++{
++  // Compare real and imaginary parts of a and b to get the mask vector:
++  // [re(a[0])==re(b[0]), im(a[0])==im(b[0]), re(a[1])==re(b[1]), im(a[1])==im(b[1])]
++  Packet4f eq = pcmp_eq<Packet4f>(a.v, b.v);
++  // Swap real/imag elements in the mask in to get:
++  // [im(a[0])==im(b[0]), re(a[0])==re(b[0]), im(a[1])==im(b[1]), re(a[1])==re(b[1])]
++  Packet4f eq_swapped = vrev64q_f32(eq);
++  // Return re(a)==re(b) && im(a)==im(b) by computing bitwise AND of eq and eq_swapped
++  return Packet2cf(pand<Packet4f>(eq, eq_swapped));
++}
++
++template<> struct conj_helper<Packet2cf,Packet2cf,false,true>
++{
++  EIGEN_ALWAYS_INLINE Packet2cf pmadd(const Packet2cf& x, const Packet2cf& y, const Packet2cf& c) const
++  { return padd(pmul(x,y),c); }
++
++  EIGEN_ALWAYS_INLINE Packet2cf pmul(const Packet2cf& a, const Packet2cf& b) const
++  { return internal::pmul(a, pconj(b)); }
++};
++
++template<> struct conj_helper<Packet2cf,Packet2cf,true,false>
++{
++  EIGEN_ALWAYS_INLINE Packet2cf pmadd(const Packet2cf& x, const Packet2cf& y, const Packet2cf& c) const
++  { return padd(pmul(x,y),c); }
++
++  EIGEN_ALWAYS_INLINE Packet2cf pmul(const Packet2cf& a, const Packet2cf& b) const
++  { return internal::pmul(pconj(a), b); }
++};
++
++template<> struct conj_helper<Packet2cf,Packet2cf,true,true>
++{
++  EIGEN_ALWAYS_INLINE Packet2cf pmadd(const Packet2cf& x, const Packet2cf& y, const Packet2cf& c) const
++  { return padd(pmul(x,y),c); }
++
++  EIGEN_ALWAYS_INLINE Packet2cf pmul(const Packet2cf& a, const Packet2cf& b) const
++  { return pconj(internal::pmul(a,b)); }
++};
++
++
++EIGEN_MAKE_CONJ_HELPER_CPLX_REAL(Packet2cf,Packet4f)
++
++
++template<> EIGEN_ALWAYS_INLINE Packet2cf pcplxflip<Packet2cf>(const Packet2cf& a)
++{
++  return Packet2cf(vrev64q_f32(a.v));
++}
++
++
++
++
++
++template<> EIGEN_ALWAYS_INLINE void pscatter<std::complex<float>, Packet2cf>(
++    std::complex<float>* to, const Packet2cf& from, Index stride)
++{
++  to[stride*0] = std::complex<float>(vgetq_lane_f32(from.v, 0), vgetq_lane_f32(from.v, 1));
++  to[stride*1] = std::complex<float>(vgetq_lane_f32(from.v, 2), vgetq_lane_f32(from.v, 3));
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet2cf pgather<std::complex<float>, Packet2cf>(
++    const std::complex<float>* from, Index stride)
++{
++  Packet4f res = vdupq_n_f32(std::real(from[0*stride]));
++  res = vsetq_lane_f32(std::imag(from[0*stride]), res, 1);
++  res = vsetq_lane_f32(std::real(from[1*stride]), res, 2);
++  res = vsetq_lane_f32(std::imag(from[1*stride]), res, 3);
++  return Packet2cf(res);
++}
++
++
++
++} // end namespace internal
++
++} // end namespace Eigen
++
++#endif // EIGEN_PACKET_MATH_HELIUM_COMPLEX_MVEF_F32_H
+\ No newline at end of file
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEF/GebpTraitsMVEF.h b/Eigen/src/Core/arch/HELIUM/MVEF/GebpTraitsMVEF.h
+new file mode 100755
+index 000000000..55b1dd564
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEF/GebpTraitsMVEF.h
+@@ -0,0 +1,46 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_GEBP_TRAITS_MVEF_F32_H
++#define EIGEN_GEBP_TRAITS_MVEF_F32_H
++
++
++#if 1
++namespace Eigen {
++
++
++namespace internal {
++
++
++template<int T>
++struct gebp_workaround {
++   static constexpr bool always_false_v = false;
++};
++
++template<bool _ConjRhs, int _PacketSize>
++class gebp_traits<float, std::complex<float>, false, _ConjRhs, Architecture::HELIUM, _PacketSize >
++{
++
++  /*
++
++  This will fail only when this template is instantiated and it will occur only
++  when the user is using a real * complex matrix product.
++  (or real.transpose() * complex ...)
++
++  */
++  static_assert(gebp_workaround<_PacketSize>::always_false_v, "real * complex gemm matrix product not yet supported by MVE backend. Cast your real matrix to complex.");
++  
++};
++
++}
++}
++
++#endif
++
++#endif // EIGEN_GEBP_TRAITS_MVEF_F32_H
+\ No newline at end of file
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEF/PacketMathMVEF.h b/Eigen/src/Core/arch/HELIUM/MVEF/PacketMathMVEF.h
+new file mode 100644
+index 000000000..423ab4589
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEF/PacketMathMVEF.h
+@@ -0,0 +1,17 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_PACKET_MATH_HELIUM_MVEF_H
++#define EIGEN_PACKET_MATH_HELIUM_MVEF_H
++
++#include "PacketMathMVEF_F32.h"
++#include "PacketMathMVEF_F16.h"
++
++
++#endif // EIGEN_PACKET_MATH_HELIUM_MVEF_H
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEF/PacketMathMVEF_F16.h b/Eigen/src/Core/arch/HELIUM/MVEF/PacketMathMVEF_F16.h
+new file mode 100644
+index 000000000..9b58eee45
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEF/PacketMathMVEF_F16.h
+@@ -0,0 +1,358 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_PACKET_MATH_HELIUM_MVEF_F16_H
++#define EIGEN_PACKET_MATH_HELIUM_MVEF_F16_H
++
++namespace Eigen {
++
++
++namespace internal {
++
++/***********************
++
++FLOAT16
++
++***********************/
++
++typedef float16x8_t                          Packet8hf;
++
++
++template <>
++struct packet_traits<Eigen::half> : default_packet_traits
++{
++  typedef Packet8hf type;
++  typedef Packet8hf half;
++  enum
++  {
++    Vectorizable = 1,
++    AlignedOnScalar = 1,
++    size = 8,
++    HasHalfPacket = 0,
++
++    HasCast      = 0,
++    HasAdd       = 1,
++    HasSub       = 1,
++    HasShift     = 0,
++    HasMul       = 1,
++    HasNegate    = 1,
++    HasAbs       = 1,
++    HasArg       = 0,
++    HasAbs2      = 0,
++    HasAbsDiff   = 1,
++    HasMin       = 1,
++    HasMax       = 1,
++    HasConj      = 0,
++    HasSetLinear = 0,
++    HasBlend     = 0,
++
++    HasDiv   = 0,
++    HasFloor = 1,
++    HasCeil  = 1,
++    HasRint  = 1,
++
++    HasSin  = 0,
++    HasCos  = 0,
++    HasLog  = 0,
++    HasExp  = 0,
++    HasSqrt = 0,
++    HasTanh = 0,
++    HasErf  = 0
++  };
++};
++
++
++
++
++template<> struct unpacket_traits<Packet8hf>
++{
++  typedef Eigen::half type;
++  typedef Packet8hf half;
++  typedef Packet8i integer_packet;
++  enum
++  {
++    size = 8,
++    alignment = Aligned16,
++    vectorizable = true,
++    masked_load_available = false,
++    masked_store_available = false
++  };
++};
++
++template<> EIGEN_STRONG_INLINE Packet8hf print<Packet8hf>(const Packet8hf& a)
++{ 
++  return vrndnq_f16(a); 
++}
++
++template<> EIGEN_STRONG_INLINE Packet8hf pfloor<Packet8hf>(const Packet8hf& a)
++{ 
++  return vrndmq_f16(a); 
++}
++
++template<> EIGEN_STRONG_INLINE Packet8hf pceil<Packet8hf>(const Packet8hf& a)
++{ 
++  return vrndpq_f16(a); 
++}
++
++
++
++template<> EIGEN_STRONG_INLINE Packet8hf pset1frombits<Packet8hf>(unsigned short from)
++{ 
++  return vreinterpretq_f16_u16(vdupq_n_u16(from)); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf pset1<Packet8hf>(const Eigen::half& from)
++{
++return vdupq_n_f16(from.x);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf plset<Packet8hf>(const Eigen::half& a)
++{
++  return vaddq_f16(pset1<Packet8hf>(a), vld1q_f16(helium_buffer_plset_f16));
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf padd<Packet8hf>(const Packet8hf& a, const Packet8hf& b) 
++{
++  return vaddq_f16(a,b);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf psub<Packet8hf>(const Packet8hf& a, const Packet8hf& b) 
++{
++  return vsubq_f16(a,b);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf pnegate(const Packet8hf& a)
++{
++  return vnegq_f16(a);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf pmadd(const Packet8hf& a, const Packet8hf& b, const Packet8hf& c)
++{
++  return vfmaq_f16(c,a,b);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf pload<Packet8hf>(const Eigen::half* from)
++{ EIGEN_DEBUG_ALIGNED_LOAD return vld1q_f16(reinterpret_cast<const float16_t*>(from)); }
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf ploadquad<Packet8hf>(const Eigen::half* from)
++{
++
++  return vldrhq_gather_shifted_offset_f16(reinterpret_cast<const float16_t*>(from),vld1q_u16(helium_buffer_ploadquad_u16));
++
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf ploadu<Packet8hf>(const Eigen::half* from)
++{ EIGEN_DEBUG_UNALIGNED_LOAD return vld1q_f16(reinterpret_cast<const float16_t*>(from)); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstore<Eigen::half>(Eigen::half* to, const Packet8hf& from)
++{ EIGEN_DEBUG_ALIGNED_STORE vst1q_f16(reinterpret_cast<float16_t*>(to),from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstoreu<Eigen::half>(Eigen::half* to, const Packet8hf& from)
++{ EIGEN_DEBUG_UNALIGNED_STORE vst1q_f16(reinterpret_cast<float16_t*>(to),from); }
++
++
++template<> EIGEN_ALWAYS_INLINE Eigen::half predux<Packet8hf>(const Packet8hf& in)
++{
++   float16x8_t tmpVec,tmpVec2;
++  _Float16 acc;
++  tmpVec2 = in;
++  tmpVec = (float16x8_t) vrev32q_s16((int16x8_t) tmpVec2);
++  tmpVec2 = vaddq_f16(tmpVec, tmpVec2);
++
++  tmpVec = (float16x8_t) vrev64q_s32((int32x4_t) tmpVec2);
++  tmpVec2 = vaddq_f16(tmpVec, tmpVec2);
++
++  acc = (_Float16)vgetq_lane_f16(tmpVec2, 0) + (_Float16)vgetq_lane_f16(tmpVec2, 4);
++  Eigen::half h;
++  h.x=acc;
++  return h;
++}
++
++
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet8hf, 8>& kernel)
++{
++  const uint16_t *src = (const uint16_t *)&kernel;
++
++  trans_16bit_generic<8,8>(src,HELIUM_BUFFER_PTRANSPOSE_U16);
++  memcpy((void*)src,(void *)HELIUM_BUFFER_PTRANSPOSE_U16,sizeof(uint16_t)*64);
++ }
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet8hf, 4>& kernel)
++{
++    uint16_t * pDataSrc= (uint16_t * )&kernel.packet;
++    trans_16bit_8x4(pDataSrc);
++
++ }
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf pabsdiff<Packet8hf>(const Packet8hf& a, const Packet8hf& b)
++{
++  return vabdq_f16(a,b);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf pabs(const Packet8hf& a)
++{
++  return vabsq_f16(a);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf pmin<Packet8hf>(const Packet8hf& a, const Packet8hf& b) 
++{
++  return vminnmq_f16(a,b);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf pmax<Packet8hf>(const Packet8hf& a, const Packet8hf& b) 
++{
++  return vmaxnmq_f16(a,b);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf pmin<PropagateNumbers,Packet8hf>(const Packet8hf& a, const Packet8hf& b) 
++{
++  return vminnmq_f16(a,b);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf pmax<PropagateNumbers,Packet8hf>(const Packet8hf& a, const Packet8hf& b) 
++{
++  return vmaxnmq_f16(a,b);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf ploaddup<Packet8hf>(const Eigen::half* from)
++{
++
++  return vldrhq_gather_shifted_offset_f16(reinterpret_cast<const float16_t*>(from),vld1q_u16(helium_buffer_ploaddup_u16));
++}
++
++template<> EIGEN_ALWAYS_INLINE Eigen::half pfirst<Packet8hf>(const Packet8hf& a)
++{
++  Eigen::half h;
++  h.x=vgetq_lane_f16(a,0);
++  return h;
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8hf preverse(const Packet8hf& a)
++{
++    Packet8hf res;
++    res = vldrhq_gather_shifted_offset_f16((float16_t*)&a,vld1q_u16(helium_buffer_preverse_u16));
++
++    return(res);
++}
++
++#define CONVERTMASKF16(PRED) \
++  vreinterpretq_f16_u16(vdupq_m_n_u16(vdupq_n_u16(0),0xffffu,PRED))
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8hf ptrue<Packet8hf>(const Packet8hf& /*a*/)
++{
++  return vreinterpretq_f16_u16(vdupq_n_u16(0xffffu));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8hf pzero<Packet8hf>(const Packet8hf& /*a*/)
++{
++  return vdupq_n_f16(0.0f16);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8hf pcmp_le<Packet8hf>(const Packet8hf& a, const Packet8hf& b)
++{
++  return CONVERTMASKF16(vcmpleq_f16(a, b));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8hf pcmp_lt<Packet8hf>(const Packet8hf& a, const Packet8hf& b)
++{
++  return CONVERTMASKF16(vcmpltq_f16(a, b));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8hf pcmp_eq<Packet8hf>(const Packet8hf& a, const Packet8hf& b)
++{
++  return CONVERTMASKF16(vcmpeqq_f16(a, b));
++}
++
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8hf pcmp_lt_or_nan<Packet8hf>(const Packet8hf& a, const Packet8hf& b)
++{
++  return CONVERTMASKF16(~vcmpgeq_f16(a, b));
++}
++
++
++#define LOGICALF16(OP,A,B) \
++  vreinterpretq_f16_u16(OP(vreinterpretq_u16_f16(A), vreinterpretq_u16_f16(B)))
++
++// LOGICAL Operations are not supported for float, so reinterpret casts
++template <>
++EIGEN_ALWAYS_INLINE Packet8hf pand<Packet8hf>(const Packet8hf& a, const Packet8hf& b)
++{
++  return LOGICALF16(vandq_u16,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8hf por<Packet8hf>(const Packet8hf& a, const Packet8hf& b)
++{
++  return LOGICALF16(vorrq_u16,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8hf pxor<Packet8hf>(const Packet8hf& a, const Packet8hf& b)
++{
++  return LOGICALF16(veorq_u16,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8hf pandnot<Packet8hf>(const Packet8hf& a, const Packet8hf& b)
++{
++  return LOGICALF16(vbicq_u16,a,b);
++}
++
++
++/** \internal \returns \a or \b for each field in packet according to \mask */
++template<> EIGEN_ALWAYS_INLINE Packet8hf
++pselect(const Packet8hf& mask, const Packet8hf& a, const Packet8hf& b) 
++{
++  return vpselq_f16(a,b,vcmpeqq_u16(vreinterpretq_u16_f16(mask),vdupq_n_u16(0xffffu)));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8hf pgather<Eigen::half, Packet8hf>(const Eigen::half* from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  uint16x8_t indices = vidupq_n_u16 (0, 1);
++  indices=vmulq_n_u16(indices,stride);
++  return vldrhq_gather_shifted_offset_f16(reinterpret_cast<const float16_t*>(from), indices);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE void pscatter<Eigen::half, Packet8hf>(Eigen::half* to, const Packet8hf& from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  uint16x8_t indices = vidupq_n_u16 (0, 1);
++  indices=vmulq_n_u16(indices,stride);
++  vstrhq_scatter_shifted_offset_f16(reinterpret_cast<float16_t*>(to), indices, from);
++}
++
++} // end namespace internal
++
++} // end namespace Eigen
++
++#endif // EIGEN_PACKET_MATH_HELIUM_MVEF_F16_H
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEF/PacketMathMVEF_F32.h b/Eigen/src/Core/arch/HELIUM/MVEF/PacketMathMVEF_F32.h
+new file mode 100644
+index 000000000..e9ad84ef0
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEF/PacketMathMVEF_F32.h
+@@ -0,0 +1,358 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_PACKET_MATH_HELIUM_MVEF_F32_H
++#define EIGEN_PACKET_MATH_HELIUM_MVEF_F32_H
++
++namespace Eigen {
++
++
++namespace internal {
++
++/***********************
++
++FLOAT32
++
++***********************/
++
++typedef float32x4_t                          Packet4f;
++
++template <>
++struct packet_traits<float> : default_packet_traits
++{
++  typedef Packet4f type;
++  typedef Packet4f half;
++  enum
++  {
++    Vectorizable = 1,
++    AlignedOnScalar = 1,
++    size = 4,
++    HasHalfPacket = 0,
++
++    HasCast      = 0,
++    HasAdd       = 1,
++    HasSub       = 1,
++    HasShift     = 0,
++    HasMul       = 1,
++    HasNegate    = 1,
++    HasAbs       = 1,
++    HasArg       = 0,
++    HasAbs2      = 0,
++    HasAbsDiff   = 1,
++    HasMin       = 1,
++    HasMax       = 1,
++    HasConj      = 0,
++    HasSetLinear = 0,
++    HasBlend     = 0,
++
++    HasDiv   = 0,
++    HasFloor = 1,
++    HasCeil  = 1,
++    HasRint  = 1,
++
++    HasSin  = 1,
++    HasCos  = 1,
++    HasLog  = 0,
++    HasExp  = 0,
++    HasSqrt = 0,
++    HasTanh = 0,
++    HasErf  = 0
++  };
++};
++
++template<> struct unpacket_traits<Packet4f>
++{
++  typedef float type;
++  typedef Packet4f half;
++  typedef Packet4i integer_packet;
++  enum
++  {
++    size = 4,
++    alignment = Aligned16,
++    vectorizable = true,
++    masked_load_available = false,
++    masked_store_available = false
++  };
++};
++
++
++
++template<> EIGEN_STRONG_INLINE Packet4f print<Packet4f>(const Packet4f& a)
++{ 
++  return vrndnq_f32(a); 
++}
++
++template<> EIGEN_STRONG_INLINE Packet4f pfloor<Packet4f>(const Packet4f& a)
++{ 
++  return vrndmq_f32(a); 
++}
++
++template<> EIGEN_STRONG_INLINE Packet4f pceil<Packet4f>(const Packet4f& a)
++{ 
++  return vrndpq_f32(a); 
++}
++
++template<> EIGEN_DEFINE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS EIGEN_UNUSED Packet4f pcos<Packet4f>(const Packet4f& x)
++{ 
++  return pcos_float(x); 
++}
++
++template<> EIGEN_DEFINE_FUNCTION_ALLOWING_MULTIPLE_DEFINITIONS EIGEN_UNUSED Packet4f psin<Packet4f>(const Packet4f& x)
++{ 
++  return psin_float(x); 
++}
++
++template<> EIGEN_STRONG_INLINE Packet4f pset1frombits<Packet4f>(unsigned int from)
++{ 
++  return vreinterpretq_f32_u32(vdupq_n_u32(from)); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4f pset1<Packet4f>(const float& from)
++{
++return vdupq_n_f32(from);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4f plset<Packet4f>(const float& a)
++{
++  return vaddq_f32(pset1<Packet4f>(a), vld1q_f32(helium_buffer_plset_f32));
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4f padd<Packet4f>(const Packet4f& a, const Packet4f& b)
++{
++  return vaddq_f32(a,b);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4f psub<Packet4f>(const Packet4f& a, const Packet4f& b)
++{
++  return vsubq_f32(a,b);
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4f pmul<Packet4f>(const Packet4f& a, const Packet4f& b)
++{
++  return vmulq_f32(a,b);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4f pnegate(const Packet4f& a)
++{
++  return vnegq_f32(a);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4f pmadd(const Packet4f& a, const Packet4f& b, const Packet4f& c)
++{
++  return vfmaq_f32(c,a,b);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4f pload<Packet4f>(const float* from)
++{ EIGEN_DEBUG_ALIGNED_LOAD return vld1q_f32(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4f ploadu<Packet4f>(const float* from)
++{ EIGEN_DEBUG_UNALIGNED_LOAD return vld1q_f32(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstore<float>(float* to, const Packet4f& from)
++{ EIGEN_DEBUG_ALIGNED_STORE vst1q_f32(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstoreu<float>(float* to, const Packet4f& from)
++{ EIGEN_DEBUG_UNALIGNED_STORE vst1q_f32(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE float predux<Packet4f>(const Packet4f& a)
++{
++  return vgetq_lane(a, 0) + vgetq_lane(a, 1) +
++          vgetq_lane(a, 2) + vgetq_lane(a, 3);
++}
++
++
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet4f, 4>& kernel)
++{
++    uint32_t * pDataSrc= (uint32_t * )&kernel.packet;
++    uint32x4x4_t vecIn;
++
++    vecIn = vld4q((uint32_t const *) pDataSrc);
++    vstrwq_u32(pDataSrc, vecIn.val[0]);
++    vstrwq_u32(pDataSrc+4, vecIn.val[1]);
++    vstrwq_u32(pDataSrc+8, vecIn.val[2]);
++    vstrwq_u32(pDataSrc+12, vecIn.val[3]);
++
++ }
++
++template<> EIGEN_ALWAYS_INLINE Packet4f pabsdiff<Packet4f>(const Packet4f& a, const Packet4f& b)
++{ 
++  return vabdq_f32(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4f pabs(const Packet4f& a) 
++{ 
++  return vabsq_f32(a); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4f pmin<Packet4f>(const Packet4f& a, const Packet4f& b) 
++{ 
++  return vminnmq_f32(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4f pmax<Packet4f>(const Packet4f& a, const Packet4f& b) 
++{ 
++  return vmaxnmq_f32(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4f pmin<PropagateNumbers,Packet4f>(const Packet4f& a, const Packet4f& b) 
++{ 
++  return vminnmq_f32(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4f pmax<PropagateNumbers,Packet4f>(const Packet4f& a, const Packet4f& b) 
++{ 
++  return vmaxnmq_f32(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4f ploaddup<Packet4f>(const float* from)
++{ 
++  return vldrwq_gather_shifted_offset_f32(from,vld1q_u32(helium_buffer_ploaddup_u32));
++}
++
++template<> EIGEN_ALWAYS_INLINE float pfirst<Packet4f>(const Packet4f& a) 
++{ 
++  return vgetq_lane_f32(a,0); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4f preverse(const Packet4f& a)
++{
++    Packet4f res;
++    res = vldrwq_gather_shifted_offset_f32((float32_t*)&a,vld1q_u32(helium_buffer_preverse_u32));
++
++    return(res);
++}
++
++#define CONVERTMASK(PRED) \
++  vreinterpretq_f32_u32(vdupq_m_n_u32(vdupq_n_u32(0),0xffffffffu,PRED))
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4f ptrue<Packet4f>(const Packet4f& /*a*/)
++{
++  return vreinterpretq_f32_u32(vdupq_n_u32(0xffffffffu));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4f pzero<Packet4f>(const Packet4f& /*a*/)
++{
++  return vdupq_n_f32(0.0f);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4f pcmp_le<Packet4f>(const Packet4f& a, const Packet4f& b)
++{
++  return CONVERTMASK(vcmpleq_f32(a, b));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4f pcmp_lt<Packet4f>(const Packet4f& a, const Packet4f& b)
++{
++  return CONVERTMASK(vcmpltq_f32(a, b));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4f pcmp_eq<Packet4f>(const Packet4f& a, const Packet4f& b)
++{
++  return CONVERTMASK(vcmpeqq_f32(a, b));
++}
++
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4f pcmp_lt_or_nan<Packet4f>(const Packet4f& a, const Packet4f& b)
++{
++  return CONVERTMASK(~vcmpgeq_f32(a, b));
++}
++
++
++#define LOGICAL(OP,A,B) \
++  vreinterpretq_f32_u32(OP(vreinterpretq_u32_f32(A), vreinterpretq_u32_f32(B)))
++
++// Logical Operations are not supported for float, so reinterpret casts
++template <>
++EIGEN_ALWAYS_INLINE Packet4f pand<Packet4f>(const Packet4f& a, const Packet4f& b)
++{
++  return LOGICAL(vandq_u32,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4f por<Packet4f>(const Packet4f& a, const Packet4f& b)
++{
++  return LOGICAL(vorrq_u32,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4f pxor<Packet4f>(const Packet4f& a, const Packet4f& b)
++{
++  return LOGICAL(veorq_u32,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4f pandnot<Packet4f>(const Packet4f& a, const Packet4f& b)
++{
++  return LOGICAL(vbicq_u32,a,b);
++}
++
++template<> EIGEN_STRONG_INLINE Packet4f psqrt(const Packet4f& a) 
++{
++   Packet4f res=vdupq_n_f32(0.0f);
++   res=vsetq_lane_f32(sqrtf(vgetq_lane_f32(a,0)),res,0);
++   res=vsetq_lane_f32(sqrtf(vgetq_lane_f32(a,1)),res,1);
++   res=vsetq_lane_f32(sqrtf(vgetq_lane_f32(a,2)),res,2);
++   res=vsetq_lane_f32(sqrtf(vgetq_lane_f32(a,3)),res,3);
++   return(res);
++}
++
++/** \internal \returns \a or \b for each field in packet according to \mask */
++template<> EIGEN_ALWAYS_INLINE Packet4f
++pselect(const Packet4f& mask, const Packet4f& a, const Packet4f& b) 
++{
++  return vpselq_f32(a,b,vcmpeqq_u32(vreinterpretq_u32_f32(mask),vdupq_n_u32(0xffffffffu)));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4f pgather<float, Packet4f>(const float* from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  uint32x4_t indices = vidupq_n_u32 (0, 1);
++  indices=vmulq_n_u32(indices,stride);
++  return vldrwq_gather_shifted_offset_f32(from, indices);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE void pscatter<float, Packet4f>(float* to, const Packet4f& from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  uint32x4_t indices = vidupq_n_u32 (0, 1);
++  indices=vmulq_n_u32(indices,stride);
++  vstrwq_scatter_shifted_offset_f32(to, indices, from);
++}
++
++
++} // end namespace internal
++
++} // end namespace Eigen
++
++#endif // EIGEN_PACKET_MATH_HELIUM_MVEF_F32_H
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEF/TypeCastingMVEF.h b/Eigen/src/Core/arch/HELIUM/MVEF/TypeCastingMVEF.h
+new file mode 100644
+index 000000000..30d0f66bd
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEF/TypeCastingMVEF.h
+@@ -0,0 +1,48 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_TYPECASTING_HELIUM_MVEF_H
++#define EIGEN_TYPECASTING_HELIUM_MVEF_H
++
++namespace Eigen {
++
++
++namespace internal {
++
++
++HELIUM_TYPE_CVT(float,numext::int32_t ,Packet4f,Packet4i ,f32,s32)
++HELIUM_TYPE_CVT(float,numext::uint32_t,Packet4f,Packet4ui,f32,u32)
++
++HELIUM_TYPE_CVT(float16_t,numext::int16_t ,Packet8hf,Packet8i ,f16,s16)
++HELIUM_TYPE_CVT(float16_t,numext::uint16_t,Packet8hf,Packet8ui,f16,u16)
++
++template <>
++struct type_casting_traits<float, float16_t> {
++  enum { VectorizedCast = 1, SrcCoeffRatio = 1, TgtCoeffRatio = 1 };
++};
++
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4f pcast< Packet8hf, Packet4f>(const Packet8hf& a) {
++  return vcvtbq_f32_f16(a);
++};
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4f preinterpret<Packet4f,Packet8hf>(const Packet8hf& a)
++{
++  return vreinterpretq_f32_f16 (a);
++};
++
++
++
++} // end namespace internal
++
++} // end namespace Eigen
++
++#endif // EIGEN_TYPECASTING_HELIUM_MVEF_H
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI.h b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI.h
+new file mode 100644
+index 000000000..2d70a7280
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI.h
+@@ -0,0 +1,22 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_PACKET_MATH_HELIUM_MVEI_H
++#define EIGEN_PACKET_MATH_HELIUM_MVEI_H
++
++#include "PacketMathMVEI_S32.h"
++#include "PacketMathMVEI_U32.h"
++
++#include "PacketMathMVEI_S16.h"
++#include "PacketMathMVEI_U16.h"
++
++#include "PacketMathMVEI_S8.h"
++#include "PacketMathMVEI_U8.h"
++
++#endif // EIGEN_PACKET_MATH_HELIUM_MVEI_H
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_S16.h b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_S16.h
+new file mode 100644
+index 000000000..be2e784ba
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_S16.h
+@@ -0,0 +1,330 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_PACKET_MATH_HELIUM_MVEI_S16_H
++#define EIGEN_PACKET_MATH_HELIUM_MVEI_S16_H
++
++namespace Eigen {
++
++
++namespace internal {
++
++/***********************
++
++INT16
++
++***********************/
++
++
++template <>
++struct packet_traits<int16_t> : default_packet_traits
++{
++  typedef Packet8i type;
++  typedef Packet8i half;
++  enum
++  {
++    Vectorizable = 1,
++    AlignedOnScalar = 1,
++    size = 8,
++    HasHalfPacket = 0,
++
++    HasCast      = 0,
++    HasAdd       = 1,
++    HasSub       = 1,
++    HasShift     = 0,
++    HasMul       = 1,
++    HasNegate    = 1,
++    HasAbs       = 1,
++    HasArg       = 0,
++    HasAbs2      = 0,
++    HasAbsDiff   = 1,
++    HasMin       = 1,
++    HasMax       = 1,
++    HasConj      = 0,
++    HasSetLinear = 0,
++    HasBlend     = 0,
++
++    HasDiv   = 0,
++    HasFloor = 0,
++
++    HasSin  = 0,
++    HasCos  = 0,
++    HasLog  = 0,
++    HasExp  = 0,
++    HasSqrt = 0,
++    HasTanh = 0,
++    HasErf  = 0
++  };
++};
++
++
++
++
++template<> struct unpacket_traits<Packet8i>
++{
++  typedef int16_t type;
++  typedef Packet8i half;
++  enum
++  {
++    size = 8,
++    alignment = Aligned16,
++    vectorizable = true,
++    masked_load_available = false,
++    masked_store_available = false
++  };
++};
++
++template<int N> EIGEN_STRONG_INLINE Packet8i plogical_shift_left(Packet8i a) 
++{ 
++  return vshlq_n_s16(a,N); 
++}
++
++template<int N> EIGEN_STRONG_INLINE Packet8i plogical_shift_right(Packet8i a)
++{ 
++  return vreinterpretq_s16_u16(vshrq_n_u16(vreinterpretq_u16_s16(a),N)); 
++}
++
++template<int N> EIGEN_STRONG_INLINE Packet8i parithmetic_shift_right(Packet8i a) 
++{ 
++  return vshrq_n_s16(a,N); 
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8i pset1<Packet8i>(const int16_t& from)
++{
++return vdupq_n_s16(from);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8i plset<Packet8i>(const int16_t& a)
++{
++  return vaddq_s16(pset1<Packet8i>(a), vld1q_s16(helium_buffer_plset_s16));
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8i padd<Packet8i>(const Packet8i& a, const Packet8i& b)
++{
++  return vaddq_s16(a,b);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8i psub<Packet8i>(const Packet8i& a, const Packet8i& b)
++{
++  return vsubq_s16(a,b);
++}
++
++
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8i pnegate(const Packet8i& a)
++{
++  return vnegq_s16(a);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8i pmadd(const Packet8i& a, const Packet8i& b, const Packet8i& c)
++{
++  return vaddq_s16(c,vmulq_s16(a,b));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8i pmul(const Packet8i& a, const Packet8i& b)
++{
++  return vmulq_s16(a,b);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8i pload<Packet8i>(const int16_t* from)
++{ EIGEN_DEBUG_ALIGNED_LOAD return vld1q_s16(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8i ploadu<Packet8i>(const int16_t* from)
++{ EIGEN_DEBUG_UNALIGNED_LOAD return vld1q_s16(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstore<int16_t>(int16_t* to, const Packet8i& from)
++{ EIGEN_DEBUG_ALIGNED_STORE vst1q_s16(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstoreu<int16_t>(int16_t* to, const Packet8i& from)
++{ EIGEN_DEBUG_UNALIGNED_STORE vst1q_s16(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE int16_t predux<Packet8i>(const Packet8i& a)
++{
++  return vaddvq_s16(a);
++}
++
++
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet8i, 8>& kernel)
++{
++    const uint16_t *src = (const uint16_t *)&kernel;
++
++    trans_16bit_generic<8,8>(src,HELIUM_BUFFER_PTRANSPOSE_U16);
++    memcpy((void*)src,(void *)HELIUM_BUFFER_PTRANSPOSE_U16,sizeof(uint16_t)*64);
++ }
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet8i, 4>& kernel)
++{
++    uint16_t * pDataSrc= (uint16_t * )&kernel.packet;
++    trans_16bit_8x4(pDataSrc);
++
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8i pabsdiff<Packet8i>(const Packet8i& a, const Packet8i& b)
++{
++  return vabdq_s16(a,b);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8i pabs(const Packet8i& a)
++{
++  return vabsq_s16(a);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8i pmin<Packet8i>(const Packet8i& a, const Packet8i& b) 
++{ 
++  return vminq_s16(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8i pmax<Packet8i>(const Packet8i& a, const Packet8i& b) 
++{ 
++  return vmaxq_s16(a,b); 
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8i ploaddup<Packet8i>(const int16_t* from)
++{ 
++  return vldrhq_gather_shifted_offset_s16(from,vld1q_u16(helium_buffer_ploaddup_u16));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8i ploadquad<Packet8i>(const int16_t* from)
++{
++
++  return vldrhq_gather_shifted_offset_s16(reinterpret_cast<const int16_t*>(from),vld1q_u16(helium_buffer_ploadquad_u16));
++
++}
++
++template<> EIGEN_ALWAYS_INLINE int16_t pfirst<Packet8i>(const Packet8i& a) 
++{ 
++  return vgetq_lane_s16(a,0); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8i preverse(const Packet8i& a)
++{
++    Packet8i res;
++    res = vldrhq_gather_shifted_offset_s16((int16_t*)&a,vld1q_u16(helium_buffer_preverse_u16));
++
++    return(res);
++}
++
++#define CONVERTMASKS16(PRED) \
++  vreinterpretq_s16_u16(vdupq_m_n_u16(vdupq_n_u16(0),0xffffu,PRED))
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8i ptrue<Packet8i>(const Packet8i& /*a*/)
++{
++  return vreinterpretq_s16_u16(vdupq_n_u16(0xffffu));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8i pzero<Packet8i>(const Packet8i& /*a*/)
++{
++  return vdupq_n_s16(0);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8i pcmp_le<Packet8i>(const Packet8i& a, const Packet8i& b)
++{
++  return CONVERTMASKS16(vcmpleq_s16(a, b));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8i pcmp_lt<Packet8i>(const Packet8i& a, const Packet8i& b)
++{
++  return CONVERTMASKS16(vcmpltq_s16(a, b));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8i pcmp_eq<Packet8i>(const Packet8i& a, const Packet8i& b)
++{
++  return CONVERTMASKS16(vcmpeqq_s16(a, b));
++}
++
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8i pcmp_lt_or_nan<Packet8i>(const Packet8i& a, const Packet8i& b)
++{
++  return CONVERTMASKS16(~vcmpgeq_s16(a, b));
++}
++
++
++#define LOGICALS16(OP,A,B) \
++  vreinterpretq_s16_u16(OP(vreinterpretq_u16_s16(A), vreinterpretq_u16_s16(B)))
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8i pand<Packet8i>(const Packet8i& a, const Packet8i& b)
++{
++  return LOGICALS16(vandq_u16,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8i por<Packet8i>(const Packet8i& a, const Packet8i& b)
++{
++  return LOGICALS16(vorrq_u16,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8i pxor<Packet8i>(const Packet8i& a, const Packet8i& b)
++{
++  return LOGICALS16(veorq_u16,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8i pandnot<Packet8i>(const Packet8i& a, const Packet8i& b)
++{
++  return LOGICALS16(vbicq_u16,a,b);
++}
++
++
++/** \internal \returns \a or \b for each field in packet according to \mask */
++template<> EIGEN_ALWAYS_INLINE Packet8i
++pselect(const Packet8i& mask, const Packet8i& a, const Packet8i& b) 
++{
++  return vpselq_s16(a,b,vcmpeqq_u16(vreinterpretq_u16_s16(mask),vdupq_n_u16(0xffffu)));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8i pgather<int16_t, Packet8i>(const int16_t* from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  uint16x8_t indices = vidupq_n_u16 (0, 1);
++  indices=vmulq_n_u16(indices,stride);
++  return vldrhq_gather_shifted_offset_s16(from, indices);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE void pscatter<int16_t, Packet8i>(int16_t* to, const Packet8i& from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  uint16x8_t indices = vidupq_n_u16 (0, 1);
++  indices=vmulq_n_u16(indices,stride);
++  vstrhq_scatter_shifted_offset_s16(to, indices, from);
++}
++
++} // end namespace internal
++
++} // end namespace Eigen
++
++#endif // EIGEN_PACKET_MATH_HELIUM_MVEI_S16_H
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_S32.h b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_S32.h
+new file mode 100644
+index 000000000..3916cf58c
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_S32.h
+@@ -0,0 +1,586 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_PACKET_MATH_HELIUM_MVEI_S32_H
++#define EIGEN_PACKET_MATH_HELIUM_MVEI_S32_H
++
++namespace Eigen {
++
++
++namespace internal {
++
++/***********************
++
++INT32
++
++***********************/
++
++
++template <>
++struct packet_traits<int32_t> : default_packet_traits
++{
++  typedef Packet4i type;
++  typedef Packet4i half;
++  enum
++  {
++    Vectorizable = 1,
++    AlignedOnScalar = 1,
++    size = 4,
++    HasHalfPacket = 0,
++
++    HasCast      = 0,
++    HasAdd       = 1,
++    HasSub       = 1,
++    HasShift     = 0,
++    HasMul       = 1,
++    HasNegate    = 1,
++    HasAbs       = 1,
++    HasArg       = 0,
++    HasAbs2      = 0,
++    HasAbsDiff   = 1,
++    HasMin       = 1,
++    HasMax       = 1,
++    HasConj      = 0,
++    HasSetLinear = 0,
++    HasBlend     = 0,
++
++    HasDiv   = 0,
++    HasFloor = 0,
++
++    HasSin  = 0,
++    HasCos  = 0,
++    HasLog  = 0,
++    HasExp  = 0,
++    HasSqrt = 0,
++    HasTanh = 0,
++    HasErf  = 0
++  };
++};
++
++
++template<> struct unpacket_traits<Packet2i>
++{
++  typedef int32_t type;
++  typedef Packet2i half;
++  enum
++  {
++    size = 2,
++    alignment = Aligned16,
++    vectorizable = true,
++    masked_load_available = false,
++    masked_store_available = false
++  };
++};
++
++template<> struct unpacket_traits<Packet4i>
++{
++  typedef int32_t type;
++  typedef Packet4i half;
++  enum
++  {
++    size = 4,
++    alignment = Aligned16,
++    vectorizable = true,
++    masked_load_available = false,
++    masked_store_available = false
++  };
++};
++
++
++template<int N> EIGEN_STRONG_INLINE Packet4i plogical_shift_left(Packet4i a) 
++{ 
++  return vshlq_n_s32(a,N); 
++}
++
++template<int N> EIGEN_STRONG_INLINE Packet4i plogical_shift_right(Packet4i a)
++{ 
++  return vreinterpretq_s32_u32(vshrq_n_u32(vreinterpretq_u32_s32(a),N)); 
++}
++
++template<int N> EIGEN_STRONG_INLINE Packet4i parithmetic_shift_right(Packet4i a) 
++{ 
++  return vshrq_n_s32(a,N); 
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4i pset1<Packet4i>(const int32_t& from)
++{
++return vdupq_n_s32(from);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4i plset<Packet4i>(const int32_t& a)
++{
++  return vaddq_s32(pset1<Packet4i>(a), vld1q_s32(helium_buffer_plset_s32));
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4i padd<Packet4i>(const Packet4i& a, const Packet4i& b)
++{
++  return vaddq_s32(a,b);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4i psub<Packet4i>(const Packet4i& a, const Packet4i& b)
++{
++  return vsubq_s32(a,b);
++}
++
++
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4i pnegate(const Packet4i& a)
++{
++  return vnegq_s32(a);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4i pmadd(const Packet4i& a, const Packet4i& b, const Packet4i& c)
++{
++  return vaddq_s32(c,vmulq_s32(a,b));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4i pmul(const Packet4i& a, const Packet4i& b)
++{
++  return vmulq_s32(a,b);
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4i pload<Packet4i>(const int32_t* from)
++{ EIGEN_DEBUG_ALIGNED_LOAD return vld1q_s32(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4i ploadu<Packet4i>(const int32_t* from)
++{ EIGEN_DEBUG_UNALIGNED_LOAD return vld1q_s32(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstore<int32_t>(int32_t* to, const Packet4i& from)
++{ EIGEN_DEBUG_ALIGNED_STORE vst1q_s32(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstoreu<int32_t>(int32_t* to, const Packet4i& from)
++{ EIGEN_DEBUG_UNALIGNED_STORE vst1q_s32(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE int32_t predux<Packet4i>(const Packet4i& a)
++{
++  return vaddvq_s32(a);
++}
++
++
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet4i, 4>& kernel)
++{
++    uint32_t * pDataSrc= (uint32_t * )&kernel.packet;
++    uint32x4x4_t vecIn;
++
++    vecIn = vld4q((uint32_t const *) pDataSrc);
++    vstrwq_u32(pDataSrc, vecIn.val[0]);
++    vstrwq_u32(pDataSrc+4, vecIn.val[1]);
++    vstrwq_u32(pDataSrc+8, vecIn.val[2]);
++    vstrwq_u32(pDataSrc+12, vecIn.val[3]);
++
++ }
++
++template<> EIGEN_ALWAYS_INLINE Packet4i pabsdiff<Packet4i>(const Packet4i& a, const Packet4i& b)
++{ 
++  return vabdq_s32(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4i pabs(const Packet4i& a) 
++{ 
++  return vabsq_s32(a); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4i pmin<Packet4i>(const Packet4i& a, const Packet4i& b) 
++{ 
++  return vminq_s32(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4i pmax<Packet4i>(const Packet4i& a, const Packet4i& b) 
++{ 
++  return vmaxq_s32(a,b); 
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4i ploaddup<Packet4i>(const int32_t* from)
++{ 
++
++  return vldrwq_gather_shifted_offset_s32(from,vld1q_u32(helium_buffer_ploaddup_u32));
++}
++
++template<> EIGEN_ALWAYS_INLINE int32_t pfirst<Packet4i>(const Packet4i& a) 
++{ 
++  return vgetq_lane_s32(a,0); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4i preverse(const Packet4i& a)
++{
++    Packet4i res;
++    res = vldrwq_gather_shifted_offset_s32((int32_t*)&a,vld1q_u32(helium_buffer_preverse_u32));
++
++    return(res);
++}
++
++#define CONVERTMASKS32(PRED) \
++  vreinterpretq_s32_u32(vdupq_m_n_u32(vdupq_n_u32(0),0xffffffffu,PRED))
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4i ptrue<Packet4i>(const Packet4i& /*a*/)
++{
++  return vreinterpretq_s32_u32(vdupq_n_u32(0xffffffffu));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4i pzero<Packet4i>(const Packet4i& /*a*/)
++{
++  return vdupq_n_s32(0);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4i pcmp_le<Packet4i>(const Packet4i& a, const Packet4i& b)
++{
++  return CONVERTMASKS32(vcmpleq_s32(a, b));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4i pcmp_lt<Packet4i>(const Packet4i& a, const Packet4i& b)
++{
++  return CONVERTMASKS32(vcmpltq_s32(a, b));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4i pcmp_eq<Packet4i>(const Packet4i& a, const Packet4i& b)
++{
++  return CONVERTMASKS32(vcmpeqq_s32(a, b));
++}
++
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4i pcmp_lt_or_nan<Packet4i>(const Packet4i& a, const Packet4i& b)
++{
++  return CONVERTMASKS32(~vcmpgeq_s32(a, b));
++}
++
++
++#define LOGICALS32(OP,A,B) \
++  vreinterpretq_s32_u32(OP(vreinterpretq_u32_s32(A), vreinterpretq_u32_s32(B)))
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4i pand<Packet4i>(const Packet4i& a, const Packet4i& b)
++{
++  return LOGICALS32(vandq_u32,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4i por<Packet4i>(const Packet4i& a, const Packet4i& b)
++{
++  return LOGICALS32(vorrq_u32,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4i pxor<Packet4i>(const Packet4i& a, const Packet4i& b)
++{
++  return LOGICALS32(veorq_u32,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4i pandnot<Packet4i>(const Packet4i& a, const Packet4i& b)
++{
++  return LOGICALS32(vbicq_u32,a,b);
++}
++
++
++/** \internal \returns \a or \b for each field in packet according to \mask */
++template<> EIGEN_ALWAYS_INLINE Packet4i
++pselect(const Packet4i& mask, const Packet4i& a, const Packet4i& b) 
++{
++  return vpselq_s32(a,b,vcmpeqq_u32(vreinterpretq_u32_s32(mask),vdupq_n_u32(0xffffffffu)));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4i pgather<int32_t, Packet4i>(const int32_t* from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  uint32x4_t indices = vidupq_n_u32 (0, 1);
++  indices=vmulq_n_u32(indices,stride);
++  return vldrwq_gather_shifted_offset_s32(from, indices);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE void pscatter<int32_t, Packet4i>(int32_t* to, const Packet4i& from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  uint32x4_t indices = vidupq_n_u32 (0, 1);
++  indices=vmulq_n_u32(indices,stride);
++  vstrwq_scatter_shifted_offset_s32(to, indices, from);
++}
++
++/*************************
++ * 
++ * Packet2i
++ * 
++ * ***********************/
++
++template<> EIGEN_ALWAYS_INLINE Packet2i pset1<Packet2i>(const int32_t& from)
++{
++return Packet2i(vdupq_n_s32(from));
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet2i plset<Packet2i>(const int32_t& a)
++{
++  return Packet2i(vaddq_s32(pset1<Packet2i>(a).v, vld1q_s32(helium_buffer_plset_s32)));
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet2i padd<Packet2i>(const Packet2i& a, const Packet2i& b)
++{
++  return Packet2i(vaddq_s32(a.v,b.v));
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet2i psub<Packet2i>(const Packet2i& a, const Packet2i& b)
++{
++  return Packet2i(vsubq_s32(a.v,b.v));
++}
++
++
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet2i pnegate(const Packet2i& a)
++{
++  return Packet2i(vnegq_s32(a.v));
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet2i pmadd(const Packet2i& a, const Packet2i& b, const Packet2i& c)
++{
++  return Packet2i(vaddq_s32(c,vmulq_s32(a.v,b.v)));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2i pmul(const Packet2i& a, const Packet2i& b)
++{
++  return Packet2i(vmulq_s32(a.v,b.v));
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet2i pload<Packet2i>(const int32_t* from)
++{ 
++  mve_pred16_t p0 = vctp32q(2);
++  int32x4_t vec;
++  vec = vldrwq_z_s32(from, p0);
++  EIGEN_DEBUG_ALIGNED_LOAD return Packet2i(vec); 
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet2i ploadu<Packet2i>(const int32_t* from)
++{ 
++  mve_pred16_t p0 = vctp32q(2);
++  int32x4_t vec;
++  vec = vldrwq_z_s32(from, p0);
++  EIGEN_DEBUG_ALIGNED_LOAD return Packet2i(vec); 
++
++}
++
++
++template<> EIGEN_ALWAYS_INLINE void pstore<int32_t>(int32_t* to, const Packet2i& from)
++{ 
++  mve_pred16_t p0 = vctp32q(2);
++  EIGEN_DEBUG_ALIGNED_STORE vstrwq_p_s32(to,from.v,p0); 
++}
++
++
++template<> EIGEN_ALWAYS_INLINE void pstoreu<int32_t>(int32_t* to, const Packet2i& from)
++{ 
++  mve_pred16_t p0 = vctp32q(2);
++  EIGEN_DEBUG_UNALIGNED_STORE vstrwq_p_s32(to,from.v,p0); 
++}
++
++
++template<> EIGEN_ALWAYS_INLINE int32_t predux<Packet2i>(const Packet2i& a)
++{
++  mve_pred16_t p0 = vctp32q(2);
++  return vaddvq_p_s32(a,p0);
++}
++
++
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet2i, 2>& kernel)
++{
++    Packet2i a = kernel.packet[0];
++    Packet2i b = kernel.packet[1];
++
++    int32_t tmpa,tmpb;
++    tmpa=vgetq_lane_s32(a.v,1);
++    tmpb=vgetq_lane_s32(b.v,0);
++    b=Packet2i(vsetq_lane_s32(tmpa,b.v,0));
++    a=Packet2i(vsetq_lane_s32(tmpb,a.v,1));
++    
++    kernel.packet[0] = a;
++    kernel.packet[1] = b;
++
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2i pabsdiff<Packet2i>(const Packet2i& a, const Packet2i& b)
++{ 
++  return Packet2i(vabdq_s32(a.v,b.v)); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2i pabs(const Packet2i& a) 
++{ 
++  return Packet2i(vabsq_s32(a.v)); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2i pmin<Packet2i>(const Packet2i& a, const Packet2i& b) 
++{ 
++  mve_pred16_t p0 = vctp32q(2);
++  return Packet2i(vminq_x_s32(a.v,b.v,p0)); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2i pmax<Packet2i>(const Packet2i& a, const Packet2i& b) 
++{ 
++  mve_pred16_t p0 = vctp32q(2);
++  return Packet2i(vmaxq_x_s32(a.v,b.v,p0)); 
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet2i ploaddup<Packet2i>(const int32_t* from)
++{ 
++
++  return Packet2i(vdupq_n_s32(*from));
++}
++
++template<> EIGEN_ALWAYS_INLINE int32_t pfirst<Packet2i>(const Packet2i& a) 
++{ 
++  return vgetq_lane_s32(a.v,0); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet2i preverse(const Packet2i& a)
++{
++   
++    return(a);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet2i ptrue<Packet2i>(const Packet2i& /*a*/)
++{
++  return Packet2i(vreinterpretq_s32_u32(vdupq_n_u32(0xffffffffu)));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet2i pzero<Packet2i>(const Packet2i& /*a*/)
++{
++  return Packet2i(vdupq_n_s32(0));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet2i pcmp_le<Packet2i>(const Packet2i& a, const Packet2i& b)
++{
++  mve_pred16_t p0 = vctp32q(2);
++  return CONVERTMASKS32(vcmpleq_m_s32(a.v, b.v,p0));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet2i pcmp_lt<Packet2i>(const Packet2i& a, const Packet2i& b)
++{
++  mve_pred16_t p0 = vctp32q(2);
++  return CONVERTMASKS32(vcmpltq_m_s32(a.v, b.v,p0));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet2i pcmp_eq<Packet2i>(const Packet2i& a, const Packet2i& b)
++{
++  mve_pred16_t p0 = vctp32q(2);
++  return CONVERTMASKS32(vcmpeqq_m_s32(a.v, b.v,p0));
++}
++
++
++template <>
++EIGEN_ALWAYS_INLINE Packet2i pcmp_lt_or_nan<Packet2i>(const Packet2i& a, const Packet2i& b)
++{
++  mve_pred16_t p0 = vctp32q(2);
++  return CONVERTMASKS32(~vcmpgeq_m_s32(a.v, b.v,p0));
++}
++
++
++#define LOGICALS32_PRED(OP,A,B,P) \
++  vreinterpretq_s32_u32(OP(vuninitializedq_u32(),vreinterpretq_u32_s32(A), vreinterpretq_u32_s32(B),P))
++
++template <>
++EIGEN_ALWAYS_INLINE Packet2i pand<Packet2i>(const Packet2i& a, const Packet2i& b)
++{
++  mve_pred16_t p0 = vctp32q(2);
++  return LOGICALS32_PRED(vandq_m_u32,a,b,p0);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet2i por<Packet2i>(const Packet2i& a, const Packet2i& b)
++{
++  mve_pred16_t p0 = vctp32q(2);
++  return LOGICALS32_PRED(vorrq_m_u32,a,b,p0);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet2i pxor<Packet2i>(const Packet2i& a, const Packet2i& b)
++{
++  mve_pred16_t p0 = vctp32q(2);
++  return LOGICALS32_PRED(veorq_m_u32,a,b,p0);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet2i pandnot<Packet2i>(const Packet2i& a, const Packet2i& b)
++{
++  mve_pred16_t p0 = vctp32q(2);
++  return LOGICALS32_PRED(vbicq_m_u32,a,b,p0);
++}
++
++
++/** \internal \returns \a or \b for each field in packet according to \mask */
++template<> EIGEN_ALWAYS_INLINE Packet2i
++pselect(const Packet2i& mask, const Packet2i& a, const Packet2i& b) 
++{
++  return Packet2i(vpselq_s32(a.v,b.v,vcmpeqq_u32(vreinterpretq_u32_s32(mask),vdupq_n_u32(0xffffffffu))));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet2i pgather<int32_t, Packet2i>(const int32_t* from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  mve_pred16_t p0 = vctp32q(2);
++  uint32x4_t indices = vidupq_n_u32 (0, 1);
++  indices=vmulq_n_u32(indices,stride);
++  return Packet2i(vldrwq_gather_shifted_offset_z_s32(from, indices,p0));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE void pscatter<int32_t, Packet2i>(int32_t* to, const Packet2i& from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  mve_pred16_t p0 = vctp32q(2);
++  uint32x4_t indices = vidupq_n_u32 (0, 1);
++  indices=vmulq_n_u32(indices,stride);
++  vstrwq_scatter_shifted_offset_p_s32(to, indices, from.v,p0);
++}
++
++} // end namespace internal
++
++} // end namespace Eigen
++
++#endif // EIGEN_PACKET_MATH_HELIUM_MVEI_S32_H
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_S8.h b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_S8.h
+new file mode 100644
+index 000000000..435c0c655
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_S8.h
+@@ -0,0 +1,360 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_PACKET_MATH_HELIUM_MVEI_S8_H
++#define EIGEN_PACKET_MATH_HELIUM_MVEI_S8_H
++
++namespace Eigen {
++
++
++namespace internal {
++
++/***********************
++
++INT8
++
++***********************/
++
++
++template <>
++struct packet_traits<int8_t> : default_packet_traits
++{
++  typedef Packet16i type;
++  typedef Packet16i half;
++  enum
++  {
++    Vectorizable = 1,
++    AlignedOnScalar = 1,
++    size = 16,
++    HasHalfPacket = 0,
++
++    HasCast      = 0,
++    HasAdd       = 1,
++    HasSub       = 1,
++    HasShift     = 0,
++    HasMul       = 1,
++    HasNegate    = 1,
++    HasAbs       = 1,
++    HasArg       = 0,
++    HasAbs2      = 0,
++    HasAbsDiff   = 1,
++    HasMin       = 1,
++    HasMax       = 1,
++    HasConj      = 0,
++    HasSetLinear = 0,
++    HasBlend     = 0,
++
++    HasDiv   = 0,
++    HasFloor = 0,
++
++    HasSin  = 0,
++    HasCos  = 0,
++    HasLog  = 0,
++    HasExp  = 0,
++    HasSqrt = 0,
++    HasTanh = 0,
++    HasErf  = 0
++  };
++};
++
++
++
++
++template<> struct unpacket_traits<Packet16i>
++{
++  typedef int8_t type;
++  typedef Packet16i half;
++  enum
++  {
++    size = 16,
++    alignment = Aligned8,
++    vectorizable = true,
++    masked_load_available = false,
++    masked_store_available = false
++  };
++};
++
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16i pset1<Packet16i>(const int8_t& from)
++{
++return vdupq_n_s8(from);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16i plset<Packet16i>(const int8_t& a)
++{
++  return vaddq_s8(pset1<Packet16i>(a), vld1q_s8(helium_buffer_plset_s8));
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16i padd<Packet16i>(const Packet16i& a, const Packet16i& b)
++{
++  return vaddq_s8(a,b);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16i psub<Packet16i>(const Packet16i& a, const Packet16i& b)
++{
++  return vsubq_s8(a,b);
++}
++
++
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16i pnegate(const Packet16i& a)
++{
++  return vnegq_s8(a);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16i pmadd(const Packet16i& a, const Packet16i& b, const Packet16i& c)
++{
++  return vaddq_s8(c,vmulq_s8(a,b));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16i pmul(const Packet16i& a, const Packet16i& b)
++{
++  return vmulq_s8(a,b);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16i pload<Packet16i>(const int8_t* from)
++{ EIGEN_DEBUG_ALIGNED_LOAD return vld1q_s8(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16i ploadu<Packet16i>(const int8_t* from)
++{ EIGEN_DEBUG_UNALIGNED_LOAD return vld1q_s8(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstore<int8_t>(int8_t* to, const Packet16i& from)
++{ EIGEN_DEBUG_ALIGNED_STORE vst1q_s8(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstoreu<int8_t>(int8_t* to, const Packet16i& from)
++{ EIGEN_DEBUG_UNALIGNED_STORE vst1q_s8(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE int8_t predux<Packet16i>(const Packet16i& a)
++{
++  return vaddvq_s8(a);
++}
++
++
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet16i, 16>& kernel)
++{
++    const uint8_t *src = (const uint8_t *)&kernel;
++
++    trans_8bit_generic<16,16>(src,HELIUM_BUFFER_PTRANSPOSE_U8);
++    memcpy((void*)src,(void *)HELIUM_BUFFER_PTRANSPOSE_U8,sizeof(uint8_t)*256);
++ }
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet16i, 4>& kernel)
++{
++    uint8_t * pDataSrc= (uint8_t * )&kernel.packet;
++    trans_8bit_16x4(pDataSrc);
++
++ }
++
++template<> EIGEN_ALWAYS_INLINE Packet16i pabsdiff<Packet16i>(const Packet16i& a, const Packet16i& b)
++{ 
++  return vabdq_s8(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16i pabs(const Packet16i& a) 
++{ 
++  return vabsq_s8(a); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16i pmin<Packet16i>(const Packet16i& a, const Packet16i& b) 
++{ 
++  return vminq_s8(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16i pmax<Packet16i>(const Packet16i& a, const Packet16i& b) 
++{ 
++  return vmaxq_s8(a,b); 
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16i ploaddup<Packet16i>(const int8_t* from)
++{ 
++  return vldrbq_gather_offset_s8(from,vld1q_u8(helium_buffer_ploaddup_u8));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16i ploadquad<Packet16i>(const int8_t* from)
++{
++  return vldrbq_gather_offset_s8(reinterpret_cast<const int8_t*>(from),vld1q_u8(helium_buffer_ploadquad_u8));
++
++}
++
++template<> EIGEN_ALWAYS_INLINE int8_t pfirst<Packet16i>(const Packet16i& a) 
++{ 
++  return vgetq_lane_s8(a,0); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16i preverse(const Packet16i& a)
++{
++    Packet16i res;
++    res = vldrbq_gather_offset_s8((int8_t*)&a,vld1q_u8(helium_buffer_preverse_u8));
++
++    return(res);
++}
++
++#define CONVERTMASKS8(PRED) \
++  vreinterpretq_s8_u8(vdupq_m_n_u8(vdupq_n_u8(0),0xffu,PRED))
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16i ptrue<Packet16i>(const Packet16i& /*a*/)
++{
++  return vreinterpretq_s8_u8(vdupq_n_u8(0xffu));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16i pzero<Packet16i>(const Packet16i& /*a*/)
++{
++  return vdupq_n_s8(0);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16i pcmp_le<Packet16i>(const Packet16i& a, const Packet16i& b)
++{
++  return CONVERTMASKS8(vcmpleq_s8(a, b));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16i pcmp_lt<Packet16i>(const Packet16i& a, const Packet16i& b)
++{
++  return CONVERTMASKS8(vcmpltq_s8(a, b));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16i pcmp_eq<Packet16i>(const Packet16i& a, const Packet16i& b)
++{
++  return CONVERTMASKS8(vcmpeqq_s8(a, b));
++}
++
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16i pcmp_lt_or_nan<Packet16i>(const Packet16i& a, const Packet16i& b)
++{
++  return CONVERTMASKS8(~vcmpgeq_s8(a, b));
++}
++
++
++#define LOGICALS8(OP,A,B) \
++  vreinterpretq_s8_u8(OP(vreinterpretq_u8_s8(A), vreinterpretq_u8_s8(B)))
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16i pand<Packet16i>(const Packet16i& a, const Packet16i& b)
++{
++  return LOGICALS8(vandq_u8,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16i por<Packet16i>(const Packet16i& a, const Packet16i& b)
++{
++  return LOGICALS8(vorrq_u8,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16i pxor<Packet16i>(const Packet16i& a, const Packet16i& b)
++{
++  return LOGICALS8(veorq_u8,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16i pandnot<Packet16i>(const Packet16i& a, const Packet16i& b)
++{
++  return LOGICALS8(vbicq_u8,a,b);
++}
++
++
++/** \internal \returns \a or \b for each field in packet according to \mask */
++template<> EIGEN_ALWAYS_INLINE Packet16i
++pselect(const Packet16i& mask, const Packet16i& a, const Packet16i& b) 
++{
++  return vpselq_s8(a,b,vcmpeqq_u8(vreinterpretq_u8_s8(mask),vdupq_n_u8(0xffu)));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16i pgather<int8_t, Packet16i>(const int8_t* from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  if (stride <= 17)
++  {
++  uint8x16_t indices = vidupq_n_u8 (0, 1);
++  indices=vmulq_n_u8(indices,stride);
++  return vldrbq_gather_offset_s8(from, indices);
++  }
++  else
++  {
++    int8x16_t res=vdupq_n_s8(from[stride*0]);
++    res=vsetq_lane_s8(from[stride*1],res,1);
++    res=vsetq_lane_s8(from[stride*2],res,2);
++    res=vsetq_lane_s8(from[stride*3],res,3);
++    res=vsetq_lane_s8(from[stride*4],res,4);
++    res=vsetq_lane_s8(from[stride*5],res,5);
++    res=vsetq_lane_s8(from[stride*6],res,6);
++    res=vsetq_lane_s8(from[stride*7],res,7);
++    res=vsetq_lane_s8(from[stride*8],res,8);
++    res=vsetq_lane_s8(from[stride*9],res,9);
++    res=vsetq_lane_s8(from[stride*10],res,10);
++    res=vsetq_lane_s8(from[stride*11],res,11);
++    res=vsetq_lane_s8(from[stride*12],res,12);
++    res=vsetq_lane_s8(from[stride*13],res,13);
++    res=vsetq_lane_s8(from[stride*14],res,14);
++    res=vsetq_lane_s8(from[stride*15],res,15);
++    return(res);
++  }
++}
++
++template <>
++EIGEN_ALWAYS_INLINE void pscatter<int8_t, Packet16i>(int8_t* to, const Packet16i& from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  if (stride <= 17)
++  {
++     uint8x16_t indices = vidupq_n_u8 (0, 1);
++     indices=vmulq_n_u8(indices,stride);
++     vstrbq_scatter_offset_s8(to, indices, from);
++  }
++  else
++  {
++     to[stride*0] = vgetq_lane_s8(from, 0);
++     to[stride*1] = vgetq_lane_s8(from, 1);
++     to[stride*2] = vgetq_lane_s8(from, 2);
++     to[stride*3] = vgetq_lane_s8(from, 3);
++     to[stride*4] = vgetq_lane_s8(from, 4);
++     to[stride*5] = vgetq_lane_s8(from, 5);
++     to[stride*6] = vgetq_lane_s8(from, 6);
++     to[stride*7] = vgetq_lane_s8(from, 7);
++     to[stride*8] = vgetq_lane_s8(from, 8);
++     to[stride*9] = vgetq_lane_s8(from, 9);
++     to[stride*10] = vgetq_lane_s8(from, 10);
++     to[stride*11] = vgetq_lane_s8(from, 11);
++     to[stride*12] = vgetq_lane_s8(from, 12);
++     to[stride*13] = vgetq_lane_s8(from, 13);
++     to[stride*14] = vgetq_lane_s8(from, 14);
++     to[stride*15] = vgetq_lane_s8(from, 15);
++  }
++
++}
++
++} // end namespace internal
++
++} // end namespace Eigen
++
++#endif // EIGEN_PACKET_MATH_HELIUM_MVEI_S8_H
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_U16.h b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_U16.h
+new file mode 100644
+index 000000000..5d9b0f48b
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_U16.h
+@@ -0,0 +1,297 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_PACKET_MATH_HELIUM_MVEI_U16_H
++#define EIGEN_PACKET_MATH_HELIUM_MVEI_U16_H
++
++namespace Eigen {
++
++
++namespace internal {
++
++/***********************
++
++INT16
++
++***********************/
++
++typedef uint16x8_t                          Packet8ui;
++
++
++template <>
++struct packet_traits<uint16_t> : default_packet_traits
++{
++  typedef Packet8ui type;
++  typedef Packet8ui half;
++  enum
++  {
++    Vectorizable = 1,
++    AlignedOnScalar = 1,
++    size = 8,
++    HasHalfPacket = 0,
++
++    HasCast      = 0,
++    HasAdd       = 1,
++    HasSub       = 1,
++    HasShift     = 0,
++    HasMul       = 1,
++    HasNegate    = 1,
++    HasAbs       = 1,
++    HasArg       = 0,
++    HasAbs2      = 0,
++    HasAbsDiff   = 1,
++    HasMin       = 1,
++    HasMax       = 1,
++    HasConj      = 0,
++    HasSetLinear = 0,
++    HasBlend     = 0,
++
++    HasDiv   = 0,
++    HasFloor = 0,
++
++    HasSin  = 0,
++    HasCos  = 0,
++    HasLog  = 0,
++    HasExp  = 0,
++    HasSqrt = 0,
++    HasTanh = 0,
++    HasErf  = 0
++  };
++};
++
++
++
++
++template<> struct unpacket_traits<Packet8ui>
++{
++  typedef uint16_t type;
++  typedef Packet8ui half;
++  enum
++  {
++    size = 8,
++    alignment = Aligned16,
++    vectorizable = true,
++    masked_load_available = false,
++    masked_store_available = false
++  };
++};
++
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui pset1<Packet8ui>(const uint16_t& from)
++{
++return vdupq_n_u16(from);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui plset<Packet8ui>(const uint16_t& a)
++{
++  return vaddq_u16(pset1<Packet8ui>(a), vld1q_u16(helium_buffer_plset_u16));
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui padd<Packet8ui>(const Packet8ui& a, const Packet8ui& b)
++{
++  return vaddq_u16(a,b);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui psub<Packet8ui>(const Packet8ui& a, const Packet8ui& b)
++{
++  return vsubq_u16(a,b);
++}
++
++
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui pmadd(const Packet8ui& a, const Packet8ui& b, const Packet8ui& c)
++{
++  return vaddq_u16(c,vmulq_u16(a,b));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui pmul(const Packet8ui& a, const Packet8ui& b)
++{
++  return vmulq_u16(a,b);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui pload<Packet8ui>(const uint16_t* from)
++{ EIGEN_DEBUG_ALIGNED_LOAD return vld1q_u16(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui ploadu<Packet8ui>(const uint16_t* from)
++{ EIGEN_DEBUG_UNALIGNED_LOAD return vld1q_u16(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstore<uint16_t>(uint16_t* to, const Packet8ui& from)
++{ EIGEN_DEBUG_ALIGNED_STORE vst1q_u16(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstoreu<uint16_t>(uint16_t* to, const Packet8ui& from)
++{ EIGEN_DEBUG_UNALIGNED_STORE vst1q_u16(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE uint16_t predux<Packet8ui>(const Packet8ui& a)
++{
++  return vaddvq_u16(a);
++}
++
++
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet8ui, 8>& kernel)
++{
++    const uint16_t *src = (const uint16_t *)&kernel;
++
++    trans_16bit_generic<8,8>(src,HELIUM_BUFFER_PTRANSPOSE_U16);
++    memcpy((void*)src,(void *)HELIUM_BUFFER_PTRANSPOSE_U16,sizeof(uint16_t)*64);
++ }
++
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet8ui, 4>& kernel)
++{
++    uint16_t * pDataSrc= (uint16_t * )&kernel.packet;
++    trans_16bit_8x4(pDataSrc);
++
++ }
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui pabsdiff<Packet8ui>(const Packet8ui& a, const Packet8ui& b)
++{ 
++  return vabdq_u16(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui pabs(const Packet8ui& a) 
++{ 
++  return a; 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui pmin<Packet8ui>(const Packet8ui& a, const Packet8ui& b) 
++{ 
++  return vminq_u16(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui pmax<Packet8ui>(const Packet8ui& a, const Packet8ui& b) 
++{ 
++  return vmaxq_u16(a,b); 
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui ploaddup<Packet8ui>(const uint16_t* from)
++{ 
++
++  return vldrhq_gather_shifted_offset_u16(from,vld1q_u16(helium_buffer_ploaddup_u16));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui ploadquad<Packet8ui>(const uint16_t* from)
++{
++
++  return vldrhq_gather_shifted_offset_u16(reinterpret_cast<const uint16_t*>(from),vld1q_u16(helium_buffer_ploadquad_u16));
++
++}
++
++template<> EIGEN_ALWAYS_INLINE uint16_t pfirst<Packet8ui>(const Packet8ui& a) 
++{ 
++  return vgetq_lane_u16(a,0); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet8ui preverse(const Packet8ui& a)
++{
++    Packet8ui res;
++    res = vldrhq_gather_shifted_offset_u16((uint16_t*)&a,vld1q_u16(helium_buffer_preverse_u16));
++
++    return(res);
++}
++
++#define CONVERTMASKU16(PRED) \
++  vdupq_m_n_u16(vdupq_n_u16(0),0xffffu,PRED)
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8ui ptrue<Packet8ui>(const Packet8ui& /*a*/)
++{
++  return vdupq_n_u16(0xffffu);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8ui pzero<Packet8ui>(const Packet8ui& /*a*/)
++{
++  return vdupq_n_u16(0);
++}
++
++
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8ui pcmp_eq<Packet8ui>(const Packet8ui& a, const Packet8ui& b)
++{
++  return CONVERTMASKU16(vcmpeqq_u16(a, b));
++}
++
++
++
++
++#define LOGICALU16(OP,A,B) \
++  OP(A, B)
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8ui pand<Packet8ui>(const Packet8ui& a, const Packet8ui& b)
++{
++  return LOGICALU16(vandq_u16,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8ui por<Packet8ui>(const Packet8ui& a, const Packet8ui& b)
++{
++  return LOGICALU16(vorrq_u16,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8ui pxor<Packet8ui>(const Packet8ui& a, const Packet8ui& b)
++{
++  return LOGICALU16(veorq_u16,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8ui pandnot<Packet8ui>(const Packet8ui& a, const Packet8ui& b)
++{
++  return LOGICALU16(vbicq_u16,a,b);
++}
++
++
++/** \internal \returns \a or \b for each field in packet according to \mask */
++template<> EIGEN_ALWAYS_INLINE Packet8ui
++pselect(const Packet8ui& mask, const Packet8ui& a, const Packet8ui& b) 
++{
++  return vpselq_u16(a,b,vcmpeqq_u16(mask,vdupq_n_u16(0xffffu)));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet8ui pgather<uint16_t, Packet8ui>(const uint16_t* from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  uint16x8_t indices = vidupq_n_u16 (0, 1);
++  indices=vmulq_n_u16(indices,stride);
++  return vldrhq_gather_shifted_offset_u16(from, indices);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE void pscatter<uint16_t, Packet8ui>(uint16_t* to, const Packet8ui& from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  uint16x8_t indices = vidupq_n_u16 (0, 1);
++  indices=vmulq_n_u16(indices,stride);
++  vstrhq_scatter_shifted_offset_u16(to, indices, from);
++}
++
++} // end namespace internal
++
++} // end namespace Eigen
++
++#endif // EIGEN_PACKET_MATH_HELIUM_MVEI_U16_H
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_U32.h b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_U32.h
+new file mode 100644
+index 000000000..43c5cc77f
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_U32.h
+@@ -0,0 +1,283 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_PACKET_MATH_HELIUM_MVEI_U32_H
++#define EIGEN_PACKET_MATH_HELIUM_MVEI_U32_H
++
++namespace Eigen {
++
++
++namespace internal {
++
++/***********************
++
++INT32
++
++***********************/
++
++typedef uint32x4_t                          Packet4ui;
++
++
++template <>
++struct packet_traits<uint32_t> : default_packet_traits
++{
++  typedef Packet4ui type;
++  typedef Packet4ui half;
++  enum
++  {
++    Vectorizable = 1,
++    AlignedOnScalar = 1,
++    size = 4,
++    HasHalfPacket = 0,
++
++    HasCast      = 0,
++    HasAdd       = 1,
++    HasSub       = 1,
++    HasShift     = 0,
++    HasMul       = 1,
++    HasNegate    = 1,
++    HasAbs       = 1,
++    HasArg       = 0,
++    HasAbs2      = 0,
++    HasAbsDiff   = 1,
++    HasMin       = 1,
++    HasMax       = 1,
++    HasConj      = 0,
++    HasSetLinear = 0,
++    HasBlend     = 0,
++
++    HasDiv   = 0,
++    HasFloor = 0,
++
++    HasSin  = 0,
++    HasCos  = 0,
++    HasLog  = 0,
++    HasExp  = 0,
++    HasSqrt = 0,
++    HasTanh = 0,
++    HasErf  = 0
++  };
++};
++
++
++
++
++template<> struct unpacket_traits<Packet4ui>
++{
++  typedef uint32_t type;
++  typedef Packet4ui half;
++  enum
++  {
++    size = 4,
++    alignment = Aligned16,
++    vectorizable = true,
++    masked_load_available = false,
++    masked_store_available = false
++  };
++};
++
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui pset1<Packet4ui>(const uint32_t& from)
++{
++return vdupq_n_u32(from);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui plset<Packet4ui>(const uint32_t& a)
++{
++  return vaddq_u32(pset1<Packet4ui>(a), vld1q_u32(helium_buffer_plset_u32));
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui padd<Packet4ui>(const Packet4ui& a, const Packet4ui& b)
++{
++  return vaddq_u32(a,b);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui psub<Packet4ui>(const Packet4ui& a, const Packet4ui& b)
++{
++  return vsubq_u32(a,b);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui pmadd(const Packet4ui& a, const Packet4ui& b, const Packet4ui& c)
++{
++  return vaddq_u32(c,vmulq_u32(a,b));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui pmul(const Packet4ui& a, const Packet4ui& b)
++{
++  return vmulq_u32(a,b);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui pload<Packet4ui>(const uint32_t* from)
++{ EIGEN_DEBUG_ALIGNED_LOAD return vld1q_u32(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui ploadu<Packet4ui>(const uint32_t* from)
++{ EIGEN_DEBUG_UNALIGNED_LOAD return vld1q_u32(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstore<uint32_t>(uint32_t* to, const Packet4ui& from)
++{ EIGEN_DEBUG_ALIGNED_STORE vst1q_u32(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstoreu<uint32_t>(uint32_t* to, const Packet4ui& from)
++{ EIGEN_DEBUG_UNALIGNED_STORE vst1q_u32(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE uint32_t predux<Packet4ui>(const Packet4ui& a)
++{
++  return vaddvq_u32(a);
++}
++
++
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet4ui, 4>& kernel)
++{
++    uint32_t * pDataSrc= (uint32_t * )&kernel.packet;
++    uint32x4x4_t vecIn;
++
++    vecIn = vld4q((uint32_t const *) pDataSrc);
++    vstrwq_u32(pDataSrc, vecIn.val[0]);
++    vstrwq_u32(pDataSrc+4, vecIn.val[1]);
++    vstrwq_u32(pDataSrc+8, vecIn.val[2]);
++    vstrwq_u32(pDataSrc+12, vecIn.val[3]);
++
++ }
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui pabsdiff<Packet4ui>(const Packet4ui& a, const Packet4ui& b)
++{ 
++  return vabdq_u32(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui pabs(const Packet4ui& a) 
++{ 
++  return (a); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui pmin<Packet4ui>(const Packet4ui& a, const Packet4ui& b) 
++{ 
++  return vminq_u32(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui pmax<Packet4ui>(const Packet4ui& a, const Packet4ui& b) 
++{ 
++  return vmaxq_u32(a,b); 
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui ploaddup<Packet4ui>(const uint32_t* from)
++{ 
++  return vldrwq_gather_shifted_offset_u32(from,vld1q_u32(helium_buffer_ploaddup_u32));
++}
++
++template<> EIGEN_ALWAYS_INLINE uint32_t pfirst<Packet4ui>(const Packet4ui& a) 
++{ 
++  return vgetq_lane_u32(a,0); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet4ui preverse(const Packet4ui& a)
++{
++    Packet4ui res;
++    res = vldrwq_gather_shifted_offset_u32((uint32_t*)&a,vld1q_u32(helium_buffer_preverse_u32));
++
++    return(res);
++}
++
++#define CONVERTMASKU32(PRED) \
++  vdupq_m_n_u32(vdupq_n_u32(0),0xffffffffu,PRED)
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4ui ptrue<Packet4ui>(const Packet4ui& /*a*/)
++{
++  return vdupq_n_u32(0xffffffffu);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4ui pzero<Packet4ui>(const Packet4ui& /*a*/)
++{
++  return vdupq_n_u32(0);
++}
++
++
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4ui pcmp_eq<Packet4ui>(const Packet4ui& a, const Packet4ui& b)
++{
++  return CONVERTMASKU32(vcmpeqq_u32(a, b));
++}
++
++
++
++#define LOGICALU32(OP,A,B) \
++  OP(A, B)
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4ui pand<Packet4ui>(const Packet4ui& a, const Packet4ui& b)
++{
++  return LOGICALU32(vandq_u32,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4ui por<Packet4ui>(const Packet4ui& a, const Packet4ui& b)
++{
++  return LOGICALU32(vorrq_u32,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4ui pxor<Packet4ui>(const Packet4ui& a, const Packet4ui& b)
++{
++  return LOGICALU32(veorq_u32,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4ui pandnot<Packet4ui>(const Packet4ui& a, const Packet4ui& b)
++{
++  return LOGICALU32(vbicq_u32,a,b);
++}
++
++
++/** \internal \returns \a or \b for each field in packet according to \mask */
++template<> EIGEN_ALWAYS_INLINE Packet4ui
++pselect(const Packet4ui& mask, const Packet4ui& a, const Packet4ui& b) 
++{
++  return vpselq_u32(a,b,vcmpeqq_u32(mask,vdupq_n_u32(0xffffffffu)));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet4ui pgather<uint32_t, Packet4ui>(const uint32_t* from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  uint32x4_t indices = vidupq_n_u32 (0, 1);
++  indices=vmulq_n_u32(indices,stride);
++  return vldrwq_gather_shifted_offset_u32(from, indices);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE void pscatter<uint32_t, Packet4ui>(uint32_t* to, const Packet4ui& from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  uint32x4_t indices = vidupq_n_u32 (0, 1);
++  indices=vmulq_n_u32(indices,stride);
++  vstrwq_scatter_shifted_offset_u32(to, indices, from);
++}
++
++} // end namespace internal
++
++} // end namespace Eigen
++
++#endif // EIGEN_PACKET_MATH_HELIUM_MVEI_U32_H
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_U8.h b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_U8.h
+new file mode 100644
+index 000000000..b660036a7
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEI/PacketMathMVEI_U8.h
+@@ -0,0 +1,342 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_PACKET_MATH_HELIUM_MVEI_U8_H
++#define EIGEN_PACKET_MATH_HELIUM_MVEI_U8_H
++
++namespace Eigen {
++
++
++namespace internal {
++
++/***********************
++
++INT16
++
++***********************/
++
++typedef uint8x16_t                          Packet16ui;
++
++
++template <>
++struct packet_traits<uint8_t> : default_packet_traits
++{
++  typedef Packet16ui type;
++  typedef Packet16ui half;
++  enum
++  {
++    Vectorizable = 1,
++    AlignedOnScalar = 1,
++    size = 16,
++    HasHalfPacket = 0,
++
++    HasCast      = 0,
++    HasAdd       = 1,
++    HasSub       = 1,
++    HasShift     = 0,
++    HasMul       = 1,
++    HasNegate    = 1,
++    HasAbs       = 1,
++    HasArg       = 0,
++    HasAbs2      = 0,
++    HasAbsDiff   = 1,
++    HasMin       = 1,
++    HasMax       = 1,
++    HasConj      = 0,
++    HasSetLinear = 0,
++    HasBlend     = 0,
++
++    HasDiv   = 0,
++    HasFloor = 0,
++
++    HasSin  = 0,
++    HasCos  = 0,
++    HasLog  = 0,
++    HasExp  = 0,
++    HasSqrt = 0,
++    HasTanh = 0,
++    HasErf  = 0
++  };
++};
++
++
++
++
++template<> struct unpacket_traits<Packet16ui>
++{
++  typedef uint8_t type;
++  typedef Packet16ui half;
++  enum
++  {
++    size = 16,
++    alignment = Aligned16,
++    vectorizable = true,
++    masked_load_available = false,
++    masked_store_available = false
++  };
++};
++
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui pset1<Packet16ui>(const uint8_t& from)
++{
++return vdupq_n_u8(from);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui plset<Packet16ui>(const uint8_t& a)
++{
++  return vaddq_u8(pset1<Packet16ui>(a), vld1q_u8(helium_buffer_plset_u8));
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui padd<Packet16ui>(const Packet16ui& a, const Packet16ui& b)
++{
++  return vaddq_u8(a,b);
++}
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui psub<Packet16ui>(const Packet16ui& a, const Packet16ui& b)
++{
++  return vsubq_u8(a,b);
++}
++
++
++
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui pmadd(const Packet16ui& a, const Packet16ui& b, const Packet16ui& c)
++{
++  return vaddq_u8(c,vmulq_u8(a,b));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui pmul(const Packet16ui& a, const Packet16ui& b)
++{
++  return vmulq_u8(a,b);
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui pload<Packet16ui>(const uint8_t* from)
++{ EIGEN_DEBUG_ALIGNED_LOAD return vld1q_u8(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui ploadu<Packet16ui>(const uint8_t* from)
++{ EIGEN_DEBUG_UNALIGNED_LOAD return vld1q_u8(from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstore<uint8_t>(uint8_t* to, const Packet16ui& from)
++{ EIGEN_DEBUG_ALIGNED_STORE vst1q_u8(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE void pstoreu<uint8_t>(uint8_t* to, const Packet16ui& from)
++{ EIGEN_DEBUG_UNALIGNED_STORE vst1q_u8(to,from); }
++
++
++template<> EIGEN_ALWAYS_INLINE uint8_t predux<Packet16ui>(const Packet16ui& a)
++{
++  return vaddvq_u8(a);
++}
++
++
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet16ui, 16>& kernel)
++{
++    const uint8_t *src = (const uint8_t *)&kernel;
++
++    trans_8bit_generic<16,16>(src,HELIUM_BUFFER_PTRANSPOSE_U8);
++    memcpy((void*)src,(void *)HELIUM_BUFFER_PTRANSPOSE_U8,sizeof(uint8_t)*256);
++ }
++
++EIGEN_ALWAYS_INLINE void ptranspose(PacketBlock<Packet16ui, 4>& kernel)
++{
++    uint8_t * pDataSrc= (uint8_t * )&kernel.packet;
++    trans_8bit_16x4(pDataSrc);
++
++ }
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui pabsdiff<Packet16ui>(const Packet16ui& a, const Packet16ui& b)
++{ 
++  return vabdq_u8(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui pabs(const Packet16ui& a) 
++{ 
++  return a; 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui pmin<Packet16ui>(const Packet16ui& a, const Packet16ui& b) 
++{ 
++  return vminq_u8(a,b); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui pmax<Packet16ui>(const Packet16ui& a, const Packet16ui& b) 
++{ 
++  return vmaxq_u8(a,b); 
++}
++
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui ploaddup<Packet16ui>(const uint8_t* from)
++{ 
++
++  return vldrbq_gather_offset_u8(from,vld1q_u8(helium_buffer_ploaddup_u8));
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui ploadquad<Packet16ui>(const uint8_t* from)
++{
++
++  return vldrbq_gather_offset_u8(reinterpret_cast<const uint8_t*>(from),vld1q_u8(helium_buffer_ploadquad_u8));
++
++}
++
++template<> EIGEN_ALWAYS_INLINE uint8_t pfirst<Packet16ui>(const Packet16ui& a) 
++{ 
++  return vgetq_lane_u8(a,0); 
++}
++
++template<> EIGEN_ALWAYS_INLINE Packet16ui preverse(const Packet16ui& a)
++{
++    Packet16ui res;
++    res = vldrbq_gather_offset_u8((uint8_t*)&a,vld1q_u8(helium_buffer_preverse_u8));
++
++    return(res);
++}
++
++#define CONVERTMASKU8(PRED) \
++  vdupq_m_n_u8(vdupq_n_u8(0),0xffu,PRED)
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16ui ptrue<Packet16ui>(const Packet16ui& /*a*/)
++{
++  return vdupq_n_u8(0xffu);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16ui pzero<Packet16ui>(const Packet16ui& /*a*/)
++{
++  return vdupq_n_u8(0);
++}
++
++
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16ui pcmp_eq<Packet16ui>(const Packet16ui& a, const Packet16ui& b)
++{
++  return CONVERTMASKU8(vcmpeqq_u8(a, b));
++}
++
++
++
++
++#define LOGICALU8(OP,A,B) \
++  OP(A, B)
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16ui pand<Packet16ui>(const Packet16ui& a, const Packet16ui& b)
++{
++  return LOGICALU8(vandq_u8,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16ui por<Packet16ui>(const Packet16ui& a, const Packet16ui& b)
++{
++  return LOGICALU8(vorrq_u8,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16ui pxor<Packet16ui>(const Packet16ui& a, const Packet16ui& b)
++{
++  return LOGICALU8(veorq_u8,a,b);
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16ui pandnot<Packet16ui>(const Packet16ui& a, const Packet16ui& b)
++{
++  return LOGICALU8(vbicq_u8,a,b);
++}
++
++
++/** \internal \returns \a or \b for each field in packet according to \mask */
++template<> EIGEN_ALWAYS_INLINE Packet16ui
++pselect(const Packet16ui& mask, const Packet16ui& a, const Packet16ui& b) 
++{
++  return vpselq_u8(a,b,vcmpeqq_u8(mask,vdupq_n_u8(0xffu)));
++}
++
++template <>
++EIGEN_ALWAYS_INLINE Packet16ui pgather<uint8_t, Packet16ui>(const uint8_t* from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  if (stride <= 17)
++  {
++  uint8x16_t indices = vidupq_n_u8 (0, 1);
++  indices=vmulq_n_u8(indices,stride);
++  return vldrbq_gather_offset_u8(from, indices);
++  }
++  else
++  {
++    uint8x16_t res=vdupq_n_u8(from[stride*0]);
++    res=vsetq_lane_u8(from[stride*1],res,1);
++    res=vsetq_lane_u8(from[stride*2],res,2);
++    res=vsetq_lane_u8(from[stride*3],res,3);
++    res=vsetq_lane_u8(from[stride*4],res,4);
++    res=vsetq_lane_u8(from[stride*5],res,5);
++    res=vsetq_lane_u8(from[stride*6],res,6);
++    res=vsetq_lane_u8(from[stride*7],res,7);
++    res=vsetq_lane_u8(from[stride*8],res,8);
++    res=vsetq_lane_u8(from[stride*9],res,9);
++    res=vsetq_lane_u8(from[stride*10],res,10);
++    res=vsetq_lane_u8(from[stride*11],res,11);
++    res=vsetq_lane_u8(from[stride*12],res,12);
++    res=vsetq_lane_u8(from[stride*13],res,13);
++    res=vsetq_lane_u8(from[stride*14],res,14);
++    res=vsetq_lane_u8(from[stride*15],res,15);
++    return(res);
++  }
++}
++
++template <>
++EIGEN_ALWAYS_INLINE void pscatter<uint8_t, Packet16ui>(uint8_t* to, const Packet16ui& from, Index stride)
++{
++  // Indice format: {base=0, base+stride, base+stride*2, base+stride*3, ...}
++  if (stride <= 17)
++  {
++     uint8x16_t indices = vidupq_n_u8 (0, 1);
++     indices=vmulq_n_u8(indices,stride);
++     vstrbq_scatter_offset_u8(to, indices, from);
++  }
++  else
++  {
++     to[stride*0] = vgetq_lane_u8(from, 0);
++     to[stride*1] = vgetq_lane_u8(from, 1);
++     to[stride*2] = vgetq_lane_u8(from, 2);
++     to[stride*3] = vgetq_lane_u8(from, 3);
++     to[stride*4] = vgetq_lane_u8(from, 4);
++     to[stride*5] = vgetq_lane_u8(from, 5);
++     to[stride*6] = vgetq_lane_u8(from, 6);
++     to[stride*7] = vgetq_lane_u8(from, 7);
++     to[stride*8] = vgetq_lane_u8(from, 8);
++     to[stride*9] = vgetq_lane_u8(from, 9);
++     to[stride*10] = vgetq_lane_u8(from, 10);
++     to[stride*11] = vgetq_lane_u8(from, 11);
++     to[stride*12] = vgetq_lane_u8(from, 12);
++     to[stride*13] = vgetq_lane_u8(from, 13);
++     to[stride*14] = vgetq_lane_u8(from, 14);
++     to[stride*15] = vgetq_lane_u8(from, 15);
++  }
++
++}
++
++} // end namespace internal
++
++} // end namespace Eigen
++
++#endif // EIGEN_PACKET_MATH_HELIUM_MVEI_U8_H
+diff --git a/Eigen/src/Core/arch/HELIUM/MVEI/TypeCastingMVEI.h b/Eigen/src/Core/arch/HELIUM/MVEI/TypeCastingMVEI.h
+new file mode 100644
+index 000000000..80da5e338
+--- /dev/null
++++ b/Eigen/src/Core/arch/HELIUM/MVEI/TypeCastingMVEI.h
+@@ -0,0 +1,24 @@
++// This file is part of Eigen, a lightweight C++ template library
++// for linear algebra.
++//
++// Copyright (C) 2021, Arm Limited and Contributors
++//
++// This Source Code Form is subject to the terms of the Mozilla
++// Public License v. 2.0. If a copy of the MPL was not distributed
++// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
++
++#ifndef EIGEN_TYPECASTING_HELIUM_MVEI_H
++#define EIGEN_TYPECASTING_HELIUM_MVEI_H
++
++namespace Eigen {
++
++
++namespace internal {
++
++
++
++} // end namespace internal
++
++} // end namespace Eigen
++
++#endif // EIGEN_TYPECASTING_HELIUM_MVEI_H
+diff --git a/Eigen/src/Core/util/ConfigureVectorization.h b/Eigen/src/Core/util/ConfigureVectorization.h
+index af4e69623..c4ec8283d 100644
+--- a/Eigen/src/Core/util/ConfigureVectorization.h
++++ b/Eigen/src/Core/util/ConfigureVectorization.h
+@@ -391,6 +391,15 @@
+     #define EIGEN_VECTORIZE_NEON
+     #include <arm_neon.h>
+ 
++  #elif defined(__ARM_FEATURE_MVE)
++    #define EIGEN_VECTORIZE
++    #define EIGEN_VECTORIZE_HELIUM
++    #include <arm_mve.h>
++    #define EIGEN_VECTORIZE_MVEI
++
++    #if (__ARM_FEATURE_MVE & 2)
++      #define EIGEN_VECTORIZE_MVEF
++    #endif
+   // We currently require SVE to be enabled explicitly via EIGEN_ARM64_USE_SVE and
+   // will not select the backend automatically
+   #elif (defined __ARM_FEATURE_SVE) && (defined EIGEN_ARM64_USE_SVE)
+@@ -404,8 +413,9 @@
+     #if defined __ARM_FEATURE_SVE_BITS
+       #define EIGEN_ARM64_SVE_VL __ARM_FEATURE_SVE_BITS
+     #else
+-#error "Eigen requires a fixed SVE lector length but EIGEN_ARM64_SVE_VL is not set."
+-#endif
++      #error "Eigen requires a fixed SVE lector length but EIGEN_ARM64_SVE_VL is not set."
++    #endif
++
+ 
+ #elif (defined __s390x__ && defined __VEC__)
+ 
+@@ -497,6 +507,8 @@ inline static const char *SimdInstructionSetsInUse(void) {
+   return "ARM NEON";
+ #elif defined(EIGEN_VECTORIZE_SVE)
+   return "ARM SVE";
++#elif defined(EIGEN_VECTORIZE_HELIUM)
++  return "ARM HELIUM";
+ #elif defined(EIGEN_VECTORIZE_ZVECTOR)
+   return "S390X ZVECTOR";
+ #elif defined(EIGEN_VECTORIZE_MSA)
+diff --git a/Eigen/src/Core/util/Constants.h b/Eigen/src/Core/util/Constants.h
+index f7f907ab7..9b5f46878 100644
+--- a/Eigen/src/Core/util/Constants.h
++++ b/Eigen/src/Core/util/Constants.h
+@@ -476,6 +476,7 @@ namespace Architecture
+     NEON = 0x4,
+     MSA = 0x5,
+     SVE = 0x6,
++    HELIUM = 0x7,
+ #if defined EIGEN_VECTORIZE_SSE
+     Target = SSE
+ #elif defined EIGEN_VECTORIZE_ALTIVEC
+@@ -486,6 +487,8 @@ namespace Architecture
+     Target = NEON
+ #elif defined EIGEN_VECTORIZE_SVE
+     Target = SVE
++#elif defined EIGEN_VECTORIZE_HELIUM
++    Target = HELIUM
+ #elif defined EIGEN_VECTORIZE_MSA
+     Target = MSA
+ #else

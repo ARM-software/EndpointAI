@@ -1,0 +1,937 @@
+diff --git a/test/adjoint.cpp b/test/adjoint.cpp
+index 4c4f98bb9..29ac10056 100644
+--- a/test/adjoint.cpp
++++ b/test/adjoint.cpp
+@@ -212,7 +212,7 @@ EIGEN_DECLARE_TEST(adjoint)
+     CALL_SUBTEST_12( adjoint(Matrix<int,8,8>()) );
+   }
+   // test a large static matrix only once
+-  CALL_SUBTEST_7( adjoint(Matrix<float, 100, 100>()) );
++  CALL_SUBTEST_7( adjoint(Matrix<float, 20, 20>()) );
+ 
+   CALL_SUBTEST_13( adjoint_extra<0>() );
+ }
+diff --git a/test/array_reverse.cpp b/test/array_reverse.cpp
+index c77528a5b..7fea45745 100644
+--- a/test/array_reverse.cpp
++++ b/test/array_reverse.cpp
+@@ -196,7 +196,7 @@ EIGEN_DECLARE_TEST(array_reverse)
+     CALL_SUBTEST_5( reverse(MatrixXcf(internal::random<int>(1,EIGEN_TEST_MAX_SIZE), internal::random<int>(1,EIGEN_TEST_MAX_SIZE))) );
+     CALL_SUBTEST_6( reverse(MatrixXi(internal::random<int>(1,EIGEN_TEST_MAX_SIZE), internal::random<int>(1,EIGEN_TEST_MAX_SIZE))) );
+     CALL_SUBTEST_7( reverse(MatrixXcd(internal::random<int>(1,EIGEN_TEST_MAX_SIZE), internal::random<int>(1,EIGEN_TEST_MAX_SIZE))) );
+-    CALL_SUBTEST_8( reverse(Matrix<float, 100, 100>()) );
++    CALL_SUBTEST_8( reverse(Matrix<float, 30, 30>()) );
+     CALL_SUBTEST_9( reverse(Matrix<float,Dynamic,Dynamic,RowMajor>(internal::random<int>(1,EIGEN_TEST_MAX_SIZE), internal::random<int>(1,EIGEN_TEST_MAX_SIZE))) );
+     CALL_SUBTEST_3( bug1684<0>() );
+   }
+diff --git a/test/basicstuff.cpp b/test/basicstuff.cpp
+index 4ca607c82..8d0de3c48 100644
+--- a/test/basicstuff.cpp
++++ b/test/basicstuff.cpp
+@@ -339,7 +339,8 @@ EIGEN_DECLARE_TEST(basicstuff)
+     CALL_SUBTEST_3( basicStuff(MatrixXcf(internal::random<int>(1,EIGEN_TEST_MAX_SIZE), internal::random<int>(1,EIGEN_TEST_MAX_SIZE))) );
+     CALL_SUBTEST_4( basicStuff(MatrixXi(internal::random<int>(1,EIGEN_TEST_MAX_SIZE), internal::random<int>(1,EIGEN_TEST_MAX_SIZE))) );
+     CALL_SUBTEST_5( basicStuff(MatrixXcd(internal::random<int>(1,EIGEN_TEST_MAX_SIZE), internal::random<int>(1,EIGEN_TEST_MAX_SIZE))) );
+-    CALL_SUBTEST_6( basicStuff(Matrix<float, 100, 100>()) );
++    
++    CALL_SUBTEST_6( basicStuff(Matrix<float, 10, 10>()) );
+     CALL_SUBTEST_7( basicStuff(Matrix<long double,Dynamic,Dynamic>(internal::random<int>(1,EIGEN_TEST_MAX_SIZE),internal::random<int>(1,EIGEN_TEST_MAX_SIZE))) );
+     CALL_SUBTEST_8( casting_all() );
+ 
+diff --git a/test/bicgstab.cpp b/test/bicgstab.cpp
+index 59c4b501c..e63555275 100644
+--- a/test/bicgstab.cpp
++++ b/test/bicgstab.cpp
+@@ -20,9 +20,9 @@ template<typename T, typename I_> void test_bicgstab_T()
+   bicgstab_colmajor_diag.setTolerance(NumTraits<T>::epsilon()*4);
+   bicgstab_colmajor_ilut.setTolerance(NumTraits<T>::epsilon()*4);
+   
+-  CALL_SUBTEST( check_sparse_square_solving(bicgstab_colmajor_diag)  );
++  CALL_SUBTEST( check_sparse_square_solving(bicgstab_colmajor_diag,40)  );
+ //   CALL_SUBTEST( check_sparse_square_solving(bicgstab_colmajor_I)     );
+-  CALL_SUBTEST( check_sparse_square_solving(bicgstab_colmajor_ilut)     );
++  CALL_SUBTEST( check_sparse_square_solving(bicgstab_colmajor_ilut,40)     );
+   //CALL_SUBTEST( check_sparse_square_solving(bicgstab_colmajor_ssor)     );
+ }
+ 
+diff --git a/test/blasutil.cpp b/test/blasutil.cpp
+index 845a498d6..1d59b6c36 100644
+--- a/test/blasutil.cpp
++++ b/test/blasutil.cpp
+@@ -70,7 +70,7 @@ void run_bdmp_spec_1()
+     int minSize = std::max<int>(packetSize, BlockSize);
+     typedef typename internal::packet_traits<Scalar>::type Packet;
+ 
+-    int szm = internal::random<int>(minSize,500), szn = internal::random<int>(minSize,500);
++    int szm = internal::random<int>(minSize,40), szn = internal::random<int>(minSize,40);
+     int stride = StorageOrder == RowMajor ? szn : szm;
+     Scalar *d = new Scalar[szn*szm];
+ 
+diff --git a/test/dontalign.cpp b/test/dontalign.cpp
+index 2e4102b86..2d2e023ef 100644
+--- a/test/dontalign.cpp
++++ b/test/dontalign.cpp
+@@ -54,7 +54,7 @@ EIGEN_DECLARE_TEST(dontalign)
+   dontalign(Matrix4cf());
+ #elif defined EIGEN_TEST_PART_3 || defined EIGEN_TEST_PART_7
+   dontalign(Matrix<float, 32, 32>());
+-  dontalign(Matrix<std::complex<float>, 32, 32>());
++  dontalign(Matrix<std::complex<float>, 16, 16>());
+ #elif defined EIGEN_TEST_PART_4 || defined EIGEN_TEST_PART_8
+   dontalign(MatrixXd(32, 32));
+   dontalign(MatrixXcf(32, 32));
+diff --git a/test/inverse.cpp b/test/inverse.cpp
+index 99f9e0c9b..e10c0c13d 100644
+--- a/test/inverse.cpp
++++ b/test/inverse.cpp
+@@ -131,12 +131,12 @@ EIGEN_DECLARE_TEST(inverse)
+     CALL_SUBTEST_4( inverse(Matrix4f()) );
+     CALL_SUBTEST_4( inverse(Matrix<float,4,4,DontAlign>()) );
+     
+-    s = internal::random<int>(50,320); 
++    s = internal::random<int>(50,50); 
+     CALL_SUBTEST_5( inverse(MatrixXf(s,s)) );
+     TEST_SET_BUT_UNUSED_VARIABLE(s)
+     CALL_SUBTEST_5( inverse_zerosized<float>() );
+     
+-    s = internal::random<int>(25,100);
++    s = internal::random<int>(25,40);
+     CALL_SUBTEST_6( inverse(MatrixXcd(s,s)) );
+     TEST_SET_BUT_UNUSED_VARIABLE(s)
+     
+diff --git a/test/lscg.cpp b/test/lscg.cpp
+index feb2347a8..5ad4679b1 100644
+--- a/test/lscg.cpp
++++ b/test/lscg.cpp
+@@ -17,14 +17,14 @@ template<typename T> void test_lscg_T()
+   LeastSquaresConjugateGradient<SparseMatrix<T,RowMajor> > lscg_rowmajor_diag;
+   LeastSquaresConjugateGradient<SparseMatrix<T,RowMajor>, IdentityPreconditioner> lscg_rowmajor_I;
+ 
+-  CALL_SUBTEST( check_sparse_square_solving(lscg_colmajor_diag)  );
+-  CALL_SUBTEST( check_sparse_square_solving(lscg_colmajor_I)     );
++  CALL_SUBTEST( check_sparse_square_solving(lscg_colmajor_diag,40)  );
++  CALL_SUBTEST( check_sparse_square_solving(lscg_colmajor_I,40)     );
+   
+   CALL_SUBTEST( check_sparse_leastsquare_solving(lscg_colmajor_diag)  );
+   CALL_SUBTEST( check_sparse_leastsquare_solving(lscg_colmajor_I)     );
+ 
+-  CALL_SUBTEST( check_sparse_square_solving(lscg_rowmajor_diag)  );
+-  CALL_SUBTEST( check_sparse_square_solving(lscg_rowmajor_I)     );
++  CALL_SUBTEST( check_sparse_square_solving(lscg_rowmajor_diag,40)  );
++  CALL_SUBTEST( check_sparse_square_solving(lscg_rowmajor_I,40)     );
+ 
+   CALL_SUBTEST( check_sparse_leastsquare_solving(lscg_rowmajor_diag)  );
+   CALL_SUBTEST( check_sparse_leastsquare_solving(lscg_rowmajor_I)     );
+diff --git a/test/main.h b/test/main.h
+index 07f3794ac..07761f458 100644
+--- a/test/main.h
++++ b/test/main.h
+@@ -9,9 +9,13 @@
+ // Public License v. 2.0. If a copy of the MPL was not distributed
+ // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ 
++
+ #include <cstdlib>
+ #include <cerrno>
++#if !defined(CORTEXM)
+ #include <ctime>
++#endif
++
+ #include <iostream>
+ #include <fstream>
+ #include <string>
+@@ -767,6 +771,42 @@ inline void set_seed_from_string(const char *str)
+   g_has_set_seed = true;
+ }
+ 
++#if defined(CORTEXM)
++int main(int argc, char *argv[])
++{
++    g_has_set_repeat = false;
++    g_has_set_seed = false;
++    bool need_help = false;
++
++    (void)argc;
++    (void)argv;
++    (void)need_help;
++
++  
++
++    g_seed = 1000;
++    if(!g_has_set_repeat) g_repeat = DEFAULT_REPEAT;
++
++    std::cout << "Initializing random number generator with seed " << g_seed << std::endl;
++    std::stringstream ss;
++    ss << "Seed: " << g_seed;
++    g_test_stack.push_back(ss.str());
++    srand(g_seed);
++    std::cout << "Repeating each test " << g_repeat << " times" << std::endl;
++
++    VERIFY(EigenTest::all().size()>0);
++
++    for(std::size_t i=0; i<EigenTest::all().size(); ++i)
++    {
++      const EigenTest& current_test = *EigenTest::all()[i];
++      Eigen::g_test_stack.push_back(current_test.name());
++      current_test();
++      Eigen::g_test_stack.pop_back();
++    }
++
++    return 0;
++}
++#else
+ int main(int argc, char *argv[])
+ {
+     g_has_set_repeat = false;
+@@ -839,6 +879,7 @@ int main(int argc, char *argv[])
+ 
+     return 0;
+ }
++#endif
+ 
+ // These warning are disabled here such that they are still ON when parsing Eigen's header files.
+ #if defined __INTEL_COMPILER
+diff --git a/test/mixingtypes.cpp b/test/mixingtypes.cpp
+index d450dbff8..28084f25e 100644
+--- a/test/mixingtypes.cpp
++++ b/test/mixingtypes.cpp
+@@ -175,10 +175,19 @@ template<int SizeAtCompileType> void mixingtypes(int size = SizeAtCompileType)
+   VERIFY_IS_APPROX(scd*md*mcd, scd*md.template cast<CD>().eval()*mcd);
+   VERIFY_IS_APPROX(scd*mcd*md, scd*mcd*md.template cast<CD>());
+ 
+-  VERIFY_IS_APPROX(sf*mf*mcf, sf*mf.template cast<CF>()*mcf);
+-  VERIFY_IS_APPROX(sf*mcf*mf, sf*mcf*mf.template cast<CF>());
++  // real * complex matrix product not supported by MVE backend.
++  // Result is wrong.
++  // So it is detected at build time and will fail the build to prevent
++  // the user from using something giving a wrong result.
++  //VERIFY_IS_APPROX(sf*mf*mcf, sf*mf.template cast<CF>()*mcf);
++  //VERIFY_IS_APPROX(sf*mcf*mf, sf*mcf*mf.template cast<CF>());
+   VERIFY_IS_APPROX(scf*mf*mcf, scf*mf.template cast<CF>()*mcf);
+-  VERIFY_IS_APPROX(scf*mcf*mf, scf*mcf*mf.template cast<CF>());
++
++  // real * complex matrix product not supported by MVE backend.
++  // Result is wrong.
++  // So it is detected at build time and will fail the build to prevent
++  // the user from using something giving a wrong result.
++  //VERIFY_IS_APPROX(scf*mcf*mf, scf*mcf*mf.template cast<CF>());
+ 
+   VERIFY_IS_APPROX(sd*md.adjoint()*mcd, (sd*md).template cast<CD>().eval().adjoint()*mcd);
+   VERIFY_IS_APPROX(sd*mcd.adjoint()*md, sd*mcd.adjoint()*md.template cast<CD>());
+@@ -187,12 +196,16 @@ template<int SizeAtCompileType> void mixingtypes(int size = SizeAtCompileType)
+   VERIFY_IS_APPROX(sd*md*mcd.adjoint(), (sd*md).template cast<CD>().eval()*mcd.adjoint());
+   VERIFY_IS_APPROX(sd*mcd*md.adjoint(), sd*mcd*md.template cast<CD>().adjoint());
+ 
+-  VERIFY_IS_APPROX(sf*mf.adjoint()*mcf, (sf*mf).template cast<CF>().eval().adjoint()*mcf);
+-  VERIFY_IS_APPROX(sf*mcf.adjoint()*mf, sf*mcf.adjoint()*mf.template cast<CF>());
+-  VERIFY_IS_APPROX(sf*mf.adjoint()*mcf.adjoint(), (sf*mf).template cast<CF>().eval().adjoint()*mcf.adjoint());
+-  VERIFY_IS_APPROX(sf*mcf.adjoint()*mf.adjoint(), sf*mcf.adjoint()*mf.template cast<CF>().adjoint());
+-  VERIFY_IS_APPROX(sf*mf*mcf.adjoint(), (sf*mf).template cast<CF>().eval()*mcf.adjoint());
+-  VERIFY_IS_APPROX(sf*mcf*mf.adjoint(), sf*mcf*mf.template cast<CF>().adjoint());
++  // real * complex matrix product not supported by MVE backend.
++  // Result is wrong.
++  // So it is detected at build time and will fail the build to prevent
++  // the user from using something giving a wrong result.
++  //VERIFY_IS_APPROX(sf*mf.adjoint()*mcf, (sf*mf).template cast<CF>().eval().adjoint()*mcf);
++  //VERIFY_IS_APPROX(sf*mcf.adjoint()*mf, sf*mcf.adjoint()*mf.template cast<CF>());
++  //VERIFY_IS_APPROX(sf*mf.adjoint()*mcf.adjoint(), (sf*mf).template cast<CF>().eval().adjoint()*mcf.adjoint());
++  //VERIFY_IS_APPROX(sf*mcf.adjoint()*mf.adjoint(), sf*mcf.adjoint()*mf.template cast<CF>().adjoint());
++  //VERIFY_IS_APPROX(sf*mf*mcf.adjoint(), (sf*mf).template cast<CF>().eval()*mcf.adjoint());
++  //VERIFY_IS_APPROX(sf*mcf*mf.adjoint(), sf*mcf*mf.template cast<CF>().adjoint());
+ 
+   VERIFY_IS_APPROX(sf*mf*vcf, (sf*mf).template cast<CF>().eval()*vcf);
+   VERIFY_IS_APPROX(scf*mf*vcf,(scf*mf.template cast<CF>()).eval()*vcf);
+diff --git a/test/nomalloc.cpp b/test/nomalloc.cpp
+index cb4c073e9..13d91eef3 100644
+--- a/test/nomalloc.cpp
++++ b/test/nomalloc.cpp
+@@ -91,8 +91,11 @@ template<typename MatrixType> void nomalloc(const MatrixType& m)
+ template<typename Scalar>
+ void ctms_decompositions()
+ {
+-  const int maxSize = 16;
+-  const int size    = 12;
++  //const int maxSize = 16;
++  //const int size    = 12;
++
++  const int maxSize = 8;
++  const int size    = 6;
+ 
+   typedef Eigen::Matrix<Scalar,
+                         Eigen::Dynamic, Eigen::Dynamic,
+@@ -218,10 +221,9 @@ EIGEN_DECLARE_TEST(nomalloc)
+   CALL_SUBTEST_3(nomalloc(Matrix<float,32,32>()) );
+   
+   // Check decomposition modules with dynamic matrices that have a known compile-time max size (ctms)
+-  CALL_SUBTEST_4(ctms_decompositions<float>());
+ 
++  CALL_SUBTEST_4(ctms_decompositions<float>());
+   CALL_SUBTEST_5(test_zerosized());
+-
+   CALL_SUBTEST_6(test_reference(Matrix<float,32,32>()));
+   CALL_SUBTEST_7(test_reference(R1));
+   CALL_SUBTEST_8(Ref<MatrixXd> R2 = M1.topRows<2>(); test_reference(R2));
+diff --git a/test/nullary.cpp b/test/nullary.cpp
+index 9b25ea4f3..48f0739c1 100644
+--- a/test/nullary.cpp
++++ b/test/nullary.cpp
+@@ -319,11 +319,11 @@ EIGEN_DECLARE_TEST(nullary)
+   CALL_SUBTEST_3( testMatrixType(MatrixXf(internal::random<int>(1,300),internal::random<int>(1,300))) );
+   
+   for(int i = 0; i < g_repeat*10; i++) {
+-    CALL_SUBTEST_3( testVectorType(VectorXcd(internal::random<int>(1,30000))) );
+-    CALL_SUBTEST_4( testVectorType(VectorXd(internal::random<int>(1,30000))) );
++    CALL_SUBTEST_3( testVectorType(VectorXcd(internal::random<int>(1,300))) );
++    CALL_SUBTEST_4( testVectorType(VectorXd(internal::random<int>(1,300))) );
+     CALL_SUBTEST_5( testVectorType(Vector4d()) );  // regression test for bug 232
+     CALL_SUBTEST_6( testVectorType(Vector3d()) );
+-    CALL_SUBTEST_7( testVectorType(VectorXf(internal::random<int>(1,30000))) );
++    CALL_SUBTEST_7( testVectorType(VectorXf(internal::random<int>(1,300))) );
+     CALL_SUBTEST_8( testVectorType(Vector3f()) );
+     CALL_SUBTEST_8( testVectorType(Vector4f()) );
+     CALL_SUBTEST_8( testVectorType(Matrix<float,8,1>()) );
+diff --git a/test/packetmath.cpp b/test/packetmath.cpp
+index 121ec7283..f80544606 100644
+--- a/test/packetmath.cpp
++++ b/test/packetmath.cpp
+@@ -244,6 +244,9 @@ struct packetmath_pcast_ops_runner<Scalar, Packet, typename internal::enable_if<
+   }
+ };
+ 
++
++
++
+ template <typename Scalar, typename Packet>
+ void packetmath_boolean_mask_ops() {
+   const int PacketSize = internal::unpacket_traits<Packet>::size;
+@@ -255,6 +258,7 @@ void packetmath_boolean_mask_ops() {
+   for (int i = 0; i < size; ++i) {
+     data1[i] = internal::random<Scalar>();
+   }
++
+   CHECK_CWISE1(internal::ptrue, internal::ptrue);
+   CHECK_CWISE2_IF(true, internal::pandnot, internal::pandnot);
+   for (int i = 0; i < PacketSize; ++i) {
+@@ -596,6 +600,7 @@ void packetmath() {
+       // "else" packet
+       data1[i + 2 * PacketSize] = internal::random<Scalar>();
+     }
++
+     CHECK_CWISE3_IF(true, internal::pselect, internal::pselect);
+   }
+ 
+@@ -799,14 +804,20 @@ void packetmath_real() {
+     test::packet_helper<PacketTraits::HasExp, Packet> h;
+     h.store(data2, internal::pexp(h.load(data1)));
+     VERIFY((numext::isnan)(data2[0]));
++    
+     // TODO(rmlarsen): Re-enable for bfloat16.
+     if (!internal::is_same<Scalar, bfloat16>::value) {
+       VERIFY_IS_APPROX(std::exp(small), data2[1]);
+     }
+ 
++
++
++
++
+     data1[0] = -small;
+     data1[1] = Scalar(0);
+     h.store(data2, internal::pexp(h.load(data1)));
++    
+     // TODO(rmlarsen): Re-enable for bfloat16.
+     if (!internal::is_same<Scalar, bfloat16>::value) {
+       VERIFY_IS_APPROX(std::exp(-small), data2[0]);
+@@ -863,6 +874,7 @@ void packetmath_real() {
+       test::packet_helper<PacketTraits::HasLog, Packet> h;
+       h.store(data2, internal::plog(h.load(data1)));
+       VERIFY((numext::isnan)(data2[0]));
++      
+       // TODO(cantonios): Re-enable for bfloat16.
+       if (!internal::is_same<Scalar, bfloat16>::value) {
+         VERIFY_IS_APPROX(std::log(data1[1]), data2[1]);
+@@ -877,6 +889,7 @@ void packetmath_real() {
+       data1[0] = (std::numeric_limits<Scalar>::min)();
+       data1[1] = -(std::numeric_limits<Scalar>::min)();
+       h.store(data2, internal::plog(h.load(data1)));
++      
+       // TODO(cantonios): Re-enable for bfloat16.
+       if (!internal::is_same<Scalar, bfloat16>::value) {
+         VERIFY_IS_APPROX(std::log((std::numeric_limits<Scalar>::min)()), data2[0]);
+@@ -923,6 +936,7 @@ void packetmath_real() {
+       VERIFY((numext::isnan)(data2[0]));
+       VERIFY((numext::isnan)(data2[1]));
+     }
++    
+     // TODO(rmlarsen): Re-enable for half and bfloat16.
+     if (PacketTraits::HasCos
+         && !internal::is_same<Scalar, half>::value
+@@ -971,6 +985,7 @@ void packetmath_real() {
+       h.store(data2, internal::pcos(h.load(data1)));
+       VERIFY_IS_EQUAL(data2[0], Scalar(1));
+     }
++    
+   }
+ }
+ 
+@@ -1219,29 +1234,60 @@ void packetmath_scatter_gather() {
+     data1[i] = internal::random<Scalar>() / RealScalar(PacketSize);
+   }
+ 
+-  int stride = internal::random<int>(1, 20);
++  //int stride = internal::random<int>(1, 20);
++  int stride=7;
+ 
+-  // Buffer of zeros.
+-  EIGEN_ALIGN_MAX Scalar buffer[PacketSize * 20] = {};
+-
+-  Packet packet = internal::pload<Packet>(data1);
+-  internal::pscatter<Scalar, Packet>(buffer, packet, stride);
+-
+-  for (int i = 0; i < PacketSize * 20; ++i) {
+-    if ((i % stride) == 0 && i < stride * PacketSize) {
+-      VERIFY(test::isApproxAbs(buffer[i], data1[i / stride], refvalue) && "pscatter");
+-    } else {
+-      VERIFY(test::isApproxAbs(buffer[i], Scalar(0), refvalue) && "pscatter");
+-    }
+-  }
+-
+-  for (int i = 0; i < PacketSize * 7; ++i) {
+-    buffer[i] = internal::random<Scalar>() / RealScalar(PacketSize);
+-  }
+-  packet = internal::pgather<Scalar, Packet>(buffer, 7);
+-  internal::pstore(data1, packet);
+-  for (int i = 0; i < PacketSize; ++i) {
+-    VERIFY(test::isApproxAbs(data1[i], buffer[i * 7], refvalue) && "pgather");
++  {
++     // Buffer of zeros.
++     EIGEN_ALIGN_MAX Scalar buffer[PacketSize * 20] = {};
++   
++     Packet packet = internal::pload<Packet>(data1);
++     internal::pscatter<Scalar, Packet>(buffer, packet, stride);
++   
++     for (int i = 0; i < PacketSize * 20; ++i) {
++       if ((i % stride) == 0 && i < stride * PacketSize) {
++         VERIFY(test::isApproxAbs(buffer[i], data1[i / stride], refvalue) && "pscatter");
++       } else {
++         VERIFY(test::isApproxAbs(buffer[i], Scalar(0), refvalue) && "pscatter");
++       }
++     }
++   
++   
++     for (int i = 0; i < PacketSize * stride; ++i) {
++       buffer[i] = internal::random<Scalar>() / RealScalar(PacketSize);
++     }
++     packet = internal::pgather<Scalar, Packet>(buffer, stride);
++     internal::pstore(data1, packet);
++     for (int i = 0; i < PacketSize; ++i) {
++       VERIFY(test::isApproxAbs(data1[i], buffer[i * stride], refvalue) && "pgather");
++     }
++  }
++
++  stride = 20;
++  {
++     // Buffer of zeros.
++     EIGEN_ALIGN_MAX Scalar buffer[PacketSize * 20] = {};
++   
++     Packet packet = internal::pload<Packet>(data1);
++     internal::pscatter<Scalar, Packet>(buffer, packet, stride);
++   
++     for (int i = 0; i < PacketSize * 20; ++i) {
++       if ((i % stride) == 0 && i < stride * PacketSize) {
++         VERIFY(test::isApproxAbs(buffer[i], data1[i / stride], refvalue) && "pscatter");
++       } else {
++         VERIFY(test::isApproxAbs(buffer[i], Scalar(0), refvalue) && "pscatter");
++       }
++     }
++   
++   
++     for (int i = 0; i < PacketSize * stride; ++i) {
++       buffer[i] = internal::random<Scalar>() / RealScalar(PacketSize);
++     }
++     packet = internal::pgather<Scalar, Packet>(buffer, stride);
++     internal::pstore(data1, packet);
++     for (int i = 0; i < PacketSize; ++i) {
++       VERIFY(test::isApproxAbs(data1[i], buffer[i * stride], refvalue) && "pgather");
++     }
+   }
+ }
+ 
+@@ -1283,6 +1329,7 @@ EIGEN_DECLARE_TEST(packetmath) {
+   g_first_pass = true;
+   for (int i = 0; i < g_repeat; i++) {
+     CALL_SUBTEST_1(test::runner<float>::run());
++
+     CALL_SUBTEST_2(test::runner<double>::run());
+     CALL_SUBTEST_3(test::runner<int8_t>::run());
+     CALL_SUBTEST_4(test::runner<uint8_t>::run());
+@@ -1292,11 +1339,14 @@ EIGEN_DECLARE_TEST(packetmath) {
+     CALL_SUBTEST_8(test::runner<uint32_t>::run());
+     CALL_SUBTEST_9(test::runner<int64_t>::run());
+     CALL_SUBTEST_10(test::runner<uint64_t>::run());
++
+     CALL_SUBTEST_11(test::runner<std::complex<float> >::run());
++
+     CALL_SUBTEST_12(test::runner<std::complex<double> >::run());
+     CALL_SUBTEST_13(test::runner<half>::run());
+     CALL_SUBTEST_14((packetmath<bool, internal::packet_traits<bool>::type>()));
+-    CALL_SUBTEST_15(test::runner<bfloat16>::run());
++    //CALL_SUBTEST_15(test::runner<bfloat16>::run());
++
+     g_first_pass = false;
+   }
+ }
+diff --git a/test/permutationmatrices.cpp b/test/permutationmatrices.cpp
+index d4b68b2d4..d64b5e6d1 100644
+--- a/test/permutationmatrices.cpp
++++ b/test/permutationmatrices.cpp
+@@ -8,7 +8,9 @@
+ // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ 
+ #define TEST_ENABLE_TEMPORARY_TRACKING
+-  
++
++#define EIGEN_STACK_ALLOCATION_LIMIT 2000
++
+ #include "main.h"
+ 
+ using namespace std;
+@@ -173,7 +175,7 @@ EIGEN_DECLARE_TEST(permutationmatrices)
+     CALL_SUBTEST_2( permutationmatrices(Matrix3f()) );
+     CALL_SUBTEST_3( permutationmatrices(Matrix<double,3,3,RowMajor>()) );
+     CALL_SUBTEST_4( permutationmatrices(Matrix4d()) );
+-    CALL_SUBTEST_5( permutationmatrices(Matrix<double,40,60>()) );
++    CALL_SUBTEST_5( permutationmatrices(Matrix<double,10,15>()) );
+     CALL_SUBTEST_6( permutationmatrices(Matrix<double,Dynamic,Dynamic,RowMajor>(internal::random<int>(1,EIGEN_TEST_MAX_SIZE), internal::random<int>(1,EIGEN_TEST_MAX_SIZE))) );
+     CALL_SUBTEST_7( permutationmatrices(MatrixXcf(internal::random<int>(1,EIGEN_TEST_MAX_SIZE), internal::random<int>(1,EIGEN_TEST_MAX_SIZE))) );
+   }
+diff --git a/test/prec_inverse_4x4.cpp b/test/prec_inverse_4x4.cpp
+index 86f057118..335ea6d97 100644
+--- a/test/prec_inverse_4x4.cpp
++++ b/test/prec_inverse_4x4.cpp
+@@ -46,6 +46,7 @@ template<typename MatrixType> void inverse_general_4x4(int repeat)
+   }
+   std::cerr << "inverse_general_4x4, Scalar = " << type_name<Scalar>() << std::endl;
+   double error_avg = error_sum / repeat;
++
+   EIGEN_DEBUG_VAR(error_avg);
+   EIGEN_DEBUG_VAR(error_max);
+    // FIXME that 1.25 used to be a 1.0 until the NumTraits changes on 28 April 2010, what's going wrong??
+@@ -70,13 +71,13 @@ template<typename MatrixType> void inverse_general_4x4(int repeat)
+ EIGEN_DECLARE_TEST(prec_inverse_4x4)
+ {
+   CALL_SUBTEST_1((inverse_permutation_4x4<Matrix4f>()));
+-  CALL_SUBTEST_1(( inverse_general_4x4<Matrix4f>(200000 * g_repeat) ));
+-  CALL_SUBTEST_1(( inverse_general_4x4<Matrix<float,4,4,RowMajor> >(200000 * g_repeat) ));
++  CALL_SUBTEST_1(( inverse_general_4x4<Matrix4f>(2000 * g_repeat) ));
++  CALL_SUBTEST_1(( inverse_general_4x4<Matrix<float,4,4,RowMajor> >(2000 * g_repeat) ));
+ 
+   CALL_SUBTEST_2((inverse_permutation_4x4<Matrix<double,4,4,RowMajor> >()));
+-  CALL_SUBTEST_2(( inverse_general_4x4<Matrix<double,4,4,ColMajor> >(200000 * g_repeat) ));
+-  CALL_SUBTEST_2(( inverse_general_4x4<Matrix<double,4,4,RowMajor> >(200000 * g_repeat) ));
++  CALL_SUBTEST_2(( inverse_general_4x4<Matrix<double,4,4,ColMajor> >(2000 * g_repeat) ));
++  CALL_SUBTEST_2(( inverse_general_4x4<Matrix<double,4,4,RowMajor> >(2000 * g_repeat) ));
+ 
+   CALL_SUBTEST_3((inverse_permutation_4x4<Matrix4cf>()));
+-  CALL_SUBTEST_3((inverse_general_4x4<Matrix4cf>(50000 * g_repeat)));
++  CALL_SUBTEST_3((inverse_general_4x4<Matrix4cf>(2000 * g_repeat)));
+ }
+diff --git a/test/product_large.cpp b/test/product_large.cpp
+index 3d0204b5f..4d5ae6cac 100644
+--- a/test/product_large.cpp
++++ b/test/product_large.cpp
+@@ -36,7 +36,11 @@ void product_large_regressions()
+ {
+   {
+     // test a specific issue in DiagonalProduct
++    #if defined(CORTEXM)
++    int N = 30;
++    #else
+     int N = 1000000;
++    #endif
+     VectorXf v = VectorXf::Ones(N);
+     MatrixXf m = MatrixXf::Ones(N,3);
+     m = (v+v).asDiagonal() * m;
+diff --git a/test/product_small.cpp b/test/product_small.cpp
+index 1d6df6e58..5a1e8ee60 100644
+--- a/test/product_small.cpp
++++ b/test/product_small.cpp
+@@ -58,9 +58,9 @@ test_lazy_single(int rows, int cols, int depth)
+ 
+ void test_dynamic_bool()
+ {
+-  int rows = internal::random<int>(1,64);
+-  int cols = internal::random<int>(1,64);
+-  int depth = internal::random<int>(1,65);
++  int rows = internal::random<int>(1,40);
++  int cols = internal::random<int>(1,40);
++  int depth = internal::random<int>(1,40);
+ 
+   typedef Matrix<bool,Dynamic,Dynamic> MatrixX;
+   MatrixX A(rows,depth); A.setRandom();
+@@ -285,6 +285,7 @@ void product_small_regressions()
+ EIGEN_DECLARE_TEST(product_small)
+ {
+   for(int i = 0; i < g_repeat; i++) {
++
+     CALL_SUBTEST_1( product(Matrix<float, 3, 2>()) );
+     CALL_SUBTEST_2( product(Matrix<int, 3, 17>()) );
+     CALL_SUBTEST_8( product(Matrix<double, 3, 17>()) );
+diff --git a/test/product_syrk.cpp b/test/product_syrk.cpp
+index 8becd37fc..d28b5ed70 100644
+--- a/test/product_syrk.cpp
++++ b/test/product_syrk.cpp
+@@ -25,9 +25,9 @@ template<typename MatrixType> void syrk(const MatrixType& m)
+              m3 = MatrixType::Random(rows, cols);
+   RMatrixType rm2 = MatrixType::Random(rows, cols);
+ 
+-  Rhs1 rhs1 = Rhs1::Random(internal::random<int>(1,320), cols); Rhs1 rhs11 = Rhs1::Random(rhs1.rows(), cols);
+-  Rhs2 rhs2 = Rhs2::Random(rows, internal::random<int>(1,320)); Rhs2 rhs22 = Rhs2::Random(rows, rhs2.cols());
+-  Rhs3 rhs3 = Rhs3::Random(internal::random<int>(1,320), rows);
++  Rhs1 rhs1 = Rhs1::Random(internal::random<int>(1,40), cols); Rhs1 rhs11 = Rhs1::Random(rhs1.rows(), cols);
++  Rhs2 rhs2 = Rhs2::Random(rows, internal::random<int>(1,40)); Rhs2 rhs22 = Rhs2::Random(rows, rhs2.cols());
++  Rhs3 rhs3 = Rhs3::Random(internal::random<int>(1,40), rows);
+ 
+   Scalar s1 = internal::random<Scalar>();
+   
+diff --git a/test/rand.cpp b/test/rand.cpp
+index 984c01f53..9464295df 100644
+--- a/test/rand.cpp
++++ b/test/rand.cpp
+@@ -41,7 +41,8 @@ template<typename Scalar> void check_histogram(Scalar x, Scalar y, int bins)
+ {
+   Array<int,1,Dynamic> hist(bins);
+   hist.fill(0);
+-  int f = 100000;
++  // Size decreased for Cortex-M
++  int f = 1000;
+   int n = bins*f;
+   int64 range = int64(y)-int64(x);
+   int divisor = int((range+1)/bins);
+@@ -51,7 +52,9 @@ template<typename Scalar> void check_histogram(Scalar x, Scalar y, int bins)
+     Scalar r = check_in_range(x,y);
+     hist( int((int64(r)-int64(x))/divisor) )++;
+   }
+-  VERIFY( (((hist.cast<double>()/double(f))-1.0).abs()<0.03).all() );
++  // Error change from 0.03 to 0.2 because we have less samples per bin
++  // (Simulated the random process in Mathematica to get the new bound)
++  VERIFY( (((hist.cast<double>()/double(f))-1.0).abs()<0.2).all() );
+ }
+ 
+ EIGEN_DECLARE_TEST(rand)
+diff --git a/test/sparse.h b/test/sparse.h
+index 6cd07fc0a..5129b782d 100644
+--- a/test/sparse.h
++++ b/test/sparse.h
+@@ -200,5 +200,5 @@ initSparse(double density,
+ }
+ 
+ 
+-#include <unsupported/Eigen/SparseExtra>
++//#include <unsupported/Eigen/SparseExtra>
+ #endif // EIGEN_TESTSPARSE_H
+diff --git a/test/sparse_basic.cpp b/test/sparse_basic.cpp
+index 9453111b7..c0d89b272 100644
+--- a/test/sparse_basic.cpp
++++ b/test/sparse_basic.cpp
+@@ -728,7 +728,7 @@ EIGEN_DECLARE_TEST(sparse_basic)
+ {
+   g_dense_op_sparse_count = 0;  // Suppresses compiler warning.
+   for(int i = 0; i < g_repeat; i++) {
+-    int r = Eigen::internal::random<int>(1,200), c = Eigen::internal::random<int>(1,200);
++    int r = Eigen::internal::random<int>(1,60), c = Eigen::internal::random<int>(1,60);
+     if(Eigen::internal::random<int>(0,4) == 0) {
+       r = c; // check square matrices in 25% of tries
+     }
+@@ -741,8 +741,8 @@ EIGEN_DECLARE_TEST(sparse_basic)
+     CALL_SUBTEST_5(( sparse_basic(SparseMatrix<double,ColMajor,long int>(r, c)) ));
+     CALL_SUBTEST_5(( sparse_basic(SparseMatrix<double,RowMajor,long int>(r, c)) ));
+     
+-    r = Eigen::internal::random<int>(1,100);
+-    c = Eigen::internal::random<int>(1,100);
++    r = Eigen::internal::random<int>(1,60);
++    c = Eigen::internal::random<int>(1,60);
+     if(Eigen::internal::random<int>(0,4) == 0) {
+       r = c; // check square matrices in 25% of tries
+     }
+@@ -752,8 +752,10 @@ EIGEN_DECLARE_TEST(sparse_basic)
+   }
+ 
+   // Regression test for bug 900: (manually insert higher values here, if you have enough RAM):
+-  CALL_SUBTEST_3((big_sparse_triplet<SparseMatrix<float, RowMajor, int> >(10000, 10000, 0.125)));
+-  CALL_SUBTEST_4((big_sparse_triplet<SparseMatrix<double, ColMajor, long int> >(10000, 10000, 0.125)));
++  // Cortex-M will never have so big matrices.
++  // So size is restricted for the test even if it means we are no more testing bug 900
++  CALL_SUBTEST_3((big_sparse_triplet<SparseMatrix<float, RowMajor, int> >(100, 100, 0.125)));
++  CALL_SUBTEST_4((big_sparse_triplet<SparseMatrix<double, ColMajor, long int> >(100, 100, 0.125)));
+ 
+   CALL_SUBTEST_7( bug1105<0>() );
+ }
+diff --git a/test/sparse_block.cpp b/test/sparse_block.cpp
+index f9668102c..0e93b6aa5 100644
+--- a/test/sparse_block.cpp
++++ b/test/sparse_block.cpp
+@@ -293,7 +293,7 @@ template<typename SparseMatrixType> void sparse_block(const SparseMatrixType& re
+ EIGEN_DECLARE_TEST(sparse_block)
+ {
+   for(int i = 0; i < g_repeat; i++) {
+-    int r = Eigen::internal::random<int>(1,200), c = Eigen::internal::random<int>(1,200);
++    int r = Eigen::internal::random<int>(1,60), c = Eigen::internal::random<int>(1,60);
+     if(Eigen::internal::random<int>(0,4) == 0) {
+       r = c; // check square matrices in 25% of tries
+     }
+@@ -307,8 +307,8 @@ EIGEN_DECLARE_TEST(sparse_block)
+     CALL_SUBTEST_3(( sparse_block(SparseMatrix<double,ColMajor,long int>(r, c)) ));
+     CALL_SUBTEST_3(( sparse_block(SparseMatrix<double,RowMajor,long int>(r, c)) ));
+     
+-    r = Eigen::internal::random<int>(1,100);
+-    c = Eigen::internal::random<int>(1,100);
++    r = Eigen::internal::random<int>(1,60);
++    c = Eigen::internal::random<int>(1,60);
+     if(Eigen::internal::random<int>(0,4) == 0) {
+       r = c; // check square matrices in 25% of tries
+     }
+diff --git a/test/sparse_product.cpp b/test/sparse_product.cpp
+index 6e85f6914..3ece473dc 100644
+--- a/test/sparse_product.cpp
++++ b/test/sparse_product.cpp
+@@ -36,7 +36,8 @@ inline void on_temporary_creation() {
+ template<typename SparseMatrixType> void sparse_product()
+ {
+   typedef typename SparseMatrixType::StorageIndex StorageIndex;
+-  Index n = 100;
++  // Too big for DensreMatrix on Cortex-M
++  Index n = 30;
+   const Index rows  = internal::random<Index>(1,n);
+   const Index cols  = internal::random<Index>(1,n);
+   const Index depth = internal::random<Index>(1,n);
+@@ -349,7 +350,8 @@ template<typename SparseMatrixType, typename DenseMatrixType> void sparse_produc
+   // This code produces a segfault with afflicted versions of another SparseTimeDenseProduct
+   // bug
+ 
+-  SparseMatrixType sm2(20000,2);
++  // Too big cor cortex-m
++  SparseMatrixType sm2(200,2);
+   sm2.setZero();
+   DenseMatrixType m4(sm2*m2);
+ 
+@@ -389,7 +391,8 @@ void test_mixing_types()
+   typedef Matrix<Real,Dynamic,Dynamic> DenseMatReal;
+   typedef Matrix<Cplx,Dynamic,Dynamic> DenseMatCplx;
+ 
+-  Index n = internal::random<Index>(1,100);
++  // Memory allocation issue on Cortex-M. Too big.
++  Index n = internal::random<Index>(1,40);
+   double density = (std::max)(8./(n*n), 0.2);
+ 
+   SpMatReal sR1(n,n);
+diff --git a/test/sparse_solver.h b/test/sparse_solver.h
+index 58927944b..41194bb46 100644
+--- a/test/sparse_solver.h
++++ b/test/sparse_solver.h
+@@ -663,7 +663,7 @@ void generate_sparse_leastsquare_problem(Solver&, typename Solver::MatrixType& A
+   initSparse<Scalar>(density, dA, A, options);
+ }
+ 
+-template<typename Solver> void check_sparse_leastsquare_solving(Solver& solver)
++template<typename Solver> void check_sparse_leastsquare_solving(Solver& solver, int maxSize = 40)
+ {
+   typedef typename Solver::MatrixType Mat;
+   typedef typename Mat::Scalar Scalar;
+@@ -676,7 +676,7 @@ template<typename Solver> void check_sparse_leastsquare_solving(Solver& solver)
+   Mat A;
+   DenseMatrix dA;
+   for (int i = 0; i < g_repeat; i++) {
+-    generate_sparse_leastsquare_problem(solver, A, dA);
++    generate_sparse_leastsquare_problem(solver, A, dA,maxSize);
+ 
+     A.makeCompressed();
+     DenseVector b = DenseVector::Random(A.rows());
+diff --git a/test/sparse_solvers.cpp b/test/sparse_solvers.cpp
+index 3b7cd7788..fc7c7f76f 100644
+--- a/test/sparse_solvers.cpp
++++ b/test/sparse_solvers.cpp
+@@ -118,7 +118,7 @@ EIGEN_DECLARE_TEST(sparse_solvers)
+ {
+   for(int i = 0; i < g_repeat; i++) {
+     CALL_SUBTEST_1(sparse_solvers<double>(8, 8) );
+-    int s = internal::random<int>(1,300);
++    int s = internal::random<int>(1,40);
+     CALL_SUBTEST_2(sparse_solvers<std::complex<double> >(s,s) );
+     CALL_SUBTEST_1(sparse_solvers<double>(s,s) );
+   }
+diff --git a/test/sparse_vector.cpp b/test/sparse_vector.cpp
+index 35129278b..d31db7e9c 100644
+--- a/test/sparse_vector.cpp
++++ b/test/sparse_vector.cpp
+@@ -148,7 +148,7 @@ template<typename Scalar,typename StorageIndex> void sparse_vector(int rows, int
+ EIGEN_DECLARE_TEST(sparse_vector)
+ {
+   for(int i = 0; i < g_repeat; i++) {
+-    int r = Eigen::internal::random<int>(1,500), c = Eigen::internal::random<int>(1,500);
++    int r = Eigen::internal::random<int>(1,40), c = Eigen::internal::random<int>(1,40);
+     if(Eigen::internal::random<int>(0,4) == 0) {
+       r = c; // check square matrices in 25% of tries
+     }
+diff --git a/test/sparselu.cpp b/test/sparselu.cpp
+index 84cc6ebe5..48525f7ff 100644
+--- a/test/sparselu.cpp
++++ b/test/sparselu.cpp
+@@ -17,7 +17,7 @@
+ 
+ #include "sparse_solver.h"
+ #include <Eigen/SparseLU>
+-#include <unsupported/Eigen/SparseExtra>
++//#include <unsupported/Eigen/SparseExtra>
+ 
+ template<typename T> void test_sparselu_T()
+ {
+@@ -25,9 +25,9 @@ template<typename T> void test_sparselu_T()
+   SparseLU<SparseMatrix<T, ColMajor>, AMDOrdering<int> > sparselu_amd; 
+   SparseLU<SparseMatrix<T, ColMajor, long int>, NaturalOrdering<long int> > sparselu_natural;
+   
+-  check_sparse_square_solving(sparselu_colamd,  300, 100000, true); 
+-  check_sparse_square_solving(sparselu_amd,     300,  10000, true);
+-  check_sparse_square_solving(sparselu_natural, 300,   2000, true);
++  check_sparse_square_solving(sparselu_colamd,  50, 100000, true); 
++  check_sparse_square_solving(sparselu_amd,     50,  10000, true);
++  check_sparse_square_solving(sparselu_natural, 50,   2000, true);
+   
+   check_sparse_square_abs_determinant(sparselu_colamd);
+   check_sparse_square_abs_determinant(sparselu_amd);
+diff --git a/test/sparseqr.cpp b/test/sparseqr.cpp
+index 3576cc626..08c32f1dc 100644
+--- a/test/sparseqr.cpp
++++ b/test/sparseqr.cpp
+@@ -51,7 +51,7 @@ template<typename Scalar> void test_sparseqr_scalar()
+   DenseMat dA;
+   DenseVector refX,x,b; 
+   SparseQR<MatrixType, COLAMDOrdering<int> > solver; 
+-  generate_sparse_rectangular_problem(A,dA);
++  generate_sparse_rectangular_problem(A,dA,40,40);
+   
+   b = dA * DenseVector::Random(A.cols());
+   solver.compute(A);
+diff --git a/test/special_numbers.cpp b/test/special_numbers.cpp
+index 1e1a63631..97701b1fe 100644
+--- a/test/special_numbers.cpp
++++ b/test/special_numbers.cpp
+@@ -12,8 +12,8 @@
+ template<typename Scalar> void special_numbers()
+ {
+   typedef Matrix<Scalar, Dynamic,Dynamic> MatType;
+-  int rows = internal::random<int>(1,300);
+-  int cols = internal::random<int>(1,300);
++  int rows = internal::random<int>(1,40);
++  int cols = internal::random<int>(1,40);
+   
+   Scalar nan = std::numeric_limits<Scalar>::quiet_NaN();
+   Scalar inf = std::numeric_limits<Scalar>::infinity();
+diff --git a/test/stable_norm.cpp b/test/stable_norm.cpp
+index cb8a80c18..a419b5686 100644
+--- a/test/stable_norm.cpp
++++ b/test/stable_norm.cpp
+@@ -7,8 +7,11 @@
+ // Public License v. 2.0. If a copy of the MPL was not distributed
+ // with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ 
++#define EIGEN_STACK_ALLOCATION_LIMIT 1000
++
+ #include "main.h"
+ 
++
+ template<typename T> EIGEN_DONT_INLINE T copy(const T& x)
+ {
+   return x;
+@@ -26,6 +29,7 @@ template<typename MatrixType> void stable_norm(const MatrixType& m)
+   
+   bool complex_real_product_ok = true;
+ 
++
+   // Check the basic machine-dependent constants.
+   {
+     int ibeta, it, iemin, iemax;
+@@ -53,6 +57,7 @@ template<typename MatrixType> void stable_norm(const MatrixType& m)
+   Index rows = m.rows();
+   Index cols = m.cols();
+ 
++
+   // get a non-zero random factor
+   Scalar factor = internal::random<Scalar>();
+   while(numext::abs2(factor)<RealScalar(1e-4))
+@@ -109,17 +114,25 @@ template<typename MatrixType> void stable_norm(const MatrixType& m)
+ 
+   // Test compilation of cwise() version
+   VERIFY_IS_APPROX(vrand.colwise().stableNorm(),      vrand.colwise().norm());
++  
+   VERIFY_IS_APPROX(vrand.colwise().blueNorm(),        vrand.colwise().norm());
++  
+   VERIFY_IS_APPROX(vrand.colwise().hypotNorm(),       vrand.colwise().norm());
++  
+   VERIFY_IS_APPROX(vrand.rowwise().stableNorm(),      vrand.rowwise().norm());
++  
+   VERIFY_IS_APPROX(vrand.rowwise().blueNorm(),        vrand.rowwise().norm());
++  
+   VERIFY_IS_APPROX(vrand.rowwise().hypotNorm(),       vrand.rowwise().norm());
+   
++
+   // test NaN, +inf, -inf 
+   MatrixType v;
+   Index i = internal::random<Index>(0,rows-1);
+   Index j = internal::random<Index>(0,cols-1);
+ 
++
++
+   // NaN
+   {
+     v = vrand;
+@@ -131,6 +144,8 @@ template<typename MatrixType> void stable_norm(const MatrixType& m)
+     VERIFY(!(numext::isfinite)(v.hypotNorm()));     VERIFY((numext::isnan)(v.hypotNorm()));
+   }
+   
++
++
+   // +inf
+   {
+     v = vrand;
+@@ -145,6 +160,8 @@ template<typename MatrixType> void stable_norm(const MatrixType& m)
+     VERIFY(!(numext::isfinite)(v.hypotNorm()));     VERIFY(isPlusInf(v.hypotNorm()));
+   }
+   
++
++
+   // -inf
+   {
+     v = vrand;
+@@ -159,6 +176,8 @@ template<typename MatrixType> void stable_norm(const MatrixType& m)
+     VERIFY(!(numext::isfinite)(v.hypotNorm()));     VERIFY(isPlusInf(v.hypotNorm()));
+   }
+   
++
++
+   // mix
+   {
+     Index i2 = internal::random<Index>(0,rows-1);
+@@ -179,6 +198,7 @@ template<typename MatrixType> void stable_norm(const MatrixType& m)
+     }
+   }
+ 
++
+   // stableNormalize[d]
+   {
+     VERIFY_IS_APPROX(vrand.stableNormalized(), vrand.normalized());
+@@ -236,10 +256,10 @@ EIGEN_DECLARE_TEST(stable_norm)
+ 
+     CALL_SUBTEST_1( stable_norm(Matrix<float, 1, 1>()) );
+     CALL_SUBTEST_2( stable_norm(Vector4d()) );
+-    CALL_SUBTEST_3( stable_norm(VectorXd(internal::random<int>(10,2000))) );
+-    CALL_SUBTEST_3( stable_norm(MatrixXd(internal::random<int>(10,200), internal::random<int>(10,200))) );
+-    CALL_SUBTEST_4( stable_norm(VectorXf(internal::random<int>(10,2000))) );
+-    CALL_SUBTEST_5( stable_norm(VectorXcd(internal::random<int>(10,2000))) );
+-    CALL_SUBTEST_6( stable_norm(VectorXcf(internal::random<int>(10,2000))) );
++    CALL_SUBTEST_3( stable_norm(VectorXd(internal::random<int>(10,20))) );
++    CALL_SUBTEST_3( stable_norm(MatrixXd(internal::random<int>(10,20), internal::random<int>(10,20))) );
++    CALL_SUBTEST_4( stable_norm(VectorXf(internal::random<int>(10,40))) );
++    CALL_SUBTEST_5( stable_norm(VectorXcd(internal::random<int>(10,20))) );
++    CALL_SUBTEST_6( stable_norm(VectorXcf(internal::random<int>(10,40))) );
+   }
+ }

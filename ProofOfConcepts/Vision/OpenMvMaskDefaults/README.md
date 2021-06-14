@@ -1,4 +1,4 @@
-# On-Device Deep Learning with Lightly
+ls d# On-Device Deep Learning with Lightly
 
 > In this tutorial, you learn how to train an image classification model for visual inspection with only 500 labeled images and how to deploy it on the OpenMV H7 board. 
 
@@ -79,8 +79,8 @@ data/
 In a first step, a self-supervised, deep neural network is trained on the raw image data and embeddings are generated for each image based on unique features. These embeddings will accelerate the finetuning on the labeled set of images later. Make sure you have the raw image data at `data/raw`. Then, in the command line type:
 ```shell
 lightly-magic input_dir=data/raw model.name=resnet-9 model.width=0.125 model.num_ftrs=16 \
-> collate.input_size=64 collate.cj_prob=0.5 collate.min_scale=0.5 loader.batch_size=768 \
-> trainer.max_epochs=100 hydra.run.dir=./outputs
+     collate.input_size=64 collate.cj_prob=0.5 collate.min_scale=0.5 loader.batch_size=768 \
+     trainer.max_epochs=100 hydra.run.dir=./outputs
 ```
 **In case you have no GPU available, it's recommended to reduce the number of epochs**, e.g. `trainer.max_epochs=5`. 
 
@@ -101,24 +101,22 @@ The second step is to upload the images to the [Lightly web-app](https://app.lig
 lightly-upload dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir=data/raw embeddings=data/embeddings.csv upload='metadata'
 ```
 
-After uploading the images and embeddings, the dataset can be filtered. Head to "Analyze & Filter" -> "Sampling". Sampling a such a large dataset of 25'000 images can take a few minutes. The page will automatically refresh once the sampling is complete.
+After uploading the images and embeddings, the dataset can be filtered. Head to "Analyze & Filter" -> "Embedding". Sampling a such a large dataset of 25'000 images can take a few minutes. The page will automatically refresh once the sampling is complete.
 
-For the **training data** choose the coreset filter method as it will sample a diverse set of images. Put the slider to 200 images and save your selection by creating a new tag named "training-data".
+<img alt="Image which shows how to sample a training set" src="docs/embedding_view.png" width="100%">
 
-<img alt="Image which shows how to sample a training set" src="docs/sample_training_set.PNG" width="100%">
+For the **training data** choose the coreset filter method as it will sample a diverse set of images. Once you are on the embedding page click on the *create* button to create a new sampling. Pick `CORESET` for the sampling strategy. Move the slider to 200 samples and give the output tag the name `training-data`.
 
-For the **test data** choose random sampling. This will give you a representative subset of the raw data. Put the slider to 500 images and save your selection by creating a new tag named "test-data".
+<img alt="Image which shows how to sample a test set" src="docs/create_new_sampling_view.png" width="100%">
 
-<img alt="Image which shows how to sample a test set" src="docs/sample_test_set.PNG" width="100%">
+For the **test data** choose random sampling. This will give you a representative subset of the raw data. Put the slider to 500 images and save your selection by creating a new tag named `test-data`.
 
 Download the images from the command line. This will copy the selected images from the source folder to a new directory specified by "output_dir".
 ```shell
-mkdir data/train
 lightly-download tag_name='training-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir='data/raw' output_dir='data/train'
 ```
 
 ```shell
-mkdir data/test
 lightly-download tag_name='test-data' dataset_id='MY_DATASET_ID' token='MY_TOKEN' input_dir='data/raw' output_dir='data/test'
 ```
 
