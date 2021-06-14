@@ -29,7 +29,7 @@
 /*============================ MACROS ========================================*/
 
 #ifndef ITERATION_CNT
-#   define ITERATION_CNT       100
+#   define ITERATION_CNT       1000
 #endif
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
