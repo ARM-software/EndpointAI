@@ -144,7 +144,112 @@ void __arm_2d_rotate_get_rotated_corner(const arm_2d_location_t *ptLocation,
 
 }
 
+#if __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
 
+static
+void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
+                                            arm_2d_location_t * pSrcPoint,
+                                            float fAngle,
+                                            arm_2d_location_t * tOffset,
+                                            arm_2d_location_t * center,
+                                            arm_2d_rot_linear_regr_t regrCoefs[]
+    )
+{
+#define ONE_BY_2PI_Q31      341782637.0f
+#define TO_Q16(x)           ((x) << 16)
+
+    int_fast16_t        iHeight = ptCopySize->iHeight;
+    int_fast16_t        iWidth = ptCopySize->iWidth;
+    q31_t               invHeightFx = 0x7fffffff / (iHeight - 1);
+    int32_t             AngleFx = lroundf(fAngle * ONE_BY_2PI_Q31);
+    q31_t               cosAngleFx = arm_cos_q31(AngleFx);
+    q31_t               sinAngleFx = arm_sin_q31(AngleFx);
+    arm_2d_point_fx_t   tPointCornerFx[2][2];
+    arm_2d_point_fx_t   centerQ16;
+    arm_2d_point_fx_t   srcPointQ16;
+    arm_2d_point_fx_t   tOffsetQ16;
+    arm_2d_point_fx_t   tmp;
+    int32_t             iXQ16, iYQ16;
+
+
+    /* Q16 conversion */
+    centerQ16.X = TO_Q16(center->iX);
+    centerQ16.Y = TO_Q16(center->iY);
+
+    srcPointQ16.X = TO_Q16(pSrcPoint->iX);
+    srcPointQ16.Y = TO_Q16(pSrcPoint->iY);
+
+    tOffsetQ16.X = TO_Q16(tOffset->iX);
+    tOffsetQ16.Y = TO_Q16(tOffset->iY);
+
+
+    /* (0,0) corner */
+    tmp.X = srcPointQ16.X + 0 + tOffsetQ16.X;
+    tmp.Y = srcPointQ16.Y + 0 + tOffsetQ16.Y;
+
+    iXQ16 = tmp.X - centerQ16.X;
+    iYQ16 = tmp.Y - centerQ16.Y;
+
+    tPointCornerFx[0][0].Y =
+        qdadd(qdadd(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
+    tPointCornerFx[0][0].X =
+        qdsub(qdadd(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
+
+
+    /* ((iWidth - 1),0) corner */
+    tmp.X = srcPointQ16.X + 0 + tOffsetQ16.X + TO_Q16(iWidth - 1);
+    iXQ16 = tmp.X - centerQ16.X;
+
+    tPointCornerFx[1][0].Y =
+        qdadd(qdadd(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
+    tPointCornerFx[1][0].X =
+        qdsub(qdadd(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
+
+
+    /* ((iWidth - 1),(iHeight - 1)) corner */
+    tmp.Y = srcPointQ16.Y + tOffsetQ16.Y + TO_Q16(iHeight - 1);
+    iYQ16 = tmp.Y - centerQ16.Y;
+
+    tPointCornerFx[1][1].Y =
+        qdadd(qdadd(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
+    tPointCornerFx[1][1].X =
+        qdsub(qdadd(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
+
+
+    /* (0,(iHeight - 1)) corner */
+    tmp.X = srcPointQ16.X + 0 + tOffsetQ16.X;
+    iXQ16 = tmp.X - centerQ16.X;
+
+    tPointCornerFx[0][1].Y =
+        qdadd(qdadd(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
+    tPointCornerFx[0][1].X =
+        qdsub(qdadd(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
+
+
+    /* regression */
+    int32_t           slopeXFx, slopeYFx;
+
+    /* interpolation in Y direction for 1st elements column */
+    slopeXFx = MULTFX((tPointCornerFx[0][1].X - tPointCornerFx[0][0].X), invHeightFx);
+    slopeYFx = MULTFX((tPointCornerFx[0][1].Y - tPointCornerFx[0][0].Y), invHeightFx);
+
+    regrCoefs[0].slopeY = slopeYFx * 2;
+    regrCoefs[0].slopeX = slopeXFx * 2;
+    regrCoefs[0].interceptY = tPointCornerFx[0][0].Y;
+    regrCoefs[0].interceptX = tPointCornerFx[0][0].X;
+
+
+    /* interpolation in Y direction for the last elements column */
+    slopeXFx = MULTFX((tPointCornerFx[1][1].X - tPointCornerFx[1][0].X), invHeightFx);
+    slopeYFx = MULTFX((tPointCornerFx[1][1].Y - tPointCornerFx[1][0].Y), invHeightFx);
+
+    regrCoefs[1].slopeY = slopeYFx* 2;
+    regrCoefs[1].slopeX = slopeXFx* 2;
+    regrCoefs[1].interceptY = tPointCornerFx[1][0].Y;
+    regrCoefs[1].interceptX = tPointCornerFx[1][0].X;
+}
+
+#else
 
 static
 void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
@@ -157,22 +262,40 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
     float           invHeight = 1.0f / (float) (iHeight - 1);
-
-
+    float           cosAngle = arm_cos_f32(fAngle);
+    float           sinAngle = arm_sin_f32(fAngle);
+    arm_2d_location_t tSrcPoint;
     arm_2d_point_float_t tPointCorner[2][2];
+    int16_t         iX, iY;
 
-    /* compute rotated corners */
-    for (int_fast16_t y = 0, idx_y = 0; y <= iHeight; y += iHeight - 1, idx_y++) {
-        for (int_fast16_t x = 0, idx_x = 0; x <= iWidth; x += iWidth - 1, idx_x++) {
-            arm_2d_location_t tSrcPoint;
 
-            tSrcPoint.iX = pSrcPoint->iX + x + tOffset->iX;
-            tSrcPoint.iY = pSrcPoint->iY + y + tOffset->iY;
 
-            __arm_2d_rotate_get_rotated_corner(&tSrcPoint, ptCenter, fAngle,
-                                               &tPointCorner[idx_x][idx_y]);
-        }
-    }
+    tSrcPoint.iX = pSrcPoint->iX + 0 + tOffset->iX;
+    tSrcPoint.iY = pSrcPoint->iY + 0 + tOffset->iY;
+
+    iX = tSrcPoint.iX - ptCenter->iX;
+    iY = tSrcPoint.iY - ptCenter->iY;
+
+    tPointCorner[0][0].fY = (iY * cosAngle + iX * sinAngle + ptCenter->iY);
+    tPointCorner[0][0].fX = (-iY * sinAngle + iX * cosAngle + ptCenter->iX);
+
+    tSrcPoint.iX = pSrcPoint->iX + (iWidth - 1) + tOffset->iX;
+    iX = tSrcPoint.iX - ptCenter->iX;
+
+    tPointCorner[1][0].fY = (iY * cosAngle + iX * sinAngle + ptCenter->iY);
+    tPointCorner[1][0].fX = (-iY * sinAngle + iX * cosAngle + ptCenter->iX);
+
+    tSrcPoint.iY = pSrcPoint->iY + (iHeight - 1) + tOffset->iY;
+    iY = tSrcPoint.iY - ptCenter->iY;
+
+    tPointCorner[1][1].fY = (iY * cosAngle + iX * sinAngle + ptCenter->iY);
+    tPointCorner[1][1].fX = (-iY * sinAngle + iX * cosAngle + ptCenter->iX);
+
+    tSrcPoint.iX = pSrcPoint->iX + 0 + tOffset->iX;
+    iX = tSrcPoint.iX - ptCenter->iX;
+
+    tPointCorner[0][1].fY = (iY * cosAngle + iX * sinAngle + ptCenter->iY);
+    tPointCorner[0][1].fX = (-iY * sinAngle + iX * cosAngle + ptCenter->iX);
 
     float           slopeX, slopeY;
 
@@ -194,9 +317,9 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     regrCoefs[1].slopeX = slopeX;
     regrCoefs[1].interceptY = tPointCorner[1][0].fY;
     regrCoefs[1].interceptX = tPointCorner[1][0].fX;
-
 }
 
+#endif
 
 
 ARM_NONNULL(1,2,4)
@@ -217,6 +340,8 @@ arm_2d_point_float_t *__arm_2d_rotate_point(const arm_2d_location_t *ptLocation,
     fY = (iY * cosAngle + iX * sinAngle + ptCenter->iY);
     fX = (-iY * sinAngle + iX * cosAngle + ptCenter->iX);
 
+
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__)
     if (fX > 0) {
         ptOutBuffer->fX = fX + __CALIB;
     } else {
@@ -227,6 +352,10 @@ arm_2d_point_float_t *__arm_2d_rotate_point(const arm_2d_location_t *ptLocation,
     } else {
         ptOutBuffer->fY = fY - __CALIB;
     }
+#else
+    ptOutBuffer->fX = fX;
+    ptOutBuffer->fY = fY;
+#endif
 
     return ptOutBuffer;
 }
@@ -379,6 +508,10 @@ arm_2d_err_t arm_2dp_rgb565_tile_rotation_prepare(
 
     ARM_2D_IMPL(arm_2d_op_rotate_t, ptOP);
 
+    if (!arm_2d_op_wait_async((arm_2d_op_core_t *)ptThis)) {
+        return ARM_2D_ERR_BUSY;
+    }
+
     OP_CORE.ptOp = &ARM_2D_OP_ROTATE_RGB565;
 
     this.Source.ptTile = &this.Origin.tDummySource;
@@ -402,6 +535,10 @@ arm_2d_err_t arm_2dp_rgb888_tile_rotation_prepare(
     assert(NULL != ptSource);
 
     ARM_2D_IMPL(arm_2d_op_rotate_t, ptOP);
+
+    if (!arm_2d_op_wait_async((arm_2d_op_core_t *)ptThis)) {
+        return ARM_2D_ERR_BUSY;
+    }
 
     OP_CORE.ptOp = &ARM_2D_OP_ROTATE_RGB888;
 
@@ -453,6 +590,10 @@ arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_alpha_prepare(
 
     ARM_2D_IMPL(arm_2d_op_rotate_alpha_t, ptOP);
 
+    if (!arm_2d_op_wait_async((arm_2d_op_core_t *)ptThis)) {
+        return ARM_2D_ERR_BUSY;
+    }
+
     OP_CORE.ptOp = &ARM_2D_OP_ROTATE_WITH_ALPHA_RGB565;
 
     this.Source.ptTile = &this.Origin.tDummySource;
@@ -478,6 +619,10 @@ arm_2d_err_t arm_2dp_rgb888_tile_rotation_with_alpha_prepare(
     assert(NULL != ptSource);
 
     ARM_2D_IMPL(arm_2d_op_rotate_alpha_t, ptOP);
+
+    if (!arm_2d_op_wait_async((arm_2d_op_core_t *)ptThis)) {
+        return ARM_2D_ERR_BUSY;
+    }
 
     OP_CORE.ptOp = &ARM_2D_OP_ROTATE_WITH_ALPHA_RGB888;
 
@@ -523,6 +668,10 @@ arm_fsm_rt_t arm_2dp_tile_rotate(arm_2d_op_rotate_t *ptOP,
                                  const arm_2d_region_t *ptRegion)
 {
     ARM_2D_IMPL(arm_2d_op_rotate_t, ptOP);
+
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;

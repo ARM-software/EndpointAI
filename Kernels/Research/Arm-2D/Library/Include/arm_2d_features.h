@@ -27,7 +27,7 @@
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
- 
+
 #ifndef __ARM_2D_FEATURES_H__
 #define __ARM_2D_FEATURES_H__
 
@@ -41,11 +41,23 @@ extern "C" {
 /*============================ MACROS ========================================*/
 
 #undef __ARM_2D_HAS_HELIUM__
-#if defined (ARM_MATH_HELIUM) || defined(ARM_MATH_MVEF) || defined(ARM_MATH_MVEI)
+#undef __ARM_2D_HAS_HELIUM_INTEGER__
+#undef __ARM_2D_HAS_HELIUM_FLOAT__
+
+#if defined(__ARM_FEATURE_MVE) && __ARM_FEATURE_MVE
 #   define __ARM_2D_HAS_HELIUM__                        1
+#   define __ARM_2D_HAS_HELIUM_INTEGER__                1
+#   if (__ARM_FEATURE_MVE & 2)
+#       define __ARM_2D_HAS_HELIUM_FLOAT__              1
+#   else
+#       define __ARM_2D_HAS_HELIUM_FLOAT__              0
+#   endif
 #else
 #   define __ARM_2D_HAS_HELIUM__                        0
+#   define __ARM_2D_HAS_HELIUM_INTEGER__                0
+#   define __ARM_2D_HAS_HELIUM_FLOAT__                  0
 #endif
+
 
 #ifndef __ARM_2D_HAS_CDE__
 #   define __ARM_2D_HAS_CDE__                           0
@@ -75,9 +87,67 @@ extern "C" {
 #   endif
 #endif
 
+#undef __ARM_2D_HAS_FPU__
+#if __ARM_FP
+#define __ARM_2D_HAS_FPU__                              1
+#else
+#define __ARM_2D_HAS_FPU__                              0
+#endif
+
+#undef __ARM_2D_HAS_DSP__
+#if __ARM_FEATURE_DSP
+#define __ARM_2D_HAS_DSP__                              1
+#else
+#define __ARM_2D_HAS_DSP__                              0
+#endif
+
+
 #ifndef __ARM_2D_HAS_INTERPOLATION_ROTATION__
 #   define __ARM_2D_HAS_INTERPOLATION_ROTATION__        0
 #endif
+
+
+/*! \note DO NOT define macro __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__ unless
+ *!       you sure about what you are doing.
+ */
+#if !__ARM_2D_HAS_FPU__
+#   undef __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
+#   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   1
+#elif   !__ARM_2D_HAS_HELIUM__                                                  \
+    &&  !defined(__ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__)
+    /*! \note For Armv7-m processors and Armv8-m processors that have no Helium 
+     *!       extension but only FPU, fixed point rotation is faster than the 
+     *!       float point rotation even if FPU can accelerate float point 
+     *!       operations. 
+     */
+#   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   1
+#endif
+
+#if __ARM_2D_HAS_HELIUM_INTEGER__ && !__ARM_2D_HAS_HELIUM_FLOAT__
+#   undef __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
+#   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   1
+#endif
+
+#ifndef __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
+#   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   0
+#endif
+
+
+
+/*----------------------------------------------------------------------------*
+ * Unsafe configurations                                                      *
+ *----------------------------------------------------------------------------*
+ * Following macro switches are used to improve performance with aggressive   *
+ * methods which might cause errors or distortions in some cases.             *
+ * Those macros are undefined by defaults. Please use with cautions.          *
+ *----------------------------------------------------------------------------*
+ *                                                                            *
+ * 1. __ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__          *
+ *    This option is used to remove calibration in angle computations to gain *
+ *    a better performance, small error might be noticible for angles like    *
+ *    90, 180, 270 etc.                                                       *
+ *                                                                            *
+ *----------------------------------------------------------------------------*/
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
 

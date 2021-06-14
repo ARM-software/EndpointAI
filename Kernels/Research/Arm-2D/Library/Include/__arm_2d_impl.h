@@ -267,7 +267,12 @@ extern struct __arm_2d_op_control ARM_2D_CTRL;
 extern
 arm_fsm_rt_t __arm_2d_op_invoke(arm_2d_op_core_t *ptOP);
 
-
+extern 
+/*! \brief sync up with operation 
+ *! \retval true operation is busy
+ *! \retval false operation isn't busy
+ */
+bool __arm_2d_op_acquire(arm_2d_op_core_t *ptOP);
 
 /*! \note This API should be called by both arm_2d_task and hardware 
  *!       accelerator to indicate the completion of a sub task

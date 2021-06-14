@@ -114,7 +114,12 @@ arm_fsm_rt_t arm_2d_rgb16_draw_point(   const arm_2d_tile_t *ptTarget,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_drw_pt_t);
-    memset(ptThis, 0, sizeof(*ptThis));
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+    
+    //memset(ptThis, 0, sizeof(*ptThis));
     
     arm_2d_region_t tPointRegion = {
         .tLocation = tLocation,
@@ -140,7 +145,12 @@ arm_fsm_rt_t arm_2d_rgb32_draw_point(   const arm_2d_tile_t *ptTarget,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_drw_pt_t);
-    memset(ptThis, 0, sizeof(*ptThis));
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+    
+    //memset(ptThis, 0, sizeof(*ptThis));
     
     arm_2d_region_t tPointRegion = {
         .tLocation = tLocation,
@@ -188,7 +198,12 @@ arm_fsm_rt_t arm_2d_rgb16_fill_colour(  const arm_2d_tile_t *ptTarget,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_fill_cl_t);
-    memset(ptThis, 0, sizeof(*ptThis));
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+    
+    //memset(ptThis, 0, sizeof(*ptThis));
     
     OP_CORE.ptOp = &ARM_2D_OP_COLOUR_FILL_RGB16;
 
@@ -208,7 +223,12 @@ arm_fsm_rt_t arm_2d_rgb32_fill_colour(  const arm_2d_tile_t *ptTarget,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_fill_cl_t);
-    memset(ptThis, 0, sizeof(*ptThis));
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+    
+    //memset(ptThis, 0, sizeof(*ptThis));
     
     OP_CORE.ptOp = &ARM_2D_OP_COLOUR_FILL_RGB32;
 
@@ -265,6 +285,11 @@ arm_fsm_rt_t arm_2d_rgb16_draw_pattern(  const arm_2d_tile_t *ptPattern,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_drw_patn_t);
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+    
     //memset(ptThis, 0, sizeof(*ptThis));
     
     if (    (wMode &   (ARM_2D_DRW_PATN_MODE_NO_FG_COLOR    | 
@@ -303,6 +328,11 @@ arm_fsm_rt_t arm_2d_rgb32_draw_pattern( const arm_2d_tile_t *ptPattern,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_drw_patn_t);
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+    
     //memset(ptThis, 0, sizeof(*ptThis));
     
     if (    (wMode &   (ARM_2D_DRW_PATN_MODE_NO_FG_COLOR    | 

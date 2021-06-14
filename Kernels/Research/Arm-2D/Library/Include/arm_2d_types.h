@@ -89,8 +89,9 @@ typedef enum {
     arm_fsm_rt_err          = -1,    //!< fsm error
     arm_fsm_rt_cpl          = 0,     //!< fsm complete
     arm_fsm_rt_on_going     = 1,     //!< fsm on-going
-    arm_fsm_rt_wait_for_obj = 2,     //!< fsm wait for object
+    arm_fsm_rt_wait_for_obj = 2,     //!< fsm wait for IPC object
     arm_fsm_rt_async        = 3,     //!< fsm work asynchronosely, please check it later.
+    arm_fsm_rt_wait_for_res = 4,     //!< wait for resource
 } arm_fsm_rt_t;
 //! @}
 
@@ -98,6 +99,7 @@ typedef enum {
 //! \note arm_2d_err_t is compatible with arm_fsm_rt_t
 //! @{
 typedef enum {
+    ARM_2D_ERR_BUSY                     = -10,  //!< service is busy
     ARM_2D_ERR_INSUFFICIENT_RESOURCE    = -9,   //!< insufficient resource
     ARM_2D_ERR_IO_BUSY                  = -8,   //!< HW accelerator is busy
     ARM_2D_ERR_IO_ERROR                 = -7,   //!< Generic HW error
@@ -228,6 +230,11 @@ typedef struct arm_2d_point_float_t {
     float fX;
     float fY;
 } arm_2d_point_float_t;
+
+typedef struct arm_2d_point_fx_t {
+    int32_t X;
+    int32_t Y;
+} arm_2d_point_fx_t;
 
 typedef struct arm_2d_size_t {
     int16_t iWidth;
@@ -376,12 +383,22 @@ enum {
 };
 //! @}
 
+typedef union arm_2d_op_status_t {
+    struct {
+        uint16_t            u4SubTaskCount  : 4;    //!< sub task count
+        uint16_t            bIsBusy         : 1;    //!< busy flag
+        uint16_t            bIOError        : 1;    //!< HW IO Error
+        uint16_t            bOpCpl          : 1;    //!< the whole operation complete
+        uint16_t                            : 9;    //!< reserved
+    };
+    uint16_t tValue;
+} arm_2d_op_status_t;
+
 struct arm_2d_op_core_t {
 ARM_PRIVATE(
     arm_2d_op_core_t            *ptNext;              //!< pointer for a single list
 
     const __arm_2d_op_info_t    *ptOp;
-
 
     struct {
         uint8_t                 u2ACCMethods    : 2;    //!< acceleration Methods
@@ -389,20 +406,12 @@ ARM_PRIVATE(
     }Preference;
 
     int8_t                      tResult;                //!< operation result
-    union {
-        struct {
-            uint16_t            u4SubTaskCount  : 4;    //!< sub task count
-            uint16_t            bIsBusy         : 1;    //!< busy flag
-            uint16_t            bIOError        : 1;    //!< HW IO Error
-            uint16_t            bIsRequestAsync : 1;    //!< is sync required
-            uint16_t            bOpCpl          : 1;    //!< the whole operation complete
-            uint16_t                            : 8;    //!< reserved
-        };
-        uint16_t tValue;
-    }Status;
+    volatile arm_2d_op_status_t Status;
 
     arm_2d_op_evt_t             evt2DOpCpl;             //!< operation complete event
-)};
+)
+    uintptr_t                   pUserParam;
+};
 
 typedef struct arm_2d_op_t {
     inherit(arm_2d_op_core_t);
@@ -462,6 +471,8 @@ typedef struct arm_2d_op_src_alpha_msk_t {
  * Fast Rotation linear regression structure
  *----------------------------------------------------------------------------*/
 
+#if     (__ARM_2D_HAS_HELIUM_FLOAT__ || __ARM_2D_HAS_FPU__)                     \
+    && !__ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
 typedef struct arm_2d_rot_linear_regr_t {
     float   slopeY;
     float   interceptY;
@@ -469,6 +480,16 @@ typedef struct arm_2d_rot_linear_regr_t {
     float   interceptX;
 } arm_2d_rot_linear_regr_t;
 
+#else
+/* fixed point */
+typedef struct arm_2d_rot_linear_regr_t {
+    int32_t   slopeY;
+    int32_t   interceptY;
+    int32_t   slopeX;
+    int32_t   interceptX;
+} arm_2d_rot_linear_regr_t;
+
+#endif
 
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/

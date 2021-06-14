@@ -34,12 +34,15 @@
 #define __ARM_2D_MATH_HELIUM_H__
 
 
-#if defined (ARM_MATH_HELIUM) || defined(ARM_MATH_MVEF) || defined(ARM_MATH_MVEI)
+#if defined(__ARM_2D_HAS_HELIUM__) && __ARM_2D_HAS_HELIUM__
 
 /*============================ INCLUDES ======================================*/
 #include "arm_2d.h"
 #include <arm_math.h>
+
+#if __ARM_2D_HAS_HELIUM_FLOAT__
 #include <arm_math_f16.h>
+#endif
 
 #ifdef   __cplusplus
 extern "C" {
@@ -51,6 +54,7 @@ extern "C" {
 
 
 
+#if __ARM_2D_HAS_HELIUM_FLOAT__
 
 #define __PIF16                3.14159265358979F16
 #define __CALIBF16             0.009f16
@@ -71,10 +75,18 @@ extern "C" {
 	+0.1555786518463281,	/*p5*/  \
 	+0.9997878412794807  	/*p1*/  \
 
-
-#define ALIGN8 __attribute__((aligned(8)))
+extern const float16_t sinTable_f16[FAST_MATH_TABLE_SIZE + 1];
+extern const float16_t atanf_lut_f16[4];
 
 #define INVSQRT_MAGIC_F16           0x59ba      /*  ( 0x1ba = 0x3759df >> 13) */
+
+
+typedef struct arm_2d_point_f32x4_t {
+    float32x4_t X;
+    float32x4_t Y;
+} arm_2d_point_f32x4_t;
+
+#endif
 
 
 typedef struct arm_2d_point_s16x8_t {
@@ -88,10 +100,8 @@ typedef struct arm_2d_point_s32x4_t {
 } arm_2d_point_s32x4_t;
 
 
-extern const float16_t sinTable_f16[FAST_MATH_TABLE_SIZE + 1];
-extern const float16_t atanf_lut_f16[4];
 
-
+#if __ARM_2D_HAS_HELIUM_FLOAT__ == 1
 
 __STATIC_FORCEINLINE  float16x8_t vsin_f16(
     float16x8_t vecIn)
@@ -238,7 +248,6 @@ __STATIC_FORCEINLINE float16x8_t vrecip_lowprec_f16(float16x8_t vecIn)
 
 
 
-
 __STATIC_FORCEINLINE float16x8_t vatan_f16(
     float16x8_t x)
 {
@@ -353,7 +362,7 @@ __STATIC_FORCEINLINE float16x8_t vsqrtf_f16(
     return vecDst;
 }
 
-
+#endif
 
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/

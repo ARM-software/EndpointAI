@@ -158,29 +158,31 @@ void __arm_2d_sub_task_free(__arm_2d_sub_task_t *ptTask)
 /*----------------------------------------------------------------------------*
  * Subtask FIFO                                                               *
  *----------------------------------------------------------------------------*/
-
+#if 0
 __WEAK 
 void arm_2d_notif_sub_task_fifo_task_arrive(void)
 {
 }
+#endif
 
 static 
 void __arm_2d_sub_task_add(__arm_2d_sub_task_t *ptTask)
 {
     assert(NULL != ptTask);
-    bool bIsEmpty = false;
+    //bool bIsEmpty = false;
     arm_irq_safe {
-        bIsEmpty = (0 == ARM_2D_CTRL.hwTaskCount);
+        //bIsEmpty = (0 == ARM_2D_CTRL.hwTaskCount);
         
         ARM_LIST_QUEUE_ENQUEUE( ARM_2D_CTRL.TaskFIFO.ptHead, 
                                 ARM_2D_CTRL.TaskFIFO.ptTail,
                                 ptTask);
         ARM_2D_CTRL.hwTaskCount++;
     }
-    
+#if 0
     if (bIsEmpty) {
         arm_2d_notif_sub_task_fifo_task_arrive();
     }
+#endif
 }
 
 static 
@@ -297,7 +299,10 @@ arm_fsm_rt_t __arm_2d_call_default_io(  __arm_2d_sub_task_t *ptTask,
 }
 
 
-
+__WEAK 
+void arm_2d_notif_aync_op_cpl(uintptr_t pUserParam)
+{
+}
 
 
 static void __arm_2d_notify_op_cpl(arm_2d_op_core_t *ptOP, arm_fsm_rt_t tResult)
@@ -326,11 +331,9 @@ static void __arm_2d_notify_op_cpl(arm_2d_op_core_t *ptOP, arm_fsm_rt_t tResult)
         
         //! call Operation Complete event handler
         if (NULL != ptOP->evt2DOpCpl.fnHandler) {
-            ptOP->Status.bIsRequestAsync = 
-                (ptOP->evt2DOpCpl.fnHandler) (
-                                        ptOP, 
-                                        ptOP->tResult,
-                                        ptOP->evt2DOpCpl.pTarget) ? 1 : 0;
+            (ptOP->evt2DOpCpl.fnHandler) (  ptOP, 
+                                            ptOP->tResult,
+                                            ptOP->evt2DOpCpl.pTarget);
             ptOP->evt2DOpCpl.fnHandler = NULL;
         } 
         
@@ -340,13 +343,18 @@ static void __arm_2d_notify_op_cpl(arm_2d_op_core_t *ptOP, arm_fsm_rt_t tResult)
         //! reset preference
         ptOP->Preference.u2ACCMethods = 0;
         
-        //! only clear busy flag after bOpCpl is set properly.
-        ptOP->Status.bIsBusy = false;
+        /*! arm_thread_safe */
+        arm_irq_safe {
+            //! only clear busy flag after bOpCpl is set properly.
+            ptOP->Status.bIsBusy = false;
+            
+            arm_2d_notif_aync_op_cpl(ptOP->pUserParam);
+        }
     }
 }
 
 __WEAK 
-void arm_2d_notif_aync_sub_task_cpl(void)
+void arm_2d_notif_aync_sub_task_cpl(uintptr_t pUserParam)
 {
 }
 
@@ -357,6 +365,8 @@ void __arm_2d_notify_sub_task_cpl(  __arm_2d_sub_task_t *ptTask,
                                     arm_fsm_rt_t tResult,
                                     bool bFromHW)
 {
+    ARM_2D_UNUSED(bFromHW);
+    
     assert(NULL != ptTask);
     assert(ptTask->ptOP->Status.u4SubTaskCount > 0);
     
@@ -366,9 +376,9 @@ void __arm_2d_notify_sub_task_cpl(  __arm_2d_sub_task_t *ptTask,
     //! free sub task
     __arm_2d_sub_task_free(ptTask);
     
-    if (bFromHW) {
-        arm_2d_notif_aync_sub_task_cpl();
-    }
+    //if (bFromHW) {
+        arm_2d_notif_aync_sub_task_cpl(ptTask->ptOP->pUserParam);
+    //}
 }
 
 /*! \note You can override this to add support for new types of interface
@@ -503,22 +513,23 @@ arm_fsm_rt_t __arm_2d_frontend_task(arm_2d_task_t *ptThis)
     
     if ((arm_fsm_rt_cpl == tResult) || (tResult < 0)) {
 
-        __arm_2d_notify_op_cpl(ptOP, tResult);
-        
         arm_irq_safe {
             ARM_LIST_QUEUE_DEQUEUE( ARM_2D_CTRL.OPFIFO.ptHead, 
                                     ARM_2D_CTRL.OPFIFO.ptTail,
                                     ptOP);
         }
+        ptOP->Status.u4SubTaskCount = 0;
+        __arm_2d_notify_op_cpl(ptOP, tResult);
     } 
     
     /* release resources here */
     __arm_2d_sub_task_cancel_booking();
     
-    if (arm_fsm_rt_wait_for_obj == tResult) {
+    if (    arm_fsm_rt_wait_for_obj == tResult 
+        ||  arm_fsm_rt_wait_for_res == tResult) {
         return tResult;
     }
-    
+
     assert(arm_fsm_rt_on_going != tResult);
 
     return arm_fsm_rt_on_going;
@@ -592,17 +603,34 @@ arm_fsm_rt_t __arm_2d_op_frontend_on_leave( arm_2d_op_core_t *ptThis,
     return tResult;
 }
 
+__WEAK 
+void arm_2d_notif_new_op_arrive(uintptr_t pUserParam)
+{
+}
+
+
 __OVERRIDE_WEAK
 arm_fsm_rt_t __arm_2d_op_frontend(arm_2d_op_core_t *ptThis)
 {
-    
+    bool bEmptyQueue = false;
+    arm_fsm_rt_t tResult;
     arm_irq_safe {
+        if (NULL == ARM_2D_CTRL.OPFIFO.ptHead) {
+            bEmptyQueue = true;
+        }
+        
         ARM_LIST_QUEUE_ENQUEUE( ARM_2D_CTRL.OPFIFO.ptHead, 
                                 ARM_2D_CTRL.OPFIFO.ptTail,
                                 ptThis);
     }
     
-    return  __arm_2d_op_frontend_on_leave(ptThis, this.tResult);
+    tResult =  __arm_2d_op_frontend_on_leave(ptThis, this.tResult);
+
+    if (bEmptyQueue) {
+        arm_2d_notif_new_op_arrive(this.pUserParam);
+    }
+
+    return tResult;
 }
 
 __OVERRIDE_WEAK
@@ -776,6 +804,72 @@ void __arm_2d_async_init(void)
         }
         
     } while(0);
+}
+
+
+__WEAK
+bool arm_2d_port_wait_for_async(uintptr_t pUserParam)
+{
+    return false;
+}
+
+
+
+
+__OVERRIDE_WEAK
+/*! \brief sync up with operation 
+ *! \retval true operation is busy
+ *! \retval false operation isn't busy
+ */
+bool arm_2d_op_wait_async(arm_2d_op_core_t *ptOP)
+{
+    ARM_2D_IMPL(arm_2d_op_core_t, ptOP)
+
+    volatile arm_2d_op_status_t *ptStatus 
+        = (volatile arm_2d_op_status_t *)&(this.Status);
+
+    while (ptStatus->bIsBusy) {
+        if (!arm_2d_port_wait_for_async(this.pUserParam)) {
+            break;
+        }
+    } 
+    
+    return !ptStatus->bIsBusy;
+}
+
+
+__OVERRIDE_WEAK
+/*! \brief sync up with operation 
+ *! \retval true operation is busy
+ *! \retval false operation isn't busy
+ */
+bool __arm_2d_op_acquire(arm_2d_op_core_t *ptOP)
+{
+    ARM_2D_IMPL(arm_2d_op_core_t, ptOP)
+    volatile arm_2d_op_status_t *ptStatus 
+        = (volatile arm_2d_op_status_t *)&(this.Status);
+
+    bool bResult = false;
+    do {
+        arm_irq_safe {
+            bResult = !ptStatus->bIsBusy;
+            if (bResult) {
+                this.tResult = arm_fsm_rt_async;
+                ptStatus->tValue = 0;                                                 //! reset status
+                ptStatus->bIsBusy = true;                                             //! set busy flag
+            }
+        }
+        
+        if (bResult) {
+            break;
+        }
+    
+        if (!arm_2d_port_wait_for_async(this.pUserParam)) {
+            break;
+        }
+    } while (!bResult);
+    
+    return bResult;
 }
 
 

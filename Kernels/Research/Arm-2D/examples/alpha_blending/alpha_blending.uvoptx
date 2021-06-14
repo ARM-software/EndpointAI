@@ -1941,7 +1941,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>ULP2V8M</Key>
-          <Name>-UAny -O206 -S14 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(3C013477) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP18 -TDX0 -TDD0 -TDS8000 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD1000000 -FC1000 -FN0</Name>
+          <Name>-UAny -O206 -S14 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(4C013477) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP18 -TDX0 -TDD0 -TDS8000 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD1000000 -FC1000 -FN0</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -2055,7 +2055,7 @@
         <aSer3>0</aSer3>
         <eProf>0</eProf>
         <aLa>0</aLa>
-        <aPa1>0</aPa1>
+        <aPa1>1</aPa1>
         <AscS4>0</AscS4>
         <aSer4>0</aSer4>
         <StkLoc>0</StkLoc>
@@ -2676,7 +2676,7 @@
       <GroupNumber>6</GroupNumber>
       <FileNumber>46</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\Library\Source\arm_2d_rotation.c</PathWithFileName>

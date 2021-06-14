@@ -116,6 +116,50 @@ extern
 arm_2d_tile_t *arm_2d_set_default_frame_buffer(
                                         const arm_2d_tile_t *ptFrameBuffer);
 
+
+/*! \brief get the default frame buffer
+ *! \return the address of the default frame buffer
+ */
+extern
+arm_2d_tile_t *arm_2d_get_default_frame_buffer(void);
+
+/*! \brief attach a user param (which could be a pointer) to specified OP
+ *! \param ptOP the address of the target OP (NULL means using the default OP)
+ *! \param pUserParam a user param (it can be used as a pointer)
+ */
+extern
+void arm_2d_set_user_param(arm_2d_op_core_t *ptOP, uintptr_t pUserParam);
+
+
+/*! \brief sync up with operation 
+ *! \retval true sync up with operation
+ *! \retval false operation is busy
+ */
+extern
+bool arm_2d_op_wait_async(arm_2d_op_core_t *ptOP);
+
+/*! \brief get the status of a specified OP, usually, it is used after calling
+ *!        arm_2d_op_wait_async(). 
+ *!        E.g.
+ 
+            //! wait for previous operation complete
+            do {
+                arm_2d_op_wait_async();
+                arm_2d_op_status_t tStatus = arm_2d_get_op_status();
+                if (tStatus.bIOError) {
+                    //! error detected
+                    ...
+                } else if (tStatus.bOpCpl) {
+                    break;
+                }
+            } while(true);
+ *!
+ *! \param ptOP the address of the target OP (NULL means using the default OP)
+ *! \return the status
+ */
+extern
+arm_2d_op_status_t arm_2d_get_op_status(arm_2d_op_core_t *ptOP);
+
  /*! \brief arm-2d pixel pipeline task entery
   *! \note  This function is *TRHEAD-SAFE*
   *! \param none

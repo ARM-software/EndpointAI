@@ -135,7 +135,11 @@ extern "C" {
                         const arm_2d_pfb_t *ptPFB,                              \
                         bool bIsNewFrame)    
 
-            
+
+#define IMPL_PFB_ON_FRAME_SYNC_UP(__NAME)                                       \
+            bool __NAME(void *pTarget)
+
+
 /*! \note add macros in lower-case and make sure everyone can choose what they 
  *!       like. 
  */
@@ -216,6 +220,7 @@ enum {
     ARM_2D_PFB_DEPEND_ON_LOW_LEVEL_RENDERING    = _BV(0),
     ARM_2D_PFB_DEPEND_ON_DRAWING                = _BV(1),
     ARM_2D_PFB_DEPEND_ON_LOW_LEVEL_SYNC_UP      = _BV(2),
+    ARM_2D_PFB_DEPEND_ON_FRAME_SYNC_UP          = _BV(3),
 };
 
 typedef struct arm_2d_helper_pfb_dependency_t {
@@ -226,7 +231,8 @@ typedef struct arm_2d_helper_pfb_dependency_t {
     arm_2d_helper_draw_evt_t    evtOnDrawing;  
 
     //!< low level rendering handler wants to sync-up (return arm_fsm_rt_wait_for_obj)
-    arm_2d_evt_t                evtOnLowLevelSyncUp;     
+    arm_2d_evt_t                evtOnLowLevelSyncUp;  
+    
 } arm_2d_helper_pfb_dependency_t;
 
 typedef struct arm_2d_helper_pfb_cfg_t {

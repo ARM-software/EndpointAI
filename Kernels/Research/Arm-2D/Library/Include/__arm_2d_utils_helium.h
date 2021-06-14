@@ -34,12 +34,11 @@
 #define __ARM_2D_UTILS_HELIUM_H__
 
 
-#if defined (ARM_MATH_HELIUM) || defined(ARM_MATH_MVEF) || defined(ARM_MATH_MVEI)
+#if __ARM_2D_HAS_HELIUM_INTEGER__ == 1
 
 /*============================ INCLUDES ======================================*/
 #include "arm_2d.h"
 #include <arm_math.h>
-#include <arm_math_f16.h>
 
 #ifdef   __cplusplus
 extern "C" {
@@ -57,10 +56,10 @@ uint16x8_t __rgb565_alpha_blending_single_vec(
                                             uint16x8_t      hwSource2,
                                             uint_fast8_t    chRatio)
 {
-    uint16_t        ratio1x8 = chRatio * 8;
-    uint16_t        ratio1x4 = chRatio * 4;
-    uint16_t        ratio2x8 = (256 - chRatio) * 8;
-    uint16_t        ratio2x4 = (256 - chRatio) * 4;
+    uint16_t        ratio1x8 = (256 - chRatio) * 8;
+    uint16_t        ratio1x4 = (256 - chRatio) * 4;
+    uint16_t        ratio2x8 = (chRatio) * 8;
+    uint16_t        ratio2x4 = (chRatio) * 4;
     uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
     uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
     uint16x8_t      vecMaskBpck = vdupq_n_u16(0x00f8);

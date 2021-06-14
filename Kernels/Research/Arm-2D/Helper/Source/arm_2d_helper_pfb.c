@@ -307,9 +307,7 @@ arm_2d_tile_t * __arm_2d_helper_pfb_drawing_iteration_begin(
         if (this.Adapter.bIsRegionChanged) {
         
             this.Adapter.bIsRegionChanged = false;
-            
-            
-        
+
             if (NULL != this.Adapter.ptDirtyRegion) { 
                 //! calculate the valid region
                 if (!arm_2d_region_intersect(   &this.tCFG.tDisplayArea, 

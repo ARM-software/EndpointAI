@@ -578,7 +578,7 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process( arm_2d_op_core_t *ptOP)
 
     if (!__arm_2d_op_ensure_resource(ptOP, 1)) {
         //! insufficient resources, ask users to try again
-        return arm_fsm_rt_wait_for_obj;
+        return arm_fsm_rt_wait_for_res;
     }
     
     
@@ -686,7 +686,7 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
 
     if (!__arm_2d_op_ensure_resource(ptOP, 4)) {
         //! insufficient resources, ask users to try again
-        return arm_fsm_rt_wait_for_obj;
+        return arm_fsm_rt_wait_for_res;
     }
     
     
@@ -1014,6 +1014,41 @@ arm_fsm_rt_t __arm_2d_op_frontend_op_decoder(arm_2d_op_core_t *ptThis)
 
 
 __WEAK
+/*! \brief sync up with operation 
+ *! \retval true sync up with operation
+ *! \retval false operation is busy
+ */
+bool arm_2d_op_wait_async(arm_2d_op_core_t *ptOP)
+{
+    return true;
+}
+
+
+__WEAK
+/*! \brief sync up with operation 
+ *! \retval true operation is busy
+ *! \retval false operation isn't busy
+ */
+bool __arm_2d_op_acquire(arm_2d_op_core_t *ptOP)
+{
+    ARM_2D_IMPL(arm_2d_op_core_t, ptOP)
+    bool bResult = !this.Status.bIsBusy;
+    
+    arm_irq_safe {
+        if (bResult) {
+            //! initialize operation
+            do {
+                this.tResult = arm_fsm_rt_async;
+                this.Status.tValue = 0;                                                 //! reset status
+                this.Status.bIsBusy = true;                                             //! set busy flag
+            } while(0);
+        }
+    }
+
+    return bResult;
+}
+
+__WEAK
 arm_fsm_rt_t __arm_2d_op_frontend(arm_2d_op_core_t *ptThis)
 {
     arm_fsm_rt_t tResult;
@@ -1027,12 +1062,9 @@ arm_fsm_rt_t __arm_2d_op_invoke(arm_2d_op_core_t *ptOP)
 {
     ARM_2D_IMPL(arm_2d_op_core_t, ptOP)
     
-    
+#if 0
     if (this.Status.bIsBusy) {
-        return arm_fsm_rt_async;
-    } else if (this.Status.bOpCpl && this.Status.bIsRequestAsync) {
-        this.Status.tValue = 0;
-        return arm_fsm_rt_cpl;
+        return arm_fsm_rt_on_going;
     }
 
     //! initialize operation
@@ -1041,7 +1073,8 @@ arm_fsm_rt_t __arm_2d_op_invoke(arm_2d_op_core_t *ptOP)
         this.Status.tValue = 0;                                                 //! reset status
         this.Status.bIsBusy = true;                                             //! set busy flag
     } while(0);
-    
+#endif
+
     return  __arm_2d_op_frontend(ptThis);
 }
 
@@ -1072,6 +1105,39 @@ arm_2d_tile_t *arm_2d_set_default_frame_buffer(const arm_2d_tile_t *ptFrameBuffe
     }
     
     return ptOldBuffer;
+}
+
+/*! \brief get the default frame buffer
+ *! \return the address of the default frame buffer
+ */
+arm_2d_tile_t *arm_2d_get_default_frame_buffer(void)
+{
+    return ARM_2D_CTRL.ptDefaultFrameBuffer;
+}
+
+/*! \brief attach a user param (which could be a pointer) to specified OP
+ *! \param ptOP the address of the target OP (NULL means using the default OP)
+ *! \param pUserParam a user param (it can be used as a pointer)
+ */
+void arm_2d_set_user_param(arm_2d_op_core_t *ptOP, uintptr_t pUserParam)
+{
+    ARM_2D_IMPL(arm_2d_op_core_t, ptOP);
+    
+    this.pUserParam = pUserParam;
+}
+
+/*! \brief get the status of a specified OP
+ *! \param ptOP the address of the target OP (NULL means using the default OP)
+ *! \return the status
+ */
+arm_2d_op_status_t arm_2d_get_op_status(arm_2d_op_core_t *ptOP)
+{
+    ARM_2D_IMPL(arm_2d_op_core_t, ptOP)
+
+    volatile arm_2d_op_status_t *ptStatus 
+        = (volatile arm_2d_op_status_t *)&(this.Status);
+        
+    return *ptStatus;
 }
 
 

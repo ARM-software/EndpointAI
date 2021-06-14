@@ -33,6 +33,7 @@
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wunused-variable"
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#   pragma clang diagnostic ignored "-Wdouble-promotion"
 #elif __IS_COMPILER_ARM_COMPILER_5__
 #elif __IS_COMPILER_GCC__
 #   pragma GCC diagnostic push
@@ -164,16 +165,16 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
                   "  %dMHz\r\n", SystemCoreClock / 1000000ul);
         lcd_puts( "Testing...\r\n\r\n");
         lcd_puts(
-            "Cycles\t  Min\t  Max\tAvrage\t  UPS\t  LCD Latency");
+            "Cycles\tAvrage\tUPS30Freq\tUPS\tLCD Latency");
 
 
         lcd_text_location( GLCD_HEIGHT / 8 - 1, 0);
         //lcd_puts(
         //    "\rCycles\t  Min\t  Max\tAvrage\t  UPS\t  LCD Latency");
         lcd_puts("\t");
-        lcd_printf("%d\t", BENCHMARK.wMin);
-        lcd_printf("%d\t", BENCHMARK.wMax);
+
         lcd_printf("%d\t", BENCHMARK.wAverage);
+        lcd_printf("%4.2f MHz\t", ((float)BENCHMARK.wAverage * 30.0f) / 1000000.0f);
         lcd_printf("%3d:%dms",
                             SystemCoreClock / BENCHMARK.wAverage,
                             BENCHMARK.wAverage / (SystemCoreClock / 1000ul));
@@ -236,8 +237,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
     lcd_puts( "Testing...\r\n\r\n");
 
     //lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
-    lcd_puts(
-        "Cycles\t  Min\t  Max\tAvrage\t  UPS\t  LCD Latency");
+    //lcd_puts("Cycles\tAvrage\tUPS30Freq\tUPS\tLCD Latency");
 
     return arm_fsm_rt_cpl;
 }

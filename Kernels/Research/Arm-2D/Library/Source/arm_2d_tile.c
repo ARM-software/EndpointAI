@@ -381,6 +381,11 @@ arm_fsm_rt_t arm_2d_rgb16_tile_copy( const arm_2d_tile_t *ptSource,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_cp_t);
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+    
     //memset(ptThis, 0, sizeof(*ptThis));
     
     OP_CORE.ptOp = &ARM_2D_OP_TILE_COPY_RGB16;
@@ -405,6 +410,11 @@ arm_fsm_rt_t arm_2d_rgb32_tile_copy( const arm_2d_tile_t *ptSource,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_cp_t);
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+    
     //memset(ptThis, 0, sizeof(*ptThis));
     
     OP_CORE.ptOp = &ARM_2D_OP_TILE_COPY_RGB32;
@@ -439,6 +449,10 @@ arm_fsm_rt_t arm_2d_rgb16_tile_copy_with_colour_masking(
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_cp_cl_msk_t);
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
 
     OP_CORE.ptOp = 
         &ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB16;
@@ -473,6 +487,10 @@ arm_fsm_rt_t arm_2d_rgb32_tile_copy_with_colour_masking(
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_cp_cl_msk_t);
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
 
     OP_CORE.ptOp = 
         &ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB32;

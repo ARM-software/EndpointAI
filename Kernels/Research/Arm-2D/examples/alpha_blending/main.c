@@ -33,6 +33,7 @@
 #   pragma clang diagnostic ignored "-Wmissing-braces"
 #   pragma clang diagnostic ignored "-Wunused-const-variable"
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#   pragma clang diagnostic ignored "-Wdouble-promotion"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -97,11 +98,10 @@ static void display_task(void)
             
             lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
             lcd_puts(
-                "\rCycles\t  Min\t  Max\tAvrage\t  FPS\t  LCD Latency");
+                "Cycles\tAvrage\tFPS30Freq\tFPS\tLCD Latency");
             lcd_puts("\r\n\t");
-            lcd_printf("%d\t", BENCHMARK.wMin);
-            lcd_printf("%d\t", BENCHMARK.wMax);
             lcd_printf("%d\t", BENCHMARK.wAverage);
+            lcd_printf("%4.2f MHz\t", ((float)BENCHMARK.wAverage * 30.0f) / 1000000.0f);
             lcd_printf("%3d:%dms",
                                 SystemCoreClock / BENCHMARK.wAverage, 
                                 BENCHMARK.wAverage / (SystemCoreClock / 1000ul));

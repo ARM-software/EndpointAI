@@ -150,6 +150,11 @@ arm_fsm_rt_t arm_2d_rgb565_alpha_blending(
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_alpha_t);
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+    
     //memset(ptThis, 0, sizeof(*ptThis));
 
     OP_CORE.ptOp = &ARM_2D_OP_ALPHA_BLENDING_RGB565;
@@ -173,6 +178,11 @@ arm_fsm_rt_t arm_2d_rgb888_alpha_blending(   const arm_2d_tile_t *ptSource,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_alpha_t);
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+    
     //memset(ptThis, 0, sizeof(*ptThis));
 
     OP_CORE.ptOp = &ARM_2D_OP_ALPHA_BLENDING_RGB888;
@@ -263,6 +273,11 @@ arm_fsm_rt_t arm_2d_rgb565_fill_colour_with_alpha(
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t);
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+    
     //memset(ptThis, 0, sizeof(*ptThis));
 
     OP_CORE.ptOp = &ARM_2D_OP_ALPHA_COLOUR_FILL_RGB565;
@@ -285,6 +300,10 @@ arm_fsm_rt_t arm_2d_rgb888_fill_colour_with_alpha(
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t);
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
     //memset(ptThis, 0, sizeof(*ptThis));
 
     OP_CORE.ptOp = &ARM_2D_OP_ALPHA_COLOUR_FILL_RGB888;
@@ -347,6 +366,11 @@ arm_fsm_rt_t arm_2d_rbg565_alpha_blending_with_colour_masking(
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_alpha_cl_msk_t);
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+    
     //memset(ptThis, 0, sizeof(*ptThis));
 
     OP_CORE.ptOp = &ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB565;
@@ -374,6 +398,11 @@ arm_fsm_rt_t arm_2d_rbg888_alpha_blending_with_colour_masking(
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_alpha_cl_msk_t);
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+    
     //memset(ptThis, 0, sizeof(*ptThis));
 
     OP_CORE.ptOp = & ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB888;
