@@ -119,7 +119,7 @@ When we look at the conventional GUI graphics architecture in today's embedded e
 
 ### 1.4 Dependency
 
-- The library depends on **CMSIS 5.4.0 and above**. 
+- The library depends on **CMSIS 5.7.0 and above** (If you want to use Arm-2D with Cortex-M55, you need CMSIS 5.8.0 which you can get from [Github](https://github.com/ARM-software/CMSIS_5)). 
 - The library is developed with the **C11** standard and depends on some **widely adopted GCC extensions**.
   - See **section 3.2** for details.
 - The library should be compiled with **Arm Compiler 5**, **Arm Compiler 6**, **GCC**, **LLVM** and **IAR**
@@ -135,7 +135,7 @@ When we look at the conventional GUI graphics architecture in today's embedded e
 | -------------------- | ------------------------------------------------------------ | ------------------------------ | ------------------ |
 | Alpha-Blending       | It is an **ALL-IN-ONE** (except rotation) example that demonstrates almost all the features provided by the library. | examples/alpha_blending        | Used as benchmark. |
 | Partial-Frame-buffer | **It delivers the same visual effects as Alpha-blending example but using Partial-Frame-buffer**. It can be used as a template or reference code for programmers who want to implement a graphical user interface on an MCU with small RAM. In this example, **16*16 FPB (512Bytes) is used, and the total system RAM usage is less than 2.5KByte** (including stack, heap and FPB). | examples/partial_frame_buffer. |                    |
-| watch_panel          | It is a dedicated example for smart-watch like panel. For current version, it is only used to demonstrate rotation algorithms with two spinning gears. Each gear rotates at a different angular velocity and both Colour-masking and alpha-masking schemes are applied.<br />***This example will be updated in the future***. | examples/watch_panel           | Used as benchmark  |
+| watch_panel          | It is a dedicated example for smart-watch like panel. For current version, it is only used to demonstrate rotation algorithms with two spinning gears. Each gear rotates at a different angular velocity and both Colour-masking and alpha-masking schemes are applied. | examples/watch_panel           | Used as benchmark  |
 
 
 
@@ -218,8 +218,21 @@ Since there is no public benchmark available for micro-controllers, we decide to
 
 ```c
 #undef __ARM_2D_HAS_HELIUM__
-#if defined (ARM_MATH_HELIUM) || defined(ARM_MATH_MVEF) || defined(ARM_MATH_MVEI)
+#undef __ARM_2D_HAS_HELIUM_INTEGER__
+#undef __ARM_2D_HAS_HELIUM_FLOAT__
+
+#if defined(__ARM_FEATURE_MVE) && __ARM_FEATURE_MVE
 #   define __ARM_2D_HAS_HELIUM__                        1
+#   define __ARM_2D_HAS_HELIUM_INTEGER__                1
+#   if (__ARM_FEATURE_MVE & 2)
+#       define __ARM_2D_HAS_HELIUM_FLOAT__              1
+#   else
+#       define __ARM_2D_HAS_HELIUM_FLOAT__              0
+#   endif
+#else
+#   define __ARM_2D_HAS_HELIUM__                        0
+#   define __ARM_2D_HAS_HELIUM_INTEGER__                0
+#   define __ARM_2D_HAS_HELIUM_FLOAT__                  0
 #endif
 
 #ifndef __ARM_2D_HAS_CDE__
@@ -250,6 +263,8 @@ Since there is no public benchmark available for micro-controllers, we decide to
 #   endif
 #endif
 
+...
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
 #if defined(__ARM_2D_HAS_CDE__) && !__ARM_2D_HAS_CDE__
@@ -278,6 +293,7 @@ Since there is no public benchmark available for micro-controllers, we decide to
             __arm_2d_cde_init();                                                \
             __arm_2d_acc_init();                                                \
         } while(0)
+...
 ```
 
 
@@ -297,7 +313,7 @@ Since there is no public benchmark available for micro-controllers, we decide to
 - This library is compliant with **C11** standard and uses some **widely accepted GCC extensions**:
   - [Macros with a Variable Number of Arguments](https://gcc.gnu.org/onlinedocs/gcc/Variadic-Macros.html#Variadic-Macros) 
   - [ ***\_\_alignof\_\_()*** ](https://gcc.gnu.org/onlinedocs/gcc/Alignment.html#Alignment) 
-  - [Unnamed Structure and Union Fields](https://gcc.gnu.org/onlinedocs/gcc/Alignment.html#Alignment)
+  - [Unnamed Structure and Union Fields](https://gcc.gnu.org/onlinedocs/gcc/Unnamed-Fields.html)
 - Some of the definitions are written with the support of the **Microsoft Extensions** in mind \( ***-fms-extensions*** \), but **the library never depends on it**. This means that if programmers enable the support of the Microsoft Extensions in their project, they can benefit from it. 
 - This library follows "***Using Extensions to replace Modifications***" principle
   - Keywords ***\_\_WEAK*** and ***\_\_OVERRIDE\_WEAK*** are introduced for default functions and extensions; it is similar to the concept of "virtual functions" and "override functions" in C#. 
@@ -463,13 +479,13 @@ def_low_lv_io(__ARM_2D_IO_ROTATE_RGB888,
 - The library currently can only be used in the C environment. C++ support will be added later.
 - The library currently only supports two specific colours, i.e. **RGB565** and **RGB888**
 - Anti-aliasing algorithms haven't been implemented yet.
-- Rotation, Zooming (Stretching) algorithms haven't been implemented yet.
+- Zooming (Stretching) algorithms haven't been implemented yet.
 - Alpha-masking algorithms haven't been implemented yet.
 - The library currently only provides default software algorithms and a **[Helium](https://developer.arm.com/architectures/instruction-sets/simd-isas/helium) based acceleration library**. 
   - Although planned, no hardware acceleration is implemented or supported for now.
   - Although planned and implemented, the [ACI (Arm Custom Instruction)](https://developer.arm.com/architectures/instruction-sets/custom-instructions) acceleration solutions are not open-source for now. Please contact local Arm FAE for details. 
 - The provided example projects only run on [MPS2](https://developer.arm.com/tools-and-software/development-boards/fpga-prototyping-boards/mps2), [MPS3](https://developer.arm.com/tools-and-software/development-boards/fpga-prototyping-boards/mps3), [FVP](https://developer.arm.com/tools-and-software/open-source-software/arm-platforms-software/cortex-m-platforms-software) and some 3rd party development platforms, e.g. STM32F746G-Discovery. 
-  - Feel free to try the library on your own devices. The library depends on No specific peripherals. 
+  - Feel free to try the library on your own devices. The library depends on No specific peripheral. 
 - Example projects are based on MDK (one of the most popular development environments for Cortex-M processors ).
 
 

@@ -1983,7 +1983,7 @@
       <TargetName>FastModel</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
+      <pCCUsed>6160001::V6.16.1::..\..\Program Files\ARMCompiler6.16.1</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -2927,75 +2927,6 @@
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
-          <GroupOption>
-            <CommonProperty>
-              <UseCPPCompiler>0</UseCPPCompiler>
-              <RVCTCodeConst>0</RVCTCodeConst>
-              <RVCTZI>0</RVCTZI>
-              <RVCTOtherData>0</RVCTOtherData>
-              <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>1</IncludeInBuild>
-              <AlwaysBuild>2</AlwaysBuild>
-              <GenerateAssemblyFile>2</GenerateAssemblyFile>
-              <AssembleAssemblyFile>2</AssembleAssemblyFile>
-              <PublicsOnly>2</PublicsOnly>
-              <StopOnExitCode>11</StopOnExitCode>
-              <CustomArgument></CustomArgument>
-              <IncludeLibraryModules></IncludeLibraryModules>
-              <ComprImg>1</ComprImg>
-            </CommonProperty>
-            <GroupArmAds>
-              <Cads>
-                <interw>2</interw>
-                <Optim>0</Optim>
-                <oTime>2</oTime>
-                <SplitLS>2</SplitLS>
-                <OneElfS>2</OneElfS>
-                <Strict>2</Strict>
-                <EnumInt>2</EnumInt>
-                <PlainCh>2</PlainCh>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <wLevel>0</wLevel>
-                <uThumb>2</uThumb>
-                <uSurpInc>2</uSurpInc>
-                <uC99>2</uC99>
-                <uGnu>2</uGnu>
-                <useXO>2</useXO>
-                <v6Lang>0</v6Lang>
-                <v6LangP>0</v6LangP>
-                <vShortEn>2</vShortEn>
-                <vShortWch>2</vShortWch>
-                <v6Lto>2</v6Lto>
-                <v6WtE>2</v6WtE>
-                <v6Rtti>2</v6Rtti>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Cads>
-              <Aads>
-                <interw>2</interw>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <thumb>2</thumb>
-                <SplitLS>2</SplitLS>
-                <SwStkChk>2</SwStkChk>
-                <NoWarn>2</NoWarn>
-                <uSurpInc>2</uSurpInc>
-                <useXO>2</useXO>
-                <ClangAsOpt>0</ClangAsOpt>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Aads>
-            </GroupArmAds>
-          </GroupOption>
         </Group>
       </Groups>
     </Target>
@@ -3315,7 +3246,7 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>3</wLevel>
+            <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>0</uC99>
@@ -3330,7 +3261,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,EXTERANL_DELAY_MS_DECLARE="extern void delay_ms(uint32_t);"</Define>
+              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;.\platform\v2m_mps3;..\..\Library\Include;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -4129,12 +4060,12 @@
             <hadXRAM>0</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
-            <RvdsMve>1</RvdsMve>
+            <RvdsMve>2</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>1</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>1</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -4900,75 +4831,6 @@
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
-          <GroupOption>
-            <CommonProperty>
-              <UseCPPCompiler>0</UseCPPCompiler>
-              <RVCTCodeConst>0</RVCTCodeConst>
-              <RVCTZI>0</RVCTZI>
-              <RVCTOtherData>0</RVCTOtherData>
-              <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>1</IncludeInBuild>
-              <AlwaysBuild>2</AlwaysBuild>
-              <GenerateAssemblyFile>2</GenerateAssemblyFile>
-              <AssembleAssemblyFile>2</AssembleAssemblyFile>
-              <PublicsOnly>2</PublicsOnly>
-              <StopOnExitCode>11</StopOnExitCode>
-              <CustomArgument></CustomArgument>
-              <IncludeLibraryModules></IncludeLibraryModules>
-              <ComprImg>1</ComprImg>
-            </CommonProperty>
-            <GroupArmAds>
-              <Cads>
-                <interw>2</interw>
-                <Optim>0</Optim>
-                <oTime>2</oTime>
-                <SplitLS>2</SplitLS>
-                <OneElfS>2</OneElfS>
-                <Strict>2</Strict>
-                <EnumInt>2</EnumInt>
-                <PlainCh>2</PlainCh>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <wLevel>0</wLevel>
-                <uThumb>2</uThumb>
-                <uSurpInc>2</uSurpInc>
-                <uC99>2</uC99>
-                <uGnu>2</uGnu>
-                <useXO>2</useXO>
-                <v6Lang>0</v6Lang>
-                <v6LangP>0</v6LangP>
-                <vShortEn>2</vShortEn>
-                <vShortWch>2</vShortWch>
-                <v6Lto>2</v6Lto>
-                <v6WtE>2</v6WtE>
-                <v6Rtti>2</v6Rtti>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Cads>
-              <Aads>
-                <interw>2</interw>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <thumb>2</thumb>
-                <SplitLS>2</SplitLS>
-                <SwStkChk>2</SwStkChk>
-                <NoWarn>2</NoWarn>
-                <uSurpInc>2</uSurpInc>
-                <useXO>2</useXO>
-                <ClangAsOpt>0</ClangAsOpt>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Aads>
-            </GroupArmAds>
-          </GroupOption>
         </Group>
       </Groups>
     </Target>
@@ -5155,7 +5017,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -5921,75 +5783,6 @@
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
-          <GroupOption>
-            <CommonProperty>
-              <UseCPPCompiler>0</UseCPPCompiler>
-              <RVCTCodeConst>0</RVCTCodeConst>
-              <RVCTZI>0</RVCTZI>
-              <RVCTOtherData>0</RVCTOtherData>
-              <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>1</IncludeInBuild>
-              <AlwaysBuild>2</AlwaysBuild>
-              <GenerateAssemblyFile>2</GenerateAssemblyFile>
-              <AssembleAssemblyFile>2</AssembleAssemblyFile>
-              <PublicsOnly>2</PublicsOnly>
-              <StopOnExitCode>11</StopOnExitCode>
-              <CustomArgument></CustomArgument>
-              <IncludeLibraryModules></IncludeLibraryModules>
-              <ComprImg>1</ComprImg>
-            </CommonProperty>
-            <GroupArmAds>
-              <Cads>
-                <interw>2</interw>
-                <Optim>0</Optim>
-                <oTime>2</oTime>
-                <SplitLS>2</SplitLS>
-                <OneElfS>2</OneElfS>
-                <Strict>2</Strict>
-                <EnumInt>2</EnumInt>
-                <PlainCh>2</PlainCh>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <wLevel>0</wLevel>
-                <uThumb>2</uThumb>
-                <uSurpInc>2</uSurpInc>
-                <uC99>2</uC99>
-                <uGnu>2</uGnu>
-                <useXO>2</useXO>
-                <v6Lang>0</v6Lang>
-                <v6LangP>0</v6LangP>
-                <vShortEn>2</vShortEn>
-                <vShortWch>2</vShortWch>
-                <v6Lto>2</v6Lto>
-                <v6WtE>2</v6WtE>
-                <v6Rtti>2</v6Rtti>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Cads>
-              <Aads>
-                <interw>2</interw>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <thumb>2</thumb>
-                <SplitLS>2</SplitLS>
-                <SwStkChk>2</SwStkChk>
-                <NoWarn>2</NoWarn>
-                <uSurpInc>2</uSurpInc>
-                <useXO>2</useXO>
-                <ClangAsOpt>0</ClangAsOpt>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Aads>
-            </GroupArmAds>
-          </GroupOption>
         </Group>
       </Groups>
     </Target>
@@ -6942,75 +6735,6 @@
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
-          <GroupOption>
-            <CommonProperty>
-              <UseCPPCompiler>0</UseCPPCompiler>
-              <RVCTCodeConst>0</RVCTCodeConst>
-              <RVCTZI>0</RVCTZI>
-              <RVCTOtherData>0</RVCTOtherData>
-              <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>1</IncludeInBuild>
-              <AlwaysBuild>2</AlwaysBuild>
-              <GenerateAssemblyFile>2</GenerateAssemblyFile>
-              <AssembleAssemblyFile>2</AssembleAssemblyFile>
-              <PublicsOnly>2</PublicsOnly>
-              <StopOnExitCode>11</StopOnExitCode>
-              <CustomArgument></CustomArgument>
-              <IncludeLibraryModules></IncludeLibraryModules>
-              <ComprImg>1</ComprImg>
-            </CommonProperty>
-            <GroupArmAds>
-              <Cads>
-                <interw>2</interw>
-                <Optim>0</Optim>
-                <oTime>2</oTime>
-                <SplitLS>2</SplitLS>
-                <OneElfS>2</OneElfS>
-                <Strict>2</Strict>
-                <EnumInt>2</EnumInt>
-                <PlainCh>2</PlainCh>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <wLevel>0</wLevel>
-                <uThumb>2</uThumb>
-                <uSurpInc>2</uSurpInc>
-                <uC99>2</uC99>
-                <uGnu>2</uGnu>
-                <useXO>2</useXO>
-                <v6Lang>0</v6Lang>
-                <v6LangP>0</v6LangP>
-                <vShortEn>2</vShortEn>
-                <vShortWch>2</vShortWch>
-                <v6Lto>2</v6Lto>
-                <v6WtE>2</v6WtE>
-                <v6Rtti>2</v6Rtti>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Cads>
-              <Aads>
-                <interw>2</interw>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <thumb>2</thumb>
-                <SplitLS>2</SplitLS>
-                <SwStkChk>2</SwStkChk>
-                <NoWarn>2</NoWarn>
-                <uSurpInc>2</uSurpInc>
-                <useXO>2</useXO>
-                <ClangAsOpt>0</ClangAsOpt>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Aads>
-            </GroupArmAds>
-          </GroupOption>
         </Group>
       </Groups>
     </Target>
@@ -7197,7 +6921,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>1</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -7963,75 +7687,6 @@
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
-          <GroupOption>
-            <CommonProperty>
-              <UseCPPCompiler>0</UseCPPCompiler>
-              <RVCTCodeConst>0</RVCTCodeConst>
-              <RVCTZI>0</RVCTZI>
-              <RVCTOtherData>0</RVCTOtherData>
-              <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>1</IncludeInBuild>
-              <AlwaysBuild>2</AlwaysBuild>
-              <GenerateAssemblyFile>2</GenerateAssemblyFile>
-              <AssembleAssemblyFile>2</AssembleAssemblyFile>
-              <PublicsOnly>2</PublicsOnly>
-              <StopOnExitCode>11</StopOnExitCode>
-              <CustomArgument></CustomArgument>
-              <IncludeLibraryModules></IncludeLibraryModules>
-              <ComprImg>1</ComprImg>
-            </CommonProperty>
-            <GroupArmAds>
-              <Cads>
-                <interw>2</interw>
-                <Optim>0</Optim>
-                <oTime>2</oTime>
-                <SplitLS>2</SplitLS>
-                <OneElfS>2</OneElfS>
-                <Strict>2</Strict>
-                <EnumInt>2</EnumInt>
-                <PlainCh>2</PlainCh>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <wLevel>0</wLevel>
-                <uThumb>2</uThumb>
-                <uSurpInc>2</uSurpInc>
-                <uC99>2</uC99>
-                <uGnu>2</uGnu>
-                <useXO>2</useXO>
-                <v6Lang>0</v6Lang>
-                <v6LangP>0</v6LangP>
-                <vShortEn>2</vShortEn>
-                <vShortWch>2</vShortWch>
-                <v6Lto>2</v6Lto>
-                <v6WtE>2</v6WtE>
-                <v6Rtti>2</v6Rtti>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Cads>
-              <Aads>
-                <interw>2</interw>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <thumb>2</thumb>
-                <SplitLS>2</SplitLS>
-                <SwStkChk>2</SwStkChk>
-                <NoWarn>2</NoWarn>
-                <uSurpInc>2</uSurpInc>
-                <useXO>2</useXO>
-                <ClangAsOpt>0</ClangAsOpt>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Aads>
-            </GroupArmAds>
-          </GroupOption>
         </Group>
       </Groups>
     </Target>
@@ -8213,7 +7868,7 @@
             <hadXRAM>1</hadXRAM>
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
-            <RvdsMve>2</RvdsMve>
+            <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
@@ -8984,75 +8639,6 @@
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
-          <GroupOption>
-            <CommonProperty>
-              <UseCPPCompiler>0</UseCPPCompiler>
-              <RVCTCodeConst>0</RVCTCodeConst>
-              <RVCTZI>0</RVCTZI>
-              <RVCTOtherData>0</RVCTOtherData>
-              <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>1</IncludeInBuild>
-              <AlwaysBuild>2</AlwaysBuild>
-              <GenerateAssemblyFile>2</GenerateAssemblyFile>
-              <AssembleAssemblyFile>2</AssembleAssemblyFile>
-              <PublicsOnly>2</PublicsOnly>
-              <StopOnExitCode>11</StopOnExitCode>
-              <CustomArgument></CustomArgument>
-              <IncludeLibraryModules></IncludeLibraryModules>
-              <ComprImg>1</ComprImg>
-            </CommonProperty>
-            <GroupArmAds>
-              <Cads>
-                <interw>2</interw>
-                <Optim>0</Optim>
-                <oTime>2</oTime>
-                <SplitLS>2</SplitLS>
-                <OneElfS>2</OneElfS>
-                <Strict>2</Strict>
-                <EnumInt>2</EnumInt>
-                <PlainCh>2</PlainCh>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <wLevel>0</wLevel>
-                <uThumb>2</uThumb>
-                <uSurpInc>2</uSurpInc>
-                <uC99>2</uC99>
-                <uGnu>2</uGnu>
-                <useXO>2</useXO>
-                <v6Lang>0</v6Lang>
-                <v6LangP>0</v6LangP>
-                <vShortEn>2</vShortEn>
-                <vShortWch>2</vShortWch>
-                <v6Lto>2</v6Lto>
-                <v6WtE>2</v6WtE>
-                <v6Rtti>2</v6Rtti>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Cads>
-              <Aads>
-                <interw>2</interw>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <thumb>2</thumb>
-                <SplitLS>2</SplitLS>
-                <SwStkChk>2</SwStkChk>
-                <NoWarn>2</NoWarn>
-                <uSurpInc>2</uSurpInc>
-                <useXO>2</useXO>
-                <ClangAsOpt>0</ClangAsOpt>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Aads>
-            </GroupArmAds>
-          </GroupOption>
         </Group>
       </Groups>
     </Target>
@@ -10005,75 +9591,6 @@
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
-          <GroupOption>
-            <CommonProperty>
-              <UseCPPCompiler>0</UseCPPCompiler>
-              <RVCTCodeConst>0</RVCTCodeConst>
-              <RVCTZI>0</RVCTZI>
-              <RVCTOtherData>0</RVCTOtherData>
-              <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>1</IncludeInBuild>
-              <AlwaysBuild>2</AlwaysBuild>
-              <GenerateAssemblyFile>2</GenerateAssemblyFile>
-              <AssembleAssemblyFile>2</AssembleAssemblyFile>
-              <PublicsOnly>2</PublicsOnly>
-              <StopOnExitCode>11</StopOnExitCode>
-              <CustomArgument></CustomArgument>
-              <IncludeLibraryModules></IncludeLibraryModules>
-              <ComprImg>1</ComprImg>
-            </CommonProperty>
-            <GroupArmAds>
-              <Cads>
-                <interw>2</interw>
-                <Optim>0</Optim>
-                <oTime>2</oTime>
-                <SplitLS>2</SplitLS>
-                <OneElfS>2</OneElfS>
-                <Strict>2</Strict>
-                <EnumInt>2</EnumInt>
-                <PlainCh>2</PlainCh>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <wLevel>0</wLevel>
-                <uThumb>2</uThumb>
-                <uSurpInc>2</uSurpInc>
-                <uC99>2</uC99>
-                <uGnu>2</uGnu>
-                <useXO>2</useXO>
-                <v6Lang>0</v6Lang>
-                <v6LangP>0</v6LangP>
-                <vShortEn>2</vShortEn>
-                <vShortWch>2</vShortWch>
-                <v6Lto>2</v6Lto>
-                <v6WtE>2</v6WtE>
-                <v6Rtti>2</v6Rtti>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Cads>
-              <Aads>
-                <interw>2</interw>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <thumb>2</thumb>
-                <SplitLS>2</SplitLS>
-                <SwStkChk>2</SwStkChk>
-                <NoWarn>2</NoWarn>
-                <uSurpInc>2</uSurpInc>
-                <useXO>2</useXO>
-                <ClangAsOpt>0</ClangAsOpt>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Aads>
-            </GroupArmAds>
-          </GroupOption>
         </Group>
       </Groups>
     </Target>
@@ -10157,12 +9674,12 @@
           </targetInfo>
           <targetInfo name="V2M-MPS2-CM33">
             <c>
-              <MiscControls>-Ofast -Wno-undef -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-cast-qual -Wno-implicit-int-conversion -Wno-extra-semi-stmt -Wno-padded -Wno-cast-align -Wno-shadow -Wno-shorten-64-to-32 -Wno-conditional-uninitialized -Wno-vector-conversion -Wno-implicit-float-conversion -Wno-double-promotion -Wno-vla -Wno-newline-eof</MiscControls>
+              <MiscControls>-w</MiscControls>
             </c>
           </targetInfo>
           <targetInfo name="V2M-MPS2-CM4">
             <c>
-              <MiscControls>-Ofast -Wno-undef -Wno-packed -Wno-padded -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-cast-qual -Wno-implicit-int-conversion -Wno-extra-semi-stmt -Wno-padded -Wno-cast-align -Wno-shadow -Wno-shorten-64-to-32 -Wno-conditional-uninitialized -Wno-vector-conversion -Wno-implicit-float-conversion -Wno-double-promotion -Wno-vla -Wno-newline-eof</MiscControls>
+              <MiscControls>-w</MiscControls>
             </c>
           </targetInfo>
           <targetInfo name="V2M-MPS2-CM7">
@@ -10172,7 +9689,7 @@
           </targetInfo>
           <targetInfo name="V2M-MPS3-CM55">
             <c>
-              <MiscControls>-Wno-undef -Wno-align-mismatch -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-cast-qual -Wno-implicit-int-conversion -Wno-extra-semi-stmt -Wno-padded -Wno-cast-align -Wno-shadow -Wno-shorten-64-to-32 -Wno-conditional-uninitialized -Wno-vector-conversion -Wno-implicit-float-conversion -Wno-double-promotion -Wno-vla -Wno-newline-eof</MiscControls>
+              <MiscControls>-w</MiscControls>
             </c>
           </targetInfo>
         </targetInfos>
@@ -10305,7 +9822,7 @@
           <targetInfo name="V2M-MPS2-CM7"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.3" condition="IOTKit_CM33 CMSIS" isTargetSpecific="1">
+      <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.3" condition="IOTKit_CM33 CMSIS">
         <package name="V2M-MPS2_IOTKit_BSP" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.4.2"/>
         <targetInfos>
           <targetInfo name="V2M-MPS2-CM33"/>

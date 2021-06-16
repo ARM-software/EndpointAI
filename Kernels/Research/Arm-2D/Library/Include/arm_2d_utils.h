@@ -27,22 +27,28 @@
 
 /*============================ INCLUDES ======================================*/
 
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#   pragma clang diagnostic ignored "-Wpadded"
+#   pragma clang diagnostic ignored "-Wsign-conversion"
+#   pragma clang diagnostic ignored "-Wimplicit-int-conversion"
+#   pragma clang diagnostic ignored "-Wundef"
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wpedantic"
+#endif
+
 /*! \note arm-2d relies on CMSIS 5.4.0 and above.
  */
 #include "cmsis_compiler.h"
+#include <arm_math.h>
 
 #ifdef   __cplusplus
 extern "C" {
 #endif
 
-#if defined(__clang__)
-#   pragma clang diagnostic push
-#   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
-//#   pragma clang diagnostic ignored "-Wpadded"
-#elif __IS_COMPILER_GCC__
-#   pragma GCC diagnostic push
-#   pragma GCC diagnostic ignored "-Wpedantic"
-#endif
+
 
 /*============================ MACROS ========================================*/
 
@@ -289,6 +295,13 @@ extern "C" {
 #   endif
 #endif
 
+
+#ifndef ARM_ALIGN
+#   define __ARM_ALIGN(__N)        __attribute__((aligned(__N)))
+#   define ARM_ALIGN(__N)          __ARM_ALIGN(__N) 
+#endif
+
+
 #ifndef __RESTRICT
 #   define __RESTRICT                __restrict
 #endif
@@ -456,14 +469,8 @@ struct __arm_slist_node_t {
                 __ALIGNED(__alignof__(struct {__VA_ARGS__}));
 #endif
 
-#define ABS(x) ((x) > 0 ? (x) : -(x))
 
-/* to be moved in a more suitable place */
-#include <armdsp.h>
-/* 32 bit multiplication with high part extraction */
-#define MULTFX(x,y)         (q31_t)(((q63_t) (x) * (y)) >> 32)
 
-#define ALIGN8              __attribute__((aligned(8)))
 
 /* post un-define macros */
 

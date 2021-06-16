@@ -1481,7 +1481,7 @@ mve_pred16_t arm_2d_is_point_vec_inside_region_s32(const arm_2d_region_t * ptReg
 
 
 static
-void __arm_2d_impl_rgb565_get_pixel_colour_mve(   arm_2d_point_s16x8_t *ptPoint,
+void __arm_2d_impl_rgb565_get_pixel_colour(   arm_2d_point_s16x8_t *ptPoint,
                                             arm_2d_region_t *ptOrigValidRegion,
                                             uint16_t *pOrigin,
                                             int16_t iOrigStride,
@@ -1494,20 +1494,57 @@ void __arm_2d_impl_rgb565_get_pixel_colour_mve(   arm_2d_point_s16x8_t *ptPoint,
 #else
     /* set vector predicate if point is inside the region */
     mve_pred16_t    p = arm_2d_is_point_vec_inside_region_s16(ptOrigValidRegion, ptPoint);
+    mve_pred16_t    predTail = vctp16q(elts);
     /* prepare vector of point offsets */
     uint16x8_t      ptOffs = ptPoint->X + ptPoint->Y * iOrigStride;
     uint16x8_t      vPixel = vld1q(pTarget);
     /* retrieve all point values */
-    uint16x8_t      ptVal = vldrhq_gather_shifted_offset_u16(pOrigin, ptOffs);
+    uint16x8_t      ptVal = vldrhq_gather_shifted_offset_z_u16(pOrigin, ptOffs, predTail);
 
     /* combine 2 predicates set to true if point is in the region & values different from color mask */
     vPixel = vpselq_u16(ptVal, vPixel, vcmpneq_m_n_u16(ptVal, MaskColour, p));
 
-    vst1q_p(pTarget, vPixel, vctp16q(elts));
+    vst1q_p(pTarget, vPixel, predTail);
 
 #endif
 }
 
+static
+void __arm_2d_impl_rgb565_get_pixel_colour_offs_compensated(   arm_2d_point_s16x8_t *ptPoint,
+                                            arm_2d_region_t    *ptOrigValidRegion,
+                                            uint16_t           *pOrigin,
+                                            int16_t             iOrigStride,
+                                            uint16_t           *pTarget,
+                                            uint16_t            MaskColour,
+                                            uint32_t            elts,
+                                            int16_t             correctionOffset)
+{
+#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#error "The current version hasn\'t support interpolation in rotation yet."
+#else
+    /* set vector predicate if point is inside the region */
+    mve_pred16_t    p = arm_2d_is_point_vec_inside_region_s16(ptOrigValidRegion, ptPoint);
+    mve_pred16_t    predTail = vctp16q(elts);
+
+    /* prepare vector of point offsets */
+    /* correctionOffset avoid 16-bit overflow */
+    uint16x8_t      ptOffs =
+        ptPoint->X + (ptPoint->Y - correctionOffset) * iOrigStride;
+
+    /* base pointer update to compensate offset */
+    pOrigin += (correctionOffset * iOrigStride);
+
+    uint16x8_t      vPixel = vld1q(pTarget);
+    /* retrieve all point values */
+    uint16x8_t      ptVal = vldrhq_gather_shifted_offset_z_u16(pOrigin, ptOffs, predTail);
+
+    /* combine 2 predicates set to true if point is in the region & values different from color mask */
+    vPixel = vpselq_u16(ptVal, vPixel, vcmpneq_m_n_u16(ptVal, MaskColour, p));
+
+    vst1q_p(pTarget, vPixel, predTail);
+
+#endif
+}
 
 static
 void __arm_2d_impl_rgb888_get_pixel_colour_mve(   arm_2d_point_s16x8_t *ptPoint,
@@ -1523,7 +1560,7 @@ void __arm_2d_impl_rgb888_get_pixel_colour_mve(   arm_2d_point_s16x8_t *ptPoint,
 #else
 
     arm_2d_point_s32x4_t    tPointLo, tPointHi;
-    ALIGN8  int16_t         scratch[8];
+    ARM_ALIGN(8)  int16_t         scratch[8];
     mve_pred16_t            p;
 
     /* split 16-bit point vector into 2 x 32-bit vectors */
@@ -1567,7 +1604,7 @@ void __arm_2d_impl_rgb888_get_pixel_colour_mve(   arm_2d_point_s16x8_t *ptPoint,
 
 
 static
-void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_mve(
+void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(
                                             arm_2d_point_s16x8_t    *ptPoint,
                                             arm_2d_region_t         *ptOrigValidRegion,
                                             uint16_t                *pOrigin,
@@ -1602,6 +1639,48 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_mve(
 }
 
 
+static
+void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(
+                                            arm_2d_point_s16x8_t    *ptPoint,
+                                            arm_2d_region_t         *ptOrigValidRegion,
+                                            uint16_t                *pOrigin,
+                                            int16_t                  iOrigStride,
+                                            uint16_t                *pTarget,
+                                            uint16_t                 MaskColour,
+                                            uint8_t                  chOpacity,
+                                            uint32_t                 elts,
+                                            int16_t                  correctionOffset)
+{
+#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#error "The current version hasn\'t support interpolation in rotation yet."
+#else
+    /* set vector predicate if point is inside the region */
+    mve_pred16_t    p = arm_2d_is_point_vec_inside_region_s16(ptOrigValidRegion, ptPoint);
+    /* prepare vector of point offsets */
+    /* correctionOffset avoid 16-bit overflow */
+    uint16x8_t      ptOffs =
+        ptPoint->X + (ptPoint->Y - correctionOffset) * iOrigStride;
+    mve_pred16_t    predTail = vctp16q(elts);
+
+    uint16x8_t      vPixel = vld1q(pTarget);
+    /* retrieve all point values */
+    /* base pointer update to compensate offset */
+    pOrigin += (correctionOffset * iOrigStride);
+
+    uint16x8_t      ptVal = vldrhq_gather_shifted_offset_z_u16(pOrigin, ptOffs, predTail);
+
+
+    /* alpha blending */
+    uint16x8_t      vBlended =
+        __rgb565_alpha_blending_single_vec(ptVal, vPixel, chOpacity);
+
+    /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
+    vPixel = vpselq_u16(vBlended, vPixel, vcmpneq_m_n_u16(ptVal, MaskColour, p));
+
+    vst1q_p(pTarget, vPixel, predTail);
+
+#endif
+}
 
 static
 void __arm_2d_impl_rgb888_get_pixel_colour_with_alpha_mve(
@@ -1618,8 +1697,8 @@ void __arm_2d_impl_rgb888_get_pixel_colour_with_alpha_mve(
 #error "The current version hasn\'t support interpolation in rotation yet."
 #else
     arm_2d_point_s32x4_t    tPointLo, tPointHi;
-    ALIGN8 int16_t          scratch[8];
-    ALIGN8 uint32_t         blendled[4];
+    ARM_ALIGN(8) int16_t          scratch[8];
+    ARM_ALIGN(8) uint32_t         blendled[4];
     mve_pred16_t            p;
 
     /* split 16-bit point vector into 2 x 32-bit vectors */
@@ -1694,11 +1773,12 @@ void __arm_2d_impl_rgb888_get_pixel_colour_with_alpha_mve(
     && !__ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
 
 static
-void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
+bool __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
                                     arm_2d_location_t * pSrcPoint,
                                     float fAngle,
                                     arm_2d_location_t * tOffset,
                                     arm_2d_location_t * center,
+                                    int32_t             iOrigStride,
                                     arm_2d_rot_linear_regr_t regrCoefs[]
     )
 {
@@ -1712,6 +1792,8 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     float           sinAngle = arm_sin_f32(fAngle);
     arm_2d_point_float_t centerf;
     float           slopeX, slopeY;
+    bool            gatherLoadIdxOverflow = 0;
+
 
     centerf.fX = (float) center->iX;
     centerf.fY = (float) center->iY;
@@ -1746,6 +1828,18 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     vPointCornerF.Y = vmulq_n_f32(vTmp.X, sinAngle) + vmulq_n_f32(vTmp.Y, cosAngle);
     vPointCornerF.Y = vaddq_n_f32(vPointCornerF.Y, centerf.fY);
 
+    /*
+       Check whether rotated index offsets could exceed 16-bit limits
+       used in subsequent gather loads
+       This will occur for parts of large images (e.g. 320*200)
+       To avoid unconditional penalties for small/medium images,
+       returns a speculative overflow allowing to handle large offsets.
+    */
+    float32_t maxY = vmaxnmvq(0.0f, vPointCornerF.Y);
+
+    if((iOrigStride * maxY) > (float)(UINT16_MAX))
+        gatherLoadIdxOverflow = true;
+
 
     /* interpolation in Y direction for 1st elements column */
     slopeX = (vPointCornerF.X[2] - vPointCornerF.X[0]) * invHeight;
@@ -1766,6 +1860,7 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     regrCoefs[1].interceptY = vPointCornerF.Y[1];
     regrCoefs[1].interceptX = vPointCornerF.X[1];
 
+    return gatherLoadIdxOverflow;
 }
 
 
@@ -1787,48 +1882,91 @@ void __arm_2d_impl_rgb565_rotate( __arm_2d_param_copy_orig_t *ptParam,
         ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
     arm_2d_location_t *pCenter = &(ptInfo->tCenter);
 
-    float                       invIWidth = 1.0f / (float) (iWidth - 1);
-    arm_2d_rot_linear_regr_t    regrCoefs[2];
-    arm_2d_location_t           SrcPt = ptInfo->tDummySourceOffset;
+    float           invIWidth = 1.0f / (float) (iWidth - 1);
+    arm_2d_rot_linear_regr_t regrCoefs[2];
+    arm_2d_location_t SrcPt = ptInfo->tDummySourceOffset;
+    bool            gatherLoadIdxOverflow;
 
     /* get regression parameters over 1st and last column */
-    __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize,
-                               &SrcPt, fAngle, &tOffset, pCenter, regrCoefs);
+    gatherLoadIdxOverflow =
+        __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize,
+                                   &SrcPt, fAngle, &tOffset, pCenter, iOrigStride,
+                                   regrCoefs);
 
     /* slopes between 1st and last columns */
-    float16_t           slopeY, slopeX;
+    float16_t       slopeY, slopeX;
 
-    slopeY = (float16_t)(regrCoefs[1].interceptY - regrCoefs[0].interceptY) * invIWidth;
-    slopeX = (float16_t)(regrCoefs[1].interceptX - regrCoefs[0].interceptX) * invIWidth;
+    slopeY = (float16_t) (regrCoefs[1].interceptY - regrCoefs[0].interceptY) * invIWidth;
+    slopeX = (float16_t) (regrCoefs[1].interceptX - regrCoefs[0].interceptX) * invIWidth;
 
-    for (int32_t y = 0; y < iHeight; y++) {
+    if (!gatherLoadIdxOverflow) {
+        for (int32_t y = 0; y < iHeight; y++) {
 
-        /* 1st column estimates (intercepts for regression in X direction */
-        float16_t       colFirstY = regrCoefs[0].slopeY * y + regrCoefs[0].interceptY;
-        float16_t       colFirstX = regrCoefs[0].slopeX * y + regrCoefs[0].interceptX;
-        int32_t         nbVecElts = iWidth;
-        float16x8_t     vX = vcvtq_f16_s16((int16x8_t) vidupq_n_u16(0, 1));
-        uint16_t       *pTargetBaseCur = pTargetBase;
+            /* 1st column estimates (intercepts for regression in X direction */
+            float16_t       colFirstY = regrCoefs[0].slopeY * y + regrCoefs[0].interceptY;
+            float16_t       colFirstX = regrCoefs[0].slopeX * y + regrCoefs[0].interceptX;
+            int32_t         nbVecElts = iWidth;
+            float16x8_t     vX = vcvtq_f16_s16((int16x8_t) vidupq_n_u16(0, 1));
+            uint16_t       *pTargetBaseCur = pTargetBase;
 
-        while (nbVecElts > 0) {
-            arm_2d_point_s16x8_t tPointV;
+            while (nbVecElts > 0) {
+                arm_2d_point_s16x8_t tPointV;
 
-            tPointV.X = vcvtq_s16_f16(
-                vfmaq_n_f16(vdupq_n_f16(colFirstX), vX, slopeX));
-            tPointV.Y = vcvtq_s16_f16(
-                vfmaq_n_f16(vdupq_n_f16(colFirstY), vX, slopeY));
+                    tPointV.X =
+                        vcvtq_s16_f16(vfmaq_n_f16(vdupq_n_f16(colFirstX), vX, slopeX));
+                    tPointV.Y =
+                        vcvtq_s16_f16(vfmaq_n_f16(vdupq_n_f16(colFirstY), vX, slopeY));
 
-            __arm_2d_impl_rgb565_get_pixel_colour_mve(&tPointV,
-                                                      &ptParam->tOrigin.tValidRegion,
-                                                      pOrigin,
-                                                      iOrigStride,
-                                                      pTargetBaseCur, MaskColour, nbVecElts);
+                    __arm_2d_impl_rgb565_get_pixel_colour(&tPointV,
+                                                          &ptParam->tOrigin.tValidRegion,
+                                                          pOrigin,
+                                                          iOrigStride,
+                                                          pTargetBaseCur, MaskColour,
+                                                          nbVecElts);
 
-            pTargetBaseCur += 8;
-            vX += 8.0f16;
-            nbVecElts -= 8;
+                pTargetBaseCur += 8;
+                vX += 8.0f16;
+                nbVecElts -= 8;
+            }
+            pTargetBase += iTargetStride;
         }
-        pTargetBase += iTargetStride;
+    } else {
+        for (int32_t y = 0; y < iHeight; y++) {
+
+            /* 1st column estimates (intercepts for regression in X direction */
+            float16_t       colFirstY = regrCoefs[0].slopeY * y + regrCoefs[0].interceptY;
+            float16_t       colFirstX = regrCoefs[0].slopeX * y + regrCoefs[0].interceptX;
+            int32_t         nbVecElts = iWidth;
+            float16x8_t     vX = vcvtq_f16_s16((int16x8_t) vidupq_n_u16(0, 1));
+            uint16_t       *pTargetBaseCur = pTargetBase;
+
+            while (nbVecElts > 0) {
+                arm_2d_point_s16x8_t tPointV;
+
+                tPointV.X =
+                    vcvtq_s16_f16(vfmaq_n_f16(vdupq_n_f16(colFirstX), vX, slopeX));
+                tPointV.Y =
+                    vcvtq_s16_f16(vfmaq_n_f16(vdupq_n_f16(colFirstY), vX, slopeY));
+
+                /* get Y minimum, subtract 1 to compensate negative X, as gather load index cannot be negative */
+                int16_t         correctionOffset = vminvq_s16(0x7fff, tPointV.Y) - 1;
+
+                __arm_2d_impl_rgb565_get_pixel_colour_offs_compensated(&tPointV,
+                                                                       &ptParam->tOrigin.
+                                                                       tValidRegion,
+                                                                       pOrigin,
+                                                                       iOrigStride,
+                                                                       pTargetBaseCur,
+                                                                       MaskColour,
+                                                                       nbVecElts,
+                                                                       correctionOffset);
+
+                pTargetBaseCur += 8;
+                vX += 8.0f16;
+                nbVecElts -= 8;
+            }
+            pTargetBase += iTargetStride;
+        }
     }
 }
 
@@ -1838,10 +1976,10 @@ __OVERRIDE_WEAK
 void __arm_2d_impl_rgb888_rotate(   __arm_2d_param_copy_orig_t *ptParam,
                                     __arm_2d_rotate_info_t *ptInfo)
 {
-    int32_t    iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
-    int32_t    iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
+    int32_t         iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
+    int32_t         iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
 
-    int32_t    iTargetStride =
+    int32_t         iTargetStride =
         ptParam->use_as____arm_2d_param_copy_t.tTarget.iStride;
     uint32_t       *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
     uint32_t       *pOrigin = ptParam->tOrigin.pBuffer;
@@ -1851,13 +1989,14 @@ void __arm_2d_impl_rgb888_rotate(   __arm_2d_param_copy_orig_t *ptParam,
     arm_2d_location_t tOffset =
         ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
     arm_2d_location_t *pCenter = &(ptInfo->tCenter);
-    float                       invIWidth = 1.0f / (float) (iWidth - 1);
+    float           invIWidth = 1.0f / (float) (iWidth - 1);
     arm_2d_rot_linear_regr_t    regrCoefs[2];
     arm_2d_location_t           SrcPt = ptInfo->tDummySourceOffset;
 
     /* get regression parameters over 1st and last column */
     __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize,
-                               &SrcPt, fAngle, &tOffset, pCenter, regrCoefs);
+                                   &SrcPt, fAngle, &tOffset, pCenter, iOrigStride,
+                                   regrCoefs);
 
     /* slopes between 1st and last columns */
     float16_t           slopeY, slopeX;
@@ -1897,6 +2036,132 @@ void __arm_2d_impl_rgb888_rotate(   __arm_2d_param_copy_orig_t *ptParam,
     }
 }
 
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb565_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
+                                    __arm_2d_rotate_info_t *ptInfo,
+                                    uint_fast8_t chRatio)
+{
+    int32_t         iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
+    int32_t         iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
+
+    int32_t         iTargetStride =
+        ptParam->use_as____arm_2d_param_copy_t.tTarget.iStride;
+    uint16_t       *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
+    uint16_t       *pOrigin = ptParam->tOrigin.pBuffer;
+    int32_t         iOrigStride = ptParam->tOrigin.iStride;
+    uint16_t        MaskColour = ptInfo->Mask.hwColour;
+    float           fAngle = -ptInfo->fAngle;
+    arm_2d_location_t tOffset =
+        ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
+    arm_2d_location_t *pCenter = &(ptInfo->tCenter);
+
+    uint16_t        hwRatioCompl = 256 - chRatio;
+    float           invIWidth = 1.0f / (float) (iWidth - 1);
+    arm_2d_rot_linear_regr_t regrCoefs[2];
+    arm_2d_location_t SrcPt = ptInfo->tDummySourceOffset;
+    bool            gatherLoadIdxOverflow;
+
+    /* get regression parameters over 1st and last column */
+    gatherLoadIdxOverflow =
+        __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize,
+                                   &SrcPt, fAngle, &tOffset, pCenter, iOrigStride,
+                                   regrCoefs);
+
+    /* slopes between 1st and last columns */
+    float16_t       slopeY, slopeX;
+
+    slopeY = (float16_t) (regrCoefs[1].interceptY - regrCoefs[0].interceptY) * invIWidth;
+    slopeX = (float16_t) (regrCoefs[1].interceptX - regrCoefs[0].interceptX) * invIWidth;
+
+    if (!gatherLoadIdxOverflow) {
+        for (int32_t y = 0; y < iHeight; y++) {
+            /* 1st column estimates (intercepts for regression in X direction */
+            float16_t       colFirstY =
+                (float16_t) (regrCoefs[0].slopeY * y + regrCoefs[0].interceptY);
+            float16_t       colFirstX =
+                (float16_t) (regrCoefs[0].slopeX * y + regrCoefs[0].interceptX);
+
+            int32_t         nbVecElts = iWidth;
+            float16x8_t     vX = vcvtq_f16_s16((int16x8_t) vidupq_n_u16(0, 1));
+            uint16_t       *pTargetBaseCur = pTargetBase;
+
+            while (nbVecElts > 0) {
+                arm_2d_point_s16x8_t tPointV;
+
+                /* linear interpolation thru first & last columns */
+                tPointV.X =
+                    vcvtq_s16_f16(vfmaq_n_f16(vdupq_n_f16(colFirstX), vX, slopeX));
+                tPointV.Y =
+                    vcvtq_s16_f16(vfmaq_n_f16(vdupq_n_f16(colFirstY), vX, slopeY));
+
+                __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(&tPointV,
+                                                                     &ptParam->tOrigin.
+                                                                     tValidRegion,
+                                                                     pOrigin, iOrigStride,
+                                                                     pTargetBaseCur,
+                                                                     MaskColour,
+                                                                     hwRatioCompl,
+                                                                     nbVecElts);
+                pTargetBaseCur += 8;
+                vX += 8.0f16;
+                nbVecElts -= 8;
+            }
+            pTargetBase += iTargetStride;
+        }
+    } else {
+
+        /*
+            Large image / Large origin offsets
+            Gather load 16-bit could overflow
+                - Y offset needs to be shifted down to avoid overflow
+                - 16-bit gather loads base address is incremented
+
+            Needs to be done in the inner loop.
+            In the case of steep slopes, taking the minimum between the Y extrema could still generate overflows
+        */
+        for (int32_t y = 0; y < iHeight; y++) {
+            /* 1st column estimates (intercepts for regression in X direction */
+            float16_t       colFirstY =
+                (float16_t) (regrCoefs[0].slopeY * y + regrCoefs[0].interceptY);
+            float16_t       colFirstX =
+                (float16_t) (regrCoefs[0].slopeX * y + regrCoefs[0].interceptX);
+
+            int32_t         nbVecElts = iWidth;
+            float16x8_t     vX = vcvtq_f16_s16((int16x8_t) vidupq_n_u16(0, 1));
+            uint16_t       *pTargetBaseCur = pTargetBase;
+
+            while (nbVecElts > 0) {
+                arm_2d_point_s16x8_t tPointV;
+
+                /* linear interpolation thru first & last columns */
+                tPointV.X =
+                    vcvtq_s16_f16(vfmaq_n_f16(vdupq_n_f16(colFirstX), vX, slopeX));
+                tPointV.Y =
+                    vcvtq_s16_f16(vfmaq_n_f16(vdupq_n_f16(colFirstY), vX, slopeY));
+
+                /* get Y minimum, subtract 1 to compensate negative X, as gather load index cannot be negative */
+                int16_t         correctionOffset = vminvq_s16(0x7fff, tPointV.Y) - 1;
+
+                __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(&tPointV,
+                                                                        &ptParam->tOrigin.
+                                                                        tValidRegion,
+                                                                        pOrigin,
+                                                                        iOrigStride,
+                                                                        pTargetBaseCur,
+                                                                        MaskColour,
+                                                                        hwRatioCompl,
+                                                                        nbVecElts,
+                                                                        correctionOffset);
+                pTargetBaseCur += 8;
+                vX += 8.0f16;
+                nbVecElts -= 8;
+            }
+            pTargetBase += iTargetStride;
+        }
+    }
+}
+
+
 /* untested */
 __OVERRIDE_WEAK
 void __arm_2d_impl_rgb888_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
@@ -1922,8 +2187,10 @@ void __arm_2d_impl_rgb888_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
     arm_2d_location_t           SrcPt = ptInfo->tDummySourceOffset;
 
     /* get regression parameters over 1st and last column */
-    __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize,
-                               &SrcPt, fAngle, &tOffset, pCenter, regrCoefs);
+     __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize,
+                                   &SrcPt, fAngle, &tOffset, pCenter, iOrigStride,
+                                   regrCoefs);
+
 
     /* slopes between 1st and last columns */
     float16_t           slopeY, slopeX;
@@ -1963,74 +2230,6 @@ void __arm_2d_impl_rgb888_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
     }
 }
 
-
-
-__OVERRIDE_WEAK
-void __arm_2d_impl_rgb565_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
-                                    __arm_2d_rotate_info_t *ptInfo,
-                                    uint_fast8_t chRatio)
-{
-    int32_t    iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
-    int32_t    iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
-
-    int32_t    iTargetStride =
-        ptParam->use_as____arm_2d_param_copy_t.tTarget.iStride;
-    uint16_t       *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
-    uint16_t       *pOrigin = ptParam->tOrigin.pBuffer;
-    int32_t    iOrigStride = ptParam->tOrigin.iStride;
-    uint16_t        MaskColour = ptInfo->Mask.hwColour;
-    float           fAngle = -ptInfo->fAngle;
-    arm_2d_location_t tOffset =
-        ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
-    arm_2d_location_t *pCenter = &(ptInfo->tCenter);
-
-    uint16_t        hwRatioCompl = 256 - chRatio;
-    float           invIWidth = 1.0f / (float) (iWidth - 1);
-    arm_2d_rot_linear_regr_t    regrCoefs[2];
-    arm_2d_location_t           SrcPt = ptInfo->tDummySourceOffset;
-
-    /* get regression parameters over 1st and last column */
-    __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize,
-                               &SrcPt, fAngle, &tOffset, pCenter, regrCoefs);
-
-    /* slopes between 1st and last columns */
-    float16_t           slopeY, slopeX;
-
-    slopeY = (float16_t)(regrCoefs[1].interceptY - regrCoefs[0].interceptY) * invIWidth;
-    slopeX = (float16_t)(regrCoefs[1].interceptX - regrCoefs[0].interceptX) * invIWidth;
-
-    for (int32_t y = 0; y < iHeight; y++) {
-        /* 1st column estimates (intercepts for regression in X direction */
-        float16_t       colFirstY = (float16_t)(regrCoefs[0].slopeY * y + regrCoefs[0].interceptY);
-        float16_t       colFirstX = (float16_t)(regrCoefs[0].slopeX * y + regrCoefs[0].interceptX);
-
-        int32_t         nbVecElts = iWidth;
-        float16x8_t     vX = vcvtq_f16_s16((int16x8_t) vidupq_n_u16(0, 1));
-        uint16_t       *pTargetBaseCur = pTargetBase;
-
-        while (nbVecElts > 0) {
-            arm_2d_point_s16x8_t    tPointV;
-
-            /* linear interpolation thru first & last columns */
-            tPointV.X = vcvtq_s16_f16(
-                vfmaq_n_f16(vdupq_n_f16(colFirstX), vX, slopeX));
-            tPointV.Y = vcvtq_s16_f16(
-                vfmaq_n_f16(vdupq_n_f16(colFirstY), vX, slopeY));
-
-            __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_mve(&tPointV,
-                                                                 &ptParam->tOrigin.
-                                                                 tValidRegion, pOrigin,
-                                                                 iOrigStride, pTargetBaseCur,
-                                                                 MaskColour,
-                                                                 hwRatioCompl, nbVecElts);
-            pTargetBaseCur += 8;
-            vX += 8.0f16;
-            nbVecElts -= 8;
-        }
-        pTargetBase += iTargetStride;
-    }
-}
-
 #else /* __ARM_2D_HAS_HELIUM_FLOAT__ && ! __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__ */
 
 
@@ -2043,11 +2242,12 @@ void __arm_2d_impl_rgb565_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
 #ifdef VECTORIZED_ROTATION_REGR
 /* disabled as slower than scalar */
 static
-void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
+bool __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
                                     arm_2d_location_t * pSrcPoint,
                                     float fAngle,
                                     arm_2d_location_t * tOffset,
                                     arm_2d_location_t * center,
+                                    int32_t             iOrigStride,
                                     arm_2d_rot_linear_regr_t regrCoefs[]
     )
 {
@@ -2060,7 +2260,7 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     q31_t           sinAngleFx = arm_sin_q31(AngleFx);
     int32x4_t       vCornerX = { 0, 1, 0, 1 };
     int32x4_t       vCornerY = { 0, 0, 1, 1 };
-
+    bool            gatherLoadIdxOverflow = 0;
 
     vPointCornerI.X = vdupq_n_s32(pSrcPoint->iX + tOffset->iX);
     vPointCornerI.X = vPointCornerI.X + vmulq_n_s32(vCornerX, (iWidth - 1));
@@ -2098,6 +2298,19 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     vPointCornerI.Y = vqdmlahq(vqdmulhq_n_s32(vTmp1.X, sinAngleFx), vTmp1.Y, cosAngleFx);
     vPointCornerI.Y = vqaddq_n_s32(vPointCornerI.Y, (center->iY << 16));
 
+    /*
+       Check whether rotated index offsets could exceed 16-bit limits
+       used in subsequent gather loads
+       This will occur for parts of large images (e.g. 320*200)
+       To avoid unconditional penalties for small/medium images,
+       returns a speculative overflow allowing to handle large offsets.
+    */
+    int32_t maxY = vmaxvq(0.0f, vPointCornerI.Y);
+
+    if(MULTFX(TO_Q16(iOrigStride), maxY) > UINT16_MAX)
+        gatherLoadIdxOverflow = true;
+
+
     /* regression parameters */
 
     vTmp1.X[0] = vPointCornerI.X[0];
@@ -2123,17 +2336,18 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     regrCoefs[1].interceptY = vPointCornerI.Y[1];
     regrCoefs[1].interceptX = vPointCornerI.X[1];
 
+    return gatherLoadIdxOverflow;
 }
 
 #else
-/* duplicated from arm_2d_rotation.c */
-/* to be moved */
+
 static
-void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
+bool __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
                                             arm_2d_location_t * pSrcPoint,
                                             float fAngle,
                                             arm_2d_location_t * tOffset,
                                             arm_2d_location_t * center,
+                                            int32_t             iOrigStride,
                                             arm_2d_rot_linear_regr_t regrCoefs[]
     )
 {
@@ -2149,7 +2363,7 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     arm_2d_point_fx_t   tOffsetQ16;
     arm_2d_point_fx_t   tmp;
     int32_t             iXQ16, iYQ16;
-
+    bool                gatherLoadIdxOverflow = 0;
 
     /* Q16 conversion */
     centerQ16.X = TO_Q16(center->iX);
@@ -2203,6 +2417,20 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
         qdadd(qdadd(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
     tPointCornerFx[0][1].X =
         qdsub(qdadd(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
+    /*
+       Check whether rotated index offsets could exceed 16-bit limits
+       used in subsequent gather loads
+       This will occur for parts of large images (e.g. 320*200)
+       To avoid unconditional penalties for small/medium images,
+       returns a speculative overflow allowing to handle large offsets.
+    */
+    int32_t maxY = MAX(MAX
+                        (MAX(tPointCornerFx[0][0].Y, tPointCornerFx[0][1].Y),
+                            tPointCornerFx[1][0].Y),
+                                tPointCornerFx[1][1].Y);
+
+    if(MULTFX(TO_Q16(iOrigStride), maxY) > UINT16_MAX)
+        gatherLoadIdxOverflow = true;
 
 
     /* regression */
@@ -2226,6 +2454,8 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     regrCoefs[1].slopeX = slopeXFx* 2;
     regrCoefs[1].interceptY = tPointCornerFx[1][0].Y;
     regrCoefs[1].interceptX = tPointCornerFx[1][0].X;
+
+    return gatherLoadIdxOverflow;
 }
 
 #endif
@@ -2251,10 +2481,13 @@ void __arm_2d_impl_rgb565_rotate( __arm_2d_param_copy_orig_t *ptParam,
 	q31_t           invIWidth = 0x7fffffff / (iWidth - 1);
     arm_2d_rot_linear_regr_t    regrCoefs[2];
     arm_2d_location_t           SrcPt = ptInfo->tDummySourceOffset;
+    bool            gatherLoadIdxOverflow;
 
     /* get regression parameters over 1st and last column */
-    __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize, &SrcPt,
-                            fAngle, &tOffset, pCenter, regrCoefs);
+    gatherLoadIdxOverflow =
+        __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize,
+                                   &SrcPt, fAngle, &tOffset, pCenter, iOrigStride,
+                                   regrCoefs);
 
 
     /* slopes between 1st and last columns */
@@ -2271,6 +2504,7 @@ void __arm_2d_impl_rgb565_rotate( __arm_2d_param_copy_orig_t *ptParam,
     slopeX = ARSHIFT(slopeX, nrmSlopeX);
     slopeY = ARSHIFT(slopeY, nrmSlopeY);
 
+    if (!gatherLoadIdxOverflow) {
     for (int32_t y = 0; y < iHeight; y++) {
 
         /* 1st column estimates */
@@ -2302,17 +2536,69 @@ void __arm_2d_impl_rgb565_rotate( __arm_2d_param_copy_orig_t *ptParam,
             vtmp = vaddq_n_s16(vqrshlq_n_s16(vtmp, nrmSlopeY), colFirstY);
             tPointV.Y = vtmp >> 6;
 
-            __arm_2d_impl_rgb565_get_pixel_colour_mve(&tPointV,
+                __arm_2d_impl_rgb565_get_pixel_colour(&tPointV,
                                                       &ptParam->tOrigin.tValidRegion,
                                                       pOrigin,
                                                       iOrigStride,
-                                                      pTargetBaseCur, MaskColour, nbVecElts);
+                                                      pTargetBaseCur, MaskColour,
+                                                      nbVecElts);
 
             pTargetBaseCur += 8;
             vX += ((1<<6) * 8);
             nbVecElts -= 8;
         }
         pTargetBase += iTargetStride;
+        }
+    } else {
+        for (int32_t y = 0; y < iHeight; y++) {
+
+            /* 1st column estimates */
+            int32_t         colFirstY =
+                qadd((regrCoefs[0].slopeY * y), regrCoefs[0].interceptY);
+            int32_t         colFirstX =
+                qadd((regrCoefs[0].slopeX * y), regrCoefs[0].interceptX);
+
+            /* Q6 conversion */
+            colFirstX = colFirstX >> 10;
+            colFirstY = colFirstY >> 10;
+
+            int32_t         nbVecElts = iWidth;
+            int16x8_t       vX = (int16x8_t) vidupq_n_u16(0, 1);
+            uint16_t       *pTargetBaseCur = pTargetBase;
+
+            /* Q9.6 coversion */
+            vX = vX * (1 << 6);
+
+            while (nbVecElts > 0) {
+                arm_2d_point_s16x8_t tPointV;;
+                int16x8_t       vtmp;
+
+                vtmp = vqdmulhq_n_s16(vX, slopeX);
+                vtmp = vaddq_n_s16(vqrshlq_n_s16(vtmp, nrmSlopeX), colFirstX);
+                tPointV.X = vtmp >> 6;
+
+                vtmp = vqdmulhq_n_s16(vX, slopeY);
+                vtmp = vaddq_n_s16(vqrshlq_n_s16(vtmp, nrmSlopeY), colFirstY);
+                tPointV.Y = vtmp >> 6;
+
+                /* get Y minimum, subtract 1 to compensate negative X, as gather load index cannot be negative */
+                int16_t         correctionOffset = vminvq_s16(0x7fff, tPointV.Y) - 1;
+                __arm_2d_impl_rgb565_get_pixel_colour_offs_compensated(&tPointV,
+                                                                       &ptParam->tOrigin.
+                                                                       tValidRegion,
+                                                                       pOrigin,
+                                                                       iOrigStride,
+                                                                       pTargetBaseCur,
+                                                                       MaskColour,
+                                                                       nbVecElts,
+                                                                       correctionOffset);
+
+                pTargetBaseCur += 8;
+                vX += ((1 << 6) * 8);
+                nbVecElts -= 8;
+            }
+            pTargetBase += iTargetStride;
+        }
     }
 }
 
@@ -2324,14 +2610,14 @@ void __arm_2d_impl_rgb565_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
                                     __arm_2d_rotate_info_t *ptInfo,
                                     uint_fast8_t chRatio)
 {
-    int32_t    iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
-    int32_t    iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
+    int32_t         iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
+    int32_t         iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
 
-    int32_t    iTargetStride =
+    int32_t         iTargetStride =
         ptParam->use_as____arm_2d_param_copy_t.tTarget.iStride;
     uint16_t       *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
     uint16_t       *pOrigin = ptParam->tOrigin.pBuffer;
-    int32_t    iOrigStride = ptParam->tOrigin.iStride;
+    int32_t         iOrigStride = ptParam->tOrigin.iStride;
     uint16_t        MaskColour = ptInfo->Mask.hwColour;
     float           fAngle = -ptInfo->fAngle;
     arm_2d_location_t tOffset =
@@ -2340,21 +2626,22 @@ void __arm_2d_impl_rgb565_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
 
     uint16_t        hwRatioCompl = 256 - chRatio;
     q31_t           invIWidth = 0x7fffffff / (iWidth - 1);
-    arm_2d_rot_linear_regr_t    regrCoefs[2];
-    arm_2d_location_t           SrcPt = ptInfo->tDummySourceOffset;
+    arm_2d_rot_linear_regr_t regrCoefs[2];
+    arm_2d_location_t SrcPt = ptInfo->tDummySourceOffset;
+    bool            gatherLoadIdxOverflow;
 
     /* get regression parameters over 1st and last column */
-    __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize, &SrcPt,
-        fAngle, &tOffset, pCenter, regrCoefs);
+    gatherLoadIdxOverflow =
+        __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize,
+                                   &SrcPt, fAngle, &tOffset, pCenter, iOrigStride,
+                                   regrCoefs);
 
 
     /* slopes between 1st and last columns */
     int32_t         slopeY, slopeX;
 
-    slopeY =
-        MULTFX((regrCoefs[1].interceptY - regrCoefs[0].interceptY), invIWidth);
-    slopeX =
-        MULTFX((regrCoefs[1].interceptX - regrCoefs[0].interceptX), invIWidth);
+    slopeY = MULTFX((regrCoefs[1].interceptY - regrCoefs[0].interceptY), invIWidth);
+    slopeX = MULTFX((regrCoefs[1].interceptX - regrCoefs[0].interceptX), invIWidth);
 
     int32_t         nrmSlopeX = 17 - __CLZ(ABS(slopeX));
     int32_t         nrmSlopeY = 17 - __CLZ(ABS(slopeY));
@@ -2362,49 +2649,106 @@ void __arm_2d_impl_rgb565_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
     slopeX = ARSHIFT(slopeX, nrmSlopeX);
     slopeY = ARSHIFT(slopeY, nrmSlopeY);
 
-    for (int32_t y = 0; y < iHeight; y++) {
-        /* 1st column estimates */
-        int32_t         colFirstY =
-            qadd((regrCoefs[0].slopeY * y), regrCoefs[0].interceptY);
-        int32_t         colFirstX =
-            qadd((regrCoefs[0].slopeX * y), regrCoefs[0].interceptX);
+    if (!gatherLoadIdxOverflow) {
+        for (int32_t y = 0; y < iHeight; y++) {
+            /* 1st column estimates */
+            int32_t         colFirstY =
+                qadd((regrCoefs[0].slopeY * y), regrCoefs[0].interceptY);
+            int32_t         colFirstX =
+                qadd((regrCoefs[0].slopeX * y), regrCoefs[0].interceptX);
 
-        /* Q6 conversion */
-        colFirstX = colFirstX >> 10;
-        colFirstY = colFirstY >> 10;
+            /* Q6 conversion */
+            colFirstX = colFirstX >> 10;
+            colFirstY = colFirstY >> 10;
 
-        int32_t         nbVecElts = iWidth;
-        int16x8_t       vX = (int16x8_t) vidupq_n_u16(0, 1);
-        uint16_t       *pTargetBaseCur = pTargetBase;
+            int32_t         nbVecElts = iWidth;
+            int16x8_t       vX = (int16x8_t) vidupq_n_u16(0, 1);
+            uint16_t       *pTargetBaseCur = pTargetBase;
 
-        /* Q9.6 coversion */
-        vX = vX * (1<<6);
+            /* Q9.6 coversion */
+            vX = vX * (1 << 6);
 
-        while (nbVecElts > 0) {
-            /* interpolation */
-            arm_2d_point_s16x8_t tPointV;;
-            int16x8_t       vtmp;
+            while (nbVecElts > 0) {
+                /* interpolation */
+                arm_2d_point_s16x8_t tPointV;;
+                int16x8_t       vtmp;
 
-            vtmp = vqdmulhq_n_s16(vX, slopeX);
-            vtmp = vaddq_n_s16(vqrshlq_n_s16(vtmp, nrmSlopeX), colFirstX);
-            tPointV.X = vtmp >> 6;
+                vtmp = vqdmulhq_n_s16(vX, slopeX);
+                vtmp = vaddq_n_s16(vqrshlq_n_s16(vtmp, nrmSlopeX), colFirstX);
+                tPointV.X = vtmp >> 6;
 
-            vtmp = vqdmulhq_n_s16(vX, slopeY);
-            vtmp = vaddq_n_s16(vqrshlq_n_s16(vtmp, nrmSlopeY), colFirstY);
+                vtmp = vqdmulhq_n_s16(vX, slopeY);
+                vtmp = vaddq_n_s16(vqrshlq_n_s16(vtmp, nrmSlopeY), colFirstY);
 
-            tPointV.Y = vtmp >> 6;
+                tPointV.Y = vtmp >> 6;
 
-            __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_mve(&tPointV,
-                                                                 &ptParam->tOrigin.
-                                                                 tValidRegion, pOrigin,
-                                                                 iOrigStride, pTargetBaseCur,
-                                                                 MaskColour,
-                                                                 hwRatioCompl, nbVecElts);
-            pTargetBaseCur += 8;
-            vX += ((1<<6) * 8);
-            nbVecElts -= 8;
+                __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(&tPointV,
+                                                                 &ptParam->
+                                                                 tOrigin.tValidRegion,
+                                                                 pOrigin, iOrigStride,
+                                                                 pTargetBaseCur,
+                                                                 MaskColour, hwRatioCompl,
+                                                                 nbVecElts);
+                pTargetBaseCur += 8;
+                vX += ((1 << 6) * 8);
+                nbVecElts -= 8;
+            }
+            pTargetBase += iTargetStride;
         }
-        pTargetBase += iTargetStride;
+    } else {
+        /*
+           Large image / Large origin offsets
+           Gather load 16-bit could overflow
+           - Y offset needs to be shifted down to avoid overflow
+           - 16-bit gather loads base address is incremented
+
+           Needs to be done in the inner loop.
+           In the case of steep slopes, taking the minimum between the Y extrema could still generate overflows
+         */
+        for (int32_t y = 0; y < iHeight; y++) {
+            /* 1st column estimates */
+            int32_t         colFirstY =
+                qadd((regrCoefs[0].slopeY * y), regrCoefs[0].interceptY);
+            int32_t         colFirstX =
+                qadd((regrCoefs[0].slopeX * y), regrCoefs[0].interceptX);
+
+            /* Q6 conversion */
+            colFirstX = colFirstX >> 10;
+            colFirstY = colFirstY >> 10;
+
+            int32_t         nbVecElts = iWidth;
+            int16x8_t       vX = (int16x8_t) vidupq_n_u16(0, 1);
+            uint16_t       *pTargetBaseCur = pTargetBase;
+
+            /* Q9.6 coversion */
+            vX = vX * (1 << 6);
+
+            while (nbVecElts > 0) {
+                /* interpolation */
+                arm_2d_point_s16x8_t tPointV;;
+                int16x8_t       vtmp;
+
+                vtmp = vqdmulhq_n_s16(vX, slopeX);
+                vtmp = vaddq_n_s16(vqrshlq_n_s16(vtmp, nrmSlopeX), colFirstX);
+                tPointV.X = vtmp >> 6;
+
+                vtmp = vqdmulhq_n_s16(vX, slopeY);
+                vtmp = vaddq_n_s16(vqrshlq_n_s16(vtmp, nrmSlopeY), colFirstY);
+
+                tPointV.Y = vtmp >> 6;
+                /* get Y minimum, subtract 1 to compensate negative X, as gather load index cannot be negative */
+                int16_t         correctionOffset = vminvq_s16(0x7fff, tPointV.Y) - 1;
+
+                __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated
+                    (&tPointV, &ptParam->tOrigin.tValidRegion, pOrigin, iOrigStride,
+                     pTargetBaseCur, MaskColour, hwRatioCompl, nbVecElts,
+                     correctionOffset);
+                pTargetBaseCur += 8;
+                vX += ((1 << 6) * 8);
+                nbVecElts -= 8;
+            }
+            pTargetBase += iTargetStride;
+        }
     }
 }
 
@@ -2426,13 +2770,14 @@ void __arm_2d_impl_rgb888_rotate(   __arm_2d_param_copy_orig_t *ptParam,
     arm_2d_location_t tOffset =
         ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
     arm_2d_location_t *pCenter = &(ptInfo->tCenter);
-	q31_t         invIWidth = 0x7fffffff / (iWidth - 1);
+	q31_t           invIWidth = 0x7fffffff / (iWidth - 1);
     arm_2d_rot_linear_regr_t    regrCoefs[2];
     arm_2d_location_t           SrcPt = ptInfo->tDummySourceOffset;
 
     /* get regression parameters over 1st and last column */
-    __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize, &SrcPt,
-                            fAngle, &tOffset, pCenter, regrCoefs);
+    __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize,
+                                   &SrcPt, fAngle, &tOffset, pCenter, iOrigStride,
+                                   regrCoefs);
 
 
     /* slopes between 1st and last columns */
@@ -2520,8 +2865,9 @@ void __arm_2d_impl_rgb888_rotate_alpha(   __arm_2d_param_copy_orig_t *ptParam,
     arm_2d_location_t           SrcPt = ptInfo->tDummySourceOffset;
 
     /* get regression parameters over 1st and last column */
-    __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize, &SrcPt,
-                            fAngle, &tOffset, pCenter, regrCoefs);
+    __arm_2d_rotate_regression(&ptParam->use_as____arm_2d_param_copy_t.tCopySize,
+                                   &SrcPt, fAngle, &tOffset, pCenter, iOrigStride,
+                                   regrCoefs);
 
 
     /* slopes between 1st and last columns */

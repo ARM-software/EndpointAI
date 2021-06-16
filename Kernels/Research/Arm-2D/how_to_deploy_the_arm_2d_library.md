@@ -59,7 +59,7 @@ As you can see, the Arm-2D is part of the EndpointAI software package. Consideri
 
    
 
-7. As the Arm-2D relies on **CMSIS 5.4.0** and above, we should check the **RTE configuration** and ensure proper CMSIS support has been added to the project (as shown in **Figure 2-4** the **CORE** should be selected).
+7. As the Arm-2D relies on **CMSIS 5.7.0** and above (If you want to use Arm-2D with Cortex-M55, you need **CMSIS 5.8.0** which you can get from [Github](https://github.com/ARM-software/CMSIS_5)), we should check the **RTE configuration** and ensure proper CMSIS support has been added to the project (as shown in **Figure 2-4** the **CORE** should be selected).
 
    **Figure 2-4 Check the CMSIS support in the RTE configuration window**
 
@@ -133,6 +133,7 @@ static void system_init(void)
 | -------------------- | ------------------------------------------------------------ | ------------------------------ | ------------------ |
 | Alpha-Blending       | It is an **ALL-IN-ONE** example that demonstrates almost all the features provided by the library. | examples/alpha_blending        | Used as benchmark. |
 | Partial-Frame-buffer | **It delivers the same visual effects as Alpha-blending example but using Partial-Frame-buffer**. It can be used as a template or reference code for programmers who want to implement a graphical user interface on an MCU with small RAM. In this example, **16*16 FPB (512Bytes) is used, and the total system RAM usage is less than 2.5KByte** (including stack, heap and FPB). | examples/partial_frame_buffer. |                    |
+| watch_panel          | It is a dedicated example for smart-watch like panel. For current version, it is only used to demonstrate rotation algorithms with two spinning gears. Each gear rotates at a different angular velocity and both Colour-masking and alpha-masking schemes are applied. | examples/watch_panel           | Used as benchmark  |
 
 
 

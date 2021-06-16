@@ -39,21 +39,7 @@
 
 #include "arm_2d_features.h"
 #include "arm_2d_utils.h"
-
-#if     defined(__IS_COMPILER_ARM_COMPILER_5__)                                 \
-    &&  defined(__ARM_2D_HAS_HELIUM__) && __ARM_2D_HAS_HELIUM__
-#   warning 'Arm Compiler 5 doesn\'t support Armv8.1-M architecture, please use Arm Compiler 5 instead. If you insist using Arm Compiler 5, __ARM_2D_HAS_HELIUM__ is forced to 0.'
-#   undef __ARM_2D_HAS_HELIUM__
-#   define __ARM_2D_HAS_HELIUM__            0
-#endif
-
-
-#if defined(__ARM_2D_HAS_HELIUM__) && __ARM_2D_HAS_HELIUM__
-#include <arm_mve.h>
-#else
-// if MVE is not defined, use float type for bilinear interpolation
-typedef float float16_t;
-#endif
+#include "__arm_2d_math.h"
 
 #ifdef   __cplusplus
 extern "C"

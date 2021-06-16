@@ -86,6 +86,8 @@ extern "C" {
  * Code Template                                                              *
  *----------------------------------------------------------------------------*/
 
+
+
 #define __API_COLOUR                rgb565
 #define __API_INT_TYPE              uint16_t
 #define __API_PIXEL_BLENDING        __ARM_2D_PIXEL_BLENDING_RGB565
@@ -191,9 +193,9 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     iYQ16 = tmp.Y - centerQ16.Y;
 
     tPointCornerFx[0][0].Y =
-        qdadd(qdadd(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
+        __QDADD(__QDADD(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
     tPointCornerFx[0][0].X =
-        qdsub(qdadd(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
+        __QDSUB(__QDADD(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
 
 
     /* ((iWidth - 1),0) corner */
@@ -201,9 +203,9 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     iXQ16 = tmp.X - centerQ16.X;
 
     tPointCornerFx[1][0].Y =
-        qdadd(qdadd(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
+        __QDADD(__QDADD(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
     tPointCornerFx[1][0].X =
-        qdsub(qdadd(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
+        __QDSUB(__QDADD(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
 
 
     /* ((iWidth - 1),(iHeight - 1)) corner */
@@ -211,9 +213,9 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     iYQ16 = tmp.Y - centerQ16.Y;
 
     tPointCornerFx[1][1].Y =
-        qdadd(qdadd(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
+        __QDADD(__QDADD(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
     tPointCornerFx[1][1].X =
-        qdsub(qdadd(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
+        __QDSUB(__QDADD(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
 
 
     /* (0,(iHeight - 1)) corner */
@@ -221,9 +223,9 @@ void __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     iXQ16 = tmp.X - centerQ16.X;
 
     tPointCornerFx[0][1].Y =
-        qdadd(qdadd(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
+        __QDADD(__QDADD(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
     tPointCornerFx[0][1].X =
-        qdsub(qdadd(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
+        __QDSUB(__QDADD(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
 
 
     /* regression */

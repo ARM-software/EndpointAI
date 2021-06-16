@@ -88,14 +88,14 @@ extern "C" {
 #endif
 
 #undef __ARM_2D_HAS_FPU__
-#if __ARM_FP
+#if defined(__ARM_FP)
 #define __ARM_2D_HAS_FPU__                              1
 #else
 #define __ARM_2D_HAS_FPU__                              0
 #endif
 
 #undef __ARM_2D_HAS_DSP__
-#if __ARM_FEATURE_DSP
+#if defined(__ARM_FEATURE_DSP)
 #define __ARM_2D_HAS_DSP__                              1
 #else
 #define __ARM_2D_HAS_DSP__                              0
@@ -110,21 +110,15 @@ extern "C" {
 /*! \note DO NOT define macro __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__ unless
  *!       you sure about what you are doing.
  */
-#if !__ARM_2D_HAS_FPU__ && __ARM_2D_HAS_DSP__
+#if !__ARM_2D_HAS_FPU__
 #   undef __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
 #   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   1
-#elif !__ARM_2D_HAS_FPU__ && !__ARM_2D_HAS_DSP__
-    /*! \note For processors without FPU or DSP extensions, 
-     *!       e.g. Cortex-M0/M0+/M1/M3 etc.
-     */
-#   undef __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
-#   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   0
 #elif   !__ARM_2D_HAS_HELIUM__                                                  \
     &&  !defined(__ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__)
-    /*! \note For Armv7-m processors and Armv8-m processors that have no Helium 
-     *!       extension but only FPU, fixed point rotation is faster than the 
-     *!       float point rotation even if FPU can accelerate float point 
-     *!       operations. 
+    /*! \note For Armv7-m processors and Armv8-m processors that have no Helium
+     *!       extension but only FPU, fixed point rotation is faster than the
+     *!       float point rotation even if FPU can accelerate float point
+     *!       operations.
      */
 #   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   1
 #endif
@@ -151,6 +145,12 @@ extern "C" {
  *    a better performance, small error might be noticible for angles like    *
  *    90, 180, 270 etc.                                                       *
  *                                                                            *
+ * 2. __ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT_FOR_PERFROMANCE__      *
+ *    This option is used to speed up M-cores without DSP support             *
+ *    It skips saturation in the QADD/QDADD/QDSUB involved in the rotation.   *
+ *    The chances of overflow remain low as elements involved are using       *
+ *    non-accumulating Q15.16 format and integer parts are in the range of    *
+ *    the screen size providing enough margin.                                *
  *----------------------------------------------------------------------------*/
 
 /*============================ MACROFIED FUNCTIONS ===========================*/

@@ -342,7 +342,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>ULP2CM3</Key>
-          <Name>-UP1521341 -O207 -S14 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO78834 -TC25000000 -TT10000000 -TP8 -TDX0 -TDD0 -TDS8000 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN0</Name>
+          <Name>-UP1521341 -O207 -S14 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO78835 -TC25000000 -TT10000000 -TP8 -TDX31 -TDD0 -TDS8000 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN0</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -549,7 +549,7 @@
         <bEvRecOn>1</bEvRecOn>
         <bSchkAxf>0</bSchkAxf>
         <bTchkAxf>0</bTchkAxf>
-        <nTsel>4</nTsel>
+        <nTsel>5</nTsel>
         <sDll></sDll>
         <sDllPa></sDllPa>
         <sDlgDll></sDlgDll>
@@ -640,7 +640,7 @@
         <periodic>1</periodic>
         <aLwin>1</aLwin>
         <aCover>0</aCover>
-        <aSer1>1</aSer1>
+        <aSer1>0</aSer1>
         <aSer2>0</aSer2>
         <aPa>0</aPa>
         <viewmode>1</viewmode>
@@ -653,9 +653,9 @@
         <aSer3>0</aSer3>
         <eProf>0</eProf>
         <aLa>0</aLa>
-        <aPa1>1</aPa1>
+        <aPa1>0</aPa1>
         <AscS4>0</AscS4>
-        <aSer4>1</aSer4>
+        <aSer4>0</aSer4>
         <StkLoc>0</StkLoc>
         <TrcWin>0</TrcWin>
         <newCpu>0</newCpu>
@@ -788,7 +788,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>ULP2V8M</Key>
-          <Name>-UAny -O142 -S14 -C0 -P00000000 -N00("ARM CoreSight JTAG-DP") -D00(0BA04477) -L00(4) -TO65554 -TC10000000 -TT10000000 -TP18 -TDX0 -TDD0 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD38000000 -FC1000 -FN0</Name>
+          <Name>-UAny -O142 -S14 -C0 -P00000000 -N00("ARM CoreSight JTAG-DP") -D00(0BA04477) -L00(4) -TO77843 -TC25000000 -TT10000000 -TP8 -TDX31 -TDD0 -TDS8000 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD38000000 -FC1000 -FN0</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -877,7 +877,7 @@
         <aSer3>0</aSer3>
         <eProf>0</eProf>
         <aLa>0</aLa>
-        <aPa1>0</aPa1>
+        <aPa1>1</aPa1>
         <AscS4>0</AscS4>
         <aSer4>0</aSer4>
         <StkLoc>0</StkLoc>
@@ -1017,7 +1017,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>ULP2V8M</Key>
-          <Name>-UAny -O206 -S15 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(3C013477) -L00(0) -TO77843 -TC10000000 -TT10000000 -TP8 -TDX31 -TDD0 -TDS8000 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD30000000 -FC1000 -FN0</Name>
+          <Name>-UAny -O206 -S15 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(3C013477) -L00(0) -TO69650 -TC60000000 -TT10000000 -TP8 -TDX31 -TDD0 -TDS8000 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD30000000 -FC1000 -FN0</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -1032,7 +1032,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGTARM</Key>
-          <Name>(6010=-1,-1,-1,-1,0)(6018=-1,-1,-1,-1,0)(6019=-1,-1,-1,-1,0)(6008=1626,355,1920,540,0)(6009=1626,213,1920,398,0)(6014=1352,197,1610,928,0)(6015=-1,-1,-1,-1,0)(6003=-1,-1,-1,-1,0)(6000=-1,-1,-1,-1,0)(6020=723,389,1647,690,0)</Name>
+          <Name>(6010=-1,-1,-1,-1,0)(6018=-1,-1,-1,-1,0)(6019=-1,-1,-1,-1,0)(6008=1626,355,1920,540,0)(6009=1626,213,1920,398,0)(6014=1352,197,1610,928,1)(6015=-1,-1,-1,-1,0)(6003=-1,-1,-1,-1,0)(6000=-1,-1,-1,-1,0)(6020=723,389,1647,690,0)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -1045,24 +1045,7 @@
           <Name></Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>0</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>268439200</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename></Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>0x10000EA0</Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -1082,20 +1065,15 @@
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>SystemCoreClock,0x0A</ItemText>
+          <ItemText>CMSIS_2D_OP_TABLE</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>CMSIS_2D_OP_TABLE</ItemText>
-        </Ww>
-        <Ww>
-          <count>5</count>
-          <WinNumber>1</WinNumber>
           <ItemText>CMSIS_2D_CTRL</ItemText>
         </Ww>
         <Ww>
-          <count>6</count>
+          <count>5</count>
           <WinNumber>1</WinNumber>
           <ItemText>s_tDotsLocation</ItemText>
         </Ww>
@@ -1153,7 +1131,7 @@
         <aSer3>0</aSer3>
         <eProf>0</eProf>
         <aLa>0</aLa>
-        <aPa1>0</aPa1>
+        <aPa1>1</aPa1>
         <AscS4>0</AscS4>
         <aSer4>0</aSer4>
         <StkLoc>0</StkLoc>
@@ -1281,7 +1259,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>ULP2CM3</Key>
-          <Name>-UP1521341 -O143 -S14 -C0 -P00000000 -N00("ARM CoreSight JTAG-DP") -D00(0BA01477) -L00(4) -TO65554 -TC10000000 -TT10000000 -TP11 -TDX0 -TDD0 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN0</Name>
+          <Name>-UP1521341 -O143 -S14 -C0 -P00000000 -N00("ARM CoreSight JTAG-DP") -D00(0BA01477) -L00(4) -TO65554 -TC25000000 -TT10000000 -TP8 -TDX31 -TDD0 -TDS8000 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN0</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -1370,7 +1348,7 @@
         <aSer3>0</aSer3>
         <eProf>0</eProf>
         <aLa>0</aLa>
-        <aPa1>0</aPa1>
+        <aPa1>1</aPa1>
         <AscS4>0</AscS4>
         <aSer4>0</aSer4>
         <StkLoc>0</StkLoc>
@@ -2072,7 +2050,7 @@
         <aSer3>0</aSer3>
         <eProf>0</eProf>
         <aLa>0</aLa>
-        <aPa1>0</aPa1>
+        <aPa1>1</aPa1>
         <AscS4>0</AscS4>
         <aSer4>0</aSer4>
         <StkLoc>0</StkLoc>
@@ -2472,7 +2450,7 @@
 
   <Group>
     <GroupName>asset</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

@@ -142,7 +142,7 @@ void __ARM_2D_FUNC(rotate)(   __arm_2d_param_copy_orig_t *ptParam,
             /* linear interpolation thru first & last cols */
             tPoint.fX = colFirstX + slopeX * x;
             tPoint.fY = colFirstY + slopeY * x;
-            
+
         #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__)
             if (tPoint.fX > 0) {
                 tPoint.fX += __CALIB;
@@ -155,7 +155,7 @@ void __ARM_2D_FUNC(rotate)(   __arm_2d_param_copy_orig_t *ptParam,
                 tPoint.fY -= __CALIB;
             }
         #endif
-        
+
             *pTargetBase = __ARM_2D_FUNC(get_pixel_colour)(
                                         &tPoint,
                                         &ptParam->tOrigin.tValidRegion,
@@ -234,17 +234,17 @@ void __ARM_2D_FUNC(rotate)(   __arm_2d_param_copy_orig_t *ptParam,
     for (int_fast16_t y = 0; y < iHeight; y++) {
         /* 1st column estimates */
         int32_t         colFirstY =
-            qadd((regrCoefs[0].slopeY * y), regrCoefs[0].interceptY);
+            __QADD((regrCoefs[0].slopeY * y), regrCoefs[0].interceptY);
         int32_t         colFirstX =
-            qadd((regrCoefs[0].slopeX * y), regrCoefs[0].interceptX);
+            __QADD((regrCoefs[0].slopeX * y), regrCoefs[0].interceptX);
 
 
         for (int_fast16_t x = 0; x < iWidth; x++) {
             arm_2d_point_fx_t tPointFast;
             arm_2d_location_t  tPoint;
 
-            tPointFast.X = qdadd(colFirstX, slopeX * x);
-            tPointFast.Y = qdadd(colFirstY, slopeY * x);
+            tPointFast.X = __QDADD(colFirstX, slopeX * x);
+            tPointFast.Y = __QDADD(colFirstY, slopeY * x);
 
 #define __CALIBFX 590
         #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__)
@@ -259,7 +259,7 @@ void __ARM_2D_FUNC(rotate)(   __arm_2d_param_copy_orig_t *ptParam,
                 tPointFast.Y -= __CALIBFX;
             }
         #endif
-            
+
             tPoint.iX = tPointFast.X >> 16;
             tPoint.iY = tPointFast.Y >> 16;
 
@@ -398,7 +398,7 @@ void __ARM_2D_FUNC(rotate_alpha)(   __arm_2d_param_copy_orig_t *ptParam,
             /* linear interpolation thru first & last cols */
             tPoint.fX = colFirstX + slopeX * x;
             tPoint.fY = colFirstY + slopeY * x;
-            
+
         #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__)
             if (tPoint.fX > 0) {
                 tPoint.fX += __CALIB;
@@ -411,7 +411,7 @@ void __ARM_2D_FUNC(rotate_alpha)(   __arm_2d_param_copy_orig_t *ptParam,
                 tPoint.fY -= __CALIB;
             }
         #endif
-        
+
             *pTargetBase = __ARM_2D_FUNC(get_pixel_colour_with_alpha) (&tPoint,
                                                                        &ptParam->tOrigin.
                                                                        tValidRegion,
@@ -465,17 +465,17 @@ void __ARM_2D_FUNC(rotate_alpha)(   __arm_2d_param_copy_orig_t *ptParam,
     for (int_fast16_t y = 0; y < iHeight; y++) {
         /* 1st column estimates */
         int32_t         colFirstY =
-            qadd((regrCoefs[0].slopeY * y), regrCoefs[0].interceptY);
+            __QADD((regrCoefs[0].slopeY * y), regrCoefs[0].interceptY);
         int32_t         colFirstX =
-            qadd((regrCoefs[0].slopeX * y), regrCoefs[0].interceptX);
+            __QADD((regrCoefs[0].slopeX * y), regrCoefs[0].interceptX);
 
 
         for (int_fast16_t x = 0; x < iWidth; x++) {
             arm_2d_point_fx_t tPointFast;
             arm_2d_location_t  tPoint;
 
-            tPointFast.X = qdadd(colFirstX, slopeX * x);
-            tPointFast.Y = qdadd(colFirstY, slopeY * x);
+            tPointFast.X = __QDADD(colFirstX, slopeX * x);
+            tPointFast.Y = __QDADD(colFirstY, slopeY * x);
 
 #define __CALIBFX 590
 
@@ -491,7 +491,7 @@ void __ARM_2D_FUNC(rotate_alpha)(   __arm_2d_param_copy_orig_t *ptParam,
                 tPointFast.Y -= __CALIBFX;
             }
         #endif
-            
+
             tPoint.iX = tPointFast.X >> 16;
             tPoint.iY = tPointFast.Y >> 16;
 
