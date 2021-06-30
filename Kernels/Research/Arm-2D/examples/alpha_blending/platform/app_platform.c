@@ -42,17 +42,43 @@ extern void _ttywrch(int ch);
 extern const GLCD_FONT    GLCD_Font_16x24;
 extern const GLCD_FONT    GLCD_Font_6x8;
 
+
+#if defined(__IS_COMPILER_GCC__)
+static volatile uint32_t s_wDelayCounter = 0;
+#endif
+
 __WEAK
 void platform_1ms_event_handler(void);
 
+__OVERRIDE_WEAK
 void SysTick_Handler(void)
 {
     platform_1ms_event_handler();
+    
+#if defined(__IS_COMPILER_GCC__)
+    extern void HAL_IncTick(void);
+    HAL_IncTick();
+    
+    extern void user_code_insert_to_systick_handler(void);
+    user_code_insert_to_systick_handler();
+    
+    if (s_wDelayCounter) {
+        s_wDelayCounter--;
+    }
+#endif
 }
 
 void delay_ms(uint32_t wMS)
 {
+#if defined(__IS_COMPILER_GCC__)
+    s_wDelayCounter = wMS;
+    
+    while(s_wDelayCounter) { 
+        __NOP(); 
+    };
+#else
     platform_delay_ms(wMS);
+#endif
 }
 
 
@@ -63,7 +89,7 @@ bool device_specific_init(void)
 }
 
 __attribute__((used, constructor(255)))
-static void app_platform_init(void)
+void app_platform_init(void)
 {
     init_cycle_counter(device_specific_init());
 
@@ -89,6 +115,15 @@ __asm(".global __use_no_semihosting\n\t");
 __asm(".global __ARM_use_no_argv\n\t");
 #   endif
 
+__NO_RETURN
+void _sys_exit(int ret)
+{
+    ARM_2D_UNUSED(ret);
+    while(1) {}
+}
+
+#endif
+
 #if defined(__MICROLIB)
 _ARMABI_NORETURN 
 ARM_NONNULL(1,2)
@@ -107,16 +142,6 @@ void _ttywrch(int ch)
 {
     ARM_2D_UNUSED(ch);
 }
-
-
-__NO_RETURN
-void _sys_exit(int ret)
-{
-    ARM_2D_UNUSED(ret);
-    while(1) {}
-}
-
-#endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

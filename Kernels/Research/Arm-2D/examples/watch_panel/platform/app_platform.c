@@ -115,6 +115,15 @@ __asm(".global __use_no_semihosting\n\t");
 __asm(".global __ARM_use_no_argv\n\t");
 #   endif
 
+__NO_RETURN
+void _sys_exit(int ret)
+{
+    ARM_2D_UNUSED(ret);
+    while(1) {}
+}
+
+#endif
+
 #if defined(__MICROLIB)
 _ARMABI_NORETURN 
 ARM_NONNULL(1,2)
@@ -133,16 +142,6 @@ void _ttywrch(int ch)
 {
     ARM_2D_UNUSED(ch);
 }
-
-
-__NO_RETURN
-void _sys_exit(int ret)
-{
-    ARM_2D_UNUSED(ret);
-    while(1) {}
-}
-
-#endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

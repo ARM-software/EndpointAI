@@ -39,6 +39,10 @@
 #   pragma GCC diagnostic ignored "-Wpedantic"
 #endif
 
+#ifdef  __ARM_2D_HAS_USER_HEADER__
+#   include __ARM_2D_HAS_USER_HEADER__
+#endif
+
 /*! \note arm-2d relies on CMSIS 5.4.0 and above.
  */
 #include "cmsis_compiler.h"
