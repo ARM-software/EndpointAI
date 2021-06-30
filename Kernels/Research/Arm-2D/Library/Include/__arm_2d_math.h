@@ -79,9 +79,10 @@ extern "C" {
 
 #if __ARM_2D_HAS_DSP__
 
-#include <armdsp.h>
-#define __QDADD     qdadd
-#define __QDSUB     qdsub
+#include <arm_acle.h>
+#define __QDADD(X, Y)     __qadd(X, __qdbl(Y))
+#define __QDSUB(X, Y)     __qsub(X, __qdbl(Y))
+
 
 #elif defined(__ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT_FOR_PERFROMANCE__)
 /*

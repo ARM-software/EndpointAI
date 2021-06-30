@@ -618,11 +618,6 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process( arm_2d_op_core_t *ptOP)
     if (!arm_2d_region_intersect(   &tDrawRegion, 
                                     &tTargetRegion, 
                                     &tDrawRegion)) {
-        //! no overlapping
-        if (ARM_2D_RUNTIME_FEATURE.TREAT_OUT_OF_RANGE_AS_COMPLETE) {
-            //! nothing to draw
-            return arm_fsm_rt_cpl;
-        } 
         return (arm_fsm_rt_t)ARM_2D_ERR_OUT_OF_REGION;
     }
 
@@ -655,14 +650,6 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process( arm_2d_op_core_t *ptOP)
         }
     #endif
     } while(0);
-   
-    if (ARM_2D_ERR_OUT_OF_REGION == tResult) {
-                                        
-        if (ARM_2D_RUNTIME_FEATURE.TREAT_OUT_OF_RANGE_AS_COMPLETE) {
-            //! nothing to draw
-            return arm_fsm_rt_cpl;
-        } 
-    } 
 
     return tResult;
 }
@@ -757,10 +744,6 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
                                     &tTargetRegion, 
                                     &tDrawRegion)) {
         //! no overlapping
-        if (ARM_2D_RUNTIME_FEATURE.TREAT_OUT_OF_RANGE_AS_COMPLETE) {
-            //! nothing to draw
-            return arm_fsm_rt_cpl;
-        } 
         return (arm_fsm_rt_t)ARM_2D_ERR_OUT_OF_REGION;
     }
 
@@ -788,17 +771,8 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
                                         &tTargetRegion,
                                         &tClippdRegion,
                                         this.wMode & ~ARM_2D_CP_MODE_FILL);
-        //arm_2d_region_t tClippedRegion;
-        if (ARM_2D_ERR_OUT_OF_REGION == tResult) {
-                                            
-            if (ARM_2D_RUNTIME_FEATURE.TREAT_OUT_OF_RANGE_AS_COMPLETE) {
-                //! nothing to draw
-                return arm_fsm_rt_cpl;
-            } 
-            
-            return tResult;
-            
-        } else if (tResult < 0) {
+                                        
+        if (tResult < 0) {
             return tResult;
         }
 
@@ -935,19 +909,6 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
                                                     this.Target.ptTile,
                                                     &tTargetRegion,
                                                     this.wMode);
-                                            
-        if (ARM_2D_ERR_OUT_OF_REGION == tResult) {
-                                            
-            if (ARM_2D_RUNTIME_FEATURE.TREAT_OUT_OF_RANGE_AS_COMPLETE) {
-                //! nothing to draw
-                return arm_fsm_rt_cpl;
-            } 
-            
-            return tResult;
-            
-        } else if (tResult < 0) {
-            return tResult;
-        }
     }
 
     return tResult;
@@ -1007,6 +968,13 @@ arm_fsm_rt_t __arm_2d_op_frontend_op_decoder(arm_2d_op_core_t *ptThis)
     default:
         /* control operation */
         tResult = __arm_2d_op_frontend_control(ptThis);
+    }
+    
+    if (ARM_2D_ERR_OUT_OF_REGION == tResult) {                                 
+        if (ARM_2D_RUNTIME_FEATURE.TREAT_OUT_OF_RANGE_AS_COMPLETE) {
+            //! nothing to draw
+            tResult = arm_fsm_rt_cpl;
+        } 
     }
     
     return tResult;
