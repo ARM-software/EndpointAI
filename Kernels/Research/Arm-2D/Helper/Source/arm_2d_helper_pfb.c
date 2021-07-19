@@ -198,6 +198,7 @@ void __arm_2d_helper_swap_rgb16(uint16_t *phwBuffer, uint32_t wSize)
     
     uint32_t wWords = wSize >> 1;
     uint32_t *pwBuffer = (uint32_t *)phwBuffer;
+    wSize &= 0x01;
     
     if (wWords > 0) {
         do {
@@ -206,7 +207,7 @@ void __arm_2d_helper_swap_rgb16(uint16_t *phwBuffer, uint32_t wSize)
         } while(--wWords);
     }
     
-    if (wWords * 2 < wSize) {
+    if (wSize) {
         uint32_t wTemp = *pwBuffer;
         (*(uint16_t *)pwBuffer) = (uint16_t)__REV16(wTemp);
     }
