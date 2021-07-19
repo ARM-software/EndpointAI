@@ -153,7 +153,24 @@
           <Name>UL2CM3(-S0 -C0 -P0 -FD20010000 -FC1000 -FN2 -FF0STM32F7x_1024 -FS08000000 -FL0100000 -FF1STM32F7xTCM_1024 -FS1200000 -FL1100000 -FP0($$Device:STM32F746NGHx$CMSIS\Flash\STM32F7x_1024.FLM) -FP1($$Device:STM32F746NGHx$CMSIS\Flash\STM32F7xTCM_1024.FLM))</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>248</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134219756</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\gcc\startup_ARMCM7.S</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>.\gcc_template\gcc/startup_ARMCM7.S\248</Expression>
+        </Bp>
+      </Breakpoint>
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
@@ -251,7 +268,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\example_gui.c</PathWithFileName>
+      <PathWithFileName>.\example_gui.c</PathWithFileName>
       <FilenameWithoutPath>example_gui.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -263,7 +280,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\example_gui.h</PathWithFileName>
+      <PathWithFileName>.\example_gui.h</PathWithFileName>
       <FilenameWithoutPath>example_gui.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -275,7 +292,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\app_cfg.h</PathWithFileName>
+      <PathWithFileName>.\app_cfg.h</PathWithFileName>
       <FilenameWithoutPath>app_cfg.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -287,7 +304,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\main.c</PathWithFileName>
+      <PathWithFileName>.\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -307,7 +324,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\platform\GLCD_Fonts.c</PathWithFileName>
+      <PathWithFileName>.\platform\GLCD_Fonts.c</PathWithFileName>
       <FilenameWithoutPath>GLCD_Fonts.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -319,7 +336,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\platform\app_platform.c</PathWithFileName>
+      <PathWithFileName>.\platform\app_platform.c</PathWithFileName>
       <FilenameWithoutPath>app_platform.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -331,7 +348,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</PathWithFileName>
+      <PathWithFileName>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</PathWithFileName>
       <FilenameWithoutPath>GLCD_746G_Discovery.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -343,7 +360,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</PathWithFileName>
+      <PathWithFileName>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</PathWithFileName>
       <FilenameWithoutPath>platform_stm32f746g_discovery.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -423,7 +440,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Include\__arm_2d_impl.h</PathWithFileName>
+      <PathWithFileName>..\..\Library\Include\__arm_2d_impl.h</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_impl.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -435,7 +452,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Include\__arm_2d_paving.h</PathWithFileName>
+      <PathWithFileName>..\..\Library\Include\__arm_2d_paving.h</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_paving.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -447,7 +464,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Include\__arm_2d_paving_helium.h</PathWithFileName>
+      <PathWithFileName>..\..\Library\Include\__arm_2d_paving_helium.h</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_paving_helium.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -459,7 +476,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d.h</PathWithFileName>
+      <PathWithFileName>..\..\Library\Include\arm_2d.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -471,7 +488,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_alpha_blending.h</PathWithFileName>
+      <PathWithFileName>..\..\Library\Include\arm_2d_alpha_blending.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_alpha_blending.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -483,7 +500,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_conversion.h</PathWithFileName>
+      <PathWithFileName>..\..\Library\Include\arm_2d_conversion.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_conversion.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -495,7 +512,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_draw.h</PathWithFileName>
+      <PathWithFileName>..\..\Library\Include\arm_2d_draw.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_draw.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -507,7 +524,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_features.h</PathWithFileName>
+      <PathWithFileName>..\..\Library\Include\arm_2d_features.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_features.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -519,7 +536,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_tile.h</PathWithFileName>
+      <PathWithFileName>..\..\Library\Include\arm_2d_tile.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_tile.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -531,7 +548,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_types.h</PathWithFileName>
+      <PathWithFileName>..\..\Library\Include\arm_2d_types.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_types.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -543,7 +560,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_utils.h</PathWithFileName>
+      <PathWithFileName>..\..\Library\Include\arm_2d_utils.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_utils.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -555,7 +572,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Source\__arm_2d_alpha_blending.inc</PathWithFileName>
+      <PathWithFileName>..\..\Library\Source\__arm_2d_alpha_blending.inc</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_alpha_blending.inc</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -567,7 +584,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Source\__arm_2d_copy.inc</PathWithFileName>
+      <PathWithFileName>..\..\Library\Source\__arm_2d_copy.inc</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_copy.inc</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -579,7 +596,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Source\__arm_2d_draw_pattern.inc</PathWithFileName>
+      <PathWithFileName>..\..\Library\Source\__arm_2d_draw_pattern.inc</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_draw_pattern.inc</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -591,7 +608,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Source\__arm_2d_fill_colour.inc</PathWithFileName>
+      <PathWithFileName>..\..\Library\Source\__arm_2d_fill_colour.inc</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_fill_colour.inc</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -603,7 +620,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d.c</PathWithFileName>
+      <PathWithFileName>..\..\Library\Source\arm_2d.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -615,7 +632,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_alpha_blending.c</PathWithFileName>
+      <PathWithFileName>..\..\Library\Source\arm_2d_alpha_blending.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_alpha_blending.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -627,7 +644,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_async.c</PathWithFileName>
+      <PathWithFileName>..\..\Library\Source\arm_2d_async.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_async.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -639,7 +656,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_conversion.c</PathWithFileName>
+      <PathWithFileName>..\..\Library\Source\arm_2d_conversion.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_conversion.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -651,7 +668,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_draw.c</PathWithFileName>
+      <PathWithFileName>..\..\Library\Source\arm_2d_draw.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_draw.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -663,7 +680,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_helium.c</PathWithFileName>
+      <PathWithFileName>..\..\Library\Source\arm_2d_helium.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_helium.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -675,7 +692,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_op_table.c</PathWithFileName>
+      <PathWithFileName>..\..\Library\Source\arm_2d_op_table.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_op_table.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -687,7 +704,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_tile.c</PathWithFileName>
+      <PathWithFileName>..\..\Library\Source\arm_2d_tile.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_tile.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
