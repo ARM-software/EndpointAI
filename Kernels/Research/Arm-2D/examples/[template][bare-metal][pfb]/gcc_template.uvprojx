@@ -282,22 +282,22 @@
             <File>
               <FileName>example_gui.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\example_gui.c</FilePath>
+              <FilePath>.\example_gui.c</FilePath>
             </File>
             <File>
               <FileName>example_gui.h</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\example_gui.h</FilePath>
+              <FilePath>.\example_gui.h</FilePath>
             </File>
             <File>
               <FileName>app_cfg.h</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\app_cfg.h</FilePath>
+              <FilePath>.\app_cfg.h</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\main.c</FilePath>
+              <FilePath>.\main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -307,22 +307,22 @@
             <File>
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\platform\GLCD_Fonts.c</FilePath>
+              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
             </File>
             <File>
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\platform\app_platform.c</FilePath>
+              <FilePath>.\platform\app_platform.c</FilePath>
             </File>
             <File>
               <FileName>GLCD_746G_Discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
+              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
             </File>
             <File>
               <FileName>platform_stm32f746g_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
             </File>
             <File>
               <FileName>startup_ARMCM7.S</FileName>
@@ -357,117 +357,117 @@
             <File>
               <FileName>__arm_2d_impl.h</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Include\__arm_2d_impl.h</FilePath>
+              <FilePath>..\..\Library\Include\__arm_2d_impl.h</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_paving.h</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Include\__arm_2d_paving.h</FilePath>
+              <FilePath>..\..\Library\Include\__arm_2d_paving.h</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_paving_helium.h</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Include\__arm_2d_paving_helium.h</FilePath>
+              <FilePath>..\..\Library\Include\__arm_2d_paving_helium.h</FilePath>
             </File>
             <File>
               <FileName>arm_2d.h</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d.h</FilePath>
+              <FilePath>..\..\Library\Include\arm_2d.h</FilePath>
             </File>
             <File>
               <FileName>arm_2d_alpha_blending.h</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_alpha_blending.h</FilePath>
+              <FilePath>..\..\Library\Include\arm_2d_alpha_blending.h</FilePath>
             </File>
             <File>
               <FileName>arm_2d_conversion.h</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_conversion.h</FilePath>
+              <FilePath>..\..\Library\Include\arm_2d_conversion.h</FilePath>
             </File>
             <File>
               <FileName>arm_2d_draw.h</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_draw.h</FilePath>
+              <FilePath>..\..\Library\Include\arm_2d_draw.h</FilePath>
             </File>
             <File>
               <FileName>arm_2d_features.h</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_features.h</FilePath>
+              <FilePath>..\..\Library\Include\arm_2d_features.h</FilePath>
             </File>
             <File>
               <FileName>arm_2d_tile.h</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_tile.h</FilePath>
+              <FilePath>..\..\Library\Include\arm_2d_tile.h</FilePath>
             </File>
             <File>
               <FileName>arm_2d_types.h</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_types.h</FilePath>
+              <FilePath>..\..\Library\Include\arm_2d_types.h</FilePath>
             </File>
             <File>
               <FileName>arm_2d_utils.h</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Include\arm_2d_utils.h</FilePath>
+              <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_alpha_blending.inc</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_copy.inc</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Source\__arm_2d_copy.inc</FilePath>
+              <FilePath>..\..\Library\Source\__arm_2d_copy.inc</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_draw_pattern.inc</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
+              <FilePath>..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_fill_colour.inc</FileName>
               <FileType>5</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Source\__arm_2d_fill_colour.inc</FilePath>
+              <FilePath>..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
             </File>
             <File>
               <FileName>arm_2d.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d.c</FilePath>
+              <FilePath>..\..\Library\Source\arm_2d.c</FilePath>
             </File>
             <File>
               <FileName>arm_2d_alpha_blending.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_alpha_blending.c</FilePath>
+              <FilePath>..\..\Library\Source\arm_2d_alpha_blending.c</FilePath>
             </File>
             <File>
               <FileName>arm_2d_async.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_async.c</FilePath>
+              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
             </File>
             <File>
               <FileName>arm_2d_conversion.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_conversion.c</FilePath>
+              <FilePath>..\..\Library\Source\arm_2d_conversion.c</FilePath>
             </File>
             <File>
               <FileName>arm_2d_draw.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_draw.c</FilePath>
+              <FilePath>..\..\Library\Source\arm_2d_draw.c</FilePath>
             </File>
             <File>
               <FileName>arm_2d_helium.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_helium.c</FilePath>
+              <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
               <FileName>arm_2d_op_table.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_op_table.c</FilePath>
+              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
             </File>
             <File>
               <FileName>arm_2d_tile.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\Work\CPMK\Git\cmsis-2d\Library\Source\arm_2d_tile.c</FilePath>
+              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
             </File>
             <File>
               <FileName>arm_2d_rotation.c</FileName>
@@ -560,12 +560,12 @@
           <targetInfo name="STM32F746G-Discovery-GCC"/>
         </targetInfos>
       </component>
-      <component Cclass="CMSIS" Cgroup="DSP" Cvariant="Source" Cvendor="ARM" Cversion="1.8.0" condition="CMSIS DSP" isTargetSpecific="1">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.7.0"/>
+      <component Cclass="CMSIS" Cgroup="DSP" Cvariant="Source" Cvendor="ARM" Cversion="1.9.0-dev" condition="CMSIS DSP" isTargetSpecific="1">
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
         <targetInfos>
           <targetInfo name="STM32F746G-Discovery-GCC">
             <c>
-              <MiscControls>-Ofast</MiscControls>
+              <MiscControls>-Ofast -w</MiscControls>
             </c>
           </targetInfo>
         </targetInfos>

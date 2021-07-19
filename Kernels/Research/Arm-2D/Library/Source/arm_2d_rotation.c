@@ -69,9 +69,6 @@ extern "C" {
 
 #include <arm_math.h>
 
-
-
-
 /*============================ MACROS ========================================*/
 #undef __PI
 #define __PI                3.1415926f
@@ -101,6 +98,13 @@ extern "C" {
 #include "__arm_2d_rotate.inc"
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
+/*============================ TYPES =========================================*/
+/*============================ GLOBAL VARIABLES ==============================*/
+/*============================ PROTOTYPES ====================================*/
+/*============================ LOCAL VARIABLES ===============================*/
+/*============================ IMPLEMENTATION ================================*/
+
+#if 0
 
 /* faster atan(y/x) float version */
 static
@@ -123,12 +127,6 @@ float32_t __atan2_f32(float32_t y, float32_t x)
     return copysignf(1.0f, y) * copysignf(1.0f, x) * atan2est;
 }
 
-/*============================ TYPES =========================================*/
-/*============================ GLOBAL VARIABLES ==============================*/
-/*============================ PROTOTYPES ====================================*/
-/*============================ LOCAL VARIABLES ===============================*/
-/*============================ IMPLEMENTATION ================================*/
-
 static
 void __arm_2d_rotate_get_rotated_corner(const arm_2d_location_t *ptLocation,
                                             const arm_2d_location_t *ptCenter,
@@ -145,6 +143,7 @@ void __arm_2d_rotate_get_rotated_corner(const arm_2d_location_t *ptLocation,
     ptOutBuffer->fX = (-iY * sinAngle + iX * cosAngle + ptCenter->iX);
 
 }
+#endif
 
 #if __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
 

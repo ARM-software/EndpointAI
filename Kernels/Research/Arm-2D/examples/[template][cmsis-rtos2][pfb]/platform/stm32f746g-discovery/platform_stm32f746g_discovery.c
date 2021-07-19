@@ -96,7 +96,7 @@ bool device_specific_init(void)
     SystemCoreClockUpdate();
     /* USER CODE END SysInit */
 
-#if 0
+#if defined(RTE_Compiler_IO_STDOUT_User)
     Driver_USART1.Initialize(NULL);
     Driver_USART1.PowerControl(ARM_POWER_FULL);
     
@@ -113,7 +113,7 @@ bool device_specific_init(void)
     return true;
 }
 
-#if 0
+#if defined(RTE_Compiler_IO_STDOUT_User)
 int32_t stdout_putchar(int32_t ch)
 {
     static uint8_t s_chByte;
@@ -123,6 +123,35 @@ int32_t stdout_putchar(int32_t ch)
     
     return ch;
 }
+
+
+#   if defined(__IS_COMPILER_GCC__)
+int _write (int fd, char *ptr, int len)
+{
+    if (fd == 1) {
+        int n = len;
+        do {
+            stdout_putchar(*ptr++);
+        } while(--n);
+        
+        return len;
+    } 
+  
+    return -1;
+}
+
+
+void _ttywrch(int ch) {
+  /* Write one char "ch" to the default console
+   * Need implementing with UART here. */
+   stdout_putchar(ch);
+}
+#endif
+
+
+
+
+
 #endif
 
 

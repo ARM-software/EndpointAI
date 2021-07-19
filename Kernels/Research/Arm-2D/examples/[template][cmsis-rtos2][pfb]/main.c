@@ -318,6 +318,7 @@ void arm_2d_thread(void *argument)
                                 osFlagsWaitAny, 
                                 osWaitForever );
         }
+        
     } while(true);
     
     osThreadExit();
@@ -338,6 +339,8 @@ int main (void)
         /* put your code here */
         example_gui_init();
     }     
+    
+    printf("\r\nArm-2D RTOS2 Template\r\n");
 
     //! initialise FPB helper
     if (ARM_2D_HELPER_PFB_INIT( 

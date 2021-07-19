@@ -79,7 +79,12 @@ extern "C" {
 
 #if __ARM_2D_HAS_DSP__
 
-#include <arm_acle.h>
+#if defined(__IS_COMPILER_ARM_COMPILER_5__)
+#   include "armdsp.h"
+#else
+#   include <arm_acle.h>
+#endif
+
 #define __QDADD(X, Y)     __qadd(X, __qdbl(Y))
 #define __QDSUB(X, Y)     __qsub(X, __qdbl(Y))
 
