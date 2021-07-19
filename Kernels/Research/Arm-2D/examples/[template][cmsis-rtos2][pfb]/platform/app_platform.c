@@ -68,7 +68,70 @@ void SysTick_Handler(void)
     }
 #endif
 }
+#elif defined(__IS_COMPILER_GCC__)
+
+void __wrap_osRtxTick_Handler(void)
+{
+    extern void HAL_IncTick(void);
+    HAL_IncTick();
+    
+    extern void user_code_insert_to_systick_handler(void);
+    user_code_insert_to_systick_handler();
+    
+    if (s_wDelayCounter) {
+        s_wDelayCounter--;
+    }
+    
+    extern void __real_osRtxTick_Handler(void);
+    __real_osRtxTick_Handler();
+}
+
+#if defined(__IS_COMPILER_GCC__)
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wpedantic"
 #endif
+
+
+_ATTRIBUTE ((__format__ (__printf__, 1, 2)))
+int	__wrap_printf (const char *__restrict format, ...)
+{
+    va_list va;
+    va_start(va, format);
+    int ret = 0;
+    arm_thread_safe { 
+        ret = vprintf(format, va);
+    }
+    va_end(va);
+    
+    return ret;
+}
+
+#if defined(__IS_COMPILER_GCC__)
+#   pragma GCC diagnostic pop
+#endif
+
+#endif
+
+#if defined(__IS_ARM_COMPILER_5__) || defined(__IS_ARM_COMPILER_6__)
+
+#pragma __printf_args
+__attribute__((__nonnull__(1)))
+_ARMABI int $Sub$$printf(const char * __restrict format, ...) 
+{
+    va_list va;
+    va_start(va, format);
+    int ret = 0;
+    arm_thread_safe { 
+        ret = vprintf(format, va);
+    }
+    va_end(va);
+    
+    return ret;
+}
+
+#endif
+
+
 
 
 /**
@@ -161,10 +224,12 @@ void __aeabi_assert(const char *chCond, const char *chLine, int wErrCode)
 }
 #endif
 
+#if !defined(__IS_COMPILER_GCC__)
 void _ttywrch(int ch)
 {
     ARM_2D_UNUSED(ch);
 }
+#endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

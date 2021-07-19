@@ -986,6 +986,9 @@
           </GroupOption>
         </Group>
         <Group>
+          <GroupName>::Compiler</GroupName>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
         </Group>
       </Groups>
@@ -1968,6 +1971,9 @@
               </Aads>
             </GroupArmAds>
           </GroupOption>
+        </Group>
+        <Group>
+          <GroupName>::Compiler</GroupName>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -3020,6 +3026,9 @@
               </Aads>
             </GroupArmAds>
           </GroupOption>
+        </Group>
+        <Group>
+          <GroupName>::Compiler</GroupName>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -4075,6 +4084,9 @@
           </GroupOption>
         </Group>
         <Group>
+          <GroupName>::Compiler</GroupName>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
         </Group>
       </Groups>
@@ -5057,6 +5069,9 @@
               </Aads>
             </GroupArmAds>
           </GroupOption>
+        </Group>
+        <Group>
+          <GroupName>::Compiler</GroupName>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -6112,6 +6127,9 @@
           </GroupOption>
         </Group>
         <Group>
+          <GroupName>::Compiler</GroupName>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
           <GroupOption>
             <CommonProperty>
@@ -7163,6 +7181,9 @@
               </Aads>
             </GroupArmAds>
           </GroupOption>
+        </Group>
+        <Group>
+          <GroupName>::Compiler</GroupName>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -8218,6 +8239,9 @@
           </GroupOption>
         </Group>
         <Group>
+          <GroupName>::Compiler</GroupName>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
           <GroupOption>
             <CommonProperty>
@@ -9269,6 +9293,9 @@
               </Aads>
             </GroupArmAds>
           </GroupOption>
+        </Group>
+        <Group>
+          <GroupName>::Compiler</GroupName>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -10324,6 +10351,9 @@
           </GroupOption>
         </Group>
         <Group>
+          <GroupName>::Compiler</GroupName>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
           <GroupOption>
             <CommonProperty>
@@ -10554,6 +10584,21 @@
         <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
+        </targetInfos>
+      </component>
+      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="User" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M">
+        <package name="ARM_Compiler" schemaVersion="1.6.3" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.3"/>
+        <targetInfos>
+          <targetInfo name="AN547-Cortex-M55_r0"/>
+          <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
+          <targetInfo name="FastModel"/>
+          <targetInfo name="STM32F746G-Discovery"/>
+          <targetInfo name="STM32F746G-Discovery-AC5"/>
+          <targetInfo name="V2M-MPS2-CM0+"/>
+          <targetInfo name="V2M-MPS2-CM33"/>
+          <targetInfo name="V2M-MPS2-CM4"/>
+          <targetInfo name="V2M-MPS2-CM7"/>
+          <targetInfo name="V2M-MPS3-CM55"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32F746G-Discovery" Cclass="Board Support" Cgroup="Drivers" Csub="SDRAM" Cvendor="Keil" Cversion="1.1.1" condition="STM32F746G-Discovery BSP SDRAM">
