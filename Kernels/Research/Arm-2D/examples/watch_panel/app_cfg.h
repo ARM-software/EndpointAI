@@ -51,7 +51,7 @@
 //#define PFB_BLOCK_WIDTH         120
 //#define PFB_BLOCK_HEIGHT        120
 
-#define PFB_BLOCK_WIDTH         222
+#define PFB_BLOCK_WIDTH         GLCD_WIDTH
 #define PFB_BLOCK_HEIGHT        16
 
 #define BUSY_WHEEL_SPIN_SPEED   100
