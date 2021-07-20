@@ -118,8 +118,8 @@ void display_task(void)
 
     //! call partial framebuffer helper service
     while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task(
-                                //&s_tExamplePFB, NULL));
-                                &s_tExamplePFB, (arm_2d_region_list_item_t *)s_tDirtyRegions));
+                                &s_tExamplePFB, NULL));
+                                //&s_tExamplePFB, (arm_2d_region_list_item_t *)s_tDirtyRegions));
 
     //! update performance info
     do {
@@ -155,31 +155,23 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
 
     if (0 == BENCHMARK.wIterations) {
 
-        lcd_text_location( GLCD_HEIGHT / 8 - 6, 0);
+        lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
         lcd_puts(  "Rotation Test, running "
                     STR(ITERATION_CNT)
                     " iterations\r\n");
 
-        lcd_printf( "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
-                  "  Screen Size: "STR(APP_SCREEN_WIDTH)"*" STR(APP_SCREEN_HEIGHT)
-                  "  %dMHz\r\n", SystemCoreClock / 1000000ul);
-        lcd_puts( "Testing...\r\n\r\n");
-        lcd_puts(
-            "Cycles\tAvrage\tUPS30Freq\tUPS\tLCD Latency");
-
-
-        lcd_text_location( GLCD_HEIGHT / 8 - 1, 0);
-        //lcd_puts(
-        //    "\rCycles\t  Min\t  Max\tAvrage\t  UPS\t  LCD Latency");
-        lcd_puts("\t");
-
-        lcd_printf("%d\t", BENCHMARK.wAverage);
-        lcd_printf("%4.2f MHz\t", ((float)BENCHMARK.wAverage * 30.0f) / 1000000.0f);
-        lcd_printf("%3d:%dms",
+        lcd_puts(   "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
+                    "  Screen Size: "STR(APP_SCREEN_WIDTH)"*" STR(APP_SCREEN_HEIGHT));
+        lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
+        lcd_puts( "Testing...\r\n");
+        
+        lcd_printf("Average: %d ", BENCHMARK.wAverage);
+        lcd_printf("FPS30Freq: %4.2f MHz\r\n", ((float)BENCHMARK.wAverage * 30.0f) / 1000000.0f);
+        lcd_printf("FPS: %3d:%dms   ",
                             SystemCoreClock / BENCHMARK.wAverage,
                             BENCHMARK.wAverage / (SystemCoreClock / 1000ul));
+        lcd_printf("LCD Latency: %2dms", BENCHMARK.wLCDLatency / (SystemCoreClock / 1000ul) );
 
-        lcd_printf("   %2dms", BENCHMARK.wLCDLatency / (SystemCoreClock / 1000ul) );
     }
 }
 
@@ -226,14 +218,14 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
     
     __PRINT_BANNER("Arm-2D Benchmark");
 
-    lcd_text_location( GLCD_HEIGHT / 8 - 6, 0);
+    lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
     lcd_puts(  "Rotation Test, running "
                 STR(ITERATION_CNT)
                 " iterations\r\n");
 
-    lcd_printf( "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
-              "  Screen Size: "STR(APP_SCREEN_WIDTH)"*" STR(APP_SCREEN_HEIGHT)
-              "  %dMHz\r\n", SystemCoreClock / 1000000ul);
+    lcd_puts(   "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
+                "  Screen Size: "STR(APP_SCREEN_WIDTH)"*" STR(APP_SCREEN_HEIGHT));
+    lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
     lcd_puts( "Testing...\r\n\r\n");
 
     //lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
@@ -255,7 +247,7 @@ IMPL_PFB_ON_LOW_LV_RENDERING(__pfb_render_handler)
                         ptTile->tRegion.tLocation.iY,
                         ptTile->tRegion.tSize.iWidth,
                         ptTile->tRegion.tSize.iHeight,
-                        ptTile->pchBuffer);
+                        (const uint8_t *)ptTile->pchBuffer);
     }
     arm_2d_helper_pfb_report_rendering_complete(&s_tExamplePFB,
                                                 (arm_2d_pfb_t *)ptPFB);
@@ -296,7 +288,8 @@ int main (void)
                     //! callback for drawing GUI
                     .fnHandler = &__pfb_draw_background_handler,
                 },
-            }
+            },
+            //.FrameBuffer.bSwapRGB16 = true,
         ) < 0) {
         //! error detected
         assert(false);
