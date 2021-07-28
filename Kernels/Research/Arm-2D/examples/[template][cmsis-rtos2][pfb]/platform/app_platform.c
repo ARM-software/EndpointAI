@@ -32,91 +32,81 @@
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
+#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#elif defined(__IS_COMPILER_GCC__)
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wpedantic"
 #endif
 
 
 extern void SysTick_Handler(void);
 extern void _ttywrch(int ch);
 
-
-extern const GLCD_FONT    GLCD_Font_16x24;
-extern const GLCD_FONT    GLCD_Font_6x8;
-
-
-#if defined(__IS_COMPILER_GCC__)
 static volatile uint32_t s_wDelayCounter = 0;
-#endif
 
-__WEAK
-void platform_1ms_event_handler(void);
+__WEAK 
+void platform_1ms_event_handler(void) 
+{}
 
-#ifndef RTE_CMSIS_RTOS2
+__WEAK 
+void bsp_1ms_event_handler(void)
+{}
+
+
+#ifdef RTE_CMSIS_RTOS2_RTX5
+void ARM_WRAP(osRtxTick_Handler)(void)
+{
+    platform_1ms_event_handler();
+    bsp_1ms_event_handler();
+    
+    if (s_wDelayCounter) {
+        s_wDelayCounter--;
+    }
+    
+    extern void ARM_REAL(osRtxTick_Handler)(void);
+    ARM_REAL(osRtxTick_Handler)();
+}
+
+#else
 __OVERRIDE_WEAK
 void SysTick_Handler(void)
 {
     platform_1ms_event_handler();
     
-#if defined(__IS_COMPILER_GCC__)
-    extern void HAL_IncTick(void);
-    HAL_IncTick();
-    
-    extern void user_code_insert_to_systick_handler(void);
-    user_code_insert_to_systick_handler();
+    bsp_1ms_event_handler();
     
     if (s_wDelayCounter) {
         s_wDelayCounter--;
     }
+}
 #endif
-}
-#elif defined(__IS_COMPILER_GCC__)
 
-void __wrap_osRtxTick_Handler(void)
+void delay_ms(uint32_t wMS)
 {
-    extern void HAL_IncTick(void);
-    HAL_IncTick();
+    s_wDelayCounter = wMS;
     
-    extern void user_code_insert_to_systick_handler(void);
-    user_code_insert_to_systick_handler();
-    
-    if (s_wDelayCounter) {
-        s_wDelayCounter--;
+    while(s_wDelayCounter) { 
+        __NOP(); 
     }
-    
-    extern void __real_osRtxTick_Handler(void);
-    __real_osRtxTick_Handler();
 }
+
+/*----------------------------------------------------------------------------*
+ * A thread safe printf                                                       *
+ *----------------------------------------------------------------------------*/
+#if defined(RTE_CMSIS_RTOS2)
 
 #if defined(__IS_COMPILER_GCC__)
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wpedantic"
 #endif
 
-
+#if defined(__IS_COMPILER_GCC)
 _ATTRIBUTE ((__format__ (__printf__, 1, 2)))
-int	__wrap_printf (const char *__restrict format, ...)
-{
-    va_list va;
-    va_start(va, format);
-    int ret = 0;
-    arm_thread_safe { 
-        ret = vprintf(format, va);
-    }
-    va_end(va);
-    
-    return ret;
-}
-
-#if defined(__IS_COMPILER_GCC__)
-#   pragma GCC diagnostic pop
-#endif
-
-#endif
-
-#if defined(__IS_ARM_COMPILER_5__) || defined(__IS_ARM_COMPILER_6__)
-
+#elif defined(__IS_ARM_COMPILER_5__) || defined(__IS_ARM_COMPILER_6__)
 #pragma __printf_args
 __attribute__((__nonnull__(1)))
-_ARMABI int $Sub$$printf(const char * __restrict format, ...) 
+#endif
+int	ARM_WRAP(printf) (const char *__restrict format, ...)
 {
     va_list va;
     va_start(va, format);
@@ -130,42 +120,6 @@ _ARMABI int $Sub$$printf(const char * __restrict format, ...)
 }
 
 #endif
-
-
-
-
-/**
-  * Override default HAL_GetTick function
-  */
-uint32_t HAL_GetTick (void) {
-  static uint32_t ticks = 0U;
-         uint32_t i;
-
-  if (osKernelGetState () == osKernelRunning) {
-    return ((uint32_t)osKernelGetTickCount ());
-  }
-
-  /* If Kernel is not running wait approximately 1 ms then increment 
-     and return auxiliary tick counter value */
-  for (i = (SystemCoreClock >> 14U); i > 0U; i--) {
-    __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP();
-    __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP();
-  }
-  return ++ticks;
-}
-
-void delay_ms(uint32_t wMS)
-{
-#if defined(__IS_COMPILER_GCC__)
-    s_wDelayCounter = wMS;
-    
-    while(s_wDelayCounter) { 
-        __NOP(); 
-    };
-#else
-    platform_delay_ms(wMS);
-#endif
-}
 
 
 __WEAK 
@@ -174,25 +128,10 @@ bool device_specific_init(void)
     return false;
 }
 
-__attribute__((used, constructor(255)))
+__attribute__((used, constructor(101)))
 void app_platform_init(void)
 {
     init_cycle_counter(device_specific_init());
-
-    //__log_cycles_of("Initialize platform...\r\n") {
-        //LED_Initialize();                         /* Initializ LEDs                 */
-        //Buttons_Initialize();                     /* Initializ Push Buttons         */
-
-        //Touch_Initialize();                       /* Initialize touchscreen         */
-        GLCD_Initialize();                        /* Initialize the GLCD            */
-
-        /* display initial screen */
-        GLCD_SetFont(&GLCD_Font_6x8);
-        GLCD_SetBackgroundColor(GLCD_COLOR_BLACK);
-        GLCD_ClearScreen();
-        //GLCD_SetBackgroundColor(GLCD_COLOR_BLUE);
-        GLCD_SetForegroundColor(GLCD_COLOR_GREEN);
-    //}
 }
 
 #if __IS_COMPILER_ARM_COMPILER_6__
@@ -233,4 +172,6 @@ void _ttywrch(int ch)
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
+#elif defined(__IS_COMPILER_GCC__)
+#   pragma GCC diagnostic pop
 #endif

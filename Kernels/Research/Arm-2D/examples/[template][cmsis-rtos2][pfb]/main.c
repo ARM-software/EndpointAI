@@ -330,10 +330,6 @@ void arm_2d_thread(void *argument)
  *----------------------------------------------------------------------------*/
 int main (void) 
 {
-#if defined(__IS_COMPILER_GCC__)
-    app_platform_init();
-#endif
-
     arm_irq_safe {
         arm_2d_init();
         /* put your code here */

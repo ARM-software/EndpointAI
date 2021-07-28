@@ -171,6 +171,7 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
                             SystemCoreClock / BENCHMARK.wAverage,
                             BENCHMARK.wAverage / (SystemCoreClock / 1000ul));
         lcd_printf("LCD Latency: %2dms", BENCHMARK.wLCDLatency / (SystemCoreClock / 1000ul) );
+        //lcd_printf(" %08x", (int32_t)get_system_ticks() );
 
     }
 }
@@ -260,10 +261,6 @@ IMPL_PFB_ON_LOW_LV_RENDERING(__pfb_render_handler)
  *----------------------------------------------------------------------------*/
 int main (void)
 {
-#if defined(__IS_COMPILER_GCC__)
-    app_platform_init();
-#endif
-
     arm_irq_safe {
         arm_2d_init();
         /* put your code here */

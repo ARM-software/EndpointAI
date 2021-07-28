@@ -53,7 +53,7 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wimplicit-float-conversion"
 #   pragma clang diagnostic ignored "-Wimplicit-int-conversion"
 #   pragma clang diagnostic ignored "-Wtautological-pointer-compare"
-#elif __IS_COMPILER_ARM_COMPILER_5__
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 174,177,188,68,513,144
 #endif
 
@@ -687,7 +687,7 @@ void __arm_2d_impl_rgb888_alpha_blending_direct(const uint32_t *pwSource,
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
-#elif __IS_COMPILER_ARM_COMPILER_5__
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_warning 174,177,188,68,513,144
 #endif
 

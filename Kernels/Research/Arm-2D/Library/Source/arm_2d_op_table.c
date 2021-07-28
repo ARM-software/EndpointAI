@@ -56,7 +56,7 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wsign-compare"
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
-#elif __IS_COMPILER_ARM_COMPILER_5__
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 174,177,188,68,513,144
 #endif
 
@@ -582,7 +582,7 @@ const __arm_2d_op_info_t ARM_2D_OP_ROTATE_WITH_ALPHA_RGB888 = {
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
-#elif __IS_COMPILER_ARM_COMPILER_5__
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_warning 174,177,188,68,513,144
 #endif
 

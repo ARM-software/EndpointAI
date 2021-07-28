@@ -62,13 +62,14 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wswitch"
 #   pragma clang diagnostic ignored "-Wimplicit-fallthrough"
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
-#elif __IS_COMPILER_ARM_COMPILER_5__
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 174,177,188,68,513,144
-#elif __IS_COMPILER_GCC__
+#elif defined(__IS_COMPILER_GCC__)
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wswitch"
 #   pragma GCC diagnostic ignored "-Wenum-compare"
 #   pragma GCC diagnostic ignored "-Wpedantic"
+#   pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -893,9 +894,9 @@ bool __arm_2d_op_acquire(arm_2d_op_core_t *ptOP)
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
-#elif __IS_COMPILER_ARM_COMPILER_5__
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_warning 174,177,188,68,513,144
-#elif __IS_COMPILER_GCC__
+#elif defined(__IS_COMPILER_GCC__)
 #   pragma GCC diagnostic pop
 #endif
 

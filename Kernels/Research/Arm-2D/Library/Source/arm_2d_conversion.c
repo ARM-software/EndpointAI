@@ -58,7 +58,7 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #   pragma clang diagnostic ignored "-Wswitch-enum"
 #   pragma clang diagnostic ignored "-Wswitch"
-#elif __IS_COMPILER_ARM_COMPILER_5__
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 174,177,188,68,513,144
 #endif
 
@@ -257,7 +257,7 @@ void __arm_2d_impl_rgb565_to_rgb888(uint16_t *__RESTRICT phwSourceBase,
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
-#elif __IS_COMPILER_ARM_COMPILER_5__
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_warning 174,177,188,68,513,144
 #endif
 

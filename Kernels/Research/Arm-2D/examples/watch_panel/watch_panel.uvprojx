@@ -410,11 +410,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -423,30 +418,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -462,6 +433,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -752,6 +733,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -766,6 +757,16 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -952,6 +953,78 @@
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS Driver</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>0</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>0</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <uGnu>2</uGnu>
+                <useXO>2</useXO>
+                <v6Lang>0</v6Lang>
+                <v6LangP>0</v6LangP>
+                <vShortEn>2</vShortEn>
+                <vShortWch>2</vShortWch>
+                <v6Lto>2</v6Lto>
+                <v6WtE>2</v6WtE>
+                <v6Rtti>2</v6Rtti>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <ClangAsOpt>0</ClangAsOpt>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -1362,11 +1435,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -1375,30 +1443,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -1414,6 +1458,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1635,6 +1689,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1718,6 +1782,16 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1904,6 +1978,78 @@
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS Driver</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>0</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>0</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <uGnu>2</uGnu>
+                <useXO>2</useXO>
+                <v6Lang>0</v6Lang>
+                <v6LangP>0</v6LangP>
+                <vShortEn>2</vShortEn>
+                <vShortWch>2</vShortWch>
+                <v6Lto>2</v6Lto>
+                <v6WtE>2</v6WtE>
+                <v6Rtti>2</v6Rtti>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <ClangAsOpt>0</ClangAsOpt>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -2382,11 +2528,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -2395,30 +2536,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -2434,6 +2551,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2655,6 +2782,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2738,6 +2875,16 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2924,6 +3071,78 @@
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS Driver</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>0</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>0</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <uGnu>2</uGnu>
+                <useXO>2</useXO>
+                <v6Lang>0</v6Lang>
+                <v6LangP>0</v6LangP>
+                <vShortEn>2</vShortEn>
+                <vShortWch>2</vShortWch>
+                <v6Lto>2</v6Lto>
+                <v6WtE>2</v6WtE>
+                <v6Rtti>2</v6Rtti>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <ClangAsOpt>0</ClangAsOpt>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -3334,11 +3553,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -3347,30 +3561,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -3386,6 +3576,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3607,6 +3807,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3690,6 +3900,16 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3878,6 +4098,78 @@
           <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
+          <GroupName>::CMSIS Driver</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>0</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>0</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <uGnu>2</uGnu>
+                <useXO>2</useXO>
+                <v6Lang>0</v6Lang>
+                <v6LangP>0</v6LangP>
+                <vShortEn>2</vShortEn>
+                <vShortWch>2</vShortWch>
+                <v6Lto>2</v6Lto>
+                <v6WtE>2</v6WtE>
+                <v6Rtti>2</v6Rtti>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <ClangAsOpt>0</ClangAsOpt>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
         </Group>
       </Groups>
@@ -3886,7 +4178,7 @@
       <TargetName>V2M-MPS3-CM55</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160001::V6.16.1::..\..\Program Files\ARMCompiler6.16.1</pCCUsed>
+      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -4213,7 +4505,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,EXTERANL_DELAY_MS_DECLARE="extern void delay_ms(uint32_t);"</Define>
+              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -4286,11 +4578,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -4299,30 +4586,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -4338,6 +4601,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -4628,6 +4901,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4642,6 +4925,16 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4830,6 +5123,78 @@
           <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
+          <GroupName>::CMSIS Driver</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>0</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>0</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <uGnu>2</uGnu>
+                <useXO>2</useXO>
+                <v6Lang>0</v6Lang>
+                <v6LangP>0</v6LangP>
+                <vShortEn>2</vShortEn>
+                <vShortWch>2</vShortWch>
+                <v6Lto>2</v6Lto>
+                <v6WtE>2</v6WtE>
+                <v6Rtti>2</v6Rtti>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <ClangAsOpt>0</ClangAsOpt>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
         </Group>
       </Groups>
@@ -4838,7 +5203,7 @@
       <TargetName>V2M-MPS2-CM0+</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160001::V6.16.1::..\..\Program Files\ARMCompiler6.16.1</pCCUsed>
+      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -5238,11 +5603,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -5251,30 +5611,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -5290,6 +5626,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -5511,6 +5857,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -5594,6 +5950,16 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5780,6 +6146,78 @@
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS Driver</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>0</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>0</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <uGnu>2</uGnu>
+                <useXO>2</useXO>
+                <v6Lang>0</v6Lang>
+                <v6LangP>0</v6LangP>
+                <vShortEn>2</vShortEn>
+                <vShortWch>2</vShortWch>
+                <v6Lto>2</v6Lto>
+                <v6WtE>2</v6WtE>
+                <v6Rtti>2</v6Rtti>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <ClangAsOpt>0</ClangAsOpt>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -6190,11 +6628,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -6203,30 +6636,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -6242,6 +6651,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -6463,6 +6882,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -6546,6 +6975,16 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6734,6 +7173,78 @@
           <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
+          <GroupName>::CMSIS Driver</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>0</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>0</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <uGnu>2</uGnu>
+                <useXO>2</useXO>
+                <v6Lang>0</v6Lang>
+                <v6LangP>0</v6LangP>
+                <vShortEn>2</vShortEn>
+                <vShortWch>2</vShortWch>
+                <v6Lto>2</v6Lto>
+                <v6WtE>2</v6WtE>
+                <v6Rtti>2</v6Rtti>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <ClangAsOpt>0</ClangAsOpt>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
         </Group>
       </Groups>
@@ -6742,7 +7253,7 @@
       <TargetName>STM32F746G-Discovery</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160001::V6.16.1::..\..\Program Files\ARMCompiler6.16.1</pCCUsed>
+      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -7142,11 +7653,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -7155,30 +7661,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -7194,6 +7676,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -7484,6 +7976,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -7567,6 +8069,16 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -7686,6 +8198,9 @@
           <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
+          <GroupName>::CMSIS Driver</GroupName>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
         </Group>
       </Groups>
@@ -7694,7 +8209,7 @@
       <TargetName>AN547-Cortex-M55_r0</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160001::V6.16.1::..\..\Program Files\ARMCompiler6.16.1</pCCUsed>
+      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -8021,7 +8536,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Wno-padded -Omax</MiscControls>
-              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,EXTERANL_DELAY_MS_DECLARE="extern void delay_ms(uint32_t);",__USE_AN547__</Define>
+              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__USE_AN547__</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -8094,11 +8609,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -8107,30 +8617,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -8146,6 +8632,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -8436,6 +8932,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -8450,6 +8956,16 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -8636,6 +9152,78 @@
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS Driver</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>0</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>0</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <uGnu>2</uGnu>
+                <useXO>2</useXO>
+                <v6Lang>0</v6Lang>
+                <v6LangP>0</v6LangP>
+                <vShortEn>2</vShortEn>
+                <vShortWch>2</vShortWch>
+                <v6Lto>2</v6Lto>
+                <v6WtE>2</v6WtE>
+                <v6Rtti>2</v6Rtti>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <ClangAsOpt>0</ClangAsOpt>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -9046,11 +9634,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -9059,30 +9642,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -9098,6 +9657,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -9388,6 +9957,16 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -9471,6 +10050,16 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+            </File>
+            <File>
+              <FileName>stdout_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -9590,6 +10179,9 @@
           <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
+          <GroupName>::CMSIS Driver</GroupName>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
         </Group>
       </Groups>
@@ -9613,6 +10205,13 @@
       </package>
     </packages>
     <apis>
+      <api Capiversion="2.4.0" Cclass="CMSIS Driver" Cgroup="USART" exclusive="0">
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
+        <targetInfos>
+          <targetInfo name="STM32F746G-Discovery"/>
+          <targetInfo name="STM32F746G-Discovery-AC5"/>
+        </targetInfos>
+      </api>
       <api Capiversion="1.1.0" Cclass="Device" Cgroup="STM32Cube Framework" exclusive="1">
         <package name="STM32L4xx_DFP" schemaVersion="1.2" url="http://www.keil.com/pack" vendor="Keil" version="2.2.0"/>
         <targetInfos>
@@ -9642,7 +10241,7 @@
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0">
             <c>
-              <MiscControls>-Wno-undef -Wno-align-mismatch -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-cast-qual -Wno-implicit-int-conversion -Wno-extra-semi-stmt -Wno-padded -Wno-cast-align -Wno-shadow -Wno-shorten-64-to-32 -Wno-conditional-uninitialized -Wno-vector-conversion -Wno-implicit-float-conversion -Wno-double-promotion -Wno-vla -Wno-newline-eof</MiscControls>
+              <MiscControls>-w</MiscControls>
             </c>
           </targetInfo>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33">
@@ -9652,12 +10251,12 @@
           </targetInfo>
           <targetInfo name="FastModel">
             <c>
-              <MiscControls>-Ofast -Wno-undef -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-cast-qual -Wno-implicit-int-conversion -Wno-extra-semi-stmt -Wno-padded -Wno-cast-align -Wno-shadow -Wno-shorten-64-to-32 -Wno-conditional-uninitialized -Wno-vector-conversion -Wno-implicit-float-conversion -Wno-double-promotion -Wno-vla -Wno-newline-eof</MiscControls>
+              <MiscControls>-w</MiscControls>
             </c>
           </targetInfo>
           <targetInfo name="STM32F746G-Discovery">
             <c>
-              <MiscControls>-Ofast -Wno-undef -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-cast-qual -Wno-implicit-int-conversion -Wno-extra-semi-stmt -Wno-padded -Wno-cast-align -Wno-shadow -Wno-shorten-64-to-32 -Wno-conditional-uninitialized -Wno-vector-conversion -Wno-implicit-float-conversion -Wno-double-promotion -Wno-vla -Wno-newline-eof</MiscControls>
+              <MiscControls>-w</MiscControls>
             </c>
           </targetInfo>
           <targetInfo name="STM32F746G-Discovery-AC5">
@@ -9669,7 +10268,7 @@
           </targetInfo>
           <targetInfo name="V2M-MPS2-CM0+">
             <c>
-              <MiscControls>-Ofast -Wno-undef -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-cast-qual -Wno-implicit-int-conversion -Wno-extra-semi-stmt -Wno-padded -Wno-cast-align -Wno-shadow -Wno-shorten-64-to-32 -Wno-conditional-uninitialized -Wno-vector-conversion -Wno-implicit-float-conversion -Wno-double-promotion -Wno-vla -Wno-newline-eof</MiscControls>
+              <MiscControls>-w</MiscControls>
             </c>
           </targetInfo>
           <targetInfo name="V2M-MPS2-CM33">
@@ -9684,7 +10283,7 @@
           </targetInfo>
           <targetInfo name="V2M-MPS2-CM7">
             <c>
-              <MiscControls>-Ofast -Wno-undef -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-cast-qual -Wno-implicit-int-conversion -Wno-extra-semi-stmt -Wno-padded -Wno-cast-align -Wno-shadow -Wno-shorten-64-to-32 -Wno-conditional-uninitialized -Wno-vector-conversion -Wno-implicit-float-conversion -Wno-double-promotion -Wno-vla -Wno-newline-eof</MiscControls>
+              <MiscControls>-w</MiscControls>
             </c>
           </targetInfo>
           <targetInfo name="V2M-MPS3-CM55">
@@ -9738,6 +10337,13 @@
           <targetInfo name="V2M-MPS2-CM0+"/>
           <targetInfo name="V2M-MPS2-CM4"/>
           <targetInfo name="V2M-MPS2-CM7"/>
+        </targetInfos>
+      </component>
+      <component Capiversion="2.1.0" Cclass="CMSIS Driver" Cgroup="USART" Cvendor="Keil" Cversion="1.16.0" condition="STM32F7 CMSIS_Driver USART">
+        <package name="STM32F7xx_DFP" schemaVersion="1.7.1" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <targetInfos>
+          <targetInfo name="STM32F746G-Discovery"/>
+          <targetInfo name="STM32F746G-Discovery-AC5"/>
         </targetInfos>
       </component>
       <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.2.8" condition="STM32F7 Framework Classic">
@@ -9797,6 +10403,34 @@
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="SDRAM" Cvendor="Keil" Cversion="1.2.8" condition="STM32F7 HAL DMA">
+        <package name="STM32F7xx_DFP" schemaVersion="1.7.1" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <targetInfos>
+          <targetInfo name="STM32F746G-Discovery"/>
+          <targetInfo name="STM32F746G-Discovery-AC5"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="STM32Cube LL" Csub="Common" Cvendor="Keil" Cversion="1.2.8" condition="STM32F7 LL Common">
+        <package name="STM32F7xx_DFP" schemaVersion="1.7.1" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <targetInfos>
+          <targetInfo name="STM32F746G-Discovery"/>
+          <targetInfo name="STM32F746G-Discovery-AC5"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="STM32Cube LL" Csub="PWR" Cvendor="Keil" Cversion="1.2.8" condition="STM32F7 LL">
+        <package name="STM32F7xx_DFP" schemaVersion="1.7.1" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <targetInfos>
+          <targetInfo name="STM32F746G-Discovery"/>
+          <targetInfo name="STM32F746G-Discovery-AC5"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="STM32Cube LL" Csub="RCC" Cvendor="Keil" Cversion="1.2.8" condition="STM32F7 LL">
+        <package name="STM32F7xx_DFP" schemaVersion="1.7.1" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
+        <targetInfos>
+          <targetInfo name="STM32F746G-Discovery"/>
+          <targetInfo name="STM32F746G-Discovery-AC5"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="STM32Cube LL" Csub="UTILS" Cvendor="Keil" Cversion="1.2.8" condition="STM32F7">
         <package name="STM32F7xx_DFP" schemaVersion="1.7.1" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
         <targetInfos>
           <targetInfo name="STM32F746G-Discovery"/>

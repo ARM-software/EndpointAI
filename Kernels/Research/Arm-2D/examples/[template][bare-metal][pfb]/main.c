@@ -79,10 +79,10 @@ void display_task(void)
         
         /* a region for the status bar on the bottom of the screen */
         ADD_LAST_REGION_TO_LIST(s_tDirtyRegions,
-            .tLocation = {0,APP_SCREEN_HEIGHT - 8},
+            .tLocation = {0,APP_SCREEN_HEIGHT - 8*2},
             .tSize = {
                 .iWidth = APP_SCREEN_WIDTH,
-                .iHeight = 8,  
+                .iHeight = 8*2,  
             },
         ),
 
@@ -106,13 +106,10 @@ void display_task(void)
 
         snprintf(s_chPerformanceInfo, 
                  sizeof(s_chPerformanceInfo),
-                "UPS %3d:%2dms (LCD Latency %2dms) " 
-                STR(APP_SCREEN_WIDTH) "*"
-                STR(APP_SCREEN_HEIGHT) " %dMHz", 
+                "UPS %3d:%2dms (LCD Latency %2dms) ", 
                 (int32_t)SystemCoreClock / nTotalCyclCount, 
                 nTotalCyclCount / ((int32_t)SystemCoreClock / 1000),
-                nTotalLCDCycCount / ((int32_t)SystemCoreClock / 1000),
-                (int32_t)SystemCoreClock / 1000000);
+                nTotalLCDCycCount / ((int32_t)SystemCoreClock / 1000));
 
     } while(0);
 
@@ -124,7 +121,15 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
     ARM_2D_UNUSED(ptFrameBuffer);
     
     //! print performance info
-    lcd_text_location( GLCD_HEIGHT / 8 - 1, 0);
+    lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
+    
+    lcd_printf( "Screeen: " STR(APP_SCREEN_WIDTH) "*"
+                STR(APP_SCREEN_HEIGHT) 
+                " PFB: " STR(PFB_BLOCK_WIDTH) "*"
+                STR(PFB_BLOCK_HEIGHT)
+                " System Freq: %dMHz\r\n",
+                (int32_t)SystemCoreClock / 1000000);
+                
     //lcd_text_location( 0, 0);
     lcd_puts(s_chPerformanceInfo);
 }
@@ -188,15 +193,13 @@ IMPL_PFB_ON_LOW_LV_RENDERING(__pfb_render_handler)
  *----------------------------------------------------------------------------*/
 int main (void) 
 {
-#if defined(__IS_COMPILER_GCC__)
-    app_platform_init();
-#endif
-
     arm_irq_safe {
         arm_2d_init();
         /* put your code here */
         example_gui_init();
     }         
+
+    printf("\r\nArm-2D Bare-metal Template\r\n");
 
     //! initialise FPB helper
     if (ARM_2D_HELPER_PFB_INIT( 

@@ -362,3 +362,4 @@ si4/pixelpipe.si4project/cache/parse/examples_[template][bare-metal][pfb]_app_cf
 si4/pixelpipe.si4project/cache/parse/ECPSExample.py.sisc
 *.sisc
 *._ac
+*.hex

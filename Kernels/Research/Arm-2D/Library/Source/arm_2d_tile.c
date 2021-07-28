@@ -54,9 +54,9 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wtautological-pointer-compare"
 #   pragma clang diagnostic ignored "-Wsign-compare"
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
-#elif __IS_COMPILER_ARM_COMPILER_5__
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 174,177,188,68,513,144
-#elif __IS_COMPILER_GCC__
+#elif defined(__IS_COMPILER_GCC__)
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
 #endif
@@ -765,9 +765,9 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill_with_colour_masking(
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
-#elif __IS_COMPILER_ARM_COMPILER_5__
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_warning 174,177,188,68,513,144
-#elif __IS_COMPILER_GCC__
+#elif defined(__IS_COMPILER_GCC__)
 #   pragma GCC diagnostic pop
 #endif
 

@@ -36,9 +36,10 @@
 #   pragma clang diagnostic ignored "-Wundef"
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
 #   pragma clang diagnostic ignored "-Wcast-align"
-#elif __IS_COMPILER_GCC__
+#elif defined(__IS_COMPILER_GCC__)
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wpedantic"
+#   pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif
 
 /*============================ MACROS ========================================*/

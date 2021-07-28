@@ -21,7 +21,9 @@
 
 /*============================ INCLUDES ======================================*/
 
-#include ".\perf_counter.h"
+
+
+#include "lib\perf_counter.h"
 #include "cmsis_compiler.h"
 
 #include <stdlib.h>
@@ -38,7 +40,17 @@
 //#include "Board_Buttons.h"              // ::Board Support:Buttons
 //#include "Board_Touch.h"                // ::Board Support:Touchscreen
 #include "Board_GLCD.h"                 // ::Board Support:Graphic LCD
-#include "GLCD_Config.h"                // Keil.SAM4E-EK::Board Support:Graphic LCD
+#include "GLCD_Config.h"                
+
+#ifdef RTE_CMSIS_RTOS2                  // when RTE component CMSIS RTOS2 is used
+#   include "cmsis_os2.h"                  // ::CMSIS:RTOS2
+#endif
+
+
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wdollar-in-identifier-extension"
+#endif
 
 
 #ifdef __cplusplus
@@ -47,8 +59,38 @@ extern "C" {
 
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
+#if defined(RTE_CMSIS_RTOS2)
+
+#   define arm_thread_safe  \
+            arm_using(  int32_t ARM_CONNECT2(temp,__LINE__) =                   \
+            ({uint32_t temp = osKernelLock();temp;}),                           \
+            osKernelRestoreLock(ARM_CONNECT2(temp,__LINE__)))
+
+#endif
+
+
+#if     defined(__IS_COMPILER_ARM_COMPILER_5__) \
+    ||  defined(__IS_COMPILER_ARM_COMPILER_6__)
+#   undef __ARM_WRAP
+#   undef ARM_WRAP
+#   define __ARM_WRAP(__FUNC)       $Sub$$##__FUNC
+#   define ARM_WRAP(__FUNC)         __ARM_WRAP(__FUNC)
+#   define __ARM_REAL(__FUNC)       $Super$$##__FUNC
+#   define ARM_REAL(__FUNC)         __ARM_REAL(__FUNC)
+#else   /* GCC or compatible compilers*/
+#   undef __ARM_WRAP
+#   undef ARM_WRAP
+#   define __ARM_WRAP(__FUNC)       __wrap_##__FUNC
+#   define ARM_WRAP(__FUNC)         __ARM_WRAP(__FUNC)
+#   define __ARM_REAL(__FUNC)       __real_##__FUNC
+#   define ARM_REAL(__FUNC)         __ARM_REAL(__FUNC)
+#endif
+
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
+
+extern const GLCD_FONT    GLCD_Font_16x24;
+extern const GLCD_FONT    GLCD_Font_6x8;
 
 extern uint32_t SystemCoreClock;
 /*============================ PROTOTYPES ====================================*/
@@ -58,6 +100,10 @@ extern void delay_ms(uint32_t wMS);
 
 #ifdef __cplusplus
 }
+#endif
+
+#if defined(__clang__)
+#   pragma clang diagnostic pop
 #endif
 
 #endif
