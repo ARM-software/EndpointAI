@@ -88,6 +88,7 @@ void lcd_text_location(uint8_t chY, uint8_t chX)
 static void lcd_draw_char(int16_t iX, int16_t iY, char chChar)
 {
     //! use default frame buffer
+    //arm_2d_tile_t *ptFrameBuffer = arm_2d_get_default_frame_buffer();//(arm_2d_tile_t *) -1;
     arm_2d_tile_t *ptFrameBuffer = (arm_2d_tile_t *) -1;
     
     const static arm_2d_tile_t s_tileFont6x8 = {
@@ -129,13 +130,12 @@ static void lcd_draw_char(int16_t iX, int16_t iY, char chChar)
                                 ptFrameBuffer, 
                                 &tDrawRegion,
                                     ARM_2D_DRW_PATN_MODE_COPY           
-                                //| ARM_2D_DRW_PATN_MODE_NO_FG_COLOR 
-                                //| ARM_2D_DRW_PATN_MODE_WITH_BG_COLOR
+                                //| ARM_2D_DRW_PATN_MODE_NO_FG_COLOR    
                                 //| ARM_2D_DRW_PATH_MODE_COMP_FG_COLOUR 
                                 ,
                                 GLCD_COLOR_GREEN,
                                 GLCD_COLOR_BLACK);
-    
+    arm_2d_op_wait_async(NULL);
 }
 
 void lcd_puts(const char *str)

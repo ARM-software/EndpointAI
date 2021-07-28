@@ -16,6 +16,18 @@
  */
 #define CMSIS_device_header "stm32f7xx.h"
 
+/* Keil.ARM Compiler::Compiler:I/O:STDOUT:User:1.2.0 */
+#define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
+          #define RTE_Compiler_IO_STDOUT_User     /* Compiler I/O: STDOUT User */
+/* Keil::CMSIS Driver:USART:1.16.0 */
+#define RTE_Drivers_USART1              /* Driver USART1 */
+        #define RTE_Drivers_USART2              /* Driver USART2 */
+        #define RTE_Drivers_USART3              /* Driver USART3 */
+        #define RTE_Drivers_USART4              /* Driver USART4 */
+        #define RTE_Drivers_USART5              /* Driver USART5 */
+        #define RTE_Drivers_USART6              /* Driver USART6 */
+        #define RTE_Drivers_USART7              /* Driver USART7 */
+        #define RTE_Drivers_USART8              /* Driver USART8 */
 /* Keil::Device:STM32Cube Framework:Classic:1.2.8 */
 #define RTE_DEVICE_FRAMEWORK_CLASSIC
 /* Keil::Device:STM32Cube HAL:Common:1.2.8 */
@@ -34,6 +46,14 @@
 #define RTE_DEVICE_HAL_RCC
 /* Keil::Device:STM32Cube HAL:SDRAM:1.2.8 */
 #define RTE_DEVICE_HAL_SDRAM
+/* Keil::Device:STM32Cube LL:Common:1.2.8 */
+#define RTE_DEVICE_LL_COMMON
+/* Keil::Device:STM32Cube LL:PWR:1.2.8 */
+#define RTE_DEVICE_LL_PWR
+/* Keil::Device:STM32Cube LL:RCC:1.2.8 */
+#define RTE_DEVICE_LL_RCC
+/* Keil::Device:STM32Cube LL:UTILS:1.2.8 */
+#define RTE_DEVICE_LL_UTILS
 /* Keil::Device:Startup:1.2.5 */
 #define RTE_DEVICE_STARTUP_STM32F7XX    /* Device Startup for STM32F7 */
 

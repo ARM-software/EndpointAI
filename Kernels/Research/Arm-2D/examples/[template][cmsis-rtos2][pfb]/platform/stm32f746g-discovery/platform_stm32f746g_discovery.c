@@ -56,16 +56,36 @@ static void Error_Handler(void)
     /* USER CODE END Error_Handler_Debug */
 }
 
-#if !__IS_COMPILER_GCC__
-extern void $Super$$platform_1ms_event_handler(void);
+#if defined(RTE_CMSIS_RTOS2) && defined(STM32F746xx)
+/**
+  * Override default HAL_GetTick function
+  */
+uint32_t HAL_GetTick (void) {
+  static uint32_t ticks = 0U;
+         uint32_t i;
 
-void $Sub$$platform_1ms_event_handler(void)
+  if (osKernelGetState () == osKernelRunning) {
+    return ((uint32_t)osKernelGetTickCount ());
+  }
+
+  /* If Kernel is not running wait approximately 1 ms then increment 
+     and return auxiliary tick counter value */
+  for (i = (SystemCoreClock >> 14U); i > 0U; i--) {
+    __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP();
+    __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP();
+  }
+  return ++ticks;
+}
+
+#endif
+
+__OVERRIDE_WEAK
+void bsp_1ms_event_handler(void)
 {
     HAL_IncTick();
     
-    $Super$$platform_1ms_event_handler();
 }
-#endif
+
 
 __OVERRIDE_WEAK 
 bool device_specific_init(void)
@@ -109,6 +129,17 @@ bool device_specific_init(void)
     Driver_USART1.Control (ARM_USART_CONTROL_TX, 1U);
     Driver_USART1.Control (ARM_USART_CONTROL_RX, 1U);
 #endif
+
+
+    GLCD_Initialize();                          /* Initialize the GLCD            */
+
+    /* display initial screen */
+    GLCD_SetFont(&GLCD_Font_6x8);
+    GLCD_SetBackgroundColor(GLCD_COLOR_BLACK);
+    GLCD_ClearScreen();
+    //GLCD_SetBackgroundColor(GLCD_COLOR_BLUE);
+    GLCD_SetForegroundColor(GLCD_COLOR_GREEN);
+
 
     return true;
 }

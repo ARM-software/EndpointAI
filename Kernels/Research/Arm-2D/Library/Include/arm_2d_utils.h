@@ -34,9 +34,10 @@
 #   pragma clang diagnostic ignored "-Wsign-conversion"
 #   pragma clang diagnostic ignored "-Wimplicit-int-conversion"
 #   pragma clang diagnostic ignored "-Wundef"
-#elif __IS_COMPILER_GCC__
+#elif defined(__IS_COMPILER_GCC__)
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wpedantic"
+#   pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif
 
 #ifdef  __ARM_2D_HAS_USER_HEADER__
@@ -140,22 +141,6 @@ extern "C" {
 
 #define inherit(__type)                 __inherit(__type)
 #define inherit_ex(__type, __name)      __inherit_ex(__type, __name)
-
-
-/*----------------------------------------------------------------------------*
- * Math                                                                       *
- *----------------------------------------------------------------------------*/
-#ifndef MAX
-#   define MAX(a,b)	((a) > (b) ? (a) : (b))
-#endif
-
-#ifndef MIN
-#   define MIN(a,b)	((a) < (b) ? (a) : (b))
-#endif
-
-#ifndef _BV
-#   define _BV(__BIT)       (1 << (__BIT))
-#endif
 
 
 /*----------------------------------------------------------------------------*
@@ -313,13 +298,6 @@ extern "C" {
 #ifndef __OVERRIDE_WEAK
 #   define __OVERRIDE_WEAK          __USED
 #endif
-
-#define vec_rgb16              uint16x8_t
-#define vec_rgb32              uint32x4_t
-#define ARM_PIX_SCLTYP(sz)     ARM_CONNECT2(ARM_CONNECT2(uint, sz), _t)
-#define ARM_PIX_VECTYP(sz)     ARM_CONNECT2(vec_rgb,sz)
-
-#define ARM_2D_ANGLE(__ANGLE)  ((float)((float)(__ANGLE) * 3.1416926f / 180.0f))
 
 
 #undef arm_irq_safe

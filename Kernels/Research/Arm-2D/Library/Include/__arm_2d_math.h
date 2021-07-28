@@ -65,18 +65,6 @@
 typedef float float16_t;
 #endif
 
-#ifdef   __cplusplus
-extern "C" {
-#endif
-
-/*============================ MACROS ========================================*/
-
-#define ABS(x) ((x) > 0 ? (x) : -(x))
-
-/* 32 bit multiplication with high part extraction */
-#define MULTFX(x,y)         (q31_t)(((q63_t) (x) * (y)) >> 32)
-
-
 #if __ARM_2D_HAS_DSP__
 
 #if defined(__IS_COMPILER_ARM_COMPILER_5__)
@@ -85,9 +73,56 @@ extern "C" {
 #   include <arm_acle.h>
 #endif
 
+#endif
+
+
+#ifdef   __cplusplus
+extern "C" {
+#endif
+
+/*============================ MACROS ========================================*/
+
+/*----------------------------------------------------------------------------*
+ * Math                                                                       *
+ *----------------------------------------------------------------------------*/
+#ifndef MAX
+#   define MAX(a,b)	((a) > (b) ? (a) : (b))
+#endif
+
+#ifndef MIN
+#   define MIN(a,b)	((a) < (b) ? (a) : (b))
+#endif
+
+#ifndef _BV
+#   define _BV(__BIT)       (1 << (__BIT))
+#endif
+
+#ifndef ABS
+#   define ABS(x) ((x) > 0 ? (x) : -(x))
+#endif
+
+#undef MULTFX
+/* 32 bit multiplication with high part extraction */
+#define MULTFX(x,y)         (q31_t)(((q63_t) (x) * (y)) >> 32)
+
+
+#define vec_rgb16              uint16x8_t
+#define vec_rgb32              uint32x4_t
+#define ARM_PIX_SCLTYP(sz)     ARM_CONNECT2(ARM_CONNECT2(uint, sz), _t)
+#define ARM_PIX_VECTYP(sz)     ARM_CONNECT2(vec_rgb,sz)
+
+#define ARM_2D_ANGLE(__ANGLE)  ((float)((float)(__ANGLE) * 3.1416926f / 180.0f))
+
+#if __ARM_2D_HAS_DSP__
+
+#undef __QDADD
+#undef __QDSUB
 #define __QDADD(X, Y)     __qadd(X, __qdbl(Y))
 #define __QDSUB(X, Y)     __qsub(X, __qdbl(Y))
 
+/*============================ TYPES =========================================*/
+/*============================ GLOBAL VARIABLES ==============================*/
+/*============================ PROTOTYPES ====================================*/
 
 #elif defined(__ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT_FOR_PERFROMANCE__)
 /*
@@ -131,9 +166,7 @@ __STATIC_FORCEINLINE int32_t __QDSUB(
 
 #endif
 
-/*============================ TYPES =========================================*/
-/*============================ GLOBAL VARIABLES ==============================*/
-/*============================ PROTOTYPES ====================================*/
+
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

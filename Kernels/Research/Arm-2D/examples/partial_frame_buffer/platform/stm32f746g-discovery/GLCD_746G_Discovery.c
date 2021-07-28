@@ -42,18 +42,6 @@
 #define SDRAM_BASE_ADDR       0xC0000000
 #endif
 
-#ifndef      __MEMORY_AT
-  #if     (defined (__CC_ARM))
-    #define  __MEMORY_AT(x)     __attribute__((at(x)))
-  #elif   (defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050))
-    #define  __MEMORY_AT__(x)   __attribute__((section(".bss.ARM.__at_"#x)))
-    #define  __MEMORY_AT(x)     __MEMORY_AT__(x)
-  #else
-    #define  __MEMORY_AT(x)
-    #warning Position memory containing __MEMORY_AT macro at absolute address!
-  #endif
-#endif
-
 
 /*---------------------------- Global variables ------------------------------*/
 

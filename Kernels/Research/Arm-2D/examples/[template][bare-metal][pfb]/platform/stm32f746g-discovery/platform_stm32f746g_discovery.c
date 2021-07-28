@@ -27,6 +27,7 @@
 
 #include "stm32f7xx.h"
 #include "stm32f7xx_hal.h"
+#include "Driver_USART.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -40,7 +41,7 @@
 static void SystemClock_Config(void);
 static void MPU_Config(void);
 
-
+extern   ARM_DRIVER_USART       Driver_USART1;
 
 /**
   * @brief  This function is executed in case of error occurrence.
@@ -55,16 +56,36 @@ static void Error_Handler(void)
     /* USER CODE END Error_Handler_Debug */
 }
 
-#if !__IS_COMPILER_GCC__
-extern void $Super$$platform_1ms_event_handler(void);
+#if defined(RTE_CMSIS_RTOS2) && defined(STM32F746xx)
+/**
+  * Override default HAL_GetTick function
+  */
+uint32_t HAL_GetTick (void) {
+  static uint32_t ticks = 0U;
+         uint32_t i;
 
-void $Sub$$platform_1ms_event_handler(void)
+  if (osKernelGetState () == osKernelRunning) {
+    return ((uint32_t)osKernelGetTickCount ());
+  }
+
+  /* If Kernel is not running wait approximately 1 ms then increment 
+     and return auxiliary tick counter value */
+  for (i = (SystemCoreClock >> 14U); i > 0U; i--) {
+    __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP();
+    __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP();
+  }
+  return ++ticks;
+}
+
+#endif
+
+__OVERRIDE_WEAK
+void bsp_1ms_event_handler(void)
 {
     HAL_IncTick();
     
-    $Super$$platform_1ms_event_handler();
 }
-#endif
+
 
 __OVERRIDE_WEAK 
 bool device_specific_init(void)
@@ -94,10 +115,75 @@ bool device_specific_init(void)
     /* USER CODE BEGIN SysInit */
     SystemCoreClockUpdate();
     /* USER CODE END SysInit */
+
+#if defined(RTE_Compiler_IO_STDOUT_User)
+    Driver_USART1.Initialize(NULL);
+    Driver_USART1.PowerControl(ARM_POWER_FULL);
     
+    Driver_USART1.Control(ARM_USART_MODE_ASYNCHRONOUS       |
+                ARM_USART_DATA_BITS_8                       |
+                ARM_USART_PARITY_NONE                       |
+                ARM_USART_STOP_BITS_1                       ,
+                115200);
+                
+    Driver_USART1.Control (ARM_USART_CONTROL_TX, 1U);
+    Driver_USART1.Control (ARM_USART_CONTROL_RX, 1U);
+#endif
+
+
+    GLCD_Initialize();                          /* Initialize the GLCD            */
+
+    /* display initial screen */
+    GLCD_SetFont(&GLCD_Font_6x8);
+    GLCD_SetBackgroundColor(GLCD_COLOR_BLACK);
+    GLCD_ClearScreen();
+    //GLCD_SetBackgroundColor(GLCD_COLOR_BLUE);
+    GLCD_SetForegroundColor(GLCD_COLOR_GREEN);
+
 
     return true;
 }
+
+#if defined(RTE_Compiler_IO_STDOUT_User)
+int32_t stdout_putchar(int32_t ch)
+{
+    static uint8_t s_chByte;
+    s_chByte    = ch;
+    while(Driver_USART1.GetStatus().tx_busy) {}
+    Driver_USART1.Send(&s_chByte, 1);
+    
+    return ch;
+}
+
+
+#   if defined(__IS_COMPILER_GCC__)
+int _write (int fd, char *ptr, int len)
+{
+    if (fd == 1) {
+        int n = len;
+        do {
+            stdout_putchar(*ptr++);
+        } while(--n);
+        
+        return len;
+    } 
+  
+    return -1;
+}
+
+
+void _ttywrch(int ch) {
+  /* Write one char "ch" to the default console
+   * Need implementing with UART here. */
+   stdout_putchar(ch);
+}
+#endif
+
+
+
+
+
+#endif
 
 
 /**
