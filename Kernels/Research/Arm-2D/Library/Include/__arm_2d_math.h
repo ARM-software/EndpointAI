@@ -103,7 +103,11 @@ extern "C" {
 
 #undef MULTFX
 /* 32 bit multiplication with high part extraction */
-#define MULTFX(x,y)         (q31_t)(((q63_t) (x) * (y)) >> 32)
+#define MULTFX(x,y)         (q31_t)((q63_t)((q63_t) (x) * (q63_t)(y)) >> 32)
+
+/* Q16 multiplication */
+#undef MUL_Q16
+#define MUL_Q16(x,y)         (q31_t)((q63_t)((q63_t) (x) * (q63_t)(y)) >> 16)
 
 
 #define vec_rgb16              uint16x8_t

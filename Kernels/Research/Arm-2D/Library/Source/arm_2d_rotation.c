@@ -84,16 +84,30 @@ extern "C" {
  *----------------------------------------------------------------------------*/
 
 
+#define __API_PIXEL_AVERAGE_RESULT_RGB565()                     \
+    (   tPixel.R >>= 8,                                         \
+        tPixel.G >>= 8,                                         \
+        tPixel.B >>= 8,                                         \
+        __arm_2d_rgb565_pack(&tPixel));
+
+#define __API_PIXEL_AVERAGE_RESULT_RGB888()                     \
+    (   tPixel.R >>= 8,                                         \
+        tPixel.G >>= 8,                                         \
+        tPixel.B >>= 8,                                         \
+        __arm_2d_rgb888_pack(&tPixel));
 
 #define __API_COLOUR                rgb565
 #define __API_INT_TYPE              uint16_t
 #define __API_PIXEL_BLENDING        __ARM_2D_PIXEL_BLENDING_RGB565
-
+#define __API_PIXEL_AVERAGE         __ARM_2D_PIXEL_AVERAGE_RGB565
+#define __API_PIXEL_AVERAGE_RESULT  __API_PIXEL_AVERAGE_RESULT_RGB565
 #include "__arm_2d_rotate.inc"
 
 #define __API_COLOUR                rgb888
 #define __API_INT_TYPE              uint32_t
 #define __API_PIXEL_BLENDING        __ARM_2D_PIXEL_BLENDING_RGB888
+#define __API_PIXEL_AVERAGE         __ARM_2D_PIXEL_AVERAGE_RGB888
+#define __API_PIXEL_AVERAGE_RESULT  __API_PIXEL_AVERAGE_RESULT_RGB888
 
 #include "__arm_2d_rotate.inc"
 

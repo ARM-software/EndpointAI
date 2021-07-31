@@ -106,6 +106,23 @@ extern "C" {
                 *phwTargetPixel = __arm_2d_rgb565_pack(&tTargetPix);            \
             } while(0);
 
+#define __ARM_2D_PIXEL_AVERAGE_RGB565(__PIXEL_IN, __ALPHA)                      \
+    do {                                                                        \
+        __arm_2d_color_fast_rgb_t tTempColour;                                  \
+        __arm_2d_rgb565_unpack((__PIXEL_IN), &tTempColour);                     \
+        tPixel.R += tTempColour.R * (__ALPHA);                                  \
+        tPixel.G += tTempColour.G * (__ALPHA);                                  \
+        tPixel.B += tTempColour.B * (__ALPHA);                                  \
+    } while(0)
+
+
+#define __ARM_2D_PIXEL_AVERAGE_RGB888(__PIXEL_IN, __ALPHA)                      \
+    do {                                                                        \
+        arm_2d_color_rgb888_t tTempColour = {.tValue = (__PIXEL_IN)};           \
+        tPixel.R += tTempColour.u8R * (__ALPHA);                                \
+        tPixel.G += tTempColour.u8G * (__ALPHA);                                \
+        tPixel.B += tTempColour.u8B * (__ALPHA);                                \
+    } while(0)
 
 #define __ARM_2D_PIXEL_BLENDING_RGB888(__SRC_ADDR, __DES_ADDR, __OPACITY)       \
             do {                                                                \
@@ -123,6 +140,14 @@ extern "C" {
             } while(0)
 
 /*============================ TYPES =========================================*/
+
+typedef struct __arm_2d_point_adj_alpha_t{
+    struct {
+        arm_2d_location_t tOffset;
+        uint8_t chAlpha;
+    }tMatrix[4];
+} __arm_2d_point_adj_alpha_t;
+
 
 
 
@@ -264,6 +289,9 @@ extern struct __arm_2d_op_control ARM_2D_CTRL;
 
 /*============================ PROTOTYPES ====================================*/
 
+/*----------------------------------------------------------------------------*
+ * Pipeline                                                                   *
+ *----------------------------------------------------------------------------*/
 extern
 arm_fsm_rt_t __arm_2d_op_invoke(arm_2d_op_core_t *ptOP);
 
@@ -285,11 +313,21 @@ void __arm_2d_notify_sub_task_cpl(__arm_2d_sub_task_t *ptTask,
 extern 
 arm_fsm_rt_t __arm_2d_op_frontend_op_decoder(arm_2d_op_core_t *ptThis);
 
+
+/*----------------------------------------------------------------------------*
+ * Utilities                                                                  *
+ *----------------------------------------------------------------------------*/
+extern
+__arm_2d_point_adj_alpha_t 
+__arm_2d_point_get_adjacent_alpha(arm_2d_point_float_t *ptPoint);
+
+extern
+__arm_2d_point_adj_alpha_t 
+__arm_2d_point_get_adjacent_alpha_q16(arm_2d_point_fx_t *ptPoint);
+
 /*----------------------------------------------------------------------------*
  * Default Software Implementations                                           *
  *----------------------------------------------------------------------------*/
- 
-
         
 extern 
 arm_fsm_rt_t __arm_2d_sw_draw_point(__arm_2d_sub_task_t *ptTask);      

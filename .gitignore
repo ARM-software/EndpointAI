@@ -2,3 +2,6 @@
 Kernels/Research/Arm-2D/examples/alpha_blending/Out/alpha_blending.sct
 Kernels/Research/Arm-2D/examples/alpha_blending/Out/alpha_blending_sct.Bak
 *.scvd
+Kernels/Research/Arm-2D/examples/watch_panel/Objects/gcc_template.sct
+Kernels/Research/Arm-2D/examples/[template][cmsis-rtos2][pfb]/Objects/gcc_template.sct
+Kernels/Research/Arm-2D/examples/[template][cmsis-rtos2][pfb]/Objects/gcc_template.sct
