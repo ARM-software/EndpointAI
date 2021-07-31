@@ -60,12 +60,12 @@ The visual effects is the same as Alpha-blending but using Partial-Frame-buffer 
 
 It is an example of rotation APIs. It consists of five layers:
 
-1. A background layer (Using Tile Copy)
+1. A floating background layer (Using Tile Copy)
 2. A clock_panel layer (Using Alpha-Blending-With-Colour-Masking)
 3. A small gold gear (Rotation)
 4. A big black gear (Rotation with Alpha Blending)
 5. A red pointer (Rotation)
 
-This demo also shows how a fancy looking clock could be rendered with just less than 10K RAM (or even less by setting a smaller PFB size). 
+This demo also shows how a fancy looking clock could be rendered with just less than 10K RAM (or even less by using a smaller PFB size). 
 
 ![watch_panel](../documents/pictures/watch_panel.gif) 

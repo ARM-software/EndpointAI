@@ -35,6 +35,9 @@
 #   pragma clang diagnostic ignored "-Wunused-const-variable"
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#elif defined(__IS_COMPILER_GCC__)
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wmissing-braces"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -347,6 +350,8 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 }
 
 
-#if defined(__clang__)
+#if     defined(__clang__)
 #   pragma clang diagnostic pop
+#elif   defined(__IS_COMPILER_GCC__)
+#   pragma GCC diagnostic pop
 #endif

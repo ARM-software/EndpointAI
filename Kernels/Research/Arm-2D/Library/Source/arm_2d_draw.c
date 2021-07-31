@@ -64,6 +64,9 @@ extern "C" {
 
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
+
+#define TO_Q16(x)           ((int32_t)(x) << 16)
+
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
@@ -100,6 +103,155 @@ void __arm_2d_impl_rgb32_draw_pattern(  uint8_t *__RESTRICT pchSource,
                                         
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ IMPLEMENTATION ================================*/
+
+
+
+/*----------------------------------------------------------------------------*
+ * Utiliteis                                                                  *
+ *----------------------------------------------------------------------------*/
+__arm_2d_point_adj_alpha_t 
+__arm_2d_point_get_adjacent_alpha_fp(arm_2d_point_float_t *ptPoint)
+{
+    assert(NULL != ptPoint);
+    float x = ptPoint->fX - (int32_t)ptPoint->fX;
+    float y = ptPoint->fY - (int32_t)ptPoint->fY;
+    
+    int16_t tXOffset = x < 0 ? -1 : 0;
+    int16_t tYOffset = y < 0 ? -1 : 0;
+    
+    __arm_2d_point_adj_alpha_t tResult = {
+        .tMatrix = {
+            [0] = {
+                .tOffset = {
+                    .iX = tXOffset,
+                    .iY = tYOffset,
+                },
+            },
+            [1] = {
+                .tOffset = {
+                    .iX = tXOffset + 1,
+                    .iY = tYOffset,
+                },
+            },
+            [2] = {
+                .tOffset = {
+                    .iX = tXOffset,
+                    .iY = tYOffset + 1,
+                },
+            },
+            [3] = {
+                .tOffset = {
+                    .iX = tXOffset + 1,
+                    .iY = tYOffset +1,
+                },
+            },
+        },
+    };
+    
+    if (tXOffset) {
+        if (tYOffset) {
+            tResult.tMatrix[0].chAlpha = (uint8_t)((float)-x * (float)-y * 256.0f);
+            tResult.tMatrix[1].chAlpha = (uint8_t)((float)(1.0f+x) * (float)-y * 256.0f);
+            tResult.tMatrix[2].chAlpha = (uint8_t)((float)-x * (float)(1.0f+y) * 256.0f);
+            tResult.tMatrix[3].chAlpha = (uint8_t)((float)(1.0f+x) * (float)(1.0f+y) * 256.0f);
+        } else {
+            tResult.tMatrix[0].chAlpha = (uint8_t)((float)-x * (float)(1.0f-y) * 256.0f);
+            tResult.tMatrix[1].chAlpha = (uint8_t)((float)(1.0f+x) * (float)(1.0f-y) * 256.0f);
+            tResult.tMatrix[2].chAlpha = (uint8_t)((float)-x * (float)y * 256.0f);
+            tResult.tMatrix[3].chAlpha = (uint8_t)((float)(1.0f+x) * (float)y * 256.0f);
+        }
+    } else {
+        if (tYOffset) {
+            tResult.tMatrix[0].chAlpha = (uint8_t)((float)(1.0f-x) * (float)-y * 256.0f);
+            tResult.tMatrix[1].chAlpha = (uint8_t)((float)x * (float)-y * 256.0f);
+            tResult.tMatrix[2].chAlpha = (uint8_t)((float)(1.0f-x) * (float)(1.0f+y) * 256.0f);
+            tResult.tMatrix[3].chAlpha = (uint8_t)((float)x * (float)(1.0f+y) * 256.0f);
+        } else {
+            tResult.tMatrix[0].chAlpha = (uint8_t)((float)(1.0f-x) * (float)(1.0f-y) * 256.0f);
+            tResult.tMatrix[1].chAlpha = (uint8_t)((float)x * (float)(1.0f-y) * 256.0f);
+            tResult.tMatrix[2].chAlpha = (uint8_t)((float)(1.0f-x) * (float)y * 256.0f);
+            tResult.tMatrix[3].chAlpha = (uint8_t)((float)x * (float)y * 256.0f);
+        }
+    }
+    
+    return tResult;
+}
+
+__arm_2d_point_adj_alpha_t 
+__arm_2d_point_get_adjacent_alpha_q16(arm_2d_point_fx_t *ptPoint)
+{
+    assert(NULL != ptPoint);
+    int32_t x = ptPoint->X  & 0xFFFF;  //__QSUB(ptPoint->X, ptPoint->X & 0x7FFF0000);
+    int32_t y = ptPoint->Y  & 0xFFFF;//__QSUB(ptPoint->Y, ptPoint->Y & 0x7FFF0000);
+    
+    if (ptPoint->X < 0) {
+        x |= 0xFFFF0000;
+    }
+    if (ptPoint->Y < 0) {
+        y |= 0xFFFF0000;
+    }
+    
+    int16_t tXOffset = x < 0 ? -1 : 0;
+    int16_t tYOffset = y < 0 ? -1 : 0;
+    
+    __arm_2d_point_adj_alpha_t tResult = {
+        .tMatrix = {
+            [0] = {
+                .tOffset = {
+                    .iX = tXOffset,
+                    .iY = tYOffset,
+                },
+            },
+            [1] = {
+                .tOffset = {
+                    .iX = tXOffset + 1,
+                    .iY = tYOffset,
+                },
+            },
+            [2] = {
+                .tOffset = {
+                    .iX = tXOffset,
+                    .iY = tYOffset + 1,
+                },
+            },
+            [3] = {
+                .tOffset = {
+                    .iX = tXOffset + 1,
+                    .iY = tYOffset +1,
+                },
+            },
+        },
+    };
+
+
+    if (tXOffset) {
+        if (tYOffset) {
+            tResult.tMatrix[0].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16(-x, -y),TO_Q16(256))) >> 16;
+            tResult.tMatrix[1].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16((TO_Q16(1)+x),-y),TO_Q16(256)) >> 16);
+            tResult.tMatrix[2].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16(-x,(TO_Q16(1)+y)), TO_Q16(256)) >> 16);
+            tResult.tMatrix[3].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16((TO_Q16(1)+x), (TO_Q16(1)+y)), TO_Q16(256)) >> 16);
+        } else {
+            tResult.tMatrix[0].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16(-x,TO_Q16(256)),(TO_Q16(1)-y)) >> 16);
+            tResult.tMatrix[1].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16((TO_Q16(1)+x),TO_Q16(256)),(TO_Q16(1)-y)) >> 16);
+            tResult.tMatrix[2].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16(-x, TO_Q16(256)), y) >> 16);
+            tResult.tMatrix[3].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16((TO_Q16(1)+x),TO_Q16(256)), y) >> 16);
+        }
+    } else {
+        if (tYOffset) {
+            tResult.tMatrix[0].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16((TO_Q16(1)-x), -y), TO_Q16(256)) >> 16);
+            tResult.tMatrix[1].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16(x, -y), TO_Q16(256)) >> 16);
+            tResult.tMatrix[2].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16((TO_Q16(1)-x), (TO_Q16(1)+y)), TO_Q16(256)) >> 16);
+            tResult.tMatrix[3].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16(x, (1+y)), TO_Q16(256)) >> 16);
+        } else {
+            tResult.tMatrix[0].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16((TO_Q16(1)-x), (TO_Q16(1)-y)), TO_Q16(256)) >> 16);
+            tResult.tMatrix[1].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16(x, (TO_Q16(1)-y)), TO_Q16(256)) >> 16);
+            tResult.tMatrix[2].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16((TO_Q16(1)-x), y), TO_Q16(256)) >> 16);
+            tResult.tMatrix[3].chAlpha = (uint8_t)( MUL_Q16(MUL_Q16(x, y), TO_Q16(256)) >> 16);
+        }
+    }
+    
+    return tResult;
+}
 
 
 /*----------------------------------------------------------------------------*

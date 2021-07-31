@@ -20,7 +20,7 @@
 
 ## Features of the Arm-2D Library
 
-#### In this release ( ver0.9.8 dev )
+#### In this release ( ver0.9.8 )
 
 The Arm-2D library provides **Low-Level 2D Image Processing Services** that are mainly used in **Display system**. The supported features include but not limited to:
 
@@ -45,6 +45,7 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
 - **Rotation**
   - Support for the Colour-masking by default
   - Rotation with/without alpha-blending
+    - Anti-alias support is added. You can enable it by defining macro  **\_\_ARM_2D_HAS_INTERPOLATION_ROTATION\_\_** and set it to "**1**"
 - **Unified and User Friendly Programmers' Mode**
   - APIs could be used in Synchronous manner (  **Classic Blocking code** ) and/or Asynchronous manner ( **Event-Driven** )
   - Support both bare-metal and RTOS
