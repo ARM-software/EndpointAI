@@ -4505,7 +4505,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0</Define>
+              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include</IncludePath>
             </VariousControls>

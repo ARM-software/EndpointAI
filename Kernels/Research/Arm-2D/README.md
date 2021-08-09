@@ -20,7 +20,7 @@
 
 ## Features of the Arm-2D Library
 
-#### In this release ( ver0.9.8 )
+#### In this release ( ver0.9.9 dev )
 
 The Arm-2D library provides **Low-Level 2D Image Processing Services** that are mainly used in **Display system**. The supported features include but not limited to:
 
@@ -59,7 +59,7 @@ Following features are planned and to be introduced in the near future:
 
 - **Alpha (bitmap) Masking schemes** 
   - New APIs will be added to Copy, Paving and Rotation.
-- **Image Filters, e.g. Anti-aliasing algorithms**
+- **Image Filters, e.g. Generic Anti-aliasing algorithms**
 - **Zooming/Stretching Algorithms**
 
 

@@ -43,7 +43,7 @@ extern "C" {
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #   pragma clang diagnostic ignored "-Wmissing-declarations"
-//#   pragma clang diagnostic ignored "-Wpadded"
+#   pragma clang diagnostic ignored "-Wpadded"
 #elif __IS_COMPILER_ARM_COMPILER_5__
 #   pragma diag_suppress 174,177,188,68,513,144,64
 #elif __IS_COMPILER_GCC__
