@@ -52,9 +52,6 @@
 
 #ifdef USE_ASM
 
-/* low overhead loop count assignment */
-/* force variable to be in LR to avoid copy and consuming extra register */
-#define MVE_ASSIGN_LOL_CNT(var, val)  register unsigned var  __asm("lr") = (val);
 
 /* unroll x 5 in full asm for a more efficient handling of the outer loop */
 
@@ -190,12 +187,19 @@ void arm_mat_vec_mult_unscaled_q7_q15(
         pInA3 = pInA2 + numCols;
         pInA4 = pInA3 + numCols;
 
-        MVE_ASSIGN_LOL_CNT(loopCnt, numCols);
-        q31_t           sum0, sum1, sum2, sum3;
+        /* Enforce registers assignement for :                                              */
+        /* - avoiding consuming extra intermediate variable for low overhead loop counter   */
+        /* - avoiding assembler warnings regarding ascending order during CLRM call.        */
+        /* VMLADAVA accumulators have to be even. This condition can be already be          */
+        /* controled with inline asm constraints "Te", but registers ordering cannot        */
+        /* without explicit assignement                                                     */
 
-        /* ignore assembler warnings regarding accumulator ordering */
-        _Pragma("clang diagnostic push")
-        _Pragma("clang diagnostic ignored \"-Winline-asm\"")
+        register  uint32_t loopCnt  __asm("lr") = numCols;
+        register  q31_t sum0  __asm("r4");
+        register  q31_t sum1  __asm("r6");
+        register  q31_t sum2  __asm("r8");
+        register  q31_t sum3  __asm("r10");
+
         __asm volatile  (
             /* reset accumulators */
             "   clrm                {%[sum0], %[sum1], %[sum2], %[sum3]}            \n"
@@ -222,9 +226,8 @@ void arm_mat_vec_mult_unscaled_q7_q15(
              [pInA3] "+l"(pInA3),[pInA4] "+l"(pInA4),
              [colCnt] "+r"(loopCnt),[px] "+r"(pDstVec),[sum0] "=Te"(sum0),
              [sum1] "=Te"(sum1),[sum2] "=Te"(sum2),[sum3] "=Te"(sum3)            :
-            :"q0", "q1");
+            :"q0", "q1", "memory");
 
-        _Pragma("clang diagnostic pop")
 
     } else if (numRows >= 3) {
         const q7_t     *pInA3;
@@ -236,11 +239,11 @@ void arm_mat_vec_mult_unscaled_q7_q15(
         pInA3 = pInA2 + numCols;
 
 
-        MVE_ASSIGN_LOL_CNT(loopCnt, numCols);
-        q31_t           sum0, sum1, sum2;
+        register  uint32_t loopCnt  __asm("lr") = numCols;
+        register  q31_t sum0  __asm("r4");
+        register  q31_t sum1  __asm("r6");
+        register  q31_t sum2  __asm("r8");
 
-        _Pragma("clang diagnostic push")
-        _Pragma("clang diagnostic ignored \"-Winline-asm\"")
         __asm volatile  (
             /* reset accumulators */
             "   clrm                {%[sum0], %[sum1], %[sum2]}                     \n"
@@ -265,9 +268,7 @@ void arm_mat_vec_mult_unscaled_q7_q15(
              [colCnt] "+r"(loopCnt),[px] "+r"(pDstVec),[sum0] "=Te"(sum0),
              [sum1] "=Te"(sum1),[sum2] "=Te"(sum2)
             :
-            :"q0", "q1");
-
-        _Pragma("clang diagnostic pop")
+            :"q0", "q1", "memory");
 
     } else if (numRows >= 2) {
         pInVec = pSrcVec;
@@ -275,11 +276,10 @@ void arm_mat_vec_mult_unscaled_q7_q15(
         pInA1 = pSrcA;
         pInA2 = pInA1 + numCols;
 
-        MVE_ASSIGN_LOL_CNT(loopCnt, numCols);
-        q31_t           sum0, sum1;
+        register  uint32_t loopCnt  __asm("lr") = numCols;
+        register  q31_t sum0  __asm("r4");
+        register  q31_t sum1  __asm("r6");
 
-        _Pragma("clang diagnostic push")
-        _Pragma("clang diagnostic ignored \"-Winline-asm\"")
         __asm volatile  (
             /* reset accumulators */
             "   clrm                {%[sum0], %[sum1]}                              \n"
@@ -300,17 +300,14 @@ void arm_mat_vec_mult_unscaled_q7_q15(
              [colCnt] "+r"(loopCnt),[px] "+r"(pDstVec),[sum0] "=Te"(sum0),
              [sum1] "=Te"(sum1)
              :
-            :"q0", "q1");
+            :"q0", "q1", "memory");
 
     }  else if (numRows >= 1) {
         pInVec = pSrcVec;
         pInA1 = pSrcA;
 
-        MVE_ASSIGN_LOL_CNT(loopCnt, numCols);
-        q31_t           sum0;
-
-        _Pragma("clang diagnostic push")
-        _Pragma("clang diagnostic ignored \"-Winline-asm\"")
+        register  uint32_t loopCnt  __asm("lr") = numCols;
+        register  q31_t sum0  __asm("r4");
         __asm volatile  (
             /* reset accumulators */
             "   clrm                {%[sum0]}                                       \n"
@@ -328,11 +325,13 @@ void arm_mat_vec_mult_unscaled_q7_q15(
             :[pInVec] "+r"(pInVec),[pInA1] "+l"(pInA1),
              [colCnt] "+r"(loopCnt),[px] "+r"(pDstVec),[sum0] "=Te"(sum0)
             :
-            :"q0", "q1");
+            :"q0", "q1", "memory");
     }
 }
 
 #else /* USE_ASM */
+
+/* MVE Intrinsics variant */
 
 void arm_mat_vec_mult_unscaled_q7_q15(
     const arm_matrix_instance_q7 * pSrcMat,
@@ -535,6 +534,7 @@ void arm_mat_vec_mult_unscaled_q7_q15(
 #else
 
 /* scalar / autovectorized variant */
+
 void arm_mat_vec_mult_unscaled_q7_q15(const arm_matrix_instance_q7 *pMat, const q15_t *pSrcVec, q31_t *pDstVec)
 {
     uint32_t        numRows = pMat->numRows;
