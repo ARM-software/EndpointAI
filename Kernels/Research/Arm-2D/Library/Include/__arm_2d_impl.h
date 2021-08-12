@@ -319,7 +319,7 @@ arm_fsm_rt_t __arm_2d_op_frontend_op_decoder(arm_2d_op_core_t *ptThis);
  *----------------------------------------------------------------------------*/
 extern
 __arm_2d_point_adj_alpha_t 
-__arm_2d_point_get_adjacent_alpha(arm_2d_point_float_t *ptPoint);
+__arm_2d_point_get_adjacent_alpha_fp(arm_2d_point_float_t *ptPoint);
 
 extern
 __arm_2d_point_adj_alpha_t 

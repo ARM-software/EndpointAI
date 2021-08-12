@@ -101,12 +101,12 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_float_t *ptPoint,
     tOriginLocation.iY = ptPoint->fY;
 
     __arm_2d_point_adj_alpha_t tAdjacentArray 
-        = __arm_2d_point_get_adjacent_alpha(ptPoint);
+        = __arm_2d_point_get_adjacent_alpha_fp(ptPoint);
 
     __API_PIXEL_AVERAGE_INIT();
     
     __API_INT_TYPE TempPixel;
-    int_fast8_t nOutsideOriginCounter = 4;
+    bool bIsInside = false;
     
     for (int_fast8_t n = 0; n < 4; n++) {
         uint8_t chAlpha = tAdjacentArray.tMatrix[n].chAlpha;
@@ -114,27 +114,23 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_float_t *ptPoint,
             .iX = tOriginLocation.iX + tAdjacentArray.tMatrix[n].tOffset.iX,
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
         };
+        TempPixel = (*pTarget);
         
         if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
         
-            TempPixel = pOrigin[   tTemp.iY * iOrigStride
-                                    +   tTemp.iX];
+            __API_INT_TYPE tPixel = pOrigin[   tTemp.iY * iOrigStride
+                                            +   tTemp.iX];
                             
-            if (TempPixel != MaskColour) {
-            
-                //! use original pixel
-                __API_PIXEL_AVERAGE(TempPixel, chAlpha);
-                
-                continue;
+            if (tPixel != MaskColour) {
+                bIsInside = true;
+                TempPixel = tPixel;
             }
         } 
         
-        nOutsideOriginCounter--;
-        
-        __API_PIXEL_AVERAGE((*pTarget), chAlpha);
+        __API_PIXEL_AVERAGE(TempPixel, chAlpha);
     }
     
-    if (nOutsideOriginCounter) {
+    if (bIsInside) {
         TempPixel = __API_PIXEL_AVERAGE_RESULT();
     } else {
         TempPixel = *pTarget;
@@ -257,7 +253,7 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(
     __API_PIXEL_AVERAGE_INIT();
     
     __API_INT_TYPE TempPixel;
-    int_fast8_t nOutsideOriginCounter = 4;
+    bool bIsInside = false;
     
     for (int_fast8_t n = 0; n < 4; n++) {
         uint8_t chAlpha = tAdjacentArray.tMatrix[n].chAlpha;
@@ -265,27 +261,23 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(
             .iX = tOriginLocation.iX + tAdjacentArray.tMatrix[n].tOffset.iX,
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
         };
+        TempPixel = (*pTarget);
         
         if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
         
-            TempPixel = pOrigin[   tTemp.iY * iOrigStride
-                                    +   tTemp.iX];
+            __API_INT_TYPE tPixel = pOrigin[   tTemp.iY * iOrigStride
+                                            +   tTemp.iX];
                             
-            if (TempPixel != MaskColour) {
-            
-                //! use original pixel
-                __API_PIXEL_AVERAGE(TempPixel, chAlpha);
-                
-                continue;
+            if (tPixel != MaskColour) {
+                bIsInside = true;
+                TempPixel = tPixel;
             }
         } 
         
-        nOutsideOriginCounter--;
-        
-        __API_PIXEL_AVERAGE((*pTarget), chAlpha);
+        __API_PIXEL_AVERAGE(TempPixel, chAlpha);
     }
     
-    if (nOutsideOriginCounter) {
+    if (bIsInside) {
         TempPixel = __API_PIXEL_AVERAGE_RESULT();
     } else {
         TempPixel = *pTarget;
@@ -408,12 +400,12 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
     tOriginLocation.iY = ptPoint->fY;
 
     __arm_2d_point_adj_alpha_t tAdjacentArray 
-        = __arm_2d_point_get_adjacent_alpha(ptPoint);
+        = __arm_2d_point_get_adjacent_alpha_fp(ptPoint);
 
     __API_PIXEL_AVERAGE_INIT();
     
     __API_INT_TYPE TempPixel;
-    int_fast8_t nOutsideOriginCounter = 4;
+    bool bIsInside = false;
     
     for (int_fast8_t n = 0; n < 4; n++) {
         uint8_t chAlpha = tAdjacentArray.tMatrix[n].chAlpha;
@@ -421,27 +413,23 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
             .iX = tOriginLocation.iX + tAdjacentArray.tMatrix[n].tOffset.iX,
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
         };
+        TempPixel = (*pTarget);
         
         if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
         
-            TempPixel = pOrigin[   tTemp.iY * iOrigStride
-                                    +   tTemp.iX];
+            __API_INT_TYPE tPixel = pOrigin[   tTemp.iY * iOrigStride
+                                            +   tTemp.iX];
                             
-            if (TempPixel != MaskColour) {
-            
-                //! use original pixel
-                __API_PIXEL_AVERAGE(TempPixel, chAlpha);
-                
-                continue;
+            if (tPixel != MaskColour) {
+                bIsInside = true;
+                TempPixel = tPixel;
             }
         } 
         
-        nOutsideOriginCounter--;
-        
-        __API_PIXEL_AVERAGE((*pTarget), chAlpha);
+        __API_PIXEL_AVERAGE(TempPixel, chAlpha);
     }
     
-    if (nOutsideOriginCounter) {
+    if (bIsInside) {
         TempPixel = *pTarget;
         __API_INT_TYPE tSourcPixel = __API_PIXEL_AVERAGE_RESULT();
         
@@ -496,7 +484,7 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
     __API_PIXEL_AVERAGE_INIT();
     
     __API_INT_TYPE TempPixel;
-    int_fast8_t nOutsideOriginCounter = 4;
+    bool bIsInside = false;
     
     for (int_fast8_t n = 0; n < 4; n++) {
         uint8_t chAlpha = tAdjacentArray.tMatrix[n].chAlpha;
@@ -504,27 +492,23 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
             .iX = tOriginLocation.iX + tAdjacentArray.tMatrix[n].tOffset.iX,
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
         };
+        TempPixel = (*pTarget);
         
         if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
         
-            TempPixel = pOrigin[   tTemp.iY * iOrigStride
-                                    +   tTemp.iX];
+            __API_INT_TYPE tPixel = pOrigin[   tTemp.iY * iOrigStride
+                                            +   tTemp.iX];
                             
-            if (TempPixel != MaskColour) {
-            
-                //! use original pixel
-                __API_PIXEL_AVERAGE(TempPixel, chAlpha);
-                
-                continue;
+            if (tPixel != MaskColour) {
+                bIsInside = true;
+                TempPixel = tPixel;
             }
         } 
         
-        nOutsideOriginCounter--;
-        
-        __API_PIXEL_AVERAGE((*pTarget), chAlpha);
+        __API_PIXEL_AVERAGE(TempPixel, chAlpha);
     }
     
-    if (nOutsideOriginCounter) {
+    if (bIsInside) {
         TempPixel = *pTarget;
         __API_INT_TYPE tSourcPixel = __API_PIXEL_AVERAGE_RESULT();
         
