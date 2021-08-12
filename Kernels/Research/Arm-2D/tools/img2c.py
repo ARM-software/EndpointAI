@@ -51,6 +51,8 @@ def usage():
 hdr="""
 /* Generated on {0} from {1} */
 /* Re-sized : {2} */
+/* Rotated : {3} deg */
+
 
 
 #include "arm_2d.h"
@@ -97,16 +99,17 @@ const arm_2d_tile_t c_tile{0}AlphaMask = {{
 def main(argv):
 
     parser = argparse.ArgumentParser(description='image to C array converter')
-    
-    parser.add_argument('-i', nargs='?', type = str,  default="", help="Input file (png, bmp, etc..)")
+
+    parser.add_argument('-i', nargs='?', required=True, type = str,  default="", help="Input file (png, bmp, etc..)")
     parser.add_argument('-o', nargs='?', type = str,  default="", help="output C file containing RGB56/RGB888 and alpha values arrays")
-    
+
     parser.add_argument('--name', nargs='?',type = str, default="", help="A specified array name")
     parser.add_argument('--format', nargs='?',type = str, default="rgb565", help="RGB Format (rgb565, rgb32)")
     parser.add_argument('--dim', nargs=2,type = int, help="Resize the image with the given width and height")
+    parser.add_argument('--rot', nargs='?',type = float, default=0.0, help="Rotate the image with the given angle in degrees")
 
     args = parser.parse_args()
-    
+
     if args.i == None or args.i == "" :
         parser.print_help()
         exit(1)
@@ -116,7 +119,7 @@ def main(argv):
     outputfile = args.o
     if outputfile == None or outputfile == "":
         outputfile = basename + ".c"
-        
+
     arr_name = args.name
     if arr_name == None or arr_name == "":
         arr_name = basename
@@ -130,6 +133,11 @@ def main(argv):
     except FileNotFoundError:
         print("Cannot open image file %s" % (inputfile))
         sys.exit(2)
+
+
+    # rotation
+    if args.rot != 0.0:
+        image = image.rotate(args.rot)
 
 
     # resizing
@@ -146,7 +154,7 @@ def main(argv):
     with open(outputfile,"w") as o:
 
         # insert header
-        print(hdr.format(time.asctime( time.localtime(time.time())), argv[0], resized), file=o)
+        print(hdr.format(time.asctime( time.localtime(time.time())), argv[0], resized, args.rot), file=o)
 
         if mode == "RGBA":
             # alpha channel array available

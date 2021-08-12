@@ -2,9 +2,9 @@
 
 image to C array converter with optional resize
 
-## Usage :  
+## Usage :
 
-img2c.py [***-h***] [***--format*** \<***FORMAT***\>] [***--name \<NAME\>***] [***--dim DIM DIM***] \<***-i \<Input File Path***\>\> \[***-o \<Output file Path***\>\]
+img2c.py [***-h***] [***--format*** \<***FORMAT***\>] [***--name \<NAME\>***] [***--dim DIM DIM***] [***--rot ANGLE***] \<***-i \<Input File Path***\>\> \[***-o \<Output file Path***\>\]
 
 
 
@@ -16,13 +16,13 @@ img2c.py [***-h***] [***--format*** \<***FORMAT***\>] [***--name \<NAME\>***] [*
 | --name ***Name***         | A specified array name.                                      | Optional |
 | --format ***Format***     | RGB Format, i.e. RGB565 (***default***), RGB32               | Optional |
 | --dim ***Width Height***  | Resize the image with the given width and height             | Optional |
-
+| --rot ***angle***         | Rotate the image with the given angle in degrees             | Optional |
 
 
 ## Example:
 
 ```
-python img2c.py -i ..\examples\alpha_blending_rgb888\asset\HeliumRes.jpg --name Helium
+python img2c.py -i ..\examples\alpha_blending\asset\HeliumRes.jpg --name Helium
 ```
 
 
@@ -33,6 +33,6 @@ Needs ***python3***, ***pillow*** (https://python-pillow.org/) & ***numpy***
 
 ```
 pip install Pillow
-pip install numpy 
+pip install numpy
 ```
 
