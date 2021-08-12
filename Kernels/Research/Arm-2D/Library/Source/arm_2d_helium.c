@@ -21,10 +21,10 @@
  * Title:        arm-2d_helium.c
  * Description:  Acceleration extensions using Helium.
  *
- * $Date:        2. Jun 2021
- * $Revision:    V.0.6.0
+ * $Date:        11. Aug 2021
+ * $Revision:    V.0.7.0
  *
- * Target Processor:  Cortex-M cores
+ * Target Processor:  Cortex-M cores with Helium
  *
  * -------------------------------------------------------------------- */
 
@@ -1203,48 +1203,101 @@ void __arm_2d_impl_rgb888_alpha_blending_colour_masking(uint32_t * __RESTRICT pS
                                                        uint_fast8_t chRatio,
                                                        uint32_t Colour)
 {
-    int32_t    iHeight = ptCopySize->iHeight;
-    int32_t    iWidth = ptCopySize->iWidth;
+    int_fast16_t    iHeight = ptCopySize->iHeight;
+    int_fast16_t    iWidth = ptCopySize->iWidth;
     uint16_t        chRatioCompl = 256 - chRatio;
-    uint32_t        scratch[2];
-    uint16x8_t      vColor;
 
-    /* color widening */
-    scratch[0] = scratch[1] = Colour;
-    vColor = vldrbq_u16((uint8_t *) scratch);
 
-    for (int32_t y = 0; y < iHeight; y++) {
-        int32_t         blkCnt = iWidth;
+    for (int_fast16_t y = 0; y < iHeight; y++) {
         const uint32_t *pSource = pSourceBase;
         uint32_t       *pTarget = pTargetBase;
+
+#ifdef USE_MVE_INTRINSICS
+        int32_t         blkCnt = iWidth;
         uint16x8_t      vecSrc, vecTrg;
 
-        vecSrc = vldrbq_u16((uint8_t const *) pSource);
-        pSource += 2;
-        vecTrg = vldrbq_u16((uint8_t const *) pTarget);
-        pTarget += 2;
-
         do {
-            uint16x8_t      vecOut;
+            mve_pred16_t    p = vctp32q(blkCnt);
 
-            vecOut = vmlaq(vmulq(vecSrc, chRatio), vecTrg, chRatioCompl) >> 8;
+            uint8x16_t      vSrc8 = vld1q_z(pSource, p);
+            uint8x16_t      vTrg8 = vld1q_z(pTarget, p);
 
-            vecSrc = vldrbq_u16((uint8_t const *) pSource);
-            vecTrg = vldrbq_u16((uint8_t const *) pTarget);
+            /* 16-bit expansion A/G src pixels */
+            uint16x8_t      vSrc16b = vmovlbq_x(vSrc8, p);
+            /* 16-bit expansion R/B src pixels */
+            uint16x8_t      vSrc16t = vmovltq_x(vSrc8, p);
+
+            /* 16-bit expansion A/G target pixels */
+            uint16x8_t      vTrg16b = vmovlbq_x(vTrg8, p);
+            /* 16-bit expansion R/B target pixels */
+            uint16x8_t      vTrg16t = vmovltq_x(vTrg8, p);
+
+            /* A/G blending */
+            int16x8_t       vecOutb = vmlaq_m(vmulq_x(vSrc16b, chRatio, p), vTrg16b, chRatioCompl, p);
+            /* R/B blending */
+            int16x8_t       vecOutt = vmlaq_m(vmulq_x(vSrc16t, chRatio, p), vTrg16t, chRatioCompl, p);
+
+            /* merge into 8-bit vector */
+            int8x16_t       vecOut8 = vuninitializedq_s8();
+
+            vecOut8 = vqshrnbq_m_n_s16(vecOut8, vecOutb, 8, p);
+            vecOut8 = vqshrntq_m_n_s16(vecOut8, vecOutt, 8, p);
 
             // update if (*pSourceBase != Colour)
-            vstrbq_p_u16((uint8_t *)pTarget, vecOut, vcmpneq_u16(vecSrc, vColor));
+            vst1q_p_u32((uint8_t *) pTarget, (uint32x4_t) vecOut8,
+                        vcmpneq_m_n_u32((uint32x4_t) vSrc8, Colour, p));
 
-            pSource += 2;
-            pTarget += 2;
-            blkCnt -= 2;
+            pSource += 4;
+            pTarget += 4;
+            blkCnt -= 4;
         }
         while (blkCnt > 0);
 
-        pSourceBase += (iSourceStride - iWidth);
-        pTargetBase += (iTargetStride - iWidth);
+#else // USE_MVE_INTRINSICS
+
+    __asm volatile (
+        ".p2align 2                                 \n"
+        /* preload uint32x4_t target vector */
+        "   vldrw.u32       q2, [%[targ]]           \n"
+
+        "   wlstp.32        lr, %[loopCnt], 1f      \n"
+        "2:                                         \n"
+        /* 16-bit expansion A/G target pixels */
+        "   vmovlb.u8       q3, q2                  \n"
+        "   vldrw.u32       q0, [%[src]], #16       \n"
+        /* 16-bit expansion A/G source pixels */
+        "   vmovlb.u8       q1, q0                  \n"
+        "   vmul.i16        q1, q1, %[ratio]        \n"
+        /* 16-bit expansion R/B target pixels */
+        "   vmovlt.u8       q2, q2                  \n"
+        /* A/G blending */
+        "   vmla.u16        q1, q3, %[ratioCmp]     \n"
+        /* 16-bit expansion R/B source pixels */
+        "   vmovlt.u8       q3, q0                  \n"
+        "   vmul.i16        q3, q3, %[ratio]        \n"
+        /* merge A/G into 8-bit vector */
+        "   vqshrnb.s16     q1, q1, #8              \n"
+        /* R/B blending */
+        "   vmla.u16        q3, q2, %[ratioCmp]     \n"
+        /* preload next target */
+        "   vldrw.u32       q2, [%[targ], #16]      \n"
+        /* merge R/B into 8-bit vector */
+        "   vqshrnt.s16     q1, q3, #8              \n"
+        /* update if (*pSourceBase != Colour) */
+        "   vpt.i32         ne, q0, %[color]        \n"
+        "   vstrwt.32       q1, [%[targ]], #16      \n"
+        "   letp            lr, 2b                  \n"
+        "1:                                         \n"
+        :[targ] "+r" (pTarget), [src] "+r" (pSource)
+        :[loopCnt] "r" (iWidth), [ratio] "r" (chRatio),
+         [ratioCmp] "r" (chRatioCompl), [color] "r" (Colour)
+        :"r14", "q0", "q1", "q2", "q3", "memory");
+#endif
+        pSourceBase += (iSourceStride);
+        pTargetBase += (iTargetStride);
     }
 }
+
 
 
 __OVERRIDE_WEAK
