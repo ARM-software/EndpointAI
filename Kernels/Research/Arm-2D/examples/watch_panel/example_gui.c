@@ -119,7 +119,7 @@ demo_gears_t s_tGears[] = {
         .tRegion = {
             .tLocation = {
                 .iX = ((APP_SCREEN_WIDTH - 41) >> 1) + 30,
-                .iY = ((APP_SCREEN_HEIGHT - 40) >>1) + 30,
+                .iY = ((APP_SCREEN_HEIGHT - 41) >>1) + 30,
             },
             .tSize = {
                 .iWidth = 41,
@@ -146,7 +146,7 @@ demo_gears_t s_tGears[] = {
                 .iHeight = 120,
             },
         },
-        .chOpacity = 200,
+        .chOpacity = 128,
     },
 
     {
@@ -158,12 +158,12 @@ demo_gears_t s_tGears[] = {
         },
         .tRegion = {
             .tLocation = {
-                .iX = ((APP_SCREEN_WIDTH - 12) >> 1),
-                .iY = ((APP_SCREEN_HEIGHT - 147) >>1),
+                .iX = ((APP_SCREEN_WIDTH - 222) >> 1),
+                .iY = ((APP_SCREEN_HEIGHT - 222) >>1),
             },
             .tSize = {
-                .iWidth = 12,
-                .iHeight = 147,
+                .iWidth = 222,
+                .iHeight = 222,
             },
         },
         .chOpacity = 255,
@@ -259,24 +259,15 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
 void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 {
 
-    static const arm_2d_region_t tPanelRegion = {
-        .tLocation = {
-            .iX = ((APP_SCREEN_WIDTH - 221) >> 1),
-            .iY = ((APP_SCREEN_HEIGHT - 221) >> 1),
-        },
-        .tSize = {
-            .iWidth = 221,
-            .iHeight = 221,
-        },
-    };
+
     
-    //arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
-    /*arm_2d_rgb16_tile_copy(&c_tileBackground,
-                            ptTile,
-                            NULL,
-                            ARM_2D_CP_MODE_COPY); */
+    if (    (c_tileBackground.tRegion.tSize.iHeight < APP_SCREEN_HEIGHT)
+        ||  (c_tileBackground.tRegion.tSize.iWidth < APP_SCREEN_WIDTH)) {
+        arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
+    }
                             
-    arm_foreach(arm_2d_layer_t, s_ptRefreshLayers, dimof(s_ptRefreshLayers), ptLayer) {
+    /*! for each layer (ptLayer) inside array s_ptRefreshLayers */
+    arm_foreach(arm_2d_layer_t, s_ptRefreshLayers, ptLayer) {
         arm_2d_region_t tRegion = ptLayer->tRegion;
 
         if (NULL == ptLayer->ptTile) { 
@@ -304,45 +295,58 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
         }
     }
     
-    arm_2d_rbg565_alpha_blending_with_colour_masking(
-                                &c_tileWatchPanel,
-                                ptTile,
-                                &tPanelRegion,
-                                128,
-                                (arm_2d_color_rgb565_t){GLCD_COLOR_BLACK});
+    //! draw the watch panel with transparency effect
+    do {
+        static const arm_2d_region_t tPanelRegion = {
+            .tLocation = {
+                .iX = ((APP_SCREEN_WIDTH - 221) >> 1),
+                .iY = ((APP_SCREEN_HEIGHT - 221) >> 1),
+            },
+            .tSize = {
+                .iWidth = 221,
+                .iHeight = 221,
+            },
+        };
+        arm_2d_rgb565_alpha_blending_with_colour_masking(
+                                    &c_tileWatchPanel,
+                                    ptTile,
+                                    &tPanelRegion,
+                                    128,    //!< 50% opacity
+                                    (arm_2d_color_rgb565_t){GLCD_COLOR_BLACK});
 
 
+    } while(0);
 
-
-    arm_foreach (demo_gears_t, s_tGears) {
+    /*! for each item (ptItem) inside array s_tGears */
+    arm_foreach (demo_gears_t, s_tGears, ptItem) {
 
         if (bIsNewFrame) {
-            _->fAngle += ARM_2D_ANGLE(_->fAngleSpeed);
+            ptItem->fAngle += ARM_2D_ANGLE(ptItem->fAngleSpeed);
 
-            _->fAngle = fmodf(_->fAngle,ARM_2D_ANGLE(360));
+            ptItem->fAngle = fmodf(ptItem->fAngle,ARM_2D_ANGLE(360));
 
         }
 
-        if (255 == _->chOpacity) {
-            arm_2dp_rgb565_tile_rotation(
-                                            (arm_2d_op_rotate_t *)&(_->tOP),
-                                            _->ptTile,          //!< source tile
+        if (255 == ptItem->chOpacity) {
+        
+            arm_2dp_rgb565_tile_rotation(   (arm_2d_op_rotate_t *)&(_->tOP),
+                                            ptItem->ptTile,     //!< source tile
                                             ptTile,             //!< target tile
-                                            &(_->tRegion),      //!< target region
-                                            _->tCentre,         //!< center point
-                                            _->fAngle,          //!< rotation angle
+                                            &(ptItem->tRegion), //!< target region
+                                            ptItem->tCentre,    //!< center point
+                                            ptItem->fAngle,     //!< rotation angle
                                             GLCD_COLOR_BLACK);  //!< masking colour
 
         } else {
             arm_2dp_rgb565_tile_rotation_with_alpha(
-                                            &(_->tOP),
-                                            _->ptTile,          //!< source tile
+                                            &(ptItem->tOP),
+                                            ptItem->ptTile,     //!< source tile
                                             ptTile,             //!< target tile
-                                            &(_->tRegion),      //!< target region
-                                            _->tCentre,         //!< center point
-                                            _->fAngle,          //!< rotation angle
+                                            &(ptItem->tRegion), //!< target region
+                                            ptItem->tCentre,    //!< center point
+                                            ptItem->fAngle,     //!< rotation angle
                                             GLCD_COLOR_BLACK,   //!< masking colour
-                                            _->chOpacity);      //!< Opacity
+                                            ptItem->chOpacity); //!< Opacity
         }
     }
 
