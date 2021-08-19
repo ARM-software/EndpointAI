@@ -184,6 +184,7 @@ extern "C" {
 typedef struct arm_2d_pfb_t {
     struct arm_2d_pfb_t *ptNext;
     arm_2d_tile_t tTile;
+    bool bIsNewFrame;
 }arm_2d_pfb_t;
 
 typedef struct arm_2d_region_list_item_t {
@@ -269,10 +270,17 @@ ARM_PRIVATE(
         bool                        bFirstIteration;
         bool                        bIsRegionChanged;
         uint8_t                     chPT;
-        uint8_t                     bIsNewFrame;
+        struct {
+            uint8_t                 bIsNewFrame  : 1;
+            uint8_t                 bIsFlushRequested :1;
+        };
         
         arm_2d_pfb_t               *ptCurrent;
         arm_2d_pfb_t               *ptFreeList;
+        struct {
+            arm_2d_pfb_t           *ptHead;
+            arm_2d_pfb_t           *ptTail;
+        }FlushFIFO;
         arm_2d_tile_t               *ptFrameBuffer;
     } Adapter;
 )   

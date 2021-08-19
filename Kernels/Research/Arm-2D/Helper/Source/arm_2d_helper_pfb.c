@@ -182,6 +182,7 @@ arm_2d_err_t arm_2d_helper_pfb_init(arm_2d_helper_pfb_t *ptThis,
     } while(0);
 
     this.Adapter.bFirstIteration = true;
+    this.Adapter.bIsFlushRequested = true;
     
     return ARM_2D_ERR_NONE;
 }
@@ -216,6 +217,46 @@ void __arm_2d_helper_swap_rgb16(uint16_t *phwBuffer, uint32_t wSize)
     
 }
 
+static 
+void __arm_2d_helper_flush_pfb(arm_2d_helper_pfb_t *ptThis)
+{
+    arm_2d_pfb_t *ptPFB = NULL;
+    
+    arm_irq_safe {
+        ARM_LIST_QUEUE_DEQUEUE( this.Adapter.FlushFIFO.ptHead, 
+                                this.Adapter.FlushFIFO.ptTail, 
+                                ptPFB);
+        this.Adapter.bIsFlushRequested = (NULL == ptPFB);
+    }
+
+    if (NULL != ptPFB) {
+        //! call handler
+        (*this.tCFG.Dependency.evtOnLowLevelRendering.fnHandler)(
+                        this.tCFG.Dependency.evtOnLowLevelRendering.pTarget,
+                        ptPFB,
+                        ptPFB->bIsNewFrame);
+    }
+}
+
+static 
+void __arm_2d_helper_enqueue_pfb(arm_2d_helper_pfb_t *ptThis)
+{
+    this.Adapter.ptCurrent->bIsNewFrame = this.Adapter.bFirstIteration;
+    bool bIsFlushRequested;
+    
+    arm_irq_safe {
+        bIsFlushRequested = this.Adapter.bIsFlushRequested;
+        ARM_LIST_QUEUE_ENQUEUE( this.Adapter.FlushFIFO.ptHead, 
+                                this.Adapter.FlushFIFO.ptTail, 
+                                this.Adapter.ptCurrent);
+    }
+    
+    if (bIsFlushRequested) {
+        __arm_2d_helper_flush_pfb(ptThis);
+    }
+    
+}
+
 
 static
 void __arm_2d_helper_low_level_rendering(arm_2d_helper_pfb_t *ptThis)
@@ -238,12 +279,8 @@ void __arm_2d_helper_low_level_rendering(arm_2d_helper_pfb_t *ptThis)
                                         this.Adapter.ptCurrent->tTile));
     }
 
-    //! call handler
-    (*this.tCFG.Dependency.evtOnLowLevelRendering.fnHandler)(
-                    this.tCFG.Dependency.evtOnLowLevelRendering.pTarget,
-                    this.Adapter.ptCurrent,
-                    this.Adapter.bFirstIteration);
-    
+    __arm_2d_helper_enqueue_pfb(ptThis);
+
     this.Adapter.bFirstIteration = false;
 
 }
@@ -469,6 +506,8 @@ void arm_2d_helper_pfb_report_rendering_complete(arm_2d_helper_pfb_t *ptThis,
     arm_irq_safe {
         ARM_LIST_STACK_PUSH(this.Adapter.ptFreeList, ptPFB);
     }
+    
+    __arm_2d_helper_flush_pfb(ptThis);
 }
 
 
