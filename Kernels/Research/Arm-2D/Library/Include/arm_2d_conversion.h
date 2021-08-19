@@ -46,6 +46,19 @@ extern "C" {
 
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
+
+#define arm_2d_convert_colour_to_rgb888(__SRC_ADDR, /*!< source tile address */ \
+                                        __DES_ADDR /*!< target tile address */) \
+            arm_2dp_convert_colour_to_rgb888(   NULL,                           \
+                                                (__SRC_ADDR),                   \
+                                                (__DES_ADDR))
+
+#define arm_2d_convert_colour_to_rgb565(__SRC_ADDR, /*!< source tile address */ \
+                                        __DES_ADDR /*!< target tile address */) \
+            arm_2dp_convert_colour_to_rgb565(   NULL,                           \
+                                                (__SRC_ADDR),                   \
+                                                (__DES_ADDR))
+
 /*============================ TYPES =========================================*/
 
 typedef arm_2d_op_src_t arm_2d_op_cl_convt_t;
@@ -103,15 +116,20 @@ __STATIC_INLINE uint32_t __arm_2d_rgb888_pack(__arm_2d_color_fast_rgb_t * ptRGB)
 }
 
 
+/*----------------------------------------------------------------------------*
+ * Colour Conversion                                                          *
+ *----------------------------------------------------------------------------*/
 
 extern
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_convert_colour_to_rbg888(   const arm_2d_tile_t *ptSource,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_convert_colour_to_rgb888(  arm_2d_op_cl_convt_t *ptOP,
+                                                const arm_2d_tile_t *ptSource,
                                                 const arm_2d_tile_t *ptTarget);
 
 extern
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_convert_colour_to_rgb565(   const arm_2d_tile_t *ptSource,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_convert_colour_to_rgb565(  arm_2d_op_cl_convt_t *ptOP,
+                                                const arm_2d_tile_t *ptSource,
                                                 const arm_2d_tile_t *ptTarget);
 
 #if defined(__clang__)

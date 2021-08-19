@@ -371,8 +371,9 @@ arm_2d_tile_t *arm_2d_tile_generate_child(
  * Copy tile to destination directly                                          *
  *----------------------------------------------------------------------------*/
 
-ARM_NONNULL(1,2)
-arm_fsm_rt_t arm_2d_rgb16_tile_copy( const arm_2d_tile_t *ptSource,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb16_tile_copy(arm_2d_op_cp_t *ptOP,
+                                     const arm_2d_tile_t *ptSource,
                                      const arm_2d_tile_t *ptTarget,
                                      const arm_2d_region_t *ptRegion,
                                      uint32_t wMode)
@@ -380,7 +381,7 @@ arm_fsm_rt_t arm_2d_rgb16_tile_copy( const arm_2d_tile_t *ptSource,
     assert(NULL != ptSource);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_cp_t);
+    ARM_2D_IMPL(arm_2d_op_cp_t, ptOP);
     
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -395,12 +396,13 @@ arm_fsm_rt_t arm_2d_rgb16_tile_copy( const arm_2d_tile_t *ptSource,
     this.Source.ptTile = ptSource;
     this.wMode = wMode;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 
-ARM_NONNULL(1,2)
-arm_fsm_rt_t arm_2d_rgb32_tile_copy( const arm_2d_tile_t *ptSource,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb32_tile_copy(arm_2d_op_cp_t *ptOP,
+                                     const arm_2d_tile_t *ptSource,
                                      const arm_2d_tile_t *ptTarget,
                                      const arm_2d_region_t *ptRegion,
                                      uint32_t wMode)
@@ -409,7 +411,7 @@ arm_fsm_rt_t arm_2d_rgb32_tile_copy( const arm_2d_tile_t *ptSource,
     assert(NULL != ptSource);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_cp_t);
+    ARM_2D_IMPL(arm_2d_op_cp_t, ptOP);
     
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -424,7 +426,7 @@ arm_fsm_rt_t arm_2d_rgb32_tile_copy( const arm_2d_tile_t *ptSource,
     this.Source.ptTile = ptSource;
     this.wMode = wMode;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 /*! \brief copy source tile to destination tile and use destination tile as 
@@ -437,8 +439,9 @@ arm_fsm_rt_t arm_2d_rgb32_tile_copy( const arm_2d_tile_t *ptSource,
  *! \note  alpha channel is not handled, i.e. rgba5551
  */
 
-ARM_NONNULL(1,2)
-arm_fsm_rt_t arm_2d_rgb16_tile_copy_with_colour_masking(
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_colour_masking(
+                                            arm_2d_op_cp_cl_msk_t *ptOP,
                                             const arm_2d_tile_t *ptSource, 
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion,
@@ -448,7 +451,7 @@ arm_fsm_rt_t arm_2d_rgb16_tile_copy_with_colour_masking(
     assert(NULL != ptSource);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_cp_cl_msk_t);
+    ARM_2D_IMPL(arm_2d_op_cp_cl_msk_t, ptOP);
     
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -463,7 +466,7 @@ arm_fsm_rt_t arm_2d_rgb16_tile_copy_with_colour_masking(
     this.wMode = wMode;
     this.hwColour = hwMaskColour;
     
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 /*! \brief copy source tile to destination tile and use destination tile as 
@@ -475,8 +478,9 @@ arm_fsm_rt_t arm_2d_rgb16_tile_copy_with_colour_masking(
  *! 
  *! \note  alpha channel is not handled.
  */
-ARM_NONNULL(1,2)
-arm_fsm_rt_t arm_2d_rgb32_tile_copy_with_colour_masking(
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb32_tile_copy_with_colour_masking(
+                                            arm_2d_op_cp_cl_msk_t *ptOP,
                                             const arm_2d_tile_t *ptSource, 
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion,
@@ -486,7 +490,7 @@ arm_fsm_rt_t arm_2d_rgb32_tile_copy_with_colour_masking(
     assert(NULL != ptSource);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_cp_cl_msk_t);
+    ARM_2D_IMPL(arm_2d_op_cp_cl_msk_t, ptOP);
     
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -501,7 +505,7 @@ arm_fsm_rt_t arm_2d_rgb32_tile_copy_with_colour_masking(
     this.wMode = wMode;
     this.wColour = wMaskColour;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill( __arm_2d_sub_task_t *ptTask)
@@ -513,22 +517,24 @@ arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill( __arm_2d_sub_task_t *ptTask)
 
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
 
-        __arm_2d_impl_rgb16_fill_mirror(ptTask->Param.tFill.tSource.pBuffer,
-                                        ptTask->Param.tFill.tSource.iStride,
-                                        &ptTask->Param.tFill.tSource.tValidRegion.tSize,
-                                        ptTask->Param.tFill.tTarget.pBuffer,
-                                        ptTask->Param.tFill.tTarget.iStride,
-                                        &ptTask->Param.tFill.tTarget.tValidRegion.tSize,
-                                        wMode);
+        __arm_2d_impl_rgb16_fill_mirror(
+                                ptTask->Param.tFill.tSource.pBuffer,
+                                ptTask->Param.tFill.tSource.iStride,
+                                &ptTask->Param.tFill.tSource.tValidRegion.tSize,
+                                ptTask->Param.tFill.tTarget.pBuffer,
+                                ptTask->Param.tFill.tTarget.iStride,
+                                &ptTask->Param.tFill.tTarget.tValidRegion.tSize,
+                                wMode);
 
     
     } else {
-        __arm_2d_impl_rgb16_fill(   ptTask->Param.tFill.tSource.pBuffer,
-                                    ptTask->Param.tFill.tSource.iStride,
-                                    &ptTask->Param.tFill.tSource.tValidRegion.tSize,
-                                    ptTask->Param.tFill.tTarget.pBuffer,
-                                    ptTask->Param.tFill.tTarget.iStride,
-                                    &ptTask->Param.tFill.tTarget.tValidRegion.tSize);
+        __arm_2d_impl_rgb16_fill(   
+                                ptTask->Param.tFill.tSource.pBuffer,
+                                ptTask->Param.tFill.tSource.iStride,
+                                &ptTask->Param.tFill.tSource.tValidRegion.tSize,
+                                ptTask->Param.tFill.tTarget.pBuffer,
+                                ptTask->Param.tFill.tTarget.iStride,
+                                &ptTask->Param.tFill.tTarget.tValidRegion.tSize);
     }
         
     return arm_fsm_rt_cpl;
@@ -544,21 +550,23 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill( __arm_2d_sub_task_t *ptTask)
 
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
     
-        __arm_2d_impl_rgb32_fill_mirror(ptTask->Param.tFill.tSource.pBuffer,
-                                        ptTask->Param.tFill.tSource.iStride,
-                                        &ptTask->Param.tFill.tSource.tValidRegion.tSize,
-                                        ptTask->Param.tFill.tTarget.pBuffer,
-                                        ptTask->Param.tFill.tTarget.iStride,
-                                        &ptTask->Param.tFill.tTarget.tValidRegion.tSize,
-                                        wMode);
+        __arm_2d_impl_rgb32_fill_mirror(
+                                ptTask->Param.tFill.tSource.pBuffer,
+                                ptTask->Param.tFill.tSource.iStride,
+                                &ptTask->Param.tFill.tSource.tValidRegion.tSize,
+                                ptTask->Param.tFill.tTarget.pBuffer,
+                                ptTask->Param.tFill.tTarget.iStride,
+                                &ptTask->Param.tFill.tTarget.tValidRegion.tSize,
+                                wMode);
     
     } else {
-        __arm_2d_impl_rgb32_fill(   ptTask->Param.tFill.tSource.pBuffer,
-                                    ptTask->Param.tFill.tSource.iStride,
-                                    &ptTask->Param.tFill.tSource.tValidRegion.tSize,
-                                    ptTask->Param.tFill.tTarget.pBuffer,
-                                    ptTask->Param.tFill.tTarget.iStride,
-                                    &ptTask->Param.tFill.tTarget.tValidRegion.tSize);
+        __arm_2d_impl_rgb32_fill(   
+                                ptTask->Param.tFill.tSource.pBuffer,
+                                ptTask->Param.tFill.tSource.iStride,
+                                &ptTask->Param.tFill.tSource.tValidRegion.tSize,
+                                ptTask->Param.tFill.tTarget.pBuffer,
+                                ptTask->Param.tFill.tTarget.iStride,
+                                &ptTask->Param.tFill.tTarget.tValidRegion.tSize);
     }
         
     return arm_fsm_rt_cpl;
@@ -573,13 +581,12 @@ arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy( __arm_2d_sub_task_t *ptTask)
     uint32_t wMode = this.wMode;
 
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-        __arm_2d_impl_rgb16_copy_mirror(
-                                    ptTask->Param.tCopy.tSource.pBuffer,
-                                    ptTask->Param.tCopy.tSource.iStride,
-                                    ptTask->Param.tCopy.tTarget.pBuffer,
-                                    ptTask->Param.tCopy.tTarget.iStride,
-                                    &ptTask->Param.tCopy.tCopySize,
-                                    wMode);
+        __arm_2d_impl_rgb16_copy_mirror(ptTask->Param.tCopy.tSource.pBuffer,
+                                        ptTask->Param.tCopy.tSource.iStride,
+                                        ptTask->Param.tCopy.tTarget.pBuffer,
+                                        ptTask->Param.tCopy.tTarget.iStride,
+                                        &ptTask->Param.tCopy.tCopySize,
+                                        wMode);
     } else {
         __arm_2d_impl_rgb16_copy(   ptTask->Param.tCopy.tSource.pBuffer,
                                     ptTask->Param.tCopy.tSource.iStride,
@@ -598,13 +605,12 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy( __arm_2d_sub_task_t *ptTask)
     uint32_t wMode = this.wMode;
 
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-        __arm_2d_impl_rgb32_copy_mirror(
-                                    ptTask->Param.tCopy.tSource.pBuffer,
-                                    ptTask->Param.tCopy.tSource.iStride,
-                                    ptTask->Param.tCopy.tTarget.pBuffer,
-                                    ptTask->Param.tCopy.tTarget.iStride,
-                                    &ptTask->Param.tCopy.tCopySize,
-                                    wMode);
+        __arm_2d_impl_rgb32_copy_mirror(ptTask->Param.tCopy.tSource.pBuffer,
+                                        ptTask->Param.tCopy.tSource.iStride,
+                                        ptTask->Param.tCopy.tTarget.pBuffer,
+                                        ptTask->Param.tCopy.tTarget.iStride,
+                                        &ptTask->Param.tCopy.tCopySize,
+                                        wMode);
     } else {
         __arm_2d_impl_rgb32_copy(   ptTask->Param.tCopy.tSource.pBuffer,
                                     ptTask->Param.tCopy.tSource.iStride,
@@ -631,22 +637,22 @@ arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy_with_colour_masking(
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
 
         __arm_2d_impl_rgb16_copy_colour_masking_mirror(
-                                    ptTask->Param.tCopy.tSource.pBuffer,
-                                    ptTask->Param.tCopy.tSource.iStride,
-                                    ptTask->Param.tCopy.tTarget.pBuffer,
-                                    ptTask->Param.tCopy.tTarget.iStride,
-                                    &ptTask->Param.tCopy.tCopySize,
-                                    wMode,
-                                    this.hwColour);
+                                            ptTask->Param.tCopy.tSource.pBuffer,
+                                            ptTask->Param.tCopy.tSource.iStride,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.iStride,
+                                            &ptTask->Param.tCopy.tCopySize,
+                                            wMode,
+                                            this.hwColour);
 
     } else {
         __arm_2d_impl_rgb16_copy_colour_masking(   
-                                ptTask->Param.tCopy.tSource.pBuffer,
-                                ptTask->Param.tCopy.tSource.iStride,
-                                ptTask->Param.tCopy.tTarget.pBuffer,
-                                ptTask->Param.tCopy.tTarget.iStride,
-                                &ptTask->Param.tCopy.tCopySize,
-                                this.hwColour);
+                                            ptTask->Param.tCopy.tSource.pBuffer,
+                                            ptTask->Param.tCopy.tSource.iStride,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.iStride,
+                                            &ptTask->Param.tCopy.tCopySize,
+                                            this.hwColour);
     }
 
     return arm_fsm_rt_cpl;
@@ -665,21 +671,21 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy_with_colour_masking(
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
 
         __arm_2d_impl_rgb32_copy_colour_masking_mirror(
-                                    ptTask->Param.tCopy.tSource.pBuffer,
-                                    ptTask->Param.tCopy.tSource.iStride,
-                                    ptTask->Param.tCopy.tTarget.pBuffer,
-                                    ptTask->Param.tCopy.tTarget.iStride,
-                                    &ptTask->Param.tCopy.tCopySize,
-                                    wMode,
-                                    this.wColour);
+                                            ptTask->Param.tCopy.tSource.pBuffer,
+                                            ptTask->Param.tCopy.tSource.iStride,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.iStride,
+                                            &ptTask->Param.tCopy.tCopySize,
+                                            wMode,
+                                            this.wColour);
     } else {
         __arm_2d_impl_rgb32_copy_colour_masking(   
-                                ptTask->Param.tCopy.tSource.pBuffer,
-                                ptTask->Param.tCopy.tSource.iStride,
-                                ptTask->Param.tCopy.tTarget.pBuffer,
-                                ptTask->Param.tCopy.tTarget.iStride,
-                                &ptTask->Param.tCopy.tCopySize,
-                                this.wColour);
+                                            ptTask->Param.tCopy.tSource.pBuffer,
+                                            ptTask->Param.tCopy.tSource.iStride,
+                                            ptTask->Param.tCopy.tTarget.pBuffer,
+                                            ptTask->Param.tCopy.tTarget.iStride,
+                                            &ptTask->Param.tCopy.tCopySize,
+                                            this.wColour);
     }
 
     return arm_fsm_rt_cpl;
@@ -695,14 +701,14 @@ arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill_with_colour_masking(
 
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
         __arm_2d_impl_rgb16_fill_colour_masking_mirror(
-                                        ptTask->Param.tFill.tSource.pBuffer,
-                                        ptTask->Param.tFill.tSource.iStride,
-                                        &ptTask->Param.tFill.tSource.tValidRegion.tSize,
-                                        ptTask->Param.tFill.tTarget.pBuffer,
-                                        ptTask->Param.tFill.tTarget.iStride,
-                                        &ptTask->Param.tFill.tTarget.tValidRegion.tSize,
-                                        wMode,
-                                        this.hwColour);
+                                ptTask->Param.tFill.tSource.pBuffer,
+                                ptTask->Param.tFill.tSource.iStride,
+                                &ptTask->Param.tFill.tSource.tValidRegion.tSize,
+                                ptTask->Param.tFill.tTarget.pBuffer,
+                                ptTask->Param.tFill.tTarget.iStride,
+                                &ptTask->Param.tFill.tTarget.tValidRegion.tSize,
+                                wMode,
+                                this.hwColour);
     } else {
         __arm_2d_impl_rgb16_fill_colour_masking(
                                 ptTask->Param.tFill.tSource.pBuffer,
@@ -729,14 +735,14 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill_with_colour_masking(
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
 
         __arm_2d_impl_rgb32_fill_colour_masking_mirror(
-                                        ptTask->Param.tFill.tSource.pBuffer,
-                                        ptTask->Param.tFill.tSource.iStride,
-                                        &ptTask->Param.tFill.tSource.tValidRegion.tSize,
-                                        ptTask->Param.tFill.tTarget.pBuffer,
-                                        ptTask->Param.tFill.tTarget.iStride,
-                                        &ptTask->Param.tFill.tTarget.tValidRegion.tSize,
-                                        wMode,
-                                        this.wColour);
+                                ptTask->Param.tFill.tSource.pBuffer,
+                                ptTask->Param.tFill.tSource.iStride,
+                                &ptTask->Param.tFill.tSource.tValidRegion.tSize,
+                                ptTask->Param.tFill.tTarget.pBuffer,
+                                ptTask->Param.tFill.tTarget.iStride,
+                                &ptTask->Param.tFill.tTarget.tValidRegion.tSize,
+                                wMode,
+                                this.wColour);
 
     } else {
 

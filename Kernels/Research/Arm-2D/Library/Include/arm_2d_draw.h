@@ -46,6 +46,68 @@ extern "C" {
 
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
+
+#define arm_2d_rgb16_draw_point(__TARGET_ADDR,  /*!< target tile address */     \
+                                __LOCATION,     /*!< point coordinate */        \
+                                __COLOUR)       /*!< target colour */           \
+            arm_2dp_rgb16_draw_point(NULL,                                      \
+                                     (__TARGET_ADDR),                           \
+                                     (__LOCATION),                              \
+                                     (__COLOUR))
+
+#define arm_2d_rgb32_draw_point(__TARGET_ADDR,  /*!< target tile address */     \
+                                __LOCATION,     /*!< point coordinate */        \
+                                __COLOUR)       /*!< target colour */           \
+            arm_2dp_rgb32_draw_point(NULL,                                      \
+                                     (__TARGET_ADDR),                           \
+                                     (__LOCATION),                              \
+                                     (__COLOUR))
+
+#define arm_2d_rgb16_draw_pattern(  __PATTERN_ADDR, /*!< pattern tile address */\
+                                    __TARGET_ADDR,  /*!< target tile address*/  \
+                                    __REGION_ADDR,  /*!< target region address*/\
+                                    __MODE,         /*!< draw mode */           \
+                                    __FG_COLOUR,    /*!< foreground colour */   \
+                                    __BG_COLOUR)    /*!< background colour */   \
+            arm_2dp_rgb16_draw_pattern(NULL,                                    \
+                                     (__PATTERN_ADDR),                          \
+                                     (__TARGET_ADDR),                           \
+                                     (__REGION_ADDR),                           \
+                                     (__MODE),                                  \
+                                     (__FG_COLOUR),                             \
+                                     (__BG_COLOUR))
+
+#define arm_2d_rgb32_draw_pattern(  __PATTERN_ADDR, /*!< pattern tile address */\
+                                    __TARGET_ADDR,  /*!< target tile address*/  \
+                                    __REGION_ADDR,  /*!< target region address*/\
+                                    __MODE,         /*!< draw mode */           \
+                                    __FG_COLOUR,    /*!< foreground colour */   \
+                                    __BG_COLOUR)    /*!< background colour */   \
+            arm_2dp_rgb32_draw_pattern(NULL,                                    \
+                                     (__PATTERN_ADDR),                          \
+                                     (__TARGET_ADDR),                           \
+                                     (__REGION_ADDR),                           \
+                                     (__MODE),                                  \
+                                     (__FG_COLOUR),                             \
+                                     (__BG_COLOUR))
+
+ 
+#define arm_2d_rgb16_fill_colour(   __TARGET_ADDR,  /*!< target tile address*/  \
+                                    __REGION_ADDR,  /*!< target region address*/\
+                                    __COLOUR)       /*!< colour */              \
+            arm_2dp_rgb16_fill_colour(NULL,                                     \
+                                     (__TARGET_ADDR),                           \
+                                     (__REGION_ADDR),                           \
+                                     (__COLOUR))
+
+#define arm_2d_rgb32_fill_colour(   __TARGET_ADDR,  /*!< target tile address*/  \
+                                    __REGION_ADDR,  /*!< target region address*/\
+                                    __COLOUR)       /*!< colour */              \
+            arm_2dp_rgb32_fill_colour(NULL,                                     \
+                                     (__TARGET_ADDR),                           \
+                                     (__REGION_ADDR),                           \
+                                     (__COLOUR))
+
 /*============================ TYPES =========================================*/
 
 /*! \note arm_2d_op_fill_cl_t inherits from arm_2d_op_t explicitly 
@@ -144,7 +206,7 @@ __STATIC_INLINE void arm_2d_rgb32_draw_point_fast(
                        + tLocation.iX;
     *pwPoint = wColour;
 }
- 
+
  /*! \note Since those draw point APIs involve a lot of region calculations
   *!       which is only useful when partial framebuffer is used, please DO NOT
   *!       use those APIs for drawing unless you are using partial framebuffer.
@@ -153,14 +215,16 @@ __STATIC_INLINE void arm_2d_rgb32_draw_point_fast(
   *!       
   */
 extern
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_rgb16_draw_point(   const arm_2d_tile_t *ptTarget,
+ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_rgb16_draw_point(  arm_2d_op_drw_pt_t  *ptOP,
+                                        const arm_2d_tile_t *ptTarget,
                                         const arm_2d_location_t tLocation,
                                         uint_fast16_t hwColour);
                                         
 extern
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_rgb32_draw_point(   const arm_2d_tile_t *ptTarget,
+ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_rgb32_draw_point(  arm_2d_op_drw_pt_t  *ptOP,
+                                        const arm_2d_tile_t *ptTarget,
                                         const arm_2d_location_t tLocation,
                                         uint32_t wColour);
 
@@ -177,21 +241,23 @@ arm_fsm_rt_t arm_2d_rgba8888_draw_point(const arm_2d_tile_t *ptTarget,
 /*----------------------------------------------------------------------------*
  * Draw a bit patterns                                                        *
  *----------------------------------------------------------------------------*/
- 
+
 extern
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_rgb16_draw_pattern(  const arm_2d_tile_t *ptPattern,
-                                         const arm_2d_tile_t *ptTarget,
-                                         const arm_2d_region_t *ptRegion,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb16_draw_pattern( arm_2d_op_drw_patn_t   *ptOP,
+                                         const arm_2d_tile_t    *ptPattern,
+                                         const arm_2d_tile_t    *ptTarget,
+                                         const arm_2d_region_t  *ptRegion,
                                          uint32_t wMode,
                                          uint16_t hwForeColour,
                                          uint16_t hwBackColour);
 
 extern
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_rgb32_draw_pattern(  const arm_2d_tile_t *ptPattern,
-                                         const arm_2d_tile_t *ptTarget,
-                                         const arm_2d_region_t *ptRegion,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb32_draw_pattern( arm_2d_op_drw_patn_t   *ptOP,
+                                         const arm_2d_tile_t    *ptPattern,
+                                         const arm_2d_tile_t    *ptTarget,
+                                         const arm_2d_region_t  *ptRegion,
                                          uint32_t wMode,
                                          uint32_t wForeColour,
                                          uint32_t wBackColour);
@@ -199,16 +265,19 @@ arm_fsm_rt_t arm_2d_rgb32_draw_pattern(  const arm_2d_tile_t *ptPattern,
 /*----------------------------------------------------------------------------*
  * Fill tile with specified colour                                            *
  *----------------------------------------------------------------------------*/
+
 extern
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_rgb16_fill_colour(  const arm_2d_tile_t *ptTarget,
-                                        const arm_2d_region_t *ptRegion,
+ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_rgb16_fill_colour( arm_2d_op_fill_cl_t     *ptOP,
+                                        const arm_2d_tile_t     *ptTarget,
+                                        const arm_2d_region_t   *ptRegion,
                                         uint_fast16_t hwColour);
 
 extern
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_rgb32_fill_colour(  const arm_2d_tile_t *ptTarget,
-                                        const arm_2d_region_t *ptRegion,
+ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_rgb32_fill_colour( arm_2d_op_fill_cl_t     *ptOP,
+                                        const arm_2d_tile_t     *ptTarget,
+                                        const arm_2d_region_t   *ptRegion,
                                         uint32_t wColour);
 
 #if defined(__clang__)

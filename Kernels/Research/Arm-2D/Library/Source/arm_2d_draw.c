@@ -241,14 +241,15 @@ __arm_2d_point_get_adjacent_alpha_q16(arm_2d_point_fx_t *ptPoint)
  * Draw a point with specified colour                                         *
  *----------------------------------------------------------------------------*/
 
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_rgb16_draw_point(   const arm_2d_tile_t *ptTarget,
+ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_rgb16_draw_point(  arm_2d_op_drw_pt_t  *ptOP,
+                                        const arm_2d_tile_t *ptTarget,
                                         const arm_2d_location_t tLocation,
                                         uint_fast16_t hwColour)
 {
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_drw_pt_t);
+    ARM_2D_IMPL(arm_2d_op_drw_pt_t, ptOP);
 
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -268,18 +269,19 @@ arm_fsm_rt_t arm_2d_rgb16_draw_point(   const arm_2d_tile_t *ptTarget,
     this.Target.ptRegion = &tPointRegion;
     this.hwColour = hwColour;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_rgb32_draw_point(   const arm_2d_tile_t *ptTarget,
+ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_rgb32_draw_point(  arm_2d_op_drw_pt_t  *ptOP,
+                                        const arm_2d_tile_t *ptTarget,
                                         const arm_2d_location_t tLocation,
                                         uint32_t wColour)
 {
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_drw_pt_t);
+    ARM_2D_IMPL(arm_2d_op_drw_pt_t, ptOP);
 
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -299,7 +301,7 @@ arm_fsm_rt_t arm_2d_rgb32_draw_point(   const arm_2d_tile_t *ptTarget,
     this.Target.ptRegion = &tPointRegion;
     this.wColour = wColour;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 arm_fsm_rt_t __arm_2d_sw_draw_point(__arm_2d_sub_task_t *ptTask)
@@ -324,15 +326,16 @@ arm_fsm_rt_t __arm_2d_sw_draw_point(__arm_2d_sub_task_t *ptTask)
 /*----------------------------------------------------------------------------*
  * Fill tile with specified colour                                            *
  *----------------------------------------------------------------------------*/
-extern
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_rgb16_fill_colour(  const arm_2d_tile_t *ptTarget,
+
+ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_rgb16_fill_colour( arm_2d_op_fill_cl_t *ptOP,
+                                        const arm_2d_tile_t *ptTarget,
                                         const arm_2d_region_t *ptRegion,
                                         uint_fast16_t hwColour)
 {
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_fill_cl_t);
+    ARM_2D_IMPL(arm_2d_op_fill_cl_t, ptOP);
 
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -346,18 +349,18 @@ arm_fsm_rt_t arm_2d_rgb16_fill_colour(  const arm_2d_tile_t *ptTarget,
     this.Target.ptRegion = ptRegion;
     this.hwColour = hwColour;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
-extern
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_rgb32_fill_colour(  const arm_2d_tile_t *ptTarget,
+ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_rgb32_fill_colour( arm_2d_op_fill_cl_t *ptOP,
+                                        const arm_2d_tile_t *ptTarget,
                                         const arm_2d_region_t *ptRegion,
                                         uint32_t wColour)
 {
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_fill_cl_t);
+    ARM_2D_IMPL(arm_2d_op_fill_cl_t, ptOP);
 
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -371,7 +374,7 @@ arm_fsm_rt_t arm_2d_rgb32_fill_colour(  const arm_2d_tile_t *ptTarget,
     this.Target.ptRegion = ptRegion;
     this.wColour = wColour;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 
@@ -408,10 +411,11 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_colour_filling(__arm_2d_sub_task_t *ptTask)
  * Draw a bit patterns                                                        *
  *----------------------------------------------------------------------------*/
 
-ARM_NONNULL(1,2)
-arm_fsm_rt_t arm_2d_rgb16_draw_pattern(  const arm_2d_tile_t *ptPattern,
-                                         const arm_2d_tile_t *ptTarget,
-                                         const arm_2d_region_t *ptRegion,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb16_draw_pattern( arm_2d_op_drw_patn_t   *ptOP, 
+                                         const arm_2d_tile_t    *ptPattern,
+                                         const arm_2d_tile_t    *ptTarget,
+                                         const arm_2d_region_t  *ptRegion,
                                          uint32_t wMode,
                                          uint16_t hwForeColour,
                                          uint16_t hwBackColour)
@@ -419,7 +423,7 @@ arm_fsm_rt_t arm_2d_rgb16_draw_pattern(  const arm_2d_tile_t *ptPattern,
     assert(NULL != ptPattern);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_drw_patn_t);
+    ARM_2D_IMPL(arm_2d_op_drw_patn_t, ptOP);
 
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -446,14 +450,15 @@ arm_fsm_rt_t arm_2d_rgb16_draw_pattern(  const arm_2d_tile_t *ptPattern,
     this.Foreground.hwColour = hwForeColour;
     this.Background.hwColour = hwBackColour;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 
-ARM_NONNULL(1,2)
-arm_fsm_rt_t arm_2d_rgb32_draw_pattern( const arm_2d_tile_t *ptPattern,
-                                        const arm_2d_tile_t *ptTarget,
-                                        const arm_2d_region_t *ptRegion,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb32_draw_pattern(arm_2d_op_drw_patn_t    *ptOP,
+                                        const arm_2d_tile_t     *ptPattern,
+                                        const arm_2d_tile_t     *ptTarget,
+                                        const arm_2d_region_t   *ptRegion,
                                         uint32_t wMode,
                                         uint32_t wForeColour,
                                         uint32_t wBackColour)
@@ -462,7 +467,7 @@ arm_fsm_rt_t arm_2d_rgb32_draw_pattern( const arm_2d_tile_t *ptPattern,
     assert(NULL != ptPattern);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_drw_patn_t);
+    ARM_2D_IMPL(arm_2d_op_drw_patn_t, ptOP);
 
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -488,7 +493,7 @@ arm_fsm_rt_t arm_2d_rgb32_draw_pattern( const arm_2d_tile_t *ptPattern,
     this.Foreground.wColour = wForeColour;
     this.Background.wColour = wBackColour;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 arm_fsm_rt_t __arm_2d_rgb16_sw_draw_pattern( __arm_2d_sub_task_t *ptTask)

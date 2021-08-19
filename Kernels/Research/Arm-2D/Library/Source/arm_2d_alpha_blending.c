@@ -139,8 +139,9 @@ void __arm_2d_impl_rgb888_colour_filling_with_alpha(
  * Copy tile to destination with specified transparency ratio (0~255)         *
  *----------------------------------------------------------------------------*/
 
-ARM_NONNULL(1,2,3)
-arm_fsm_rt_t arm_2d_rgb565_alpha_blending(
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb565_alpha_blending(
+                                     arm_2d_op_alpha_t *ptOP,
                                      const arm_2d_tile_t *ptSource,
                                      const arm_2d_tile_t *ptTarget,
                                      const arm_2d_region_t *ptRegion,
@@ -149,7 +150,7 @@ arm_fsm_rt_t arm_2d_rgb565_alpha_blending(
     assert(NULL != ptSource);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_alpha_t);
+    ARM_2D_IMPL(arm_2d_op_alpha_t, ptOP);
     
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -165,19 +166,20 @@ arm_fsm_rt_t arm_2d_rgb565_alpha_blending(
     this.wMode = 0;
     this.chRatio = chRatio;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
-ARM_NONNULL(1,2,3)
-arm_fsm_rt_t arm_2d_rgb888_alpha_blending(   const arm_2d_tile_t *ptSource,
-                                             const arm_2d_tile_t *ptTarget,
-                                             const arm_2d_region_t *ptRegion,
-                                             uint_fast8_t chRatio)
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb888_alpha_blending( arm_2d_op_alpha_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion,
+                                            uint_fast8_t chRatio)
 {
     assert(NULL != ptSource);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_alpha_t);
+    ARM_2D_IMPL(arm_2d_op_alpha_t, ptOP);
     
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -193,7 +195,7 @@ arm_fsm_rt_t arm_2d_rgb888_alpha_blending(   const arm_2d_tile_t *ptSource,
     this.wMode = 0;
     this.chRatio = chRatio;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 arm_fsm_rt_t __arm_2d_rgb565_sw_alpha_blending(__arm_2d_sub_task_t *ptTask)
@@ -263,16 +265,17 @@ arm_fsm_rt_t __arm_2d_rgb888_sw_alpha_blending(__arm_2d_sub_task_t *ptTask)
 /*----------------------------------------------------------------------------*
  * Fill a specified region with a given colour and transparency ratio (0~255) *
  *----------------------------------------------------------------------------*/
-ARM_NONNULL(1,2)
-arm_fsm_rt_t arm_2d_rgb565_fill_colour_with_alpha( 
-                                     const arm_2d_tile_t *ptTarget,
-                                     const arm_2d_region_t *ptRegion,
-                                     arm_2d_color_rgb565_t tColour,
-                                     uint_fast8_t chRatio)
+ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_alpha( 
+                                                arm_2d_op_alpha_fill_cl_t *ptOP,
+                                                const arm_2d_tile_t *ptTarget,
+                                                const arm_2d_region_t *ptRegion,
+                                                arm_2d_color_rgb565_t tColour,
+                                                uint_fast8_t chRatio)
 {
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t);
+    ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t, ptOP);
     
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -287,19 +290,20 @@ arm_fsm_rt_t arm_2d_rgb565_fill_colour_with_alpha(
     this.hwColour = tColour.tValue;
     this.chRatio = chRatio;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
  
-ARM_NONNULL(1,2)
-arm_fsm_rt_t arm_2d_rgb888_fill_colour_with_alpha( 
-                                     const arm_2d_tile_t *ptTarget,
-                                     const arm_2d_region_t *ptRegion,
-                                     arm_2d_color_rgb888_t tColour,
-                                     uint_fast8_t chRatio)
+ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_rgb888_fill_colour_with_alpha( 
+                                                arm_2d_op_alpha_fill_cl_t *ptOP,
+                                                const arm_2d_tile_t *ptTarget,
+                                                const arm_2d_region_t *ptRegion,
+                                                arm_2d_color_rgb888_t tColour,
+                                                uint_fast8_t chRatio)
 {
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t);
+    ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_t, ptOP);
     
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -313,7 +317,7 @@ arm_fsm_rt_t arm_2d_rgb888_fill_colour_with_alpha(
     this.wColour = tColour.tValue;
     this.chRatio = chRatio;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
  
@@ -354,8 +358,10 @@ arm_fsm_rt_t __arm_2d_rgb888_sw_colour_filling_with_alpha(
  * Blend tile and background with a specified transparency ratio(0~255) and a *
  * specified transparency color mask                                          *
  *----------------------------------------------------------------------------*/
-ARM_NONNULL(1,2,3)
-arm_fsm_rt_t arm_2d_rbg565_alpha_blending_with_colour_masking(
+
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb565_alpha_blending_with_colour_masking(
+                                            arm_2d_op_alpha_cl_msk_t *ptOP,
                                             const arm_2d_tile_t *ptSource,
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion,
@@ -382,12 +388,13 @@ arm_fsm_rt_t arm_2d_rbg565_alpha_blending_with_colour_masking(
     this.chRatio = chRatio;
     this.hwColour = tColour.tValue;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 
-ARM_NONNULL(1,2,3)
-arm_fsm_rt_t arm_2d_rbg888_alpha_blending_with_colour_masking(
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb888_alpha_blending_with_colour_masking(
+                                            arm_2d_op_alpha_cl_msk_t *ptOP,
                                             const arm_2d_tile_t *ptSource,
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion,
@@ -414,7 +421,7 @@ arm_fsm_rt_t arm_2d_rbg888_alpha_blending_with_colour_masking(
     this.chRatio = chRatio;
     this.wColour = tColour.tValue;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 arm_fsm_rt_t __arm_2d_rgb565_sw_alpha_blending_with_colour_masking(

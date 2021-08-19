@@ -68,7 +68,7 @@ extern "C" {
 
 #define ARM_2D_TRY_ACCELERATION(__ID, __FUNC_PROTOTYPE, ...)                    \
         if (    (NULL != OP_CORE.ptOp->Info.LowLevelIO.IO[__ID]->HW)            \
-            &&  (NULL != OP_CORE.ptOp->Info.LowLevelIO.IO[__ID])) {            \
+            &&  (NULL != OP_CORE.ptOp->Info.LowLevelIO.IO[__ID])) {             \
             tResult =                                                           \
             (*(__FUNC_PROTOTYPE *)OP_CORE.ptOp->Info.LowLevelIO.IO[__ID]->HW)(  \
                                         ptTask,                                 \
@@ -77,7 +77,7 @@ extern "C" {
 
 #define ARM_2D_RUN_DEFAULT(__ID, __FUNC_PROTOTYPE, ...)                         \
         if (    (NULL != OP_CORE.ptOp->Info.LowLevelIO.IO[__ID]->SW)            \
-            &&  (NULL != OP_CORE.ptOp->Info.LowLevelIO.IO[__ID])) {            \
+            &&  (NULL != OP_CORE.ptOp->Info.LowLevelIO.IO[__ID])) {             \
             tResult =                                                           \
             (*(__FUNC_PROTOTYPE *)OP_CORE.ptOp->Info.LowLevelIO.IO[__ID]->SW)(  \
                                         ptTask,                                 \
@@ -266,16 +266,20 @@ ARM_PRIVATE(
     arm_2d_tile_t           *ptDefaultFrameBuffer;
     
     union {
-        arm_2d_op_t                tBasic;
-        arm_2d_op_fill_cl_t        tFillColour;
-        arm_2d_op_src_t            tWithSource;
-        arm_2d_op_src_alpha_msk_t  tWithAlphaMask;
-        arm_2d_op_alpha_t          tAlpha;
-        arm_2d_op_alpha_cl_msk_t   tAlphaColourMask;
-        arm_2d_op_alpha_fill_cl_t  tAlphaColourFill;
-        arm_2d_op_drw_patn_t       tDrawPattern;
-        arm_2d_op_rotate_t         tRotate;
-        arm_2d_op_rotate_alpha_t   tRotateAlpha;
+        arm_2d_op_t                     tBasic;
+        arm_2d_op_fill_cl_t             tFillColour;
+        arm_2d_op_src_t                 tWithSource;
+        arm_2d_op_alpha_t               tAlpha;
+        arm_2d_op_alpha_cl_msk_t        tAlphaColourMask;
+        arm_2d_op_alpha_fill_cl_t       tAlphaColourFill;
+        arm_2d_op_drw_patn_t            tDrawPattern;
+        arm_2d_op_rotate_t              tRotate;
+        arm_2d_op_rotate_alpha_t        tRotateAlpha;
+        
+        arm_2d_op_amsk_t                tBasicAlphaMask;
+        arm_2d_op_src_amsk_t            tSourceAlphaMask;
+        arm_2d_op_src_orig_amsk_t       tSourceOrigAlphaMask;
+        
     } DefaultOP;
 )};
 

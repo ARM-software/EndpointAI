@@ -88,13 +88,15 @@ void __arm_2d_impl_rgb565_to_rgb888(uint16_t *__RESTRICT phwSourceBase,
  * Convert Colour format                                                      *
  *----------------------------------------------------------------------------*/
 
-
-arm_fsm_rt_t arm_2d_convert_colour_to_rbg888(   const arm_2d_tile_t *ptSource,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_convert_colour_to_rgb888(  arm_2d_op_cl_convt_t *ptOP,
+                                                const arm_2d_tile_t *ptSource,
                                                 const arm_2d_tile_t *ptTarget)
 {
+    assert(NULL != ptSource);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_cl_convt_t);
+    ARM_2D_IMPL(arm_2d_op_cl_convt_t, ptOP);
     
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -108,17 +110,19 @@ arm_fsm_rt_t arm_2d_convert_colour_to_rbg888(   const arm_2d_tile_t *ptSource,
     this.Target.ptRegion = NULL;
     this.Source.ptTile = ptSource;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 
-ARM_NONNULL(1,2)
-arm_fsm_rt_t arm_2d_convert_colour_to_rgb565(   const arm_2d_tile_t *ptSource,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_convert_colour_to_rgb565(  arm_2d_op_cl_convt_t *ptOP,
+                                                const arm_2d_tile_t *ptSource,
                                                 const arm_2d_tile_t *ptTarget)
 {
+    assert(NULL != ptSource);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_cl_convt_t);
+    ARM_2D_IMPL(arm_2d_op_cl_convt_t, ptOP);
     
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -132,7 +136,7 @@ arm_fsm_rt_t arm_2d_convert_colour_to_rgb565(   const arm_2d_tile_t *ptSource,
     this.Target.ptRegion = NULL;
     this.Source.ptTile = ptSource;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 

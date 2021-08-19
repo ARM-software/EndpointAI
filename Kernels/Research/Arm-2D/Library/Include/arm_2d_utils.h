@@ -195,7 +195,7 @@ extern "C" {
 #define arm_connect(...)                                                        \
             ARM_CONNECT2(ARM_CONNECT, __ARM_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)
 
-
+#define ARM_CONNECT(...)        arm_connect(__VA_ARGS__)
 
 #define __ARM_USING1(__declare)                                                 \
             for (__declare, *ARM_CONNECT3(__ARM_USING_, __LINE__,_ptr) = NULL;  \
@@ -299,13 +299,17 @@ extern "C" {
 #   define __OVERRIDE_WEAK          __USED
 #endif
 
+#define ARM_2D_SAFE_NAME(...)    ARM_CONNECT(__,__LINE__,##__VA_ARGS__)
+
 
 #undef arm_irq_safe
 
 #define arm_irq_safe                                                            \
-            arm_using(  uint32_t ARM_CONNECT2(temp,__LINE__) =                  \
+            arm_using(  uint32_t ARM_2D_SAFE_NAME(temp) =                       \
                         ({uint32_t temp=__get_PRIMASK();__disable_irq();temp;}),\
-                        __set_PRIMASK(ARM_CONNECT2(temp,__LINE__)))
+                        __set_PRIMASK(ARM_2D_SAFE_NAME(temp)))
+
+
 
 
 

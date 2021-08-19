@@ -407,6 +407,17 @@ typedef struct arm_2d_op_t {
     } Target;
 } arm_2d_op_t;
 
+typedef struct arm_2d_op_amsk_t {
+    inherit(arm_2d_op_core_t);
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+        const arm_2d_region_t   *ptRegion;      //!< target region
+    } Target;
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+    } AlphaMask;
+} arm_2d_op_amsk_t;
+
 typedef struct arm_2d_op_src_t {
     inherit(arm_2d_op_core_t);
     struct {
@@ -418,6 +429,23 @@ typedef struct arm_2d_op_src_t {
     }Source;
     uint32_t wMode;
 } arm_2d_op_src_t;
+
+typedef struct arm_2d_op_src_amsk_t {
+    inherit(arm_2d_op_core_t);
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+        const arm_2d_region_t   *ptRegion;      //!< target region
+    } Target;
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< source tile
+    }Source;
+    uint32_t wMode;
+    
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+    } AlphaMask;
+} arm_2d_op_src_amsk_t;
+
 
 /*! \brief arm_2d_op_src_orig_t is inherit from arm_2d_op_src_t
  */
@@ -439,19 +467,27 @@ typedef struct arm_2d_op_src_orig_t {
 
 } arm_2d_op_src_orig_t;
 
-
-typedef struct arm_2d_op_src_alpha_msk_t {
+/*! \brief arm_2d_op_src_orig_t is inherit from arm_2d_op_src_t
+ */
+typedef struct arm_2d_op_src_orig_amsk_t {
     inherit(arm_2d_op_core_t);
     struct {
-        const arm_2d_tile_t *ptTile;        //!< target tile
-        const arm_2d_tile_t *ptRegion;      //!< target region
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+        const arm_2d_region_t   *ptRegion;      //!< target region
     } Target;
     struct {
-        const arm_2d_tile_t *ptTile;        //!< source tile
-        const uint8_t *pchAlphaMask;        //!< alpha mask
+        const arm_2d_tile_t     *ptTile;        //!< source tile
     }Source;
-} arm_2d_op_src_alpha_msk_t;
+    uint32_t wMode;
 
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< the origin tile
+        arm_2d_tile_t           tDummySource;   //!< the buffer for the source
+    }Origin;
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+    } AlphaMask;
+} arm_2d_op_src_orig_amsk_t;
 
 /*----------------------------------------------------------------------------*
  * Fast Rotation linear regression structure
