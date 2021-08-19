@@ -478,15 +478,18 @@ static arm_2d_err_t __arm_2d_rotate_preprocess_source(arm_2d_op_rotate_t *ptThis
 
 static void __arm_2d_rotate_preprocess_target(arm_2d_op_rotate_t *ptThis)
 {
-    this.tRotate.tTargetRegion.tSize = this.Source.ptTile->tRegion.tSize;
+    this.tRotate.Target.tRegion.tSize = this.Source.ptTile->tRegion.tSize;
 
-    arm_2d_region_t *ptTargetRegion = this.Target.ptRegion;
-    if (NULL == ptTargetRegion) {
-        ptTargetRegion = &this.Target.ptTile->tRegion;
+    arm_2d_region_t tTargetRegion = {0};
+    if (NULL != this.Target.ptRegion) {
+        tTargetRegion = *this.Target.ptRegion;
+    } else {
+        tTargetRegion.tSize = this.Target.ptTile->tRegion.tSize;
     }
-    this.Target.ptRegion = &this.tRotate.tTargetRegion;
+    
+    this.Target.ptRegion = &this.tRotate.Target.tRegion;
 
-    this.tRotate.tTargetRegion.tLocation = ptTargetRegion->tLocation;
+    this.tRotate.Target.tRegion.tLocation = tTargetRegion.tLocation;
 
     //! align with the specified center point
     do {
@@ -495,17 +498,17 @@ static void __arm_2d_rotate_preprocess_target(arm_2d_op_rotate_t *ptThis)
             .iX = this.tRotate.tCenter.iX - this.tRotate.tDummySourceOffset.iX,
             .iY = this.tRotate.tCenter.iY - this.tRotate.tDummySourceOffset.iY,
         };
-
+        
         arm_2d_location_t tTargetCenter = {
-            .iX = ptTargetRegion->tSize.iWidth >> 1,
-            .iY = ptTargetRegion->tSize.iHeight >> 1,
+            .iX = tTargetRegion.tSize.iWidth >> 1,
+            .iY = tTargetRegion.tSize.iHeight >> 1,
         };
-
+        
         tOffset.iX = tTargetCenter.iX - tOffset.iX;
         tOffset.iY = tTargetCenter.iY - tOffset.iY;
-
-        this.tRotate.tTargetRegion.tLocation.iX += tOffset.iX;
-        this.tRotate.tTargetRegion.tLocation.iY += tOffset.iY;
+        
+        this.tRotate.Target.tRegion.tLocation.iX += tOffset.iX;
+        this.tRotate.Target.tRegion.tLocation.iY += tOffset.iY;
 
     } while(0);
 }
@@ -677,19 +680,39 @@ arm_fsm_rt_t __arm_2d_rgb888_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask)
     return arm_fsm_rt_cpl;
 }
 
-
+ARM_NONNULL(2)
 arm_fsm_rt_t arm_2dp_tile_rotate(arm_2d_op_rotate_t *ptOP,
                                  const arm_2d_tile_t *ptTarget,
                                  const arm_2d_region_t *ptRegion)
 {
+    assert(NULL != ptTarget);
+
     ARM_2D_IMPL(arm_2d_op_rotate_t, ptOP);
 
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
     }
-
-    this.Target.ptTile = ptTarget;
-    this.Target.ptRegion = ptRegion;
+    
+    if (NULL != ptRegion) {
+        this.Target.ptTile = arm_2d_tile_generate_child( 
+                                                    ptTarget, 
+                                                    ptRegion, 
+                                                    &this.tRotate.Target.tTile, 
+                                                    false);
+        this.Target.ptRegion = NULL;
+        
+        if (NULL == this.Target.ptTile) {
+            if (ARM_2D_RUNTIME_FEATURE.TREAT_OUT_OF_RANGE_AS_COMPLETE) {
+                return arm_fsm_rt_cpl;
+            }
+            
+            return (arm_fsm_rt_t)ARM_2D_ERR_OUT_OF_REGION;
+        }
+        
+    } else {
+        this.Target.ptTile = ptTarget;
+        this.Target.ptRegion = ptRegion;
+    }
 
     __arm_2d_rotate_preprocess_target(ptThis);
     return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
