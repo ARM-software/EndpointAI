@@ -48,20 +48,18 @@
  *!       480 * 4    3840B
  *!       480 * 8    7680B
  */
-//#define PFB_BLOCK_WIDTH         120
-//#define PFB_BLOCK_HEIGHT        120
 
-#define PFB_BLOCK_WIDTH         GLCD_WIDTH
-#define PFB_BLOCK_HEIGHT        20
+#define PFB_BLOCK_WIDTH                 GLCD_WIDTH
+#define PFB_BLOCK_HEIGHT                20
 
-#define BUSY_WHEEL_SPIN_SPEED   100
+#define BUSY_WHEEL_SPIN_SPEED           100
 
 #ifndef APP_SCREEN_WIDTH 
-#   define APP_SCREEN_WIDTH         GLCD_WIDTH
+#   define APP_SCREEN_WIDTH             GLCD_WIDTH
 #endif
 
 #ifndef APP_SCREEN_HEIGHT 
-#   define APP_SCREEN_HEIGHT        GLCD_HEIGHT
+#   define APP_SCREEN_HEIGHT            GLCD_HEIGHT
 #endif
 
 
