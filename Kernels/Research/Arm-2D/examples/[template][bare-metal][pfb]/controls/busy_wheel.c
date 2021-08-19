@@ -114,7 +114,7 @@ void busy_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
         tTargetRegion.tLocation.iX += s_tDotsLocation[chIndex].iX;
         tTargetRegion.tLocation.iY += s_tDotsLocation[chIndex].iY;
     
-        arm_2d_rbg565_alpha_blending_with_colour_masking(   
+        arm_2d_rgb565_alpha_blending_with_colour_masking(   
                                                 &c_tPictureWhiteDot,
                                                 ptTarget,
                                                 &tTargetRegion,

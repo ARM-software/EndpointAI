@@ -98,7 +98,6 @@ void busy_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
     if (bIsNewFrame) {
         int64_t lClocks = clock();
         int32_t nElapsed = (int32_t)((lClocks - s_lLastTime));
-        
         if (nElapsed >= (int32_t)s_wUnit) {
             s_lLastTime = lClocks;
             s_chOffset++;
@@ -115,7 +114,7 @@ void busy_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
         tTargetRegion.tLocation.iX += s_tDotsLocation[chIndex].iX;
         tTargetRegion.tLocation.iY += s_tDotsLocation[chIndex].iY;
     
-        arm_2d_rbg565_alpha_blending_with_colour_masking(   
+        arm_2d_rgb565_alpha_blending_with_colour_masking(   
                                                 &c_tPictureWhiteDot,
                                                 ptTarget,
                                                 &tTargetRegion,
