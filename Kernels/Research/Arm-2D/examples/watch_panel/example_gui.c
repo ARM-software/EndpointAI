@@ -60,6 +60,7 @@ typedef struct {
     float fAngle;
     float fAngleSpeed;
     arm_2d_location_t tCentre;
+    arm_2d_location_t *ptTargetCentre;
     arm_2d_region_t tRegion;
     uint8_t chOpacity;
 } demo_gears_t;
@@ -126,6 +127,14 @@ demo_gears_t s_tGears[] = {
                 .iHeight = 41,
             },
         },
+    #if 0  /*! a demo shows how to specifiy the centre of rotation on the target tile */
+        .ptTargetCentre = (arm_2d_location_t []){
+            {
+                .iX = ((APP_SCREEN_WIDTH - 41) >> 1) + 30,
+                .iY = ((APP_SCREEN_HEIGHT - 41) >>1) + 30,
+            },
+        },
+    #endif
         .chOpacity = 255,
     },
 
@@ -168,7 +177,6 @@ demo_gears_t s_tGears[] = {
         },
         .chOpacity = 255,
     },
-
 };
 
 
@@ -335,8 +343,8 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
                                             &(ptItem->tRegion), //!< target region
                                             ptItem->tCentre,    //!< center point
                                             ptItem->fAngle,     //!< rotation angle
-                                            GLCD_COLOR_BLACK);  //!< masking colour
-
+                                            GLCD_COLOR_BLACK,   //!< masking colour
+                                            ptItem->ptTargetCentre);
         } else {
             arm_2dp_rgb565_tile_rotation_with_alpha(
                                             &(ptItem->tOP),
@@ -346,7 +354,8 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
                                             ptItem->tCentre,    //!< center point
                                             ptItem->fAngle,     //!< rotation angle
                                             GLCD_COLOR_BLACK,   //!< masking colour
-                                            ptItem->chOpacity); //!< Opacity
+                                            ptItem->chOpacity,  //!< Opacity
+                                            ptItem->ptTargetCentre);
         }
     }
 
