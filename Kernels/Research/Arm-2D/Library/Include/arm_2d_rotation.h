@@ -42,6 +42,7 @@ extern "C" {
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wsign-conversion"
 #   pragma clang diagnostic ignored "-Wpadded"
+#   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #endif
 
 /*============================ MACROS ========================================*/

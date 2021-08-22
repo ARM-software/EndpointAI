@@ -854,7 +854,7 @@
             <UseExternalTool>1</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>1</Capability>
+            <Capability>0</Capability>
             <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
@@ -963,7 +963,7 @@
             <uThumb>1</uThumb>
             <VariousControls>
               <MiscControls>-Ofast -flto -fdata-sections -ffunction-sections -fms-extensions -mfloat-abi=soft -std=gnu11</MiscControls>
-              <Define>RTE_Compiler_IO_STDOUT_User,CMSDK_CM0plus</Define>
+              <Define>RTE_Compiler_IO_STDOUT_User,CMSDK_CM0plus,ITERATION_CNT=10</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;..\..\Library\Include;.;..\..\Helper\Include;.\platform\lib;.\platform\mps2</IncludePath>
             </VariousControls>
