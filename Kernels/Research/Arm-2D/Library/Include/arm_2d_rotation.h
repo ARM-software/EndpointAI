@@ -48,6 +48,16 @@ extern "C" {
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
+#define arm_2d_gray8_tile_rotation_prepare(__SRC_TILE_ADDR,                     \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __MSK_COLOUR)                       \
+            arm_2dp_gray8_tile_rotation_prepare(  NULL,                         \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   (__MSK_COLOUR))
+
 #define arm_2d_rgb565_tile_rotation_prepare(__SRC_TILE_ADDR,                    \
                                             __CENTRE,                           \
                                             __ANGLE,                            \
@@ -106,13 +116,36 @@ extern "C" {
                                 (__DES_CENTRE_ADDR))
 
 
-/*! \note arm_2dp_rgb565_tile_rotation() and 
+/*! \note arm_2dp_gray8_tile_rotation(), arm_2dp_rgb565_tile_rotation() and 
  *!       arm_2d_2dp_rgb888_tile_rotation() relies on the boolean variable
  *!       bIsNewFrame. Please make sure you have define it with the correct
  *!       name and the corresponding value. If you don't use the PFB interfaces
  *!       for neight the low level rendering nor the high level GUI drawing, 
  *!       please find such variable with the value "true".
  */
+ 
+#define arm_2dp_gray8_tile_rotation(   __CB_ADDR,                               \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR,                           \
+                                        ...)                                    \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_gray8_tile_rotation_prepare(                                \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR));                        \
+        };                                                                      \
+        arm_2dp_tile_rotate((arm_2d_op_rotate_t *)(__CB_ADDR),                  \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+ 
 #define arm_2dp_rgb565_tile_rotation(   __CB_ADDR,                              \
                                         __SRC_TILE_ADDR,                        \
                                         __DES_TILE_ADDR,                        \
@@ -204,6 +237,28 @@ extern "C" {
                             (__DES_REGION_ADDR),                                \
                             (NULL,##__VA_ARGS__));                              \
         })
+
+#define arm_2d_gray8_tile_rotation(                                             \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR, ...)                      \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_gray8_tile_rotation_prepare(                                \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR));                        \
+        };                                                                      \
+        arm_2dp_tile_rotate(NULL,                                               \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
 
 #define arm_2d_rgb565_tile_rotation(                                            \
                                         __SRC_TILE_ADDR,                        \
@@ -303,6 +358,7 @@ typedef struct __arm_2d_rotate_info_t {
     float                   fAngle;         //!< target angle
     arm_2d_location_t       tCenter;
     union {
+        uint8_t             chColour;
         uint32_t            wColour;
         uint16_t            hwColour;
     } Mask;                                 //!< the colour to fill when out of range
@@ -363,6 +419,15 @@ typedef struct arm_2d_op_rotate_alpha_t {
 
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
+
+extern
+ARM_NONNULL(2)
+arm_2d_err_t arm_2dp_gray8_tile_rotation_prepare(
+                                        arm_2d_op_rotate_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_location_t tCentre,
+                                        float fAngle,
+                                        uint8_t chFillColour);
 
 extern
 ARM_NONNULL(2)

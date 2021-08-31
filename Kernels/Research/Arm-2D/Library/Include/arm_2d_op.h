@@ -46,10 +46,16 @@ extern
 const __arm_2d_op_info_t ARM_2D_OP_BARRIER;
     
 extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_C8BIT;    
+
+extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_RGB16;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_RGB32;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_C8BIT;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB16;
@@ -57,6 +63,9 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB16;
 extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB32;
     
+extern 
+const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_C8BIT;
+
 extern 
 const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_RGB16;
     
@@ -81,11 +90,18 @@ const __arm_2d_op_info_t ARM_2D_OP_ALPHA_COLOUR_FILL_RGB565;
 extern
 const __arm_2d_op_info_t ARM_2D_OP_ALPHA_COLOUR_FILL_RGB888;
     
+  
+extern
+const __arm_2d_op_info_t ARM_2D_OP_DRAW_POINT_C8BIT;
+  
 extern
 const __arm_2d_op_info_t ARM_2D_OP_DRAW_POINT_RGB16;
 
 extern
 const __arm_2d_op_info_t ARM_2D_OP_DRAW_POINT_RGB32;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_DRAW_PATTERN_C8BIT;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_DRAW_PATTERN_RGB16;
@@ -98,6 +114,9 @@ const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB565;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB888;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_GRAY8;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_ROTATE_RGB565;

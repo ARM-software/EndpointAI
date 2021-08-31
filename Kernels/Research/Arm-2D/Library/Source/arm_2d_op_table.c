@@ -72,28 +72,41 @@ extern "C" {
  * Low Level IO Interfaces                                                    *
  *----------------------------------------------------------------------------*/
 __WEAK
+def_low_lv_io(__ARM_2D_IO_COPY_C8BIT, __arm_2d_c8bit_sw_tile_copy);
+__WEAK
 def_low_lv_io(__ARM_2D_IO_COPY_RGB16, __arm_2d_rgb16_sw_tile_copy);
 __WEAK
 def_low_lv_io(__ARM_2D_IO_COPY_RGB32, __arm_2d_rgb32_sw_tile_copy);
 
+__WEAK
+def_low_lv_io(__ARM_2D_IO_FILL_C8BIT, __arm_2d_c8bit_sw_tile_fill);
 __WEAK
 def_low_lv_io(__ARM_2D_IO_FILL_RGB16, __arm_2d_rgb16_sw_tile_fill);
 __WEAK
 def_low_lv_io(__ARM_2D_IO_FILL_RGB32, __arm_2d_rgb32_sw_tile_fill);
 
 __WEAK
+def_low_lv_io(__ARM_2D_IO_COPY_WITH_COLOUR_MASKING_C8BIT, 
+                __arm_2d_c8bit_sw_tile_copy_with_colour_masking);
+__WEAK
 def_low_lv_io(__ARM_2D_IO_COPY_WITH_COLOUR_MASKING_RGB16, 
                 __arm_2d_rgb16_sw_tile_copy_with_colour_masking);
 __WEAK
 def_low_lv_io(__ARM_2D_IO_COPY_WITH_COLOUR_MASKING_RGB32, 
                 __arm_2d_rgb32_sw_tile_copy_with_colour_masking);
+                
+__WEAK
+def_low_lv_io(__ARM_2D_IO_FILL_WITH_COLOUR_MASKING_C8BIT, 
+                __arm_2d_c8bit_sw_tile_fill_with_colour_masking);
 __WEAK
 def_low_lv_io(__ARM_2D_IO_FILL_WITH_COLOUR_MASKING_RGB16, 
                 __arm_2d_rgb16_sw_tile_fill_with_colour_masking);
 __WEAK
 def_low_lv_io(__ARM_2D_IO_FILL_WITH_COLOUR_MASKING_RGB32, 
                 __arm_2d_rgb32_sw_tile_fill_with_colour_masking);
-                
+    
+__WEAK
+def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_C8BIT, __arm_2d_c8bit_sw_colour_filling);    
 __WEAK
 def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_RGB16, __arm_2d_rgb16_sw_colour_filling);
 __WEAK
@@ -124,6 +137,8 @@ __WEAK
 def_low_lv_io(__ARM_2D_IO_DRAW_POINT, __arm_2d_sw_draw_point);
 
 __WEAK
+def_low_lv_io(__ARM_2D_IO_DRAW_PATTERN_C8BIT, __arm_2d_c8bit_sw_draw_pattern);
+__WEAK
 def_low_lv_io(__ARM_2D_IO_DRAW_PATTERN_RGB16, __arm_2d_rgb16_sw_draw_pattern);
 __WEAK
 def_low_lv_io(__ARM_2D_IO_DRAW_PATTERN_RGB32, __arm_2d_rgb32_sw_draw_pattern);
@@ -134,6 +149,10 @@ def_low_lv_io(__ARM_2D_IO_COLOUR_CONVERT_TO_RGB565,
 __WEAK
 def_low_lv_io(__ARM_2D_IO_COLOUR_CONVERT_TO_RGB888, 
                 __arm_2d_sw_convert_colour_to_rgb888);
+
+__WEAK
+def_low_lv_io(__ARM_2D_IO_ROTATE_GRAY8, 
+                __arm_2d_gray8_sw_rotate);
                 
 __WEAK
 def_low_lv_io(__ARM_2D_IO_ROTATE_RGB565, 
@@ -169,6 +188,24 @@ const __arm_2d_op_info_t ARM_2D_OP_BARRIER = {
         .LowLevelIO = {
             .ptCopyLike = NULL, 
             .ptFillLike = NULL,
+        },
+    },
+};
+
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_C8BIT = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_8BIT,
+        },
+        .Param = {
+            .bHasSource     = true,
+            .bHasTarget     = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_COPY,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COPY_C8BIT),
+            .ptFillLike = ref_low_lv_io(__ARM_2D_IO_FILL_C8BIT),
         },
     },
 };
@@ -209,6 +246,24 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_RGB32 = {
     },
 };
     
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_C8BIT = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_8BIT,
+        },
+        .Param = {
+            .bHasSource     = true,
+            .bHasTarget     = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_COPY_WITH_COLOUR_MASKING,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COPY_WITH_COLOUR_MASKING_C8BIT),
+            .ptFillLike = ref_low_lv_io(__ARM_2D_IO_FILL_WITH_COLOUR_MASKING_C8BIT),
+        },
+    },
+};
+    
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB16 = {
     .Info = {
         .Colour = {
@@ -245,6 +300,23 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB32 = {
     },
 };
     
+const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_C8BIT = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_8BIT,
+        },
+        .Param = {
+            .bHasSource     = false,
+            .bHasTarget     = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_FILL_COLOUR,
+        
+        .LowLevelIO = {
+            .ptTileProcessLike = ref_low_lv_io(__ARM_2D_IO_FILL_COLOUR_C8BIT),
+        },
+    },
+};    
+
 const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_RGB16 = {
     .Info = {
         .Colour = {
@@ -386,6 +458,23 @@ const __arm_2d_op_info_t ARM_2D_OP_ALPHA_COLOUR_FILL_RGB888 = {
     },
 };
     
+const __arm_2d_op_info_t ARM_2D_OP_DRAW_POINT_C8BIT = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_8BIT,
+        },
+        .Param = {
+            .bHasSource     = false,
+            .bHasTarget     = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_DRAW_POINT,
+        
+        .LowLevelIO = {
+            .ptTileProcessLike = ref_low_lv_io(__ARM_2D_IO_DRAW_POINT),
+        },
+    },
+};
+    
 const __arm_2d_op_info_t ARM_2D_OP_DRAW_POINT_RGB16 = {
     .Info = {
         .Colour = {
@@ -416,6 +505,25 @@ const __arm_2d_op_info_t ARM_2D_OP_DRAW_POINT_RGB32 = {
         
         .LowLevelIO = {
             .ptTileProcessLike = ref_low_lv_io(__ARM_2D_IO_DRAW_POINT),
+        },
+    },
+};
+    
+const __arm_2d_op_info_t ARM_2D_OP_DRAW_PATTERN_C8BIT = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_8BIT,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasTarget             = true,
+            .bAllowEnforcedColour   = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_DRAW_PATTERN,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_DRAW_PATTERN_C8BIT),
+            .ptFillLike = NULL,
         },
     },
 };
@@ -493,6 +601,25 @@ const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB888 = {
         .LowLevelIO = {
             .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COLOUR_CONVERT_TO_RGB888),
             .ptFillLike = NULL,
+        },
+    },
+};
+    
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_GRAY8 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_8BIT,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasOrigin             = true,
+            .bHasTarget             = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_ROTATE,
+
+        .LowLevelIO = {
+            .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_GRAY8),
+            .ptFillOrigLike = NULL,
         },
     },
 };

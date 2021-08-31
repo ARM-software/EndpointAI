@@ -47,6 +47,14 @@ extern "C" {
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
+#define arm_2d_c8bit_draw_point(__TARGET_ADDR,  /*!< target tile address */     \
+                                __LOCATION,     /*!< point coordinate */        \
+                                __COLOUR)       /*!< target colour */           \
+            arm_2dp_c8bit_draw_point(NULL,                                      \
+                                     (__TARGET_ADDR),                           \
+                                     (__LOCATION),                              \
+                                     (__COLOUR))
+
 #define arm_2d_rgb16_draw_point(__TARGET_ADDR,  /*!< target tile address */     \
                                 __LOCATION,     /*!< point coordinate */        \
                                 __COLOUR)       /*!< target colour */           \
@@ -62,6 +70,21 @@ extern "C" {
                                      (__TARGET_ADDR),                           \
                                      (__LOCATION),                              \
                                      (__COLOUR))
+
+
+#define arm_2d_c8bit_draw_pattern(  __PATTERN_ADDR, /*!< pattern tile address */\
+                                    __TARGET_ADDR,  /*!< target tile address*/  \
+                                    __REGION_ADDR,  /*!< target region address*/\
+                                    __MODE,         /*!< draw mode */           \
+                                    __FG_COLOUR,    /*!< foreground colour */   \
+                                    __BG_COLOUR)    /*!< background colour */   \
+            arm_2dp_c8bit_draw_pattern(NULL,                                    \
+                                     (__PATTERN_ADDR),                          \
+                                     (__TARGET_ADDR),                           \
+                                     (__REGION_ADDR),                           \
+                                     (__MODE),                                  \
+                                     (__FG_COLOUR),                             \
+                                     (__BG_COLOUR))
 
 #define arm_2d_rgb16_draw_pattern(  __PATTERN_ADDR, /*!< pattern tile address */\
                                     __TARGET_ADDR,  /*!< target tile address*/  \
@@ -91,6 +114,13 @@ extern "C" {
                                      (__FG_COLOUR),                             \
                                      (__BG_COLOUR))
 
+#define arm_2d_c8bit_fill_colour(   __TARGET_ADDR,  /*!< target tile address*/  \
+                                    __REGION_ADDR,  /*!< target region address*/\
+                                    __COLOUR)       /*!< colour */              \
+            arm_2dp_c8bit_fill_colour(NULL,                                     \
+                                     (__TARGET_ADDR),                           \
+                                     (__REGION_ADDR),                           \
+                                     (__COLOUR))
  
 #define arm_2d_rgb16_fill_colour(   __TARGET_ADDR,  /*!< target tile address*/  \
                                     __REGION_ADDR,  /*!< target region address*/\
@@ -119,6 +149,7 @@ typedef struct arm_2d_op_fill_cl_t {
         const arm_2d_region_t   *ptRegion;      //!< target region
     } Target;
     union {
+        uint8_t  chColour;
         uint16_t hwColour;
         uint32_t wColour;
     };
@@ -127,6 +158,20 @@ typedef struct arm_2d_op_fill_cl_t {
 /*! \note arm_2d_op_fill_cl_t inherits from arm_2d_op_t explicitly 
  */
 typedef arm_2d_op_fill_cl_t arm_2d_op_drw_pt_t;
+
+/*! \note arm_2d_op_fill_cl_amsk_t inherits from arm_2d_op_src_t explicitly 
+ */
+typedef struct arm_2d_op_fill_cl_amsk_t {
+    inherit(arm_2d_op_core_t);
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+        const arm_2d_region_t   *ptRegion;      //!< target region
+    } Target;
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< source tile
+    }Source;
+    uint32_t wMode;
+} arm_2d_op_fill_cl_amsk_t;
 
 
 /*! \note arm_2d_op_drw_patn_t inherits from arm_2d_op_src_t explicitly 
@@ -143,10 +188,12 @@ typedef struct arm_2d_op_drw_patn_t {
     }Source;
     uint32_t wMode;
     union {
+        uint8_t  chColour;
         uint16_t hwColour;
         uint32_t wColour;
     }Foreground;
     union {
+        uint8_t  chColour;
         uint16_t hwColour;
         uint32_t wColour;
     }Background;
@@ -175,6 +222,23 @@ enum {
 /*----------------------------------------------------------------------------*
  * Draw a point with specified colour                                         *
  *----------------------------------------------------------------------------*/
+ 
+ARM_NONNULL(1)
+__STATIC_INLINE void arm_2d_c8bit_draw_point_fast(
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_location_t tLocation,
+                                            uint_fast8_t chColour)
+{
+    assert(ptTarget->bIsRoot);          //!< must be root tile
+    assert(tLocation.iX < ptTarget->tRegion.tSize.iWidth);
+    assert(tLocation.iY < ptTarget->tRegion.tSize.iHeight);
+    
+    uint8_t *pchPoint  = ptTarget->pchBuffer
+                       + tLocation.iY * ptTarget->tRegion.tSize.iWidth
+                       + tLocation.iX;
+    *pchPoint = (uint8_t)chColour;
+}
+
 ARM_NONNULL(1)
 __STATIC_INLINE void arm_2d_rgb16_draw_point_fast(
                                             const arm_2d_tile_t *ptTarget,
@@ -216,6 +280,13 @@ __STATIC_INLINE void arm_2d_rgb32_draw_point_fast(
   */
 extern
 ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_c8bit_draw_point(  arm_2d_op_drw_pt_t  *ptOP,
+                                        const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_location_t tLocation,
+                                        uint_fast8_t chColour);
+  
+extern
+ARM_NONNULL(2)
 arm_fsm_rt_t arm_2dp_rgb16_draw_point(  arm_2d_op_drw_pt_t  *ptOP,
                                         const arm_2d_tile_t *ptTarget,
                                         const arm_2d_location_t tLocation,
@@ -234,13 +305,23 @@ extern
 ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_rgba8888_draw_point(const arm_2d_tile_t *ptTarget,
                                         const arm_2d_location_t tLocation,
-                                        uint32_t wColour);
+                                        arm_2d_color_rgba8888_t tColour);
 #endif 
 
 
 /*----------------------------------------------------------------------------*
  * Draw a bit patterns                                                        *
  *----------------------------------------------------------------------------*/
+
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_c8bit_draw_pattern( arm_2d_op_drw_patn_t   *ptOP, 
+                                         const arm_2d_tile_t    *ptPattern,
+                                         const arm_2d_tile_t    *ptTarget,
+                                         const arm_2d_region_t  *ptRegion,
+                                         uint32_t wMode,
+                                         uint8_t chForeColour,
+                                         uint8_t chBackColour);
 
 extern
 ARM_NONNULL(2,3)
@@ -265,6 +346,13 @@ arm_fsm_rt_t arm_2dp_rgb32_draw_pattern( arm_2d_op_drw_patn_t   *ptOP,
 /*----------------------------------------------------------------------------*
  * Fill tile with specified colour                                            *
  *----------------------------------------------------------------------------*/
+
+extern
+ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_c8bit_fill_colour( arm_2d_op_fill_cl_t     *ptOP,
+                                        const arm_2d_tile_t     *ptTarget,
+                                        const arm_2d_region_t   *ptRegion,
+                                        uint_fast8_t chColour);
 
 extern
 ARM_NONNULL(2)

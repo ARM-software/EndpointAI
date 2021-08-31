@@ -83,6 +83,8 @@ extern "C" {
  * Code Template                                                              *
  *----------------------------------------------------------------------------*/
 
+#define __API_PIXEL_AVERAGE_RESULT_C8BIT()                      \
+    (   tPixel >> 8)
 
 #define __API_PIXEL_AVERAGE_RESULT_RGB565()                     \
     (   tPixel.R >>= 8,                                         \
@@ -95,6 +97,15 @@ extern "C" {
         tPixel.G >>= 8,                                         \
         tPixel.B >>= 8,                                         \
         __arm_2d_rgb888_pack(&tPixel));
+
+
+#define __API_COLOUR                gray8
+#define __API_INT_TYPE              uint8_t
+#define __API_PIXEL_AVERAGE_INIT()  uint16_t tPixel = 0;
+#define __API_PIXEL_BLENDING        __ARM_2D_PIXEL_BLENDING_C8BIT
+#define __API_PIXEL_AVERAGE         __ARM_2D_PIXEL_AVERAGE_C8BIT
+#define __API_PIXEL_AVERAGE_RESULT  __API_PIXEL_AVERAGE_RESULT_C8BIT
+#include "__arm_2d_rotate.inc"
 
 #define __API_COLOUR                rgb565
 #define __API_INT_TYPE              uint16_t
@@ -528,6 +539,33 @@ static void __arm_2d_rotate_preprocess_target(
     } while(0);
 }
 
+ARM_NONNULL(2)
+arm_2d_err_t arm_2dp_gray8_tile_rotation_prepare(
+                                            arm_2d_op_rotate_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_location_t tCentre,
+                                            float fAngle,
+                                            uint8_t chFillColour)
+{
+    assert(NULL != ptSource);
+
+    ARM_2D_IMPL(arm_2d_op_rotate_t, ptOP);
+
+    if (!arm_2d_op_wait_async((arm_2d_op_core_t *)ptThis)) {
+        return ARM_2D_ERR_BUSY;
+    }
+
+    OP_CORE.ptOp = &ARM_2D_OP_ROTATE_GRAY8;
+
+    this.Source.ptTile = &this.Origin.tDummySource;
+    this.Origin.ptTile = ptSource;
+    this.wMode = 0;
+    this.tRotate.fAngle = fAngle;
+    this.tRotate.tCenter = tCentre;
+    this.tRotate.Mask.hwColour = chFillColour;
+
+    return __arm_2d_rotate_preprocess_source(ptThis);
+}
 
 ARM_NONNULL(2)
 arm_2d_err_t arm_2dp_rgb565_tile_rotation_prepare(
@@ -583,6 +621,18 @@ arm_2d_err_t arm_2dp_rgb888_tile_rotation_prepare(
     this.tRotate.Mask.hwColour = wFillColour;
 
     return __arm_2d_rotate_preprocess_source(ptThis);
+}
+
+arm_fsm_rt_t __arm_2d_gray8_sw_rotate(__arm_2d_sub_task_t *ptTask)
+{
+    ARM_2D_IMPL(arm_2d_op_rotate_t, ptTask->ptOP);
+    assert(ARM_2D_COLOUR_8BIT == OP_CORE.ptOp->Info.Colour.chScheme);
+
+    __arm_2d_impl_gray8_rotate(&(ptTask->Param.tCopyOrig),
+                                &this.tRotate);
+
+
+    return arm_fsm_rt_cpl;
 }
 
 arm_fsm_rt_t __arm_2d_rgb565_sw_rotate(__arm_2d_sub_task_t *ptTask)

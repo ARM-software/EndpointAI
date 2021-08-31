@@ -51,17 +51,21 @@ extern "C" {
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
+#define SETUP_DIRECT_COPY_8(srcWidth)          (void)srcWidth;
 #define SETUP_DIRECT_COPY_16(srcWidth)         (void)srcWidth;
 #define SETUP_DIRECT_COPY_32(srcWidth)         (void)srcWidth;
 
 
 /* scalar copy w/o mirroring */
+#define LOAD_SRC_DIRECT_8(pSource, offset)     *pSource++;
 #define LOAD_SRC_DIRECT_16(pSource, offset)    *pSource++;
 #define LOAD_SRC_DIRECT_32(pSource, offset)    *pSource++;
 
+#define LOAD_SRC_X_MIRROR_8(pSource, offset)   pSource[offset]; offset -= 1;
 #define LOAD_SRC_X_MIRROR_16(pSource, offset)  pSource[offset]; offset -= 1;
 #define LOAD_SRC_X_MIRROR_32(pSource, offset)  pSource[offset]; offset -= 1;
 
+#define SETUP_MIRROR_COPY_8(srcWidth)          uint32_t offset = srcWidth - 1;
 #define SETUP_MIRROR_COPY_16(srcWidth)         uint32_t offset = srcWidth - 1;
 #define SETUP_MIRROR_COPY_32(srcWidth)         uint32_t offset = srcWidth - 1;
 
@@ -593,6 +597,26 @@ extern "C" {
 
 /*============================ TYPES =========================================*/
 
+typedef void    (arm_2d_c8bit_paving_2x2) (const uint8_t *, int16_t, const arm_2d_size_t *,
+                                            uint8_t *, int16_t, uint16_t, uint16_t);
+
+typedef void    (arm_2d_c8bit_paving_1x2) (const uint8_t *, int16_t, const arm_2d_size_t *,
+                                            uint8_t *, int16_t, uint32_t, uint16_t);
+
+typedef void    (arm_2d_c8bit_paving_2x1) (const uint8_t *, int16_t,
+                                             const arm_2d_size_t *, uint8_t *, int16_t, uint16_t, uint16_t);
+
+typedef void    (arm_2d_c8bit_paving_1x1) (const uint8_t *, int16_t, uint8_t *, int16_t,
+                                           const arm_2d_size_t *, const arm_2d_size_t *);
+
+
+typedef struct arm_2d_c8bit_paving_fct_t {
+    arm_2d_c8bit_paving_2x2    *pav_2x2;
+    arm_2d_c8bit_paving_1x2    *pav_1x2;
+    arm_2d_c8bit_paving_2x1    *pav_2x1;
+    arm_2d_c8bit_paving_1x1    *pav_1x1;
+} arm_2d_c8bit_paving_fct_t;
+
 
 typedef void    (arm_2d_rgb16_paving_2x2) (const uint16_t *, int16_t, const arm_2d_size_t *,
                                             uint16_t *, int16_t, uint16_t, uint16_t);
@@ -633,6 +657,51 @@ typedef struct arm_2d_rgb32_paving_fct_t {
     arm_2d_rgb32_paving_2x1    *pav_2x1;
     arm_2d_rgb32_paving_1x1    *pav_1x1;
 } arm_2d_rgb32_paving_fct_t;
+
+
+
+typedef void    (arm_2d_c8bit_cl_msk_paving_2x2)(   const uint8_t * __RESTRICT, 
+                                                    int16_t, 
+                                                    const arm_2d_size_t * __RESTRICT,
+                                                    uint8_t * __RESTRICT, 
+                                                    int16_t, 
+                                                    uint16_t, 
+                                                    uint16_t, 
+                                                    uint8_t);
+
+typedef void    (arm_2d_c8bit_cl_msk_paving_1x2) (  const uint8_t *__RESTRICT , 
+                                                    int16_t, 
+                                                    const arm_2d_size_t *__RESTRICT,
+                                                    uint8_t *__RESTRICT, 
+                                                    int16_t, 
+                                                    uint32_t, 
+                                                    uint16_t, 
+                                                    uint8_t);
+
+typedef void    (arm_2d_c8bit_cl_msk_paving_2x1) (  const uint8_t *__RESTRICT, 
+                                                    int16_t,
+                                                    const arm_2d_size_t *__RESTRICT, 
+                                                    uint8_t *__RESTRICT, 
+                                                    int16_t, 
+                                                    uint16_t, 
+                                                    uint16_t, 
+                                                    uint8_t);
+
+typedef void    (arm_2d_c8bit_cl_msk_paving_1x1) (  const uint8_t *__RESTRICT, 
+                                                    int16_t, 
+                                                    uint8_t *__RESTRICT, 
+                                                    int16_t,
+                                                    const arm_2d_size_t *__RESTRICT, 
+                                                    const arm_2d_size_t *__RESTRICT, 
+                                                    uint8_t);
+
+
+typedef struct arm_2d_c8bit_cl_msk_paving_fct_t {
+    arm_2d_c8bit_cl_msk_paving_2x2    *pav_2x2;
+    arm_2d_c8bit_cl_msk_paving_1x2    *pav_1x2;
+    arm_2d_c8bit_cl_msk_paving_2x1    *pav_2x1;
+    arm_2d_c8bit_cl_msk_paving_1x1    *pav_1x1;
+} arm_2d_c8bit_cl_msk_paving_fct_t;
 
 
 typedef void    (arm_2d_rgb16_cl_msk_paving_2x2)(   const uint16_t * __RESTRICT, 

@@ -87,6 +87,23 @@ extern "C" {
         }
 
 
+
+#define __ARM_2D_PIXEL_AVERAGE_C8BIT(__PIXEL_IN, __ALPHA)                       \
+    do {                                                                        \
+        tPixel += (uint16_t)(__PIXEL_IN) * (uint16_t)(__ALPHA);                 \
+    } while(0)
+    
+#define __ARM_2D_PIXEL_BLENDING_C8BIT(__SRC_ADDR, __DES_ADDR, __OPACITY)        \
+            do {                                                                \
+                uint16_t chTransparency = 256 - (__OPACITY);                    \
+                const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
+                uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
+                                                                                \
+                *pchDes = ((uint16_t)( ((uint16_t)(*pchSrc++) * chTransparency) \
+                                     + ((uint16_t)(*pchDes) * (__OPACITY))      \
+                                     ) >> 8);                                   \
+            } while(0)
+
 #define __ARM_2D_PIXEL_BLENDING_RGB565(__SRC_ADDR, __DES_ADDR, __OPACITY)       \
             do {                                                                \
                 uint16_t chTransparency = 256 - (__OPACITY);                    \
@@ -337,10 +354,16 @@ extern
 arm_fsm_rt_t __arm_2d_sw_draw_point(__arm_2d_sub_task_t *ptTask);      
 
 extern 
+arm_fsm_rt_t __arm_2d_c8bit_sw_draw_pattern( __arm_2d_sub_task_t *ptTask);
+
+extern 
 arm_fsm_rt_t __arm_2d_rgb16_sw_draw_pattern( __arm_2d_sub_task_t *ptTask);
 
 extern 
 arm_fsm_rt_t __arm_2d_rgb32_sw_draw_pattern( __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_c8bit_sw_tile_fill( __arm_2d_sub_task_t *ptTask);
 
 extern
 arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill( __arm_2d_sub_task_t *ptTask);
@@ -349,10 +372,17 @@ extern
 arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill( __arm_2d_sub_task_t *ptTask);
 
 extern
+arm_fsm_rt_t __arm_2d_c8bit_sw_tile_copy(  __arm_2d_sub_task_t *ptTask);
+
+extern
 arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy(  __arm_2d_sub_task_t *ptTask);
 
 extern
 arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy(  __arm_2d_sub_task_t *ptTask);
+
+extern 
+arm_fsm_rt_t __arm_2d_c8bit_sw_tile_copy_with_colour_masking(
+                                        __arm_2d_sub_task_t *ptTask);
 
 extern 
 arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy_with_colour_masking(
@@ -363,14 +393,20 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy_with_colour_masking(
                                         __arm_2d_sub_task_t *ptTask);
                            
 extern
-arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill_with_colour_masking( 
+arm_fsm_rt_t __arm_2d_c8bit_sw_tile_fill_with_colour_masking( 
                                         __arm_2d_sub_task_t *ptTask);
 
+extern
+arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill_with_colour_masking( 
+                                        __arm_2d_sub_task_t *ptTask);
 
 extern
 arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill_with_colour_masking( 
                                         __arm_2d_sub_task_t *ptTask);
-                                        
+       
+extern 
+arm_fsm_rt_t __arm_2d_c8bit_sw_colour_filling(__arm_2d_sub_task_t *ptTask);
+       
 extern 
 arm_fsm_rt_t __arm_2d_rgb16_sw_colour_filling(__arm_2d_sub_task_t *ptTask);
 
@@ -406,6 +442,9 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb565(
 extern
 arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb888(  
                                     __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_gray8_sw_rotate(__arm_2d_sub_task_t *ptTask);
 
 extern
 arm_fsm_rt_t __arm_2d_rgb565_sw_rotate(__arm_2d_sub_task_t *ptTask);

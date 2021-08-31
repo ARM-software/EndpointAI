@@ -29,9 +29,10 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
 - **Image Copy / Texture Paving**
   - With or without Colour-Masking
   - Four mirroring mode: None, X-mirroring, Y-mirroring and XY-mirroring
-- **Colour format conversions**
-  - RGB565 and RGB888
-  - Generic RGB16 and RGB32
+- **Colour format support**
+  - **8-bit Grayscale**, **RGB565** and **RGB888**
+  - Generic **8BIT colour**, RGB16 and **RGB32**
+  - Colour format conversions between **RGB565** and **RGB888**
 - **Region/Window Clipping**
 - **Generic Partial Frame-buffer (PFB) Support**
   - Transparent for upper layer software/GUI services

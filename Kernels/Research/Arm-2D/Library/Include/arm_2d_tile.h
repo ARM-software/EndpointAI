@@ -39,6 +39,15 @@ extern "C" {
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
+#define arm_2d_c8bit_tile_copy( __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR,  /*!< target region address*/\
+                                __MODE)             /*!< mode */                \
+            arm_2dp_c8bit_tile_copy(NULL,                                       \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR),                        \
+                                    (__MODE))
 
 #define arm_2d_rgb16_tile_copy( __SRC_ADDR,         /*!< source tile address */ \
                                 __DES_ADDR,         /*!< target tile address */ \
@@ -59,7 +68,21 @@ extern "C" {
                                     (__DES_ADDR),                               \
                                     (__DES_REGION_ADDR),                        \
                                     (__MODE))
-                                    
+
+#define arm_2d_c8bit_tile_copy_with_colour_masking(                             \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR,  /*!< target region address*/\
+                                __MSK_COLOUR,       /*!< mask(key) colour */    \
+                                __MODE)             /*!< mode */                \
+            arm_2dp_c8bit_tile_copy_with_colour_masking(                        \
+                                    NULL,                                       \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR),                        \
+                                    (__MSK_COLOUR),                             \
+                                    (__MODE))
+               
 #define arm_2d_rgb16_tile_copy_with_colour_masking(                             \
                                 __SRC_ADDR,         /*!< source tile address */ \
                                 __DES_ADDR,         /*!< target tile address */ \
@@ -205,6 +228,7 @@ typedef struct arm_2d_op_cp_cl_msk_t {
     }Source;
     uint32_t wMode;
     union {
+        uint8_t  chColour;
         uint16_t hwColour;
         uint32_t wColour;
     };
@@ -318,7 +342,13 @@ enum {
     ARM_2D_CP_MODE_X_MIRROR =     _BV(3),
 };
 
-
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_c8bit_tile_copy(arm_2d_op_cp_t *ptOP,
+                                     const arm_2d_tile_t *ptSource,
+                                     const arm_2d_tile_t *ptTarget,
+                                     const arm_2d_region_t *ptRegion,
+                                     uint32_t wMode);
 
 extern
 ARM_NONNULL(2,3)
@@ -340,6 +370,24 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_copy(arm_2d_op_cp_t *ptOP,
 /*----------------------------------------------------------------------------*
  * Copy tile to destination with specified transparency color mask            *
  *----------------------------------------------------------------------------*/
+
+/*! \brief copy source tile to destination tile and use destination tile as 
+ *!        background. When encountering specified mask colour, the background
+ *!        pixel should be used, otherwise the foreground pixel from source tile
+ *!        is used. 
+ *!         
+ *! \note  All color formats which using 8bits per pixel are treated equally.
+ *!
+ */
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_c8bit_tile_copy_with_colour_masking(
+                                            arm_2d_op_cp_cl_msk_t *ptOP,
+                                            const arm_2d_tile_t *ptSource, 
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion,
+                                            uint8_t chMaskColour,
+                                            uint32_t wMode);
 
 /*! \brief copy source tile to destination tile and use destination tile as 
  *!        background. When encountering specified mask colour, the background
