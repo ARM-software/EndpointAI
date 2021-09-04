@@ -72,6 +72,12 @@ const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_RGB16;
 extern
 const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_RGB32;
     
+extern 
+const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_ALPHA_MASK_RGB16;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_ALPHA_MASK_RGB32;
+    
 extern
 const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_RGB565;
     

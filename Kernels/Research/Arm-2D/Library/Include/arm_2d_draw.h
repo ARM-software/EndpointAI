@@ -138,6 +138,31 @@ extern "C" {
                                      (__REGION_ADDR),                           \
                                      (__COLOUR))
 
+
+#define arm_2d_rgb16_fill_colour_with_alpha_mask(                               \
+                                    __TARGET_ADDR,  /*!< target tile address*/  \
+                                    __REGION_ADDR,  /*!< target region address*/\
+                                    __ALPHA_ADDR,   /*!< alpha tile address */  \
+                                    __COLOUR)       /*!< colour */              \
+            arm_2dp_rgb16_fill_colour_with_alpha_mask(                          \
+                                      NULL,                                     \
+                                     (__TARGET_ADDR),                           \
+                                     (__REGION_ADDR),                           \
+                                     (__ALPHA_ADDR),                            \
+                                     (__COLOUR))
+
+#define arm_2d_rgb32_fill_colour_with_alpha_mask(                               \
+                                    __TARGET_ADDR,  /*!< target tile address*/  \
+                                    __REGION_ADDR,  /*!< target region address*/\
+                                    __ALPHA_ADDR,   /*!< alpha tile address */  \
+                                    __COLOUR)       /*!< colour */              \
+            arm_2dp_rgb32_fill_colour_with_alpha_mask(                          \
+                                      NULL,                                     \
+                                     (__TARGET_ADDR),                           \
+                                     (__REGION_ADDR),                           \
+                                     (__ALPHA_ADDR),                            \
+                                     (__COLOUR))
+
 /*============================ TYPES =========================================*/
 
 /*! \note arm_2d_op_fill_cl_t inherits from arm_2d_op_t explicitly 
@@ -168,9 +193,14 @@ typedef struct arm_2d_op_fill_cl_amsk_t {
         const arm_2d_region_t   *ptRegion;      //!< target region
     } Target;
     struct {
-        const arm_2d_tile_t     *ptTile;        //!< source tile
-    }Source;
+        const arm_2d_tile_t     *ptTile;        //!< Alpha Mask tile
+    } AlphaMask;
     uint32_t wMode;
+    union {
+        uint8_t  chColour;
+        uint16_t hwColour;
+        uint32_t wColour;
+    };
 } arm_2d_op_fill_cl_amsk_t;
 
 
@@ -344,7 +374,7 @@ arm_fsm_rt_t arm_2dp_rgb32_draw_pattern( arm_2d_op_drw_patn_t   *ptOP,
                                          uint32_t wBackColour);
 
 /*----------------------------------------------------------------------------*
- * Fill tile with specified colour                                            *
+ * Fill tile with a specified colour                                          *
  *----------------------------------------------------------------------------*/
 
 extern
@@ -366,6 +396,29 @@ ARM_NONNULL(2)
 arm_fsm_rt_t arm_2dp_rgb32_fill_colour( arm_2d_op_fill_cl_t     *ptOP,
                                         const arm_2d_tile_t     *ptTarget,
                                         const arm_2d_region_t   *ptRegion,
+                                        uint32_t wColour);
+
+
+/*----------------------------------------------------------------------------*
+ * Fill tile with a specified colour and an alpha mask                        *
+ *----------------------------------------------------------------------------*/
+ 
+extern
+ARM_NONNULL(2,4)
+arm_fsm_rt_t arm_2dp_rgb16_fill_colour_with_alpha_mask( 
+                                        arm_2d_op_fill_cl_amsk_t *ptOP,
+                                        const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_region_t *ptRegion,
+                                        const arm_2d_tile_t *ptAlpha,
+                                        uint_fast16_t hwColour);
+
+extern                                  
+ARM_NONNULL(2,4)
+arm_fsm_rt_t arm_2dp_rgb32_fill_colour_with_alpha_mask( 
+                                        arm_2d_op_fill_cl_amsk_t *ptOP,
+                                        const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_region_t *ptRegion,
+                                        const arm_2d_tile_t *ptAlpha,
                                         uint32_t wColour);
 
 #if defined(__clang__)

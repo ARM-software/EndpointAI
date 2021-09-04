@@ -57,7 +57,7 @@ void __ARM_2D_FUNC(alpha_blending) (__API_INT_TYPE *__RESTRICT pSourceBase,
 {
     int_fast16_t iHeight = ptCopySize->iHeight;
     int_fast16_t iWidth  = ptCopySize->iWidth;
-    uint16_t        hwRatioCompl = 256 - chRatio;
+    uint16_t        hwRatioCompl = 255 - chRatio;
     
     for (int_fast16_t y = 0; y < iHeight; y++) {
 
@@ -85,7 +85,7 @@ void __ARM_2D_FUNC(alpha_blending_colour_masking)(
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
-    uint16_t        hwRatioCompl = 256 - chRatio;
+    uint16_t        hwRatioCompl = 255 - chRatio;
 
     for (int_fast16_t y = 0; y < iHeight; y++) {
     
@@ -112,7 +112,7 @@ void __ARM_2D_FUNC(colour_filling_with_alpha)(
                                         __API_INT_TYPE Colour,
                                         uint_fast8_t chRatio)
 {
-    uint16_t hwRatioCompl = 256 - chRatio;
+    uint16_t hwRatioCompl = 255 - chRatio;
     int_fast16_t iWidth = ptCopySize->iWidth;
     int_fast16_t iHeight = ptCopySize->iHeight;
     

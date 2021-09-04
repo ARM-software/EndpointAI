@@ -24,14 +24,16 @@
 
 The Arm-2D library provides **Low-Level 2D Image Processing Services** that are mainly used in **Display system**. The supported features include but not limited to:
 
-- **Alpha-Blending**
+- **Alpha-Blending** / **Alpha-Masking**
   - With or without Colour-Masking
+  - Colour-filling with an alpha-mask 
+    - Drawing icons/texts with anti-alias in a specified colour
 - **Image Copy / Texture Paving**
-  - With or without Colour-Masking
+  - With or without Colour-Masking (a.k.a colour keying)
   - Four mirroring mode: None, X-mirroring, Y-mirroring and XY-mirroring
 - **Colour format support**
   - **8-bit Grayscale**, **RGB565** and **RGB888**
-  - Generic **8BIT colour**, RGB16 and **RGB32**
+  - Generic **8BIT colour**, **RGB16** and **RGB32**
   - Colour format conversions between **RGB565** and **RGB888**
 - **Region/Window Clipping**
 - **Generic Partial Frame-buffer (PFB) Support**
@@ -69,7 +71,7 @@ Following features are planned and to be introduced in the near future:
 
 ### 1.1 The Background
 
-With more and more smart IoT edge devices introduced to our daily lives, people who are used to the smart-phone like a graphic user interface (GUI) want to have the same user experience when using those micro-controller-based products. This trend has been long observed and understood by Arm's leading eco-partners. 
+With more and more smart IoT edge devices introduced to our daily lives, people who are used to the smart-phone like graphic user interfaces (GUIs) want to have the same modernized user experience even when using micro-controller-based products. This trend has been long observed and understood by Arm's eco-partners. 
 
 As a result, many silicon vendors introduce dedicated hardware accelerators into their microcontroller products to help 2D image processing. Meanwhile, GUI service providers also update their product lines to target micro-controller based graphic user interface applications. Many open-source embedded GUI stacks are hot on GitHub, e.g. [LVGL](https://lvgl.io/). 
 

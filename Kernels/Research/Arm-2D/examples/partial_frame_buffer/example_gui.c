@@ -301,8 +301,39 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                                                 (arm_2d_color_rgb565_t){.tValue =  GLCD_COLOR_RED},
                                                 255 - s_ptRefreshLayers[1].chTransparency);
         
-        //! show progress wheel
-        busy_wheel_show(ptFrameBuffer, bIsNewFrame);
+        arm_2d_tile_t tTempPanel;
+        if (NULL != arm_2d_tile_generate_child( ptFrameBuffer, 
+                                    (arm_2d_region_t []){
+                                        {
+                                            .tSize = {
+                                                .iWidth = APP_SCREEN_WIDTH >> 1,
+                                                .iHeight = APP_SCREEN_HEIGHT,
+                                            },
+                                        },
+                                    },
+                                    &tTempPanel,
+                                    false)) {
+            //! show progress wheel
+            busy_wheel_show(&tTempPanel, bIsNewFrame);
+        }
+        
+        if (NULL != arm_2d_tile_generate_child( ptFrameBuffer, 
+                                    (arm_2d_region_t []){
+                                        {
+                                            .tLocation = {
+                                                .iX = APP_SCREEN_WIDTH >> 1,
+                                            },
+                                            .tSize = {
+                                                .iWidth = APP_SCREEN_WIDTH >> 1,
+                                                .iHeight = APP_SCREEN_HEIGHT,
+                                            },
+                                        },
+                                    },
+                                    &tTempPanel,
+                                    false)) {
+            //! show progress wheel
+            spinning_wheel_show(&tTempPanel, bIsNewFrame);
+        }
 
         example_gui_on_refresh_evt_handler(ptFrameBuffer);
         

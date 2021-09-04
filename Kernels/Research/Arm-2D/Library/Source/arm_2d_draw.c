@@ -81,15 +81,21 @@ extern "C" {
 
 #define __API_COLOUR        c8bit
 #define __API_INT_TYPE      uint8_t
+
+#define __API_PIXEL_BLENDING    __ARM_2D_PIXEL_BLENDING_C8BIT
 #include "__arm_2d_fill_colour.inc"
 
 #define __API_COLOUR        rgb16
 #define __API_INT_TYPE      uint16_t
+
+#define __API_PIXEL_BLENDING    __ARM_2D_PIXEL_BLENDING_RGB565
 #include "__arm_2d_fill_colour.inc"
 
 
 #define __API_COLOUR        rgb32
 #define __API_INT_TYPE      uint32_t
+
+#define __API_PIXEL_BLENDING    __ARM_2D_PIXEL_BLENDING_RGB888
 #include "__arm_2d_fill_colour.inc"
 
 
@@ -359,7 +365,7 @@ arm_fsm_rt_t __arm_2d_sw_draw_point(__arm_2d_sub_task_t *ptTask)
 
 
 /*----------------------------------------------------------------------------*
- * Fill tile with specified colour                                            *
+ * Fill tile with a specified colour                                          *
  *----------------------------------------------------------------------------*/
 
 ARM_NONNULL(2)
@@ -478,6 +484,119 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_colour_filling(__arm_2d_sub_task_t *ptTask)
 
     return arm_fsm_rt_cpl;
 }
+
+/*----------------------------------------------------------------------------*
+ * Fill tile with a specified colour and an alpha mask                        *
+ *----------------------------------------------------------------------------*/
+
+ARM_NONNULL(2,4)
+arm_fsm_rt_t arm_2dp_rgb16_fill_colour_with_alpha_mask( 
+                                        arm_2d_op_fill_cl_amsk_t *ptOP,
+                                        const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_region_t *ptRegion,
+                                        const arm_2d_tile_t *ptAlpha,
+                                        uint_fast16_t hwColour)
+{
+    assert(NULL != ptTarget);
+
+    ARM_2D_IMPL(arm_2d_op_fill_cl_amsk_t, ptOP);
+
+    //! valid alpha mask tile
+    if (0 == ptAlpha->bHasEnforcedColour) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    } else if (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    }
+
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+
+    //memset(ptThis, 0, sizeof(*ptThis));
+
+    OP_CORE.ptOp = &ARM_2D_OP_COLOUR_FILL_ALPHA_MASK_RGB16;
+
+    this.Target.ptTile = ptTarget;
+    this.Target.ptRegion = ptRegion;
+    this.AlphaMask.ptTile = ptAlpha;
+    this.wMode = 0;
+    this.hwColour = hwColour;
+
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+}
+
+ARM_NONNULL(2,4)
+arm_fsm_rt_t arm_2dp_rgb32_fill_colour_with_alpha_mask( 
+                                        arm_2d_op_fill_cl_amsk_t *ptOP,
+                                        const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_region_t *ptRegion,
+                                        const arm_2d_tile_t *ptAlpha,
+                                        uint32_t wColour)
+{
+    assert(NULL != ptTarget);
+    assert(NULL != ptAlpha);
+    
+    ARM_2D_IMPL(arm_2d_op_fill_cl_amsk_t, ptOP);
+    
+    //! valid alpha mask tile
+    if (0 == ptAlpha->bHasEnforcedColour) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    } else if (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    }
+    
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+
+    //memset(ptThis, 0, sizeof(*ptThis));
+
+    OP_CORE.ptOp = &ARM_2D_OP_COLOUR_FILL_ALPHA_MASK_RGB32;
+
+    this.Target.ptTile = ptTarget;
+    this.Target.ptRegion = ptRegion;
+    this.AlphaMask.ptTile = ptAlpha;
+    this.wMode = 0;
+    this.wColour = wColour;
+
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+}
+
+
+arm_fsm_rt_t __arm_2d_rgb16_sw_colour_filling_with_alpha_mask(
+                                                    __arm_2d_sub_task_t *ptTask)
+{
+    ARM_2D_IMPL(arm_2d_op_fill_cl_amsk_t, ptTask->ptOP)
+    //assert(ARM_2D_COLOUR_SZ_16BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
+
+    __arm_2d_impl_rgb16_colour_filling_alpha_mask(
+                    ptTask->Param.tCopy.tTarget.pBuffer,
+                    ptTask->Param.tCopy.tTarget.iStride,
+                    ptTask->Param.tCopy.tSource.pBuffer,                        //!< alpha tile
+                    ptTask->Param.tCopy.tSource.iStride,                        //!< alpha tile
+                    &(ptTask->Param.tCopy.tCopySize),
+                    this.hwColour);
+
+    return arm_fsm_rt_cpl;
+}
+
+arm_fsm_rt_t __arm_2d_rgb32_sw_colour_filling_with_alpha_mask(
+                                                    __arm_2d_sub_task_t *ptTask)
+{
+    ARM_2D_IMPL(arm_2d_op_fill_cl_amsk_t, ptTask->ptOP)
+    //assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
+
+    __arm_2d_impl_rgb32_colour_filling_alpha_mask(
+                    ptTask->Param.tCopy.tTarget.pBuffer,
+                    ptTask->Param.tCopy.tTarget.iStride,
+                    ptTask->Param.tCopy.tSource.pBuffer,                        //!< alpha tile
+                    ptTask->Param.tCopy.tSource.iStride,                        //!< alpha tile
+                    &(ptTask->Param.tCopy.tCopySize),
+                    this.wColour);
+
+    return arm_fsm_rt_cpl;
+}
+
 
 /*----------------------------------------------------------------------------*
  * Draw a bit patterns                                                        *

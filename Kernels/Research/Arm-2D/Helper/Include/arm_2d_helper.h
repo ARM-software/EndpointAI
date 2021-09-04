@@ -34,7 +34,7 @@ extern "C" {
             extern const arm_2d_tile_t __NAME;
 #define declare_tile(__NAME)            __declare_tile(__NAME)
 
-#define __implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE)                     \
+#define __implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE, ...)                \
             ARM_NOINIT static __TYPE                                            \
                 __NAME##Buffer[(__WIDTH) * (__HEIGHT)];                         \
             const arm_2d_tile_t __NAME = {                                      \
@@ -43,10 +43,11 @@ extern "C" {
                 },                                                              \
                 .tInfo.bIsRoot = true,                                          \
                 .pchBuffer = (uint8_t *)__NAME##Buffer,                         \
-            }
+                __VA_ARGS__                                                     \
+            };
             
-#define implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE)                       \
-            __implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE)
+#define implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE, ...)                  \
+            __implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE, ##__VA_ARGS__)
                         
 #define get_tile_buffer_pixel_count(__NAME)                                     \
             (uint32_t)(     (__NAME.tRegion.tSize.iWidth)                       \

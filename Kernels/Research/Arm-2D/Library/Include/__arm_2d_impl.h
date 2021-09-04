@@ -95,7 +95,7 @@ extern "C" {
     
 #define __ARM_2D_PIXEL_BLENDING_C8BIT(__SRC_ADDR, __DES_ADDR, __OPACITY)        \
             do {                                                                \
-                uint16_t chTransparency = 256 - (__OPACITY);                    \
+                uint16_t chTransparency = 255 - (__OPACITY);                    \
                 const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
                 uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
                                                                                 \
@@ -106,7 +106,7 @@ extern "C" {
 
 #define __ARM_2D_PIXEL_BLENDING_RGB565(__SRC_ADDR, __DES_ADDR, __OPACITY)       \
             do {                                                                \
-                uint16_t chTransparency = 256 - (__OPACITY);                    \
+                uint16_t chTransparency = 255 - (__OPACITY);                    \
                 __arm_2d_color_fast_rgb_t tSrcPix, tTargetPix;                  \
                 uint16_t *phwTargetPixel = (__DES_ADDR);                        \
                 __arm_2d_rgb565_unpack(*(__SRC_ADDR), &tSrcPix);                \
@@ -143,7 +143,7 @@ extern "C" {
 
 #define __ARM_2D_PIXEL_BLENDING_RGB888(__SRC_ADDR, __DES_ADDR, __OPACITY)       \
             do {                                                                \
-                uint16_t chTransparency = 256 - (__OPACITY);                    \
+                uint16_t chTransparency = 255 - (__OPACITY);                    \
                 uint_fast8_t n = sizeof(uint32_t);                              \
                 const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
                 uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
@@ -285,6 +285,7 @@ ARM_PRIVATE(
     union {
         arm_2d_op_t                     tBasic;
         arm_2d_op_fill_cl_t             tFillColour;
+        arm_2d_op_fill_cl_amsk_t        tFillColourAlphaMask;
         arm_2d_op_src_t                 tWithSource;
         arm_2d_op_alpha_t               tAlpha;
         arm_2d_op_alpha_cl_msk_t        tAlphaColourMask;
@@ -296,7 +297,6 @@ ARM_PRIVATE(
         arm_2d_op_amsk_t                tBasicAlphaMask;
         arm_2d_op_src_amsk_t            tSourceAlphaMask;
         arm_2d_op_src_orig_amsk_t       tSourceOrigAlphaMask;
-        
     } DefaultOP;
 )};
 
@@ -412,6 +412,14 @@ arm_fsm_rt_t __arm_2d_rgb16_sw_colour_filling(__arm_2d_sub_task_t *ptTask);
 
 extern 
 arm_fsm_rt_t __arm_2d_rgb32_sw_colour_filling(__arm_2d_sub_task_t *ptTask);
+
+extern 
+arm_fsm_rt_t __arm_2d_rgb16_sw_colour_filling_with_alpha_mask(
+                                        __arm_2d_sub_task_t *ptTask);
+
+extern 
+arm_fsm_rt_t __arm_2d_rgb32_sw_colour_filling_with_alpha_mask(
+                                        __arm_2d_sub_task_t *ptTask);
 
 extern
 arm_fsm_rt_t __arm_2d_rgb565_sw_alpha_blending(__arm_2d_sub_task_t *ptTask);

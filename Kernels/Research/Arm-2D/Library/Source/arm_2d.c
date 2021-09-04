@@ -334,8 +334,8 @@ arm_fsm_rt_t __arm_2d_big_pixel_tile_pave(  arm_2d_op_cp_t *ptThis,
     //assert(OP_CORE.ptOp->Info.Colour.u3ColourSZ >= ARM_2D_COLOUR_SZ_8BIT);
     
     arm_fsm_rt_t tResult = (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
-    uint_fast8_t chSourcePixelLenInBit = _BV(OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-    uint_fast8_t chTargetPixelLenInBit = chSourcePixelLenInBit;
+    uint_fast8_t chTargetPixelLenInBit = _BV(OP_CORE.ptOp->Info.Colour.u3ColourSZ);
+    uint_fast8_t chSourcePixelLenInBit = chTargetPixelLenInBit;
     
     __arm_2d_tile_param_t tSourceTileParam;
     __arm_2d_tile_param_t tOriginTileParam;
@@ -372,7 +372,7 @@ arm_fsm_rt_t __arm_2d_big_pixel_tile_pave(  arm_2d_op_cp_t *ptThis,
                                 ptTarget, 
                                 &tTargetTileParam,
                                 &chTargetPixelLenInBit,
-                                OP_CORE.ptOp->Info.Param.bAllowEnforcedColour,
+                                false,//OP_CORE.ptOp->Info.Param.bAllowEnforcedColour,
                                 0);
 
     if (NULL == ptSource || NULL == ptTarget) {

@@ -16,16 +16,12 @@
  * limitations under the License.
  */
 
-
-
-#ifndef __CONTROL_H__
-#define __CONTROL_H__
+#ifndef __SPINNING_WHEEL_H__
+#define __SPINNING_WHEEL_H__
 
 /*============================ INCLUDES ======================================*/
 #include "./app_cfg.h"
-#include "./busy_wheel.h"
-#include "./spinning_wheel.h"
-
+#include "arm_2d.h"
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
@@ -33,6 +29,9 @@
 /*============================ PROTOTYPES ====================================*/
 
 extern
-void controls_init(void);
+void spinning_wheel_init(void);
+
+extern
+void spinning_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame);
 
 #endif

@@ -33,21 +33,6 @@ import argparse
 import os
 
 
-
-
-def usage():
-
-    print("""
-\033[4musage\033[0m : \033[31;1m img2c.py\033[00m <image> <output> <array_name> [resizeX] [resizeY]
-""")
-    print(' where : ')
-    print(' image              : image file (png, bmp, etc..)')
-    print(' output             : C file containing 2 arrays with RGB56 and alpha values')
-    print(' array_name         : arrays prefix ')
-    print(' resizeX  resizeY   : resized dimensions')
-    exit(2)
-
-
 hdr="""
 /* Generated on {0} from {1} */
 /* Re-sized : {2} */
@@ -89,7 +74,7 @@ const arm_2d_tile_t c_tile{0}AlphaMask = {{
         .bIsRoot = true,
         .bHasEnforcedColour = true,
         .tColourInfo = {{
-            .chScheme = ARM_2D_COLOUR_BIN,
+            .chScheme = ARM_2D_COLOUR_8BIT,
         }},
     }},
     .pchBuffer = (uint8_t *)c_bmp{0}Alpha,

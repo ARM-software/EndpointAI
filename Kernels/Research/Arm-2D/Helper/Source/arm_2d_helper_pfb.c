@@ -143,13 +143,13 @@ arm_2d_err_t arm_2d_helper_pfb_init(arm_2d_helper_pfb_t *ptThis,
         return ARM_2D_ERR_MISSING_PARAM;
     }
     
-    //! do validation
+    //! perform validation
     do {
         int_fast16_t n = this.tCFG.FrameBuffer.hwPFBNum;
         arm_2d_pfb_t *ptItem = this.tCFG.FrameBuffer.ptPFBs;
         uint32_t wBufferSize = this.tCFG.FrameBuffer.wBufferSize;
         
-        //! handle alignment problem
+        //! handle alignments
         wBufferSize += __alignof__(arm_2d_pfb_t) - 1;
         wBufferSize &= ~(__alignof__(arm_2d_pfb_t) - 1);
         
@@ -161,7 +161,7 @@ arm_2d_err_t arm_2d_helper_pfb_init(arm_2d_helper_pfb_t *ptThis,
             return ARM_2D_ERR_INVALID_PARAM;
         }
         
-        //! add PFBs
+        //! add PFBs to pool
         do {
             ptItem->tTile = (arm_2d_tile_t) {
                 .tRegion = {
@@ -176,9 +176,7 @@ arm_2d_err_t arm_2d_helper_pfb_init(arm_2d_helper_pfb_t *ptThis,
             ptItem = (arm_2d_pfb_t *)(  (uintptr_t)ptItem 
                                      +  wBufferSize
                                      +  sizeof(arm_2d_pfb_t));
-            
         } while(--n);
-    
     
     } while(0);
 

@@ -48,24 +48,14 @@
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
 extern uint32_t SystemCoreClock;
+extern
+const arm_2d_tile_t c_tileWhiteDot;
 
 /*============================ PROTOTYPES ====================================*/
 __attribute__((nothrow)) 
 extern int64_t clock(void);
 
 /*============================ LOCAL VARIABLES ===============================*/
-
-extern const uint8_t c_bmpWhiteDot[19*20*sizeof(uint16_t)];
-const arm_2d_tile_t c_tPictureWhiteDot = {
-    .tRegion = {
-        .tSize = {
-            .iWidth = 19,
-            .iHeight = 20
-        },
-    },
-    .tInfo.bIsRoot = true,
-    .phwBuffer = (uint16_t *)c_bmpWhiteDot,
-};
 
 ARM_NOINIT static arm_2d_location_t s_tDotsLocation[8];
 ARM_NOINIT static uint8_t s_tAlphaTable[8];
@@ -93,7 +83,7 @@ void busy_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
         .iX = ptTarget->tRegion.tSize.iWidth / 2 - 10,
         .iY = ptTarget->tRegion.tSize.iHeight / 2 - 10,
     };
-    arm_2d_region_t tTargetRegion = c_tPictureWhiteDot.tRegion;
+    arm_2d_region_t tTargetRegion = c_tileWhiteDot.tRegion;
     
     if (bIsNewFrame) {
         int64_t lClocks = clock();
@@ -115,7 +105,7 @@ void busy_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
         tTargetRegion.tLocation.iY += s_tDotsLocation[chIndex].iY;
     
         arm_2d_rgb565_alpha_blending_with_colour_masking(   
-                                                &c_tPictureWhiteDot,
+                                                &c_tileWhiteDot,
                                                 ptTarget,
                                                 &tTargetRegion,
                                                 s_tAlphaTable[n],

@@ -15,6 +15,7 @@
 
   <project>
     <PathAndName>.\gcc_partial_frame_buffer.uvprojx</PathAndName>
+    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
 </ProjectWorkspace>

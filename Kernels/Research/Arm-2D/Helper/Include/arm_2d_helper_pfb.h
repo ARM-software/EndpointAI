@@ -297,27 +297,26 @@ ARM_PRIVATE(
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ PROTOTYPES ====================================*/
 
-ARM_NONNULL(1,2)
 extern
+ARM_NONNULL(1,2)
 arm_2d_err_t arm_2d_helper_pfb_init(arm_2d_helper_pfb_t *ptThis, 
                                     arm_2d_helper_pfb_cfg_t *ptCFG);
 
-ARM_NONNULL(1)
 extern
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_helper_pfb_task(arm_2d_helper_pfb_t *ptThis, 
                                     arm_2d_region_list_item_t *ptDirtyRegions);
                                     
-
-ARM_NONNULL(1,3)
 extern
+ARM_NONNULL(1,3)
 arm_2d_err_t arm_2d_helper_pfb_update_dependency(
                             arm_2d_helper_pfb_t *ptThis, 
                             uint_fast8_t chMask,
                             const arm_2d_helper_pfb_dependency_t *ptDependency);
 
 
-ARM_NONNULL(1,2)
 extern
+ARM_NONNULL(1,2)
 void arm_2d_helper_pfb_report_rendering_complete(   arm_2d_helper_pfb_t *ptThis,
                                                     arm_2d_pfb_t *ptPFB);
 
