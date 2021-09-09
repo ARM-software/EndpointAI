@@ -68,7 +68,7 @@ extern "C" {
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
 
-void __arm_2d_impl_rgb888_to_rgb565(uint32_t *__RESTRICT pwSource,
+void __arm_2d_impl_cccn888_to_rgb565(uint32_t *__RESTRICT pwSource,
                                     int16_t iSourceStride,
                                     uint16_t *__RESTRICT phwTarget,
                                     int16_t iTargetStride,
@@ -156,7 +156,7 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb565(
             /* no need to convert, return cpl directly */
             break;
         case ARM_2D_COLOUR_SZ_32BIT:
-            __arm_2d_impl_rgb888_to_rgb565( ptTask->Param.tCopy.tSource.pBuffer,
+            __arm_2d_impl_cccn888_to_rgb565( ptTask->Param.tCopy.tSource.pBuffer,
                                             ptTask->Param.tCopy.tSource.iStride,
                                             ptTask->Param.tCopy.tTarget.pBuffer,
                                             ptTask->Param.tCopy.tTarget.iStride,
@@ -202,7 +202,7 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb888(
  *----------------------------------------------------------------------------*/
 
 __WEAK
-void __arm_2d_impl_rgb888_to_rgb565(uint32_t *__RESTRICT pwSourceBase,
+void __arm_2d_impl_cccn888_to_rgb565(uint32_t *__RESTRICT pwSourceBase,
                                     int16_t iSourceStride,
                                     uint16_t *__RESTRICT phwTargetBase,
                                     int16_t iTargetStride,

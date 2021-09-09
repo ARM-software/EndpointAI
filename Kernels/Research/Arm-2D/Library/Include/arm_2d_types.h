@@ -142,6 +142,38 @@ typedef union arm_2d_color_rgb888_t {
 } arm_2d_color_rgb888_t;
 
 
+typedef union arm_2d_colour_ccca8888_t {
+    uint32_t tValue;
+    struct {
+        uint8_t u8C[3];
+        uint8_t u8A;
+    };
+} arm_2d_colour_ccca8888_t;
+
+typedef union arm_2d_colour_accc8888_t {
+    uint32_t tValue;
+    struct {
+        uint8_t u8A;
+        uint8_t u8C[3];
+    };
+} arm_2d_colour_accc8888_t;
+
+typedef union arm_2d_colour_cccn888_t {
+    uint32_t tValue;
+    struct {
+        uint8_t u8C[3];
+        uint8_t         : 8;
+    };
+} arm_2d_colour_cccn888_t;
+
+typedef union arm_2d_colour_nccc888_t {
+    uint32_t tValue;
+    struct {
+        uint8_t         : 8;
+        uint8_t u8C[3];
+    };
+} arm_2d_colour_nccc888_t;
+
 //! \name colour size
 //! @{
 enum {
@@ -158,6 +190,7 @@ enum {
     ARM_2D_COLOUR_SZ_8BIT_msk =   ARM_2D_COLOUR_SZ_8BIT << 1,
     ARM_2D_COLOUR_SZ_16BIT_msk =  ARM_2D_COLOUR_SZ_16BIT<< 1,
     ARM_2D_COLOUR_SZ_32BIT_msk =  ARM_2D_COLOUR_SZ_32BIT<< 1,
+    ARM_2D_COLOUR_SZ_msk      =   (0x07 << 1),
 
     ARM_2D_COLOUR_LITTLE_ENDIAN       = 0,
     ARM_2D_COLOUR_BIG_ENDIAN          = 1,
@@ -170,6 +203,9 @@ enum {
 
     ARM_2D_COLOUR_NO_ALPHA_msk        = ARM_2D_COLOUR_NO_ALPHA      << 0,
     ARM_2D_COLOUR_HAS_ALPHA_msk       = ARM_2D_COLOUR_HAS_ALPHA     << 0,
+    
+    ARM_2D_COLOUR_VARIANT = 5,
+    ARM_2D_COLOUR_VARIANT_msk         = 0x07 << ARM_2D_COLOUR_VARIANT,
 };
 //! @}
 
@@ -177,16 +213,36 @@ enum {
 //! @{
 enum {
     ARM_2D_COLOUR_BIN         =   ARM_2D_COLOUR_SZ_1BIT_msk,
+    ARM_2D_COLOUR_1BIT        =   ARM_2D_COLOUR_SZ_1BIT_msk,
+    
     ARM_2D_COLOUR_8BIT        =   ARM_2D_COLOUR_SZ_8BIT_msk,
+    ARM_2D_COLOUR_GRAY8       =   ARM_2D_COLOUR_SZ_8BIT_msk,
+    
+    ARM_2D_COLOUR_16BIT       =   ARM_2D_COLOUR_SZ_16BIT_msk,
     ARM_2D_COLOUR_RGB16       =   ARM_2D_COLOUR_SZ_16BIT_msk,
     ARM_2D_COLOUR_RGB565      =   ARM_2D_COLOUR_RGB16,
-    ARM_2D_COLOUR_RGB565_BE   =   ARM_2D_COLOUR_SZ_16BIT_msk    |
-                                  ARM_2D_COLOUR_BIG_ENDIAN_msk  ,
+    ARM_2D_COLOUR_RGB565_BE   =   ARM_2D_COLOUR_SZ_16BIT_msk        |
+                                  ARM_2D_COLOUR_BIG_ENDIAN_msk      ,
+    ARM_2D_COLOUR_32BIT       =   ARM_2D_COLOUR_SZ_32BIT_msk        ,
+    ARM_2D_COLOUR_RGB32       =   ARM_2D_COLOUR_SZ_32BIT_msk        ,
+                                        
+    ARM_2D_COLOUR_RGB888      =   ARM_2D_COLOUR_RGB32               ,
+    ARM_2D_COLOUR_RGBA8888    =   ARM_2D_COLOUR_SZ_32BIT_msk        |
+                                  ARM_2D_COLOUR_HAS_ALPHA           ,
 
-    ARM_2D_COLOUR_RGB32       =   ARM_2D_COLOUR_SZ_32BIT_msk    ,
-    ARM_2D_COLOUR_RGB888      =   ARM_2D_COLOUR_RGB32           ,
-    ARM_2D_COLOUR_RGBA8888    =   ARM_2D_COLOUR_SZ_32BIT_msk    |
-                                    ARM_2D_COLOUR_HAS_ALPHA     ,
+    ARM_2D_COLOUR_CCCN888     =   ARM_2D_COLOUR_RGB32               ,
+    ARM_2D_COLOUR_CCCA8888    =   ARM_2D_COLOUR_SZ_32BIT_msk        |
+                                  ARM_2D_COLOUR_HAS_ALPHA           ,
+
+    ARM_2D_COLOUR_NCCC888     =   ARM_2D_COLOUR_RGB32               |
+                                  ARM_2D_COLOUR_BIG_ENDIAN_msk      ,
+    ARM_2D_COLOUR_ACCC8888    =   ARM_2D_COLOUR_SZ_32BIT_msk        |
+                                  ARM_2D_COLOUR_HAS_ALPHA           |
+                                  ARM_2D_COLOUR_BIG_ENDIAN_msk      ,
+                                  
+    ARM_2D_CHANNEL_8in32      =   ARM_2D_COLOUR_SZ_32BIT_msk        |
+                                  ARM_2D_COLOUR_HAS_ALPHA           |
+                                  (0x07 << ARM_2D_COLOUR_VARIANT)   ,
 };
 //! @}
 
@@ -253,6 +309,7 @@ struct arm_2d_tile_t {
         uint16_t            *phwBuffer;
         uint32_t            *pwBuffer;
         uint8_t             *pchBuffer;
+        intptr_t            nAddress;
     };
 };
 

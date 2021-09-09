@@ -26,8 +26,9 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
 
 - **Alpha-Blending** / **Alpha-Masking**
   - With or without Colour-Masking
-  - Colour-filling with an alpha-mask 
+  - Colour-filling with an Alpha-Mask
     - Drawing icons/texts with anti-alias in a specified colour
+    - An optional ***Opacity*** can be attached
 - **Image Copy / Texture Paving**
   - With or without Colour-Masking (a.k.a colour keying)
   - Four mirroring mode: None, X-mirroring, Y-mirroring and XY-mirroring

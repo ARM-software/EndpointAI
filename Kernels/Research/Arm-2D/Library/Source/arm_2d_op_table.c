@@ -21,8 +21,8 @@
  * Title:        arm-2d_op_table.c
  * Description:  Tables for pixel pipeline OPs
  *
- * $Date:        29 April 2021
- * $Revision:    V.0.8.0
+ * $Date:        08 Sept 2021
+ * $Revision:    V.0.9.0
  *
  * Target Processor:  Cortex-M cores
  *
@@ -112,34 +112,46 @@ def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_RGB16, __arm_2d_rgb16_sw_colour_filling);
 __WEAK
 def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_RGB32, __arm_2d_rgb32_sw_colour_filling);
 
+__WEAK
+def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_C8BIT, 
+                __arm_2d_c8bit_sw_colour_filling_with_alpha_mask);
+__WEAK
+def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_RGB565, 
+                __arm_2d_rgb565_sw_colour_filling_with_alpha_mask);
+__WEAK
+def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_RGB888, 
+                __arm_2d_cccn888_sw_colour_filling_with_alpha_mask);
 
 __WEAK
-def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_RGB16, 
-                __arm_2d_rgb16_sw_colour_filling_with_alpha_mask);
+def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_AND_OPACITY_C8BIT, 
+                __arm_2d_c8bit_sw_colour_filling_with_alpha_mask_and_opacity);
 __WEAK
-def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_RGB32, 
-                __arm_2d_rgb32_sw_colour_filling_with_alpha_mask);
+def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_AND_OPACITY_RGB565, 
+                __arm_2d_rgb565_sw_colour_filling_with_alpha_mask_and_opacity);
+__WEAK
+def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_AND_OPACITY_CCCN888, 
+                __arm_2d_cccn888_sw_colour_filling_with_alpha_mask_and_opacity);
 
 __WEAK
 def_low_lv_io(__ARM_2D_IO_ALPHA_BLENDING_RGB565, 
                 __arm_2d_rgb565_sw_alpha_blending);
 __WEAK
 def_low_lv_io(__ARM_2D_IO_ALPHA_BLENDING_RGB888, 
-                __arm_2d_rgb888_sw_alpha_blending);
+                __arm_2d_cccn888_sw_alpha_blending);
 
 __WEAK
 def_low_lv_io(__ARM_2D_IO_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB565, 
                 __arm_2d_rgb565_sw_alpha_blending_with_colour_masking);
 __WEAK
 def_low_lv_io(__ARM_2D_IO_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB888, 
-                __arm_2d_rgb888_sw_alpha_blending_with_colour_masking);
+                __arm_2d_cccn888_sw_alpha_blending_with_colour_masking);
                 
 __WEAK
 def_low_lv_io(__ARM_2D_IO_ALPHA_FILL_COLOUR_RGB565, 
                 __arm_2d_rgb565_sw_colour_filling_with_alpha);
 __WEAK
 def_low_lv_io(__ARM_2D_IO_ALPHA_FILL_COLOUR_RGB888, 
-                __arm_2d_rgb888_sw_colour_filling_with_alpha);
+                __arm_2d_cccn888_sw_colour_filling_with_alpha);
                 
 __WEAK
 def_low_lv_io(__ARM_2D_IO_DRAW_POINT, __arm_2d_sw_draw_point);
@@ -168,7 +180,7 @@ def_low_lv_io(__ARM_2D_IO_ROTATE_RGB565,
 
 __WEAK
 def_low_lv_io(__ARM_2D_IO_ROTATE_RGB888, 
-                __arm_2d_rgb888_sw_rotate);
+                __arm_2d_cccn888_sw_rotate);
 
 
 __WEAK
@@ -177,7 +189,7 @@ def_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB565,
 
 __WEAK
 def_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB888, 
-                __arm_2d_rgb888_sw_rotate_with_alpha);
+                __arm_2d_cccn888_sw_rotate_with_alpha);
 
 
 /*----------------------------------------------------------------------------*
@@ -308,7 +320,7 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB32 = {
     },
 };
     
-const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_C8BIT = {
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_C8BIT = {
     .Info = {
         .Colour = {
             .chScheme   = ARM_2D_COLOUR_8BIT,
@@ -325,7 +337,7 @@ const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_C8BIT = {
     },
 };    
 
-const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_RGB16 = {
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_RGB16 = {
     .Info = {
         .Colour = {
             .chScheme   = ARM_2D_COLOUR_RGB16,
@@ -342,7 +354,7 @@ const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_RGB16 = {
     },
 };
     
-const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_RGB32 = {
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_RGB32 = {
     .Info = {
         .Colour = {
             .chScheme   = ARM_2D_COLOUR_RGB32,
@@ -359,43 +371,123 @@ const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_RGB32 = {
     },
 };
 
-const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_ALPHA_MASK_RGB16 = {
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_C8BIT = {
     .Info = {
         .Colour = {
-            .chScheme   = ARM_2D_COLOUR_RGB16,
+            .chScheme   = ARM_2D_COLOUR_8BIT,
         },
         .Param = {
             .bHasSource     = true,
             .bHasTarget     = true,
             .bAllowEnforcedColour   = true,
         },
-        .chOpIndex      = __ARM_2D_OP_IDX_FILL_COLOUR,
+        .chOpIndex      = __ARM_2D_OP_IDX_FILL_COLOUR_WITH_ALPHA_MASK,
         
         .LowLevelIO = {
-            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_RGB16),
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_C8BIT),
+            .ptFillLike = NULL, 
+        },
+    },
+};
+
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_RGB565 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB565,
+        },
+        .Param = {
+            .bHasSource     = true,
+            .bHasTarget     = true,
+            .bAllowEnforcedColour   = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_FILL_COLOUR_WITH_ALPHA_MASK,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_RGB565),
             .ptFillLike = NULL, 
         },
     },
 };
     
-const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_ALPHA_MASK_RGB32 = {
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_CCCN888 = {
     .Info = {
         .Colour = {
-            .chScheme   = ARM_2D_COLOUR_RGB32,
+            .chScheme   = ARM_2D_COLOUR_RGB888,
         },
         .Param = {
             .bHasSource     = true,
             .bHasTarget     = true,
             .bAllowEnforcedColour   = true,
         },
-        .chOpIndex      = __ARM_2D_OP_IDX_FILL_COLOUR,
+        .chOpIndex      = __ARM_2D_OP_IDX_FILL_COLOUR_WITH_ALPHA_MASK,
         
         .LowLevelIO = {
-            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_RGB32),
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_RGB888),
             .ptFillLike = NULL, 
         },
     },
 };  
+
+
+
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_C8BIT = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_8BIT,
+        },
+        .Param = {
+            .bHasSource     = true,
+            .bHasTarget     = true,
+            .bAllowEnforcedColour   = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_AND_OPACITY_C8BIT),
+            .ptFillLike = NULL, 
+        },
+    },
+};
+
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_RGB565 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB565,
+        },
+        .Param = {
+            .bHasSource     = true,
+            .bHasTarget     = true,
+            .bAllowEnforcedColour   = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_AND_OPACITY_RGB565),
+            .ptFillLike = NULL, 
+        },
+    },
+};
+    
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_CCCN888 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB888,
+        },
+        .Param = {
+            .bHasSource     = true,
+            .bHasTarget     = true,
+            .bAllowEnforcedColour   = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_FILL_COLOUR_ALPHA_MASK_AND_OPACITY_CCCN888),
+            .ptFillLike = NULL, 
+        },
+    },
+};  
+
+
     
 const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_RGB565 = {
     .Info = {

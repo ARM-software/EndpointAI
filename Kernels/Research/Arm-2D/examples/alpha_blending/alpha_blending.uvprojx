@@ -410,11 +410,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -423,30 +418,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -462,6 +433,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -747,6 +728,11 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -761,6 +747,11 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1337,11 +1328,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -1350,30 +1336,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -1389,6 +1351,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1605,6 +1577,11 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1688,6 +1665,11 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2332,11 +2314,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -2345,30 +2322,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -2384,6 +2337,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2600,6 +2563,11 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2683,6 +2651,11 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3328,11 +3301,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -3341,30 +3309,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -3380,6 +3324,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3596,6 +3550,11 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3679,6 +3638,11 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4255,11 +4219,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -4268,30 +4227,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -4307,6 +4242,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -4592,6 +4537,11 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4606,6 +4556,11 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5251,11 +5206,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -5264,30 +5214,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -5303,6 +5229,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -5519,6 +5455,11 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -5602,6 +5543,11 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6247,11 +6193,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -6260,30 +6201,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -6299,6 +6216,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -6515,6 +6442,11 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -6598,6 +6530,11 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6843,7 +6780,7 @@
       <TargetName>STM32F746G-Discovery</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160001::V6.16.1::..\..\Program Files\ARMCompiler6.16.1</pCCUsed>
+      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -7170,7 +7107,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Wno-nonportable-include-path</MiscControls>
-              <Define>ITERATION_CNT=1000</Define>
+              <Define></Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;..\..\Library\Include;.;.\platform\stm32f746g-discovery</IncludePath>
             </VariousControls>
@@ -7243,11 +7180,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -7256,30 +7188,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -7295,6 +7203,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -7580,6 +7498,11 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -7663,6 +7586,11 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -8239,11 +8167,6 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\perf_counter.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\platform.h</FilePath>
@@ -8252,30 +8175,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_utilities.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\platform_utilities.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>1</ModuleSelection>
-                  <IncludeInBuild>2</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>perf_counter.o|1|0|0|0,systick_wrapper.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
@@ -8291,6 +8190,16 @@
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\platform\lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -8576,6 +8485,11 @@
               <FileType>1</FileType>
               <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
+            <File>
+              <FileName>platform_mps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -8590,6 +8504,11 @@
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform_mps3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
             </File>
           </Files>
         </Group>

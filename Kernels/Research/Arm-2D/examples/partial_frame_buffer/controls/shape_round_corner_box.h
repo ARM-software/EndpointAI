@@ -16,46 +16,24 @@
  * limitations under the License.
  */
 
-#ifndef __TOP_APP_CFG_H__
-#define __TOP_APP_CFG_H__
+#ifndef __SHAPE_ROUND_CORNER_BOX_H__
+#define __SHAPE_ROUND_CORNER_BOX_H__
 
 /*============================ INCLUDES ======================================*/
-#include <assert.h>
-
-#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 201112L
-#   error This demo requires C11. 
-#endif
-#if !defined(__GNUC__)
-#   error This demo requires GNU extensions
-#endif
-
+#include "./app_cfg.h"
+#include "arm_2d.h"
 /*============================ MACROS ========================================*/
-#ifndef ITERATION_CNT
-#   define ITERATION_CNT       1000
-#endif
-
 /*============================ MACROFIED FUNCTIONS ===========================*/
-
-
-
-#define ASSERT(...)         assert(__VA_ARGS__)
-
-
-//#define APP_SCREEN_WIDTH    320
-//#define APP_SCREEN_HEIGHT   240
-
-#ifndef APP_SCREEN_WIDTH 
-#   define APP_SCREEN_WIDTH         GLCD_WIDTH
-#endif
-
-#ifndef APP_SCREEN_HEIGHT 
-#   define APP_SCREEN_HEIGHT        GLCD_HEIGHT
-#endif
-
-
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
 
+
+extern
+void draw_round_corner_box( const arm_2d_tile_t *ptTarget, 
+                            const arm_2d_region_t *ptRegion,
+                            uint16_t hwColour,
+                            uint8_t chAlpha,
+                            bool bIsNewFrame);
 
 #endif

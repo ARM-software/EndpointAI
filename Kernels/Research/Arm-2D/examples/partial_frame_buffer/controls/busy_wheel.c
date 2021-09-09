@@ -19,6 +19,7 @@
 /*============================ INCLUDES ======================================*/
 #include "./app_cfg.h"
 #include "./busy_wheel.h"
+#include "platform.h"
 #include "arm_2d.h"
 #include <math.h>
 
@@ -50,7 +51,8 @@
 extern uint32_t SystemCoreClock;
 extern
 const arm_2d_tile_t c_tileWhiteDot;
-
+extern
+const arm_2d_tile_t c_tileWhiteDotAlpha;
 /*============================ PROTOTYPES ====================================*/
 __attribute__((nothrow)) 
 extern int64_t clock(void);
@@ -59,7 +61,7 @@ extern int64_t clock(void);
 
 ARM_NOINIT static arm_2d_location_t s_tDotsLocation[8];
 ARM_NOINIT static uint8_t s_tAlphaTable[8];
-ARM_NOINIT static int64_t s_lLastTime;
+ARM_NOINIT static int64_t s_lLastTime, s_lLastTime2;
 ARM_NOINIT static uint32_t s_wUnit;
 /*============================ IMPLEMENTATION ================================*/
 
@@ -72,6 +74,7 @@ void busy_wheel_init(void)
         s_tAlphaTable[n] = (uint8_t)((float)n * 255.0f / 8.0f);
     }
     s_lLastTime = clock();
+    s_lLastTime2 = s_lLastTime;
     s_wUnit = (SystemCoreClock  / 1000) * BUSY_WHEEL_SPIN_SPEED;
 }
 
@@ -110,6 +113,45 @@ void busy_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
                                                 &tTargetRegion,
                                                 s_tAlphaTable[n],
                                                 (arm_2d_color_rgb565_t){0});
+    }
+}
+
+
+void busy_wheel2_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
+{
+    ASSERT(NULL != ptTarget);
+    static uint8_t s_chOffset = 0;
+    arm_2d_location_t tBasePoint = {
+        .iX = ptTarget->tRegion.tSize.iWidth / 2 - 10,
+        .iY = ptTarget->tRegion.tSize.iHeight / 2 - 10,
+    };
+    arm_2d_region_t tTargetRegion = c_tileWhiteDot.tRegion;
+    
+    if (bIsNewFrame) {
+        int64_t lClocks = clock();
+        int32_t nElapsed = (int32_t)((lClocks - s_lLastTime2));
+        if (nElapsed >= (int32_t)s_wUnit) {
+            s_lLastTime2 = lClocks;
+            s_chOffset++;
+            s_chOffset &= 0x07;
+        }
+    }
+    
+    for (uint_fast8_t n = 0; n < 8; n++) {
+        uint_fast8_t chIndex = n;
+        chIndex += s_chOffset;
+        chIndex &= 0x07;
+        
+        tTargetRegion.tLocation = tBasePoint;
+        tTargetRegion.tLocation.iX += s_tDotsLocation[chIndex].iX;
+        tTargetRegion.tLocation.iY += s_tDotsLocation[chIndex].iY;
+    
+        arm_2d_rgb565_fill_colour_with_alpha_mask_and_opacity(   
+                                                ptTarget,
+                                                &tTargetRegion,
+                                                &c_tileWhiteDotAlpha,
+                                                GLCD_COLOR_WHITE,
+                                                s_tAlphaTable[n]);
     }
 }
 

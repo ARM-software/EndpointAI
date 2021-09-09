@@ -26,6 +26,7 @@
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
+#   pragma clang diagnostic ignored "-Wcast-qual"
 #endif
 
 __attribute__((aligned(2)))

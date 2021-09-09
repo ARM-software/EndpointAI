@@ -42,6 +42,12 @@ hdr="""
 
 #include "arm_2d.h"
 
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
+#   pragma clang diagnostic ignored "-Wcast-qual"
+#endif
+
 """
 
 tailData="""
@@ -79,6 +85,36 @@ const arm_2d_tile_t c_tile{0}AlphaMask = {{
     }},
     .pchBuffer = (uint8_t *)c_bmp{0}Alpha,
 }};
+"""
+
+tailAlpha2="""
+
+extern const arm_2d_tile_t c_tile{0}AlphaMask2;
+const arm_2d_tile_t c_tile{0}AlphaMask2 = {{
+    .tRegion = {{
+        .tSize = {{
+            .iWidth = {1},
+            .iHeight = {2},
+        }},
+    }},
+    .tInfo = {{
+        .bIsRoot = true,
+        .bHasEnforcedColour = true,
+        .tColourInfo = {{
+            .chScheme = ARM_2D_CHANNEL_8in32,
+        }},
+    }},
+    .nAddress = ((intptr_t)c_bmp{0}) + 3,
+}};
+"""
+
+
+tail="""
+
+#if defined(__clang__)
+#   pragma clang diagnostic pop
+#endif
+
 """
 
 def main(argv):
@@ -226,6 +262,11 @@ def main(argv):
 
         if mode == "RGBA":
             print(tailAlpha.format(arr_name, str(row), str(col)), file=o)
+            
+            if args.format == 'rgb32':
+                print(tailAlpha2.format(arr_name, str(row), str(col)), file=o)
+
+        print(tail.format(arr_name, str(row), str(col)), file=o)
 
 if __name__ == '__main__':
     main(sys.argv[1:])

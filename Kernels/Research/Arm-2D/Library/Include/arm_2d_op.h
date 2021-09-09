@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the all avaialble Arm-2D 
  *               interface header files 
  *
- * $Date:        01. December 2020
- * $Revision:    V.0.5.0
+ * $Date:        08. Sept 2021
+ * $Revision:    V.0.9.0
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -64,19 +64,31 @@ extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB32;
     
 extern 
-const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_C8BIT;
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_C8BIT;
 
 extern 
-const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_RGB16;
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_RGB16;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_RGB32;
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_RGB32;
     
 extern 
-const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_ALPHA_MASK_RGB16;
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_C8BIT;
+
+extern 
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_RGB565;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_ALPHA_MASK_RGB32;
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_CCCN888;
+
+extern 
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_C8BIT;
+
+extern 
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_RGB565;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_CCCN888;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_RGB565;

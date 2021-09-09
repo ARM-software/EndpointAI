@@ -34,9 +34,6 @@
 #ifndef __API_INT_TYPE
 #   error You have to define the __API_INT_TYPE before using this c template
 #endif
-#ifndef __API_PIXEL_BLENDING
-#   error You have to define __API_PIXEL_BLENDING before using this c template
-#endif
 
 #undef ____ARM_2D_FUNC
 #undef ___ARM_2D_FUNC
@@ -60,36 +57,8 @@ void __ARM_2D_FUNC(colour_filling)( __API_INT_TYPE *__RESTRICT pTarget,
     }
 }
 
-
-__WEAK
-void __ARM_2D_FUNC(colour_filling_alpha_mask)(   
-                            __API_INT_TYPE *__RESTRICT pTarget,
-                            int16_t iTargetStride,
-                            uint8_t *__RESTRICT pchAlpha,
-                            int16_t iAlphaStride,
-                            arm_2d_size_t *__RESTRICT ptCopySize,
-                            __API_INT_TYPE Colour)
-{
-    int_fast16_t iHeight = ptCopySize->iHeight;
-    int_fast16_t iWidth  = ptCopySize->iWidth;
-    
-    for (int_fast16_t y = 0; y < iHeight; y++) {
-
-        for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint8_t chAlpha = 255 - (*pchAlpha++);
-            __API_PIXEL_BLENDING(&Colour, pTarget++, chAlpha);
-        }
-
-        pchAlpha += (iAlphaStride - iWidth);
-        pTarget += (iTargetStride - iWidth);
-    }
-}
-
-
-
 #undef ____ARM_2D_FUNC
 #undef ___ARM_2D_FUNC
 #undef __ARM_2D_FUNC
 #undef __API_COLOUR
 #undef __API_INT_TYPE
-#undef __API_PIXEL_BLENDING

@@ -95,7 +95,7 @@ extern "C" {
     
 #define __ARM_2D_PIXEL_BLENDING_C8BIT(__SRC_ADDR, __DES_ADDR, __OPACITY)        \
             do {                                                                \
-                uint16_t chTransparency = 255 - (__OPACITY);                    \
+                uint16_t chTransparency = 256 - (__OPACITY);                    \
                 const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
                 uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
                                                                                 \
@@ -106,7 +106,7 @@ extern "C" {
 
 #define __ARM_2D_PIXEL_BLENDING_RGB565(__SRC_ADDR, __DES_ADDR, __OPACITY)       \
             do {                                                                \
-                uint16_t chTransparency = 255 - (__OPACITY);                    \
+                uint16_t chTransparency = 256 - (__OPACITY);                    \
                 __arm_2d_color_fast_rgb_t tSrcPix, tTargetPix;                  \
                 uint16_t *phwTargetPixel = (__DES_ADDR);                        \
                 __arm_2d_rgb565_unpack(*(__SRC_ADDR), &tSrcPix);                \
@@ -133,7 +133,7 @@ extern "C" {
     } while(0)
 
 
-#define __ARM_2D_PIXEL_AVERAGE_RGB888(__PIXEL_IN, __ALPHA)                      \
+#define __ARM_2D_PIXEL_AVERAGE_CCCN888(__PIXEL_IN, __ALPHA)                     \
     do {                                                                        \
         arm_2d_color_rgb888_t tTempColour = {.tValue = (__PIXEL_IN)};           \
         tPixel.R += tTempColour.u8R * (__ALPHA);                                \
@@ -141,10 +141,10 @@ extern "C" {
         tPixel.B += tTempColour.u8B * (__ALPHA);                                \
     } while(0)
 
-#define __ARM_2D_PIXEL_BLENDING_RGB888(__SRC_ADDR, __DES_ADDR, __OPACITY)       \
+#define __ARM_2D_PIXEL_BLENDING_CCCN888(__SRC_ADDR, __DES_ADDR, __OPACITY)      \
             do {                                                                \
-                uint16_t chTransparency = 255 - (__OPACITY);                    \
-                uint_fast8_t n = sizeof(uint32_t);                              \
+                uint16_t chTransparency = 256 - (__OPACITY);                    \
+                uint_fast8_t n = sizeof(uint32_t) - 1; /* do not change alpha */\
                 const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
                 uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
                                                                                 \
@@ -179,6 +179,8 @@ enum {
     __ARM_2D_OP_IDX_COPY_WITH_COLOUR_MASKING,
     __ARM_2D_OP_IDX_FILL_COLOUR,
     __ARM_2D_OP_IDX_FILL_COLOUR_WITH_COLOUR_MASKING,
+    __ARM_2D_OP_IDX_FILL_COLOUR_WITH_ALPHA_MASK,
+    __ARM_2D_OP_IDX_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY,
     
     __ARM_2D_OP_IDX_ALPHA_BLENDING,
     __ARM_2D_OP_IDX_ALPHA_BLENDING_WITH_COLOUR_MASKING,
@@ -212,7 +214,8 @@ typedef struct __arm_2d_tile_param_t {
     void *              pBuffer;
     int32_t             nOffset;
     int16_t             iStride;
-    uint16_t                        : 16;
+    arm_2d_color_info_t tColour;
+    uint8_t                        : 8;
     arm_2d_region_t     tValidRegion;
 } __arm_2d_tile_param_t;
 
@@ -285,7 +288,7 @@ ARM_PRIVATE(
     union {
         arm_2d_op_t                     tBasic;
         arm_2d_op_fill_cl_t             tFillColour;
-        arm_2d_op_fill_cl_amsk_t        tFillColourAlphaMask;
+        arm_2d_op_alpha_fill_cl_amsk_t        tFillColourAlphaMask;
         arm_2d_op_src_t                 tWithSource;
         arm_2d_op_alpha_t               tAlpha;
         arm_2d_op_alpha_cl_msk_t        tAlphaColourMask;
@@ -414,25 +417,43 @@ extern
 arm_fsm_rt_t __arm_2d_rgb32_sw_colour_filling(__arm_2d_sub_task_t *ptTask);
 
 extern 
-arm_fsm_rt_t __arm_2d_rgb16_sw_colour_filling_with_alpha_mask(
+arm_fsm_rt_t __arm_2d_c8bit_sw_colour_filling_with_alpha_mask(
                                         __arm_2d_sub_task_t *ptTask);
 
 extern 
-arm_fsm_rt_t __arm_2d_rgb32_sw_colour_filling_with_alpha_mask(
+arm_fsm_rt_t __arm_2d_rgb565_sw_colour_filling_with_alpha_mask(
                                         __arm_2d_sub_task_t *ptTask);
+
+extern 
+arm_fsm_rt_t __arm_2d_cccn888_sw_colour_filling_with_alpha_mask(
+                                        __arm_2d_sub_task_t *ptTask);
+
+
+extern 
+arm_fsm_rt_t __arm_2d_c8bit_sw_colour_filling_with_alpha_mask_and_opacity(
+                                        __arm_2d_sub_task_t *ptTask);
+
+extern 
+arm_fsm_rt_t __arm_2d_rgb565_sw_colour_filling_with_alpha_mask_and_opacity(
+                                        __arm_2d_sub_task_t *ptTask);
+
+extern 
+arm_fsm_rt_t __arm_2d_cccn888_sw_colour_filling_with_alpha_mask_and_opacity(
+                                        __arm_2d_sub_task_t *ptTask);
+
 
 extern
 arm_fsm_rt_t __arm_2d_rgb565_sw_alpha_blending(__arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_rgb888_sw_alpha_blending(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_cccn888_sw_alpha_blending(__arm_2d_sub_task_t *ptTask);
                                         
 extern
 arm_fsm_rt_t __arm_2d_rgb565_sw_alpha_blending_with_colour_masking(
                                         __arm_2d_sub_task_t *ptTask);
                                         
 extern
-arm_fsm_rt_t __arm_2d_rgb888_sw_alpha_blending_with_colour_masking(
+arm_fsm_rt_t __arm_2d_cccn888_sw_alpha_blending_with_colour_masking(
                                         __arm_2d_sub_task_t *ptTask);
 
 extern 
@@ -440,7 +461,7 @@ arm_fsm_rt_t __arm_2d_rgb565_sw_colour_filling_with_alpha(
                                         __arm_2d_sub_task_t *ptTask);
 
 extern 
-arm_fsm_rt_t __arm_2d_rgb888_sw_colour_filling_with_alpha(
+arm_fsm_rt_t __arm_2d_cccn888_sw_colour_filling_with_alpha(
                                         __arm_2d_sub_task_t *ptTask);
 
 extern
@@ -458,13 +479,13 @@ extern
 arm_fsm_rt_t __arm_2d_rgb565_sw_rotate(__arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_rgb888_sw_rotate(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_cccn888_sw_rotate(__arm_2d_sub_task_t *ptTask);
 
 extern
 arm_fsm_rt_t __arm_2d_rgb565_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_rgb888_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_cccn888_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

@@ -60,22 +60,33 @@
       4..0  = B4..0 (Blue)
 */
 
+#if defined(__USE_RGB32__)
+#   define __RGB(__R, __G, __B)    ((((uint32_t)(__R) & 0xFF) << 16)   |        \
+                                    (((uint32_t)(__G) & 0xFF) << 8)   |         \
+                                    (((uint32_t)(__B) & 0xFF) << 0)  |          \
+                                    (uint32_t)0xFF << 24)
+#else   
+#   define __RGB(__R, __G, __B)    ((((uint16_t)(__R) & 0xFF) >> 3 << 11)   |   \
+                                    (((uint16_t)(__G) & 0xFF) >> 2 << 5)   |    \
+                                    (((uint16_t)(__B) & 0xFF) >> 3 << 0)  ) 
+#endif
+
 /* GLCD RGB color definitions                            */
-#define GLCD_COLOR_BLACK        0x0000  /*   0,   0,   0 */
-#define GLCD_COLOR_NAVY         0x000F  /*   0,   0, 128 */
-#define GLCD_COLOR_DARK_GREEN   0x03E0  /*   0, 128,   0 */
-#define GLCD_COLOR_DARK_CYAN    0x03EF  /*   0, 128, 128 */
-#define GLCD_COLOR_MAROON       0x7800  /* 128,   0,   0 */
-#define GLCD_COLOR_PURPLE       0x780F  /* 128,   0, 128 */
-#define GLCD_COLOR_OLIVE        0x7BE0  /* 128, 128,   0 */
-#define GLCD_COLOR_LIGHT_GREY   0xC618  /* 192, 192, 192 */
-#define GLCD_COLOR_DARK_GREY    0x7BEF  /* 128, 128, 128 */
-#define GLCD_COLOR_BLUE         0x001F  /*   0,   0, 255 */
-#define GLCD_COLOR_GREEN        0x07E0  /*   0, 255,   0 */
-#define GLCD_COLOR_CYAN         0x07FF  /*   0, 255, 255 */
-#define GLCD_COLOR_RED          0xF800  /* 255,   0,   0 */
-#define GLCD_COLOR_MAGENTA      0xF81F  /* 255,   0, 255 */
-#define GLCD_COLOR_YELLOW       0xFFE0  /* 255, 255, 0   */
-#define GLCD_COLOR_WHITE        0xFFFF  /* 255, 255, 255 */
+#define GLCD_COLOR_BLACK        __RGB(   0,   0,   0  )
+#define GLCD_COLOR_NAVY         __RGB(   0,   0, 128  )
+#define GLCD_COLOR_DARK_GREEN   __RGB(   0, 128,   0  )
+#define GLCD_COLOR_DARK_CYAN    __RGB(   0, 128, 128  )
+#define GLCD_COLOR_MAROON       __RGB( 128,   0,   0  )
+#define GLCD_COLOR_PURPLE       __RGB( 128,   0, 128  )
+#define GLCD_COLOR_OLIVE        __RGB( 128, 128,   0  )
+#define GLCD_COLOR_LIGHT_GREY   __RGB( 192, 192, 192  )
+#define GLCD_COLOR_DARK_GREY    __RGB( 128, 128, 128  )
+#define GLCD_COLOR_BLUE         __RGB(   0,   0, 255  )
+#define GLCD_COLOR_GREEN        __RGB(   0, 255,   0  )
+#define GLCD_COLOR_CYAN         __RGB(   0, 255, 255  )
+#define GLCD_COLOR_RED          __RGB( 255,   0,   0  )
+#define GLCD_COLOR_MAGENTA      __RGB( 255,   0, 255  )
+#define GLCD_COLOR_YELLOW       __RGB( 255, 255, 0    )
+#define GLCD_COLOR_WHITE        __RGB( 255, 255, 255  )
 
 #endif /* __GLCD_CONFIG_H */

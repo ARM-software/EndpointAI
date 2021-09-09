@@ -118,12 +118,12 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_float_t *ptPoint,
         
         if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
         
-            __API_INT_TYPE tPixel = pOrigin[   tTemp.iY * iOrigStride
+            __API_INT_TYPE OriginPixel = pOrigin[   tTemp.iY * iOrigStride
                                             +   tTemp.iX];
                             
-            if (tPixel != MaskColour) {
+            if (OriginPixel != MaskColour) {
                 bIsInside = true;
-                TempPixel = tPixel;
+                TempPixel = OriginPixel;
             }
         } 
         
@@ -417,12 +417,12 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
         
         if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
         
-            __API_INT_TYPE tPixel = pOrigin[   tTemp.iY * iOrigStride
+            __API_INT_TYPE OriginPixel = pOrigin[   tTemp.iY * iOrigStride
                                             +   tTemp.iX];
                             
-            if (tPixel != MaskColour) {
+            if (OriginPixel != MaskColour) {
                 bIsInside = true;
-                TempPixel = tPixel;
+                TempPixel = OriginPixel;
             }
         } 
         

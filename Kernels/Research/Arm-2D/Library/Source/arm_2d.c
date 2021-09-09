@@ -292,6 +292,7 @@ static const arm_2d_tile_t * __arm_2d_tile_region_caculator(
     ptOut->nOffset = nOffset;
     ptOut->pBuffer = pchBuffer;
     ptOut->tValidRegion = tValidRegion;
+    ptOut->tColour.chScheme = ptTile->tColourInfo.chScheme;
         
     return ptTile;
 }

@@ -63,6 +63,8 @@ extern "C" {
 /* multiplied with numerator */
 #define __EPSF16               1e-03f16
 
+#define __LARGEINVF32          100.0f
+
 #define __PI_2_F16             (__PIF16/2.0f16)
 #define INV_NEWTON_INIT_F16  0x7773
 
@@ -80,15 +82,20 @@ extern const float16_t atanf_lut_f16[4];
 
 #define INVSQRT_MAGIC_F16           0x59ba      /*  ( 0x1ba = 0x3759df >> 13) */
 
-
+/* 2D point floating point vector types */
 typedef struct arm_2d_point_f32x4_t {
     float32x4_t X;
     float32x4_t Y;
 } arm_2d_point_f32x4_t;
 
+typedef struct arm_2d_point_f16x8_t {
+    float16x8_t     X;
+    float16x8_t     Y;
+} arm_2d_point_f16x8_t;
+
 #endif
 
-
+/* 2D point integer point vector types */
 typedef struct arm_2d_point_s16x8_t {
     int16x8_t       X;
     int16x8_t       Y;

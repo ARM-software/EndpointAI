@@ -21,8 +21,8 @@
  * Title:        arm-2d_draw.c
  * Description:  APIs for basic drawing
  *
- * $Date:        29. April 2021
- * $Revision:    V.0.8.0
+ * $Date:        08. Sep 2021
+ * $Revision:    V.0.9.0
  *
  * Target Processor:  Cortex-M cores
  *
@@ -82,20 +82,17 @@ extern "C" {
 #define __API_COLOUR        c8bit
 #define __API_INT_TYPE      uint8_t
 
-#define __API_PIXEL_BLENDING    __ARM_2D_PIXEL_BLENDING_C8BIT
 #include "__arm_2d_fill_colour.inc"
 
 #define __API_COLOUR        rgb16
 #define __API_INT_TYPE      uint16_t
 
-#define __API_PIXEL_BLENDING    __ARM_2D_PIXEL_BLENDING_RGB565
 #include "__arm_2d_fill_colour.inc"
 
 
 #define __API_COLOUR        rgb32
 #define __API_INT_TYPE      uint32_t
 
-#define __API_PIXEL_BLENDING    __ARM_2D_PIXEL_BLENDING_RGB888
 #include "__arm_2d_fill_colour.inc"
 
 
@@ -182,7 +179,7 @@ __arm_2d_point_adj_alpha_t
 __arm_2d_point_get_adjacent_alpha_q16(arm_2d_point_fx_t *ptPoint)
 {
     assert(NULL != ptPoint);
-    int32_t x = ptPoint->X  & 0xFFFF;  
+    int32_t x = ptPoint->X  & 0xFFFF;
     int32_t y = ptPoint->Y  & 0xFFFF;
 
     x |= ((ptPoint->X < 0) * 0xFFFF0000);
@@ -198,44 +195,44 @@ __arm_2d_point_get_adjacent_alpha_q16(arm_2d_point_fx_t *ptPoint)
                     .iX = -iXSign,
                     .iY = -iYSign,
                 },
-                .chAlpha = (uint8_t)(
+                .chAlpha = (uint8_t)__USAT(
              MUL_Q16(MUL_Q16(   (TO_Q16(1-iXSign)   - x)        //!< x
                             ,   (TO_Q16(1-iYSign)   - y))       //!< y
                             ,   TO_Q16(256)
-                            ) >> 16),
+                            ) >> 16, 8),
             },
             [1] = {
                 .tOffset = {
                     .iX = -iXSign + 1,
                     .iY = -iYSign,
                 },
-                .chAlpha = (uint8_t)(
+                .chAlpha = (uint8_t)__USAT(
              MUL_Q16(MUL_Q16(   (TO_Q16(iXSign)     + x)        //!< x
                             ,   (TO_Q16(1-iYSign)   - y))       //!< y
                             ,   TO_Q16(256)
-                            ) >> 16),
+                            ) >> 16, 8),
             },
             [2] = {
                 .tOffset = {
                     .iX = -iXSign,
                     .iY = -iYSign + 1,
                 },
-                .chAlpha = (uint8_t)(
+                .chAlpha = (uint8_t)__USAT(
              MUL_Q16(MUL_Q16(   (TO_Q16(1-iXSign)   - x)        //!< x
                             ,   (TO_Q16(iYSign)     + y))       //!< y
                             ,   TO_Q16(256)
-                            ) >> 16),
+                            ) >> 16, 8),
             },
             [3] = {
                 .tOffset = {
                     .iX = -iXSign + 1,
                     .iY = -iYSign +1,
                 },
-                .chAlpha = (uint8_t)(
+                .chAlpha = (uint8_t)__USAT(
              MUL_Q16(MUL_Q16(   (TO_Q16(iXSign)     + x)        //!< x
                             ,   (TO_Q16(iYSign)     + y))       //!< y
                             ,   TO_Q16(256)
-                            ) >> 16),
+                            ) >> 16, 8),
             },
         },
     };
@@ -384,7 +381,7 @@ arm_fsm_rt_t arm_2dp_c8bit_fill_colour( arm_2d_op_fill_cl_t *ptOP,
 
     //memset(ptThis, 0, sizeof(*ptThis));
 
-    OP_CORE.ptOp = &ARM_2D_OP_COLOUR_FILL_C8BIT;
+    OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_C8BIT;
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -409,7 +406,7 @@ arm_fsm_rt_t arm_2dp_rgb16_fill_colour( arm_2d_op_fill_cl_t *ptOP,
 
     //memset(ptThis, 0, sizeof(*ptThis));
 
-    OP_CORE.ptOp = &ARM_2D_OP_COLOUR_FILL_RGB16;
+    OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_RGB16;
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -434,7 +431,7 @@ arm_fsm_rt_t arm_2dp_rgb32_fill_colour( arm_2d_op_fill_cl_t *ptOP,
 
     //memset(ptThis, 0, sizeof(*ptThis));
 
-    OP_CORE.ptOp = &ARM_2D_OP_COLOUR_FILL_RGB32;
+    OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_RGB32;
 
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -485,125 +482,13 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_colour_filling(__arm_2d_sub_task_t *ptTask)
     return arm_fsm_rt_cpl;
 }
 
-/*----------------------------------------------------------------------------*
- * Fill tile with a specified colour and an alpha mask                        *
- *----------------------------------------------------------------------------*/
-
-ARM_NONNULL(2,4)
-arm_fsm_rt_t arm_2dp_rgb16_fill_colour_with_alpha_mask( 
-                                        arm_2d_op_fill_cl_amsk_t *ptOP,
-                                        const arm_2d_tile_t *ptTarget,
-                                        const arm_2d_region_t *ptRegion,
-                                        const arm_2d_tile_t *ptAlpha,
-                                        uint_fast16_t hwColour)
-{
-    assert(NULL != ptTarget);
-
-    ARM_2D_IMPL(arm_2d_op_fill_cl_amsk_t, ptOP);
-
-    //! valid alpha mask tile
-    if (0 == ptAlpha->bHasEnforcedColour) {
-        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-    } else if (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ) {
-        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-    }
-
-    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
-        return arm_fsm_rt_on_going;
-    }
-
-    //memset(ptThis, 0, sizeof(*ptThis));
-
-    OP_CORE.ptOp = &ARM_2D_OP_COLOUR_FILL_ALPHA_MASK_RGB16;
-
-    this.Target.ptTile = ptTarget;
-    this.Target.ptRegion = ptRegion;
-    this.AlphaMask.ptTile = ptAlpha;
-    this.wMode = 0;
-    this.hwColour = hwColour;
-
-    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
-}
-
-ARM_NONNULL(2,4)
-arm_fsm_rt_t arm_2dp_rgb32_fill_colour_with_alpha_mask( 
-                                        arm_2d_op_fill_cl_amsk_t *ptOP,
-                                        const arm_2d_tile_t *ptTarget,
-                                        const arm_2d_region_t *ptRegion,
-                                        const arm_2d_tile_t *ptAlpha,
-                                        uint32_t wColour)
-{
-    assert(NULL != ptTarget);
-    assert(NULL != ptAlpha);
-    
-    ARM_2D_IMPL(arm_2d_op_fill_cl_amsk_t, ptOP);
-    
-    //! valid alpha mask tile
-    if (0 == ptAlpha->bHasEnforcedColour) {
-        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-    } else if (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ) {
-        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-    }
-    
-    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
-        return arm_fsm_rt_on_going;
-    }
-
-    //memset(ptThis, 0, sizeof(*ptThis));
-
-    OP_CORE.ptOp = &ARM_2D_OP_COLOUR_FILL_ALPHA_MASK_RGB32;
-
-    this.Target.ptTile = ptTarget;
-    this.Target.ptRegion = ptRegion;
-    this.AlphaMask.ptTile = ptAlpha;
-    this.wMode = 0;
-    this.wColour = wColour;
-
-    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
-}
-
-
-arm_fsm_rt_t __arm_2d_rgb16_sw_colour_filling_with_alpha_mask(
-                                                    __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_fill_cl_amsk_t, ptTask->ptOP)
-    //assert(ARM_2D_COLOUR_SZ_16BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    __arm_2d_impl_rgb16_colour_filling_alpha_mask(
-                    ptTask->Param.tCopy.tTarget.pBuffer,
-                    ptTask->Param.tCopy.tTarget.iStride,
-                    ptTask->Param.tCopy.tSource.pBuffer,                        //!< alpha tile
-                    ptTask->Param.tCopy.tSource.iStride,                        //!< alpha tile
-                    &(ptTask->Param.tCopy.tCopySize),
-                    this.hwColour);
-
-    return arm_fsm_rt_cpl;
-}
-
-arm_fsm_rt_t __arm_2d_rgb32_sw_colour_filling_with_alpha_mask(
-                                                    __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_fill_cl_amsk_t, ptTask->ptOP)
-    //assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    __arm_2d_impl_rgb32_colour_filling_alpha_mask(
-                    ptTask->Param.tCopy.tTarget.pBuffer,
-                    ptTask->Param.tCopy.tTarget.iStride,
-                    ptTask->Param.tCopy.tSource.pBuffer,                        //!< alpha tile
-                    ptTask->Param.tCopy.tSource.iStride,                        //!< alpha tile
-                    &(ptTask->Param.tCopy.tCopySize),
-                    this.wColour);
-
-    return arm_fsm_rt_cpl;
-}
-
 
 /*----------------------------------------------------------------------------*
  * Draw a bit patterns                                                        *
  *----------------------------------------------------------------------------*/
 
 ARM_NONNULL(2,3)
-arm_fsm_rt_t arm_2dp_c8bit_draw_pattern( arm_2d_op_drw_patn_t   *ptOP, 
+arm_fsm_rt_t arm_2dp_c8bit_draw_pattern( arm_2d_op_drw_patn_t   *ptOP,
                                          const arm_2d_tile_t    *ptPattern,
                                          const arm_2d_tile_t    *ptTarget,
                                          const arm_2d_region_t  *ptRegion,
@@ -645,7 +530,7 @@ arm_fsm_rt_t arm_2dp_c8bit_draw_pattern( arm_2d_op_drw_patn_t   *ptOP,
 }
 
 ARM_NONNULL(2,3)
-arm_fsm_rt_t arm_2dp_rgb16_draw_pattern( arm_2d_op_drw_patn_t   *ptOP, 
+arm_fsm_rt_t arm_2dp_rgb16_draw_pattern( arm_2d_op_drw_patn_t   *ptOP,
                                          const arm_2d_tile_t    *ptPattern,
                                          const arm_2d_tile_t    *ptTarget,
                                          const arm_2d_region_t  *ptRegion,

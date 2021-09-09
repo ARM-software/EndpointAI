@@ -96,7 +96,7 @@ extern "C" {
     (   tPixel.R >>= 8,                                         \
         tPixel.G >>= 8,                                         \
         tPixel.B >>= 8,                                         \
-        __arm_2d_rgb888_pack(&tPixel));
+        __arm_2d_cccn888_pack(&tPixel));
 
 
 #define __API_COLOUR                gray8
@@ -114,10 +114,10 @@ extern "C" {
 #define __API_PIXEL_AVERAGE_RESULT  __API_PIXEL_AVERAGE_RESULT_RGB565
 #include "__arm_2d_rotate.inc"
 
-#define __API_COLOUR                rgb888
+#define __API_COLOUR                cccn888
 #define __API_INT_TYPE              uint32_t
-#define __API_PIXEL_BLENDING        __ARM_2D_PIXEL_BLENDING_RGB888
-#define __API_PIXEL_AVERAGE         __ARM_2D_PIXEL_AVERAGE_RGB888
+#define __API_PIXEL_BLENDING        __ARM_2D_PIXEL_BLENDING_CCCN888
+#define __API_PIXEL_AVERAGE         __ARM_2D_PIXEL_AVERAGE_CCCN888
 #define __API_PIXEL_AVERAGE_RESULT  __API_PIXEL_AVERAGE_RESULT_RGB888
 
 #include "__arm_2d_rotate.inc"
@@ -596,7 +596,7 @@ arm_2d_err_t arm_2dp_rgb565_tile_rotation_prepare(
 }
 
 ARM_NONNULL(2)
-arm_2d_err_t arm_2dp_rgb888_tile_rotation_prepare(
+arm_2d_err_t arm_2dp_cccn888_tile_rotation_prepare(
                                             arm_2d_op_rotate_t *ptOP,
                                             const arm_2d_tile_t *ptSource,
                                             const arm_2d_location_t tCentre,
@@ -647,13 +647,13 @@ arm_fsm_rt_t __arm_2d_rgb565_sw_rotate(__arm_2d_sub_task_t *ptTask)
     return arm_fsm_rt_cpl;
 }
 
-arm_fsm_rt_t __arm_2d_rgb888_sw_rotate(__arm_2d_sub_task_t *ptTask)
+arm_fsm_rt_t __arm_2d_cccn888_sw_rotate(__arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_rotate_t, ptTask->ptOP);
     assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
 
 
-    __arm_2d_impl_rgb888_rotate(&(ptTask->Param.tCopyOrig),
+    __arm_2d_impl_cccn888_rotate(&(ptTask->Param.tCopyOrig),
                                 &this.tRotate);
 
     return arm_fsm_rt_cpl;
@@ -691,7 +691,7 @@ arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_alpha_prepare(
 }
 
 ARM_NONNULL(2)
-arm_2d_err_t arm_2dp_rgb888_tile_rotation_with_alpha_prepare(
+arm_2d_err_t arm_2dp_cccn888_tile_rotation_with_alpha_prepare(
                                         arm_2d_op_rotate_alpha_t *ptOP,
                                         const arm_2d_tile_t *ptSource,
                                         const arm_2d_location_t tCentre,
@@ -733,12 +733,12 @@ arm_fsm_rt_t __arm_2d_rgb565_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask)
     return arm_fsm_rt_cpl;
 }
 
-arm_fsm_rt_t __arm_2d_rgb888_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask)
+arm_fsm_rt_t __arm_2d_cccn888_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_rotate_alpha_t, ptTask->ptOP);
     assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
 
-    __arm_2d_impl_rgb888_rotate_alpha(&(ptTask->Param.tCopyOrig),
+    __arm_2d_impl_cccn888_rotate_alpha(&(ptTask->Param.tCopyOrig),
                                         &this.tRotate,
                                         this.chRatio);
 

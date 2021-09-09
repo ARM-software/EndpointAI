@@ -24,6 +24,7 @@
 /*============================ INCLUDES ======================================*/
 #include "./app_cfg.h"
 #include "./busy_wheel.h"
+#include "./shape_round_corner_box.h"
 #include "./spinning_wheel.h"
 
 /*============================ MACROS ========================================*/

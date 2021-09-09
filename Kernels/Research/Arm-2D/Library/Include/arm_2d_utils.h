@@ -300,7 +300,7 @@ extern "C" {
 #endif
 
 #define ARM_2D_SAFE_NAME(...)    ARM_CONNECT(__,__LINE__,##__VA_ARGS__)
-
+#define arm_2d_safe_name(...)    ARM_2D_SAFE_NAME(__VA_ARGS__)
 
 #undef arm_irq_safe
 
