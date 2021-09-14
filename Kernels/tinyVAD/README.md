@@ -1,6 +1,6 @@
 # A voice activity detector, designed for the lowest computation number
   
-  With tunable sensitivity, and designed for mono 48kHz 16bits/sample
+  With tunable sensitivity, and designed for mono 16kHz/48kHz 16bits/sample
   Introduces 100ms latency, works with any size of input samples
 
   void vad_estimation(long *command, long *vad, short *inputData, long nbSamples, long samplingRate)
