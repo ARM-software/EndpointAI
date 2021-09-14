@@ -261,4 +261,3 @@ void vad_estimation(data_t* command, data_t* vad, samp_t* inputData, iidx_t nbSa
     }
 }
 #endif
-
