@@ -153,13 +153,6 @@ void vad_estimation(long* command, long* vad, short* inputData, long nbSamples, 
             Flag = MAX(0, Flag - VADRISE);
 
         *vad = (Flag > F2Q31(0.5));
-
-        {
-            extern void dbgw(long a);
-            dbgw(input_data); dbgw(z3); dbgw(z6); dbgw(accvad);
-            dbgw(z6); dbgw(z7); dbgw(z8); dbgw(Flag);
-            d = *vad; d *= (F2Q31(0.5)); dbgw(d);
-        }
     }
 }
 
