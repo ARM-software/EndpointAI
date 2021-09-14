@@ -24,10 +24,6 @@
     Test of the VAD
 
     The test pattern embedded is at 48kHz sampling rate Q15 format
-        The sample indexes when the VAD toggles are:
-        VAD toggled to 1 at 56714
-        VAD toggled to 0 at 83404
-
     VAD introduces 100ms latency (4800 samples) : samples must be buffered 
         to recover the start of utterances
 */
@@ -35,11 +31,24 @@
 #include <stdio.h>
 
 const short AudioInputSamples[] = {
+/* 
+Fixed-point toggle times:
+VAD toggled to 1 at 218953
+VAD toggled to 0 at 275565
+VAD toggled to 1 at 349572
+VAD toggled to 0 at 405834
+
+Floating-point toggle times:
+VAD toggled to 1 at 218952
+VAD toggled to 0 at 276285
+VAD toggled to 1 at 349566
+VAD toggled to 0 at 406267
+*/
 #include "TestPattern.txt"
+#define FS 48000
 };
 
-
-extern void vad_estimation(long *command, long *vad, short *inputData, long nbSamples);
+extern void vad_estimation(long* command, long* vad, short* inputData, long nbSamples, long samplingRate);
 
 void main (void)
 {
@@ -51,7 +60,7 @@ void main (void)
     isamp = 0;
     vad = previous_vad = 0;
     /* first call makes init */
-    command = 0; 
+    command = 1; 
 
     while (isamp < nbSamples) {
         /* VAD processing 
@@ -61,7 +70,7 @@ void main (void)
         * pointer to the 16bits input sample array
         * number of samples
         */
-        vad_estimation(&command, &vad, &(AudioInputSamples[isamp]), NsampProcess);
+        vad_estimation(&command, &vad, (short *)&(AudioInputSamples[isamp]), NsampProcess, FS);
         
         isamp++;
 
@@ -71,4 +80,3 @@ void main (void)
         }
     }
 }
-
