@@ -38,74 +38,234 @@
  *
  */
 
-void vad_estimation(long *command, long *vad, short *inputData, long nbSamples)
-{
+#define samp_t long
+#define coef_t long
+#define accu_t long
+#define data_t long
+#define iidx_t long 
+
+#define samp_f float
+#define coef_f float
+#define accu_f float
+#define data_f float
+
+#define INIT_VAD    1
+#define PROC_VAD    2
+
+#define FIXED_POINT 1
+
 #define MIN(a,b) ((a)<(b))?(a):(b)
 #define MAX(a,b) ((a)>(b))?(a):(b)
-    long idxSamp;
-    static float VADRISE, VADFALL, smoothPeak, smoothFloor, HPF, lowestS, SNRTHR, MAXVAD;
-    static short decimation_counterMAX, decimation_counter, waitStableNoise;
-    static float vad_accumulator, Flag;
-    static float hpf_z, hpf_z2, hpf_z3, short_term_E, floor_noise, envelope;
-    float input_data32, y;
 
-    if (*command == 0) {
-        SNRTHR = 3.0;           /* sensitivity of the detection */
-        lowestS = 33;           /* floor noise cannot go lower than -60dB */
-        MAXVAD = 0.98;          
-        vad_accumulator = 0;
-        Flag = 0;
-        hpf_z = hpf_z2 = hpf_z3 = 0;
-        waitStableNoise = 4800; /* wait 100ms before starting */
-        VADRISE = 0.0001;
-        VADFALL = 0.001;
-        smoothPeak = 256;
-        smoothFloor = 4096;
-        decimation_counterMAX = 255; /* decimation avoids using sharp LPF */
-        decimation_counter = decimation_counterMAX;
+
+#if FIXED_POINT
+
+#define F2Q31(f) (long)(0x7FFFFFFL*(f))
+#define F2Q15(f) (long)(0x7FFFL*(f))
+
+#define ConvertSamp(f) (f<<15)
+#define DIVBIN(s,n) (s>>n)
+
+
+long decfMAX, decf;
+long VADRISE, VADFALL, SHPF, S1, S2, lowestS, INVTHR, MAXVAD;
+long accvad, Flag;
+long z1, z2, z3, z6, z7, z8;
+
+/* ====  Voice Activity Detector ====
+* Parameters :
+* Command (init / preocessing)
+* pointer to the result (VAD = 0 or 1)
+* pointer to the 16bits input sample array
+* number of samples
+* sampling rate
+*/
+void vad_estimation(long* command, long* vad, short* inputData, long nbSamples, long samplingRate)
+{
+    long input_data;
+    long y, tmpz8, d;
+    long idxSamp;
+
+    if ((*command) == INIT_VAD)
+    {
+        lowestS = F2Q31(0.001);
+        INVTHR = F2Q15(1 / 3.0);
+        MAXVAD = F2Q31(0.98);
+        z1 = z2 = z3 = z8 = accvad = Flag = 0;
+        z6 = F2Q31(0.001);
+        z7 = F2Q31(0.1);
+
+        if (samplingRate <= 16000)
+        {
+            SHPF = 2;
+            VADRISE = F2Q31(0.00031);
+            VADFALL = F2Q31(0.003);
+            S1 = 6;
+            S2 = 12;
+            decfMAX = 127;
+            decf = decfMAX;
+        }
+        else
+        {
+            SHPF = 1;
+            VADRISE = F2Q31(0.0001);
+            VADFALL = F2Q31(0.001);
+            S1 = 6;
+            S2 = 12;
+            decfMAX = 255;
+            decf = decfMAX;
+        }
 
         /* no init next time */
-        (*command) = 1;
+        (*command) = PROC_VAD;
     }
-    
-    for (idxSamp = 0; idxSamp < nbSamples; idxSamp++) {
 
-        input_data32 = inputData[idxSamp];
-        hpf_z2 = 0.9375 * hpf_z + input_data32;  /* 1st order HPF cut-off at 275Hz */
-        hpf_z3 = hpf_z2 - hpf_z;
-        hpf_z = hpf_z2;
+    for (idxSamp = 0; idxSamp < nbSamples; idxSamp++)
+    {
 
-        decimation_counter = MIN(MAX(decimation_counter - 1, 0), decimation_counterMAX);
-        y = hpf_z3;
+        input_data = ConvertSamp(inputData[idxSamp]);
+        d = DIVBIN(z1, SHPF);
+        z2 = z1 - DIVBIN(z1, SHPF) + input_data;
+        z3 = z2 - z1;
+        z1 = z2;
+        decf = MIN(MAX(decf - 1, 0), decfMAX);
+        y = z3;
         y = (y < 0) ? (-y) : y;
-        short_term_E = (y / smoothPeak) + (short_term_E - (short_term_E / smoothPeak));
-        envelope = (short_term_E / smoothFloor) + (envelope - (envelope / smoothFloor));
-        envelope = MAX(short_term_E, envelope);
+        z6 = DIVBIN(y, S1) + (z6 - DIVBIN(z6, S1));
+        z8 = DIVBIN(z6, S2) + (z8 - DIVBIN(z8, S2));
+        z8 = MAX(z6, z8);
 
-        if (waitStableNoise > 0) {
-            floor_noise = envelope;    /* after reset, wait until noise estimator rises */
-            waitStableNoise--;
-        } else {
-            if (decimation_counter == 0) {
-                floor_noise = (short_term_E / smoothFloor) + 
-                    (floor_noise - (floor_noise / smoothFloor));
-                floor_noise = MAX(lowestS, MIN(floor_noise, short_term_E));
-                decimation_counter = decimation_counterMAX;
-            }
+        if (decf == 0)
+        {
+            z7 = DIVBIN(z6, S2) + (z7 - DIVBIN(z7, S2));
+            z7 = MAX(lowestS, MIN(z7, z6));
+            decf = decfMAX;
         }
 
-        if (envelope > floor_noise * SNRTHR) {
-            vad_accumulator = MIN(MAXVAD, vad_accumulator + VADRISE);
-        } else {
-            vad_accumulator = MAX(0, vad_accumulator - VADFALL);;
-        }
+        tmpz8 = ((z8 >> 16) * INVTHR) >> 15;
+        if (tmpz8 > (z7 >> 16))  accvad = MIN(MAXVAD, accvad + VADRISE);
+        else
+            accvad = MAX(0, accvad - VADFALL);
 
-        if (vad_accumulator > 0.5) {
-            Flag = MIN(0.98, Flag + VADFALL);
-        } else {
+        if (accvad > F2Q31(0.3))
+            Flag = MIN(F2Q31(0.98), Flag + VADFALL);
+        else
             Flag = MAX(0, Flag - VADRISE);
+
+        *vad = (Flag > F2Q31(0.5));
+
+        {
+            extern void dbgw(long a);
+            dbgw(input_data); dbgw(z3); dbgw(z6); dbgw(accvad);
+            dbgw(z6); dbgw(z7); dbgw(z8); dbgw(Flag);
+            d = *vad; d *= (F2Q31(0.5)); dbgw(d);
         }
-        *vad = (Flag > 0.25);
     }
 }
+
+#else
+coef_f VADRISE, VADFALL, smoothPeak, smoothFloor, HPF, lowestS, THR, MAXVAD;
+iidx_t decfMAX, decf, waitStableNoise;
+data_f accvad, Flag;
+samp_f z1, z2, z3, z6, z7, z8;
+
+#define DIVBIN(s,n) (s/(1<<n))
+
+void vad_estimation(data_t* command, data_t* vad, samp_t* inputData, iidx_t nbSamples, data_t samplingRate)
+{
+    samp_f input_data32, y;
+    iidx_t idxSamp;
+    iidx_t S1, S2;
+
+    if (*command == INIT_VAD)
+    {
+        lowestS = 0.001;
+        THR = 3.0;
+        MAXVAD = 0.98;
+        accvad = 0;
+        Flag = 0;
+        z1 = z2 = z3 = 0;
+        z6 = 0.001;
+        z7 = 0.1;
+        z8 = 0;
+
+        if (samplingRate <= 16000)
+        {
+            HPF = 0.75;
+            VADRISE = 0.00031;
+            VADFALL = 0.003;
+            smoothPeak = 6;
+            smoothFloor = 12;
+            decfMAX = 127;
+            decf = decfMAX;
+            waitStableNoise = 1600;
+        }
+        else
+        {
+            HPF = 0.5;
+            VADRISE = 0.0001;
+            VADFALL = 0.001;
+            smoothPeak = 6;
+            smoothFloor = 12;
+            decfMAX = 255;
+            decf = decfMAX;
+            waitStableNoise = 4800;
+        }
+        /* no init next time */
+        (*command) = PROC_VAD;
+    }
+    else
+    {
+        for (idxSamp = 0; idxSamp < nbSamples; idxSamp++)
+        {
+
+            input_data32 = inputData[idxSamp] / 32768.0;
+            z2 = HPF * z1 + input_data32;
+            z3 = z2 - z1;
+            z1 = z2;
+
+            S1 = smoothPeak;
+            S2 = smoothFloor;
+            decf = MIN(MAX(decf - 1, 0), decfMAX);
+            y = z3;
+            y = (y < 0) ? (-y) : y;
+            z6 = (y / (1 << S1)) + (z6 - (z6 / (1 << S1)));
+            z8 = (z6 / (1 << S2)) + (z8 - (z8 / (1 << S2)));
+            z8 = MAX(z6, z8);
+
+
+            if (waitStableNoise > 0) {
+                z7 = z8;    /* after reset, wait until noise estimator rises */
+                waitStableNoise--;
+            }
+            else {
+                if (decf == 0)
+                {
+                    z7 = (z6 / (1 << S2)) + (z7 - ((z7) / (1 << S2)));
+                    z7 = MAX(lowestS, MIN(z7, z6));
+                    decf = decfMAX;
+                }
+            }
+            if (z8 > z7 * THR)
+            {
+                accvad = MIN(MAXVAD, accvad + VADRISE);
+            }
+            else
+            {
+                accvad = MAX(0, accvad - VADFALL);;
+            }
+
+            if (accvad > 0.3)
+            {
+                Flag = MIN(0.98, Flag + VADFALL);
+            }
+            else
+            {
+                Flag = MAX(0, Flag - VADRISE);
+            }
+            *vad = (Flag > 0.5);
+        }
+    }
+}
+#endif
 
