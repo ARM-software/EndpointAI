@@ -75,6 +75,12 @@ extern "C" {
 #define BOTTOM_TO_TOP      INCR_Y_DIR
 #define TOP_TO_BOTTOM      DECR_Y_DIR
 
+#ifndef PAVING_OP
+    #define PAVING_OP(__DES_ADDR, __SRC)                                        \
+            do {                                                                \
+                *(__DES_ADDR) = (__SRC);                                        \
+            }while(0)
+#endif
 
 #define PAVING_DIRECT_START_OFFS(strd, heig)    0
 #define PAVING_DIRECT_READ_DIR                  BOTTOM_TO_TOP
@@ -395,10 +401,10 @@ extern "C" {
                                                                                 \
                     in = LOAD(pSource, offset);                                 \
                     if (true,##__VA_ARGS__) {                                   \
-                        *pDst00 ++ = in;                                        \
-                        *pDst01 ++ = in;                                        \
-                        *pDst10 ++ = in;                                        \
-                        *pDst11 ++ = in;                                        \
+                        PAVING_OP(pDst00++, in);                                \
+                        PAVING_OP(pDst01++, in);                                \
+                        PAVING_OP(pDst10++, in);                                \
+                        PAVING_OP(pDst11++, in);                                \
                     } else {                                                    \
                         pDst00++;pDst01++;pDst10++;pDst11++;                    \
                     }                                                           \
@@ -472,8 +478,8 @@ extern "C" {
                                                                                 \
                 in = LOAD(pSource, offset);                                     \
                 if (true,##__VA_ARGS__) {                                       \
-                    *pDst00 ++ = in;                                            \
-                    *pDst10 ++ = in;                                            \
+                     PAVING_OP(pDst00++, in);                                   \
+                     PAVING_OP(pDst10++, in);                                   \
                 } else {                                                        \
                     pDst00 ++;                                                  \
                     pDst10 ++;                                                  \
@@ -539,8 +545,8 @@ extern "C" {
                                                                                 \
                 in = LOAD(pSource, offset);                                     \
                 if (true,##__VA_ARGS__) {                                       \
-                    *pDst00 ++ = in;                                            \
-                    *pDst01 ++ = in;                                            \
+                    PAVING_OP(pDst00++, in);                                    \
+                    PAVING_OP(pDst01++, in);                                    \
                 } else {                                                        \
                     pDst00 ++;                                                  \
                     pDst01 ++;                                                  \
@@ -580,7 +586,7 @@ extern "C" {
                                                                                 \
             in = LOAD(pSrc, offset);                                            \
             if (true,##__VA_ARGS__) {                                           \
-                *pDst ++ = in;                                                  \
+                PAVING_OP(pDst++,in);                                           \
             } else {                                                            \
                 pDst++;                                                         \
             }                                                                   \

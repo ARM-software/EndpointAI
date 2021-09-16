@@ -42,6 +42,7 @@ extern "C" {
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
+#   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wcast-align"
 #   pragma clang diagnostic ignored "-Wextra-semi-stmt"
@@ -258,6 +259,57 @@ void __arm_2d_impl_rgb565_to_rgb888(uint16_t *__RESTRICT phwSourceBase,
     }
 }
 
+
+/*----------------------------------------------------------------------------*
+ * Low Level IO Interfaces                                                    *
+ *----------------------------------------------------------------------------*/
+
+__WEAK
+def_low_lv_io(__ARM_2D_IO_COLOUR_CONVERT_TO_RGB565, 
+                __arm_2d_sw_convert_colour_to_rgb565);
+__WEAK
+def_low_lv_io(__ARM_2D_IO_COLOUR_CONVERT_TO_RGB888, 
+                __arm_2d_sw_convert_colour_to_rgb888);
+
+
+const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB565 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB565,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasTarget             = true,
+            .bAllowEnforcedColour   = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_COLOUR_FORMAT_CONVERSION,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COLOUR_CONVERT_TO_RGB565),
+            .ptFillLike = NULL,
+        },
+    },
+};
+    
+    
+const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB888 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB888,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasTarget             = true,
+            .bAllowEnforcedColour   = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_COLOUR_FORMAT_CONVERSION,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COLOUR_CONVERT_TO_RGB888),
+            .ptFillLike = NULL,
+        },
+    },
+};
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

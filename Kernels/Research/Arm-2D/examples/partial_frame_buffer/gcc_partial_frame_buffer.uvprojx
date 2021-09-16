@@ -473,16 +473,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
-            </File>
-            <File>
               <FileName>arm_2d_rotation.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
@@ -537,6 +527,26 @@
               <FileType>5</FileType>
               <FilePath>.\controls\controls.h</FilePath>
             </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\controls\spinning_wheel.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -563,14 +573,9 @@
               <FilePath>.\asset\small_icon_sun.c</FilePath>
             </File>
             <File>
-              <FileName>spinning_wheel.c</FileName>
+              <FileName>software.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\spinning_wheel.c</FilePath>
-            </File>
-            <File>
-              <FileName>spinning_wheel.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\controls\spinning_wheel.h</FilePath>
+              <FilePath>.\asset\software.c</FilePath>
             </File>
           </Files>
         </Group>

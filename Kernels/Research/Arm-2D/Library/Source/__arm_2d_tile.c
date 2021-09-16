@@ -28,6 +28,13 @@
  *
  * -------------------------------------------------------------------- */
 
+#if defined(__clang__)
+#   pragma clang diagnostic ignored "-Wempty-translation-unit"
+#endif
+
+
+#ifdef __ARM_2D_COMPILATION_UNIT
+
 #define __ARM_2D_IMPL__
 
 #include "arm_2d.h"
@@ -41,6 +48,7 @@ extern "C" {
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
+#   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wcast-align"
 #   pragma clang diagnostic ignored "-Wextra-semi-stmt"
@@ -766,7 +774,7 @@ arm_fsm_rt_t __arm_2d_c8bit_sw_tile_copy_with_colour_masking(
     
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
 
-        __arm_2d_impl_c8bit_copy_colour_masking_mirror(
+        __arm_2d_impl_c8bit_cl_msk_copy_mirror(
                                             ptTask->Param.tCopy.tSource.pBuffer,
                                             ptTask->Param.tCopy.tSource.iStride,
                                             ptTask->Param.tCopy.tTarget.pBuffer,
@@ -776,7 +784,7 @@ arm_fsm_rt_t __arm_2d_c8bit_sw_tile_copy_with_colour_masking(
                                             this.hwColour);
 
     } else {
-        __arm_2d_impl_c8bit_copy_colour_masking(   
+        __arm_2d_impl_c8bit_cl_msk_copy(   
                                             ptTask->Param.tCopy.tSource.pBuffer,
                                             ptTask->Param.tCopy.tSource.iStride,
                                             ptTask->Param.tCopy.tTarget.pBuffer,
@@ -799,7 +807,7 @@ arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy_with_colour_masking(
     
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
 
-        __arm_2d_impl_rgb16_copy_colour_masking_mirror(
+        __arm_2d_impl_rgb16_cl_msk_copy_mirror(
                                             ptTask->Param.tCopy.tSource.pBuffer,
                                             ptTask->Param.tCopy.tSource.iStride,
                                             ptTask->Param.tCopy.tTarget.pBuffer,
@@ -809,7 +817,7 @@ arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy_with_colour_masking(
                                             this.hwColour);
 
     } else {
-        __arm_2d_impl_rgb16_copy_colour_masking(   
+        __arm_2d_impl_rgb16_cl_msk_copy(   
                                             ptTask->Param.tCopy.tSource.pBuffer,
                                             ptTask->Param.tCopy.tSource.iStride,
                                             ptTask->Param.tCopy.tTarget.pBuffer,
@@ -833,7 +841,7 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy_with_colour_masking(
 
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
 
-        __arm_2d_impl_rgb32_copy_colour_masking_mirror(
+        __arm_2d_impl_rgb32_cl_msk_copy_mirror(
                                             ptTask->Param.tCopy.tSource.pBuffer,
                                             ptTask->Param.tCopy.tSource.iStride,
                                             ptTask->Param.tCopy.tTarget.pBuffer,
@@ -842,7 +850,7 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy_with_colour_masking(
                                             wMode,
                                             this.wColour);
     } else {
-        __arm_2d_impl_rgb32_copy_colour_masking(   
+        __arm_2d_impl_rgb32_cl_msk_copy(   
                                             ptTask->Param.tCopy.tSource.pBuffer,
                                             ptTask->Param.tCopy.tSource.iStride,
                                             ptTask->Param.tCopy.tTarget.pBuffer,
@@ -862,7 +870,7 @@ arm_fsm_rt_t __arm_2d_c8bit_sw_tile_fill_with_colour_masking(
     uint32_t wMode = this.wMode;
 
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-        __arm_2d_impl_c8bit_fill_colour_masking_mirror(
+        __arm_2d_impl_c8bit_cl_msk_fill_mirror(
                                 ptTask->Param.tFill.tSource.pBuffer,
                                 ptTask->Param.tFill.tSource.iStride,
                                 &ptTask->Param.tFill.tSource.tValidRegion.tSize,
@@ -872,7 +880,7 @@ arm_fsm_rt_t __arm_2d_c8bit_sw_tile_fill_with_colour_masking(
                                 wMode,
                                 this.hwColour);
     } else {
-        __arm_2d_impl_c8bit_fill_colour_masking(
+        __arm_2d_impl_c8bit_cl_msk_fill(
                                 ptTask->Param.tFill.tSource.pBuffer,
                                 ptTask->Param.tFill.tSource.iStride,
                                 &ptTask->Param.tFill.tSource.tValidRegion.tSize,
@@ -894,7 +902,7 @@ arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill_with_colour_masking(
     uint32_t wMode = this.wMode;
 
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-        __arm_2d_impl_rgb16_fill_colour_masking_mirror(
+        __arm_2d_impl_rgb16_cl_msk_fill_mirror(
                                 ptTask->Param.tFill.tSource.pBuffer,
                                 ptTask->Param.tFill.tSource.iStride,
                                 &ptTask->Param.tFill.tSource.tValidRegion.tSize,
@@ -904,7 +912,7 @@ arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill_with_colour_masking(
                                 wMode,
                                 this.hwColour);
     } else {
-        __arm_2d_impl_rgb16_fill_colour_masking(
+        __arm_2d_impl_rgb16_cl_msk_fill(
                                 ptTask->Param.tFill.tSource.pBuffer,
                                 ptTask->Param.tFill.tSource.iStride,
                                 &ptTask->Param.tFill.tSource.tValidRegion.tSize,
@@ -928,7 +936,7 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill_with_colour_masking(
 
     if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
 
-        __arm_2d_impl_rgb32_fill_colour_masking_mirror(
+        __arm_2d_impl_rgb32_cl_msk_fill_mirror(
                                 ptTask->Param.tFill.tSource.pBuffer,
                                 ptTask->Param.tFill.tSource.iStride,
                                 &ptTask->Param.tFill.tSource.tValidRegion.tSize,
@@ -940,7 +948,7 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill_with_colour_masking(
 
     } else {
 
-        __arm_2d_impl_rgb32_fill_colour_masking(
+        __arm_2d_impl_rgb32_cl_msk_fill(
                                 ptTask->Param.tFill.tSource.pBuffer,
                                 ptTask->Param.tFill.tSource.iStride,
                                 &ptTask->Param.tFill.tSource.tValidRegion.tSize,
@@ -957,10 +965,150 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill_with_colour_masking(
 
 
 /*----------------------------------------------------------------------------*
- * Accelerable Low Level APIs                                                 *
+ * Low Level IO Interfaces                                                    *
  *----------------------------------------------------------------------------*/
+__WEAK
+def_low_lv_io(__ARM_2D_IO_COPY_C8BIT, __arm_2d_c8bit_sw_tile_copy);
+__WEAK
+def_low_lv_io(__ARM_2D_IO_COPY_RGB16, __arm_2d_rgb16_sw_tile_copy);
+__WEAK
+def_low_lv_io(__ARM_2D_IO_COPY_RGB32, __arm_2d_rgb32_sw_tile_copy);
 
+__WEAK
+def_low_lv_io(__ARM_2D_IO_FILL_C8BIT, __arm_2d_c8bit_sw_tile_fill);
+__WEAK
+def_low_lv_io(__ARM_2D_IO_FILL_RGB16, __arm_2d_rgb16_sw_tile_fill);
+__WEAK
+def_low_lv_io(__ARM_2D_IO_FILL_RGB32, __arm_2d_rgb32_sw_tile_fill);
 
+__WEAK
+def_low_lv_io(__ARM_2D_IO_COPY_WITH_COLOUR_MASKING_C8BIT, 
+                __arm_2d_c8bit_sw_tile_copy_with_colour_masking);
+__WEAK
+def_low_lv_io(__ARM_2D_IO_COPY_WITH_COLOUR_MASKING_RGB16, 
+                __arm_2d_rgb16_sw_tile_copy_with_colour_masking);
+__WEAK
+def_low_lv_io(__ARM_2D_IO_COPY_WITH_COLOUR_MASKING_RGB32, 
+                __arm_2d_rgb32_sw_tile_copy_with_colour_masking);
+
+__WEAK
+def_low_lv_io(__ARM_2D_IO_FILL_WITH_COLOUR_MASKING_C8BIT, 
+                __arm_2d_c8bit_sw_tile_fill_with_colour_masking);
+__WEAK
+def_low_lv_io(__ARM_2D_IO_FILL_WITH_COLOUR_MASKING_RGB16, 
+                __arm_2d_rgb16_sw_tile_fill_with_colour_masking);
+__WEAK
+def_low_lv_io(__ARM_2D_IO_FILL_WITH_COLOUR_MASKING_RGB32, 
+                __arm_2d_rgb32_sw_tile_fill_with_colour_masking);
+
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_C8BIT = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_8BIT,
+        },
+        .Param = {
+            .bHasSource     = true,
+            .bHasTarget     = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_COPY,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COPY_C8BIT),
+            .ptFillLike = ref_low_lv_io(__ARM_2D_IO_FILL_C8BIT),
+        },
+    },
+};
+    
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_RGB16 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB565,
+        },
+        .Param = {
+            .bHasSource     = true,
+            .bHasTarget     = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_COPY,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COPY_RGB16),
+            .ptFillLike = ref_low_lv_io(__ARM_2D_IO_FILL_RGB16),
+        },
+    },
+};
+    
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_RGB32 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB888,
+        },
+        .Param = {
+            .bHasSource     = true,
+            .bHasTarget     = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_COPY,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COPY_RGB32),
+            .ptFillLike = ref_low_lv_io(__ARM_2D_IO_FILL_RGB32),
+        },
+    },
+};
+
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_C8BIT = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_8BIT,
+        },
+        .Param = {
+            .bHasSource     = true,
+            .bHasTarget     = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_COPY_WITH_COLOUR_MASKING,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COPY_WITH_COLOUR_MASKING_C8BIT),
+            .ptFillLike = ref_low_lv_io(__ARM_2D_IO_FILL_WITH_COLOUR_MASKING_C8BIT),
+        },
+    },
+};
+    
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB16 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB16,
+        },
+        .Param = {
+            .bHasSource     = true,
+            .bHasTarget     = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_COPY_WITH_COLOUR_MASKING,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COPY_WITH_COLOUR_MASKING_RGB16),
+            .ptFillLike = ref_low_lv_io(__ARM_2D_IO_FILL_WITH_COLOUR_MASKING_RGB16),
+        },
+    },
+};
+    
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB32 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB32,
+        },
+        .Param = {
+            .bHasSource     = true,
+            .bHasTarget     = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_COPY_WITH_COLOUR_MASKING,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COPY_WITH_COLOUR_MASKING_RGB32),
+            .ptFillLike = ref_low_lv_io(__ARM_2D_IO_FILL_WITH_COLOUR_MASKING_RGB32),
+        },
+    },
+};
+    
 
 
 #if defined(__clang__)
@@ -973,5 +1121,7 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill_with_colour_masking(
 
 #ifdef   __cplusplus
 }
+#endif
+
 #endif
 

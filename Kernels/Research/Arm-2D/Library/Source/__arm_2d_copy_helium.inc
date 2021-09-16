@@ -330,7 +330,7 @@ void __ARM_2D_FUNC(1x1_paving_xy_mirror)(const __API_INT_TYPE * __RESTRICT pSour
  *----------------------------------------------------------------------------*/
 __OVERRIDE_WEAK
 
-void __ARM_2D_FUNC(2x2_cl_msk_paving)(const __API_INT_TYPE *__RESTRICT pSourceBase,
+void __ARM_2D_FUNC(cl_msk_2x2_paving)(const __API_INT_TYPE *__RESTRICT pSourceBase,
                                 int16_t iSourceStride,
                                 const arm_2d_size_t * __RESTRICT ptSourceSize,
                                 __API_INT_TYPE * __RESTRICT pTargetBase,
@@ -349,7 +349,7 @@ void __ARM_2D_FUNC(2x2_cl_msk_paving)(const __API_INT_TYPE *__RESTRICT pSourceBa
 
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(2x2_cl_msk_paving_x_mirror)(
+void __ARM_2D_FUNC(cl_msk_2x2_paving_x_mirror)(
                                 const __API_INT_TYPE *__RESTRICT pSourceBase,
                                 int16_t iSourceStride,
                                 const arm_2d_size_t * __RESTRICT ptSourceSize,
@@ -369,7 +369,7 @@ void __ARM_2D_FUNC(2x2_cl_msk_paving_x_mirror)(
 
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(2x2_cl_msk_paving_y_mirror)(
+void __ARM_2D_FUNC(cl_msk_2x2_paving_y_mirror)(
                                 const __API_INT_TYPE *__RESTRICT pSourceBase,
                                 int16_t iSourceStride,
                                 const arm_2d_size_t * __RESTRICT ptSourceSize,
@@ -388,7 +388,7 @@ void __ARM_2D_FUNC(2x2_cl_msk_paving_y_mirror)(
 }
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(2x2_cl_msk_paving_xy_mirror)(
+void __ARM_2D_FUNC(cl_msk_2x2_paving_xy_mirror)(
                                 const __API_INT_TYPE *__RESTRICT pSourceBase,
                                 int16_t iSourceStride,
                                 const arm_2d_size_t * __RESTRICT ptSourceSize,
@@ -409,7 +409,7 @@ void __ARM_2D_FUNC(2x2_cl_msk_paving_xy_mirror)(
 
 __OVERRIDE_WEAK
 
-void __ARM_2D_FUNC(1x2_cl_msk_paving)(
+void __ARM_2D_FUNC(cl_msk_1x2_paving)(
                                 const __API_INT_TYPE * __RESTRICT pSourceBase,
                                 int16_t iSourceStride,
                                 const arm_2d_size_t * __RESTRICT ptSourceSize,
@@ -428,7 +428,7 @@ void __ARM_2D_FUNC(1x2_cl_msk_paving)(
 }
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(1x2_cl_msk_paving_x_mirror)(
+void __ARM_2D_FUNC(cl_msk_1x2_paving_x_mirror)(
                                 const __API_INT_TYPE * __RESTRICT pSourceBase,
                                 int16_t iSourceStride,
                                 const arm_2d_size_t * __RESTRICT ptSourceSize,
@@ -447,7 +447,7 @@ void __ARM_2D_FUNC(1x2_cl_msk_paving_x_mirror)(
 }
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(1x2_cl_msk_paving_y_mirror)(
+void __ARM_2D_FUNC(cl_msk_1x2_paving_y_mirror)(
                                 const __API_INT_TYPE * __RESTRICT pSourceBase,
                                int16_t iSourceStride,
                                const arm_2d_size_t * __RESTRICT ptSourceSize,
@@ -467,7 +467,7 @@ void __ARM_2D_FUNC(1x2_cl_msk_paving_y_mirror)(
 
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(1x2_cl_msk_paving_xy_mirror)(
+void __ARM_2D_FUNC(cl_msk_1x2_paving_xy_mirror)(
                                 const __API_INT_TYPE * __RESTRICT pSourceBase,
                                 int16_t iSourceStride,
                                 const arm_2d_size_t * __RESTRICT ptSourceSize,
@@ -488,7 +488,7 @@ void __ARM_2D_FUNC(1x2_cl_msk_paving_xy_mirror)(
 
 __OVERRIDE_WEAK
 
-void __ARM_2D_FUNC(2x1_cl_msk_paving)(
+void __ARM_2D_FUNC(cl_msk_2x1_paving)(
                                 const __API_INT_TYPE * __RESTRICT pSourceBase,
                                 int16_t iSourceStride,
                                 const arm_2d_size_t * __RESTRICT ptSourceSize,
@@ -507,7 +507,7 @@ void __ARM_2D_FUNC(2x1_cl_msk_paving)(
 }
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(2x1_cl_msk_paving_x_mirror)(
+void __ARM_2D_FUNC(cl_msk_2x1_paving_x_mirror)(
                                 const __API_INT_TYPE * __RESTRICT pSourceBase,
                                 int16_t iSourceStride,
                                 const arm_2d_size_t * __RESTRICT ptSourceSize,
@@ -526,7 +526,7 @@ void __ARM_2D_FUNC(2x1_cl_msk_paving_x_mirror)(
 }
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(2x1_cl_msk_paving_y_mirror)(
+void __ARM_2D_FUNC(cl_msk_2x1_paving_y_mirror)(
                                 const __API_INT_TYPE * __RESTRICT pSourceBase,
                                 int16_t iSourceStride,
                                 const arm_2d_size_t * __RESTRICT ptSourceSize,
@@ -546,7 +546,7 @@ void __ARM_2D_FUNC(2x1_cl_msk_paving_y_mirror)(
 
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(2x1_cl_msk_paving_xy_mirror)(
+void __ARM_2D_FUNC(cl_msk_2x1_paving_xy_mirror)(
                                 const __API_INT_TYPE * __RESTRICT pSourceBase,
                                 int16_t iSourceStride,
                                 const arm_2d_size_t * __RESTRICT ptSourceSize,
@@ -568,7 +568,7 @@ void __ARM_2D_FUNC(2x1_cl_msk_paving_xy_mirror)(
 
 __OVERRIDE_WEAK
 
-void __ARM_2D_FUNC(1x1_cl_msk_paving)(
+void __ARM_2D_FUNC(cl_msk_1x1_paving)(
                                 const __API_INT_TYPE * __RESTRICT pSource,
                                 int16_t iSourceStride,
                                 __API_INT_TYPE * __RESTRICT pTarget,
@@ -586,7 +586,7 @@ void __ARM_2D_FUNC(1x1_cl_msk_paving)(
 }
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(1x1_cl_msk_paving_x_mirror)(
+void __ARM_2D_FUNC(cl_msk_1x1_paving_x_mirror)(
                                 const __API_INT_TYPE * __RESTRICT pSource,
                                 int16_t iSourceStride,
                                 __API_INT_TYPE * __RESTRICT pTarget,
@@ -605,7 +605,7 @@ void __ARM_2D_FUNC(1x1_cl_msk_paving_x_mirror)(
 
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(1x1_cl_msk_paving_y_mirror)(
+void __ARM_2D_FUNC(cl_msk_1x1_paving_y_mirror)(
                                 const __API_INT_TYPE * __RESTRICT pSource,
                                 int16_t iSourceStride,
                                 __API_INT_TYPE * __RESTRICT pTarget,
@@ -624,7 +624,7 @@ void __ARM_2D_FUNC(1x1_cl_msk_paving_y_mirror)(
 
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(1x1_cl_msk_paving_xy_mirror)(const __API_INT_TYPE * __RESTRICT pSource,
+void __ARM_2D_FUNC(cl_msk_1x1_paving_xy_mirror)(const __API_INT_TYPE * __RESTRICT pSource,
                                int16_t iSourceStride,
                                __API_INT_TYPE * __RESTRICT pTarget,
                                int16_t iTargetStride,
@@ -649,7 +649,7 @@ void __ARM_2D_FUNC(1x1_cl_msk_paving_xy_mirror)(const __API_INT_TYPE * __RESTRIC
 #if 0 // 1x1_cl_msk_paving_X_mirror already overridden
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(copy_colour_masking_y_mirror)(
+void __ARM_2D_FUNC(cl_msk_copy_y_mirror)(
                                         __API_INT_TYPE * __RESTRICT pSource,
                                         int16_t iSourceStride,
                                         __API_INT_TYPE * __RESTRICT pTarget,
@@ -657,7 +657,7 @@ void __ARM_2D_FUNC(copy_colour_masking_y_mirror)(
                                         arm_2d_size_t * __RESTRICT ptCopySize,
                                         __API_INT_TYPE Colour)
 {
-    __ARM_2D_FUNC(1x1_cl_msk_paving_y_mirror)(  pSource,
+    __ARM_2D_FUNC(cl_msk_1x1_paving_y_mirror)(  pSource,
                                                 iSourceStride,
                                                 pTarget,
                                                 iTargetStride,
@@ -667,7 +667,7 @@ void __ARM_2D_FUNC(copy_colour_masking_y_mirror)(
 }
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(copy_colour_masking_x_mirror)(
+void __ARM_2D_FUNC(cl_msk_copy_x_mirror)(
                                         __API_INT_TYPE * __RESTRICT pSource,
                                         int16_t iSourceStride,
                                         __API_INT_TYPE * __RESTRICT pTarget,
@@ -675,7 +675,7 @@ void __ARM_2D_FUNC(copy_colour_masking_x_mirror)(
                                         arm_2d_size_t * __RESTRICT ptCopySize,
                                         __API_INT_TYPE Colour)
 {
-    __ARM_2D_FUNC(1x1_cl_msk_paving_x_mirror)(  pSource,
+    __ARM_2D_FUNC(cl_msk_1x1_paving_x_mirror)(  pSource,
                                                 iSourceStride,
                                                 pTarget,
                                                 iTargetStride,
@@ -685,7 +685,7 @@ void __ARM_2D_FUNC(copy_colour_masking_x_mirror)(
 }
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(copy_colour_masking_xy_mirror)(
+void __ARM_2D_FUNC(cl_msk_copy_xy_mirror)(
                                         __API_INT_TYPE * __RESTRICT pSource,
                                         int16_t iSourceStride,
                                         __API_INT_TYPE * __RESTRICT pTarget,
@@ -693,7 +693,7 @@ void __ARM_2D_FUNC(copy_colour_masking_xy_mirror)(
                                         arm_2d_size_t * __RESTRICT ptCopySize,
                                         __API_INT_TYPE Colour)
 {
-    __ARM_2D_FUNC(1x1_cl_msk_paving_xy_mirror)( pSource,
+    __ARM_2D_FUNC(cl_msk_1x1_paving_xy_mirror)( pSource,
                                                 iSourceStride,
                                                 pTarget,
                                                 iTargetStride,

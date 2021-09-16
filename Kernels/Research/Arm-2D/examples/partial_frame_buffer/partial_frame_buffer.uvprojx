@@ -530,11 +530,6 @@
               <FilePath>..\..\Library\Source\arm_2d_alpha_blending.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_async.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
-            </File>
-            <File>
               <FileName>arm_2d_conversion.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_conversion.c</FilePath>
@@ -548,16 +543,6 @@
               <FileName>arm_2d_helium.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_impl.h</FileName>
@@ -648,6 +633,26 @@
               <FileName>arm_2d_op.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_op.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_meta_copy_and_fill.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_meta_copy_and_fill.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_async.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1483,11 +1488,6 @@
               <FilePath>..\..\Library\Source\arm_2d_alpha_blending.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_async.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
-            </File>
-            <File>
               <FileName>arm_2d_conversion.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_conversion.c</FilePath>
@@ -1501,16 +1501,6 @@
               <FileName>arm_2d_helium.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_impl.h</FileName>
@@ -1601,6 +1591,26 @@
               <FileName>arm_2d_op.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_op.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_meta_copy_and_fill.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_meta_copy_and_fill.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_async.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2504,11 +2514,6 @@
               <FilePath>..\..\Library\Source\arm_2d_alpha_blending.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_async.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
-            </File>
-            <File>
               <FileName>arm_2d_conversion.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_conversion.c</FilePath>
@@ -2522,16 +2527,6 @@
               <FileName>arm_2d_helium.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_impl.h</FileName>
@@ -2622,6 +2617,26 @@
               <FileName>arm_2d_op.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_op.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_meta_copy_and_fill.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_meta_copy_and_fill.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_async.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3526,11 +3541,6 @@
               <FilePath>..\..\Library\Source\arm_2d_alpha_blending.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_async.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
-            </File>
-            <File>
               <FileName>arm_2d_conversion.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_conversion.c</FilePath>
@@ -3544,16 +3554,6 @@
               <FileName>arm_2d_helium.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_impl.h</FileName>
@@ -3644,6 +3644,26 @@
               <FileName>arm_2d_op.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_op.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_meta_copy_and_fill.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_meta_copy_and_fill.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_async.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4479,11 +4499,6 @@
               <FilePath>..\..\Library\Source\arm_2d_alpha_blending.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_async.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
-            </File>
-            <File>
               <FileName>arm_2d_conversion.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_conversion.c</FilePath>
@@ -4497,16 +4512,6 @@
               <FileName>arm_2d_helium.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_impl.h</FileName>
@@ -4597,6 +4602,26 @@
               <FileName>arm_2d_op.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_op.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_meta_copy_and_fill.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_meta_copy_and_fill.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_async.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5501,11 +5526,6 @@
               <FilePath>..\..\Library\Source\arm_2d_alpha_blending.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_async.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
-            </File>
-            <File>
               <FileName>arm_2d_conversion.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_conversion.c</FilePath>
@@ -5519,16 +5539,6 @@
               <FileName>arm_2d_helium.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_impl.h</FileName>
@@ -5619,6 +5629,26 @@
               <FileName>arm_2d_op.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_op.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_meta_copy_and_fill.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_meta_copy_and_fill.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_async.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6523,11 +6553,6 @@
               <FilePath>..\..\Library\Source\arm_2d_alpha_blending.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_async.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
-            </File>
-            <File>
               <FileName>arm_2d_conversion.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_conversion.c</FilePath>
@@ -6541,16 +6566,6 @@
               <FileName>arm_2d_helium.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_impl.h</FileName>
@@ -6641,6 +6656,26 @@
               <FileName>arm_2d_op.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_op.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_meta_copy_and_fill.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_meta_copy_and_fill.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_async.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -7545,11 +7580,6 @@
               <FilePath>..\..\Library\Source\arm_2d_alpha_blending.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_async.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
-            </File>
-            <File>
               <FileName>arm_2d_conversion.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_conversion.c</FilePath>
@@ -7563,16 +7593,6 @@
               <FileName>arm_2d_helium.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_impl.h</FileName>
@@ -7663,6 +7683,26 @@
               <FileName>arm_2d_op.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_op.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_meta_copy_and_fill.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_meta_copy_and_fill.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_async.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -8567,11 +8607,6 @@
               <FilePath>..\..\Library\Source\arm_2d_alpha_blending.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_async.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
-            </File>
-            <File>
               <FileName>arm_2d_conversion.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_conversion.c</FilePath>
@@ -8585,16 +8620,6 @@
               <FileName>arm_2d_helium.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
             </File>
             <File>
               <FileName>__arm_2d_impl.h</FileName>
@@ -8685,6 +8710,26 @@
               <FileName>arm_2d_op.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_op.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_meta_copy_and_fill.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_meta_copy_and_fill.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_async.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_async.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -44,6 +44,7 @@ extern "C" {
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
+#   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wcast-align"
 #   pragma clang diagnostic ignored "-Wextra-semi-stmt"
@@ -836,6 +837,130 @@ static arm_2d_region_t *__arm_2d_calculate_region(  const arm_2d_point_float_t *
 #endif
 
 
+
+/*----------------------------------------------------------------------------*
+ * Low Level IO Interfaces                                                    *
+ *----------------------------------------------------------------------------*/
+
+__WEAK
+def_low_lv_io(__ARM_2D_IO_ROTATE_GRAY8, 
+                __arm_2d_gray8_sw_rotate);
+                
+__WEAK
+def_low_lv_io(__ARM_2D_IO_ROTATE_RGB565, 
+                __arm_2d_rgb565_sw_rotate);
+
+__WEAK
+def_low_lv_io(__ARM_2D_IO_ROTATE_RGB888, 
+                __arm_2d_cccn888_sw_rotate);
+
+
+__WEAK
+def_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB565, 
+                __arm_2d_rgb565_sw_rotate_with_alpha);
+
+__WEAK
+def_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB888, 
+                __arm_2d_cccn888_sw_rotate_with_alpha);
+
+    
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_GRAY8 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_8BIT,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasOrigin             = true,
+            .bHasTarget             = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_ROTATE,
+
+        .LowLevelIO = {
+            .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_GRAY8),
+            .ptFillOrigLike = NULL,
+        },
+    },
+};
+    
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_RGB565 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB565,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasOrigin             = true,
+            .bHasTarget             = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_ROTATE,
+
+        .LowLevelIO = {
+            .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_RGB565),
+            .ptFillOrigLike = NULL,
+        },
+    },
+};
+    
+    
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_RGB888 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB888,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasOrigin             = true,
+            .bHasTarget             = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_ROTATE,
+        
+        .LowLevelIO = {
+            .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_RGB888),
+            .ptFillOrigLike = NULL,
+        },
+    },
+};
+
+
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_WITH_ALPHA_RGB565 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB565,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasOrigin             = true,
+            .bHasTarget             = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_ROTATE_WITH_ALPHA,
+
+        .LowLevelIO = {
+            .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB565),
+            .ptFillOrigLike = NULL,
+        },
+    },
+};
+    
+    
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_WITH_ALPHA_RGB888 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB888,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasOrigin             = true,
+            .bHasTarget             = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_ROTATE_WITH_ALPHA,
+        
+        .LowLevelIO = {
+            .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB888),
+            .ptFillOrigLike = NULL,
+        },
+    },
+};
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

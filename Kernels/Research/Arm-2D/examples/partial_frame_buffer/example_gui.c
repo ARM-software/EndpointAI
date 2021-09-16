@@ -300,11 +300,11 @@ void show_icon_withoput_background(const arm_2d_tile_t *ptTarget, bool bIsNewFra
         __centre_region.tLocation.iX -= 2;
         __centre_region.tLocation.iY -= 2;
     
-        arm_2d_rgb565_fill_colour_with_alpha_mask_and_opacity(   ptTarget, 
+        arm_2d_rgb565_fill_colour_with_alpha_mask(   ptTarget, 
                                                     &__centre_region, 
                                                     &c_tileSoftwareAlphaMask2, 
-                                                    GLCD_COLOR_WHITE,
-                                                    180);
+                                                    GLCD_COLOR_WHITE
+                                                    );
     }
 }
 
