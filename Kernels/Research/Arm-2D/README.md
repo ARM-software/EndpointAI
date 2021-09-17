@@ -137,11 +137,10 @@ When we look at the conventional GUI graphics architecture in today's embedded e
 
 #### 1.5.1 Example Summary
 
-| Example              | Description                                                  | Folder                         | Note               |
-| -------------------- | ------------------------------------------------------------ | ------------------------------ | ------------------ |
-| Alpha-Blending       | It is an **ALL-IN-ONE** (except rotation) example that demonstrates almost all the features provided by the library. | examples/alpha_blending        | Used as benchmark. |
-| Partial-Frame-buffer | **It delivers the same visual effects as Alpha-blending example but using Partial-Frame-buffer**. It can be used as a template or reference code for programmers who want to implement a graphical user interface on an MCU with small RAM. In this example, **16*16 FPB (512Bytes) is used, and the total system RAM usage is less than 2.5KByte** (including stack, heap and FPB). | examples/partial_frame_buffer. |                    |
-| watch_panel          | It is a dedicated example for smart-watch like panel. For current version, it is only used to demonstrate rotation algorithms with two spinning gears. Each gear rotates at a different angular velocity and both Colour-masking and alpha-masking schemes are applied. | examples/watch_panel           | Used as benchmark  |
+| Example     | Description                                                  | Folder               | Note               |
+| ----------- | ------------------------------------------------------------ | -------------------- | ------------------ |
+| benchmark   | It is an **ALL-IN-ONE** (except rotation) example that demonstrates almost all the features provided by the library. By setting different PFB size, you can evaluate the 2D performance of a given Cortex-M system. | examples/benchmark   | Used as benchmark. |
+| watch_panel | It is a dedicated example for smart-watch like panel. For current version, it is only used to demonstrate rotation algorithms with two spinning gears. Each gear rotates at a different angular velocity and both Colour-masking and alpha-masking schemes are applied. | examples/watch_panel | Used as benchmark  |
 
 
 
