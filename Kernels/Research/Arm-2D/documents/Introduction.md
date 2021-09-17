@@ -422,7 +422,7 @@ The so-called Partial Frame Buffer is a special use of the Tile Child scheme. It
 
 <img src="../documents/pictures/Introduction2_3b.png" style="zoom:67%;" /> 
 
-More details are shown in a dedicated example project located in "***examples/partial_frame_buffer***" directory.
+More details are shown in a dedicated example project located in "***examples/benchmark***" directory.
 
 
 
