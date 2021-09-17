@@ -251,6 +251,7 @@ void __arm_2d_impl_rgb565_to_rgb888(uint16_t *__RESTRICT phwSourceBase,
             wTargetPixel.u8R = hwSrcPixel.R;
             wTargetPixel.u8G = hwSrcPixel.G;
             wTargetPixel.u8B = hwSrcPixel.B;
+            wTargetPixel.u8A = 0xFF;
             *pwTarget++ = wTargetPixel.tValue;
         }
 
