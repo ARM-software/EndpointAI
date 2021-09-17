@@ -50,7 +50,7 @@ hdr="""
 
 """
 
-tailData="""
+tailDataRGB565="""
 
 extern const arm_2d_tile_t c_tile{0};
 const arm_2d_tile_t c_tile{0} = {{
@@ -60,7 +60,57 @@ const arm_2d_tile_t c_tile{0} = {{
             .iHeight = {2},
         }},
     }},
-    .tInfo.bIsRoot = true,
+    .tInfo = {{
+        .bIsRoot = true,
+        .bHasEnforcedColour = true,
+        .tColourInfo = {{
+            .chScheme = ARM_2D_COLOUR_RGB565,
+        }},
+    }},
+    {3}c_bmp{0},
+}};
+
+"""
+
+tailDataRGB888="""
+
+extern const arm_2d_tile_t c_tile{0};
+const arm_2d_tile_t c_tile{0} = {{
+    .tRegion = {{
+        .tSize = {{
+            .iWidth = {1},
+            .iHeight = {2},
+        }},
+    }},
+    .tInfo = {{
+        .bIsRoot = true,
+        .bHasEnforcedColour = true,
+        .tColourInfo = {{
+            .chScheme = ARM_2D_COLOUR_RGB888,
+        }},
+    }},
+    {3}c_bmp{0},
+}};
+
+"""
+
+tailDataRGBA8888="""
+
+extern const arm_2d_tile_t c_tile{0};
+const arm_2d_tile_t c_tile{0} = {{
+    .tRegion = {{
+        .tSize = {{
+            .iWidth = {1},
+            .iHeight = {2},
+        }},
+    }},
+    .tInfo = {{
+        .bIsRoot = true,
+        .bHasEnforcedColour = true,
+        .tColourInfo = {{
+            .chScheme = ARM_2D_COLOUR_RGBA8888,
+        }},
+    }},
     {3}c_bmp{0},
 }};
 
@@ -68,8 +118,8 @@ const arm_2d_tile_t c_tile{0} = {{
 
 tailAlpha="""
 
-extern const arm_2d_tile_t c_tile{0}AlphaMask;
-const arm_2d_tile_t c_tile{0}AlphaMask = {{
+extern const arm_2d_tile_t c_tile{0}Mask;
+const arm_2d_tile_t c_tile{0}Mask = {{
     .tRegion = {{
         .tSize = {{
             .iWidth = {1},
@@ -89,8 +139,8 @@ const arm_2d_tile_t c_tile{0}AlphaMask = {{
 
 tailAlpha2="""
 
-extern const arm_2d_tile_t c_tile{0}AlphaMask2;
-const arm_2d_tile_t c_tile{0}AlphaMask2 = {{
+extern const arm_2d_tile_t c_tile{0}Mask2;
+const arm_2d_tile_t c_tile{0}Mask2 = {{
     .tRegion = {{
         .tSize = {{
             .iWidth = {1},
@@ -258,13 +308,18 @@ def main(argv):
 
 
         # insert tail
-        print(tailData.format(arr_name, str(row), str(col), "."+buffStr+" = ("+typStr+"*)"), file=o)
-
-        if mode == "RGBA":
-            print(tailAlpha.format(arr_name, str(row), str(col)), file=o)
-            
-            if args.format == 'rgb32':
+        
+        if args.format == 'rgb565':
+            print(tailDataRGB565.format(arr_name, str(row), str(col), "."+buffStr+" = ("+typStr+"*)"), file=o)
+        
+        if args.format == 'rgb32':
+            if mode == "RGBA":
+                print(tailDataRGBA8888.format(arr_name, str(row), str(col), "."+buffStr+" = ("+typStr+"*)"), file=o)
                 print(tailAlpha2.format(arr_name, str(row), str(col)), file=o)
+            else :
+                print(tailDataRGB888.format(arr_name, str(row), str(col), "."+buffStr+" = ("+typStr+"*)"), file=o)
+                
+            
 
         print(tail.format(arr_name, str(row), str(col)), file=o)
 
