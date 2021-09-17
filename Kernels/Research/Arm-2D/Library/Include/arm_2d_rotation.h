@@ -73,7 +73,7 @@ extern "C" {
                                             __CENTRE,                           \
                                             __ANGLE,                            \
                                             __MSK_COLOUR)                       \
-            arm_2dp_cccn888_tile_rotation_prepare(  NULL,                        \
+            arm_2dp_cccn888_tile_rotation_prepare(  NULL,                       \
                                                    (__SRC_TILE_ADDR),           \
                                                    (__CENTRE),                  \
                                             (float)(__ANGLE),                   \
@@ -85,27 +85,78 @@ extern "C" {
                                             __ANGLE,                            \
                                             __MSK_COLOUR,                       \
                                             __RATIO)                            \
-            arm_2dp_rgb565_tile_rotation_with_alpha_prepare(  NULL,             \
+            arm_2dp_rgb565_tile_rotation_with_opacity_prepare(  NULL,           \
                                                    (__SRC_TILE_ADDR),           \
                                                    (__CENTRE),                  \
                                             (float)(__ANGLE),                   \
                                                    (__MSK_COLOUR),              \
                                                    (__RATIO))
 
-                                     
+#define arm_2d_rgb565_tile_rotation_with_opacity_prepare(                       \
+                                            __SRC_TILE_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __MSK_COLOUR,                       \
+                                            __RATIO)                            \
+            arm_2dp_rgb565_tile_rotation_with_opacity_prepare(  NULL,           \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   (__MSK_COLOUR),              \
+                                                   (__RATIO))
+
 #define arm_2d_rgb888_tile_rotation_with_alpha_prepare(                         \
                                             __SRC_TILE_ADDR,                    \
                                             __CENTRE,                           \
                                             __ANGLE,                            \
                                             __MSK_COLOUR,                       \
                                             __RATIO)                            \
-            arm_2dp_cccn888_tile_rotation_with_alpha_prepare(  NULL,             \
+            arm_2dp_cccn888_tile_rotation_with_opacity_prepare(  NULL,          \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   (__MSK_COLOUR),              \
+                                                   (__RATIO))
+                                     
+#define arm_2d_rgb888_tile_rotation_with_opacity_prepare(                       \
+                                            __SRC_TILE_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __MSK_COLOUR,                       \
+                                            __RATIO)                            \
+            arm_2dp_cccn888_tile_rotation_with_opacity_prepare(  NULL,          \
                                                    (__SRC_TILE_ADDR),           \
                                                    (__CENTRE),                  \
                                             (float)(__ANGLE),                   \
                                                    (__MSK_COLOUR),              \
                                                    (__RATIO))
 
+
+#define arm_2d_cccn888_tile_rotation_with_alpha_prepare(                        \
+                                            __SRC_TILE_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __MSK_COLOUR,                       \
+                                            __RATIO)                            \
+            arm_2dp_cccn888_tile_rotation_with_opacity_prepare(  NULL,          \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   (__MSK_COLOUR),              \
+                                                   (__RATIO))
+
+#define arm_2d_cccn888_tile_rotation_with_opacity_prepare(                      \
+                                            __SRC_TILE_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __MSK_COLOUR,                       \
+                                            __RATIO)                            \
+            arm_2dp_cccn888_tile_rotation_with_opacity_prepare(  NULL,          \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   (__MSK_COLOUR),              \
+                                                   (__RATIO))
 
 #define arm_2d_tile_rotate( __DES_TILE_ADDR,                                    \
                             __DES_REGION_ADDR,                                  \
@@ -169,7 +220,7 @@ extern "C" {
         })
 
 
-#define arm_2dp_cccn888_tile_rotation(   __CB_ADDR,                              \
+#define arm_2dp_cccn888_tile_rotation(   __CB_ADDR,                             \
                                         __SRC_TILE_ADDR,                        \
                                         __DES_TILE_ADDR,                        \
                                         __DES_REGION_ADDR,                      \
@@ -177,7 +228,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,...)                       \
         ({if (bIsNewFrame) {                                                    \
-            arm_2dp_cccn888_tile_rotation_prepare(                               \
+            arm_2dp_cccn888_tile_rotation_prepare(                              \
                                         (__CB_ADDR),                            \
                                         (__SRC_TILE_ADDR),                      \
                                         (__CENTRE),                             \
@@ -190,6 +241,7 @@ extern "C" {
                             (NULL,##__VA_ARGS__));                              \
         })
         
+
 #define arm_2dp_rgb565_tile_rotation_with_alpha(                                \
                                         __CB_ADDR,                              \
                                         __SRC_TILE_ADDR,                        \
@@ -200,7 +252,7 @@ extern "C" {
                                         __MSK_COLOUR,                           \
                                         __RATIO,...)                            \
         ({if (bIsNewFrame) {                                                    \
-            arm_2dp_rgb565_tile_rotation_with_alpha_prepare(                    \
+            arm_2dp_rgb565_tile_rotation_with_opacity_prepare(                  \
                                         (__CB_ADDR),                            \
                                         (__SRC_TILE_ADDR),                      \
                                         (__CENTRE),                             \
@@ -214,7 +266,31 @@ extern "C" {
                             (NULL,##__VA_ARGS__));                              \
         })
 
-#define arm_2dp_cccn888_tile_rotation_with_alpha(                                \
+#define arm_2dp_rgb565_tile_rotation_with_opacity(                              \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR,                           \
+                                        __RATIO,...)                            \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_rgb565_tile_rotation_with_opacity_prepare(                  \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR),                         \
+                                        (__RATIO));                             \
+        };                                                                      \
+        arm_2dp_tile_rotate((arm_2d_op_rotate_t *)(__CB_ADDR),                  \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2dp_rgb888_tile_rotation_with_alpha(                                \
                                         __CB_ADDR,                              \
                                         __SRC_TILE_ADDR,                        \
                                         __DES_TILE_ADDR,                        \
@@ -224,7 +300,80 @@ extern "C" {
                                         __MSK_COLOUR,                           \
                                         __RATIO, ...)                           \
         ({if (bIsNewFrame) {                                                    \
-            arm_2dp_cccn888_tile_rotation_with_alpha_prepare(                    \
+            arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR),                         \
+                                        (__RATIO));                             \
+        };                                                                      \
+        arm_2dp_tile_rotate((arm_2d_op_rotate_t *)(__CB_ADDR),                  \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2dp_rgb888_tile_rotation_with_opacity(                              \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR,                           \
+                                        __RATIO, ...)                           \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR),                         \
+                                        (__RATIO));                             \
+        };                                                                      \
+        arm_2dp_tile_rotate((arm_2d_op_rotate_t *)(__CB_ADDR),                  \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+
+#define arm_2dp_cccn888_tile_rotation_with_alpha(                               \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR,                           \
+                                        __RATIO, ...)                           \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR),                         \
+                                        (__RATIO));                             \
+        };                                                                      \
+        arm_2dp_tile_rotate((arm_2d_op_rotate_t *)(__CB_ADDR),                  \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2dp_cccn888_tile_rotation_with_opacity(                             \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR,                           \
+                                        __RATIO, ...)                           \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
                                         (__CB_ADDR),                            \
                                         (__SRC_TILE_ADDR),                      \
                                         (__CENTRE),                             \
@@ -290,7 +439,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR, ...)                      \
         ({if (bIsNewFrame) {                                                    \
-            arm_2dp_cccn888_tile_rotation_prepare(                               \
+            arm_2dp_cccn888_tile_rotation_prepare(                              \
                                         NULL,                                   \
                                         (__SRC_TILE_ADDR),                      \
                                         (__CENTRE),                             \
@@ -302,7 +451,7 @@ extern "C" {
                             (__DES_REGION_ADDR),                                \
                             (NULL,##__VA_ARGS__));                              \
         })
-        
+
 #define arm_2d_rgb565_tile_rotation_with_alpha(                                 \
                                         __SRC_TILE_ADDR,                        \
                                         __DES_TILE_ADDR,                        \
@@ -312,7 +461,7 @@ extern "C" {
                                         __MSK_COLOUR,                           \
                                         __RATIO, ...)                           \
         ({if (bIsNewFrame) {                                                    \
-            arm_2dp_rgb565_tile_rotation_with_alpha_prepare(                    \
+            arm_2dp_rgb565_tile_rotation_with_opacity_prepare(                  \
                                         NULL,                                   \
                                         (__SRC_TILE_ADDR),                      \
                                         (__CENTRE),                             \
@@ -325,6 +474,30 @@ extern "C" {
                             (__DES_REGION_ADDR),                                \
                             (NULL,##__VA_ARGS__));                              \
         })
+        
+#define arm_2d_rgb565_tile_rotation_with_opacity(                               \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR,                           \
+                                        __RATIO, ...)                           \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_rgb565_tile_rotation_with_opacity_prepare(                  \
+                                        NULL,                                   \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR),                         \
+                                        (__RATIO));                             \
+        };                                                                      \
+        arm_2dp_tile_rotate(NULL,                                               \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
 
 #define arm_2d_rgb888_tile_rotation_with_alpha(                                 \
                                         __SRC_TILE_ADDR,                        \
@@ -335,7 +508,7 @@ extern "C" {
                                         __MSK_COLOUR,                           \
                                         __RATIO, ...)                           \
         ({if (bIsNewFrame) {                                                    \
-            arm_2dp_cccn888_tile_rotation_with_alpha_prepare(                    \
+            arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
                                         NULL,                                   \
                                         (__SRC_TILE_ADDR),                      \
                                         (__CENTRE),                             \
@@ -349,7 +522,74 @@ extern "C" {
                             (NULL,##__VA_ARGS__));                              \
         })
 
+#define arm_2d_rgb888_tile_rotation_with_opacity(                               \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR,                           \
+                                        __RATIO, ...)                           \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
+                                        NULL,                                   \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR),                         \
+                                        (__RATIO));                             \
+        };                                                                      \
+        arm_2dp_tile_rotate(NULL,                                               \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
 
+#define arm_2d_cccn888_tile_rotation_with_alpha(                                \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR,                           \
+                                        __RATIO, ...)                           \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
+                                        NULL,                                   \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR),                         \
+                                        (__RATIO));                             \
+        };                                                                      \
+        arm_2dp_tile_rotate(NULL,                                               \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2d_cccn888_tile_rotation_with_opacity(                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __MSK_COLOUR,                           \
+                                        __RATIO, ...)                           \
+        ({if (bIsNewFrame) {                                                    \
+            arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
+                                        NULL,                                   \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        (__MSK_COLOUR),                         \
+                                        (__RATIO));                             \
+        };                                                                      \
+        arm_2dp_tile_rotate(NULL,                                               \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
 
 
 /*============================ TYPES =========================================*/
@@ -394,9 +634,9 @@ typedef struct arm_2d_op_rotate_t {
     
 } arm_2d_op_rotate_t;
 
-/*! \brief arm_2d_op_rotate_alpha_t is inherit from arm_2d_op_rotate_t
+/*! \brief arm_2d_op_rotate_opacity_t is inherit from arm_2d_op_rotate_t
  */
-typedef struct arm_2d_op_rotate_alpha_t {
+typedef struct arm_2d_op_rotate_opacity_t {
     inherit(arm_2d_op_core_t);
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile
@@ -415,7 +655,7 @@ typedef struct arm_2d_op_rotate_alpha_t {
     __arm_2d_rotate_info_t      tRotate;
     uint8_t                     chRatio;
     
-} arm_2d_op_rotate_alpha_t;
+} arm_2d_op_rotate_opacity_t;
 
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
@@ -450,8 +690,8 @@ arm_2d_err_t arm_2dp_cccn888_tile_rotation_prepare(
 
 extern
 ARM_NONNULL(2)
-arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_alpha_prepare(
-                                        arm_2d_op_rotate_alpha_t *ptOP,
+arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_opacity_prepare(
+                                        arm_2d_op_rotate_opacity_t *ptOP,
                                         const arm_2d_tile_t *ptSource,
                                         const arm_2d_location_t tCentre,
                                         float fAngle,
@@ -460,8 +700,8 @@ arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_alpha_prepare(
                                      
 extern
 ARM_NONNULL(2)
-arm_2d_err_t arm_2dp_cccn888_tile_rotation_with_alpha_prepare(
-                                        arm_2d_op_rotate_alpha_t *ptOP,
+arm_2d_err_t arm_2dp_cccn888_tile_rotation_with_opacity_prepare(
+                                        arm_2d_op_rotate_opacity_t *ptOP,
                                         const arm_2d_tile_t *ptSource,
                                         const arm_2d_location_t tCentre,
                                         float fAngle,

@@ -75,7 +75,35 @@ extern "C" {
                                 __DES_REGION_ADDR,  /*!< target region address*/\
                                 __MSK_COLOUR,       /*!< mask(key) colour */    \
                                 __MODE)             /*!< mode */                \
-            arm_2dp_c8bit_tile_copy_with_colour_masking(                        \
+            arm_2dp_c8bit_tile_copy_with_colour_keying(                         \
+                                    NULL,                                       \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR),                        \
+                                    (__MSK_COLOUR),                             \
+                                    (__MODE))
+
+#define arm_2d_c8bit_tile_copy_with_colour_keying(                              \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR,  /*!< target region address*/\
+                                __MSK_COLOUR,       /*!< mask(key) colour */    \
+                                __MODE)             /*!< mode */                \
+            arm_2dp_c8bit_tile_copy_with_colour_keying(                         \
+                                    NULL,                                       \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR),                        \
+                                    (__MSK_COLOUR),                             \
+                                    (__MODE))
+
+#define arm_2d_rgb16_tile_copy_with_colour_masking(                             \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR,  /*!< target region address*/\
+                                __MSK_COLOUR,       /*!< mask(key) colour */    \
+                                __MODE)             /*!< mode */                \
+            arm_2dp_rgb16_tile_copy_with_colour_keying(                         \
                                     NULL,                                       \
                                     (__SRC_ADDR),                               \
                                     (__DES_ADDR),                               \
@@ -83,13 +111,13 @@ extern "C" {
                                     (__MSK_COLOUR),                             \
                                     (__MODE))
                
-#define arm_2d_rgb16_tile_copy_with_colour_masking(                             \
+#define arm_2d_rgb16_tile_copy_with_colour_keying(                              \
                                 __SRC_ADDR,         /*!< source tile address */ \
                                 __DES_ADDR,         /*!< target tile address */ \
                                 __DES_REGION_ADDR,  /*!< target region address*/\
                                 __MSK_COLOUR,       /*!< mask(key) colour */    \
                                 __MODE)             /*!< mode */                \
-            arm_2dp_rgb16_tile_copy_with_colour_masking(                        \
+            arm_2dp_rgb16_tile_copy_with_colour_keying(                         \
                                     NULL,                                       \
                                     (__SRC_ADDR),                               \
                                     (__DES_ADDR),                               \
@@ -103,7 +131,21 @@ extern "C" {
                                 __DES_REGION_ADDR,  /*!< target region address*/\
                                 __MSK_COLOUR,       /*!< mask(key) colour */    \
                                 __MODE)             /*!< mode */                \
-            arm_2dp_rgb32_tile_copy_with_colour_masking(                        \
+            arm_2dp_rgb32_tile_copy_with_colour_keying(                         \
+                                    NULL,                                       \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR),                        \
+                                    (__MSK_COLOUR),                             \
+                                    (__MODE))
+
+#define arm_2d_rgb32_tile_copy_with_colour_keying(                              \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR,  /*!< target region address*/\
+                                __MSK_COLOUR,       /*!< mask(key) colour */    \
+                                __MODE)             /*!< mode */                \
+            arm_2dp_rgb32_tile_copy_with_colour_keying(                         \
                                     NULL,                                       \
                                     (__SRC_ADDR),                               \
                                     (__DES_ADDR),                               \
@@ -215,9 +257,9 @@ extern "C" {
 
 typedef arm_2d_op_src_t arm_2d_op_cp_t;
 
-/*! \note arm_2d_op_cp_cl_msk_t inherits from arm_2d_op_src_t explicitly 
+/*! \note arm_2d_op_cp_cl_key_t inherits from arm_2d_op_src_t explicitly 
  */
-typedef struct arm_2d_op_cp_cl_msk_t {
+typedef struct arm_2d_op_cp_cl_key_t {
     inherit(arm_2d_op_core_t);
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile 
@@ -232,7 +274,7 @@ typedef struct arm_2d_op_cp_cl_msk_t {
         uint16_t hwColour;
         uint32_t wColour;
     };
-} arm_2d_op_cp_cl_msk_t;
+} arm_2d_op_cp_cl_key_t;
 
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
@@ -381,8 +423,8 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_copy(arm_2d_op_cp_t *ptOP,
  */
 extern
 ARM_NONNULL(2,3)
-arm_fsm_rt_t arm_2dp_c8bit_tile_copy_with_colour_masking(
-                                            arm_2d_op_cp_cl_msk_t *ptOP,
+arm_fsm_rt_t arm_2dp_c8bit_tile_copy_with_colour_keying(
+                                            arm_2d_op_cp_cl_key_t *ptOP,
                                             const arm_2d_tile_t *ptSource, 
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion,
@@ -400,8 +442,8 @@ arm_fsm_rt_t arm_2dp_c8bit_tile_copy_with_colour_masking(
  */
 extern
 ARM_NONNULL(2,3)
-arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_colour_masking(
-                                            arm_2d_op_cp_cl_msk_t *ptOP,
+arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_colour_keying(
+                                            arm_2d_op_cp_cl_key_t *ptOP,
                                             const arm_2d_tile_t *ptSource, 
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion,
@@ -420,8 +462,8 @@ arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_colour_masking(
  */
 extern
 ARM_NONNULL(2,3)
-arm_fsm_rt_t arm_2dp_rgb32_tile_copy_with_colour_masking(
-                                            arm_2d_op_cp_cl_msk_t *ptOP,
+arm_fsm_rt_t arm_2dp_rgb32_tile_copy_with_colour_keying(
+                                            arm_2d_op_cp_cl_key_t *ptOP,
                                             const arm_2d_tile_t *ptSource, 
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion,

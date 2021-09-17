@@ -661,7 +661,7 @@ void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *phwSourceBase,
 
 
 __OVERRIDE_WEAK
-void __arm_2d_impl_rgb565_colour_filling_with_alpha(
+void __arm_2d_impl_rgb565_colour_filling_with_opacity(
                                         uint16_t *__RESTRICT pTargetBase,
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
@@ -826,7 +826,7 @@ void __arm_2d_impl_rgb565_colour_filling_with_alpha(
 
 
 __OVERRIDE_WEAK
-void __arm_2d_impl_rgb565_alpha_blending_colour_masking(
+void __arm_2d_impl_rgb565_alpha_blending_colour_keying(
                                                 uint16_t * __RESTRICT phwSource,
                                                 int16_t         iSourceStride,
                                                 uint16_t * __RESTRICT phwTarget,
@@ -1118,7 +1118,7 @@ void __arm_2d_impl_cccn888_alpha_blending(   uint32_t *pwSourceBase,
 
 
 __OVERRIDE_WEAK
-void __arm_2d_impl_cccn888_colour_filling_with_alpha(
+void __arm_2d_impl_cccn888_colour_filling_with_opacity(
                                         uint32_t *__RESTRICT pTargetBase,
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
@@ -1194,7 +1194,7 @@ void __arm_2d_impl_cccn888_colour_filling_with_alpha(
 }
 
 __OVERRIDE_WEAK
-void __arm_2d_impl_cccn888_alpha_blending_colour_masking(uint32_t * __RESTRICT pSourceBase,
+void __arm_2d_impl_cccn888_alpha_blending_colour_keying(uint32_t * __RESTRICT pSourceBase,
                                                        int16_t iSourceStride,
                                                        uint32_t * __RESTRICT pTargetBase,
                                                        int16_t iTargetStride,
@@ -5815,7 +5815,7 @@ void __arm_2d_impl_rgb32_draw_pattern_bg_comp(uint8_t *__RESTRICT pchSourceBase,
 
 
 __OVERRIDE_WEAK
-void __arm_2d_impl_c8bit_colour_filling_alpha_mask(uint8_t * __RESTRICT pTarget,
+void __arm_2d_impl_c8bit_colour_filling_mask(uint8_t * __RESTRICT pTarget,
                                                        int16_t iTargetStride,
                                                        uint8_t * __RESTRICT pchAlpha,
                                                        int16_t iAlphaStride,
@@ -5864,7 +5864,7 @@ void __arm_2d_impl_c8bit_colour_filling_alpha_mask(uint8_t * __RESTRICT pTarget,
 }
 
 __OVERRIDE_WEAK
-void __arm_2d_impl_c8bit_colour_filling_alpha_mask_opacity(uint8_t * __RESTRICT pTarget,
+void __arm_2d_impl_c8bit_colour_filling_mask_opacity(uint8_t * __RESTRICT pTarget,
                                                                int16_t iTargetStride,
                                                                uint8_t * __RESTRICT pchAlpha,
                                                                int16_t iAlphaStride,
@@ -6029,7 +6029,7 @@ void __arm_2d_impl_c8bit_colour_filling_channel_mask_opacity(uint8_t * __RESTRIC
 
 
 __OVERRIDE_WEAK
-void __arm_2d_impl_rgb565_colour_filling_alpha_mask(uint16_t * __RESTRICT pTarget,
+void __arm_2d_impl_rgb565_colour_filling_mask(uint16_t * __RESTRICT pTarget,
                                                     int16_t iTargetStride,
                                                     uint8_t * __RESTRICT pchAlpha,
                                                     int16_t iAlphaStride,
@@ -6167,7 +6167,7 @@ void __arm_2d_impl_rgb565_colour_filling_alpha_mask(uint16_t * __RESTRICT pTarge
 
 
 __OVERRIDE_WEAK
-void __arm_2d_impl_rgb565_colour_filling_alpha_mask_opacity(uint16_t * __RESTRICT pTarget,
+void __arm_2d_impl_rgb565_colour_filling_mask_opacity(uint16_t * __RESTRICT pTarget,
                                                     int16_t iTargetStride,
                                                     uint8_t * __RESTRICT pchAlpha,
                                                     int16_t iAlphaStride,
@@ -6606,7 +6606,7 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask_opacity(uint16_t * __RESTR
 
 
 __OVERRIDE_WEAK
-void __arm_2d_impl_cccn888_colour_filling_alpha_mask(uint32_t * __RESTRICT pTarget,
+void __arm_2d_impl_cccn888_colour_filling_mask(uint32_t * __RESTRICT pTarget,
                                                      int16_t iTargetStride,
                                                      uint8_t * __RESTRICT pchAlpha,
                                                      int16_t iAlphaStride,
@@ -6704,7 +6704,7 @@ void __arm_2d_impl_cccn888_colour_filling_alpha_mask(uint32_t * __RESTRICT pTarg
 
 
 __OVERRIDE_WEAK
-void __arm_2d_impl_cccn888_colour_filling_alpha_mask_opacity(uint32_t * __RESTRICT pTarget,
+void __arm_2d_impl_cccn888_colour_filling_mask_opacity(uint32_t * __RESTRICT pTarget,
                                                              int16_t iTargetStride,
                                                              uint8_t * __RESTRICT pchAlpha,
                                                              int16_t iAlphaStride,

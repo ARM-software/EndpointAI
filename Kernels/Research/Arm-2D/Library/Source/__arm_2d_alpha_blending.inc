@@ -83,7 +83,7 @@ void __ARM_2D_FUNC(alpha_blending) (__API_INT_TYPE *__RESTRICT pSourceBase,
 
 #ifndef __PATCH_ALPHA_BLENDING_COLOUR_MASKING
 __WEAK
-void __ARM_2D_FUNC(alpha_blending_colour_masking)(
+void __ARM_2D_FUNC(alpha_blending_colour_keying)(
                                                 __API_INT_TYPE * __RESTRICT pSourceBase,
                                                 int16_t         iSourceStride,
                                                 __API_INT_TYPE * __RESTRICT pTargetBase,
@@ -112,7 +112,7 @@ void __ARM_2D_FUNC(alpha_blending_colour_masking)(
 }
 #else
 extern
-void __ARM_2D_FUNC(alpha_blending_colour_masking)(
+void __ARM_2D_FUNC(alpha_blending_colour_keying)(
                                                 __API_INT_TYPE * __RESTRICT pSourceBase,
                                                 int16_t         iSourceStride,
                                                 __API_INT_TYPE * __RESTRICT pTargetBase,
@@ -124,7 +124,7 @@ void __ARM_2D_FUNC(alpha_blending_colour_masking)(
 
 #ifndef __PATCH_COLOUR_FILLING_WITH_ALPHA
 __WEAK
-void __ARM_2D_FUNC(colour_filling_with_alpha)(
+void __ARM_2D_FUNC(colour_filling_with_opacity)(
                                         __API_INT_TYPE *__RESTRICT pTargetBase,
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
@@ -146,7 +146,7 @@ void __ARM_2D_FUNC(colour_filling_with_alpha)(
 }
 #else
 extern
-void __ARM_2D_FUNC(colour_filling_with_alpha)(
+void __ARM_2D_FUNC(colour_filling_with_opacity)(
                                         __API_INT_TYPE *__RESTRICT pTargetBase,
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
@@ -156,7 +156,7 @@ void __ARM_2D_FUNC(colour_filling_with_alpha)(
 
 #ifndef __PATCH_COLOUR_FILLING_ALPHA_MASK
 __WEAK
-void __ARM_2D_FUNC(colour_filling_alpha_mask)(   
+void __ARM_2D_FUNC(colour_filling_mask)(   
                             __API_INT_TYPE *__RESTRICT pTarget,
                             int16_t iTargetStride,
                             uint8_t *__RESTRICT pchAlpha,
@@ -180,7 +180,7 @@ void __ARM_2D_FUNC(colour_filling_alpha_mask)(
 }
 #else
 extern
-void __ARM_2D_FUNC(colour_filling_alpha_mask)(   
+void __ARM_2D_FUNC(colour_filling_mask)(   
                             __API_INT_TYPE *__RESTRICT pTarget,
                             int16_t iTargetStride,
                             uint8_t *__RESTRICT pchAlpha,
@@ -193,7 +193,7 @@ void __ARM_2D_FUNC(colour_filling_alpha_mask)(
 
 #ifndef __PATCH_COLOUR_FILLING_ALPHA_MASK_OPACITY
 __WEAK
-void __ARM_2D_FUNC(colour_filling_alpha_mask_opacity)(   
+void __ARM_2D_FUNC(colour_filling_mask_opacity)(   
                             __API_INT_TYPE *__RESTRICT pTarget,
                             int16_t iTargetStride,
                             uint8_t *__RESTRICT pchAlpha,
@@ -218,7 +218,7 @@ void __ARM_2D_FUNC(colour_filling_alpha_mask_opacity)(
 }
 #else
 extern
-void __ARM_2D_FUNC(colour_filling_alpha_mask_opacity)(   
+void __ARM_2D_FUNC(colour_filling_mask_opacity)(   
                             __API_INT_TYPE *__RESTRICT pTarget,
                             int16_t iTargetStride,
                             uint8_t *__RESTRICT pchAlpha,

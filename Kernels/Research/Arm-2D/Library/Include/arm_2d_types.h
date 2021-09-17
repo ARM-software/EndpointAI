@@ -364,7 +364,7 @@ typedef union __arm_2d_op_info_t {
                 uint8_t bHasSource              : 1;                            //!< whether this operation contains source tile
                 uint8_t bHasOrigin              : 1;                            //!< whether the Source has an origin tile
                 uint8_t bHasTarget              : 1;                            //!< whether this operation contains target tile
-                uint8_t bHasAlphaMask           : 1;                            //!< whether this operation has Alpha Mask layer
+                uint8_t bHasMask           : 1;                            //!< whether this operation has Alpha Mask layer
 
                 uint8_t                         : 3;
                 uint8_t bAllowEnforcedColour    : 1;                            //!< whether this operation allow enforced colours in tiles
@@ -464,7 +464,7 @@ typedef struct arm_2d_op_t {
     } Target;
 } arm_2d_op_t;
 
-typedef struct arm_2d_op_amsk_t {
+typedef struct arm_2d_op_msk_t {
     inherit(arm_2d_op_core_t);
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile
@@ -472,8 +472,8 @@ typedef struct arm_2d_op_amsk_t {
     } Target;
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile
-    } AlphaMask;
-} arm_2d_op_amsk_t;
+    } Mask;
+} arm_2d_op_msk_t;
 
 typedef struct arm_2d_op_src_t {
     inherit(arm_2d_op_core_t);
@@ -487,7 +487,7 @@ typedef struct arm_2d_op_src_t {
     uint32_t wMode;
 } arm_2d_op_src_t;
 
-typedef struct arm_2d_op_src_amsk_t {
+typedef struct arm_2d_op_src_msk_t {
     inherit(arm_2d_op_core_t);
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile
@@ -500,8 +500,8 @@ typedef struct arm_2d_op_src_amsk_t {
     
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile
-    } AlphaMask;
-} arm_2d_op_src_amsk_t;
+    } Mask;
+} arm_2d_op_src_msk_t;
 
 
 /*! \brief arm_2d_op_src_orig_t is inherit from arm_2d_op_src_t
@@ -526,7 +526,7 @@ typedef struct arm_2d_op_src_orig_t {
 
 /*! \brief arm_2d_op_src_orig_t is inherit from arm_2d_op_src_t
  */
-typedef struct arm_2d_op_src_orig_amsk_t {
+typedef struct arm_2d_op_src_orig_msk_t {
     inherit(arm_2d_op_core_t);
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile
@@ -543,8 +543,8 @@ typedef struct arm_2d_op_src_orig_amsk_t {
     }Origin;
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile
-    } AlphaMask;
-} arm_2d_op_src_orig_amsk_t;
+    } Mask;
+} arm_2d_op_src_orig_msk_t;
 
 /*----------------------------------------------------------------------------*
  * Fast Rotation linear regression structure

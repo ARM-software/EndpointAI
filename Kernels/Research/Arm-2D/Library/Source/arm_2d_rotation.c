@@ -662,8 +662,8 @@ arm_fsm_rt_t __arm_2d_cccn888_sw_rotate(__arm_2d_sub_task_t *ptTask)
 
 
 ARM_NONNULL(2)
-arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_alpha_prepare(
-                                        arm_2d_op_rotate_alpha_t *ptOP,
+arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_opacity_prepare(
+                                        arm_2d_op_rotate_opacity_t *ptOP,
                                         const arm_2d_tile_t *ptSource,
                                         const arm_2d_location_t tCentre,
                                         float fAngle,
@@ -672,7 +672,7 @@ arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_alpha_prepare(
 {
     assert(NULL != ptSource);
 
-    ARM_2D_IMPL(arm_2d_op_rotate_alpha_t, ptOP);
+    ARM_2D_IMPL(arm_2d_op_rotate_opacity_t, ptOP);
 
     if (!arm_2d_op_wait_async((arm_2d_op_core_t *)ptThis)) {
         return ARM_2D_ERR_BUSY;
@@ -692,8 +692,8 @@ arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_alpha_prepare(
 }
 
 ARM_NONNULL(2)
-arm_2d_err_t arm_2dp_cccn888_tile_rotation_with_alpha_prepare(
-                                        arm_2d_op_rotate_alpha_t *ptOP,
+arm_2d_err_t arm_2dp_cccn888_tile_rotation_with_opacity_prepare(
+                                        arm_2d_op_rotate_opacity_t *ptOP,
                                         const arm_2d_tile_t *ptSource,
                                         const arm_2d_location_t tCentre,
                                         float fAngle,
@@ -702,7 +702,7 @@ arm_2d_err_t arm_2dp_cccn888_tile_rotation_with_alpha_prepare(
 {
     assert(NULL != ptSource);
 
-    ARM_2D_IMPL(arm_2d_op_rotate_alpha_t, ptOP);
+    ARM_2D_IMPL(arm_2d_op_rotate_opacity_t, ptOP);
 
     if (!arm_2d_op_wait_async((arm_2d_op_core_t *)ptThis)) {
         return ARM_2D_ERR_BUSY;
@@ -723,7 +723,7 @@ arm_2d_err_t arm_2dp_cccn888_tile_rotation_with_alpha_prepare(
 
 arm_fsm_rt_t __arm_2d_rgb565_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask)
 {
-    ARM_2D_IMPL(arm_2d_op_rotate_alpha_t, ptTask->ptOP);
+    ARM_2D_IMPL(arm_2d_op_rotate_opacity_t, ptTask->ptOP);
     assert(ARM_2D_COLOUR_RGB565 == OP_CORE.ptOp->Info.Colour.chScheme);
 
     __arm_2d_impl_rgb565_rotate_alpha(  &(ptTask->Param.tCopyOrig),
@@ -736,7 +736,7 @@ arm_fsm_rt_t __arm_2d_rgb565_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask)
 
 arm_fsm_rt_t __arm_2d_cccn888_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask)
 {
-    ARM_2D_IMPL(arm_2d_op_rotate_alpha_t, ptTask->ptOP);
+    ARM_2D_IMPL(arm_2d_op_rotate_opacity_t, ptTask->ptOP);
     assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
 
     __arm_2d_impl_cccn888_rotate_alpha(&(ptTask->Param.tCopyOrig),
