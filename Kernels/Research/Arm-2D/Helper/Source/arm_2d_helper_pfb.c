@@ -613,9 +613,12 @@ ARM_PT_BEGIN(this.Adapter.chPT)
                                         this.tCFG.Dependency.evtOnDrawing.pTarget,
                                         this.Adapter.ptFrameBuffer,
                                         this.Adapter.bIsNewFrame);
+        //! just in case some one forgot to do this...
+        arm_2d_op_wait_async(NULL);
+        
         this.Adapter.bIsNewFrame = false;
         this.Statistics.nTotalCycle += arm_2d_helper_perf_counter_stop();                                 
-        
+
         if (arm_fsm_rt_on_going == tResult) {
     ARM_PT_GOTO_PREV_ENTRY()
         } else if (tResult < 0) {

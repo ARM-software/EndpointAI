@@ -75,7 +75,7 @@ void __arm_2d_impl_cccn888_to_rgb565(uint32_t *__RESTRICT pwSource,
                                     int16_t iTargetStride,
                                     arm_2d_size_t *__RESTRICT ptCopySize);
 
-void __arm_2d_impl_rgb565_to_rgb888(uint16_t *__RESTRICT phwSourceBase,
+void __arm_2d_impl_rgb565_to_cccn888(uint16_t *__RESTRICT phwSourceBase,
                                     int16_t iSourceStride,
                                     uint32_t *__RESTRICT pwTargetBase,
                                     int16_t iTargetStride,
@@ -182,7 +182,7 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb888(
 
     switch ( this.Source.ptTile->tInfo.tColourInfo.u3ColourSZ) {
         case ARM_2D_COLOUR_SZ_16BIT:
-            __arm_2d_impl_rgb565_to_rgb888( ptTask->Param.tCopy.tSource.pBuffer,
+            __arm_2d_impl_rgb565_to_cccn888( ptTask->Param.tCopy.tSource.pBuffer,
                                             ptTask->Param.tCopy.tSource.iStride,
                                             ptTask->Param.tCopy.tTarget.pBuffer,
                                             ptTask->Param.tCopy.tTarget.iStride,
@@ -232,7 +232,7 @@ void __arm_2d_impl_cccn888_to_rgb565(uint32_t *__RESTRICT pwSourceBase,
 }
 
 __WEAK
-void __arm_2d_impl_rgb565_to_rgb888(uint16_t *__RESTRICT phwSourceBase,
+void __arm_2d_impl_rgb565_to_cccn888(uint16_t *__RESTRICT phwSourceBase,
                                     int16_t iSourceStride,
                                     uint32_t *__RESTRICT pwTargetBase,
                                     int16_t iTargetStride,

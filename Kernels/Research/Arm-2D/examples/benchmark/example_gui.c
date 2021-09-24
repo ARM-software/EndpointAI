@@ -240,18 +240,20 @@ void show_icon_with_background(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
         
         draw_round_corner_box(  ptTarget, 
                                 &__centre_region,
-                                GLCD_COLOR_WHITE,
-                                180,
-                                bIsNewFrame);
-                                                    
+                                GLCD_COLOR_BLACK,
+                                32,
+                                bIsNewFrame);    
+        arm_2d_op_wait_async(NULL);
     }
 
 
     arm_2d_align_centre(*ptTarget, c_tileSoftwareMask2.tRegion.tSize) {
-        arm_2d_rgb565_fill_colour_with_mask(ptTarget, 
-                                            &__centre_region, 
-                                            &c_tileSoftwareMask2, 
-                                            GLCD_COLOR_DARK_GREY);
+        arm_2d_rgb565_fill_colour_with_mask(
+                                ptTarget, 
+                                &__centre_region, 
+                                &c_tileSoftwareMask2, 
+                                (arm_2d_color_rgb565_t){GLCD_COLOR_DARK_GREY});
+        arm_2d_op_wait_async(NULL);
     }
 }
 
@@ -263,20 +265,23 @@ void show_icon_without_background(const arm_2d_tile_t *ptTarget, bool bIsNewFram
     arm_2d_align_centre(*ptTarget, c_tileSoftwareMask2.tRegion.tSize) {
         
         arm_2d_rgb565_fill_colour_with_mask_and_opacity(   
-                                                    ptTarget, 
-                                                    &__centre_region, 
-                                                    &c_tileSoftwareMask2, 
-                                                    GLCD_COLOR_DARK_GREY,
-                                                    128);
+                                ptTarget, 
+                                &__centre_region, 
+                                &c_tileSoftwareMask2, 
+                                (arm_2d_color_rgb565_t){GLCD_COLOR_DARK_GREY},
+                                128);
     
+        arm_2d_op_wait_async(NULL);
+        
         __centre_region.tLocation.iX -= 2;
         __centre_region.tLocation.iY -= 2;
     
-        arm_2d_rgb565_fill_colour_with_mask(ptTarget, 
-                                            &__centre_region, 
-                                            &c_tileSoftwareMask2, 
-                                            GLCD_COLOR_WHITE
-                                            );
+        arm_2d_rgb565_fill_colour_with_mask(
+                                    ptTarget, 
+                                    &__centre_region, 
+                                    &c_tileSoftwareMask2, 
+                                    (arm_2d_color_rgb565_t){GLCD_COLOR_WHITE});
+        arm_2d_op_wait_async(NULL);
     }
 }
 
@@ -292,16 +297,26 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
 
     static const arm_2d_region_t tFillRegion = {-200, 
                                                 -100, 
-                                                APP_SCREEN_WIDTH + 200, 
+                                                (APP_SCREEN_WIDTH >> 1) + 200, 
                                                 APP_SCREEN_HEIGHT + 100 };
-    
+    static const arm_2d_region_t tRightHalfScreen = {
+                                                (APP_SCREEN_WIDTH >> 1), 
+                                                0, 
+                                                (APP_SCREEN_WIDTH >> 1), 
+                                                APP_SCREEN_HEIGHT
+                                            };
 
     do {
-
+        
         arm_2d_rgb16_tile_copy( &c_tileCMSISLogo,
                                 ptFrameBuffer,
                                 &tFillRegion,
                                 ptLayers[0].wMode);
+                                
+        arm_2d_rgb16_fill_colour(
+                                ptFrameBuffer,
+                                &tRightHalfScreen,
+                                GLCD_COLOR_WHITE);
         
         arm_2d_rgb16_fill_colour(   s_ptRefreshLayers[2].ptTile, 
                                     NULL, 
@@ -370,7 +385,9 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                                     &tTempPanel,
                                     false)) {
             //! show progress wheel
-            busy_wheel_show(&tTempPanel, bIsNewFrame);
+            busy_wheel2_show(&tTempPanel, bIsNewFrame);
+            
+            arm_2d_op_wait_async(NULL);
         }
         
         if (NULL != arm_2d_tile_generate_child( ptFrameBuffer, 
@@ -389,7 +406,9 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                                     &tTempPanel,
                                     false)) {
             //! show progress wheel
-            busy_wheel2_show(&tTempPanel, bIsNewFrame);
+            busy_wheel_show(&tTempPanel, bIsNewFrame);
+            
+            arm_2d_op_wait_async(NULL);
         }
         
         if (NULL != arm_2d_tile_generate_child( ptFrameBuffer, 
@@ -407,7 +426,10 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                                     },
                                     &tTempPanel,
                                     false)) {
-            show_icon_with_background(&tTempPanel, bIsNewFrame);
+            //show_icon_with_background(&tTempPanel, bIsNewFrame);
+            spinning_wheel_show(&tTempPanel, bIsNewFrame);
+            
+            arm_2d_op_wait_async(NULL);
         }
         
         if (NULL != arm_2d_tile_generate_child( ptFrameBuffer, 
@@ -426,6 +448,8 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                                     &tTempPanel,
                                     false)) {
             show_icon_without_background(&tTempPanel, bIsNewFrame);
+            
+            arm_2d_op_wait_async(NULL);
         }
         
         

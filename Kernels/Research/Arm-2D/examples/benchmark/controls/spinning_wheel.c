@@ -41,6 +41,7 @@
 #   pragma clang diagnostic ignored "-Wmissing-declarations"
 #   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
 #   pragma clang diagnostic ignored "-Winitializer-overrides"
+#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -49,6 +50,7 @@
 /*============================ GLOBAL VARIABLES ==============================*/
 extern uint32_t SystemCoreClock;
 
+extern const arm_2d_tile_t c_tileSpinWheelMask;
 
 /*============================ PROTOTYPES ====================================*/
 __attribute__((nothrow)) 
@@ -56,6 +58,20 @@ extern int64_t clock(void);
 
 /*============================ LOCAL VARIABLES ===============================*/
 
+ARM_NOINIT static uint8_t s_tileSpinWheelMaskBuffer[61 * 61];
+const static arm_2d_tile_t s_tileSpinWheelMask = {
+    .pchBuffer = (uint8_t *)s_tileSpinWheelMaskBuffer,
+    .tRegion = {
+        .tSize = {61, 61},
+    },
+    .tInfo = {
+        .bIsRoot = true,
+        .bHasEnforcedColour = true,
+        .tColourInfo = {
+            .chScheme = ARM_2D_COLOUR_8BIT,
+        },
+    },
+};
 
 /*============================ IMPLEMENTATION ================================*/
 
@@ -70,6 +86,50 @@ void spinning_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
     ASSERT(NULL != ptTarget);
     ARM_2D_UNUSED(ptTarget);
     ARM_2D_UNUSED(bIsNewFrame);
+    static float s_fAngle = 0.0f;
+
+    arm_2d_align_centre(*ptTarget, 100, 100) {
+        
+        draw_round_corner_box(  ptTarget, 
+                                &__centre_region,
+                                GLCD_COLOR_BLACK,
+                                64,
+                                bIsNewFrame);    
+        arm_2d_op_wait_async(NULL);
+    }
+
+    //! spin mask
+    do {
+        if (bIsNewFrame) {
+            s_fAngle += ARM_2D_ANGLE(6.0f);
+            s_fAngle = fmodf(s_fAngle,ARM_2D_ANGLE(360));
+        }
+
+        const arm_2d_location_t c_tCentre = {
+            .iX = 30,
+            .iY = 30,
+        };
+
+        memset(s_tileSpinWheelMask.pchBuffer, 0, 61 * 61);
+        
+        arm_2d_gray8_tile_rotation( &c_tileSpinWheelMask,
+                                    &s_tileSpinWheelMask,
+                                    NULL,
+                                    c_tCentre,
+                                    s_fAngle,
+                                    0x00);
+
+        arm_2d_op_wait_async(NULL);
+    } while(0);
+
+    arm_2d_align_centre(*ptTarget, s_tileSpinWheelMask.tRegion.tSize) {
+        arm_2d_rgb565_fill_colour_with_mask(
+                                ptTarget, 
+                                &__centre_region, 
+                                &s_tileSpinWheelMask, 
+                                (arm_2d_color_rgb565_t){GLCD_COLOR_WHITE});
+        arm_2d_op_wait_async(NULL);
+    }
 
 }
 

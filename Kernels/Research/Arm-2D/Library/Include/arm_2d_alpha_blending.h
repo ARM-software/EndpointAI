@@ -49,6 +49,15 @@ extern "C" {
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
+#define arm_2d_gray8_alpha_blending(  __SRC_ADDR,   /*!< source tile address */ \
+                                      __DES_ADDR,   /*!< target tile address */ \
+                                      __REGION_ADDR,/*!< region address */      \
+                                      __ALPHA)      /*!< alpha */               \
+            arm_2dp_gray8_alpha_blending(  NULL,                                \
+                                            (__SRC_ADDR),                       \
+                                            (__DES_ADDR),                       \
+                                            (__REGION_ADDR),                    \
+                                            (__ALPHA))
 
 #define arm_2d_rgb565_alpha_blending( __SRC_ADDR,   /*!< source tile address */ \
                                       __DES_ADDR,   /*!< target tile address */ \
@@ -79,6 +88,17 @@ extern "C" {
                                             (__DES_ADDR),                       \
                                             (__REGION_ADDR),                    \
                                             (__ALPHA))
+
+#define arm_2d_gray8_fill_colour_with_alpha(                                    \
+                                      __DES_ADDR,   /*!< target tile address */ \
+                                      __REGION_ADDR,/*!< region address */      \
+                                      __COLOUR,     /*!< colour */              \
+                                      __ALPHA)      /*!< alpha */               \
+            arm_2dp_gray8_fill_colour_with_opacity(  NULL,                      \
+                                                 (__DES_ADDR),                  \
+                                                 (__REGION_ADDR),               \
+                                                 (__COLOUR),                    \
+                                                 (__ALPHA))
 
 #define arm_2d_rgb565_fill_colour_with_alpha(                                   \
                                       __DES_ADDR,   /*!< target tile address */ \
@@ -146,24 +166,24 @@ extern "C" {
                                                  (__COLOUR),                    \
                                                  (__ALPHA))
 
-#define arm_2d_c8bit_fill_colour_with_alpha_mask(                               \
+#define arm_2d_gray8_fill_colour_with_alpha_mask(                               \
                                     __TARGET_ADDR,  /*!< target tile address*/  \
                                     __REGION_ADDR,  /*!< target region address*/\
                                     __ALPHA_ADDR,   /*!< alpha tile address */  \
                                     __COLOUR)       /*!< colour */              \
-            arm_2dp_c8bit_fill_colour_with_mask(                                \
+            arm_2dp_gray8_fill_colour_with_mask(                                \
                                       NULL,                                     \
                                      (__TARGET_ADDR),                           \
                                      (__REGION_ADDR),                           \
                                      (__ALPHA_ADDR),                            \
                                      (__COLOUR))
 
-#define arm_2d_c8bit_fill_colour_with_mask(                                     \
+#define arm_2d_gray8_fill_colour_with_mask(                                     \
                                     __TARGET_ADDR,  /*!< target tile address*/  \
                                     __REGION_ADDR,  /*!< target region address*/\
                                     __ALPHA_ADDR,   /*!< alpha tile address */  \
                                     __COLOUR)       /*!< colour */              \
-            arm_2dp_c8bit_fill_colour_with_mask(                                \
+            arm_2dp_gray8_fill_colour_with_mask(                                \
                                       NULL,                                     \
                                      (__TARGET_ADDR),                           \
                                      (__REGION_ADDR),                           \
@@ -243,13 +263,13 @@ extern "C" {
                                      (__COLOUR))
 
 
-#define arm_2d_c8bit_fill_colour_with_alpha_mask_and_opacity(                   \
+#define arm_2d_gray8_fill_colour_with_alpha_mask_and_opacity(                   \
                                     __TARGET_ADDR,  /*!< target tile address*/  \
                                     __REGION_ADDR,  /*!< target region address*/\
                                     __ALPHA_ADDR,   /*!< alpha tile address */  \
                                     __COLOUR,       /*!< colour */              \
                                     __OPACITY)                                  \
-            arm_2dp_c8bit_fill_colour_with_mask_and_opacity(                    \
+            arm_2dp_gray8_fill_colour_with_mask_and_opacity(                    \
                                       NULL,                                     \
                                      (__TARGET_ADDR),                           \
                                      (__REGION_ADDR),                           \
@@ -257,13 +277,13 @@ extern "C" {
                                      (__COLOUR),                                \
                                      (__OPACITY))
 
-#define arm_2d_c8bit_fill_colour_with_mask_and_opacity(                         \
+#define arm_2d_gray8_fill_colour_with_mask_and_opacity(                         \
                                     __TARGET_ADDR,  /*!< target tile address*/  \
                                     __REGION_ADDR,  /*!< target region address*/\
                                     __ALPHA_ADDR,   /*!< alpha tile address */  \
                                     __COLOUR,       /*!< colour */              \
                                     __OPACITY)                                  \
-            arm_2dp_c8bit_fill_colour_with_mask_and_opacity(                    \
+            arm_2dp_gray8_fill_colour_with_mask_and_opacity(                    \
                                       NULL,                                     \
                                      (__TARGET_ADDR),                           \
                                      (__REGION_ADDR),                           \
@@ -354,6 +374,34 @@ extern "C" {
                                      (__ALPHA_ADDR),                            \
                                      (__COLOUR),                                \
                                      (__OPACITY))
+
+#define arm_2d_gray8_alpha_blending_with_colour_keying(                         \
+                                      __SRC_ADDR,   /*!< source tile address */ \
+                                      __DES_ADDR,   /*!< target tile address */ \
+                                      __REGION_ADDR,/*!< region address */      \
+                                      __ALPHA,     /*!< colour */               \
+                                      __COLOUR)      /*!< alpha */              \
+            arm_2dp_gray8_alpha_blending_with_colour_keying(                    \
+                                                    NULL,                       \
+                                                 (__SRC_ADDR),                  \
+                                                 (__DES_ADDR),                  \
+                                                 (__REGION_ADDR),               \
+                                                 (__ALPHA),                     \
+                                                 (__COLOUR))
+
+#define arm_2d_gray8_alpha_blending_with_colour_masking(                        \
+                                      __SRC_ADDR,   /*!< source tile address */ \
+                                      __DES_ADDR,   /*!< target tile address */ \
+                                      __REGION_ADDR,/*!< region address */      \
+                                      __ALPHA,     /*!< colour */               \
+                                      __COLOUR)      /*!< alpha */              \
+            arm_2dp_gray8_alpha_blending_with_colour_keying(                    \
+                                                    NULL,                       \
+                                                 (__SRC_ADDR),                  \
+                                                 (__DES_ADDR),                  \
+                                                 (__REGION_ADDR),               \
+                                                 (__ALPHA),                     \
+                                                 (__COLOUR))
 
 
 #define arm_2d_rgb565_alpha_blending_with_colour_keying(                        \
@@ -472,6 +520,7 @@ typedef struct arm_2d_op_alpha_cl_key_t {
     uint32_t wMode;
     uint8_t chRatio;
     union {
+        uint8_t  chColour;
         uint16_t hwColour;
         uint32_t wColour;
     };
@@ -520,18 +569,22 @@ typedef struct arm_2d_op_alpha_fill_cl_msk_opc_t {
 
 /*! \note arm_2d_op_fill_cl_t inherits from arm_2d_op_t explicitly 
  */
-typedef struct arm_2d_op_fill_cl_opacity_t {
+typedef struct arm_2d_op_fill_cl_opc_t {
     inherit(arm_2d_op_core_t);
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile 
         const arm_2d_region_t   *ptRegion;      //!< target region
     } Target;
     union {
+        uint8_t chColour;
         uint16_t hwColour;
         uint32_t wColour;
     };
     uint_fast8_t chRatio;                       //!< transparency ratio 
-} arm_2d_op_fill_cl_opacity_t;
+} arm_2d_op_fill_cl_opc_t;
+
+
+typedef arm_2d_op_src_msk_t arm_2d_op_cp_msk_t;
 
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
@@ -539,7 +592,15 @@ typedef struct arm_2d_op_fill_cl_opacity_t {
 /*----------------------------------------------------------------------------*
  * Copy tile to destination with specified transparency ratio (0~255)         *
  *----------------------------------------------------------------------------*/
-                                            
+
+extern 
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_gray8_alpha_blending(  arm_2d_op_alpha_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion,
+                                            uint_fast8_t chRatio);
+                             
 extern 
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb565_alpha_blending( arm_2d_op_alpha_t *ptOP,
@@ -561,10 +622,19 @@ arm_fsm_rt_t arm_2dp_cccn888_alpha_blending( arm_2d_op_alpha_t *ptOP,
  * Fill a specified region with a given colour and transparency ratio (0~255) *
  *----------------------------------------------------------------------------*/
 
+extern
+ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_opacity( 
+                                                arm_2d_op_fill_cl_opc_t *ptOP,
+                                                const arm_2d_tile_t *ptTarget,
+                                                const arm_2d_region_t *ptRegion,
+                                                uint8_t chColour,
+                                                uint_fast8_t chRatio);
+
 extern 
 ARM_NONNULL(2)
 arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_opacity( 
-                                                arm_2d_op_fill_cl_opacity_t *ptOP,
+                                                arm_2d_op_fill_cl_opc_t *ptOP,
                                                 const arm_2d_tile_t *ptTarget,
                                                 const arm_2d_region_t *ptRegion,
                                                 arm_2d_color_rgb565_t tColour,
@@ -573,7 +643,7 @@ arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_opacity(
 extern 
 ARM_NONNULL(2)
 arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_opacity( 
-                                                arm_2d_op_fill_cl_opacity_t *ptOP,
+                                                arm_2d_op_fill_cl_opc_t *ptOP,
                                                 const arm_2d_tile_t *ptTarget,
                                                 const arm_2d_region_t *ptRegion,
                                                 arm_2d_color_rgb888_t tColour,
@@ -585,7 +655,7 @@ arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_opacity(
 
 extern
 ARM_NONNULL(2,4)
-arm_fsm_rt_t arm_2dp_c8bit_fill_colour_with_mask(
+arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_mask(
                                         arm_2d_op_fill_cl_msk_t *ptOP,
                                         const arm_2d_tile_t *ptTarget,
                                         const arm_2d_region_t *ptRegion,
@@ -599,7 +669,7 @@ arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_mask(
                                         const arm_2d_tile_t *ptTarget,
                                         const arm_2d_region_t *ptRegion,
                                         const arm_2d_tile_t *ptAlpha,
-                                        uint16_t hwColour);
+                                        arm_2d_color_rgb565_t tColour);
 
 extern                                  
 ARM_NONNULL(2,4)
@@ -608,7 +678,7 @@ arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_mask(
                                         const arm_2d_tile_t *ptTarget,
                                         const arm_2d_region_t *ptRegion,
                                         const arm_2d_tile_t *ptAlpha,
-                                        uint32_t wColour);
+                                        arm_2d_color_cccn888_t tColour);
 
 
 /*----------------------------------------------------------------------------*
@@ -616,8 +686,8 @@ arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_mask(
  *----------------------------------------------------------------------------*/
 
 extern
-ARM_NONNULL(2,4)
-arm_fsm_rt_t arm_2dp_c8bit_fill_colour_with_mask_and_opacity(
+ARM_NONNULL(2)
+arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_mask_and_opacity(
                                         arm_2d_op_alpha_fill_cl_msk_opc_t *ptOP,
                                         const arm_2d_tile_t *ptTarget,
                                         const arm_2d_region_t *ptRegion,
@@ -626,29 +696,39 @@ arm_fsm_rt_t arm_2dp_c8bit_fill_colour_with_mask_and_opacity(
                                         uint8_t chOpacity);
                                         
 extern
-ARM_NONNULL(2,4)
+ARM_NONNULL(2)
 arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_mask_and_opacity(
                                         arm_2d_op_alpha_fill_cl_msk_opc_t *ptOP,
                                         const arm_2d_tile_t *ptTarget,
                                         const arm_2d_region_t *ptRegion,
                                         const arm_2d_tile_t *ptAlpha,
-                                        uint16_t chColour,
+                                        arm_2d_color_rgb565_t tColour,
                                         uint8_t chOpacity);
 
 extern
-ARM_NONNULL(2,4)
+ARM_NONNULL(2)
 arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_mask_and_opacity(
                                         arm_2d_op_alpha_fill_cl_msk_opc_t *ptOP,
                                         const arm_2d_tile_t *ptTarget,
                                         const arm_2d_region_t *ptRegion,
                                         const arm_2d_tile_t *ptAlpha,
-                                        uint32_t chColour,
+                                        arm_2d_color_rgb888_t tColour,
                                         uint8_t chOpacity);
 
 /*----------------------------------------------------------------------------*
  * Blend tile and background with a specified transparency ratio(0~255) and a *
  * specified transparency color mask                                          *
  *----------------------------------------------------------------------------*/
+
+extern 
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_gray8_alpha_blending_with_colour_keying(
+                                            arm_2d_op_alpha_cl_key_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion,
+                                            uint_fast8_t chRatio,
+                                            uint8_t chColour);
 
 extern
 ARM_NONNULL(2,3)

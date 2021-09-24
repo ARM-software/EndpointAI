@@ -929,16 +929,24 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
  * Frontend                                                                   *
  *----------------------------------------------------------------------------*/
 
+arm_fsm_rt_t __arm_2d_op_depose(arm_2d_op_core_t *ptThis, 
+                                arm_fsm_rt_t tResult)
+{
+    //arm_irq_safe 
+    {
+        this.tResult = tResult;
+        this.Status.tValue = 
+            ((tResult < 0) ? __ARM_2D_OP_STATUS_IO_ERROR_msk : 0)       |
+            __ARM_2D_OP_STATUS_CPL_msk                                  ;
+    }
+    return tResult;
+}
+
 __WEAK
 arm_fsm_rt_t __arm_2d_op_frontend_on_leave( arm_2d_op_core_t *ptThis, 
                                             arm_fsm_rt_t tResult)
 {
-    this.Status.bIsBusy = 0;
-    this.Status.bOpCpl = true;
-    this.Status.bIOError = (tResult < 0);
-    this.tResult = tResult;
-    
-    return tResult;
+    return __arm_2d_op_depose(ptThis, tResult);
 }
 
 static void __arm_2d_op_use_default_frame_buffer(arm_2d_op_core_t *ptOP)
@@ -960,7 +968,9 @@ arm_fsm_rt_t __arm_2d_op_frontend_op_decoder(arm_2d_op_core_t *ptThis)
                 (   ARM_2D_OP_INFO_PARAM_HAS_SOURCE 
                 //|   ARM_2D_OP_INFO_PARAM_HAS_ORIGIN
                 |   ARM_2D_OP_INFO_PARAM_HAS_TARGET
-                |   ARM_2D_OP_INFO_PARAM_HAS_ALPHA_MASK)) {
+                //|   ARM_2D_OP_INFO_PARAM_HAS_SOURCE_MASK
+                //|   ARM_2D_OP_INFO_PARAM_HAS_TARGET_MASK
+                )) {
                 
     case (   ARM_2D_OP_INFO_PARAM_HAS_SOURCE 
          |   ARM_2D_OP_INFO_PARAM_HAS_TARGET):

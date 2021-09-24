@@ -469,6 +469,11 @@
               <FileType>1</FileType>
               <FilePath>.\asset\software.c</FilePath>
             </File>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\SpinWheel.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1426,6 +1431,11 @@
               <FileName>software.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\asset\software.c</FilePath>
+            </File>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\SpinWheel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2452,6 +2462,11 @@
               <FileName>software.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\asset\software.c</FilePath>
+            </File>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\SpinWheel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3480,6 +3495,11 @@
               <FileType>1</FileType>
               <FilePath>.\asset\software.c</FilePath>
             </File>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\SpinWheel.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4306,7 +4326,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0</Define>
+              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -4437,6 +4457,11 @@
               <FileName>software.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\asset\software.c</FilePath>
+            </File>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\SpinWheel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5465,6 +5490,11 @@
               <FileType>1</FileType>
               <FilePath>.\asset\software.c</FilePath>
             </File>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\SpinWheel.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -6492,6 +6522,11 @@
               <FileType>1</FileType>
               <FilePath>.\asset\software.c</FilePath>
             </File>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\SpinWheel.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -7387,7 +7422,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Wno-nonportable-include-path -Omax</MiscControls>
-              <Define></Define>
+              <Define>__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;..\..\Library\Include;.;.\platform\stm32f746g-discovery;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -7518,6 +7553,11 @@
               <FileName>software.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\asset\software.c</FilePath>
+            </File>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\SpinWheel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -8545,6 +8585,11 @@
               <FileName>software.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\asset\software.c</FilePath>
+            </File>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\SpinWheel.c</FilePath>
             </File>
           </Files>
         </Group>

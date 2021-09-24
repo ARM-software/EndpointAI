@@ -242,7 +242,7 @@
             <uThumb>1</uThumb>
             <VariousControls>
               <MiscControls>-Ofast -fdata-sections -ffunction-sections -fms-extensions -mcpu=cortex-m7 -mfloat-abi=soft -mfpu=fpv5-sp-d16 -std=gnu11</MiscControls>
-              <Define>RTE_Compiler_IO_STDOUT_User</Define>
+              <Define>RTE_Compiler_IO_STDOUT_User,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;..\..\Library\Include;.\platform\stm32f746g-discovery;.;..\..\Helper\Include;.\platform\lib</IncludePath>
             </VariousControls>
@@ -576,6 +576,11 @@
               <FileName>software.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\asset\software.c</FilePath>
+            </File>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\SpinWheel.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -373,6 +373,21 @@ arm_2d_tile_t *arm_2d_tile_generate_child(
                                         arm_2d_tile_t *ptOutput,
                                         bool bClipRegion);
 
+extern
+ARM_NONNULL(1,2)
+arm_2d_cmp_t arm_2d_tile_width_compare( const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_tile_t *ptReference);
+
+extern
+ARM_NONNULL(1,2)
+arm_2d_cmp_t arm_2d_tile_height_compare(const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_tile_t *ptReference);
+
+extern
+ARM_NONNULL(1,2)
+arm_2d_cmp_t arm_2d_tile_shape_compare( const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_tile_t *ptReference);
+                                        
 /*----------------------------------------------------------------------------*
  * Copy tile to destination directly                                          *
  *----------------------------------------------------------------------------*/

@@ -161,7 +161,7 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
         lcd_puts(   "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
                     "  Screen Size: "STR(APP_SCREEN_WIDTH)"*" STR(APP_SCREEN_HEIGHT));
         lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
-        lcd_puts( "Testing...\r\n");
+        lcd_puts( "Benchmark Report:\r\n");
         
         lcd_printf("Average: %d ", BENCHMARK.wAverage);
         lcd_printf("FPS30Freq: %4.2f MHz\r\n", ((float)BENCHMARK.wAverage * 30.0f) / 1000000.0f);
@@ -193,7 +193,8 @@ IMPL_PFB_ON_DRAW(__pfb_draw_handler)
 {
     ARM_2D_UNUSED(pTarget);
     example_gui_refresh(ptTile, bIsNewFrame);
-
+    
+    arm_2d_op_wait_async(NULL);
     return arm_fsm_rt_cpl;
 }
 
@@ -229,6 +230,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
 
     //lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
     //lcd_puts("Cycles\tAvrage\tUPS30Freq\tUPS\tLCD Latency");
+    arm_2d_op_wait_async(NULL);
 
     return arm_fsm_rt_cpl;
 }

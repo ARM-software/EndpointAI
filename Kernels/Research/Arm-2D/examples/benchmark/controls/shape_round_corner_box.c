@@ -88,11 +88,13 @@ void draw_round_corner_box( const arm_2d_tile_t *ptTarget,
                             ARM_2D_CP_MODE_COPY);
                             
     arm_2d_rgb565_fill_colour_with_mask_and_opacity(   
-                                                ptTarget, 
-                                                &tRegion, 
-                                                &s_tCorner, 
-                                                hwColour,
-                                                chAlpha);
+                                            ptTarget, 
+                                            &tRegion, 
+                                            &s_tCorner, 
+                                            (arm_2d_color_rgb565_t){hwColour},
+                                            chAlpha);
+                                                
+    arm_2d_op_wait_async(NULL);
 
     //! copy the top right corner
     tRegion.tLocation.iX += ptRegion->tSize.iWidth - s_tCorner.tRegion.tSize.iWidth;
@@ -103,12 +105,14 @@ void draw_round_corner_box( const arm_2d_tile_t *ptTarget,
                             ARM_2D_CP_MODE_X_MIRROR);
                             
     arm_2d_rgb565_fill_colour_with_mask_and_opacity(   
-                                                ptTarget, 
-                                                &tRegion, 
-                                                &s_tCorner, 
-                                                hwColour,
-                                                chAlpha);
-                                                
+                                            ptTarget, 
+                                            &tRegion, 
+                                            &s_tCorner, 
+                                            (arm_2d_color_rgb565_t){hwColour},
+                                            chAlpha);
+
+    arm_2d_op_wait_async(NULL);
+
     arm_2dp_rgb565_fill_colour_with_opacity(   
         NULL,
         ptTarget, 
@@ -125,6 +129,7 @@ void draw_round_corner_box( const arm_2d_tile_t *ptTarget,
         (arm_2d_color_rgb565_t){hwColour},
         chAlpha);
     
+    arm_2d_op_wait_async(NULL);
 
     arm_2dp_rgb565_fill_colour_with_opacity(   
         NULL,
@@ -142,7 +147,7 @@ void draw_round_corner_box( const arm_2d_tile_t *ptTarget,
         (arm_2d_color_rgb565_t){hwColour},
         chAlpha);
 
-  
+    arm_2d_op_wait_async(NULL);
                             
     //! copy the bottom right corner 
     tRegion.tLocation.iY += ptRegion->tSize.iHeight - s_tCorner.tRegion.tSize.iHeight;
@@ -154,11 +159,13 @@ void draw_round_corner_box( const arm_2d_tile_t *ptTarget,
                             ARM_2D_CP_MODE_Y_MIRROR );
 
     arm_2d_rgb565_fill_colour_with_mask_and_opacity(   
-                                                ptTarget, 
-                                                &tRegion, 
-                                                &s_tCorner, 
-                                                hwColour,
-                                                chAlpha);
+                                            ptTarget, 
+                                            &tRegion, 
+                                            &s_tCorner, 
+                                            (arm_2d_color_rgb565_t){hwColour},
+                                            chAlpha);
+
+    arm_2d_op_wait_async(NULL);
 
     //! copy the bottom left corner 
     tRegion.tLocation.iX = ptRegion->tLocation.iX;
@@ -169,12 +176,13 @@ void draw_round_corner_box( const arm_2d_tile_t *ptTarget,
                             ARM_2D_CP_MODE_Y_MIRROR );
                             
     arm_2d_rgb565_fill_colour_with_mask_and_opacity(  
-                                                ptTarget, 
-                                                &tRegion, 
-                                                &s_tCorner, 
-                                                hwColour,
-                                                chAlpha);
+                                            ptTarget, 
+                                            &tRegion, 
+                                            &s_tCorner, 
+                                            (arm_2d_color_rgb565_t){hwColour},
+                                            chAlpha);
 
+    arm_2d_op_wait_async(NULL);
 
     arm_2dp_rgb565_fill_colour_with_opacity(   
         NULL,
@@ -192,6 +200,7 @@ void draw_round_corner_box( const arm_2d_tile_t *ptTarget,
         (arm_2d_color_rgb565_t){hwColour},
         chAlpha);
 
+    arm_2d_op_wait_async(NULL);
 }
 
 

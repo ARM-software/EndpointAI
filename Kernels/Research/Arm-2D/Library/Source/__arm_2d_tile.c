@@ -201,6 +201,7 @@ bool arm_2d_is_point_inside_region( const arm_2d_region_t *ptRegion,
     return false;
 }
 
+
 /*
   HOW IT WORKS:
 
@@ -315,6 +316,106 @@ const arm_2d_tile_t *arm_2d_tile_get_root(  const arm_2d_tile_t *ptTile,
     } while(true);
 
     return ptTile;
+}
+
+
+
+ARM_NONNULL(1,2)
+arm_2d_cmp_t arm_2d_tile_width_compare( const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_tile_t *ptReference)
+{
+    assert(ptTarget != NULL);
+    assert(ptReference != NULL);
+    arm_2d_region_t tTargetRegion;
+    arm_2d_region_t tReferenceRegion;
+    
+    ptTarget = arm_2d_tile_get_root(ptTarget, &tTargetRegion, NULL);
+    ptReference = arm_2d_tile_get_root(ptReference, &tReferenceRegion, NULL);
+    
+    if (NULL == ptTarget) {
+        if (NULL != ptReference) {
+            return ARM_2D_CMP_SMALLER;
+        }
+        return ARM_2D_CMP_EQUALS;
+    } else if (NULL == ptReference) {
+        return ARM_2D_CMP_LARGER;
+    }
+    
+    if (tTargetRegion.tSize.iWidth > tReferenceRegion.tSize.iWidth) {
+        return ARM_2D_CMP_LARGER;
+    } else if (tTargetRegion.tSize.iWidth < tReferenceRegion.tSize.iWidth) {
+        return ARM_2D_CMP_SMALLER;
+    }
+    
+    return ARM_2D_CMP_EQUALS;
+}
+
+
+ARM_NONNULL(1,2)
+arm_2d_cmp_t arm_2d_tile_height_compare(const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_tile_t *ptReference)
+{
+    assert(ptTarget != NULL);
+    assert(ptReference != NULL);
+    arm_2d_region_t tTargetRegion;
+    arm_2d_region_t tReferenceRegion;
+    
+    ptTarget = arm_2d_tile_get_root(ptTarget, &tTargetRegion, NULL);
+    ptReference = arm_2d_tile_get_root(ptReference, &tReferenceRegion, NULL);
+    
+    if (NULL == ptTarget) {
+        if (NULL != ptReference) {
+            return ARM_2D_CMP_SMALLER;
+        }
+        return ARM_2D_CMP_EQUALS;
+    } else if (NULL == ptReference) {
+        return ARM_2D_CMP_LARGER;
+    }
+    
+    if (tTargetRegion.tSize.iHeight > tReferenceRegion.tSize.iHeight) {
+        return ARM_2D_CMP_LARGER;
+    } else if (tTargetRegion.tSize.iHeight < tReferenceRegion.tSize.iHeight) {
+        return ARM_2D_CMP_SMALLER;
+    }
+    
+    return ARM_2D_CMP_EQUALS;
+}
+
+ARM_NONNULL(1,2)
+arm_2d_cmp_t arm_2d_tile_shape_compare(   const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_tile_t *ptReference)
+{
+    assert(ptTarget != NULL);
+    assert(ptReference != NULL);
+    arm_2d_region_t tTargetRegion;
+    arm_2d_region_t tReferenceRegion;
+    
+    ptTarget = arm_2d_tile_get_root(ptTarget, &tTargetRegion, NULL);
+    ptReference = arm_2d_tile_get_root(ptReference, &tReferenceRegion, NULL);
+    
+    if (NULL == ptTarget) {
+        if (NULL != ptReference) {
+            return ARM_2D_CMP_SMALLER;
+        }
+        return ARM_2D_CMP_EQUALS;
+    } else if (NULL == ptReference) {
+        return ARM_2D_CMP_LARGER;
+    }
+    
+    if (tTargetRegion.tSize.iWidth < tReferenceRegion.tSize.iWidth) {
+        return ARM_2D_CMP_SMALLER;
+    }
+    
+    if (tTargetRegion.tSize.iHeight < tReferenceRegion.tSize.iHeight) {
+        return ARM_2D_CMP_SMALLER;
+    }
+    
+    if (    (tTargetRegion.tSize.iWidth == tReferenceRegion.tSize.iWidth)
+       &&   (tTargetRegion.tSize.iHeight == tReferenceRegion.tSize.iHeight)) {
+        return ARM_2D_CMP_EQUALS;
+    }
+    
+    return ARM_2D_CMP_LARGER;
 }
 
 
@@ -501,7 +602,7 @@ arm_fsm_rt_t arm_2dp_c8bit_tile_copy_with_colour_keying(
     }
 
     OP_CORE.ptOp = 
-        &ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_C8BIT;
+        &ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_C8BIT;
     
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -541,7 +642,7 @@ arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_colour_keying(
     }
 
     OP_CORE.ptOp = 
-        &ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB16;
+        &ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_RGB16;
     
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -580,7 +681,7 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_copy_with_colour_keying(
     }
 
     OP_CORE.ptOp = 
-        &ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB32;
+        &ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_RGB32;
     
     this.Target.ptTile = ptTarget;
     this.Target.ptRegion = ptRegion;
@@ -1055,7 +1156,7 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_RGB32 = {
     },
 };
 
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_C8BIT = {
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_C8BIT = {
     .Info = {
         .Colour = {
             .chScheme   = ARM_2D_COLOUR_8BIT,
@@ -1064,7 +1165,7 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_C8BIT = {
             .bHasSource     = true,
             .bHasTarget     = true,
         },
-        .chOpIndex      = __ARM_2D_OP_IDX_COPY_WITH_COLOUR_MASKING,
+        .chOpIndex      = __ARM_2D_OP_IDX_COPY_WITH_COLOUR_KEYING,
         
         .LowLevelIO = {
             .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COPY_WITH_COLOUR_MASKING_C8BIT),
@@ -1073,7 +1174,7 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_C8BIT = {
     },
 };
     
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB16 = {
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_RGB16 = {
     .Info = {
         .Colour = {
             .chScheme   = ARM_2D_COLOUR_RGB16,
@@ -1082,7 +1183,7 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB16 = {
             .bHasSource     = true,
             .bHasTarget     = true,
         },
-        .chOpIndex      = __ARM_2D_OP_IDX_COPY_WITH_COLOUR_MASKING,
+        .chOpIndex      = __ARM_2D_OP_IDX_COPY_WITH_COLOUR_KEYING,
         
         .LowLevelIO = {
             .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COPY_WITH_COLOUR_MASKING_RGB16),
@@ -1091,7 +1192,7 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB16 = {
     },
 };
     
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB32 = {
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_RGB32 = {
     .Info = {
         .Colour = {
             .chScheme   = ARM_2D_COLOUR_RGB32,
@@ -1100,7 +1201,7 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB32 = {
             .bHasSource     = true,
             .bHasTarget     = true,
         },
-        .chOpIndex      = __ARM_2D_OP_IDX_COPY_WITH_COLOUR_MASKING,
+        .chOpIndex      = __ARM_2D_OP_IDX_COPY_WITH_COLOUR_KEYING,
         
         .LowLevelIO = {
             .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COPY_WITH_COLOUR_MASKING_RGB32),

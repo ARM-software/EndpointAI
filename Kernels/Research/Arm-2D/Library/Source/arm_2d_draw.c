@@ -502,11 +502,6 @@ arm_fsm_rt_t arm_2dp_c8bit_draw_pattern( arm_2d_op_drw_patn_t   *ptOP,
 
     ARM_2D_IMPL(arm_2d_op_drw_patn_t, ptOP);
 
-    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
-        return arm_fsm_rt_on_going;
-    }
-
-    //memset(ptThis, 0, sizeof(*ptThis));
 
     if (    (wMode &   (ARM_2D_DRW_PATN_MODE_NO_FG_COLOR    |
                         ARM_2D_DRW_PATH_MODE_COMP_FG_COLOUR |
@@ -517,6 +512,11 @@ arm_fsm_rt_t arm_2dp_c8bit_draw_pattern( arm_2d_op_drw_patn_t   *ptOP,
         return arm_fsm_rt_cpl;
     }
 
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+
+    //memset(ptThis, 0, sizeof(*ptThis));
 
     OP_CORE.ptOp = &ARM_2D_OP_DRAW_PATTERN_C8BIT;
 
@@ -543,13 +543,7 @@ arm_fsm_rt_t arm_2dp_rgb16_draw_pattern( arm_2d_op_drw_patn_t   *ptOP,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_drw_patn_t, ptOP);
-
-    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
-        return arm_fsm_rt_on_going;
-    }
-
-    //memset(ptThis, 0, sizeof(*ptThis));
-
+    
     if (    (wMode &   (ARM_2D_DRW_PATN_MODE_NO_FG_COLOR    |
                         ARM_2D_DRW_PATH_MODE_COMP_FG_COLOUR |
                         ARM_2D_DRW_PATN_MODE_WITH_BG_COLOR  ))
@@ -559,7 +553,12 @@ arm_fsm_rt_t arm_2dp_rgb16_draw_pattern( arm_2d_op_drw_patn_t   *ptOP,
         return arm_fsm_rt_cpl;
     }
 
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
 
+    //memset(ptThis, 0, sizeof(*ptThis));
+    
     OP_CORE.ptOp = &ARM_2D_OP_DRAW_PATTERN_RGB16;
 
     this.Target.ptTile = ptTarget;
@@ -587,12 +586,7 @@ arm_fsm_rt_t arm_2dp_rgb32_draw_pattern(arm_2d_op_drw_patn_t    *ptOP,
     assert(NULL != ptTarget);
 
     ARM_2D_IMPL(arm_2d_op_drw_patn_t, ptOP);
-
-    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
-        return arm_fsm_rt_on_going;
-    }
-
-    //memset(ptThis, 0, sizeof(*ptThis));
+    
 
     if (    (wMode &   (ARM_2D_DRW_PATN_MODE_NO_FG_COLOR    |
                         ARM_2D_DRW_PATH_MODE_COMP_FG_COLOUR |
@@ -602,6 +596,13 @@ arm_fsm_rt_t arm_2dp_rgb32_draw_pattern(arm_2d_op_drw_patn_t    *ptOP,
         //! nothing todo
         return arm_fsm_rt_cpl;
     }
+
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+
+    //memset(ptThis, 0, sizeof(*ptThis));
+
 
     OP_CORE.ptOp = &ARM_2D_OP_DRAW_PATTERN_RGB32;
 

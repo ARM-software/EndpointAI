@@ -56,7 +56,7 @@
 /*============================ TYPES =========================================*/
 
 typedef struct {
-    arm_2d_op_rotate_alpha_t tOP;
+    arm_2d_op_rotate_opacity_t tOP;
     const arm_2d_tile_t *ptTile;
     float fAngle;
     float fAngleSpeed;
@@ -277,7 +277,7 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
                             
     /*! for each layer (ptLayer) inside array s_ptRefreshLayers */
     arm_foreach(arm_2d_layer_t, s_ptRefreshLayers, ptLayer) {
-        arm_2d_region_t tRegion = ptLayer->tRegion;
+        //arm_2d_region_t tRegion = ptLayer->tRegion;
 
         if (NULL == ptLayer->ptTile) { 
             continue;
@@ -286,19 +286,19 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
         if (ptLayer->bIsIrregular) {
             arm_2d_rgb16_tile_copy_with_colour_masking( ptLayer->ptTile,
                                         ptTile,
-                                        &tRegion,
+                                        &(ptLayer->tRegion),
                                         ptLayer->hwMaskingColour,
                                         ARM_2D_CP_MODE_COPY);
         } else {
             if (ptLayer->chTransparency) {
                 arm_2d_rgb565_alpha_blending(   ptLayer->ptTile,
                                                 ptTile,
-                                                &tRegion,
+                                                &(ptLayer->tRegion),
                                                 255 - ptLayer->chTransparency);
             } else {
                 arm_2d_rgb16_tile_copy( ptLayer->ptTile,
                                         ptTile,
-                                        &tRegion,
+                                        &(ptLayer->tRegion),
                                         ARM_2D_CP_MODE_COPY);
             }
         }
@@ -361,6 +361,7 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
     }
 
     example_gui_on_refresh_evt_handler(ptTile);
+
 }
 
 

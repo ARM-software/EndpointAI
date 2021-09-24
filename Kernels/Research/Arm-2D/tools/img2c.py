@@ -311,10 +311,13 @@ def main(argv):
         
         if args.format == 'rgb565':
             print(tailDataRGB565.format(arr_name, str(row), str(col), "."+buffStr+" = ("+typStr+"*)"), file=o)
+            if mode == "RGBA":
+                print(tailAlpha.format(arr_name, str(row), str(col)), file=o)
         
         if args.format == 'rgb32':
             if mode == "RGBA":
                 print(tailDataRGBA8888.format(arr_name, str(row), str(col), "."+buffStr+" = ("+typStr+"*)"), file=o)
+                print(tailAlpha.format(arr_name, str(row), str(col)), file=o)
                 print(tailAlpha2.format(arr_name, str(row), str(col)), file=o)
             else :
                 print(tailDataRGB888.format(arr_name, str(row), str(col), "."+buffStr+" = ("+typStr+"*)"), file=o)

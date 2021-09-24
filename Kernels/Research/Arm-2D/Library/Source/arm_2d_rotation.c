@@ -84,7 +84,7 @@ extern "C" {
  * Code Template                                                              *
  *----------------------------------------------------------------------------*/
 
-#define __API_PIXEL_AVERAGE_RESULT_C8BIT()                      \
+#define __API_PIXEL_AVERAGE_RESULT_GRAY8()                      \
     (   tPixel >> 8)
 
 #define __API_PIXEL_AVERAGE_RESULT_RGB565()                     \
@@ -103,9 +103,9 @@ extern "C" {
 #define __API_COLOUR                gray8
 #define __API_INT_TYPE              uint8_t
 #define __API_PIXEL_AVERAGE_INIT()  uint16_t tPixel = 0;
-#define __API_PIXEL_BLENDING        __ARM_2D_PIXEL_BLENDING_C8BIT
-#define __API_PIXEL_AVERAGE         __ARM_2D_PIXEL_AVERAGE_C8BIT
-#define __API_PIXEL_AVERAGE_RESULT  __API_PIXEL_AVERAGE_RESULT_C8BIT
+#define __API_PIXEL_BLENDING        __ARM_2D_PIXEL_BLENDING_GRAY8
+#define __API_PIXEL_AVERAGE         __ARM_2D_PIXEL_AVERAGE_GRAY8
+#define __API_PIXEL_AVERAGE_RESULT  __API_PIXEL_AVERAGE_RESULT_GRAY8
 #include "__arm_2d_rotate.inc"
 
 #define __API_COLOUR                rgb565
@@ -129,47 +129,6 @@ extern "C" {
 /*============================ PROTOTYPES ====================================*/
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ IMPLEMENTATION ================================*/
-
-#if 0
-
-/* faster atan(y/x) float version */
-static
-float32_t __atan2_f32(float32_t y, float32_t x)
-{
-    float32_t       xabs = fabsf(x);
-    float32_t       yabs = fabsf(y);
-    float32_t       atan2est, div;
-
-    if (xabs >= yabs) {
-        /* division is in the [-1 +1] range */
-        div = yabs / (xabs + EPS_ATAN2);
-        atan2est = FAST_ATAN_F32_1(div, div);
-    } else {
-        /* division is in the ]1 x*1e5] range */
-        div = xabs / (yabs + EPS_ATAN2);
-        atan2est = PI / 2 - FAST_ATAN_F32_1(div, div);
-    }
-    /* append sign */
-    return copysignf(1.0f, y) * copysignf(1.0f, x) * atan2est;
-}
-
-static
-void __arm_2d_rotate_get_rotated_corner(const arm_2d_location_t *ptLocation,
-                                            const arm_2d_location_t *ptCenter,
-                                            float fAngle,
-                                            arm_2d_point_float_t *ptOutBuffer)
-{
-    int16_t         iX = ptLocation->iX - ptCenter->iX;
-    int16_t         iY = ptLocation->iY - ptCenter->iY;
-
-    float           cosAngle = arm_cos_f32(fAngle);
-    float           sinAngle = arm_sin_f32(fAngle);
-
-    ptOutBuffer->fY = (iY * cosAngle + iX * sinAngle + ptCenter->iY);
-    ptOutBuffer->fX = (-iY * sinAngle + iX * cosAngle + ptCenter->iX);
-
-}
-#endif
 
 #if __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
 
@@ -768,11 +727,12 @@ arm_fsm_rt_t arm_2dp_tile_rotate(arm_2d_op_rotate_t *ptOP,
                                                     &this.tRotate.Target.tTile, 
                                                     false);
         if (NULL == this.Target.ptTile) {
+            arm_fsm_rt_t tResult = (arm_fsm_rt_t)ARM_2D_ERR_OUT_OF_REGION;
             if (ARM_2D_RUNTIME_FEATURE.TREAT_OUT_OF_RANGE_AS_COMPLETE) {
-                return arm_fsm_rt_cpl;
+                tResult = arm_fsm_rt_cpl;
             }
             
-            return (arm_fsm_rt_t)ARM_2D_ERR_OUT_OF_REGION;
+            return __arm_2d_op_depose((arm_2d_op_core_t *)ptThis, tResult);
         }
         
         if (NULL != ptTargetCentre) {
