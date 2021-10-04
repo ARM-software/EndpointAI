@@ -21,8 +21,8 @@
  * Title:        arm-2d_math_helium.h
  * Description:  Provides helium math routines
  *
- * $Date:        20. May 2021
- * $Revision:    V 0.0.1
+ * $Date:        29. Sep 2021
+ * $Revision:    V 0.0.2
  *
  * Target Processor:  Cortex-M cores with Helium
  *
@@ -47,6 +47,34 @@
 #ifdef   __cplusplus
 extern "C" {
 #endif
+
+#define vec_rgb8_t             uint8x16_t
+#define vec_rgb16_t            uint16x8_t
+#define vec_rgb32_t            uint32x4_t
+
+#define ARM_PIX_SCLTYP(sz)     ARM_CONNECT2(ARM_CONNECT2(uint, sz), _t)
+#define ARM_PIX_VECTYP(sz)     ARM_CONNECT2(ARM_CONNECT2(vec_rgb,sz), _t)
+
+#define vld8                 vldrb
+#define vld16                vldrh
+#define vld32                vldrw
+#define vst8                 vstrb
+#define vst16                vstrh
+#define vst32                vstrw
+
+#define ARM_VLD_ASM(sz)       ARM_CONNECT2(vld, sz)
+#define ARM_VST_ASM(sz)       ARM_CONNECT2(vst, sz)
+
+#define ARM_VLD1_ASM(sz)      TO_STRING(ARM_VLD_ASM(sz).ARM_CONNECT2(u,sz))
+#define ARM_VST1_ASM(sz)      TO_STRING(ARM_VST_ASM(sz).ARM_CONNECT2(u,sz))
+#define ARM_VLD1Z_ASM(sz)     TO_STRING(ARM_VLD_ASM(sz)t.ARM_CONNECT2(u,sz))
+#define ARM_VST1P_ASM(sz)     TO_STRING(ARM_VST_ASM(sz)t.ARM_CONNECT2(u,sz))
+#define ARM_VLDWID_ASM(sz, wid)    TO_STRING(ARM_VLD_ASM(sz).ARM_CONNECT2(u,wid))
+#define ARM_VSTNRW_ASM(sz, nrw)    TO_STRING(ARM_VLD_ASM(sz).ARM_CONNECT2(u,nrw))
+
+
+/* number of vector elements */
+#define ARM_PIX_VECELT(sz)     (128/sz)
 
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/

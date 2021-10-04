@@ -66,6 +66,9 @@ extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_RGB32;
 
 extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_MASK_GRAY8;
+
+extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_MASK_RGB565;
 
 extern

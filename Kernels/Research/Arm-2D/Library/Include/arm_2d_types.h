@@ -301,7 +301,8 @@ struct arm_2d_tile_t {
     implement_ex(struct {
         uint8_t    bIsRoot              : 1;                                    //!< is this tile a root tile
         uint8_t    bHasEnforcedColour   : 1;                                    //!< does this tile contains enforced colour info
-        uint8_t                         : 6;
+        uint8_t    bDerivedResource     : 1;                                    //!< indicate whether this is a derived resources (when bIsRoot == 0)
+        uint8_t                         : 5;
         uint8_t                         : 8;
         uint8_t                         : 8;
         arm_2d_color_info_t    tColourInfo;                                     //!< enforced colour
@@ -467,6 +468,11 @@ ARM_PRIVATE(
     volatile arm_2d_op_status_t Status;
 
     arm_2d_op_evt_t             evt2DOpCpl;             //!< operation complete event
+    
+    struct {
+        const arm_2d_tile_t    *ptTargetTile;
+    } Runtime;
+    
 )
     uintptr_t                   pUserParam;
 };

@@ -175,7 +175,7 @@ extern "C" {
  *!       please find such variable with the value "true".
  */
  
-#define arm_2dp_gray8_tile_rotation(   __CB_ADDR,                               \
+#define arm_2dp_gray8_tile_rotation(    __CB_ADDR,                              \
                                         __SRC_TILE_ADDR,                        \
                                         __DES_TILE_ADDR,                        \
                                         __DES_REGION_ADDR,                      \
@@ -183,7 +183,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         ...)                                    \
-        ({if (bIsNewFrame) {                                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
             arm_2dp_gray8_tile_rotation_prepare(                                \
                                         (__CB_ADDR),                            \
                                         (__SRC_TILE_ADDR),                      \
@@ -205,7 +205,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         ...)                                    \
-        ({if (bIsNewFrame) {                                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
             arm_2dp_rgb565_tile_rotation_prepare(                               \
                                         (__CB_ADDR),                            \
                                         (__SRC_TILE_ADDR),                      \
@@ -227,7 +227,7 @@ extern "C" {
                                         __CENTRE,                               \
                                         __ANGLE,                                \
                                         __MSK_COLOUR,...)                       \
-        ({if (bIsNewFrame) {                                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
             arm_2dp_cccn888_tile_rotation_prepare(                              \
                                         (__CB_ADDR),                            \
                                         (__SRC_TILE_ADDR),                      \
@@ -251,7 +251,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         __RATIO,...)                            \
-        ({if (bIsNewFrame) {                                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
             arm_2dp_rgb565_tile_rotation_with_opacity_prepare(                  \
                                         (__CB_ADDR),                            \
                                         (__SRC_TILE_ADDR),                      \
@@ -275,7 +275,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         __RATIO,...)                            \
-        ({if (bIsNewFrame) {                                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
             arm_2dp_rgb565_tile_rotation_with_opacity_prepare(                  \
                                         (__CB_ADDR),                            \
                                         (__SRC_TILE_ADDR),                      \
@@ -299,7 +299,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         __RATIO, ...)                           \
-        ({if (bIsNewFrame) {                                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
             arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
                                         (__CB_ADDR),                            \
                                         (__SRC_TILE_ADDR),                      \
@@ -323,7 +323,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         __RATIO, ...)                           \
-        ({if (bIsNewFrame) {                                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
             arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
                                         (__CB_ADDR),                            \
                                         (__SRC_TILE_ADDR),                      \
@@ -348,7 +348,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         __RATIO, ...)                           \
-        ({if (bIsNewFrame) {                                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
             arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
                                         (__CB_ADDR),                            \
                                         (__SRC_TILE_ADDR),                      \
@@ -372,7 +372,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         __RATIO, ...)                           \
-        ({if (bIsNewFrame) {                                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
             arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
                                         (__CB_ADDR),                            \
                                         (__SRC_TILE_ADDR),                      \
@@ -394,7 +394,7 @@ extern "C" {
                                         __CENTRE,                               \
                                         __ANGLE,                                \
                                         __MSK_COLOUR, ...)                      \
-        ({if (bIsNewFrame) {                                                    \
+        ({{                                                                     \
             arm_2dp_gray8_tile_rotation_prepare(                                \
                                         (NULL),                                 \
                                         (__SRC_TILE_ADDR),                      \
@@ -416,7 +416,7 @@ extern "C" {
                                         __CENTRE,                               \
                                         __ANGLE,                                \
                                         __MSK_COLOUR, ...)                      \
-        ({if (bIsNewFrame) {                                                    \
+        ({{                                                                     \
             arm_2dp_rgb565_tile_rotation_prepare(                               \
                                         (NULL),                                 \
                                         (__SRC_TILE_ADDR),                      \
@@ -438,7 +438,7 @@ extern "C" {
                                         __CENTRE,                               \
                                         __ANGLE,                                \
                                         __MSK_COLOUR, ...)                      \
-        ({if (bIsNewFrame) {                                                    \
+        ({{                                                                     \
             arm_2dp_cccn888_tile_rotation_prepare(                              \
                                         NULL,                                   \
                                         (__SRC_TILE_ADDR),                      \
@@ -460,7 +460,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         __RATIO, ...)                           \
-        ({if (bIsNewFrame) {                                                    \
+        ({{                                                                     \
             arm_2dp_rgb565_tile_rotation_with_opacity_prepare(                  \
                                         NULL,                                   \
                                         (__SRC_TILE_ADDR),                      \
@@ -483,7 +483,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         __RATIO, ...)                           \
-        ({if (bIsNewFrame) {                                                    \
+        ({{                                                                     \
             arm_2dp_rgb565_tile_rotation_with_opacity_prepare(                  \
                                         NULL,                                   \
                                         (__SRC_TILE_ADDR),                      \
@@ -507,7 +507,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         __RATIO, ...)                           \
-        ({if (bIsNewFrame) {                                                    \
+        ({{                                                                     \
             arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
                                         NULL,                                   \
                                         (__SRC_TILE_ADDR),                      \
@@ -530,7 +530,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         __RATIO, ...)                           \
-        ({if (bIsNewFrame) {                                                    \
+        ({{                                                                     \
             arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
                                         NULL,                                   \
                                         (__SRC_TILE_ADDR),                      \
@@ -553,7 +553,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         __RATIO, ...)                           \
-        ({if (bIsNewFrame) {                                                    \
+        ({{                                                                     \
             arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
                                         NULL,                                   \
                                         (__SRC_TILE_ADDR),                      \
@@ -576,7 +576,7 @@ extern "C" {
                                         __ANGLE,                                \
                                         __MSK_COLOUR,                           \
                                         __RATIO, ...)                           \
-        ({if (bIsNewFrame) {                                                    \
+        ({{                                                                     \
             arm_2dp_cccn888_tile_rotation_with_opacity_prepare(                 \
                                         NULL,                                   \
                                         (__SRC_TILE_ADDR),                      \

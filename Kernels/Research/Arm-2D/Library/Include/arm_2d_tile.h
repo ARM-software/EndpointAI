@@ -388,6 +388,17 @@ ARM_NONNULL(1,2)
 arm_2d_cmp_t arm_2d_tile_shape_compare( const arm_2d_tile_t *ptTarget,
                                         const arm_2d_tile_t *ptReference);
                                         
+extern
+ARM_NONNULL(1,2)
+const arm_2d_tile_t * arm_2d_get_absolute_location(
+                                        const arm_2d_tile_t *ptTile, 
+                                        arm_2d_location_t *ptLocation);
+
+extern
+ARM_NONNULL(1,2,3)
+arm_2d_region_t *arm_2d_tile_region_diff(   const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_tile_t *ptReference,
+                                            arm_2d_region_t *ptBuffer);
 /*----------------------------------------------------------------------------*
  * Copy tile to destination directly                                          *
  *----------------------------------------------------------------------------*/

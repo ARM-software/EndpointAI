@@ -216,7 +216,11 @@ typedef struct __arm_2d_tile_param_t {
     int32_t             nOffset;
     int16_t             iStride;
     arm_2d_color_info_t tColour;
-    uint8_t                        : 8;
+    
+    uint8_t             bInvalid            : 1;
+    uint8_t             bDerivedResource    : 1;
+    uint8_t                                 : 6;
+    
     arm_2d_region_t     tValidRegion;
 } __arm_2d_tile_param_t;
 
@@ -408,7 +412,23 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy(  __arm_2d_sub_task_t *ptTask);
 
 
 extern
-arm_fsm_rt_t __arm_2d_rgb565_sw_tile_copy_with_mask(  __arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_gray8_sw_tile_copy_with_mask(__arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_gray8_sw_tile_fill_with_mask(__arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb565_sw_tile_copy_with_mask(__arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb565_sw_tile_fill_with_mask(__arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_cccn888_sw_tile_copy_with_mask(__arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_cccn888_sw_tile_fill_with_mask(__arm_2d_sub_task_t *ptTask);
+
 
 extern 
 arm_fsm_rt_t __arm_2d_c8bit_sw_tile_copy_with_colour_keying(

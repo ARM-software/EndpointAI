@@ -659,6 +659,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
+            <File>
+              <FileName>__arm_2d_alpha_mask.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_mask.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1621,6 +1626,11 @@
               <FileName>__arm_2d_tile.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_mask.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_mask.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -2652,6 +2662,11 @@
               <FileName>__arm_2d_tile.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_mask.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_mask.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -3685,6 +3700,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
+            <File>
+              <FileName>__arm_2d_alpha_mask.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_mask.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4326,7 +4346,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
+              <Define>LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -4647,6 +4667,11 @@
               <FileName>__arm_2d_tile.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_mask.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_mask.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -5680,6 +5705,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
+            <File>
+              <FileName>__arm_2d_alpha_mask.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_mask.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -6712,6 +6742,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
+            <File>
+              <FileName>__arm_2d_alpha_mask.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_mask.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -7095,7 +7130,7 @@
       <TargetName>STM32F746G-Discovery</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
+      <pCCUsed>6170000::V6.17::.\ARMCompiler6.17</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -7422,7 +7457,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Wno-nonportable-include-path -Omax</MiscControls>
-              <Define>__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
+              <Define>NDEBUG,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;..\..\Library\Include;.;.\platform\stm32f746g-discovery;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -7743,6 +7778,11 @@
               <FileName>__arm_2d_tile.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_mask.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_mask.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -8775,6 +8815,11 @@
               <FileName>__arm_2d_tile.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_alpha_mask.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_alpha_mask.inc</FilePath>
             </File>
           </Files>
         </Group>

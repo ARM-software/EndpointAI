@@ -419,6 +419,61 @@ arm_2d_cmp_t arm_2d_tile_shape_compare(   const arm_2d_tile_t *ptTarget,
 }
 
 
+ARM_NONNULL(1,2)
+const arm_2d_tile_t * arm_2d_get_absolute_location(
+                                               const arm_2d_tile_t *ptTile, 
+                                               arm_2d_location_t *ptLocation)
+{
+    
+    assert(NULL != ptTile);
+    assert(NULL != ptLocation);
+    
+    ptLocation->iX = 0;
+    ptLocation->iY = 0;
+    
+    while( !ptTile->tInfo.bIsRoot ) {
+        ptLocation->iX += ptTile->tRegion.tLocation.iX;
+        ptLocation->iY += ptTile->tRegion.tLocation.iY;
+        
+        ptTile = ptTile->ptParent;
+    }
+    
+    return ptTile;
+}
+
+ARM_NONNULL(1,2,3)
+arm_2d_region_t *arm_2d_tile_region_diff(   const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_tile_t *ptReference,
+                                            arm_2d_region_t *ptBuffer)
+{
+    assert(NULL != ptTarget);
+    assert(NULL != ptReference);
+    assert(NULL != ptBuffer);
+    
+    //! get the absolute location
+    arm_2d_location_t tTargetAbsoluteLocaton, tReferenceAbsoluteLocation;
+    
+    ptBuffer->tSize.iWidth  = ptTarget->tRegion.tSize.iWidth 
+                            - ptReference->tRegion.tSize.iWidth;
+    ptBuffer->tSize.iHeight = ptTarget->tRegion.tSize.iHeight 
+                            - ptReference->tRegion.tSize.iHeight;
+   
+    ptTarget = arm_2d_get_absolute_location(ptTarget, &tTargetAbsoluteLocaton);
+    ptReference = arm_2d_get_absolute_location(ptReference, &tReferenceAbsoluteLocation);
+    
+    if (ptTarget != ptReference) {
+        //! they don't have the same root
+        return NULL;
+    }
+    
+    ptBuffer->tLocation.iX  = tTargetAbsoluteLocaton.iX 
+                            - tReferenceAbsoluteLocation.iX;
+    ptBuffer->tLocation.iY  = tTargetAbsoluteLocaton.iY 
+                            - tReferenceAbsoluteLocation.iY;
+
+    return ptBuffer;
+}
+
 /*
   HOW IT WORKS:
 
@@ -476,6 +531,15 @@ arm_2d_tile_t *arm_2d_tile_generate_child(
             return NULL;
         }
     }
+    
+    ptOutput->tInfo = ptParentTile->tInfo;
+    ptOutput->tInfo.bIsRoot = false;
+    
+    #if 0
+    if (!ptParentTile->tInfo.bIsRoot && ptParentTile->tInfo.bDerivedResource) {
+        ptOutput->tInfo.bDerivedResource = true;
+    }
+    #endif
 
     ptOutput->ptParent = (arm_2d_tile_t *)ptParentTile;
 

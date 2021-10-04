@@ -50,7 +50,7 @@
  *!       480 * 8    7680B
  */
 #define PFB_BLOCK_WIDTH         GLCD_WIDTH
-#define PFB_BLOCK_HEIGHT        8
+#define PFB_BLOCK_HEIGHT        GLCD_HEIGHT
 
 #define BUSY_WHEEL_SPIN_SPEED   100
 

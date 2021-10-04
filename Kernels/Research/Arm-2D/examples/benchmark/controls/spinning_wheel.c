@@ -100,6 +100,8 @@ void spinning_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
 
     //! spin mask
     do {
+        static arm_2d_op_rotate_t s_tMaskRotateCB = {0};
+    
         if (bIsNewFrame) {
             s_fAngle += ARM_2D_ANGLE(6.0f);
             s_fAngle = fmodf(s_fAngle,ARM_2D_ANGLE(360));
@@ -112,7 +114,8 @@ void spinning_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
 
         memset(s_tileSpinWheelMask.pchBuffer, 0, 61 * 61);
         
-        arm_2d_gray8_tile_rotation( &c_tileSpinWheelMask,
+        arm_2dp_gray8_tile_rotation(&s_tMaskRotateCB,
+                                    &c_tileSpinWheelMask,
                                     &s_tileSpinWheelMask,
                                     NULL,
                                     c_tCentre,

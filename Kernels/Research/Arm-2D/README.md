@@ -25,13 +25,14 @@
 The Arm-2D library provides **Low-Level 2D Image Processing Services** that are mainly used in **Display system**. The supported features include but not limited to:
 
 - **Alpha-Blending** / **Alpha-Masking**
-  - With or without Colour-Masking
+  - With or without Colour-Keying
   - Colour-filling with an Alpha-Mask
     - Drawing icons/texts with anti-alias in a specified colour
     - An optional ***Opacity*** can be attached
 - **Image Copy / Texture Paving**
-  - With or without Colour-Masking (a.k.a colour keying)
+  - With or without Colour-Keying (a.k.a colour masking)
   - Four mirroring mode: None, X-mirroring, Y-mirroring and XY-mirroring
+  - Support **alpha masks** on both source side and/or target side 
 - **Colour format support**
   - **8-bit Grayscale**, **RGB565** and **RGB888**
   - Generic **8BIT colour**, **RGB16** and **RGB32**
@@ -61,8 +62,6 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
 
 Following features are planned and to be introduced in the near future:
 
-- **Alpha (bitmap) Masking schemes** 
-  - New APIs will be added to Copy, Paving and Rotation.
 - **Image Filters, e.g. Generic Anti-aliasing algorithms**
 - **Zooming/Stretching Algorithms**
 

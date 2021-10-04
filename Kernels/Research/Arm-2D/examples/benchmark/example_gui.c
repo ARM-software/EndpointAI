@@ -69,6 +69,9 @@ const arm_2d_tile_t c_tPictureWhiteDot;
 extern
 const arm_2d_tile_t c_tileCMSISLogo;
 
+extern 
+const arm_2d_tile_t c_tileCMSISLogoMask;
+
 extern
 const arm_2d_tile_t c_tPictureSun;
 
@@ -76,7 +79,26 @@ const arm_2d_tile_t c_tPictureSun;
 /*============================ LOCAL VARIABLES ===============================*/
 
 declare_tile(c_tLayerB)
-implement_tile(c_tLayerB, 150, 40, arm_2d_color_rgb565_t);
+implement_tile(c_tLayerB, 90, 50, arm_2d_color_rgb565_t);
+
+
+ARM_NOINIT static uint8_t s_bmpFadeMask[APP_SCREEN_WIDTH >> 1];
+const arm_2d_tile_t c_tileFadeMask = {
+    .tRegion = {
+        .tSize = {
+            .iWidth = (APP_SCREEN_WIDTH >> 1),
+            .iHeight = 1,
+        },
+    },
+    .tInfo = {
+        .bIsRoot = true,
+        .bHasEnforcedColour = true,
+        .tColourInfo = {
+            .chScheme = ARM_2D_COLOUR_8BIT,
+        },
+    },
+    .pchBuffer = (uint8_t *)s_bmpFadeMask,
+};
 
 
 
@@ -137,6 +159,14 @@ void example_gui_init(void)
     s_ptRefreshLayers[0].wMode = ARM_2D_CP_MODE_FILL;
     s_ptRefreshLayers[2].wMode = ARM_2D_CP_MODE_FILL;
     s_ptRefreshLayers[3].wMode = ARM_2D_CP_MODE_COPY;
+    
+    //! generate line-fading template for a half of the screen
+    do {
+        float fRatio = 255.0f / (float)(APP_SCREEN_WIDTH >> 1);
+        for (int32_t n = 0; n < (APP_SCREEN_WIDTH >> 1); n++) {
+            s_bmpFadeMask[n] = 255 - ((float)n * fRatio);
+        }
+    } while(0);
 
     arm_foreach(arm_2d_layer_t, s_ptRefreshLayers) {
         arm_2d_region_t tRegion = _->tRegion;
@@ -294,170 +324,208 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
 {
     ASSERT(NULL != ptLayers);
     ASSERT(hwCount > 0);
+    arm_2d_tile_t tTempPanel;
+    
+    static const arm_2d_region_t s_tFillRegion = {
+                                .tLocation = {
+                                    .iX = -200, 
+                                    .iY = -100, 
+                                },
+                                .tSize = {
+                                    .iWidth = (APP_SCREEN_WIDTH >> 1) + 200, 
+                                    .iHeight = APP_SCREEN_HEIGHT + 100 
+                                }};
 
-    static const arm_2d_region_t tFillRegion = {-200, 
-                                                -100, 
-                                                (APP_SCREEN_WIDTH >> 1) + 200, 
-                                                APP_SCREEN_HEIGHT + 100 };
-    static const arm_2d_region_t tRightHalfScreen = {
+    //! handle the left half of the screen
+    do {
+        //!< fill background with CMSISlogo (with colour keying)
+        arm_2d_rgb16_tile_copy( &c_tileCMSISLogo,
+                                ptFrameBuffer,
+                                &s_tFillRegion,
+                                ptLayers[0].wMode);        
+    } while(0);
+
+    //! handle the right half of the screen
+    do {
+        
+        static const arm_2d_region_t tRightHalfScreen = {
                                                 (APP_SCREEN_WIDTH >> 1), 
                                                 0, 
                                                 (APP_SCREEN_WIDTH >> 1), 
                                                 APP_SCREEN_HEIGHT
                                             };
-
-    do {
         
-        arm_2d_rgb16_tile_copy( &c_tileCMSISLogo,
-                                ptFrameBuffer,
-                                &tFillRegion,
-                                ptLayers[0].wMode);
+        //!< generate a child tile for this half of screen
+        arm_2d_tile_generate_child( ptFrameBuffer, 
+                                    &tRightHalfScreen, 
+                                    &tTempPanel, 
+                                    false);
+                                    
+        //!< set background colour
+        arm_2d_rgb16_fill_colour(   &tTempPanel,
+                                    NULL,
+                                    GLCD_COLOR_WHITE);
+                                    
+        arm_2d_op_wait_async(NULL);
+        
+        
+        //!< fill background with CMSISlogo (with masks)
+        arm_2d_rgb565_tile_copy_with_mask(
+                                    &c_tileCMSISLogo,
+                                    &c_tileCMSISLogoMask,
+                                    &tTempPanel,
+                                    &c_tileFadeMask,
+                                    //&s_tFillRegion,
+                                    NULL,
+                                    ptLayers[0].wMode);
+                                    //ARM_2D_CP_MODE_FILL     |
+                                    //ARM_2D_CP_MODE_X_MIRROR |
+                                    //ARM_2D_CP_MODE_X_MIRROR );
+    } while(0);
+    
+    arm_2d_rgb16_fill_colour(   s_ptRefreshLayers[2].ptTile, 
+                                NULL, 
+                                GLCD_COLOR_GREEN);
                                 
-        arm_2d_rgb16_fill_colour(
-                                ptFrameBuffer,
-                                &tRightHalfScreen,
-                                GLCD_COLOR_WHITE);
-        
-        arm_2d_rgb16_fill_colour(   s_ptRefreshLayers[2].ptTile, 
-                                    NULL, 
-                                    GLCD_COLOR_GREEN);
-        
-        arm_2d_rgb16_tile_copy_with_colour_keying( &c_tPictureSun,
-                                                    s_ptRefreshLayers[2].ptTile,
-                                                    NULL,
-                                                    GLCD_COLOR_WHITE,
-                                                    s_ptRefreshLayers[2].wMode);
-        
-        arm_foreach(arm_2d_layer_t, ptLayers, hwCount, ptLayer) {
-            arm_2d_region_t tRegion = ptLayer->tRegion;
+                                
+    
+    //!< fill background with CMSISlogo (with colour-keying)
+    arm_2d_rgb16_tile_copy_with_colour_keying( &c_tPictureSun,
+                                                s_ptRefreshLayers[2].ptTile,
+                                                NULL,
+                                                GLCD_COLOR_WHITE,
+                                                s_ptRefreshLayers[2].wMode);
+                                                
+    
+    arm_foreach(arm_2d_layer_t, ptLayers, hwCount, ptLayer) {
+        arm_2d_region_t tRegion = ptLayer->tRegion;
 
-            if (NULL == ptLayer->ptTile) { 
-                continue;
-            }
-            
-            if (ptLayer->bIsIrregular) {
-                if (255 != ptLayer->chOpacity) {
-                    arm_2d_rgb565_alpha_blending_with_colour_keying(
-                                ptLayer->ptTile,
-                                ptFrameBuffer,
-                                &tRegion,
-                                ptLayer->chOpacity,
-                                (arm_2d_color_rgb565_t){ ptLayer->hwKeyColour });
-                } else {
-                    arm_2d_rgb16_tile_copy_with_colour_keying( 
-                                                ptLayer->ptTile,
-                                                ptFrameBuffer,
-                                                &tRegion,
-                                                ptLayer->hwKeyColour,
-                                                ptLayer->wMode);
-                }
+        if (NULL == ptLayer->ptTile) { 
+            continue;
+        }
+        
+        if (ptLayer->bIsIrregular) {
+            if (255 != ptLayer->chOpacity) {
+                arm_2d_rgb565_alpha_blending_with_colour_keying(
+                            ptLayer->ptTile,
+                            ptFrameBuffer,
+                            &tRegion,
+                            ptLayer->chOpacity,
+                            (arm_2d_color_rgb565_t){ ptLayer->hwKeyColour });
             } else {
-                if (255 != ptLayer->chOpacity) {
-                    arm_2d_rgb565_alpha_blending(   ptLayer->ptTile,
-                                                    ptFrameBuffer,
-                                                    &tRegion,
-                                                    ptLayer->chOpacity);
-                } else {
-                    arm_2d_rgb16_tile_copy( ptLayer->ptTile,
+                arm_2d_rgb16_tile_copy_with_colour_keying( 
+                                            ptLayer->ptTile,
                                             ptFrameBuffer,
                                             &tRegion,
-                                            ARM_2D_CP_MODE_COPY);
-                }
+                                            ptLayer->hwKeyColour,
+                                            ptLayer->wMode);
+            }
+        } else {
+            if (255 != ptLayer->chOpacity) {
+                arm_2d_rgb565_alpha_blending(   ptLayer->ptTile,
+                                                ptFrameBuffer,
+                                                &tRegion,
+                                                ptLayer->chOpacity);
+            } else {
+                arm_2d_rgb16_tile_copy( ptLayer->ptTile,
+                                        ptFrameBuffer,
+                                        &tRegion,
+                                        ARM_2D_CP_MODE_COPY);
             }
         }
-        
-        arm_2d_rgb565_fill_colour_with_opacity(   
-                                    ptFrameBuffer, 
-                                    &s_ptRefreshLayers[1].tRegion,
-                                    (arm_2d_color_rgb565_t){GLCD_COLOR_RED},
-                                    s_ptRefreshLayers[1].chOpacity);
-        
-        arm_2d_tile_t tTempPanel;
-        if (NULL != arm_2d_tile_generate_child( ptFrameBuffer, 
-                                    (arm_2d_region_t []){
-                                        {
-                                            .tSize = {
-                                                .iWidth = APP_SCREEN_WIDTH >> 1,
-                                                .iHeight = APP_SCREEN_HEIGHT >> 1,
-                                            },
+    }
+    
+    arm_2d_rgb565_fill_colour_with_opacity(   
+                                ptFrameBuffer, 
+                                &s_ptRefreshLayers[1].tRegion,
+                                (arm_2d_color_rgb565_t){GLCD_COLOR_RED},
+                                s_ptRefreshLayers[1].chOpacity);
+    
+    
+    if (NULL != arm_2d_tile_generate_child( ptFrameBuffer, 
+                                (arm_2d_region_t []){
+                                    {
+                                        .tSize = {
+                                            .iWidth = APP_SCREEN_WIDTH >> 1,
+                                            .iHeight = APP_SCREEN_HEIGHT >> 1,
                                         },
                                     },
-                                    &tTempPanel,
-                                    false)) {
-            //! show progress wheel
-            busy_wheel2_show(&tTempPanel, bIsNewFrame);
-            
-            arm_2d_op_wait_async(NULL);
-        }
+                                },
+                                &tTempPanel,
+                                false)) {
+        //! show progress wheel
+        busy_wheel2_show(&tTempPanel, bIsNewFrame);
         
-        if (NULL != arm_2d_tile_generate_child( ptFrameBuffer, 
-                                    (arm_2d_region_t []){
-                                        {
-                                            .tLocation = {
-                                                .iX = 0,
-                                                .iY = APP_SCREEN_HEIGHT >> 1,
-                                            },
-                                            .tSize = {
-                                                .iWidth = APP_SCREEN_WIDTH >> 1,
-                                                .iHeight = APP_SCREEN_HEIGHT >> 1,
-                                            },
+        arm_2d_op_wait_async(NULL);
+    }
+    
+    if (NULL != arm_2d_tile_generate_child( ptFrameBuffer, 
+                                (arm_2d_region_t []){
+                                    {
+                                        .tLocation = {
+                                            .iX = 0,
+                                            .iY = APP_SCREEN_HEIGHT >> 1,
+                                        },
+                                        .tSize = {
+                                            .iWidth = APP_SCREEN_WIDTH >> 1,
+                                            .iHeight = APP_SCREEN_HEIGHT >> 1,
                                         },
                                     },
-                                    &tTempPanel,
-                                    false)) {
-            //! show progress wheel
-            busy_wheel_show(&tTempPanel, bIsNewFrame);
-            
-            arm_2d_op_wait_async(NULL);
-        }
+                                },
+                                &tTempPanel,
+                                false)) {
+        //! show progress wheel
+        busy_wheel_show(&tTempPanel, bIsNewFrame);
         
-        if (NULL != arm_2d_tile_generate_child( ptFrameBuffer, 
-                                    (arm_2d_region_t []){
-                                        {
-                                            .tLocation = {
-                                                .iX = APP_SCREEN_WIDTH >> 1,
-                                                .iY = 0
-                                            },
-                                            .tSize = {
-                                                .iWidth = APP_SCREEN_WIDTH >> 1,
-                                                .iHeight = APP_SCREEN_HEIGHT >> 1,
-                                            },
+        arm_2d_op_wait_async(NULL);
+    }
+    
+    if (NULL != arm_2d_tile_generate_child( ptFrameBuffer, 
+                                (arm_2d_region_t []){
+                                    {
+                                        .tLocation = {
+                                            .iX = APP_SCREEN_WIDTH >> 1,
+                                            .iY = 0
+                                        },
+                                        .tSize = {
+                                            .iWidth = APP_SCREEN_WIDTH >> 1,
+                                            .iHeight = APP_SCREEN_HEIGHT >> 1,
                                         },
                                     },
-                                    &tTempPanel,
-                                    false)) {
-            //show_icon_with_background(&tTempPanel, bIsNewFrame);
-            spinning_wheel_show(&tTempPanel, bIsNewFrame);
-            
-            arm_2d_op_wait_async(NULL);
-        }
+                                },
+                                &tTempPanel,
+                                false)) {
+        //show_icon_with_background(&tTempPanel, bIsNewFrame);
+        spinning_wheel_show(&tTempPanel, bIsNewFrame);
         
-        if (NULL != arm_2d_tile_generate_child( ptFrameBuffer, 
-                                    (arm_2d_region_t []){
-                                        {
-                                            .tLocation = {
-                                                .iX = APP_SCREEN_WIDTH >> 1,
-                                                .iY = APP_SCREEN_HEIGHT >> 1,
-                                            },
-                                            .tSize = {
-                                                .iWidth = APP_SCREEN_WIDTH >> 1,
-                                                .iHeight = APP_SCREEN_HEIGHT >> 1,
-                                            },
+        arm_2d_op_wait_async(NULL);
+    }
+    
+    if (NULL != arm_2d_tile_generate_child( ptFrameBuffer, 
+                                (arm_2d_region_t []){
+                                    {
+                                        .tLocation = {
+                                            .iX = APP_SCREEN_WIDTH >> 1,
+                                            .iY = APP_SCREEN_HEIGHT >> 1,
+                                        },
+                                        .tSize = {
+                                            .iWidth = APP_SCREEN_WIDTH >> 1,
+                                            .iHeight = APP_SCREEN_HEIGHT >> 1,
                                         },
                                     },
-                                    &tTempPanel,
-                                    false)) {
-            show_icon_without_background(&tTempPanel, bIsNewFrame);
-            
-            arm_2d_op_wait_async(NULL);
-        }
+                                },
+                                &tTempPanel,
+                                false)) {
+        show_icon_without_background(&tTempPanel, bIsNewFrame);
         
-        
-        
+        arm_2d_op_wait_async(NULL);
+    }
+    
+    
+    
 
-        example_gui_on_refresh_evt_handler(ptFrameBuffer);
-        
-    } while (0);
+    example_gui_on_refresh_evt_handler(ptFrameBuffer);
+
 }
 
 void example_gui_refresh(const arm_2d_tile_t *ptFrameBuffer, bool bIsNewFrame)

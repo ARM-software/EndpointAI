@@ -623,7 +623,6 @@ void __arm_2d_impl_gray8_colour_filling_with_opacity(uint8_t * __restrict pTarge
 
             vstrbq_p_u16(pTarget , vecTgt , tailPred);
 
-            pSource += 8;
             pTarget += 8;
             blkCnt -= 8;
         }
@@ -1246,20 +1245,20 @@ void __arm_2d_impl_cccn888_alpha_blending(   uint32_t *pwSourceBase,
         const uint32_t *pwSource = pwSourceBase;
         uint32_t       *pwTarget = pwTargetBase;
         /* byte extraction into 16-bit vector */
-        uint16x8_t      vecSrc = vldrbq_u16(pwSource);
-        uint16x8_t      vecTrg = vldrbq_u16(pwTarget);
+        uint16x8_t      vecSrc = vldrbq_u16((const uint8_t *)pwSource);
+        uint16x8_t      vecTrg = vldrbq_u16((const uint8_t *)pwTarget);
 
         pwSource += 2;
         blkCnt = ptCopySize->iWidth;
 
         while (blkCnt > 0) {
-            vstrbq_u16(pwTarget,
+            vstrbq_u16((const uint8_t *)pwTarget,
                        vmlaq(vmulq(vecSrc, chRatio), vecTrg, chRatioCompl) >> 8);
 
             pwTarget += 2;
 
-            vecSrc = vldrbq_u16(pwSource);
-            vecTrg = vldrbq_u16(pwTarget);
+            vecSrc = vldrbq_u16((const uint8_t *)pwSource);
+            vecTrg = vldrbq_u16((const uint8_t *)pwTarget);
             pwSource += 2;
             blkCnt -= 2;
         }
@@ -1406,7 +1405,6 @@ void __arm_2d_impl_cccn888_alpha_blending_colour_keying(uint32_t * __RESTRICT pS
 
 #ifdef USE_MVE_INTRINSICS
         int32_t         blkCnt = iWidth;
-        uint16x8_t      vecSrc, vecTrg;
 
         do {
             mve_pred16_t    p = vctp32q(blkCnt);
@@ -1436,7 +1434,7 @@ void __arm_2d_impl_cccn888_alpha_blending_colour_keying(uint32_t * __RESTRICT pS
             vecOut8 = vqshrntq_m_n_s16(vecOut8, vecOutt, 8, p);
 
             // update if (*pSourceBase != Colour)
-            vst1q_p_u32((uint8_t *) pTarget, (uint32x4_t) vecOut8,
+            vst1q_p_u32(pTarget, (uint32x4_t) vecOut8,
                         vcmpneq_m_n_u32((uint32x4_t) vSrc8, Colour, p));
 
             pSource += 4;
@@ -4613,7 +4611,7 @@ static  uint32_t __draw_pattern_src_bitmask_rgb32[16] = {
             uint16x8_t      vecAlpha = vsubq_u16(v256, vecTransp);                             \
             uint16x8_t      vecR, vecG, vecB;                                                  \
                                                                                                \
-            arm_2d_unpack_rgb565_single_vec(vecTarget, &vecR, &vecG, &vecB);                   \
+            __arm_2d_rgb565_unpack_single_vec(vecTarget, &vecR, &vecG, &vecB);                 \
                                                                                                \
             /* blending using alpha vector weights */                                          \
             vecR = vmulq(vecR, vecAlpha);                                                      \
@@ -4628,7 +4626,7 @@ static  uint32_t __draw_pattern_src_bitmask_rgb32[16] = {
             vecB = vmlaq(vecB, vecTransp, (uint16_t) tSrcPix.B);                               \
             vecB = vecB >> 8;                                                                  \
                                                                                                \
-            vecTarget = arm_2d_pack_rgb565_single_vec(vecR, vecG, vecB);                       \
+            vecTarget = __arm_2d_rgb565_pack_single_vec(vecR, vecG, vecB);                     \
                                                                                                \
             /* tail predication */                                                             \
             vst1q_p_u16(pCurTarget, vecTarget, vctp16q(blkCnt));                               \

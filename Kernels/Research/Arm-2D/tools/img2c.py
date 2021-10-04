@@ -187,6 +187,7 @@ def main(argv):
     inputfile = args.i;
     basename = os.path.basename(inputfile).split('.')[0];
 
+
     outputfile = args.o
     if outputfile == None or outputfile == "":
         outputfile = basename + ".c"
@@ -218,7 +219,16 @@ def main(argv):
         resized = True
 
 
+    # palettised
     mode = image.mode
+    if mode == 'P':
+        image = image.convert('RGBA')
+        mode = 'RGBA'
+    # greyscale
+    if mode == 'L':
+        image = image.convert('RGB')
+        mode = 'RGB'
+
     (row, col) = image.size
     data = np.asarray(image)
 
