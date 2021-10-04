@@ -1,6 +1,8 @@
 # CMSIS-Link
-- CMSIS-LINK is a scheduler of DSP/ML software components using an interface standard. CMSIS-LINK will be open-source in Apache license, and portable to Cortex-M, Cortex-R and Cortex-A.
+- CMSIS-LINK is a scheduler of DSP/ML software components using an interface standard. CMSIS-LINK will be open-source in Apache license, and portable to Cortex-M, Cortex-R, Cortex-A and Laptop computers.
   - Example of scheduled software components : image and voice codec, data conditioning, motion classifiers, data mixers, etc ...
 - **From the developer point of view**, it creates opaque memory interfaces to the input/output streams, and arranges data are exchanged in the desired formats of each component. CMSIS-LINK manages the memory mapping with speed constraints provided by the developer at instance creation. This lets software run with maximum performance in rising situations of memory bounded problems (best effort allocations in TCM with automatic memory swaps). CMSIS-LINK facilitates code portability along Arm IPs. CMSIS-LINK accepts code in fat binary format (several architectures managed in the same file) and software protection with keys.  In future releases CMSIS-LINK will provide memory protection between software components. CMSIS-LINK prepares new business opportunities for ML as-a-Service.
 
 - **From the system integrator view**, it eases the tuning and the replacement of one component by another one. It is made to ease processing split with multiprocessing. The stream is described with a graph (a text file) which can be designed with a graphical tool:  we have in mind to ease the development of DSP/ML processing without need to write code. CMSIS-LINK lets the system integrator focus on the dynamic behavior of the system thanks to its automatic parameters update scheme on use-case transitions. 
+
+A prototype will be published here in December.
