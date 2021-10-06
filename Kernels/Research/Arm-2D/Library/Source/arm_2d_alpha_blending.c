@@ -41,6 +41,8 @@ extern "C" {
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
 #   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
 #   pragma clang diagnostic ignored "-Wcast-qual"
@@ -55,6 +57,9 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wimplicit-int-conversion"
 #   pragma clang diagnostic ignored "-Wtautological-pointer-compare"
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wsign-compare"
+
 #elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 174,177,188,68,513,144
 #endif
@@ -100,27 +105,101 @@ extern "C" {
 #include "__arm_2d_alpha_blending.inc"
 
 
-#define __API_CAFWM_COLOUR              gray8
-#define __API_CAFWM_INT_TYPE            uint8_t
-#define __API_CAFWM_INT_TYPE_BIT_NUM    8
-#define __API_CAFWM_PIXEL_BLENDING      __ARM_2D_PIXEL_BLENDING_GRAY8
+#define __API_CAFWM_COLOUR                      gray8
+#define __API_CAFWM_INT_TYPE                    uint8_t
+#define __API_CAFWM_INT_TYPE_BIT_NUM            8
+#define __API_CAFWM_PIXEL_BLENDING              __ARM_2D_PIXEL_BLENDING_GRAY8
 
 #include "__arm_2d_alpha_mask.inc"
 
-#define __API_CAFWM_COLOUR              rgb565
-#define __API_CAFWM_INT_TYPE            uint16_t
-#define __API_CAFWM_INT_TYPE_BIT_NUM    16
-#define __API_CAFWM_PIXEL_BLENDING      __ARM_2D_PIXEL_BLENDING_RGB565
+#define __API_CAFWM_CFG_1_HORIZONTAL_LINE       1
+#define __API_CAFWM_COLOUR                      gray8
+#define __API_CAFWM_INT_TYPE                    uint8_t
+#define __API_CAFWM_INT_TYPE_BIT_NUM            8
+#define __API_CAFWM_PIXEL_BLENDING              __ARM_2D_PIXEL_BLENDING_GRAY8
+
+#include "__arm_2d_alpha_mask.inc"
+
+#define __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT   1
+#define __API_CAFWM_COLOUR                      gray8
+#define __API_CAFWM_INT_TYPE                    uint8_t
+#define __API_CAFWM_INT_TYPE_BIT_NUM            8
+#define __API_CAFWM_PIXEL_BLENDING              __ARM_2D_PIXEL_BLENDING_GRAY8
 
 #include "__arm_2d_alpha_mask.inc"
 
 
-#define __API_CAFWM_COLOUR              cccn888
-#define __API_CAFWM_INT_TYPE            uint32_t
-#define __API_CAFWM_INT_TYPE_BIT_NUM    32
-#define __API_CAFWM_PIXEL_BLENDING      __ARM_2D_PIXEL_BLENDING_CCCN888
+
+#define __API_CAFWM_COLOUR                      rgb565
+#define __API_CAFWM_INT_TYPE                    uint16_t
+#define __API_CAFWM_INT_TYPE_BIT_NUM            16
+#define __API_CAFWM_PIXEL_BLENDING              __ARM_2D_PIXEL_BLENDING_RGB565
 
 #include "__arm_2d_alpha_mask.inc"
+
+#define __API_CAFWM_CFG_1_HORIZONTAL_LINE       1
+#define __API_CAFWM_COLOUR                      rgb565
+#define __API_CAFWM_INT_TYPE                    uint16_t
+#define __API_CAFWM_INT_TYPE_BIT_NUM            16
+#define __API_CAFWM_PIXEL_BLENDING              __ARM_2D_PIXEL_BLENDING_RGB565
+
+#include "__arm_2d_alpha_mask.inc"
+
+#define __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT   1
+#define __API_CAFWM_COLOUR                      rgb565
+#define __API_CAFWM_INT_TYPE                    uint16_t
+#define __API_CAFWM_INT_TYPE_BIT_NUM            16
+#define __API_CAFWM_PIXEL_BLENDING              __ARM_2D_PIXEL_BLENDING_RGB565
+
+#include "__arm_2d_alpha_mask.inc"
+
+
+#define __API_CAFWM_COLOUR                      cccn888
+#define __API_CAFWM_INT_TYPE                    uint32_t
+#define __API_CAFWM_INT_TYPE_BIT_NUM            32
+#define __API_CAFWM_PIXEL_BLENDING              __ARM_2D_PIXEL_BLENDING_CCCN888
+    
+#include "__arm_2d_alpha_mask.inc"  
+    
+#define __API_CAFWM_CFG_1_HORIZONTAL_LINE       1
+#define __API_CAFWM_COLOUR                      cccn888
+#define __API_CAFWM_INT_TYPE                    uint32_t
+#define __API_CAFWM_INT_TYPE_BIT_NUM            32
+#define __API_CAFWM_PIXEL_BLENDING              __ARM_2D_PIXEL_BLENDING_CCCN888
+
+#include "__arm_2d_alpha_mask.inc"
+
+#define __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT   1
+#define __API_CAFWM_COLOUR                      cccn888
+#define __API_CAFWM_INT_TYPE                    uint32_t
+#define __API_CAFWM_INT_TYPE_BIT_NUM            32
+#define __API_CAFWM_PIXEL_BLENDING              __ARM_2D_PIXEL_BLENDING_CCCN888
+
+#include "__arm_2d_alpha_mask.inc"
+
+
+#define __API_ABW_COLOUR                        gray8
+#define __API_ABW_INT_TYPE                      uint8_t
+#define __API_ABW_INT_TYPE_BIT_NUM              8
+#define __API_ABW_COLOUR_SZ                     ARM_2D_COLOUR_SZ_8BIT
+
+#include "__arm_2d_alpha_blending_wrapper.inc"
+
+
+#define __API_ABW_COLOUR                        rgb565
+#define __API_ABW_INT_TYPE                      uint16_t
+#define __API_ABW_INT_TYPE_BIT_NUM              16
+#define __API_ABW_COLOUR_SZ                     ARM_2D_COLOUR_SZ_16BIT
+
+#include "__arm_2d_alpha_blending_wrapper.inc"
+
+
+#define __API_ABW_COLOUR                        cccn888
+#define __API_ABW_INT_TYPE                      uint32_t
+#define __API_ABW_INT_TYPE_BIT_NUM              32
+#define __API_ABW_COLOUR_SZ                     ARM_2D_COLOUR_SZ_32BIT
+
+#include "__arm_2d_alpha_blending_wrapper.inc"
 
 extern
 void __arm_2d_impl_rgb565_alpha_blending_direct(
@@ -190,6 +269,11 @@ arm_2d_err_t  __arm_2dp_tile_copy_with_mask_validate(
         if (ARM_2D_CMP_SMALLER == arm_2d_tile_height_compare(ptDesMask, ptTarget)) {
             if (1 != ptDesMask->tRegion.tSize.iHeight) {
                 return ARM_2D_ERR_INVALID_PARAM;
+            } else if (ARM_2D_CHANNEL_8in32 == ptDesMask->tColourInfo.chScheme) {
+                /*! does NOT support a target mask consists of 1 horizontal line
+                 *! in the special colour 'ARM_2D_CHANNEL_8in32'.
+                 */
+                return ARM_2D_ERR_INVALID_PARAM;
             }
         }
         
@@ -255,410 +339,6 @@ arm_fsm_rt_t arm_2dp_gray8_tile_copy_with_mask(
     }
 }
 
-static 
-arm_fsm_rt_t __arm_2d_gray8_sw_tile_copy_with_src_msk( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_8BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! todo
-    uint32_t wMode = this.wMode;
-
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-        __arm_2d_impl_gray8_src_msk_copy_mirror(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask.tSrcMask.pBuffer,
-            ptTask->Param.tCopyMask.tSrcMask.iStride,
-            &ptTask->Param.tCopyMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-            &ptTask->Param.tCopy.tCopySize,
-            wMode);
-    } else {
-        __arm_2d_impl_gray8_src_msk_copy(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask.tSrcMask.pBuffer,
-            ptTask->Param.tCopyMask.tSrcMask.iStride,
-            &ptTask->Param.tCopyMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-                
-            &ptTask->Param.tCopy.tCopySize);
-    }
-
-    return arm_fsm_rt_cpl;
-}
-
-static 
-arm_fsm_rt_t __arm_2d_gray8_sw_tile_copy_with_des_mask( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_8BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! todo
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_gray8_des_msk_copy_mirror(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-
-            ptTask->Param.tCopyMask.tDesMask.pBuffer,
-            ptTask->Param.tCopyMask.tDesMask.iStride,
-            &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
-            &ptTask->Param.tCopy.tCopySize,
-            wMode);
-
-    } else {
-        __arm_2d_impl_gray8_des_msk_copy(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-
-            ptTask->Param.tCopyMask.tDesMask.pBuffer,
-            ptTask->Param.tCopyMask.tDesMask.iStride,
-            &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
-            &ptTask->Param.tCopy.tCopySize);
-    }
-    
-    return arm_fsm_rt_cpl;
-}
-
-static 
-arm_fsm_rt_t __arm_2d_gray8_sw_tile_copy_with_masks( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_8BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_gray8_masks_copy_mirror(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask.tSrcMask.pBuffer,
-            ptTask->Param.tCopyMask.tSrcMask.iStride,
-            &ptTask->Param.tCopyMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-
-            ptTask->Param.tCopyMask.tDesMask.pBuffer,
-            ptTask->Param.tCopyMask.tDesMask.iStride,
-            &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
-            &ptTask->Param.tCopy.tCopySize,
-            wMode);
-
-    } else {
-        __arm_2d_impl_gray8_masks_copy(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask.tSrcMask.pBuffer,
-            ptTask->Param.tCopyMask.tSrcMask.iStride,
-            &ptTask->Param.tCopyMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-
-            ptTask->Param.tCopyMask.tDesMask.pBuffer,
-            ptTask->Param.tCopyMask.tDesMask.iStride,
-            &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
-            &ptTask->Param.tCopy.tCopySize);
-    }
-    
-    return arm_fsm_rt_cpl;
-}
-
-arm_fsm_rt_t __arm_2d_gray8_sw_tile_copy_with_mask( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_8BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-    
-    //! this should not happen
-    assert(!(   (NULL == this.Mask.ptSourceSide) 
-            &&  (NULL == this.Mask.ptTargetSide)));
-    
-    if (    (!ptTask->Param.tCopyMask.tSrcMask.bInvalid)
-       &&   (ptTask->Param.tCopyMask.tDesMask.bInvalid)) {
-        //! it only contains a mask on the source side
-        return __arm_2d_gray8_sw_tile_copy_with_src_msk(ptTask);
-    } else if (    (ptTask->Param.tCopyMask.tSrcMask.bInvalid)
-              &&   (!ptTask->Param.tCopyMask.tDesMask.bInvalid)) {
-        //! it only contains a mask on the target side
-        return __arm_2d_gray8_sw_tile_copy_with_des_mask(ptTask);
-    } else if (    (!ptTask->Param.tCopyMask.tSrcMask.bInvalid)
-              &&   (!ptTask->Param.tCopyMask.tDesMask.bInvalid)) {
-        //! it contains masks on both sides
-        return __arm_2d_gray8_sw_tile_copy_with_masks(ptTask);
-    } else {
-        //! it contains no mask
-        return __arm_2d_c8bit_sw_tile_copy(ptTask);
-    }
-}
-
-
-
-static 
-arm_fsm_rt_t __arm_2d_gray8_sw_tile_fill_with_src_msk( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_8BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_gray8_src_msk_fill_mirror(
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask.tSrcMask.pBuffer,
-            ptTask->Param.tFillMask.tSrcMask.iStride,
-            &ptTask->Param.tFillMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-            wMode);
-
-    
-    } else {
-        __arm_2d_impl_gray8_src_msk_fill(   
-                                ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask.tSrcMask.pBuffer,
-            ptTask->Param.tFillMask.tSrcMask.iStride,
-            &ptTask->Param.tFillMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize);
-    }
-
-    
-    return arm_fsm_rt_cpl;
-}
-
-static 
-arm_fsm_rt_t __arm_2d_gray8_sw_tile_fill_with_des_mask( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_8BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_gray8_des_msk_fill_mirror(
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-
-
-            ptTask->Param.tFillMask.tDesMask.pBuffer,
-            ptTask->Param.tFillMask.tDesMask.iStride,
-            &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize,
-            wMode);
-    
-    } else {
-        __arm_2d_impl_gray8_des_msk_fill(   
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-
-
-            ptTask->Param.tFillMask.tDesMask.pBuffer,
-            ptTask->Param.tFillMask.tDesMask.iStride,
-            &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize);
-    }
-
-    
-    return arm_fsm_rt_cpl;
-}
-
-static 
-arm_fsm_rt_t __arm_2d_gray8_sw_tile_fill_with_masks( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_8BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! todo
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_gray8_masks_fill_mirror(
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask.tSrcMask.pBuffer,
-            ptTask->Param.tFillMask.tSrcMask.iStride,
-            &ptTask->Param.tFillMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-
-
-            ptTask->Param.tFillMask.tDesMask.pBuffer,
-            ptTask->Param.tFillMask.tDesMask.iStride,
-            &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize,
-            wMode);
-    
-    } else {
-        __arm_2d_impl_gray8_masks_fill(   
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask.tSrcMask.pBuffer,
-            ptTask->Param.tFillMask.tSrcMask.iStride,
-            &ptTask->Param.tFillMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-
-
-            ptTask->Param.tFillMask.tDesMask.pBuffer,
-            ptTask->Param.tFillMask.tDesMask.iStride,
-            &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize);
-    }
-
-    
-    return arm_fsm_rt_cpl;
-}
-
-
-arm_fsm_rt_t __arm_2d_gray8_sw_tile_fill_with_mask( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_8BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! this should not happen
-    assert(!(   (NULL == this.Mask.ptSourceSide) 
-            &&  (NULL == this.Mask.ptTargetSide)));
-    
-    if (    (!ptTask->Param.tFillMask.tSrcMask.bInvalid)
-       &&   (ptTask->Param.tFillMask.tDesMask.bInvalid)) {
-        //! it only contains a mask on the source side
-        return __arm_2d_gray8_sw_tile_fill_with_src_msk(ptTask);
-    } else if (    (ptTask->Param.tFillMask.tSrcMask.bInvalid)
-              &&   (!ptTask->Param.tFillMask.tDesMask.bInvalid)) {
-        //! it only contains a mask on the target side
-        return __arm_2d_gray8_sw_tile_fill_with_des_mask(ptTask);
-    } else if (    (!ptTask->Param.tFillMask.tSrcMask.bInvalid)
-              &&   (!ptTask->Param.tFillMask.tDesMask.bInvalid)) {
-        //! it contains masks on both sides
-        return __arm_2d_gray8_sw_tile_fill_with_masks(ptTask);
-    } else {
-        //! it contains no mask
-        return __arm_2d_c8bit_sw_tile_fill(ptTask);
-    }
-
-        
-    return arm_fsm_rt_cpl;
-}
-
-
-
-
-
-
-
 
 
 
@@ -715,411 +395,6 @@ arm_fsm_rt_t arm_2dp_rgb565_tile_copy_with_mask(
     }
 }
 
-static 
-arm_fsm_rt_t __arm_2d_rgb565_sw_tile_copy_with_src_msk( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_16BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! todo
-    uint32_t wMode = this.wMode;
-
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-        __arm_2d_impl_rgb565_src_msk_copy_mirror(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask.tSrcMask.pBuffer,
-            ptTask->Param.tCopyMask.tSrcMask.iStride,
-            &ptTask->Param.tCopyMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-            &ptTask->Param.tCopy.tCopySize,
-            wMode);
-    } else {
-        __arm_2d_impl_rgb565_src_msk_copy(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask.tSrcMask.pBuffer,
-            ptTask->Param.tCopyMask.tSrcMask.iStride,
-            &ptTask->Param.tCopyMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-                
-            &ptTask->Param.tCopy.tCopySize);
-    }
-
-    return arm_fsm_rt_cpl;
-}
-
-static 
-arm_fsm_rt_t __arm_2d_rgb565_sw_tile_copy_with_des_mask( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_16BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! todo
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_rgb565_des_msk_copy_mirror(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-
-            ptTask->Param.tCopyMask.tDesMask.pBuffer,
-            ptTask->Param.tCopyMask.tDesMask.iStride,
-            &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
-            &ptTask->Param.tCopy.tCopySize,
-            wMode);
-
-    } else {
-        __arm_2d_impl_rgb565_des_msk_copy(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-
-            ptTask->Param.tCopyMask.tDesMask.pBuffer,
-            ptTask->Param.tCopyMask.tDesMask.iStride,
-            &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
-            &ptTask->Param.tCopy.tCopySize);
-    }
-    
-    return arm_fsm_rt_cpl;
-}
-
-static 
-arm_fsm_rt_t __arm_2d_rgb565_sw_tile_copy_with_masks( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_16BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_rgb565_masks_copy_mirror(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask.tSrcMask.pBuffer,
-            ptTask->Param.tCopyMask.tSrcMask.iStride,
-            &ptTask->Param.tCopyMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-
-            ptTask->Param.tCopyMask.tDesMask.pBuffer,
-            ptTask->Param.tCopyMask.tDesMask.iStride,
-            &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
-            &ptTask->Param.tCopy.tCopySize,
-            wMode);
-
-    } else {
-        __arm_2d_impl_rgb565_masks_copy(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask.tSrcMask.pBuffer,
-            ptTask->Param.tCopyMask.tSrcMask.iStride,
-            &ptTask->Param.tCopyMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-
-            ptTask->Param.tCopyMask.tDesMask.pBuffer,
-            ptTask->Param.tCopyMask.tDesMask.iStride,
-            &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
-            &ptTask->Param.tCopy.tCopySize);
-    }
-    
-    return arm_fsm_rt_cpl;
-}
-
-arm_fsm_rt_t __arm_2d_rgb565_sw_tile_copy_with_mask( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_16BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-    
-    //! this should not happen
-    assert(!(   (NULL == this.Mask.ptSourceSide) 
-            &&  (NULL == this.Mask.ptTargetSide)));
-    
-    if (    (!ptTask->Param.tCopyMask.tSrcMask.bInvalid)
-       &&   (ptTask->Param.tCopyMask.tDesMask.bInvalid)) {
-        //! it only contains a mask on the source side
-        return __arm_2d_rgb565_sw_tile_copy_with_src_msk(ptTask);
-    } else if (    (ptTask->Param.tCopyMask.tSrcMask.bInvalid)
-              &&   (!ptTask->Param.tCopyMask.tDesMask.bInvalid)) {
-        //! it only contains a mask on the target side
-        return __arm_2d_rgb565_sw_tile_copy_with_des_mask(ptTask);
-    } else if (    (!ptTask->Param.tCopyMask.tSrcMask.bInvalid)
-              &&   (!ptTask->Param.tCopyMask.tDesMask.bInvalid)) {
-        //! it contains masks on both sides
-        return __arm_2d_rgb565_sw_tile_copy_with_masks(ptTask);
-    } else {
-        //! it contains no mask
-        return __arm_2d_rgb16_sw_tile_copy(ptTask);
-    }
-}
-
-
-
-static 
-arm_fsm_rt_t __arm_2d_rgb565_sw_tile_fill_with_src_msk( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_16BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! todo
-    uint32_t wMode = this.wMode;
-
-    ARM_2D_UNUSED(wMode);
-    
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_rgb565_src_msk_fill_mirror(
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask.tSrcMask.pBuffer,
-            ptTask->Param.tFillMask.tSrcMask.iStride,
-            &ptTask->Param.tFillMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-            wMode);
-
-    
-    } else {
-        __arm_2d_impl_rgb565_src_msk_fill(   
-                                ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask.tSrcMask.pBuffer,
-            ptTask->Param.tFillMask.tSrcMask.iStride,
-            &ptTask->Param.tFillMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize);
-    }
-
-    
-    return arm_fsm_rt_cpl;
-}
-
-static 
-arm_fsm_rt_t __arm_2d_rgb565_sw_tile_fill_with_des_mask( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_16BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! todo
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_rgb565_des_msk_fill_mirror(
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-
-
-            ptTask->Param.tFillMask.tDesMask.pBuffer,
-            ptTask->Param.tFillMask.tDesMask.iStride,
-            &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize,
-            wMode);
-    
-    } else {
-        __arm_2d_impl_rgb565_des_msk_fill(   
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-
-
-            ptTask->Param.tFillMask.tDesMask.pBuffer,
-            ptTask->Param.tFillMask.tDesMask.iStride,
-            &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize);
-    }
-
-    
-    return arm_fsm_rt_cpl;
-}
-
-static 
-arm_fsm_rt_t __arm_2d_rgb565_sw_tile_fill_with_masks( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_16BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! todo
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_rgb565_masks_fill_mirror(
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask.tSrcMask.pBuffer,
-            ptTask->Param.tFillMask.tSrcMask.iStride,
-            &ptTask->Param.tFillMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-
-
-            ptTask->Param.tFillMask.tDesMask.pBuffer,
-            ptTask->Param.tFillMask.tDesMask.iStride,
-            &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize,
-            wMode);
-    
-    } else {
-        __arm_2d_impl_rgb565_masks_fill(   
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask.tSrcMask.pBuffer,
-            ptTask->Param.tFillMask.tSrcMask.iStride,
-            &ptTask->Param.tFillMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-
-
-            ptTask->Param.tFillMask.tDesMask.pBuffer,
-            ptTask->Param.tFillMask.tDesMask.iStride,
-            &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize);
-    }
-
-    
-    return arm_fsm_rt_cpl;
-}
-
-
-arm_fsm_rt_t __arm_2d_rgb565_sw_tile_fill_with_mask( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_16BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! this should not happen
-    assert(!(   (NULL == this.Mask.ptSourceSide) 
-            &&  (NULL == this.Mask.ptTargetSide)));
-    
-    if (    (!ptTask->Param.tFillMask.tSrcMask.bInvalid)
-       &&   (ptTask->Param.tFillMask.tDesMask.bInvalid)) {
-        //! it only contains a mask on the source side
-        return __arm_2d_rgb565_sw_tile_fill_with_src_msk(ptTask);
-    } else if (    (ptTask->Param.tFillMask.tSrcMask.bInvalid)
-              &&   (!ptTask->Param.tFillMask.tDesMask.bInvalid)) {
-        //! it only contains a mask on the target side
-        return __arm_2d_rgb565_sw_tile_fill_with_des_mask(ptTask);
-    } else if (    (!ptTask->Param.tFillMask.tSrcMask.bInvalid)
-              &&   (!ptTask->Param.tFillMask.tDesMask.bInvalid)) {
-        //! it contains masks on both sides
-        return __arm_2d_rgb565_sw_tile_fill_with_masks(ptTask);
-    } else {
-        //! it contains no mask
-        return __arm_2d_rgb16_sw_tile_fill(ptTask);
-    }
-
-        
-    return arm_fsm_rt_cpl;
-}
-
-
-
 ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_cccn888_tile_copy_with_mask(
                                         arm_2d_op_cp_msk_t *ptOP,
@@ -1172,408 +447,6 @@ arm_fsm_rt_t arm_2dp_cccn888_tile_copy_with_mask(
     
     }
 }
-
-static 
-arm_fsm_rt_t __arm_2d_cccn888_sw_tile_copy_with_src_msk( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! todo
-    uint32_t wMode = this.wMode;
-
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-        __arm_2d_impl_cccn888_src_msk_copy_mirror(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask.tSrcMask.pBuffer,
-            ptTask->Param.tCopyMask.tSrcMask.iStride,
-            &ptTask->Param.tCopyMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-            &ptTask->Param.tCopy.tCopySize,
-            wMode);
-    } else {
-        __arm_2d_impl_cccn888_src_msk_copy(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask.tSrcMask.pBuffer,
-            ptTask->Param.tCopyMask.tSrcMask.iStride,
-            &ptTask->Param.tCopyMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-                
-            &ptTask->Param.tCopy.tCopySize);
-    }
-
-    return arm_fsm_rt_cpl;
-}
-
-static 
-arm_fsm_rt_t __arm_2d_cccn888_sw_tile_copy_with_des_mask( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! todo
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_cccn888_des_msk_copy_mirror(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-
-            ptTask->Param.tCopyMask.tDesMask.pBuffer,
-            ptTask->Param.tCopyMask.tDesMask.iStride,
-            &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
-            &ptTask->Param.tCopy.tCopySize,
-            wMode);
-
-    } else {
-        __arm_2d_impl_cccn888_des_msk_copy(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-
-            ptTask->Param.tCopyMask.tDesMask.pBuffer,
-            ptTask->Param.tCopyMask.tDesMask.iStride,
-            &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
-            &ptTask->Param.tCopy.tCopySize);
-    }
-    
-    return arm_fsm_rt_cpl;
-}
-
-static 
-arm_fsm_rt_t __arm_2d_cccn888_sw_tile_copy_with_masks( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_cccn888_masks_copy_mirror(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask.tSrcMask.pBuffer,
-            ptTask->Param.tCopyMask.tSrcMask.iStride,
-            &ptTask->Param.tCopyMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-
-            ptTask->Param.tCopyMask.tDesMask.pBuffer,
-            ptTask->Param.tCopyMask.tDesMask.iStride,
-            &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
-            &ptTask->Param.tCopy.tCopySize,
-            wMode);
-
-    } else {
-        __arm_2d_impl_cccn888_masks_copy(
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tSource.iStride,
-
-            ptTask->Param.tCopyMask.tSrcMask.pBuffer,
-            ptTask->Param.tCopyMask.tSrcMask.iStride,
-            &ptTask->Param.tCopyMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.pBuffer,
-            ptTask->Param.tCopyMask
-                .use_as____arm_2d_param_copy_t.tTarget.iStride,
-
-
-            ptTask->Param.tCopyMask.tDesMask.pBuffer,
-            ptTask->Param.tCopyMask.tDesMask.iStride,
-            &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
-            &ptTask->Param.tCopy.tCopySize);
-    }
-    
-    return arm_fsm_rt_cpl;
-}
-
-arm_fsm_rt_t __arm_2d_cccn888_sw_tile_copy_with_mask( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-    
-    //! this should not happen
-    assert(!(   (NULL == this.Mask.ptSourceSide) 
-            &&  (NULL == this.Mask.ptTargetSide)));
-    
-    if (    (!ptTask->Param.tCopyMask.tSrcMask.bInvalid)
-       &&   (ptTask->Param.tCopyMask.tDesMask.bInvalid)) {
-        //! it only contains a mask on the source side
-        return __arm_2d_cccn888_sw_tile_copy_with_src_msk(ptTask);
-    } else if (    (ptTask->Param.tCopyMask.tSrcMask.bInvalid)
-              &&   (!ptTask->Param.tCopyMask.tDesMask.bInvalid)) {
-        //! it only contains a mask on the target side
-        return __arm_2d_cccn888_sw_tile_copy_with_des_mask(ptTask);
-    } else if (    (!ptTask->Param.tCopyMask.tSrcMask.bInvalid)
-              &&   (!ptTask->Param.tCopyMask.tDesMask.bInvalid)) {
-        //! it contains masks on both sides
-        return __arm_2d_cccn888_sw_tile_copy_with_masks(ptTask);
-    } else {
-        //! it contains no mask
-        return __arm_2d_rgb32_sw_tile_copy(ptTask);
-    }
-}
-
-
-
-static 
-arm_fsm_rt_t __arm_2d_cccn888_sw_tile_fill_with_src_msk( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_cccn888_src_msk_fill_mirror(
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask.tSrcMask.pBuffer,
-            ptTask->Param.tFillMask.tSrcMask.iStride,
-            &ptTask->Param.tFillMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-            wMode);
-
-    
-    } else {
-        __arm_2d_impl_cccn888_src_msk_fill(   
-                                ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask.tSrcMask.pBuffer,
-            ptTask->Param.tFillMask.tSrcMask.iStride,
-            &ptTask->Param.tFillMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize);
-    }
-
-    
-    return arm_fsm_rt_cpl;
-}
-
-static 
-arm_fsm_rt_t __arm_2d_cccn888_sw_tile_fill_with_des_mask( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_cccn888_des_msk_fill_mirror(
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-
-
-            ptTask->Param.tFillMask.tDesMask.pBuffer,
-            ptTask->Param.tFillMask.tDesMask.iStride,
-            &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize,
-            wMode);
-    
-    } else {
-        __arm_2d_impl_cccn888_des_msk_fill(   
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-
-
-            ptTask->Param.tFillMask.tDesMask.pBuffer,
-            ptTask->Param.tFillMask.tDesMask.iStride,
-            &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize);
-    }
-
-    
-    return arm_fsm_rt_cpl;
-}
-
-static 
-arm_fsm_rt_t __arm_2d_cccn888_sw_tile_fill_with_masks( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! todo
-    uint32_t wMode = this.wMode;
-
-    if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-
-        __arm_2d_impl_cccn888_masks_fill_mirror(
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask.tSrcMask.pBuffer,
-            ptTask->Param.tFillMask.tSrcMask.iStride,
-            &ptTask->Param.tFillMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-
-
-            ptTask->Param.tFillMask.tDesMask.pBuffer,
-            ptTask->Param.tFillMask.tDesMask.iStride,
-            &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize,
-            wMode);
-    
-    } else {
-        __arm_2d_impl_cccn888_masks_fill(   
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tSource.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask.tSrcMask.pBuffer,
-            ptTask->Param.tFillMask.tSrcMask.iStride,
-            &ptTask->Param.tFillMask.tSrcMask.tValidRegion.tSize,
-
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.pBuffer,
-            ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.iStride,
-            &ptTask->Param.tFillMask
-                .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize,
-
-
-            ptTask->Param.tFillMask.tDesMask.pBuffer,
-            ptTask->Param.tFillMask.tDesMask.iStride,
-            &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize);
-    }
-
-    
-    return arm_fsm_rt_cpl;
-}
-
-
-arm_fsm_rt_t __arm_2d_cccn888_sw_tile_fill_with_mask( __arm_2d_sub_task_t *ptTask)
-{
-    ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
-    assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
-
-    //! this should not happen
-    assert(!(   (NULL == this.Mask.ptSourceSide) 
-            &&  (NULL == this.Mask.ptTargetSide)));
-    
-    if (    (!ptTask->Param.tFillMask.tSrcMask.bInvalid)
-       &&   (ptTask->Param.tFillMask.tDesMask.bInvalid)) {
-        //! it only contains a mask on the source side
-        return __arm_2d_cccn888_sw_tile_fill_with_src_msk(ptTask);
-    } else if (    (ptTask->Param.tFillMask.tSrcMask.bInvalid)
-              &&   (!ptTask->Param.tFillMask.tDesMask.bInvalid)) {
-        //! it only contains a mask on the target side
-        return __arm_2d_cccn888_sw_tile_fill_with_des_mask(ptTask);
-    } else if (    (!ptTask->Param.tFillMask.tSrcMask.bInvalid)
-              &&   (!ptTask->Param.tFillMask.tDesMask.bInvalid)) {
-        //! it contains masks on both sides
-        return __arm_2d_cccn888_sw_tile_fill_with_masks(ptTask);
-    } else {
-        //! it contains no mask
-        return __arm_2d_rgb32_sw_tile_fill(ptTask);
-    }
-
-        
-    return arm_fsm_rt_cpl;
-}
-
-
-
-
 
 /*----------------------------------------------------------------------------*
  * Copy tile to destination with specified transparency ratio (0~255)         *

@@ -97,12 +97,17 @@ const arm_2d_tile_t c_tileWhiteDotAlpha = {
 
 const arm_2d_tile_t c_tileWhiteDotAlphaQuarter = {
     .tRegion = {
+        .tLocation = {
+            .iX = 7,
+            .iY = 7,
+        },
         .tSize = {
             .iWidth = 7,
             .iHeight = 7,
         },
     },
     .tInfo.bIsRoot = false,
+    .tInfo.bDerivedResource = true,
     .ptParent = (arm_2d_tile_t *)&c_tileWhiteDotAlpha,
 };
 

@@ -1,4 +1,3 @@
-
 /*
  * Copyright (C) 2010-2021 Arm Limited or its affiliates. All rights reserved.
  *
@@ -40,9 +39,88 @@
 #   error You have to define __API_PIXEL_BLENDING before using this c template
 #endif
 
+/*! disable this feature by default */
+#ifndef __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+#   define __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING      0
+#endif
+
+#ifndef __API_CAFWM_CFG_1_HORIZONTAL_LINE
+#   define __API_CAFWM_CFG_1_HORIZONTAL_LINE            0
+#endif
+
+#ifndef __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+#   define __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT        0
+#endif
+
+
+#if __API_CAFWM_CFG_1_HORIZONTAL_LINE && !__API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+//! rename functions for 'c8bit' 1 horizontal line target mask
+#   define masks_fill                  src_msk_1h_des_msk_fill
+#   define masks_fill_x_mirror         src_msk_1h_des_msk_fill_x_mirro
+#   define masks_fill_y_mirror         src_msk_1h_des_msk_fill_y_mirro
+#   define masks_fill_xy_mirror        src_msk_1h_des_msk_fill_xy_mirro
+#   define masks_fill_mirror           src_msk_1h_des_msk_fill_mirror
+
+#   define des_msk_fill                1h_des_msk_fill
+#   define des_msk_fill_x_mirror       1h_des_msk_fill_x_mirro
+#   define des_msk_fill_y_mirror       1h_des_msk_fill_y_mirro
+#   define des_msk_fill_xy_mirror      1h_des_msk_fill_xy_mirro
+#   define des_msk_fill_mirror         1h_des_msk_fill_mirror 
+
+
+#   define masks_copy                  src_msk_1h_des_msk_copy
+#   define masks_copy_x_mirror         src_msk_1h_des_msk_copy_x_mirro
+#   define masks_copy_y_mirror         src_msk_1h_des_msk_copy_y_mirro
+#   define masks_copy_xy_mirror        src_msk_1h_des_msk_copy_xy_mirro
+#   define masks_copy_mirror           src_msk_1h_des_msk_copy_mirror                  
+
+#   define des_msk_copy                1h_des_msk_copy
+#   define des_msk_copy_x_mirror       1h_des_msk_copy_x_mirro
+#   define des_msk_copy_y_mirror       1h_des_msk_copy_y_mirro
+#   define des_msk_copy_xy_mirror      1h_des_msk_copy_xy_mirro
+#   define des_msk_copy_mirror         1h_des_msk_copy_mirror 
+
+#elif __API_CAFWM_CFG_1_HORIZONTAL_LINE && __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+//! rename functions for '8in32 channel' 1 horizontal line target mask 
+
+#   error Do NOT Support this combination:  __API_CAFWM_CFG_1_HORIZONTAL_LINE=1 \
+ and __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT=1 !
+
+#elif !__API_CAFWM_CFG_1_HORIZONTAL_LINE && __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+//! rename functions for '8in32 channel'
+
+#   define des_msk_fill                des_chn_msk_fill
+#   define des_msk_fill_x_mirror       des_chn_msk_fill_x_mirror
+#   define des_msk_fill_y_mirror       des_chn_msk_fill_y_mirror
+#   define des_msk_fill_xy_mirror      des_chn_msk_fill_xy_mirror
+#   define des_msk_fill_mirror         des_chn_msk_fill_mirror                
+
+#   define des_msk_copy                des_chn_msk_copy
+#   define des_msk_copy_x_mirror       des_chn_msk_copy_x_mirror
+#   define des_msk_copy_y_mirror       des_chn_msk_copy_y_mirror
+#   define des_msk_copy_xy_mirror      des_chn_msk_copy_xy_mirror
+#   define des_msk_copy_mirror         des_chn_msk_copy_mirror 
+
+#   define src_msk_fill                src_chn_msk_fill
+#   define src_msk_fill_x_mirror       src_chn_msk_fill_x_mirror
+#   define src_msk_fill_y_mirror       src_chn_msk_fill_y_mirror
+#   define src_msk_fill_xy_mirror      src_chn_msk_fill_xy_mirror
+#   define src_msk_fill_mirror         src_chn_msk_fill_mirror                
+
+#   define src_msk_copy                src_chn_msk_copy
+#   define src_msk_copy_x_mirror       src_chn_msk_copy_x_mirror
+#   define src_msk_copy_y_mirror       src_chn_msk_copy_y_mirror
+#   define src_msk_copy_xy_mirror      src_chn_msk_copy_xy_mirror
+#   define src_msk_copy_mirror         src_chn_msk_copy_mirror 
+
+#endif
+
+
+
 #undef ____CAFWM_FUNC
 #undef ___CAFWM_FUNC
 #undef __CAFWM_FUNC
+
 
 
 #ifndef __API_CAFWM_OP_NAME
@@ -84,400 +162,168 @@
  * Fill with Mirroring (both masks)                                           *
  *----------------------------------------------------------------------------*/
 
-__WEAK
-void __CAFWM_FUNC(masks_fill)(
-                        __API_CAFWM_INT_TYPE * __RESTRICT ptSourceBase,
-                        int16_t iSourceStride,
-                        arm_2d_size_t *__RESTRICT ptSourceSize,
-                        
-                        uint8_t * __RESTRICT pchSourceMaskBase,
-                        int16_t iSourceMaskStride,
-                        arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-                        
-                        __API_CAFWM_INT_TYPE *__RESTRICT ptTargetBase,
-                        int16_t iTargetStride,
-                        arm_2d_size_t *__RESTRICT ptTargetSize,
-                        
-                        uint8_t *__RESTRICT pchTargetMaskBase,
-                        int16_t iTargetMaskStride,
-                        arm_2d_size_t *__RESTRICT ptTargetMaskSize)
-{
-    uint8_t *__RESTRICT pchTargetMaskLineBase = pchTargetMaskBase;  
-    
-    for (int_fast16_t iTargetY = 0, iTargetMaskY = 0; iTargetY < ptTargetSize->iHeight;) {
-    
-        //! reset source
-        __API_CAFWM_INT_TYPE *__RESTRICT ptSource = ptSourceBase;      
-        uint8_t *pchSourceMask = pchSourceMaskBase;    
-        int_fast16_t iSourceMaskY = 0;
-        
-        for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
-            __API_CAFWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;
-            uint8_t *__RESTRICT pchTargetMask = pchTargetMaskLineBase;      
-            
-            /*---------------- Height Loop Begin----------------*/
-            uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
 
-            do {
-                uint_fast32_t   wLength = MIN(wLengthLeft, ptSourceSize->iWidth);
-                /*---------------- Width Loop Begin----------------*/
 
-                __API_CAFWM_INT_TYPE *__RESTRICT ptSrc = ptSource;
-                uint8_t *__RESTRICT pchSrcMsk = pchSourceMask;
-                for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 256 - ((*pchSrcMsk++) * (*pchTargetMask++) >> 8);
-                    __API_CAFWM_PIXEL_BLENDING(ptSrc++, ptTarget++, hwOpacity);
-                }
+#if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
 
-                /*---------------- Width Loop End----------------*/
-                wLengthLeft -= wLength;
-            } while (wLengthLeft);
-            
-            /*---------------- Height Loop End----------------*/
-            ptSource += iSourceStride;
-            ptTargetBase += iTargetStride;
-            
-            iSourceMaskY++;
-            //! handle source mask 
-            if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
-               ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
-                pchSourceMask = pchSourceMaskBase;
-                iSourceMaskY = 0;
-            } else {
-                pchSourceMask += iSourceMaskStride;
-            }
-            
-            iTargetMaskY++;
-            //! handle target mask 
-            if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-               ||   (iTargetMaskY >= ptTargetSize->iHeight)) {
-                pchTargetMaskLineBase = pchTargetMaskBase;
-                iTargetMaskY = 0;
-            } else {
-                pchTargetMaskLineBase += iTargetMaskStride;
-            }
-            
-            iTargetY++;
-            if (iTargetY >= ptTargetSize->iHeight) {
-                break;
-            }
-        }
-    }
-}
+/*! \note source mask only */
+#   define __API_MCWM_COLOUR                   __API_CAFWM_COLOUR
+#   define __API_MCWM_INT_TYPE                 __API_CAFWM_INT_TYPE
+#   define __API_MCWM_INT_TYPE_BIT_NUM         __API_CAFWM_INT_TYPE_BIT_NUM
+#   define __API_MCWM_PIXEL_BLENDING           __API_CAFWM_PIXEL_BLENDING
 
-__WEAK
-void __CAFWM_FUNC(masks_fill_x_mirror)(
-                        __API_CAFWM_INT_TYPE * __RESTRICT ptSourceBase,
-                        int16_t iSourceStride,
-                        arm_2d_size_t *__RESTRICT ptSourceSize,
-                        
-                        uint8_t * __RESTRICT pchSourceMaskBase,
-                        int16_t iSourceMaskStride,
-                        arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-                        
-                        __API_CAFWM_INT_TYPE *__RESTRICT ptTargetBase,
-                        int16_t iTargetStride,
-                        arm_2d_size_t *__RESTRICT ptTargetSize,
-                        
-                        uint8_t *__RESTRICT pchTargetMaskBase,
-                        int16_t iTargetMaskStride,
-                        arm_2d_size_t *__RESTRICT ptTargetMaskSize)
-{
-    uint8_t *__RESTRICT pchTargetMaskLineBase = pchTargetMaskBase;  
-    
-    for (int_fast16_t iTargetY = 0, iTargetMaskY = 0; iTargetY < ptTargetSize->iHeight;) {
-    
-        //! reset source
-        __API_CAFWM_INT_TYPE *__RESTRICT ptSource = ptSourceBase;      
-        uint8_t *pchSourceMask = pchSourceMaskBase;    
-        int_fast16_t iSourceMaskY = 0;
-        
-        for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
-            __API_CAFWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;
-            uint8_t *__RESTRICT pchTargetMask = pchTargetMaskLineBase;      
-            
-            /*---------------- Height Loop Begin----------------*/
-            uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
+#   if defined(__API_CAFWM_OP_NAME)
+#       define __API_MCWM_OP_NAME              __API_CAFWM_OP_NAME
+#   endif
 
-            do {
-                uint_fast32_t   wLength = MIN(wLengthLeft, ptSourceSize->iWidth);
-                /*---------------- Width Loop Begin----------------*/
+#   define __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING                               \
+                __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+#   define __API_MCWM_CFG_1_HORIZONTAL_LINE                         0
+#   define __API_MCWM_CFG_CHANNEL_8in32_SUPPORT                     1
 
-                __API_CAFWM_INT_TYPE *__RESTRICT ptSrc = ptSource;
-                uint8_t *__RESTRICT pchSrcMsk = pchSourceMask;
+#   define __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE      1
+#   define __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE      0
+
+#   define masks_fill                  src_chn_msk_des_msk_fill
+#   define masks_fill_x_mirror         src_chn_msk_des_msk_fill_x_mirro
+#   define masks_fill_y_mirror         src_chn_msk_des_msk_fill_y_mirro
+#   define masks_fill_xy_mirror        src_chn_msk_des_msk_fill_xy_mirro
+#   define masks_fill_mirror           src_chn_msk_des_msk_fill_mirror
+
+#   define masks_copy                  src_chn_msk_des_msk_copy
+#   define masks_copy_x_mirror         src_chn_msk_des_msk_copy_x_mirro
+#   define masks_copy_y_mirror         src_chn_msk_des_msk_copy_y_mirro
+#   define masks_copy_xy_mirror        src_chn_msk_des_msk_copy_xy_mirro
+#   define masks_copy_mirror           src_chn_msk_des_msk_copy_mirror    
+
+
+#   include "__arm_2d_meta_copy_with_masks.inc"
+
+
+
+/*! \note source mask only */
+#   define __API_MCWM_COLOUR                   __API_CAFWM_COLOUR
+#   define __API_MCWM_INT_TYPE                 __API_CAFWM_INT_TYPE
+#   define __API_MCWM_INT_TYPE_BIT_NUM         __API_CAFWM_INT_TYPE_BIT_NUM
+#   define __API_MCWM_PIXEL_BLENDING           __API_CAFWM_PIXEL_BLENDING
+
+#   if defined(__API_CAFWM_OP_NAME)
+#       define __API_MCWM_OP_NAME              __API_CAFWM_OP_NAME
+#   endif
+
+#   define __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING                               \
+                __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
                 
-                ptSrc += ptSourceSize->iWidth - 1;
-                pchSrcMsk += ptSourceSize->iWidth - 1;
-                
-                for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 256 - ((*pchSrcMsk--) * (*pchTargetMask++) >> 8);
-                    __API_CAFWM_PIXEL_BLENDING(ptSrc--, ptTarget++, hwOpacity);
-                }
+#   define __API_MCWM_CFG_1_HORIZONTAL_LINE                         1
+#   define __API_MCWM_CFG_CHANNEL_8in32_SUPPORT                     1
 
-                /*---------------- Width Loop End----------------*/
-                wLengthLeft -= wLength;
-            } while (wLengthLeft);
-            
-            /*---------------- Height Loop End----------------*/
-            ptSource += iSourceStride;
-            ptTargetBase += iTargetStride;
-            
-            iSourceMaskY++;
-            //! handle source mask 
-            if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
-               ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
-                pchSourceMask = pchSourceMaskBase;
-                iSourceMaskY = 0;
-            } else {
-                pchSourceMask += iSourceMaskStride;
-            }
-            
-            iTargetMaskY++;
-            //! handle target mask 
-            if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-               ||   (iTargetMaskY >= ptTargetSize->iHeight)) {
-                pchTargetMaskLineBase = pchTargetMaskBase;
-                iTargetMaskY = 0;
-            } else {
-                pchTargetMaskLineBase += iTargetMaskStride;
-            }
-            
-            iTargetY++;
-            if (iTargetY >= ptTargetSize->iHeight) {
-                break;
-            }
-        }
-    }
+#   define __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE      1
+#   define __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE      0
+
+#   define masks_fill                  src_chn_msk_1h_des_msk_fill
+#   define masks_fill_x_mirror         src_chn_msk_1h_des_msk_fill_x_mirro
+#   define masks_fill_y_mirror         src_chn_msk_1h_des_msk_fill_y_mirro
+#   define masks_fill_xy_mirror        src_chn_msk_1h_des_msk_fill_xy_mirro
+#   define masks_fill_mirror           src_chn_msk_1h_des_msk_fill_mirror
+
+#   define masks_copy                  src_chn_msk_1h_des_msk_copy
+#   define masks_copy_x_mirror         src_chn_msk_1h_des_msk_copy_x_mirro
+#   define masks_copy_y_mirror         src_chn_msk_1h_des_msk_copy_y_mirro
+#   define masks_copy_xy_mirror        src_chn_msk_1h_des_msk_copy_xy_mirro
+#   define masks_copy_mirror           src_chn_msk_1h_des_msk_copy_mirror    
 
 
-}
-
-__WEAK
-void __CAFWM_FUNC(masks_fill_y_mirror)(
-                        __API_CAFWM_INT_TYPE * __RESTRICT ptSourceBase,
-                        int16_t iSourceStride,
-                        arm_2d_size_t *__RESTRICT ptSourceSize,
-                        
-                        uint8_t * __RESTRICT pchSourceMaskBase,
-                        int16_t iSourceMaskStride,
-                        arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-                        
-                        __API_CAFWM_INT_TYPE *__RESTRICT ptTargetBase,
-                        int16_t iTargetStride,
-                        arm_2d_size_t *__RESTRICT ptTargetSize,
-                        
-                        uint8_t *__RESTRICT pchTargetMaskBase,
-                        int16_t iTargetMaskStride,
-                        arm_2d_size_t *__RESTRICT ptTargetMaskSize)
-{
-    assert(ptSourceSize->iHeight <= ptSourceMaskSize->iHeight);
-    pchSourceMaskBase += iSourceMaskStride * (ptSourceSize->iHeight - 1);
-    
-
-    uint8_t *__RESTRICT pchTargetMaskLineBase = pchTargetMaskBase;  
-    
-    for (int_fast16_t iTargetY = 0, iTargetMaskY = 0; iTargetY < ptTargetSize->iHeight;) {
-    
-        //! reset source
-        __API_CAFWM_INT_TYPE *__RESTRICT ptSource 
-            = ptSourceBase + iSourceStride * (ptSourceSize->iHeight - 1);     
-        uint8_t *pchSourceMask = pchSourceMaskBase;    
-        int_fast16_t iSourceMaskY = 0;
-        
-        for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
-            __API_CAFWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;
-            uint8_t *__RESTRICT pchTargetMask = pchTargetMaskLineBase;      
-            
-            /*---------------- Height Loop Begin----------------*/
-            uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
-
-            do {
-                uint_fast32_t   wLength = MIN(wLengthLeft, ptSourceSize->iWidth);
-                /*---------------- Width Loop Begin----------------*/
-
-                __API_CAFWM_INT_TYPE *__RESTRICT ptSrc = ptSource;
-                uint8_t *__RESTRICT pchSrcMsk = pchSourceMask;
-                for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 256 - ((*pchSrcMsk++) * (*pchTargetMask++) >> 8);
-                    __API_CAFWM_PIXEL_BLENDING(ptSrc++, ptTarget++, hwOpacity);
-                }
-
-                /*---------------- Width Loop End----------------*/
-                wLengthLeft -= wLength;
-            } while (wLengthLeft);
-            
-            /*---------------- Height Loop End----------------*/
-            ptSource -= iSourceStride;
-            ptTargetBase += iTargetStride;
-            
-            iSourceMaskY++;
-            //! handle source mask 
-            if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
-               ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
-                pchSourceMask = pchSourceMaskBase;
-                iSourceMaskY = 0;
-            } else {
-                pchSourceMask -= iSourceMaskStride;
-            }
-            
-            iTargetMaskY++;
-            //! handle target mask 
-            if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-               ||   (iTargetMaskY >= ptTargetSize->iHeight)) {
-                pchTargetMaskLineBase = pchTargetMaskBase;
-                iTargetMaskY = 0;
-            } else {
-                pchTargetMaskLineBase += iTargetMaskStride;
-            }
-            
-            iTargetY++;
-            if (iTargetY >= ptTargetSize->iHeight) {
-                break;
-            }
-        }
-    }
-
-}
-
-__WEAK
-void __CAFWM_FUNC(masks_fill_xy_mirror)(
-                        __API_CAFWM_INT_TYPE * __RESTRICT ptSourceBase,
-                        int16_t iSourceStride,
-                        arm_2d_size_t *__RESTRICT ptSourceSize,
-                        
-                        uint8_t * __RESTRICT pchSourceMaskBase,
-                        int16_t iSourceMaskStride,
-                        arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-                        
-                        __API_CAFWM_INT_TYPE *__RESTRICT ptTargetBase,
-                        int16_t iTargetStride,
-                        arm_2d_size_t *__RESTRICT ptTargetSize,
-                        
-                        uint8_t *__RESTRICT pchTargetMaskBase,
-                        int16_t iTargetMaskStride,
-                        arm_2d_size_t *__RESTRICT ptTargetMaskSize)
-{
-    assert(ptSourceSize->iHeight <= ptSourceMaskSize->iHeight);
-    pchSourceMaskBase += iSourceMaskStride * (ptSourceSize->iHeight - 1);
-    
-
-    uint8_t *__RESTRICT pchTargetMaskLineBase = pchTargetMaskBase;  
-    
-    for (int_fast16_t iTargetY = 0, iTargetMaskY = 0; iTargetY < ptTargetSize->iHeight;) {
-    
-        //! reset source
-        __API_CAFWM_INT_TYPE *__RESTRICT ptSource 
-            = ptSourceBase + iSourceStride * (ptSourceSize->iHeight - 1);     
-        uint8_t *pchSourceMask = pchSourceMaskBase;    
-        int_fast16_t iSourceMaskY = 0;
-        
-        for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
-            __API_CAFWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;
-            uint8_t *__RESTRICT pchTargetMask = pchTargetMaskLineBase;      
-            
-            /*---------------- Height Loop Begin----------------*/
-            uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
-
-            do {
-                uint_fast32_t   wLength = MIN(wLengthLeft, ptSourceSize->iWidth);
-                /*---------------- Width Loop Begin----------------*/
-
-                __API_CAFWM_INT_TYPE *__RESTRICT ptSrc = ptSource;
-                uint8_t *__RESTRICT pchSrcMsk = pchSourceMask;
-                
-                ptSrc += ptSourceSize->iWidth - 1;
-                pchSrcMsk += ptSourceSize->iWidth - 1;
-                
-                
-                for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 256 - ((*pchSrcMsk--) * (*pchTargetMask++) >> 8);
-                    __API_CAFWM_PIXEL_BLENDING(ptSrc--, ptTarget++, hwOpacity);
-                }
-
-                /*---------------- Width Loop End----------------*/
-                wLengthLeft -= wLength;
-            } while (wLengthLeft);
-            
-            /*---------------- Height Loop End----------------*/
-            ptSource -= iSourceStride;
-            ptTargetBase += iTargetStride;
-            
-            iSourceMaskY++;
-            //! handle source mask 
-            if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
-               ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
-                pchSourceMask = pchSourceMaskBase;
-                iSourceMaskY = 0;
-            } else {
-                pchSourceMask -= iSourceMaskStride;
-            }
-            
-            iTargetMaskY++;
-            //! handle target mask 
-            if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-               ||   (iTargetMaskY >= ptTargetSize->iHeight)) {
-                pchTargetMaskLineBase = pchTargetMaskBase;
-                iTargetMaskY = 0;
-            } else {
-                pchTargetMaskLineBase += iTargetMaskStride;
-            }
-            
-            iTargetY++;
-            if (iTargetY >= ptTargetSize->iHeight) {
-                break;
-            }
-        }
-    }
-
-}
+#   include "__arm_2d_meta_copy_with_masks.inc"
 
 
-__WEAK
-void __CAFWM_FUNC(masks_fill_mirror)(
-                        __API_CAFWM_INT_TYPE * __RESTRICT ptSourceBase,
-                        int16_t iSourceStride,
-                        arm_2d_size_t *__RESTRICT ptSourceSize,
-                        
-                        uint8_t * __RESTRICT pchSourceMaskBase,
-                        int16_t iSourceMaskStride,
-                        arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-                        
-                        __API_CAFWM_INT_TYPE *__RESTRICT ptTargetBase,
-                        int16_t iTargetStride,
-                        arm_2d_size_t *__RESTRICT ptTargetSize,
-                        
-                        uint8_t *__RESTRICT pchTargetMaskBase,
-                        int16_t iTargetMaskStride,
-                        arm_2d_size_t *__RESTRICT ptTargetMaskSize,
-                        uint32_t wMode)
-{
-    switch (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-        case ARM_2D_CP_MODE_X_MIRROR:
-            __CAFWM_FUNC(masks_fill_x_mirror)(
-                    ptSourceBase, iSourceStride, ptSourceSize,
-                    pchSourceMaskBase, iSourceMaskStride, ptSourceMaskSize,
-                    ptTargetBase, iTargetStride, ptTargetSize,
-                    pchTargetMaskBase, iTargetMaskStride, ptTargetMaskSize);
-            break;
-        case ARM_2D_CP_MODE_Y_MIRROR:
-            __CAFWM_FUNC(masks_fill_y_mirror)(
-                    ptSourceBase, iSourceStride, ptSourceSize,
-                    pchSourceMaskBase, iSourceMaskStride, ptSourceMaskSize,
-                    ptTargetBase, iTargetStride, ptTargetSize,
-                    pchTargetMaskBase, iTargetMaskStride, ptTargetMaskSize);
-            break;
-        case ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR :
-            __CAFWM_FUNC(masks_fill_xy_mirror)(
-                    ptSourceBase, iSourceStride, ptSourceSize,
-                    pchSourceMaskBase, iSourceMaskStride, ptSourceMaskSize,
-                    ptTargetBase, iTargetStride, ptTargetSize,
-                    pchTargetMaskBase, iTargetMaskStride, ptTargetMaskSize);
-            break;
-        default:
-            assert(false);  /*! this should not happen */
-            //break;
-    }
-}
+/*! \note des mask only */
+#   define __API_MCWM_COLOUR                   __API_CAFWM_COLOUR
+#   define __API_MCWM_INT_TYPE                 __API_CAFWM_INT_TYPE
+#   define __API_MCWM_INT_TYPE_BIT_NUM         __API_CAFWM_INT_TYPE_BIT_NUM
+#   define __API_MCWM_PIXEL_BLENDING           __API_CAFWM_PIXEL_BLENDING
+
+#   if defined(__API_CAFWM_OP_NAME)
+#       define __API_MCWM_OP_NAME              __API_CAFWM_OP_NAME
+#   endif
+
+#   define __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING                               \
+                __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+#   define __API_MCWM_CFG_1_HORIZONTAL_LINE                         0
+#   define __API_MCWM_CFG_CHANNEL_8in32_SUPPORT                     1
+
+#   define __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE      0
+#   define __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE      1
+
+#   define masks_fill                  src_msk_des_chn_msk_fill
+#   define masks_fill_x_mirror         src_msk_des_chn_msk_fill_x_mirro
+#   define masks_fill_y_mirror         src_msk_des_chn_msk_fill_y_mirro
+#   define masks_fill_xy_mirror        src_msk_des_chn_msk_fill_xy_mirro
+#   define masks_fill_mirror           src_msk_des_chn_msk_fill_mirror
+
+#   define masks_copy                  src_msk_des_chn_msk_copy
+#   define masks_copy_x_mirror         src_msk_des_chn_msk_copy_x_mirro
+#   define masks_copy_y_mirror         src_msk_des_chn_msk_copy_y_mirro
+#   define masks_copy_xy_mirror        src_msk_des_chn_msk_copy_xy_mirro
+#   define masks_copy_mirror           src_msk_des_chn_msk_copy_mirror    
+
+
+#   include "__arm_2d_meta_copy_with_masks.inc"
+
+
+/*! \note both masks */
+#   define __API_MCWM_COLOUR                   __API_CAFWM_COLOUR
+#   define __API_MCWM_INT_TYPE                 __API_CAFWM_INT_TYPE
+#   define __API_MCWM_INT_TYPE_BIT_NUM         __API_CAFWM_INT_TYPE_BIT_NUM
+#   define __API_MCWM_PIXEL_BLENDING           __API_CAFWM_PIXEL_BLENDING
+
+#   if defined(__API_CAFWM_OP_NAME)
+#       define __API_MCWM_OP_NAME              __API_CAFWM_OP_NAME
+#   endif
+
+#   define __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING                               \
+                __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+#   define __API_MCWM_CFG_1_HORIZONTAL_LINE                         0
+#   define __API_MCWM_CFG_CHANNEL_8in32_SUPPORT                     1
+
+#   define __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE      1
+#   define __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE      1
+
+#   define masks_fill                  src_chn_msk_des_chn_msk_fill
+#   define masks_fill_x_mirror         src_chn_msk_des_chn_msk_fill_x_mirro
+#   define masks_fill_y_mirror         src_chn_msk_des_chn_msk_fill_y_mirro
+#   define masks_fill_xy_mirror        src_chn_msk_des_chn_msk_fill_xy_mirro
+#   define masks_fill_mirror           src_chn_msk_des_chn_msk_fill_mirror
+
+#   define masks_copy                  src_chn_msk_des_chn_msk_copy
+#   define masks_copy_x_mirror         src_chn_msk_des_chn_msk_copy_x_mirro
+#   define masks_copy_y_mirror         src_chn_msk_des_chn_msk_copy_y_mirro
+#   define masks_copy_xy_mirror        src_chn_msk_des_chn_msk_copy_xy_mirro
+#   define masks_copy_mirror           src_chn_msk_des_chn_msk_copy_mirror    
+
+
+#   include "__arm_2d_meta_copy_with_masks.inc"
+
+#else
+
+#   define __API_MCWM_COLOUR                   __API_CAFWM_COLOUR
+#   define __API_MCWM_INT_TYPE                 __API_CAFWM_INT_TYPE
+#   define __API_MCWM_INT_TYPE_BIT_NUM         __API_CAFWM_INT_TYPE_BIT_NUM
+#   define __API_MCWM_PIXEL_BLENDING           __API_CAFWM_PIXEL_BLENDING
+
+#   if defined(__API_CAFWM_OP_NAME)
+#       define __API_MCWM_OP_NAME              __API_CAFWM_OP_NAME
+#   endif
+
+#   define __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING                               \
+                __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+#   define __API_MCWM_CFG_1_HORIZONTAL_LINE                                     \
+                __API_CAFWM_CFG_1_HORIZONTAL_LINE
+#   define __API_MCWM_CFG_CHANNEL_8in32_SUPPORT                     0
+
+#   include "__arm_2d_meta_copy_with_masks.inc"
+
+#endif
+
 
 /*----------------------------------------------------------------------------*
  * Fill with Mirroring (target mask only)                                     *
@@ -493,21 +339,34 @@ void __CAFWM_FUNC(des_msk_fill)(
                         int16_t iTargetStride,
                         arm_2d_size_t *__RESTRICT ptTargetSize,
                         
-                        uint8_t *__RESTRICT pchTargetMaskBase,
+                    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                        uint32_t *__RESTRICT ptTargetMaskBase,
+                    #else
+                        uint8_t *__RESTRICT ptTargetMaskBase,
+                    #endif
                         int16_t iTargetMaskStride,
                         arm_2d_size_t *__RESTRICT ptTargetMaskSize)
 {
-    uint8_t *__RESTRICT pchTargetMaskLineBase = pchTargetMaskBase;  
-    
-    for (int_fast16_t iTargetY = 0, iTargetMaskY = 0; iTargetY < ptTargetSize->iHeight;) {
+#if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase; 
+#else
+    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;  
+#endif
+
+    for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
     
         //! reset source
         __API_CAFWM_INT_TYPE *__RESTRICT ptSource = ptSourceBase;      
         
         for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
             __API_CAFWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;
-            uint8_t *__RESTRICT pchTargetMask = pchTargetMaskLineBase;      
             
+        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;    
+        #else
+            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;      
+        #endif
+        
             /*---------------- Height Loop Begin----------------*/
             uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
 
@@ -518,7 +377,11 @@ void __CAFWM_FUNC(des_msk_fill)(
                 __API_CAFWM_INT_TYPE *__RESTRICT ptSrc = ptSource;
 
                 for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 256 - (*pchTargetMask++);
+                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                    uint16_t hwOpacity = 256 - *(uint8_t *)(ptTargetMask++);
+                #else
+                    uint16_t hwOpacity = 256 - (*ptTargetMask++);
+                #endif
                     __API_CAFWM_PIXEL_BLENDING(ptSrc++, ptTarget++, hwOpacity);
                 }
 
@@ -530,15 +393,11 @@ void __CAFWM_FUNC(des_msk_fill)(
             ptSource += iSourceStride;
             ptTargetBase += iTargetStride;
             
-            iTargetMaskY++;
-            //! handle target mask 
-            if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-               ||   (iTargetMaskY >= ptTargetSize->iHeight)) {
-                pchTargetMaskLineBase = pchTargetMaskBase;
-                iTargetMaskY = 0;
-            } else {
-                pchTargetMaskLineBase += iTargetMaskStride;
-            }
+        #if __API_CAFWM_CFG_1_HORIZONTAL_LINE
+            ptTargetMaskLineBase = ptTargetMaskBase;
+        #else
+            ptTargetMaskLineBase += iTargetMaskStride;
+        #endif
             
             iTargetY++;
             if (iTargetY >= ptTargetSize->iHeight) {
@@ -558,20 +417,33 @@ void __CAFWM_FUNC(des_msk_fill_x_mirror)(
                         int16_t iTargetStride,
                         arm_2d_size_t *__RESTRICT ptTargetSize,
                         
-                        uint8_t *__RESTRICT pchTargetMaskBase,
+                    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                        uint32_t *__RESTRICT ptTargetMaskBase,
+                    #else
+                        uint8_t *__RESTRICT ptTargetMaskBase,
+                    #endif
                         int16_t iTargetMaskStride,
                         arm_2d_size_t *__RESTRICT ptTargetMaskSize)
 {
-    uint8_t *__RESTRICT pchTargetMaskLineBase = pchTargetMaskBase;  
-    
-    for (int_fast16_t iTargetY = 0, iTargetMaskY = 0; iTargetY < ptTargetSize->iHeight;) {
+#if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;  
+#else
+    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;  
+#endif
+
+    for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
     
         //! reset source
         __API_CAFWM_INT_TYPE *__RESTRICT ptSource = ptSourceBase;      
         
         for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
             __API_CAFWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;
-            uint8_t *__RESTRICT pchTargetMask = pchTargetMaskLineBase;      
+            
+        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;    
+        #else
+            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;      
+        #endif      
             
             /*---------------- Height Loop Begin----------------*/
             uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
@@ -585,7 +457,11 @@ void __CAFWM_FUNC(des_msk_fill_x_mirror)(
                 ptSrc += ptSourceSize->iWidth - 1;
                 
                 for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 256 - (*pchTargetMask++);
+                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                    uint16_t hwOpacity = 256 - *(uint8_t *)(ptTargetMask++);
+                #else
+                    uint16_t hwOpacity = 256 - (*ptTargetMask++);
+                #endif
                     __API_CAFWM_PIXEL_BLENDING(ptSrc--, ptTarget++, hwOpacity);
                 }
 
@@ -596,16 +472,12 @@ void __CAFWM_FUNC(des_msk_fill_x_mirror)(
             /*---------------- Height Loop End----------------*/
             ptSource += iSourceStride;
             ptTargetBase += iTargetStride;
-            
-            iTargetMaskY++;
-            //! handle target mask 
-            if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-               ||   (iTargetMaskY >= ptTargetSize->iHeight)) {
-                pchTargetMaskLineBase = pchTargetMaskBase;
-                iTargetMaskY = 0;
-            } else {
-                pchTargetMaskLineBase += iTargetMaskStride;
-            }
+        
+        #if __API_CAFWM_CFG_1_HORIZONTAL_LINE
+            ptTargetMaskLineBase = ptTargetMaskBase;
+        #else
+            ptTargetMaskLineBase += iTargetMaskStride;
+        #endif
             
             iTargetY++;
             if (iTargetY >= ptTargetSize->iHeight) {
@@ -627,13 +499,21 @@ void __CAFWM_FUNC(des_msk_fill_y_mirror)(
                         int16_t iTargetStride,
                         arm_2d_size_t *__RESTRICT ptTargetSize,
                         
-                        uint8_t *__RESTRICT pchTargetMaskBase,
+                    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                        uint32_t *__RESTRICT ptTargetMaskBase,
+                    #else
+                        uint8_t *__RESTRICT ptTargetMaskBase,
+                    #endif
                         int16_t iTargetMaskStride,
                         arm_2d_size_t *__RESTRICT ptTargetMaskSize)
 {
-    uint8_t *__RESTRICT pchTargetMaskLineBase = pchTargetMaskBase;  
-    
-    for (int_fast16_t iTargetY = 0, iTargetMaskY = 0; iTargetY < ptTargetSize->iHeight;) {
+#if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;  
+#else
+    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;  
+#endif
+
+    for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
     
         //! reset source
         __API_CAFWM_INT_TYPE *__RESTRICT ptSource 
@@ -641,8 +521,13 @@ void __CAFWM_FUNC(des_msk_fill_y_mirror)(
         
         for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
             __API_CAFWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;
-            uint8_t *__RESTRICT pchTargetMask = pchTargetMaskLineBase;      
-            
+        
+        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;   
+        #else
+            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;      
+        #endif
+        
             /*---------------- Height Loop Begin----------------*/
             uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
 
@@ -653,7 +538,11 @@ void __CAFWM_FUNC(des_msk_fill_y_mirror)(
                 __API_CAFWM_INT_TYPE *__RESTRICT ptSrc = ptSource;
                 
                 for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 256 - (*pchTargetMask++);
+                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                    uint16_t hwOpacity = 256 - *(uint8_t *)(ptTargetMask++);
+                #else
+                    uint16_t hwOpacity = 256 - (*ptTargetMask++);
+                #endif
                     __API_CAFWM_PIXEL_BLENDING(ptSrc++, ptTarget++, hwOpacity);
                 }
 
@@ -664,16 +553,12 @@ void __CAFWM_FUNC(des_msk_fill_y_mirror)(
             /*---------------- Height Loop End----------------*/
             ptSource -= iSourceStride;
             ptTargetBase += iTargetStride;
-            
-            iTargetMaskY++;
-            //! handle target mask 
-            if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-               ||   (iTargetMaskY >= ptTargetSize->iHeight)) {
-                pchTargetMaskLineBase = pchTargetMaskBase;
-                iTargetMaskY = 0;
-            } else {
-                pchTargetMaskLineBase += iTargetMaskStride;
-            }
+        
+        #if __API_CAFWM_CFG_1_HORIZONTAL_LINE
+            ptTargetMaskLineBase = ptTargetMaskBase;
+        #else
+            ptTargetMaskLineBase += iTargetMaskStride;
+        #endif
             
             iTargetY++;
             if (iTargetY >= ptTargetSize->iHeight) {
@@ -694,13 +579,21 @@ void __CAFWM_FUNC(des_msk_fill_xy_mirror)(
                         int16_t iTargetStride,
                         arm_2d_size_t *__RESTRICT ptTargetSize,
                         
-                        uint8_t *__RESTRICT pchTargetMaskBase,
+                    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                        uint32_t *__RESTRICT ptTargetMaskBase,
+                    #else
+                        uint8_t *__RESTRICT ptTargetMaskBase,
+                    #endif
                         int16_t iTargetMaskStride,
                         arm_2d_size_t *__RESTRICT ptTargetMaskSize)
 {
-    uint8_t *__RESTRICT pchTargetMaskLineBase = pchTargetMaskBase;  
-    
-    for (int_fast16_t iTargetY = 0, iTargetMaskY = 0; iTargetY < ptTargetSize->iHeight;) {
+#if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;  
+#else
+    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;  
+#endif
+
+    for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
     
         //! reset source
         __API_CAFWM_INT_TYPE *__RESTRICT ptSource 
@@ -708,8 +601,12 @@ void __CAFWM_FUNC(des_msk_fill_xy_mirror)(
         
         for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
             __API_CAFWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;
-            uint8_t *__RESTRICT pchTargetMask = pchTargetMaskLineBase;      
             
+        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;    
+        #else
+            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;      
+        #endif
             /*---------------- Height Loop Begin----------------*/
             uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
 
@@ -722,7 +619,11 @@ void __CAFWM_FUNC(des_msk_fill_xy_mirror)(
 
                 
                 for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 256 - (*pchTargetMask++);
+                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                    uint16_t hwOpacity = 256 - *(uint8_t *)(ptTargetMask++);
+                #else
+                    uint16_t hwOpacity = 256 - (*ptTargetMask++);
+                #endif
                     __API_CAFWM_PIXEL_BLENDING(ptSrc--, ptTarget++, hwOpacity);
                 }
 
@@ -733,16 +634,12 @@ void __CAFWM_FUNC(des_msk_fill_xy_mirror)(
             /*---------------- Height Loop End----------------*/
             ptSource -= iSourceStride;
             ptTargetBase += iTargetStride;
-            
-            iTargetMaskY++;
-            //! handle target mask 
-            if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-               ||   (iTargetMaskY >= ptTargetSize->iHeight)) {
-                pchTargetMaskLineBase = pchTargetMaskBase;
-                iTargetMaskY = 0;
-            } else {
-                pchTargetMaskLineBase += iTargetMaskStride;
-            }
+        
+        #if __API_CAFWM_CFG_1_HORIZONTAL_LINE
+            ptTargetMaskLineBase = ptTargetMaskBase;
+        #else
+            ptTargetMaskLineBase += iTargetMaskStride;
+        #endif
             
             iTargetY++;
             if (iTargetY >= ptTargetSize->iHeight) {
@@ -764,7 +661,11 @@ void __CAFWM_FUNC(des_msk_fill_mirror)(
                         int16_t iTargetStride,
                         arm_2d_size_t *__RESTRICT ptTargetSize,
                         
-                        uint8_t *__RESTRICT pchTargetMaskBase,
+                    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                        uint32_t *__RESTRICT ptTargetMaskBase,
+                    #else
+                        uint8_t *__RESTRICT ptTargetMaskBase,
+                    #endif
                         int16_t iTargetMaskStride,
                         arm_2d_size_t *__RESTRICT ptTargetMaskSize,
                         uint32_t wMode)
@@ -774,19 +675,19 @@ void __CAFWM_FUNC(des_msk_fill_mirror)(
             __CAFWM_FUNC(des_msk_fill_x_mirror)(
                     ptSourceBase, iSourceStride, ptSourceSize,
                     ptTargetBase, iTargetStride, ptTargetSize,
-                    pchTargetMaskBase, iTargetMaskStride, ptTargetMaskSize);
+                    ptTargetMaskBase, iTargetMaskStride, ptTargetMaskSize);
             break;
         case ARM_2D_CP_MODE_Y_MIRROR:
             __CAFWM_FUNC(des_msk_fill_y_mirror)(
                     ptSourceBase, iSourceStride, ptSourceSize,
                     ptTargetBase, iTargetStride, ptTargetSize,
-                    pchTargetMaskBase, iTargetMaskStride, ptTargetMaskSize);
+                    ptTargetMaskBase, iTargetMaskStride, ptTargetMaskSize);
             break;
         case ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR :
             __CAFWM_FUNC(des_msk_fill_xy_mirror)(
                     ptSourceBase, iSourceStride, ptSourceSize,
                     ptTargetBase, iTargetStride, ptTargetSize,
-                    pchTargetMaskBase, iTargetMaskStride, ptTargetMaskSize);
+                    ptTargetMaskBase, iTargetMaskStride, ptTargetMaskSize);
             break;
         default:
             assert(false);  /*! this should not happen */
@@ -799,14 +700,18 @@ void __CAFWM_FUNC(des_msk_fill_mirror)(
 /*----------------------------------------------------------------------------*
  * Fill with Mirroring (src mask only)                                        *
  *----------------------------------------------------------------------------*/
-
+#if !__API_CAFWM_CFG_1_HORIZONTAL_LINE
 __WEAK
 void __CAFWM_FUNC(src_msk_fill)(
                         __API_CAFWM_INT_TYPE * __RESTRICT ptSourceBase,
                         int16_t iSourceStride,
                         arm_2d_size_t *__RESTRICT ptSourceSize,
                         
-                        uint8_t * __RESTRICT pchSourceMaskBase,
+                    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                        uint32_t * __RESTRICT ptSourceMaskBase,
+                    #else
+                        uint8_t * __RESTRICT ptSourceMaskBase,
+                    #endif
                         int16_t iSourceMaskStride,
                         arm_2d_size_t *__RESTRICT ptSourceMaskSize,
                         
@@ -818,10 +723,18 @@ void __CAFWM_FUNC(src_msk_fill)(
     for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
     
         //! reset source
-        __API_CAFWM_INT_TYPE *__RESTRICT ptSource = ptSourceBase;      
-        uint8_t *pchSourceMask = pchSourceMaskBase;    
+        __API_CAFWM_INT_TYPE *__RESTRICT ptSource = ptSourceBase;  
+
+    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+        uint32_t *ptSourceMask = ptSourceMaskBase; 
+    #else
+        uint8_t *ptSourceMask = ptSourceMaskBase; 
+    #endif
+    
+    #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
         int_fast16_t iSourceMaskY = 0;
-        
+    #endif
+    
         for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
             __API_CAFWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;     
             
@@ -833,9 +746,17 @@ void __CAFWM_FUNC(src_msk_fill)(
                 /*---------------- Width Loop Begin----------------*/
 
                 __API_CAFWM_INT_TYPE *__RESTRICT ptSrc = ptSource;
-                uint8_t *__RESTRICT pchSrcMsk = pchSourceMask;
+            #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                uint32_t *__RESTRICT ptSrcMsk = ptSourceMask;
+            #else
+                uint8_t *__RESTRICT ptSrcMsk = ptSourceMask;
+            #endif
                 for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 256 - (*pchSrcMsk++);
+                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                    uint16_t hwOpacity = 256 - *(uint8_t *)(ptSrcMsk++);
+                #else
+                    uint16_t hwOpacity = 256 - (*ptSrcMsk++);
+                #endif
                     __API_CAFWM_PIXEL_BLENDING(ptSrc++, ptTarget++, hwOpacity);
                 }
 
@@ -847,16 +768,20 @@ void __CAFWM_FUNC(src_msk_fill)(
             ptSource += iSourceStride;
             ptTargetBase += iTargetStride;
             
+        #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
             iSourceMaskY++;
             //! handle source mask 
             if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
                ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
-                pchSourceMask = pchSourceMaskBase;
+                ptSourceMask = ptSourceMaskBase;
                 iSourceMaskY = 0;
             } else {
-                pchSourceMask += iSourceMaskStride;
+                ptSourceMask += iSourceMaskStride;
             }
-            
+        #else
+            ptSourceMask += iSourceMaskStride;
+        #endif
+        
             iTargetY++;
             if (iTargetY >= ptTargetSize->iHeight) {
                 break;
@@ -871,7 +796,11 @@ void __CAFWM_FUNC(src_msk_fill_x_mirror)(
                         int16_t iSourceStride,
                         arm_2d_size_t *__RESTRICT ptSourceSize,
                         
-                        uint8_t * __RESTRICT pchSourceMaskBase,
+                    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                        uint32_t * __RESTRICT ptSourceMaskBase,
+                    #else
+                        uint8_t * __RESTRICT ptSourceMaskBase,
+                    #endif
                         int16_t iSourceMaskStride,
                         arm_2d_size_t *__RESTRICT ptSourceMaskSize,
                         
@@ -883,9 +812,16 @@ void __CAFWM_FUNC(src_msk_fill_x_mirror)(
     for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
     
         //! reset source
-        __API_CAFWM_INT_TYPE *__RESTRICT ptSource = ptSourceBase;      
-        uint8_t *pchSourceMask = pchSourceMaskBase;    
+        __API_CAFWM_INT_TYPE *__RESTRICT ptSource = ptSourceBase;  
+    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+        uint32_t *ptSourceMask = ptSourceMaskBase;    
+    #else
+        uint8_t *ptSourceMask = ptSourceMaskBase;    
+    #endif
+    
+    #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
         int_fast16_t iSourceMaskY = 0;
+    #endif
         
         for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
             __API_CAFWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;   
@@ -898,13 +834,21 @@ void __CAFWM_FUNC(src_msk_fill_x_mirror)(
                 /*---------------- Width Loop Begin----------------*/
 
                 __API_CAFWM_INT_TYPE *__RESTRICT ptSrc = ptSource;
-                uint8_t *__RESTRICT pchSrcMsk = pchSourceMask;
-                
+            #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                uint32_t *__RESTRICT ptSrcMsk = ptSourceMask;
+            #else
+                uint8_t *__RESTRICT ptSrcMsk = ptSourceMask;
+            #endif
+            
                 ptSrc += ptSourceSize->iWidth - 1;
-                pchSrcMsk += ptSourceSize->iWidth - 1;
+                ptSrcMsk += ptSourceSize->iWidth - 1;
                 
                 for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 256 - (*pchSrcMsk--);
+                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                    uint16_t hwOpacity = 256 - *(uint8_t *)(ptSrcMsk--);
+                #else
+                    uint16_t hwOpacity = 256 - (*ptSrcMsk--);
+                #endif
                     __API_CAFWM_PIXEL_BLENDING(ptSrc--, ptTarget++, hwOpacity);
                 }
 
@@ -915,16 +859,20 @@ void __CAFWM_FUNC(src_msk_fill_x_mirror)(
             /*---------------- Height Loop End----------------*/
             ptSource += iSourceStride;
             ptTargetBase += iTargetStride;
-            
+        
+        #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
             iSourceMaskY++;
             //! handle source mask 
             if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
                ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
-                pchSourceMask = pchSourceMaskBase;
+                ptSourceMask = ptSourceMaskBase;
                 iSourceMaskY = 0;
             } else {
-                pchSourceMask += iSourceMaskStride;
+                ptSourceMask += iSourceMaskStride;
             }
+        #else
+            ptSourceMask += iSourceMaskStride;
+        #endif
             
             iTargetY++;
             if (iTargetY >= ptTargetSize->iHeight) {
@@ -942,7 +890,11 @@ void __CAFWM_FUNC(src_msk_fill_y_mirror)(
                         int16_t iSourceStride,
                         arm_2d_size_t *__RESTRICT ptSourceSize,
                         
-                        uint8_t * __RESTRICT pchSourceMaskBase,
+                    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                        uint32_t * __RESTRICT ptSourceMaskBase,
+                    #else
+                        uint8_t * __RESTRICT ptSourceMaskBase,
+                    #endif
                         int16_t iSourceMaskStride,
                         arm_2d_size_t *__RESTRICT ptSourceMaskSize,
                         
@@ -952,16 +904,23 @@ void __CAFWM_FUNC(src_msk_fill_y_mirror)(
 {
 
     assert(ptSourceSize->iHeight <= ptSourceMaskSize->iHeight);
-    pchSourceMaskBase += iSourceMaskStride * (ptSourceSize->iHeight - 1);
+    ptSourceMaskBase += iSourceMaskStride * (ptSourceSize->iHeight - 1);
     
     for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
     
         //! reset source
         __API_CAFWM_INT_TYPE *__RESTRICT ptSource 
-            = ptSourceBase + iSourceStride * (ptSourceSize->iHeight - 1);     
-        uint8_t *pchSourceMask = pchSourceMaskBase;    
+            = ptSourceBase + iSourceStride * (ptSourceSize->iHeight - 1);  
+    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+        uint32_t *ptSourceMask = ptSourceMaskBase;
+    #else
+        uint8_t *ptSourceMask = ptSourceMaskBase;   
+    #endif
+    
+    #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
         int_fast16_t iSourceMaskY = 0;
-        
+    #endif
+    
         for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
             __API_CAFWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;    
             
@@ -973,9 +932,17 @@ void __CAFWM_FUNC(src_msk_fill_y_mirror)(
                 /*---------------- Width Loop Begin----------------*/
 
                 __API_CAFWM_INT_TYPE *__RESTRICT ptSrc = ptSource;
-                uint8_t *__RESTRICT pchSrcMsk = pchSourceMask;
+            #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                uint32_t *__RESTRICT ptSrcMsk = ptSourceMask;
+            #else
+                uint8_t *__RESTRICT ptSrcMsk = ptSourceMask;
+            #endif
                 for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 256 - (*pchSrcMsk++);
+                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                    uint16_t hwOpacity = 256 - *(uint8_t *)(ptSrcMsk++);
+                #else
+                    uint16_t hwOpacity = 256 - (*ptSrcMsk++);
+                #endif
                     __API_CAFWM_PIXEL_BLENDING(ptSrc++, ptTarget++, hwOpacity);
                 }
 
@@ -986,16 +953,20 @@ void __CAFWM_FUNC(src_msk_fill_y_mirror)(
             /*---------------- Height Loop End----------------*/
             ptSource -= iSourceStride;
             ptTargetBase += iTargetStride;
-            
+        
+        #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
             iSourceMaskY++;
             //! handle source mask 
             if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
                ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
-                pchSourceMask = pchSourceMaskBase;
+                ptSourceMask = ptSourceMaskBase;
                 iSourceMaskY = 0;
             } else {
-                pchSourceMask -= iSourceMaskStride;
+                ptSourceMask -= iSourceMaskStride;
             }
+        #else
+            ptSourceMask -= iSourceMaskStride;
+        #endif
             
             iTargetY++;
             if (iTargetY >= ptTargetSize->iHeight) {
@@ -1012,7 +983,11 @@ void __CAFWM_FUNC(src_msk_fill_xy_mirror)(
                         int16_t iSourceStride,
                         arm_2d_size_t *__RESTRICT ptSourceSize,
                         
-                        uint8_t * __RESTRICT pchSourceMaskBase,
+                    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                        uint32_t * __RESTRICT ptSourceMaskBase,
+                    #else
+                        uint8_t * __RESTRICT ptSourceMaskBase,
+                    #endif
                         int16_t iSourceMaskStride,
                         arm_2d_size_t *__RESTRICT ptSourceMaskSize,
                         
@@ -1021,15 +996,23 @@ void __CAFWM_FUNC(src_msk_fill_xy_mirror)(
                         arm_2d_size_t *__RESTRICT ptTargetSize)
 {
     assert(ptSourceSize->iHeight <= ptSourceMaskSize->iHeight);
-    pchSourceMaskBase += iSourceMaskStride * (ptSourceSize->iHeight - 1);
+    ptSourceMaskBase += iSourceMaskStride * (ptSourceSize->iHeight - 1);
     
     for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
     
         //! reset source
         __API_CAFWM_INT_TYPE *__RESTRICT ptSource 
-            = ptSourceBase + iSourceStride * (ptSourceSize->iHeight - 1);     
-        uint8_t *pchSourceMask = pchSourceMaskBase;    
+            = ptSourceBase + iSourceStride * (ptSourceSize->iHeight - 1); 
+            
+    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+        uint32_t *ptSourceMask = ptSourceMaskBase;  
+    #else
+        uint8_t *ptSourceMask = ptSourceMaskBase;  
+    #endif
+    
+    #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
         int_fast16_t iSourceMaskY = 0;
+    #endif
         
         for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
             __API_CAFWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;    
@@ -1042,14 +1025,22 @@ void __CAFWM_FUNC(src_msk_fill_xy_mirror)(
                 /*---------------- Width Loop Begin----------------*/
 
                 __API_CAFWM_INT_TYPE *__RESTRICT ptSrc = ptSource;
-                uint8_t *__RESTRICT pchSrcMsk = pchSourceMask;
-                
+            #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                uint32_t *__RESTRICT ptSrcMsk = ptSourceMask;
+            #else
+                uint8_t *__RESTRICT ptSrcMsk = ptSourceMask;
+            #endif
+            
                 ptSrc += ptSourceSize->iWidth - 1;
-                pchSrcMsk += ptSourceSize->iWidth - 1;
+                ptSrcMsk += ptSourceSize->iWidth - 1;
                 
                 
                 for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 256 - (*pchSrcMsk--);
+                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                    uint16_t hwOpacity = 256 - *(uint8_t *)(ptSrcMsk--);
+                #else
+                    uint16_t hwOpacity = 256 - (*ptSrcMsk--);
+                #endif
                     __API_CAFWM_PIXEL_BLENDING(ptSrc--, ptTarget++, hwOpacity);
                 }
 
@@ -1060,16 +1051,20 @@ void __CAFWM_FUNC(src_msk_fill_xy_mirror)(
             /*---------------- Height Loop End----------------*/
             ptSource -= iSourceStride;
             ptTargetBase += iTargetStride;
-            
+        
+        #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
             iSourceMaskY++;
             //! handle source mask 
             if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
                ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
-                pchSourceMask = pchSourceMaskBase;
+                ptSourceMask = ptSourceMaskBase;
                 iSourceMaskY = 0;
             } else {
-                pchSourceMask -= iSourceMaskStride;
+                ptSourceMask -= iSourceMaskStride;
             }
+        #else
+            ptSourceMask -= iSourceMaskStride;
+        #endif
             
             iTargetY++;
             if (iTargetY >= ptTargetSize->iHeight) {
@@ -1087,7 +1082,11 @@ void __CAFWM_FUNC(src_msk_fill_mirror)(
                         int16_t iSourceStride,
                         arm_2d_size_t *__RESTRICT ptSourceSize,
                         
-                        uint8_t * __RESTRICT pchSourceMaskBase,
+                    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                        uint32_t * __RESTRICT ptSourceMaskBase,
+                    #else
+                        uint8_t * __RESTRICT ptSourceMaskBase,
+                    #endif
                         int16_t iSourceMaskStride,
                         arm_2d_size_t *__RESTRICT ptSourceMaskSize,
                         
@@ -1100,19 +1099,19 @@ void __CAFWM_FUNC(src_msk_fill_mirror)(
         case ARM_2D_CP_MODE_X_MIRROR:
             __CAFWM_FUNC(src_msk_fill_x_mirror)(
                     ptSourceBase, iSourceStride, ptSourceSize,
-                    pchSourceMaskBase, iSourceMaskStride, ptSourceMaskSize,
+                    ptSourceMaskBase, iSourceMaskStride, ptSourceMaskSize,
                     ptTargetBase, iTargetStride, ptTargetSize);
             break;
         case ARM_2D_CP_MODE_Y_MIRROR:
             __CAFWM_FUNC(src_msk_fill_y_mirror)(
                     ptSourceBase, iSourceStride, ptSourceSize,
-                    pchSourceMaskBase, iSourceMaskStride, ptSourceMaskSize,
+                    ptSourceMaskBase, iSourceMaskStride, ptSourceMaskSize,
                     ptTargetBase, iTargetStride, ptTargetSize);
             break;
         case ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR :
             __CAFWM_FUNC(src_msk_fill_xy_mirror)(
                     ptSourceBase, iSourceStride, ptSourceSize,
-                    pchSourceMaskBase, iSourceMaskStride, ptSourceMaskSize,
+                    ptSourceMaskBase, iSourceMaskStride, ptSourceMaskSize,
                     ptTargetBase, iTargetStride, ptTargetSize);
             break;
         default:
@@ -1120,343 +1119,8 @@ void __CAFWM_FUNC(src_msk_fill_mirror)(
             //break;
     }
 }
+#endif
 
-
-
-/*----------------------------------------------------------------------------*
- * Copy with Mirroring  (both masks)                                          *
- *----------------------------------------------------------------------------*/
-
-__WEAK
-void __CAFWM_FUNC(masks_copy)(   
-                            __API_CAFWM_INT_TYPE * __RESTRICT pSourceBase,
-                            int16_t iSourceStride,
-                            
-                            uint8_t * __RESTRICT pchSourceMaskBase,
-                            int16_t iSourceMaskStride,
-                            arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-                            
-                            __API_CAFWM_INT_TYPE * __RESTRICT pTargetBase,
-                            int16_t iTargetStride,
-                            
-                            uint8_t * __RESTRICT pchTargetMaskBase,
-                            int16_t iTargetMaskStride,
-                            arm_2d_size_t *__RESTRICT ptTargetMaskSize,
-
-                            arm_2d_size_t * __RESTRICT ptCopySize)
-{
-    int_fast16_t    iHeight = ptCopySize->iHeight;
-    int_fast16_t    iWidth = ptCopySize->iWidth;
-    //uint16_t        hwRatioCompl = 256 - chRatio;
-
-    uint8_t *pchSourceMask = pchSourceMaskBase;
-    uint8_t *pchTargetMask = pchTargetMaskBase;
-    
-    for (   int_fast16_t y = 0, iSourceMaskY = 0, iTargetMaskY = 0; 
-            y < iHeight; 
-            y++) {
-    
-        for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwOpacity = 256 - ((*pchSourceMask++) * (*pchTargetMask++) >> 8);
-
-            __API_CAFWM_PIXEL_BLENDING( pSourceBase++, pTargetBase++, hwOpacity);
-            
-        }
-        pSourceBase += (iSourceStride - iWidth);
-        pTargetBase += (iTargetStride - iWidth);
-        
-        //! handle source mask 
-        iSourceMaskY++;
-        if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
-           ||   (iSourceMaskY >= iHeight)) {
-            pchSourceMask = pchSourceMaskBase;
-            iSourceMaskY = 0;
-        } else {
-            pchSourceMask += (iSourceMaskStride - iWidth);
-        }
-        
-        //! handle target mask 
-        iTargetMaskY++;
-        if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-           ||   (iTargetMaskY >= iHeight)) {
-            pchTargetMask = pchTargetMaskBase;
-            iTargetMaskY = 0;
-        } else {
-            pchTargetMask += (iTargetMaskStride - iWidth);
-        }
-    }
-}
-
-
-__WEAK
-void __CAFWM_FUNC(masks_copy_x_mirror)(  
-                                    __API_CAFWM_INT_TYPE * __RESTRICT pSourceBase,
-                                    int16_t iSourceStride,
-
-                                    uint8_t * __RESTRICT pchSourceMaskBase,
-                                    int16_t iSourceMaskStride,
-                                    arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-
-                                    __API_CAFWM_INT_TYPE * __RESTRICT pTargetBase,
-                                    int16_t iTargetStride,
-
-                                    uint8_t * __RESTRICT pchTargetMaskBase,
-                                    int16_t iTargetMaskStride,
-                                    arm_2d_size_t *__RESTRICT ptTargetMaskSize,
-
-                                    arm_2d_size_t * __RESTRICT ptCopySize)
-{
-    int_fast16_t    iHeight = ptCopySize->iHeight;
-    int_fast16_t    iWidth = ptCopySize->iWidth;
-
-    uint8_t *pchSourceMask = pchSourceMaskBase;
-    uint8_t *pchTargetMask = pchTargetMaskBase;
-    
-    for (   int_fast16_t y = 0, iSourceMaskY = 0, iTargetMaskY = 0; 
-            y < iHeight; 
-            y++) {
-    
-        __API_CAFWM_INT_TYPE  *ptTargetCur = pTargetBase;
-        __API_CAFWM_INT_TYPE  *ptSourceCur = pSourceBase;
-        uint8_t *pchSourceMaskCur = pchSourceMask;
-
-        ptSourceCur += ptCopySize->iWidth - 1;
-        //! \note do not use ptSourceMaskSize->iWidth
-        pchSourceMaskCur += ptCopySize->iWidth - 1; 
-        
-        for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwOpacity = 256 - ((*pchSourceMaskCur--) * (*pchTargetMask++) >> 8);
-            __API_CAFWM_PIXEL_BLENDING( ptSourceCur--, pTargetBase++, hwOpacity);
-            
-        }
-        pSourceBase += iSourceStride;
-        pTargetBase += (iTargetStride - iWidth);
-        
-        //! handle source mask 
-        iSourceMaskY++;
-        if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
-           ||   (iSourceMaskY >= iHeight)) {
-            pchSourceMask = pchSourceMaskBase;
-            iSourceMaskY = 0;
-        } else {
-            pchSourceMask += iSourceMaskStride;
-        }
-        
-        //! handle target mask 
-        iTargetMaskY++;
-        if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-           ||   (iTargetMaskY >= iHeight)) {
-            pchTargetMask = pchTargetMaskBase;
-            iTargetMaskY = 0;
-        } else {
-            pchTargetMask += (iTargetMaskStride - iWidth);
-        }
-    }
-}
-
-
-__WEAK
-void __CAFWM_FUNC(masks_copy_y_mirror)(  
-                                    __API_CAFWM_INT_TYPE * __RESTRICT pSourceBase,
-                                    int16_t iSourceStride,
-
-                                    uint8_t * __RESTRICT pchSourceMaskBase,
-                                    int16_t iSourceMaskStride,
-                                    arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-
-                                    __API_CAFWM_INT_TYPE * __RESTRICT pTargetBase,
-                                    int16_t iTargetStride,
-
-                                    uint8_t * __RESTRICT pchTargetMaskBase,
-                                    int16_t iTargetMaskStride,
-                                    arm_2d_size_t *__RESTRICT ptTargetMaskSize,
-
-                                    arm_2d_size_t * __RESTRICT ptCopySize)
-{
-    int_fast16_t    iHeight = ptCopySize->iHeight;
-    int_fast16_t    iWidth = ptCopySize->iWidth;
-    //uint16_t        hwRatioCompl = 256 - chRatio;
-
-    pSourceBase += iSourceStride * (ptCopySize->iHeight - 1);
-    
-    assert (ptCopySize->iHeight <= ptSourceMaskSize->iHeight);
-    pchSourceMaskBase += iSourceMaskStride * (ptCopySize->iHeight - 1);
-    
-
-    uint8_t *pchSourceMask = pchSourceMaskBase;
-    uint8_t *pchTargetMask = pchTargetMaskBase;
-    
-    for (   int_fast16_t y = 0, iSourceMaskY = 0, iTargetMaskY = 0; 
-            y < iHeight; 
-            y++) {
-    
-        __API_CAFWM_INT_TYPE  *ptSourceCur = pSourceBase;
-        uint8_t *pchSourceMaskCur = pchSourceMask;
-        
-        for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwOpacity = 256 - ((*pchSourceMaskCur++) * (*pchTargetMask++) >> 8);
-            
-
-            __API_CAFWM_PIXEL_BLENDING( ptSourceCur++, pTargetBase++, hwOpacity);
-            
-        }
-        pSourceBase -= iSourceStride;
-        pTargetBase += (iTargetStride - iWidth);
-        
-        //! handle source mask 
-        iSourceMaskY++;
-        if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
-           ||   (iSourceMaskY >= iHeight)) {
-            pchSourceMask = pchSourceMaskBase;
-            iSourceMaskY = 0;
-        } else {
-            pchSourceMask -= iSourceMaskStride;
-        }
-        
-        //! handle target mask 
-        iTargetMaskY++;
-        if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-           ||   (iTargetMaskY >= iHeight)) {
-            pchTargetMask = pchTargetMaskBase;
-            iTargetMaskY = 0;
-        } else {
-            pchTargetMask += (iTargetMaskStride - iWidth);
-        }
-    }
-
-}
-
-
-__WEAK
-void __CAFWM_FUNC(masks_copy_xy_mirror)(  
-                                    __API_CAFWM_INT_TYPE * __RESTRICT pSourceBase,
-                                    int16_t iSourceStride,
-
-                                    uint8_t * __RESTRICT pchSourceMaskBase,
-                                    int16_t iSourceMaskStride,
-                                    arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-
-                                    __API_CAFWM_INT_TYPE * __RESTRICT pTargetBase,
-                                    int16_t iTargetStride,
-
-                                    uint8_t * __RESTRICT pchTargetMaskBase,
-                                    int16_t iTargetMaskStride,
-                                    arm_2d_size_t *__RESTRICT ptTargetMaskSize,
-
-                                    arm_2d_size_t * __RESTRICT ptCopySize)
-{
-    int_fast16_t    iHeight = ptCopySize->iHeight;
-    int_fast16_t    iWidth = ptCopySize->iWidth;
-    //uint16_t        hwRatioCompl = 256 - chRatio;
-
-    pSourceBase += iSourceStride * (ptCopySize->iHeight - 1);
-    
-    assert (ptCopySize->iHeight <= ptSourceMaskSize->iHeight);
-    pchSourceMaskBase += iSourceMaskStride * (ptCopySize->iHeight - 1);
-    
-    
-
-    uint8_t *pchSourceMask = pchSourceMaskBase;
-    uint8_t *pchTargetMask = pchTargetMaskBase;
-    
-    for (   int_fast16_t y = 0, iSourceMaskY = 0, iTargetMaskY = 0; 
-            y < iHeight; 
-            y++) {
-    
-        __API_CAFWM_INT_TYPE  *ptSourceCur = pSourceBase;
-        uint8_t *pchSourceMaskCur = pchSourceMask;
-        
-        ptSourceCur += ptCopySize->iWidth - 1;
-        //! \note do not use ptSourceMaskSize->iWidth
-        pchSourceMaskCur += ptCopySize->iWidth - 1; 
-        
-        for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwOpacity = 256 
-                               - (  (*pchSourceMaskCur--) 
-                                 *  (*pchTargetMask++) 
-                                 >> 8);
-
-            __API_CAFWM_PIXEL_BLENDING( ptSourceCur--, pTargetBase++, hwOpacity);
-            
-        }
-        pSourceBase -= iSourceStride;
-        pTargetBase += (iTargetStride - iWidth);
-        
-        //! handle source mask 
-        iSourceMaskY++;
-        if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
-           ||   (iSourceMaskY >= iHeight)) {
-            pchSourceMask = pchSourceMaskBase;
-            iSourceMaskY = 0;
-        } else {
-            pchSourceMask -= iSourceMaskStride;
-        }
-        
-        //! handle target mask 
-        iTargetMaskY++;
-        if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-           ||   (iTargetMaskY >= iHeight)) {
-            pchTargetMask = pchTargetMaskBase;
-            iTargetMaskY = 0;
-        } else {
-            pchTargetMask += (iTargetMaskStride - iWidth);
-        }
-    }
-
-}
-
-__WEAK
-void __CAFWM_FUNC(masks_copy_mirror)(  
-                                    __API_CAFWM_INT_TYPE * __RESTRICT pSourceBase,
-                                    int16_t iSourceStride,
-
-                                    uint8_t * __RESTRICT pchSourceMaskBase,
-                                    int16_t iSourceMaskStride,
-                                    arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-
-                                    __API_CAFWM_INT_TYPE * __RESTRICT pTargetBase,
-                                    int16_t iTargetStride,
-
-                                    uint8_t * __RESTRICT pchTargetMaskBase,
-                                    int16_t iTargetMaskStride,
-                                    arm_2d_size_t *__RESTRICT ptTargetMaskSize,
-
-                                    arm_2d_size_t * __RESTRICT ptCopySize,
-                                    uint32_t wMode)
-{
-    switch (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
-      case ARM_2D_CP_MODE_X_MIRROR:
-          __CAFWM_FUNC(masks_copy_x_mirror)(pSourceBase, iSourceStride,
-                                            pchSourceMaskBase, iSourceMaskStride,
-                                            ptSourceMaskSize,
-                                            pTargetBase, iTargetStride, 
-                                            pchTargetMaskBase, iTargetMaskStride,
-                                            ptTargetMaskSize,
-                                            ptCopySize);
-          break;
-      case ARM_2D_CP_MODE_Y_MIRROR:
-          __CAFWM_FUNC(masks_copy_y_mirror)(pSourceBase, iSourceStride,
-                                            pchSourceMaskBase, iSourceMaskStride,
-                                            ptSourceMaskSize,
-                                            pTargetBase, iTargetStride, 
-                                            pchTargetMaskBase, iTargetMaskStride,
-                                            ptTargetMaskSize,
-                                            ptCopySize);
-          break;
-      case ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR:
-          __CAFWM_FUNC(masks_copy_xy_mirror)(pSourceBase, iSourceStride,
-                                            pchSourceMaskBase, iSourceMaskStride,
-                                            ptSourceMaskSize,
-                                            pTargetBase, iTargetStride, 
-                                            pchTargetMaskBase, iTargetMaskStride,
-                                            ptTargetMaskSize,
-                                            ptCopySize);
-          break;
-      default:
-          assert(false);        /*! this should not happen */
-          //break;
-    }
-}
 
 /*----------------------------------------------------------------------------*
  * Copy with Mirroring  (target mask only)                                    *
@@ -1470,7 +1134,11 @@ void __CAFWM_FUNC(des_msk_copy)(
                             __API_CAFWM_INT_TYPE * __RESTRICT pTargetBase,
                             int16_t iTargetStride,
                             
-                            uint8_t * __RESTRICT pchTargetMaskBase,
+                        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                            uint32_t * __RESTRICT ptTargetMaskBase,
+                        #else
+                            uint8_t * __RESTRICT ptTargetMaskBase,
+                        #endif
                             int16_t iTargetMaskStride,
                             arm_2d_size_t *__RESTRICT ptTargetMaskSize,
 
@@ -1479,31 +1147,33 @@ void __CAFWM_FUNC(des_msk_copy)(
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
     //uint16_t        hwRatioCompl = 256 - chRatio;
+#if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+    uint32_t *ptTargetMask = ptTargetMaskBase;
+#else
+    uint8_t *ptTargetMask = ptTargetMaskBase;
+#endif
 
-    uint8_t *pchTargetMask = pchTargetMaskBase;
-    
-    for (   int_fast16_t y = 0,iTargetMaskY = 0; 
+    for (   int_fast16_t y = 0; 
             y < iHeight; 
             y++) {
     
         for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwOpacity = 256 - (*pchTargetMask++);
-
+        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+            uint16_t hwOpacity = 256 - *(uint8_t *)(ptTargetMask++);
+        #else
+            uint16_t hwOpacity = 256 - (*ptTargetMask++);
+        #endif
             __API_CAFWM_PIXEL_BLENDING( pSourceBase++, pTargetBase++, hwOpacity);
             
         }
         pSourceBase += (iSourceStride - iWidth);
         pTargetBase += (iTargetStride - iWidth);
-        
-        //! handle target mask 
-        iTargetMaskY++;
-        if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-           ||   (iTargetMaskY >= iHeight)) {
-            pchTargetMask = pchTargetMaskBase;
-            iTargetMaskY = 0;
-        } else {
-            pchTargetMask += (iTargetMaskStride - iWidth);
-        }
+    
+    #if __API_CAFWM_CFG_1_HORIZONTAL_LINE
+        ptTargetMask = ptTargetMaskBase;
+    #else
+        ptTargetMask += (iTargetMaskStride - iWidth);
+    #endif
     }
 }
 
@@ -1516,7 +1186,11 @@ void __CAFWM_FUNC(des_msk_copy_x_mirror)(
                                     __API_CAFWM_INT_TYPE * __RESTRICT pTargetBase,
                                     int16_t iTargetStride,
 
-                                    uint8_t * __RESTRICT pchTargetMaskBase,
+                                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                                    uint32_t * __RESTRICT ptTargetMaskBase,
+                                #else
+                                    uint8_t * __RESTRICT ptTargetMaskBase,
+                                #endif
                                     int16_t iTargetMaskStride,
                                     arm_2d_size_t *__RESTRICT ptTargetMaskSize,
 
@@ -1524,35 +1198,39 @@ void __CAFWM_FUNC(des_msk_copy_x_mirror)(
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
-
-    uint8_t *pchTargetMask = pchTargetMaskBase;
     
-    for (   int_fast16_t y = 0, iTargetMaskY = 0; 
+#if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+    uint32_t *ptTargetMask = ptTargetMaskBase;
+#else
+    uint8_t *ptTargetMask = ptTargetMaskBase;
+#endif
+
+    for (   int_fast16_t y = 0; 
             y < iHeight; 
             y++) {
     
-        __API_CAFWM_INT_TYPE  *ptTargetCur = pTargetBase;
+        //__API_CAFWM_INT_TYPE  *ptTargetCur = pTargetBase;
         __API_CAFWM_INT_TYPE  *ptSourceCur = pSourceBase;
 
         ptSourceCur += ptCopySize->iWidth - 1;
         
         for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwOpacity = 256 - (*pchTargetMask++);
+        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+            uint16_t hwOpacity = 256 - *(uint8_t *)(ptTargetMask++);
+        #else
+            uint16_t hwOpacity = 256 - (*ptTargetMask++);
+        #endif
             __API_CAFWM_PIXEL_BLENDING( ptSourceCur--, pTargetBase++, hwOpacity);
             
         }
         pSourceBase += iSourceStride;
         pTargetBase += (iTargetStride - iWidth);
         
-        //! handle target mask 
-        iTargetMaskY++;
-        if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-           ||   (iTargetMaskY >= iHeight)) {
-            pchTargetMask = pchTargetMaskBase;
-            iTargetMaskY = 0;
-        } else {
-            pchTargetMask += (iTargetMaskStride - iWidth);
-        }
+    #if __API_CAFWM_CFG_1_HORIZONTAL_LINE
+        ptTargetMask = ptTargetMaskBase;
+    #else
+        ptTargetMask += (iTargetMaskStride - iWidth);
+    #endif
     }
 }
 
@@ -1565,7 +1243,11 @@ void __CAFWM_FUNC(des_msk_copy_y_mirror)(
                                     __API_CAFWM_INT_TYPE * __RESTRICT pTargetBase,
                                     int16_t iTargetStride,
 
-                                    uint8_t * __RESTRICT pchTargetMaskBase,
+                                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                                    uint32_t * __RESTRICT ptTargetMaskBase,
+                                #else
+                                    uint8_t * __RESTRICT ptTargetMaskBase,
+                                #endif
                                     int16_t iTargetMaskStride,
                                     arm_2d_size_t *__RESTRICT ptTargetMaskSize,
 
@@ -1575,29 +1257,33 @@ void __CAFWM_FUNC(des_msk_copy_y_mirror)(
     int_fast16_t    iWidth = ptCopySize->iWidth;
 
     pSourceBase += iSourceStride * (ptCopySize->iHeight - 1);
-    uint8_t *pchTargetMask = pchTargetMaskBase;
-    
-    for (   int_fast16_t y = 0, iTargetMaskY = 0; y < iHeight; y++) {
+#if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+    uint32_t *ptTargetMask = ptTargetMaskBase;
+#else
+    uint8_t *ptTargetMask = ptTargetMaskBase;
+#endif
+
+    for (   int_fast16_t y = 0; y < iHeight; y++) {
     
         __API_CAFWM_INT_TYPE  *ptSourceCur = pSourceBase;
 
         for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwOpacity = 256 - (*pchTargetMask++);
+        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+            uint16_t hwOpacity = 256 - *(uint8_t *)(ptTargetMask++);
+        #else
+            uint16_t hwOpacity = 256 - (*ptTargetMask++);
+        #endif
             __API_CAFWM_PIXEL_BLENDING( ptSourceCur++, pTargetBase++, hwOpacity);
             
         }
         pSourceBase -= iSourceStride;
         pTargetBase += (iTargetStride - iWidth);
-        
-        //! handle target mask 
-        iTargetMaskY++;
-        if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-           ||   (iTargetMaskY >= iHeight)) {
-            pchTargetMask = pchTargetMaskBase;
-            iTargetMaskY = 0;
-        } else {
-            pchTargetMask += (iTargetMaskStride - iWidth);
-        }
+    
+    #if __API_CAFWM_CFG_1_HORIZONTAL_LINE
+        ptTargetMask = ptTargetMaskBase;
+    #else
+        ptTargetMask += (iTargetMaskStride - iWidth);
+    #endif
     }
 
 }
@@ -1611,7 +1297,11 @@ void __CAFWM_FUNC(des_msk_copy_xy_mirror)(
                                     __API_CAFWM_INT_TYPE * __RESTRICT pTargetBase,
                                     int16_t iTargetStride,
 
-                                    uint8_t * __RESTRICT pchTargetMaskBase,
+                                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                                    uint32_t * __RESTRICT ptTargetMaskBase,
+                                #else
+                                    uint8_t * __RESTRICT ptTargetMaskBase,
+                                #endif
                                     int16_t iTargetMaskStride,
                                     arm_2d_size_t *__RESTRICT ptTargetMaskSize,
 
@@ -1621,32 +1311,36 @@ void __CAFWM_FUNC(des_msk_copy_xy_mirror)(
     int_fast16_t    iWidth = ptCopySize->iWidth;
 
     pSourceBase += iSourceStride * (ptCopySize->iHeight - 1);
-    uint8_t *pchTargetMask = pchTargetMaskBase;
-    
-    for (   int_fast16_t y = 0, iTargetMaskY = 0; y < iHeight; y++) {
+#if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+    uint32_t *ptTargetMask = ptTargetMaskBase;
+#else
+    uint8_t *ptTargetMask = ptTargetMaskBase;
+#endif
+
+    for (   int_fast16_t y = 0; y < iHeight; y++) {
     
         __API_CAFWM_INT_TYPE  *ptSourceCur = pSourceBase;
         
         ptSourceCur += ptCopySize->iWidth - 1;
         
         for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwOpacity = 256 - (*pchTargetMask++);
+        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+            uint16_t hwOpacity = 256 - *(uint8_t *)(ptTargetMask++);
+        #else
+            uint16_t hwOpacity = 256 - (*ptTargetMask++);
+        #endif
 
             __API_CAFWM_PIXEL_BLENDING( ptSourceCur--, pTargetBase++, hwOpacity);
             
         }
         pSourceBase -= iSourceStride;
         pTargetBase += (iTargetStride - iWidth);
-        
-        //! handle target mask 
-        iTargetMaskY++;
-        if (    (iTargetMaskY >= ptTargetMaskSize->iHeight)
-           ||   (iTargetMaskY >= iHeight)) {
-            pchTargetMask = pchTargetMaskBase;
-            iTargetMaskY = 0;
-        } else {
-            pchTargetMask += (iTargetMaskStride - iWidth);
-        }
+    
+    #if __API_CAFWM_CFG_1_HORIZONTAL_LINE
+        ptTargetMask = ptTargetMaskBase;
+    #else
+        ptTargetMask += (iTargetMaskStride - iWidth);
+    #endif
     }
 
 }
@@ -1658,8 +1352,12 @@ void __CAFWM_FUNC(des_msk_copy_mirror)(
 
                                     __API_CAFWM_INT_TYPE * __RESTRICT pTargetBase,
                                     int16_t iTargetStride,
-
-                                    uint8_t * __RESTRICT pchTargetMaskBase,
+                                    
+                                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                                    uint32_t * __RESTRICT ptTargetMaskBase,
+                                #else
+                                    uint8_t * __RESTRICT ptTargetMaskBase,
+                                #endif
                                     int16_t iTargetMaskStride,
                                     arm_2d_size_t *__RESTRICT ptTargetMaskSize,
 
@@ -1670,21 +1368,21 @@ void __CAFWM_FUNC(des_msk_copy_mirror)(
       case ARM_2D_CP_MODE_X_MIRROR:
           __CAFWM_FUNC(des_msk_copy_x_mirror)(pSourceBase, iSourceStride,
                                             pTargetBase, iTargetStride, 
-                                            pchTargetMaskBase, iTargetMaskStride,
+                                            ptTargetMaskBase, iTargetMaskStride,
                                             ptTargetMaskSize,
                                             ptCopySize);
           break;
       case ARM_2D_CP_MODE_Y_MIRROR:
           __CAFWM_FUNC(des_msk_copy_y_mirror)(pSourceBase, iSourceStride,
                                             pTargetBase, iTargetStride, 
-                                            pchTargetMaskBase, iTargetMaskStride,
+                                            ptTargetMaskBase, iTargetMaskStride,
                                             ptTargetMaskSize,
                                             ptCopySize);
           break;
       case ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR:
           __CAFWM_FUNC(des_msk_copy_xy_mirror)(pSourceBase, iSourceStride,
                                             pTargetBase, iTargetStride, 
-                                            pchTargetMaskBase, iTargetMaskStride,
+                                            ptTargetMaskBase, iTargetMaskStride,
                                             ptTargetMaskSize,
                                             ptCopySize);
           break;
@@ -1699,13 +1397,17 @@ void __CAFWM_FUNC(des_msk_copy_mirror)(
 /*----------------------------------------------------------------------------*
  * Copy with Mirroring  (src mask only)                                       *
  *----------------------------------------------------------------------------*/
-
+#if !__API_CAFWM_CFG_1_HORIZONTAL_LINE
 __WEAK
 void __CAFWM_FUNC(src_msk_copy)(   
                             __API_CAFWM_INT_TYPE * __RESTRICT pSourceBase,
                             int16_t iSourceStride,
                             
-                            uint8_t * __RESTRICT pchSourceMaskBase,
+                        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                            uint32_t * __RESTRICT ptSourceMaskBase,
+                        #else
+                            uint8_t * __RESTRICT ptSourceMaskBase,
+                        #endif
                             int16_t iSourceMaskStride,
                             arm_2d_size_t *__RESTRICT ptSourceMaskSize,
                             
@@ -1716,31 +1418,43 @@ void __CAFWM_FUNC(src_msk_copy)(
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
+#if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+    uint32_t *ptSourceMask = ptSourceMaskBase;
+#else
+    uint8_t *ptSourceMask = ptSourceMaskBase;
+#endif
 
-    uint8_t *pchSourceMask = pchSourceMaskBase;
-    
-    for (   int_fast16_t y = 0, iSourceMaskY = 0;
-            y < iHeight; 
-            y++) {
+#if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+    int_fast16_t iSourceMaskY = 0;
+#endif  
+
+    for (int_fast16_t y = 0; y < iHeight; y++) {
     
         for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwOpacity = 256 - (*pchSourceMask++);
-
+        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+            uint16_t hwOpacity = 256 - *(uint8_t *)(ptSourceMask++);
+        #else
+            uint16_t hwOpacity = 256 - (*ptSourceMask++);
+        #endif
             __API_CAFWM_PIXEL_BLENDING( pSourceBase++, pTargetBase++, hwOpacity);
             
         }
         pSourceBase += (iSourceStride - iWidth);
         pTargetBase += (iTargetStride - iWidth);
         
+    #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
         //! handle source mask 
         iSourceMaskY++;
         if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
            ||   (iSourceMaskY >= iHeight)) {
-            pchSourceMask = pchSourceMaskBase;
+            ptSourceMask = ptSourceMaskBase;
             iSourceMaskY = 0;
         } else {
-            pchSourceMask += (iSourceMaskStride - iWidth);
+            ptSourceMask += (iSourceMaskStride - iWidth);
         }
+    #else
+        ptSourceMask += (iSourceMaskStride - iWidth);
+    #endif
     }
 }
 
@@ -1750,7 +1464,11 @@ void __CAFWM_FUNC(src_msk_copy_x_mirror)(
                                     __API_CAFWM_INT_TYPE * __RESTRICT pSourceBase,
                                     int16_t iSourceStride,
 
-                                    uint8_t * __RESTRICT pchSourceMaskBase,
+                                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                                    uint32_t * __RESTRICT ptSourceMaskBase,
+                                #else
+                                    uint8_t * __RESTRICT ptSourceMaskBase,
+                                #endif
                                     int16_t iSourceMaskStride,
                                     arm_2d_size_t *__RESTRICT ptSourceMaskSize,
 
@@ -1761,38 +1479,57 @@ void __CAFWM_FUNC(src_msk_copy_x_mirror)(
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
+#if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+    uint32_t *ptSourceMask = ptSourceMaskBase;
+#else
+    uint8_t *ptSourceMask = ptSourceMaskBase;
+#endif
 
-    uint8_t *pchSourceMask = pchSourceMaskBase;
-    
-    for (   int_fast16_t y = 0, iSourceMaskY = 0; 
-            y < iHeight; 
-            y++) {
+#if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+    int_fast16_t iSourceMaskY = 0;
+#endif  
+
+    for (int_fast16_t y = 0; y < iHeight; y++) {
     
         __API_CAFWM_INT_TYPE  *ptTargetCur = pTargetBase;
         __API_CAFWM_INT_TYPE  *ptSourceCur = pSourceBase;
-        uint8_t *pchSourceMaskCur = pchSourceMask;
-
+        
+    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+        uint32_t *pchSourceMaskCur = ptSourceMask;
+    #else
+        uint8_t *pchSourceMaskCur = ptSourceMask;
+    #endif
+    
         ptSourceCur += ptCopySize->iWidth - 1;
         //! \note do not use ptSourceMaskSize->iWidth
         pchSourceMaskCur += ptCopySize->iWidth - 1; 
         
         for (int_fast16_t x = 0; x < iWidth; x++) {
+        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+            uint16_t hwOpacity = 256 - *(uint8_t *)(pchSourceMaskCur--);
+        #else
             uint16_t hwOpacity = 256 - (*pchSourceMaskCur--);
-            __API_CAFWM_PIXEL_BLENDING( ptSourceCur--, pTargetBase++, hwOpacity);
+        #endif
+            __API_CAFWM_PIXEL_BLENDING( ptSourceCur--, ptTargetCur++, hwOpacity);
             
         }
         pSourceBase += iSourceStride;
-        pTargetBase += (iTargetStride - iWidth);
+        pTargetBase += iTargetStride;
         
+        
+    #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
         //! handle source mask 
         iSourceMaskY++;
         if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
            ||   (iSourceMaskY >= iHeight)) {
-            pchSourceMask = pchSourceMaskBase;
+            ptSourceMask = ptSourceMaskBase;
             iSourceMaskY = 0;
         } else {
-            pchSourceMask += iSourceMaskStride;
+            ptSourceMask += iSourceMaskStride;
         }
+    #else
+        ptSourceMask += iSourceMaskStride;
+    #endif
     }
 }
 
@@ -1802,7 +1539,11 @@ void __CAFWM_FUNC(src_msk_copy_y_mirror)(
                                     __API_CAFWM_INT_TYPE * __RESTRICT pSourceBase,
                                     int16_t iSourceStride,
 
-                                    uint8_t * __RESTRICT pchSourceMaskBase,
+                                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                                    uint32_t * __RESTRICT ptSourceMaskBase,
+                                #else
+                                    uint8_t * __RESTRICT ptSourceMaskBase,
+                                #endif
                                     int16_t iSourceMaskStride,
                                     arm_2d_size_t *__RESTRICT ptSourceMaskSize,
 
@@ -1817,35 +1558,52 @@ void __CAFWM_FUNC(src_msk_copy_y_mirror)(
     pSourceBase += iSourceStride * (ptCopySize->iHeight - 1);
     
     assert (ptCopySize->iHeight <= ptSourceMaskSize->iHeight);
-    pchSourceMaskBase += iSourceMaskStride * (ptCopySize->iHeight - 1);
+    ptSourceMaskBase += iSourceMaskStride * (ptCopySize->iHeight - 1);
     
+#if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+    uint32_t *ptSourceMask = ptSourceMaskBase;
+#else
+    uint8_t *ptSourceMask = ptSourceMaskBase;
+#endif
 
-    uint8_t *pchSourceMask = pchSourceMaskBase;
-    
-    for (   int_fast16_t y = 0, iSourceMaskY = 0; 
-            y < iHeight; 
-            y++) {
+#if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+    int_fast16_t iSourceMaskY = 0;
+#endif  
+
+    for (int_fast16_t y = 0; y < iHeight; y++) {
     
         __API_CAFWM_INT_TYPE  *ptSourceCur = pSourceBase;
-        uint8_t *pchSourceMaskCur = pchSourceMask;
-        
+    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+        uint32_t *pchSourceMaskCur = ptSourceMask;
+    #else
+        uint8_t *pchSourceMaskCur = ptSourceMask;
+    #endif
+    
         for (int_fast16_t x = 0; x < iWidth; x++) {
+        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+            uint16_t hwOpacity = 256 - *(uint8_t *)(pchSourceMaskCur++);
+        #else
             uint16_t hwOpacity = 256 - (*pchSourceMaskCur++);
+        #endif
             __API_CAFWM_PIXEL_BLENDING( ptSourceCur++, pTargetBase++, hwOpacity);
         }
         
         pSourceBase -= iSourceStride;
         pTargetBase += (iTargetStride - iWidth);
         
+    #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
         //! handle source mask 
         iSourceMaskY++;
         if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
            ||   (iSourceMaskY >= iHeight)) {
-            pchSourceMask = pchSourceMaskBase;
+            ptSourceMask = ptSourceMaskBase;
             iSourceMaskY = 0;
         } else {
-            pchSourceMask -= iSourceMaskStride;
+            ptSourceMask -= iSourceMaskStride;
         }
+    #else
+        ptSourceMask -= iSourceMaskStride;
+    #endif
     }
 
 }
@@ -1856,7 +1614,11 @@ void __CAFWM_FUNC(src_msk_copy_xy_mirror)(
                                     __API_CAFWM_INT_TYPE * __RESTRICT pSourceBase,
                                     int16_t iSourceStride,
 
-                                    uint8_t * __RESTRICT pchSourceMaskBase,
+                                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                                    uint32_t * __RESTRICT ptSourceMaskBase,
+                                #else
+                                    uint8_t * __RESTRICT ptSourceMaskBase,
+                                #endif
                                     int16_t iSourceMaskStride,
                                     arm_2d_size_t *__RESTRICT ptSourceMaskSize,
 
@@ -1871,24 +1633,37 @@ void __CAFWM_FUNC(src_msk_copy_xy_mirror)(
     pSourceBase += iSourceStride * (ptCopySize->iHeight - 1);
     
     assert (ptCopySize->iHeight <= ptSourceMaskSize->iHeight);
-    pchSourceMaskBase += iSourceMaskStride * (ptCopySize->iHeight - 1);
+    ptSourceMaskBase += iSourceMaskStride * (ptCopySize->iHeight - 1);
     
+#if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+    uint32_t *ptSourceMask = ptSourceMaskBase;
+#else
+    uint8_t *ptSourceMask = ptSourceMaskBase;
+#endif
 
-    uint8_t *pchSourceMask = pchSourceMaskBase;
-    
-    for (   int_fast16_t y = 0, iSourceMaskY = 0; 
-            y < iHeight; 
-            y++) {
+#if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+    int_fast16_t iSourceMaskY = 0;
+#endif  
+
+    for (int_fast16_t y = 0; y < iHeight; y++) {
     
         __API_CAFWM_INT_TYPE  *ptSourceCur = pSourceBase;
-        uint8_t *pchSourceMaskCur = pchSourceMask;
-        
+    #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+        uint32_t *pchSourceMaskCur = ptSourceMask;
+    #else
+        uint8_t *pchSourceMaskCur = ptSourceMask;
+    #endif
+    
         ptSourceCur += ptCopySize->iWidth - 1;
         //! \note do not use ptSourceMaskSize->iWidth
         pchSourceMaskCur += ptCopySize->iWidth - 1; 
         
         for (int_fast16_t x = 0; x < iWidth; x++) {
+        #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+            uint16_t hwOpacity = 256 - *(uint8_t *)(pchSourceMaskCur--);
+        #else
             uint16_t hwOpacity = 256 - (*pchSourceMaskCur--);
+        #endif
 
             __API_CAFWM_PIXEL_BLENDING( ptSourceCur--, pTargetBase++, hwOpacity);
             
@@ -1896,15 +1671,19 @@ void __CAFWM_FUNC(src_msk_copy_xy_mirror)(
         pSourceBase -= iSourceStride;
         pTargetBase += (iTargetStride - iWidth);
         
+    #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
         //! handle source mask 
         iSourceMaskY++;
         if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
            ||   (iSourceMaskY >= iHeight)) {
-            pchSourceMask = pchSourceMaskBase;
+            ptSourceMask = ptSourceMaskBase;
             iSourceMaskY = 0;
         } else {
-            pchSourceMask -= iSourceMaskStride;
+            ptSourceMask -= iSourceMaskStride;
         }
+    #else
+        ptSourceMask -= iSourceMaskStride;
+    #endif
     }
 
 }
@@ -1913,8 +1692,12 @@ __WEAK
 void __CAFWM_FUNC(src_msk_copy_mirror)(  
                                     __API_CAFWM_INT_TYPE * __RESTRICT pSourceBase,
                                     int16_t iSourceStride,
-
-                                    uint8_t * __RESTRICT pchSourceMaskBase,
+                                    
+                                #if __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
+                                    uint32_t * __RESTRICT ptSourceMaskBase,
+                                #else
+                                    uint8_t * __RESTRICT ptSourceMaskBase,
+                                #endif
                                     int16_t iSourceMaskStride,
                                     arm_2d_size_t *__RESTRICT ptSourceMaskSize,
 
@@ -1927,21 +1710,21 @@ void __CAFWM_FUNC(src_msk_copy_mirror)(
     switch (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
       case ARM_2D_CP_MODE_X_MIRROR:
           __CAFWM_FUNC(src_msk_copy_x_mirror)(pSourceBase, iSourceStride,
-                                            pchSourceMaskBase, iSourceMaskStride,
+                                            ptSourceMaskBase, iSourceMaskStride,
                                             ptSourceMaskSize,
                                             pTargetBase, iTargetStride, 
                                             ptCopySize);
           break;
       case ARM_2D_CP_MODE_Y_MIRROR:
           __CAFWM_FUNC(src_msk_copy_y_mirror)(pSourceBase, iSourceStride,
-                                            pchSourceMaskBase, iSourceMaskStride,
+                                            ptSourceMaskBase, iSourceMaskStride,
                                             ptSourceMaskSize,
                                             pTargetBase, iTargetStride, 
                                             ptCopySize);
           break;
       case ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR:
           __CAFWM_FUNC(src_msk_copy_xy_mirror)(pSourceBase, iSourceStride,
-                                            pchSourceMaskBase, iSourceMaskStride,
+                                            ptSourceMaskBase, iSourceMaskStride,
                                             ptSourceMaskSize,
                                             pTargetBase, iTargetStride, 
                                             ptCopySize);
@@ -1951,6 +1734,45 @@ void __CAFWM_FUNC(src_msk_copy_mirror)(
           //break;
     }
 }
+#endif
+
+
+#undef masks_fill                 
+#undef masks_fill_x_mirror        
+#undef masks_fill_y_mirror        
+#undef masks_fill_xy_mirror       
+#undef masks_fill_mirror          
+                                  
+#undef des_msk_fill               
+#undef des_msk_fill_x_mirror      
+#undef des_msk_fill_y_mirror      
+#undef des_msk_fill_xy_mirror     
+#undef des_msk_fill_mirror        
+                                  
+                                  
+#undef masks_copy                 
+#undef masks_copy_x_mirror        
+#undef masks_copy_y_mirror        
+#undef masks_copy_xy_mirror       
+#undef masks_copy_mirror                          
+                                  
+#undef des_msk_copy               
+#undef des_msk_copy_x_mirror      
+#undef des_msk_copy_y_mirror      
+#undef des_msk_copy_xy_mirror     
+#undef des_msk_copy_mirror        
+
+#undef src_msk_fill           
+#undef src_msk_fill_x_mirror  
+#undef src_msk_fill_y_mirror  
+#undef src_msk_fill_xy_mirror 
+#undef src_msk_fill_mirror                 
+                              
+#undef src_msk_copy           
+#undef src_msk_copy_x_mirror  
+#undef src_msk_copy_y_mirror  
+#undef src_msk_copy_xy_mirror 
+#undef src_msk_copy_mirror    
 
 
 #undef __API_CAFWM_COPY_LIKE_OP_NAME
@@ -1965,5 +1787,7 @@ void __CAFWM_FUNC(src_msk_copy_mirror)(
 #undef ____CAFWM_TYPE
 #undef ___CAFWM_TYPE
 #undef __CAFWM_TYPE
-
+#undef __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+#undef __API_CAFWM_CFG_1_HORIZONTAL_LINE
+#undef __API_CAFWM_CFG_CHANNEL_8in32_SUPPORT
 

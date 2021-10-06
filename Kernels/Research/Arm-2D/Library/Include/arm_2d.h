@@ -44,6 +44,12 @@
 extern "C" {
 #endif
 
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#endif
+
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
@@ -175,6 +181,10 @@ arm_2d_op_status_t arm_2d_get_op_status(arm_2d_op_core_t *ptOP);
   */
 extern
 arm_fsm_rt_t arm_2d_task(arm_2d_task_t *ptTask);
+
+#if defined(__clang__)
+#   pragma clang diagnostic pop
+#endif
 
 #ifdef   __cplusplus
 }

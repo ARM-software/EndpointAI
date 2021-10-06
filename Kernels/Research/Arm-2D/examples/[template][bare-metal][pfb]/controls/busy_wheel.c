@@ -107,7 +107,7 @@ void busy_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
         tTargetRegion.tLocation.iX += s_tDotsLocation[chIndex].iX;
         tTargetRegion.tLocation.iY += s_tDotsLocation[chIndex].iY;
     
-        arm_2d_rgb565_alpha_blending_with_colour_masking(   
+        arm_2d_rgb565_alpha_blending_with_colour_keying(   
                                                 &c_tileWhiteDot,
                                                 ptTarget,
                                                 &tTargetRegion,
@@ -148,12 +148,12 @@ void busy_wheel2_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
         tTargetRegion.tLocation.iX += s_tDotsLocation[chIndex].iX;
         tTargetRegion.tLocation.iY += s_tDotsLocation[chIndex].iY;
     
-        arm_2d_rgb565_fill_colour_with_alpha_mask_and_opacity(   
-                                                ptTarget,
-                                                &tTargetRegion,
-                                                &c_tileWhiteDotAlpha,
-                                                GLCD_COLOR_WHITE,
-                                                s_tAlphaTable[n]);
+        arm_2d_rgb565_fill_colour_with_mask_and_opacity(   
+                                    ptTarget,
+                                    &tTargetRegion,
+                                    &c_tileWhiteDotAlpha,
+                                    (arm_2d_color_rgb565_t){GLCD_COLOR_WHITE},
+                                    s_tAlphaTable[n]);
                                                 
         arm_2d_op_wait_async(NULL);
     }

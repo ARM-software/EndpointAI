@@ -122,6 +122,34 @@ uint16x8_t __arm_2d_rgb565_alpha_blending_single_vec(
 }
 
 
+__STATIC_FORCEINLINE
+uint16x8_t __arm_2d_rgb565_blending_opacity_single_vec(
+                                            uint16x8_t      hwSource1,
+                                            uint16x8_t      hwSource2,
+                                            uint16x8_t      vecHwOpacity)
+{
+    uint16x8_t      vecAlpha = vsubq_u16(vdupq_n_u16(256), vecHwOpacity);
+    uint16x8_t      vecR, vecG, vecB;
+    uint16x8_t      vecSrcR, vecSrcG, vecSrcB;
+
+    /* unpack sources */
+    __arm_2d_rgb565_unpack_single_vec(hwSource1, &vecR, &vecG, &vecB);
+    __arm_2d_rgb565_unpack_single_vec(hwSource2, &vecSrcR, &vecSrcG, &vecSrcB);
+
+    /* merge */
+    vecR = vecR * vecHwOpacity + vecSrcR * vecAlpha;
+    vecR = vecR >> 8;
+
+    vecG = vecG * vecHwOpacity + vecSrcG * vecAlpha;
+    vecG = vecG >> 8;
+
+    vecB = vecB * vecHwOpacity + vecSrcB * vecAlpha;
+    vecB = vecB >> 8;
+
+    /* pack */
+    return __arm_2d_rgb565_pack_single_vec(vecR, vecG, vecB);
+}
+
 
 __STATIC_FORCEINLINE
 uint16x8_t __rgb888_alpha_blending_direct_single_vec(

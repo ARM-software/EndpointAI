@@ -37,6 +37,8 @@
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wcast-align"
@@ -54,6 +56,7 @@
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #   pragma clang diagnostic ignored "-Wpadded"
 #   pragma clang diagnostic ignored "-Wvector-conversion"
+#   pragma clang diagnostic ignored "-Wundef"
 #endif
 
 
@@ -6094,6 +6097,441 @@ void __arm_2d_impl_rgb565_to_cccn888(uint16_t *__RESTRICT phwSourceBase,
 
         phwSourceBase += iSourceStride;
         pwTargetBase += iTargetStride;
+    }
+}
+
+
+
+
+
+
+void __arm_2d_impl_rgb565_masks_fill(uint16_t * __RESTRICT ptSourceBase,
+                                     int16_t iSourceStride,
+                                     arm_2d_size_t * __RESTRICT ptSourceSize,
+                                     uint8_t * __RESTRICT pchSourceMaskBase,
+                                     int16_t iSourceMaskStride,
+                                     arm_2d_size_t * __RESTRICT ptSourceMaskSize,
+                                     uint16_t * __RESTRICT ptTargetBase,
+                                     int16_t iTargetStride,
+                                     arm_2d_size_t * __RESTRICT ptTargetSize,
+                                     uint8_t * __RESTRICT pchTargetMaskBase,
+                                     int16_t iTargetMaskStride,
+                                     arm_2d_size_t * __RESTRICT ptTargetMaskSize)
+{
+    uint8_t        *__RESTRICT pchTargetMaskLineBase = pchTargetMaskBase;
+    uint16x8_t      v256 = vdupq_n_u16(256);
+
+#ifndef USE_MVE_INTRINSICS
+    uint16x8_t      scratch[5];
+
+    /* vector of 256 avoiding use of vdup to increase overlap efficiency*/
+    vst1q((uint16_t *) & scratch[0], v256);
+    /* scratch[1] is temporary for blended Red chan. vector */
+
+    /* Unpacking Mask Red */
+    vst1q((uint16_t *) & scratch[2], vdupq_n_u16(0x00fc));
+    /* B channel packing mask */
+    vst1q((uint16_t *) & scratch[3], vdupq_n_u16(0xf800));
+    /* G channel packing Mask */
+    vst1q((uint16_t *) & scratch[4], vdupq_n_u16(0x07e0));
+
+    /* use of fixed point mult instead of vshr to increase overlap efficiency */
+    const int16_t   inv_2pow3 = 1 << (15 - 3);  /* 1/(2^3) in Q.15 */
+#endif
+
+    for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
+        uint16_t       *__RESTRICT ptSource = ptSourceBase;
+        uint8_t        *pchSourceMask = pchSourceMaskBase;
+    #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+        int_fast16_t    iSourceMaskY = 0;
+    #endif
+
+        for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
+            uint16_t       *__RESTRICT ptTarget = ptTargetBase;
+            uint8_t        *__RESTRICT pchTargetMask = pchTargetMaskLineBase;
+            uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
+
+            do {
+                uint_fast32_t   wLength = MIN(wLengthLeft, ptSourceSize->iWidth);
+                uint16_t       *__RESTRICT ptSrc = ptSource;
+                uint8_t        *__RESTRICT pchSrcMsk = pchSourceMask;
+                uint16_t       *__RESTRICT ptTargetCur = ptTarget;
+                uint8_t        *__RESTRICT pchTargetMaskCur = pchTargetMask;
+
+#ifdef USE_MVE_INTRINSICS
+                int32_t         blkCnt = wLength;
+
+                do {
+                    uint16x8_t      vecTarget = vld1q(ptTargetCur);
+                    uint16x8_t      vecSource = vld1q(ptSrc);
+                    uint16x8_t      vecSrcMsk = vldrbq_u16(pchSrcMsk);
+                    uint16x8_t      vecTargetMask = vldrbq_u16(pchTargetMaskCur);
+                    uint16x8_t      vecHwOpacity =
+                        vsubq_u16(v256, (vecSrcMsk * vecTargetMask) >> 8);
+
+                    vecTarget = __arm_2d_rgb565_blending_opacity_single_vec(
+                                                    vecTarget, vecSource, vecHwOpacity);
+                    /* tail predication */
+                    vst1q_p_u16(ptTargetCur, vecTarget, vctp16q(blkCnt));
+
+                    pchSrcMsk += 8;
+                    pchTargetMaskCur += 8;
+                    ptTargetCur += 8;
+                    ptSrc += 8;
+
+                    blkCnt -= 8;
+                }
+                while (blkCnt > 0);
+
+#else
+                register unsigned blkCnt __asm("lr");
+                blkCnt = wLength;
+
+                __asm volatile  (
+                    /* R & B mask */
+                    "vecRBUnpackMask    .req q7                               \n"
+                    "vecAlpha           .req q5                               \n"
+                    "vecHwOpacity       .req q3                               \n"
+
+                    /* preload */
+                    "   vldrb.u16           q0, [%[pchSrcMsk]], #8            \n"
+                    "   vmov.i16            vecRBUnpackMask, #0x00f8          \n"
+                    "   vldrb.u16           q5, [%[pchTargetMask]], #8        \n"
+
+                    ".p2align 2                                               \n"
+                    "   wlstp.16            lr, %[loopCnt], 1f                \n"
+                    "2:                                                       \n"
+                    /* vecSrcMsk * vecTargetMask */
+                    "   vmul.i16            q0, q5, q0                        \n"
+                    "   vldrh.u16           q6, [%[ptTarget]]                 \n"
+                    "   vshr.u16            vecAlpha, q0, #8                  \n"
+                    /* 256-dup vector */
+                    "   vldrh.u16           q1, [%[scratch], #(16*0)]         \n"
+                    /* vecHwOpacity =
+                          vsubq_u16(v256, (vecSrcMsk * vecTargetMask) >> 8) */
+                    "   vsub.i16            vecHwOpacity, q1, vecAlpha        \n"
+                    "   vldrh.u16           q1, [%[ptSrc]], #16               \n"
+                    /* mimic vshl #3 */
+                    "   vshl.u16            q0, q6, #3                        \n"
+                    "   vmul.i16            q4, q1, %[eight]                  \n"
+                    /* vecR extract and scale */
+                    "   vand                q0, q0, vecRBUnpackMask           \n"
+                    "   vmul.i16            q0, vecHwOpacity, q0              \n"
+                    /* vecSrcR extract and scale */
+                    "   vand                q4, q4, vecRBUnpackMask           \n"
+                    "   vmul.i16            q4, vecAlpha, q4                  \n"
+                    /* 0xfc G-mask */
+                    "   vldrw.u32           q2, [%[scratch], #(16*2)]         \n"
+                    "   vadd.i16            q4, q0, q4                        \n"
+                    /* push blended R  */
+                    "   vstrw.32            q4, [%[scratch], #(16*1)]         \n"
+                    /*  mimic vshr.u16            q4, q6, #3 */
+                    "   vqdmulh.s16         q4, q6, %[inv_2pow3]              \n"
+                    "   vshr.u16            q0, q1, #3                        \n"
+                    /* vecG extract and scale */
+                    "   vand                q4, q4, q2                        \n"
+                    "   vmul.i16            q4, vecHwOpacity, q4              \n"
+                    /* vecSrcG extract and scale */
+                    "   vand                q0, q0, q2                        \n"
+                    "   vmul.i16            q2, vecAlpha, q0                  \n"
+                    "   vshr.u16            q0, q1, #8                        \n"
+                    /* blended G */
+                    /* vadd.i16            q2, q4, q2
+                       addition using vmla for more efficient overlap */
+                    "   vmla.u16            q2, q4, %[one]                    \n"
+                    /* vecB extract and scale */
+                    "   vshr.u16            q4, q6, #8                        \n"
+                    "   vand                q4, q4, vecRBUnpackMask           \n"
+                    "   vmul.i16            q4, vecHwOpacity, q4              \n"
+                    /* vecSrcB extract and scale */
+                    "   vand                q0, q0, vecRBUnpackMask           \n"
+                    "   vmul.i16            q0, vecAlpha, q0                  \n"
+
+                    ".unreq vecAlpha                                          \n"
+                    ".unreq vecHwOpacity                                      \n"
+                    ".unreq vecRBUnpackMask                                   \n"
+
+                    /* reload blended R */
+                    "   vldrw.u32           q1, [%[scratch], #(16*1)]         \n"
+                    /* blended B
+                       vadd.i16            q0, q4, q0
+                       addition using vmla for more efficient overlap */
+                    "   vmla.u16            q0, q4, %[one]                    \n"
+                    /* pack R */
+                    "   vshr.u16            q3, q1, #11                       \n"
+                    /* B channel packing mask 0xf800 */
+                    "   vldrw.u32           q4, [%[scratch], #(16*3)]         \n"
+                    "   vand                q0, q0, q4                        \n"
+                    /* accumulate R & B */
+                    "   vorr                q4, q0, q3                        \n"
+                    /* G channel packing mask 0x07e0 */
+                    "   vldrw.u32           q3, [%[scratch], #(16*4)]         \n"
+                    "   vshr.u16            q2, q2, #5                        \n"
+                    /* load next source mask */
+                    "   vldrb.u16           q0, [%[pchSrcMsk]], #8            \n"
+                    /* G channel masking */
+                    "   vand                q2, q2, q3                        \n"
+                    /* load next target mask */
+                    "   vldrb.u16           q5, [%[pchTargetMask]], #8        \n"
+                    /* pack G with R.B */
+                    "   vorr                q4, q4, q2                        \n"
+                    "   vstrh.16            q4, [%[ptTarget]], #16            \n"
+                    "   letp                lr, 2b                            \n"
+                    "1:                                                       \n"
+                    :[ptTarget] "+r"(ptTargetCur),[ptSrc] "+r"(ptSrc),
+                     [pchTargetMask] "+l"(pchTargetMaskCur),[pchSrcMsk] "+l"(pchSrcMsk),
+                     [loopCnt] "+r"(blkCnt)
+                    :[scratch] "r"  (scratch),[eight] "r"(8),[inv_2pow3] "r"(inv_2pow3),
+                     [one] "r" (1)
+                    :"q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "memory");
+
+#endif
+                ptTarget += wLength;
+                pchTargetMask += wLength;
+
+                wLengthLeft -= wLength;
+            } while (wLengthLeft);
+
+            ptSource += iSourceStride;
+            ptTargetBase += iTargetStride;
+        #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+            iSourceMaskY++;
+            //! handle source mask
+            if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
+               ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
+                pchSourceMask = pchSourceMaskBase;
+                iSourceMaskY = 0;
+            } else {
+                pchSourceMask += iSourceMaskStride;
+            }
+        #else
+            pchSourceMask += iSourceMaskStride;
+        #endif
+
+            pchTargetMaskLineBase += iTargetMaskStride;
+
+            iTargetY++;
+            if (iTargetY >= ptTargetSize->iHeight) {
+                break;
+            }
+        }
+    }
+}
+
+
+
+__OVERRIDE_WEAK
+void __arm_2d_impl_rgb565_src_msk_1h_des_msk_fill(
+                                    uint16_t * __RESTRICT ptSourceBase,
+                                    int16_t iSourceStride,
+                                    arm_2d_size_t * __RESTRICT ptSourceSize,
+                                    uint8_t * __RESTRICT pchSourceMaskBase,
+                                    int16_t iSourceMaskStride,
+                                    arm_2d_size_t * __RESTRICT ptSourceMaskSize,
+                                    uint16_t * __RESTRICT ptTargetBase,
+                                    int16_t iTargetStride,
+                                    arm_2d_size_t * __RESTRICT ptTargetSize,
+                                    uint8_t * __RESTRICT pchTargetMaskBase,
+                                    int16_t iTargetMaskStride,
+                                    arm_2d_size_t * __RESTRICT ptTargetMaskSize)
+{
+    uint8_t        *__RESTRICT pchTargetMaskLineBase = pchTargetMaskBase;
+    uint16x8_t      v256 = vdupq_n_u16(256);
+
+#ifndef USE_MVE_INTRINSICS
+    uint16x8_t      scratch[5];
+
+    /* vector of 256 avoiding use of vdup to increase overlap efficiency*/
+    vst1q((uint16_t *) & scratch[0], v256);
+    /* scratch[1] is temporary for blended Red chan. vector */
+
+    /* Unpacking Mask Red */
+    vst1q((uint16_t *) & scratch[2], vdupq_n_u16(0x00fc));
+    /* B channel packing mask */
+    vst1q((uint16_t *) & scratch[3], vdupq_n_u16(0xf800));
+    /* G channel packing Mask */
+    vst1q((uint16_t *) & scratch[4], vdupq_n_u16(0x07e0));
+
+    /* use of fixed point mult instead of vshr to increase overlap efficiency */
+    const int16_t   inv_2pow3 = 1 << (15 - 3);  /* 1/(2^3) in Q.15 */
+#endif
+
+    for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
+        uint16_t       *__RESTRICT ptSource = ptSourceBase;
+        uint8_t        *pchSourceMask = pchSourceMaskBase;
+    #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+        int_fast16_t    iSourceMaskY = 0;
+    #endif
+
+        for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
+            uint16_t       *__RESTRICT ptTarget = ptTargetBase;
+            uint8_t        *__RESTRICT pchTargetMask = pchTargetMaskLineBase;
+            uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
+
+            do {
+                uint_fast32_t   wLength = MIN(wLengthLeft, ptSourceSize->iWidth);
+                uint16_t       *__RESTRICT ptSrc = ptSource;
+                uint8_t        *__RESTRICT pchSrcMsk = pchSourceMask;
+                uint16_t       *__RESTRICT ptTargetCur = ptTarget;
+                uint8_t        *__RESTRICT pchTargetMaskCur = pchTargetMask;
+
+#ifdef USE_MVE_INTRINSICS
+                int32_t         blkCnt = wLength;
+
+                do {
+                    uint16x8_t      vecTarget = vld1q(ptTargetCur);
+                    uint16x8_t      vecSource = vld1q(ptSrc);
+                    uint16x8_t      vecSrcMsk = vldrbq_u16(pchSrcMsk);
+                    uint16x8_t      vecTargetMask = vldrbq_u16(pchTargetMaskCur);
+                    uint16x8_t      vecHwOpacity =
+                        vsubq_u16(v256, (vecSrcMsk * vecTargetMask) >> 8);
+
+                    vecTarget = __arm_2d_rgb565_blending_opacity_single_vec(
+                                                    vecTarget, vecSource, vecHwOpacity);
+                    /* tail predication */
+                    vst1q_p_u16(ptTargetCur, vecTarget, vctp16q(blkCnt));
+
+                    pchSrcMsk += 8;
+                    pchTargetMaskCur += 8;
+                    ptTargetCur += 8;
+                    ptSrc += 8;
+
+                    blkCnt -= 8;
+                }
+                while (blkCnt > 0);
+
+#else
+                register unsigned blkCnt __asm("lr");
+                blkCnt = wLength;
+
+                __asm volatile  (
+                    /* R & B mask */
+                    "vecRBUnpackMask    .req q7                               \n"
+                    "vecAlpha           .req q5                               \n"
+                    "vecHwOpacity       .req q3                               \n"
+
+                    /* preload */
+                    "   vldrb.u16           q0, [%[pchSrcMsk]], #8            \n"
+                    "   vmov.i16            vecRBUnpackMask, #0x00f8          \n"
+                    "   vldrb.u16           q5, [%[pchTargetMask]], #8        \n"
+
+                    ".p2align 2                                               \n"
+                    "   wlstp.16            lr, %[loopCnt], 1f                \n"
+                    "2:                                                       \n"
+                    /* vecSrcMsk * vecTargetMask */
+                    "   vmul.i16            q0, q5, q0                        \n"
+                    "   vldrh.u16           q6, [%[ptTarget]]                 \n"
+                    "   vshr.u16            vecAlpha, q0, #8                  \n"
+                    /* 256-dup vector */
+                    "   vldrh.u16           q1, [%[scratch], #(16*0)]         \n"
+                    /* vecHwOpacity =
+                          vsubq_u16(v256, (vecSrcMsk * vecTargetMask) >> 8) */
+                    "   vsub.i16            vecHwOpacity, q1, vecAlpha        \n"
+                    "   vldrh.u16           q1, [%[ptSrc]], #16               \n"
+                    /* mimic vshl #3 */
+                    "   vshl.u16            q0, q6, #3                        \n"
+                    "   vmul.i16            q4, q1, %[eight]                  \n"
+                    /* vecR extract and scale */
+                    "   vand                q0, q0, vecRBUnpackMask           \n"
+                    "   vmul.i16            q0, vecHwOpacity, q0              \n"
+                    /* vecSrcR extract and scale */
+                    "   vand                q4, q4, vecRBUnpackMask           \n"
+                    "   vmul.i16            q4, vecAlpha, q4                  \n"
+                    /* 0xfc G-mask */
+                    "   vldrw.u32           q2, [%[scratch], #(16*2)]         \n"
+                    "   vadd.i16            q4, q0, q4                        \n"
+                    /* push blended R  */
+                    "   vstrw.32            q4, [%[scratch], #(16*1)]         \n"
+                    /*  mimic vshr.u16            q4, q6, #3 */
+                    "   vqdmulh.s16         q4, q6, %[inv_2pow3]              \n"
+                    "   vshr.u16            q0, q1, #3                        \n"
+                    /* vecG extract and scale */
+                    "   vand                q4, q4, q2                        \n"
+                    "   vmul.i16            q4, vecHwOpacity, q4              \n"
+                    /* vecSrcG extract and scale */
+                    "   vand                q0, q0, q2                        \n"
+                    "   vmul.i16            q2, vecAlpha, q0                  \n"
+                    "   vshr.u16            q0, q1, #8                        \n"
+                    /* blended G */
+                    /* vadd.i16            q2, q4, q2
+                       addition using vmla for more efficient overlap */
+                    "   vmla.u16            q2, q4, %[one]                    \n"
+                    /* vecB extract and scale */
+                    "   vshr.u16            q4, q6, #8                        \n"
+                    "   vand                q4, q4, vecRBUnpackMask           \n"
+                    "   vmul.i16            q4, vecHwOpacity, q4              \n"
+                    /* vecSrcB extract and scale */
+                    "   vand                q0, q0, vecRBUnpackMask           \n"
+                    "   vmul.i16            q0, vecAlpha, q0                  \n"
+
+                    ".unreq vecAlpha                                          \n"
+                    ".unreq vecHwOpacity                                      \n"
+                    ".unreq vecRBUnpackMask                                   \n"
+
+                    /* reload blended R */
+                    "   vldrw.u32           q1, [%[scratch], #(16*1)]         \n"
+                    /* blended B
+                       vadd.i16            q0, q4, q0
+                       addition using vmla for more efficient overlap */
+                    "   vmla.u16            q0, q4, %[one]                    \n"
+                    /* pack R */
+                    "   vshr.u16            q3, q1, #11                       \n"
+                    /* B channel packing mask 0xf800 */
+                    "   vldrw.u32           q4, [%[scratch], #(16*3)]         \n"
+                    "   vand                q0, q0, q4                        \n"
+                    /* accumulate R & B */
+                    "   vorr                q4, q0, q3                        \n"
+                    /* G channel packing mask 0x07e0 */
+                    "   vldrw.u32           q3, [%[scratch], #(16*4)]         \n"
+                    "   vshr.u16            q2, q2, #5                        \n"
+                    /* load next source mask */
+                    "   vldrb.u16           q0, [%[pchSrcMsk]], #8            \n"
+                    /* G channel masking */
+                    "   vand                q2, q2, q3                        \n"
+                    /* load next target mask */
+                    "   vldrb.u16           q5, [%[pchTargetMask]], #8        \n"
+                    /* pack G with R.B */
+                    "   vorr                q4, q4, q2                        \n"
+                    "   vstrh.16            q4, [%[ptTarget]], #16            \n"
+                    "   letp                lr, 2b                            \n"
+                    "1:                                                       \n"
+                    :[ptTarget] "+r"(ptTargetCur),[ptSrc] "+r"(ptSrc),
+                     [pchTargetMask] "+l"(pchTargetMaskCur),[pchSrcMsk] "+l"(pchSrcMsk),
+                     [loopCnt] "+r"(blkCnt)
+                    :[scratch] "r"  (scratch),[eight] "r"(8),[inv_2pow3] "r"(inv_2pow3),
+                     [one] "r" (1)
+                    :"q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "memory");
+
+#endif
+                ptTarget += wLength;
+                pchTargetMask += wLength;
+
+                wLengthLeft -= wLength;
+            } while (wLengthLeft);
+
+            ptSource += iSourceStride;
+            ptTargetBase += iTargetStride;
+        #if __API_CAFWM_CFG_SUPPORT_SRC_MSK_WRAPING
+            iSourceMaskY++;
+            //! handle source mask
+            if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
+               ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
+                pchSourceMask = pchSourceMaskBase;
+                iSourceMaskY = 0;
+            } else {
+                pchSourceMask += iSourceMaskStride;
+            }
+        #else
+            pchSourceMask += iSourceMaskStride;
+        #endif
+
+            pchTargetMaskLineBase = pchTargetMaskBase;
+
+            iTargetY++;
+            if (iTargetY >= ptTargetSize->iHeight) {
+                break;
+            }
+        }
     }
 }
 

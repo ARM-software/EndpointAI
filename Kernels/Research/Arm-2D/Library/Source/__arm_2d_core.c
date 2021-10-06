@@ -49,6 +49,8 @@ extern "C" {
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wcast-align"
@@ -568,7 +570,7 @@ arm_fsm_rt_t __arm_2d_big_pixel_tile_pave(  arm_2d_op_cp_t *ptThis,
                 
                 do {
                     arm_2d_region_t tTempRegion= {
-                        .tSize = ptThis->Target.ptRegion->tSize,
+                        .tSize = ptThis->Target.ptTile->tRegion.tSize,
                     };
                     
                     arm_2d_get_absolute_location(ptThis->Target.ptTile,
@@ -732,6 +734,7 @@ arm_fsm_rt_t __arm_2d_big_pixel_tile_pave(  arm_2d_op_cp_t *ptThis,
 static
 arm_fsm_rt_t __tile_clipped_pave(
                             arm_2d_op_cp_t *ptThis,
+                            const arm_2d_tile_t *ptTarget,
                             const arm_2d_region_t *ptRegion,
                             arm_2d_region_t *ptClippedRegion,
                             uint32_t wMode)
@@ -766,7 +769,8 @@ arm_fsm_rt_t __tile_clipped_pave(
 
         //! [Modify][Target.ptTile]
         //if (NULL == arm_2d_tile_generate_child( this.Target.ptTile, 
-        if (NULL == arm_2d_tile_generate_child( this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile,
+        if (NULL == arm_2d_tile_generate_child( //this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile,
+                                                ptTarget,
                                                 ptRegion, 
                                                 &tTargetTile, 
                                                 true)) {
@@ -865,6 +869,7 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process( arm_2d_op_core_t *ptOP)
     arm_2d_tile_t tTile = {0};
     arm_2d_region_t tDrawRegion = {0};
     arm_2d_region_t tTargetRegion = {0};
+    arm_2d_tile_t *ptTarget = NULL;
 
     if (!__arm_2d_op_ensure_resource(ptOP, 1)) {
         //! insufficient resources, ask users to try again
@@ -897,14 +902,16 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process( arm_2d_op_core_t *ptOP)
         
         //! [Modify][Target.ptTile]
         //this.Target.ptTile = arm_2d_tile_generate_child(  this.Target.ptTile,
-        this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile 
-            = arm_2d_tile_generate_child(   this.Target.ptTile,
+        //this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile 
+        
+        ptTarget = arm_2d_tile_generate_child(   this.Target.ptTile,
                                             &tValidRegion,
                                             &tTile,
                                             true);
         //! [Modify][Target.ptTile]
         //assert(NULL != this.Target.ptTile);
-        assert(NULL != this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile);
+        //assert(NULL != this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile);
+        assert(NULL != ptTarget);
         tTargetRegion.tLocation.iX -= tOffset.iX;
         tTargetRegion.tLocation.iY -= tOffset.iY;
 
@@ -912,8 +919,9 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process( arm_2d_op_core_t *ptOP)
 
     //! [Modify][Target.ptTile]
     //tDrawRegion.tSize = this.Target.ptTile->tRegion.tSize;
-    tDrawRegion.tSize 
-        = this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile->tRegion.tSize;
+    //tDrawRegion.tSize 
+    //    = this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile->tRegion.tSize;
+    tDrawRegion.tSize = ptTarget->tRegion.tSize;
     if (!arm_2d_region_intersect(   &tDrawRegion, 
                                     &tTargetRegion, 
                                     &tDrawRegion)) {
@@ -928,7 +936,8 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process( arm_2d_op_core_t *ptOP)
         //! [Modify][Target.ptTile]
         //if (NULL == arm_2d_tile_generate_child( this.Target.ptTile, 
         if (NULL == arm_2d_tile_generate_child( 
-                            this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile,
+                            //this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile,
+                            ptTarget,
                             &tTargetRegion, 
                             &tTempTile, true)) {
             break;
@@ -973,6 +982,7 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
     arm_2d_tile_t tTile = {0};
     arm_2d_region_t tDrawRegion = {0};
     arm_2d_region_t tTargetRegion = {0};
+    const arm_2d_tile_t *ptTarget = NULL;
 
     if (!__arm_2d_op_ensure_resource(ptOP, 4)) {
         //! insufficient resources, ask users to try again
@@ -1006,14 +1016,15 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
         //if (tOffset.iX != 0 || tOffset.iY != 0) {
             //!! [Modify][Target.ptTile]
             //this.Target.ptTile = arm_2d_tile_generate_child(  this.Target.ptTile,
-            this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile 
-                = arm_2d_tile_generate_child(   this.Target.ptTile,
-                                                &tValidRegion,
-                                                &tTile,
-                                                true);
+            //this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile 
+            ptTarget = arm_2d_tile_generate_child(  this.Target.ptTile,
+                                                    &tValidRegion,
+                                                    &tTile,
+                                                    true);
             //!! [Modify][Target.ptTile]
             //assert(NULL != this.Target.ptTile);
-            assert(NULL != this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile);
+            //assert(NULL != this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile);
+            assert(NULL != ptTarget);
             tTargetRegion.tLocation.iX -= tOffset.iX;
             tTargetRegion.tLocation.iY -= tOffset.iY;
         //}
@@ -1050,7 +1061,8 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
 
     //!! [Modify][Target.ptTile]
     //tDrawRegion.tSize = this.Target.ptTile->tRegion.tSize;
-    tDrawRegion.tSize = this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile->tRegion.tSize;
+    //tDrawRegion.tSize = this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile->tRegion.tSize;
+    tDrawRegion.tSize = ptTarget->tRegion.tSize;
     if (!arm_2d_region_intersect(   &tDrawRegion, 
                                     &tTargetRegion, 
                                     &tDrawRegion)) {
@@ -1079,6 +1091,7 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
          */
         arm_2d_region_t tClippdRegion;
         tResult = __tile_clipped_pave(  &this,
+                                        ptTarget,
                                         &tTargetRegion,
                                         &tClippdRegion,
                                         this.wMode & ~ARM_2D_CP_MODE_FILL);
@@ -1117,6 +1130,7 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
                 tHeaderRegion.tLocation.iY = tTargetRegion.tLocation.iY;
 
                 tResult = __tile_clipped_pave(  &this,
+                                                ptTarget,
                                                 &tHeaderRegion,
                                                 NULL,
                                                 this.wMode);
@@ -1164,6 +1178,7 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
                 tFirstColumnRegion.tLocation.iX = tTargetRegion.tLocation.iX;
 
                 tResult = __tile_clipped_pave(  &this,
+                                                ptTarget,
                                                 &tFirstColumnRegion,
                                                 NULL,
                                                 this.wMode);
@@ -1208,7 +1223,8 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
                                                             
                                                             //! [Modify][Target.ptTile]
                                                             //this.Target.ptTile,
-                                                            this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile,
+                                                            //this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile,
+                                                            ptTarget,
                                                             &tNonNegRegion,
                                                             this.wMode);
                 if (tResult < 0) {
@@ -1222,7 +1238,8 @@ arm_fsm_rt_t __arm_2d_op_frontend_region_process_with_src( arm_2d_op_core_t *ptO
                                                     
                                                     //! [Modify][Target.ptTile]
                                                     //this.Target.ptTile,
-                                                    this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile,
+                                                    //this.use_as__arm_2d_op_core_t.Runtime.ptTargetTile,
+                                                    ptTarget,
                                                     &tTargetRegion,
                                                     this.wMode);
     }

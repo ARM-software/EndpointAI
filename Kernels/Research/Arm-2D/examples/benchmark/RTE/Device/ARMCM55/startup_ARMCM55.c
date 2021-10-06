@@ -28,6 +28,13 @@
   #error device not specified!
 #endif
 
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wmissing-noreturn"
+#endif
+
 /*----------------------------------------------------------------------------
   External References
  *----------------------------------------------------------------------------*/
@@ -126,12 +133,6 @@ __NO_RETURN void Reset_Handler(void)
   __PROGRAM_START();                        /* Enter PreMain (C library entry point) */
 }
 
-
-#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
-  #pragma clang diagnostic push
-  #pragma clang diagnostic ignored "-Wmissing-noreturn"
-#endif
-
 /*----------------------------------------------------------------------------
   Hard Fault Handler
  *----------------------------------------------------------------------------*/
@@ -148,7 +149,7 @@ void Default_Handler(void)
   while(1);
 }
 
-#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+#if defined(__clang__)
   #pragma clang diagnostic pop
 #endif
 

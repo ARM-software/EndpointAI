@@ -26,16 +26,20 @@
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
 #   pragma clang diagnostic ignored "-Wpadded"
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wcast-align"
 #   pragma clang diagnostic ignored "-Wmissing-field-initializers"
+#   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #   pragma clang diagnostic ignored "-Wmissing-braces"
 #   pragma clang diagnostic ignored "-Wunused-const-variable"
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wextra-semi"
+#   pragma clang diagnostic ignored "-Wfloat-conversion"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -71,6 +75,9 @@ const arm_2d_tile_t c_tileCMSISLogo;
 
 extern 
 const arm_2d_tile_t c_tileCMSISLogoMask;
+
+extern 
+const arm_2d_tile_t c_tileCMSISLogoMask2;
 
 extern
 const arm_2d_tile_t c_tPictureSun;
@@ -162,6 +169,7 @@ void example_gui_init(void)
     
     //! generate line-fading template for a half of the screen
     do {
+        memset(s_bmpFadeMask, 0, sizeof(s_bmpFadeMask));
         float fRatio = 255.0f / (float)(APP_SCREEN_WIDTH >> 1);
         for (int32_t n = 0; n < (APP_SCREEN_WIDTH >> 1); n++) {
             s_bmpFadeMask[n] = 255 - ((float)n * fRatio);
@@ -326,7 +334,7 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
     ASSERT(hwCount > 0);
     arm_2d_tile_t tTempPanel;
     
-    static const arm_2d_region_t s_tFillRegion = {
+    static const arm_2d_region_t c_tFillRegion = {
                                 .tLocation = {
                                     .iX = -200, 
                                     .iY = -100, 
@@ -341,7 +349,7 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
         //!< fill background with CMSISlogo (with colour keying)
         arm_2d_rgb16_tile_copy( &c_tileCMSISLogo,
                                 ptFrameBuffer,
-                                &s_tFillRegion,
+                                &c_tFillRegion,
                                 ptLayers[0].wMode);        
     } while(0);
 
@@ -368,19 +376,17 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                                     
         arm_2d_op_wait_async(NULL);
         
-        
-        //!< fill background with CMSISlogo (with masks)
-        arm_2d_rgb565_tile_copy_with_mask(
+        //arm_2d_align_centre(tTempPanel, c_tileCMSISLogo.tRegion.tSize) {
+            //!< copy CMSISlogo (with masks) to background
+            arm_2d_rgb565_tile_copy_with_mask(
                                     &c_tileCMSISLogo,
                                     &c_tileCMSISLogoMask,
                                     &tTempPanel,
                                     &c_tileFadeMask,
-                                    //&s_tFillRegion,
-                                    NULL,
+                                    &c_tFillRegion,//&__centre_region,
                                     ptLayers[0].wMode);
-                                    //ARM_2D_CP_MODE_FILL     |
-                                    //ARM_2D_CP_MODE_X_MIRROR |
-                                    //ARM_2D_CP_MODE_X_MIRROR );
+            arm_2d_op_wait_async(NULL);
+        //}
     } while(0);
     
     arm_2d_rgb16_fill_colour(   s_ptRefreshLayers[2].ptTile, 

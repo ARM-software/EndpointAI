@@ -47,6 +47,8 @@ extern "C" {
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wmissing-declarations"
 #   pragma clang diagnostic ignored "-Wpadded"
 #   pragma clang diagnostic ignored "-Wc11-extensions"
@@ -468,10 +470,6 @@ ARM_PRIVATE(
     volatile arm_2d_op_status_t Status;
 
     arm_2d_op_evt_t             evt2DOpCpl;             //!< operation complete event
-    
-    struct {
-        const arm_2d_tile_t    *ptTargetTile;
-    } Runtime;
     
 )
     uintptr_t                   pUserParam;
