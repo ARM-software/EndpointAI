@@ -676,7 +676,7 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_tile_process(
 
     (*ptTask) = (__arm_2d_sub_task_t) {
                     .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
-                    .chLowLeveIOIndex = 0,//OP_CORE.ptOp->Info.LowLevelInterfaceIndex.TileProcessLike,
+                    .chLowLeveIOIndex = 0,
                     .Param.tTileProcess = *ptParam,
                 };
     

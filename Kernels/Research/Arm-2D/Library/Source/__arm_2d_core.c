@@ -339,6 +339,8 @@ static const arm_2d_tile_t * __arm_2d_tile_region_caculator(
                           & !ptTile->tInfo.bIsRoot;
     
     
+    //memset(ptOut, 0, sizeof(__arm_2d_tile_param_t));
+    
     ptTile = arm_2d_tile_get_root(  ptTile,                           
                                     &tValidRegion,                   
                                     NULL);                
@@ -382,6 +384,7 @@ static const arm_2d_tile_t * __arm_2d_tile_region_caculator(
         ptOut->tValidRegion = tValidRegion;
         ptOut->tColour.chScheme = ptTile->tColourInfo.chScheme;
         ptOut->bDerivedResource = bDerivedResource;
+        ptOut->bInvalid = false;
     }
 
     return ptTile;

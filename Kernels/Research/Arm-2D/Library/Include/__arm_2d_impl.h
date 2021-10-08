@@ -180,6 +180,8 @@ enum {
     __ARM_2D_OP_IDX_COPY,
     __ARM_2D_OP_IDX_COPY_WITH_COLOUR_KEYING,
     __ARM_2D_OP_IDX_COPY_WITH_MASK,
+    __ARM_2D_OP_IDX_COPY_WITH_SRC_MASK,
+    __ARM_2D_OP_IDX_COPY_WITH_DES_MASK,
     __ARM_2D_OP_IDX_FILL_COLOUR,
     __ARM_2D_OP_IDX_FILL_COLOUR_WITH_COLOUR_KEYING,
     __ARM_2D_OP_IDX_FILL_COLOUR_WITH_MASK,
@@ -318,6 +320,7 @@ ARM_PRIVATE(
         arm_2d_op_alpha_t                   tAlpha;
         arm_2d_op_alpha_cl_key_t            tAlphaColourKeying;
         arm_2d_op_alpha_fill_cl_msk_opc_t   tAlphaFillColourMaskOpacity;
+        arm_2d_op_cp_msk_t                  tCopyMasks;
         
         arm_2d_op_drw_patn_t                tDrawPattern;
         arm_2d_op_rotate_t                  tRotate;
@@ -414,27 +417,84 @@ arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy(  __arm_2d_sub_task_t *ptTask);
 
 
 extern
-arm_fsm_rt_t __arm_2d_gray8_sw_tile_copy_with_mask(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_gray8_sw_tile_copy_with_masks(
+                                                __arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_gray8_sw_tile_fill_with_mask(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_gray8_sw_tile_fill_with_masks(
+                                                __arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_rgb565_sw_tile_copy_with_mask(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_rgb565_sw_tile_copy_with_masks(
+                                                __arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_rgb565_sw_tile_fill_with_mask(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_rgb565_sw_tile_fill_with_masks(
+                                                __arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_cccn888_sw_tile_copy_with_mask(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_cccn888_sw_tile_copy_with_masks(
+                                                __arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_cccn888_sw_tile_fill_with_mask(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_cccn888_sw_tile_fill_with_masks(
+                                                __arm_2d_sub_task_t *ptTask);
 
+
+
+extern
+arm_fsm_rt_t __arm_2d_gray8_sw_tile_copy_with_src_mask(
+                                                __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_gray8_sw_tile_fill_with_src_mask(
+                                                __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb565_sw_tile_copy_with_src_mask(
+                                                __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb565_sw_tile_fill_with_src_mask(
+                                                __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_cccn888_sw_tile_copy_with_src_mask(
+                                                __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_cccn888_sw_tile_fill_with_src_mask(
+                                                __arm_2d_sub_task_t *ptTask);
+
+
+extern
+arm_fsm_rt_t __arm_2d_gray8_sw_tile_copy_with_des_mask(
+                                                __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_gray8_sw_tile_fill_with_des_mask(
+                                                __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb565_sw_tile_copy_with_des_mask(
+                                                __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb565_sw_tile_fill_with_des_mask(
+                                                __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_cccn888_sw_tile_copy_with_des_mask(
+                                                __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_cccn888_sw_tile_fill_with_des_mask(
+                                                __arm_2d_sub_task_t *ptTask);
+                                                
 
 extern 
 arm_fsm_rt_t __arm_2d_c8bit_sw_tile_copy_with_colour_keying(
-                                        __arm_2d_sub_task_t *ptTask);
+                                                __arm_2d_sub_task_t *ptTask);
 
 extern 
 arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy_with_colour_keying(

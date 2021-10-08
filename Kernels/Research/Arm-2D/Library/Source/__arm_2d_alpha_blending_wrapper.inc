@@ -93,11 +93,11 @@
 #   define ____ABW_TYPE(__NAME, __COLOUR)  arm_2d_##__COLOUR##_##__NAME
 #   define ___ABW_TYPE(__NAME, __COLOUR)   ____ABW_TYPE(__NAME, __COLOUR) 
 #else
-#   define _____ABW_TYPE(__OP_NAME, __NAME, __COLOUR)                          \
+#   define _____ABW_TYPE(__OP_NAME, __NAME, __COLOUR)                           \
         arm_2d_##__COLOUR##_##__OP_NAME##_##__NAME
-#   define ____ABW_TYPE(__OP_NAME, __NAME, __COLOUR)                           \
+#   define ____ABW_TYPE(__OP_NAME, __NAME, __COLOUR)                            \
         _____ABW_TYPE(__OP_NAME, __NAME, __COLOUR)
-#   define ___ABW_TYPE(__NAME, __COLOUR)                                       \
+#   define ___ABW_TYPE(__NAME, __COLOUR)                                        \
         ____ABW_TYPE(__API_ABW_OP_NAME, __NAME, __COLOUR) 
 #endif
 
@@ -105,18 +105,25 @@
 #define __ABW_TYPE(__NAME)   ___ABW_TYPE(__NAME, __API_ABW_COLOUR)
 
 
-
-static 
-arm_fsm_rt_t __ABW_FUNC(tile_copy_with_src_msk)( __arm_2d_sub_task_t *ptTask)
+ 
+arm_fsm_rt_t __ABW_FUNC(tile_copy_with_src_mask)( __arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
     assert(__API_ABW_COLOUR_SZ == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
 
-    //! todo
+    //! this should not happen
+    assert(NULL != this.Mask.ptSourceSide);
+            
+    if (ptTask->Param.tCopyMask.tSrcMask.bInvalid) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    }
+
     uint32_t wMode = this.wMode;
+
 
     if (ARM_2D_CHANNEL_8in32 == ptTask->Param.tCopyMask.tSrcMask.tColour.chScheme) {
     
+    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
         if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
             __ABW_LL_FUNC(src_chn_msk_copy_mirror)(
                 ptTask->Param.tCopyMask
@@ -153,7 +160,9 @@ arm_fsm_rt_t __ABW_FUNC(tile_copy_with_src_msk)( __arm_2d_sub_task_t *ptTask)
                     
                 &ptTask->Param.tCopy.tCopySize);
         }
-    
+    #else
+        return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
+    #endif
     } else {
         assert(     ARM_2D_COLOUR_8BIT 
               ==    ptTask->Param.tCopyMask.tSrcMask.tColour.chScheme);
@@ -198,16 +207,25 @@ arm_fsm_rt_t __ABW_FUNC(tile_copy_with_src_msk)( __arm_2d_sub_task_t *ptTask)
 
     return arm_fsm_rt_cpl;
 }
-
-static 
+ 
 arm_fsm_rt_t __ABW_FUNC(tile_copy_with_des_mask)( __arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
     assert(__API_ABW_COLOUR_SZ == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
 
+    //! this should not happen
+    assert(NULL != this.Mask.ptTargetSide);
+            
+    if (ptTask->Param.tCopyMask.tDesMask.bInvalid) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    }
+
     uint32_t wMode = this.wMode;
+
+
     if (ARM_2D_CHANNEL_8in32 == ptTask->Param.tCopyMask.tDesMask.tColour.chScheme) {
     
+    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
         /*!  \note 1 horizontal line target mask in ARM_2D_CHANNEL_8in32 is not 
          *!       supported when ptTask->Param.tCopy.tCopySize.iHeight is larger
          *!       than 1 line.
@@ -256,9 +274,14 @@ arm_fsm_rt_t __ABW_FUNC(tile_copy_with_des_mask)( __arm_2d_sub_task_t *ptTask)
                 &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
                 &ptTask->Param.tCopy.tCopySize);
         }
-        
+    #else
+        return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
+    #endif
     
-    } else {
+    } else 
+    
+    
+    {
         assert(     ARM_2D_COLOUR_8BIT 
               ==    ptTask->Param.tCopyMask.tDesMask.tColour.chScheme);
               
@@ -344,18 +367,29 @@ arm_fsm_rt_t __ABW_FUNC(tile_copy_with_des_mask)( __arm_2d_sub_task_t *ptTask)
     return arm_fsm_rt_cpl;
 }
 
-static 
+ 
 arm_fsm_rt_t __ABW_FUNC(tile_copy_with_masks)( __arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
     assert(__API_ABW_COLOUR_SZ == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
 
+    //! this should not happen
+    assert(!(   (NULL == this.Mask.ptSourceSide) 
+            &&  (NULL == this.Mask.ptTargetSide)));
+            
+    if (    (ptTask->Param.tCopyMask.tSrcMask.bInvalid)
+       ||   (ptTask->Param.tCopyMask.tDesMask.bInvalid)) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    }
+
+
     uint32_t wMode = this.wMode;
+    
     if (    (   ARM_2D_CHANNEL_8in32 
             ==  ptTask->Param.tCopyMask.tSrcMask.tColour.chScheme)
        &&   (   ARM_2D_CHANNEL_8in32 
             ==  ptTask->Param.tCopyMask.tDesMask.tColour.chScheme)) {
-        
+    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
         /*! \note both masks use ARM_2D_CHANNEL_8in32 format
          *! 
          *! \note 1 horizontal line target mask in ARM_2D_CHANNEL_8in32 is not 
@@ -413,12 +447,16 @@ arm_fsm_rt_t __ABW_FUNC(tile_copy_with_masks)( __arm_2d_sub_task_t *ptTask)
                 &ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize,
                 &ptTask->Param.tCopy.tCopySize);
         }
-
+    #else
+        return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
+    #endif
         
     } else if (    (   ARM_2D_CHANNEL_8in32 
                    ==  ptTask->Param.tCopyMask.tSrcMask.tColour.chScheme)
            &&   (   ARM_2D_CHANNEL_8in32 
                    !=  ptTask->Param.tCopyMask.tDesMask.tColour.chScheme)) {
+                   
+    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
         /*! only the source mask uses ARM_2D_CHANNEL_8in32 format */
         if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
             if (ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize.iHeight > 1) {
@@ -466,6 +504,7 @@ arm_fsm_rt_t __ABW_FUNC(tile_copy_with_masks)( __arm_2d_sub_task_t *ptTask)
                     &ptTask->Param.tCopy.tCopySize,
                     wMode);
             }
+        
         } else {
             if (ptTask->Param.tCopyMask.tDesMask.tValidRegion.tSize.iHeight > 1) {
                 __ABW_LL_FUNC(src_chn_msk_des_msk_copy)(
@@ -511,12 +550,16 @@ arm_fsm_rt_t __ABW_FUNC(tile_copy_with_masks)( __arm_2d_sub_task_t *ptTask)
                     &ptTask->Param.tCopy.tCopySize);
             }
         }
-
+    #else
+        return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
+    #endif
+    
     } else if (    (   ARM_2D_CHANNEL_8in32 
                    !=  ptTask->Param.tCopyMask.tSrcMask.tColour.chScheme)
            &&   (   ARM_2D_CHANNEL_8in32 
                    ==  ptTask->Param.tCopyMask.tDesMask.tColour.chScheme)) {
-                   
+   
+    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
         /*! \note only the target mask uses ARM_2D_CHANNEL_8in32 format 
          *! 
          *! \note 1 horizontal line target mask in ARM_2D_CHANNEL_8in32 is not 
@@ -575,7 +618,9 @@ arm_fsm_rt_t __ABW_FUNC(tile_copy_with_masks)( __arm_2d_sub_task_t *ptTask)
                 &ptTask->Param.tCopy.tCopySize);
             
         }
-        
+    #else
+        return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
+    #endif
     
     } else {
         assert(     ARM_2D_COLOUR_8BIT 
@@ -679,6 +724,7 @@ arm_fsm_rt_t __ABW_FUNC(tile_copy_with_masks)( __arm_2d_sub_task_t *ptTask)
     return arm_fsm_rt_cpl;
 }
 
+#if 0   /*! smart leads to larger code size */
 arm_fsm_rt_t __ABW_FUNC(tile_copy_with_mask)( __arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
@@ -691,7 +737,7 @@ arm_fsm_rt_t __ABW_FUNC(tile_copy_with_mask)( __arm_2d_sub_task_t *ptTask)
     if (    (!ptTask->Param.tCopyMask.tSrcMask.bInvalid)
        &&   (ptTask->Param.tCopyMask.tDesMask.bInvalid)) {
         //! it only contains a mask on the source side
-        return __ABW_FUNC(tile_copy_with_src_msk)(ptTask);
+        return __ABW_FUNC(tile_copy_with_src_mask)(ptTask);
     } else if (    (ptTask->Param.tCopyMask.tSrcMask.bInvalid)
               &&   (!ptTask->Param.tCopyMask.tDesMask.bInvalid)) {
         //! it only contains a mask on the target side
@@ -707,20 +753,29 @@ arm_fsm_rt_t __ABW_FUNC(tile_copy_with_mask)( __arm_2d_sub_task_t *ptTask)
     
     //return arm_fsm_rt_cpl;
 }
+#endif
 
-
-
-static 
-arm_fsm_rt_t __ABW_FUNC(tile_fill_with_src_msk)( __arm_2d_sub_task_t *ptTask)
+ 
+arm_fsm_rt_t __ABW_FUNC(tile_fill_with_src_mask)( __arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
     assert(__API_ABW_COLOUR_SZ == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
 
+    //! this should not happen
+    assert(NULL != this.Mask.ptSourceSide);
+    
+    if (ptTask->Param.tFillMask.tSrcMask.bInvalid) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    }
+    
     uint32_t wMode = this.wMode;
+    
+
     
     if (    ARM_2D_CHANNEL_8in32 
        ==   ptTask->Param.tFillMask.tSrcMask.tColour.chScheme) {
-
+       
+    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
         if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
 
             __ABW_LL_FUNC(src_chn_msk_fill_mirror)(
@@ -764,6 +819,9 @@ arm_fsm_rt_t __ABW_FUNC(tile_fill_with_src_msk)( __arm_2d_sub_task_t *ptTask)
                 &ptTask->Param.tFillMask
                     .use_as____arm_2d_param_fill_t.tTarget.tValidRegion.tSize);
         }
+    #else
+        return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
+    #endif
     
     } else {
         assert(     ARM_2D_COLOUR_8BIT
@@ -817,18 +875,25 @@ arm_fsm_rt_t __ABW_FUNC(tile_fill_with_src_msk)( __arm_2d_sub_task_t *ptTask)
     
     return arm_fsm_rt_cpl;
 }
-
-static 
+ 
 arm_fsm_rt_t __ABW_FUNC(tile_fill_with_des_mask)( __arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
     assert(__API_ABW_COLOUR_SZ == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
 
+    //! this should not happen
+    assert(NULL != this.Mask.ptTargetSide);
+    
+    if (ptTask->Param.tFillMask.tDesMask.bInvalid) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    }
+    
     uint32_t wMode = this.wMode;
     
     if (    ARM_2D_CHANNEL_8in32 
        ==   ptTask->Param.tFillMask.tDesMask.tColour.chScheme) {
 
+    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
         /*!  \note 1 horizontal line target mask in ARM_2D_CHANNEL_8in32 is not 
          *!       supported when ptTask->Param.tCopy.tCopySize.iHeight is larger
          *!       than 1 line.
@@ -886,7 +951,10 @@ arm_fsm_rt_t __ABW_FUNC(tile_fill_with_des_mask)( __arm_2d_sub_task_t *ptTask)
                 &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize);
             
         }
-       
+    #else
+        return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
+    #endif
+    
     } else {
         assert(     ARM_2D_COLOUR_8BIT
                ==   ptTask->Param.tFillMask.tDesMask.tColour.chScheme);
@@ -984,20 +1052,30 @@ arm_fsm_rt_t __ABW_FUNC(tile_fill_with_des_mask)( __arm_2d_sub_task_t *ptTask)
         
     return arm_fsm_rt_cpl;
 }
-
-static 
+ 
 arm_fsm_rt_t __ABW_FUNC(tile_fill_with_masks)( __arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
     assert(__API_ABW_COLOUR_SZ == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
 
+    //! this should not happen
+    assert(!(   (NULL == this.Mask.ptSourceSide) 
+            &&  (NULL == this.Mask.ptTargetSide)));
+            
+    if (    (ptTask->Param.tFillMask.tSrcMask.bInvalid)
+       ||   (ptTask->Param.tFillMask.tDesMask.bInvalid)) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    }
+
     uint32_t wMode = this.wMode;
+    
 
     if (    (   ARM_2D_CHANNEL_8in32 
             ==  ptTask->Param.tFillMask.tSrcMask.tColour.chScheme)
        &&   (   ARM_2D_CHANNEL_8in32 
             ==  ptTask->Param.tFillMask.tDesMask.tColour.chScheme)) {
-            
+    
+    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
         /*! \note both masks use ARM_2D_CHANNEL_8in32 format
          *! 
          *! \note 1 horizontal line target mask in ARM_2D_CHANNEL_8in32 is not 
@@ -1067,13 +1145,16 @@ arm_fsm_rt_t __ABW_FUNC(tile_fill_with_masks)( __arm_2d_sub_task_t *ptTask)
                 &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize);
             
         }
-            
+    #else
+        return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
+    #endif
             
     } else if (  (  ARM_2D_CHANNEL_8in32 
                  ==  ptTask->Param.tFillMask.tSrcMask.tColour.chScheme)
               && (  ARM_2D_CHANNEL_8in32 
                  !=  ptTask->Param.tFillMask.tDesMask.tColour.chScheme)) {
                  
+    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
         /*! \note only the source mask uses ARM_2D_CHANNEL_8in32 format
          */
          
@@ -1180,12 +1261,15 @@ arm_fsm_rt_t __ABW_FUNC(tile_fill_with_masks)( __arm_2d_sub_task_t *ptTask)
                     &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize);
             }
         }
-         
+    #else
+        return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
+    #endif
     } else if (  (  ARM_2D_CHANNEL_8in32 
                  !=  ptTask->Param.tFillMask.tSrcMask.tColour.chScheme)
               && (  ARM_2D_CHANNEL_8in32 
                  ==  ptTask->Param.tFillMask.tDesMask.tColour.chScheme)) {
-
+                 
+    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
         /*! \note only the target mask uses ARM_2D_CHANNEL_8in32 format
          *! 
          *! \note 1 horizontal line target mask in ARM_2D_CHANNEL_8in32 is not 
@@ -1255,7 +1339,10 @@ arm_fsm_rt_t __ABW_FUNC(tile_fill_with_masks)( __arm_2d_sub_task_t *ptTask)
                 &ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize);
             
         }
-
+    #else
+        return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
+    #endif
+    
     } else {    
         if (wMode & (ARM_2D_CP_MODE_Y_MIRROR | ARM_2D_CP_MODE_X_MIRROR)) {
             if (ptTask->Param.tFillMask.tDesMask.tValidRegion.tSize.iHeight > 1) {
@@ -1365,7 +1452,7 @@ arm_fsm_rt_t __ABW_FUNC(tile_fill_with_masks)( __arm_2d_sub_task_t *ptTask)
     return arm_fsm_rt_cpl;
 }
 
-
+#if 0  //! smart detection comes with 50% more code size...
 arm_fsm_rt_t __ABW_FUNC(tile_fill_with_mask)( __arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_cp_msk_t, ptTask->ptOP);
@@ -1374,11 +1461,12 @@ arm_fsm_rt_t __ABW_FUNC(tile_fill_with_mask)( __arm_2d_sub_task_t *ptTask)
     //! this should not happen
     assert(!(   (NULL == this.Mask.ptSourceSide) 
             &&  (NULL == this.Mask.ptTargetSide)));
-    
+
+
     if (    (!ptTask->Param.tFillMask.tSrcMask.bInvalid)
        &&   (ptTask->Param.tFillMask.tDesMask.bInvalid)) {
         //! it only contains a mask on the source side
-        return __ABW_FUNC(tile_fill_with_src_msk)(ptTask);
+        return __ABW_FUNC(tile_fill_with_src_mask)(ptTask);
     } else if (    (ptTask->Param.tFillMask.tSrcMask.bInvalid)
               &&   (!ptTask->Param.tFillMask.tDesMask.bInvalid)) {
         //! it only contains a mask on the target side
@@ -1394,7 +1482,10 @@ arm_fsm_rt_t __ABW_FUNC(tile_fill_with_mask)( __arm_2d_sub_task_t *ptTask)
 
         
     //return arm_fsm_rt_cpl;
+    
 }
+#endif
+
 
 
 #undef __API_ABW_COPY_LIKE_OP_NAME

@@ -46,7 +46,8 @@ extern "C" {
                                 ...             /* Event Handler */             \
                                 )                                               \
     ({                                                                          \
-        ARM_NOINIT static struct {                                              \
+        __attribute__((section(".bss.noinit.arm_2d_pfb_pool")))                 \
+         static struct {                                                        \
             arm_2d_pfb_t tFPB;                                                  \
             __ALIGNED(4)                                                        \
             __PIXEL_TYPE tBuffer[(__WIDTH) * (__HEIGHT)];                       \

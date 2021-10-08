@@ -166,7 +166,7 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb565(
                                             &(ptTask->Param.tCopy.tCopySize));
             break;
         default:
-            return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+            return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
     }
 
     return arm_fsm_rt_cpl;
@@ -194,7 +194,7 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb888(
             /* no need to convert, return cpl directly */
             break;
         default:
-            return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+            return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
     }
 
     return arm_fsm_rt_cpl;

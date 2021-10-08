@@ -490,14 +490,14 @@ extern "C" {
                                                  (__ALPHA),                     \
                                                  (__COLOUR))
 
-#define arm_2d_gray8_tile_copy_with_mask(                                       \
+#define arm_2d_gray8_tile_copy_with_masks(                                      \
                                     __SRC_ADDR,     /*!< source tile address */ \
                                     __SRC_MSK_ADDR, /*!< source mask address */ \
                                     __DES_ADDR,     /*!< target tile address */ \
                                     __DES_MSK_ADDR, /*!< target mask address */ \
                                     __REGION,       /*!< region address */      \
                                     __MODE)         /*!< copy mode */           \
-            arm_2dp_gray8_tile_copy_with_mask(                                  \
+            arm_2dp_gray8_tile_copy_with_masks(                                 \
                                         NULL,                                   \
                                         (__SRC_ADDR),                           \
                                         (__SRC_MSK_ADDR),                       \
@@ -506,14 +506,14 @@ extern "C" {
                                         (__REGION),                             \
                                         (__MODE))
 
-#define arm_2d_gray8_tile_copy_with_alpha_mask(                                 \
+#define arm_2d_gray8_tile_copy_with_alpha_masks(                                \
                                     __SRC_ADDR,     /*!< source tile address */ \
                                     __SRC_MSK_ADDR, /*!< source mask address */ \
                                     __DES_ADDR,     /*!< target tile address */ \
                                     __DES_MSK_ADDR, /*!< target mask address */ \
                                     __REGION,       /*!< region address */      \
                                     __MODE)         /*!< copy mode */           \
-            arm_2dp_gray8_tile_copy_with_mask(                                  \
+            arm_2dp_gray8_tile_copy_with_masks(                                 \
                                         NULL,                                   \
                                         (__SRC_ADDR),                           \
                                         (__SRC_MSK_ADDR),                       \
@@ -522,14 +522,14 @@ extern "C" {
                                         (__REGION),                             \
                                         (__MODE))
 
-#define arm_2d_rgb565_tile_copy_with_mask(                                      \
+#define arm_2d_rgb565_tile_copy_with_masks(                                     \
                                     __SRC_ADDR,     /*!< source tile address */ \
                                     __SRC_MSK_ADDR, /*!< source mask address */ \
                                     __DES_ADDR,     /*!< target tile address */ \
                                     __DES_MSK_ADDR, /*!< target mask address */ \
                                     __REGION,       /*!< region address */      \
                                     __MODE)         /*!< copy mode */           \
-            arm_2dp_rgb565_tile_copy_with_mask(                                 \
+            arm_2dp_rgb565_tile_copy_with_masks(                                \
                                         NULL,                                   \
                                         (__SRC_ADDR),                           \
                                         (__SRC_MSK_ADDR),                       \
@@ -538,14 +538,14 @@ extern "C" {
                                         (__REGION),                             \
                                         (__MODE))
 
-#define arm_2d_rgb565_tile_copy_with_alpha_mask(                                \
+#define arm_2d_rgb565_tile_copy_with_alpha_masks(                               \
                                     __SRC_ADDR,     /*!< source tile address */ \
                                     __SRC_MSK_ADDR, /*!< source mask address */ \
                                     __DES_ADDR,     /*!< target tile address */ \
                                     __DES_MSK_ADDR, /*!< target mask address */ \
                                     __REGION,       /*!< region address */      \
                                     __MODE)         /*!< copy mode */           \
-            arm_2dp_rgb565_tile_copy_with_mask(                                 \
+            arm_2dp_rgb565_tile_copy_with_masks(                                \
                                         NULL,                                   \
                                         (__SRC_ADDR),                           \
                                         (__SRC_MSK_ADDR),                       \
@@ -554,14 +554,14 @@ extern "C" {
                                         (__REGION),                             \
                                         (__MODE))
 
-#define arm_2d_cccn888_tile_copy_with_mask(                                     \
+#define arm_2d_cccn888_tile_copy_with_masks(                                    \
                                     __SRC_ADDR,     /*!< source tile address */ \
                                     __SRC_MSK_ADDR, /*!< source mask address */ \
                                     __DES_ADDR,     /*!< target tile address */ \
                                     __DES_MSK_ADDR, /*!< target mask address */ \
                                     __REGION,       /*!< region address */      \
                                     __MODE)         /*!< copy mode */           \
-            arm_2dp_cccn888_tile_copy_with_mask(                                \
+            arm_2dp_cccn888_tile_copy_with_masks(                               \
                                         NULL,                                   \
                                         (__SRC_ADDR),                           \
                                         (__SRC_MSK_ADDR),                       \
@@ -570,14 +570,14 @@ extern "C" {
                                         (__REGION),                             \
                                         (__MODE))
 
-#define arm_2d_cccn888_tile_copy_with_alpha_mask(                               \
+#define arm_2d_cccn888_tile_copy_with_alpha_masks(                              \
                                     __SRC_ADDR,     /*!< source tile address */ \
                                     __SRC_MSK_ADDR, /*!< source mask address */ \
                                     __DES_ADDR,     /*!< target tile address */ \
                                     __DES_MSK_ADDR, /*!< target mask address */ \
                                     __REGION,       /*!< region address */      \
                                     __MODE)         /*!< copy mode */           \
-            arm_2dp_cccn888_tile_copy_with_mask(                                \
+            arm_2dp_cccn888_tile_copy_with_masks(                               \
                                         NULL,                                   \
                                         (__SRC_ADDR),                           \
                                         (__SRC_MSK_ADDR),                       \
@@ -586,14 +586,14 @@ extern "C" {
                                         (__REGION),                             \
                                         (__MODE))
 
-#define arm_2d_rgb888_tile_copy_with_mask(                                      \
+#define arm_2d_rgb888_tile_copy_with_masks(                                     \
                                     __SRC_ADDR,     /*!< source tile address */ \
                                     __SRC_MSK_ADDR, /*!< source mask address */ \
                                     __DES_ADDR,     /*!< target tile address */ \
                                     __DES_MSK_ADDR, /*!< target mask address */ \
                                     __REGION,       /*!< region address */      \
                                     __MODE)         /*!< copy mode */           \
-            arm_2dp_cccn888_tile_copy_with_mask(                                \
+            arm_2dp_cccn888_tile_copy_with_masks(                               \
                                         NULL,                                   \
                                         (__SRC_ADDR),                           \
                                         (__SRC_MSK_ADDR),                       \
@@ -609,10 +609,129 @@ extern "C" {
                                     __DES_MSK_ADDR, /*!< target mask address */ \
                                     __REGION,       /*!< region address */      \
                                     __MODE)         /*!< copy mode */           \
-            arm_2dp_cccn888_tile_copy_with_mask(                                \
+            arm_2dp_cccn888_tile_copy_with_masks(                               \
                                         NULL,                                   \
                                         (__SRC_ADDR),                           \
                                         (__SRC_MSK_ADDR),                       \
+                                        (__DES_ADDR),                           \
+                                        (__DES_MSK_ADDR),                       \
+                                        (__REGION),                             \
+                                        (__MODE))
+                                        
+
+#define arm_2d_gray8_tile_copy_with_src_mask(                                   \
+                                    __SRC_ADDR,     /*!< source tile address */ \
+                                    __SRC_MSK_ADDR, /*!< source mask address */ \
+                                    __DES_ADDR,     /*!< target tile address */ \
+                                    __REGION,       /*!< region address */      \
+                                    __MODE)         /*!< copy mode */           \
+            arm_2dp_gray8_tile_copy_with_src_mask(                              \
+                                        NULL,                                   \
+                                        (__SRC_ADDR),                           \
+                                        (__SRC_MSK_ADDR),                       \
+                                        (__DES_ADDR),                           \
+                                        (__REGION),                             \
+                                        (__MODE))
+
+
+#define arm_2d_rgb565_tile_copy_with_src_mask(                                  \
+                                    __SRC_ADDR,     /*!< source tile address */ \
+                                    __SRC_MSK_ADDR, /*!< source mask address */ \
+                                    __DES_ADDR,     /*!< target tile address */ \
+                                    __REGION,       /*!< region address */      \
+                                    __MODE)         /*!< copy mode */           \
+            arm_2dp_rgb565_tile_copy_with_src_mask(                             \
+                                        NULL,                                   \
+                                        (__SRC_ADDR),                           \
+                                        (__SRC_MSK_ADDR),                       \
+                                        (__DES_ADDR),                           \
+                                        (__REGION),                             \
+                                        (__MODE))
+
+
+#define arm_2d_cccn888_tile_copy_with_src_mask(                                 \
+                                    __SRC_ADDR,     /*!< source tile address */ \
+                                    __SRC_MSK_ADDR, /*!< source mask address */ \
+                                    __DES_ADDR,     /*!< target tile address */ \
+                                    __REGION,       /*!< region address */      \
+                                    __MODE)         /*!< copy mode */           \
+            arm_2dp_cccn888_tile_copy_with_src_mask(                            \
+                                        NULL,                                   \
+                                        (__SRC_ADDR),                           \
+                                        (__SRC_MSK_ADDR),                       \
+                                        (__DES_ADDR),                           \
+                                        (__REGION),                             \
+                                        (__MODE))
+
+
+#define arm_2d_rgb888_tile_copy_with_src_mask(                                  \
+                                    __SRC_ADDR,     /*!< source tile address */ \
+                                    __SRC_MSK_ADDR, /*!< source mask address */ \
+                                    __DES_ADDR,     /*!< target tile address */ \
+                                    __REGION,       /*!< region address */      \
+                                    __MODE)         /*!< copy mode */           \
+            arm_2dp_cccn888_tile_copy_with_src_mask(                            \
+                                        NULL,                                   \
+                                        (__SRC_ADDR),                           \
+                                        (__SRC_MSK_ADDR),                       \
+                                        (__DES_ADDR),                           \
+                                        (__REGION),                             \
+                                        (__MODE))
+                                        
+
+#define arm_2d_gray8_tile_copy_with_des_mask(                                   \
+                                    __SRC_ADDR,     /*!< source tile address */ \
+                                    __DES_ADDR,     /*!< target tile address */ \
+                                    __DES_MSK_ADDR, /*!< target mask address */ \
+                                    __REGION,       /*!< region address */      \
+                                    __MODE)         /*!< copy mode */           \
+            arm_2dp_gray8_tile_copy_with_des_mask(                              \
+                                        NULL,                                   \
+                                        (__SRC_ADDR),                           \
+                                        (__DES_ADDR),                           \
+                                        (__DES_MSK_ADDR),                       \
+                                        (__REGION),                             \
+                                        (__MODE))
+
+
+#define arm_2d_rgb565_tile_copy_with_des_mask(                                  \
+                                    __SRC_ADDR,     /*!< source tile address */ \
+                                    __DES_ADDR,     /*!< target tile address */ \
+                                    __DES_MSK_ADDR, /*!< target mask address */ \
+                                    __REGION,       /*!< region address */      \
+                                    __MODE)         /*!< copy mode */           \
+            arm_2dp_rgb565_tile_copy_with_des_mask(                             \
+                                        NULL,                                   \
+                                        (__SRC_ADDR),                           \
+                                        (__DES_ADDR),                           \
+                                        (__DES_MSK_ADDR),                       \
+                                        (__REGION),                             \
+                                        (__MODE))
+
+
+#define arm_2d_cccn888_tile_copy_with_des_mask(                                 \
+                                    __SRC_ADDR,     /*!< source tile address */ \
+                                    __DES_ADDR,     /*!< target tile address */ \
+                                    __DES_MSK_ADDR, /*!< target mask address */ \
+                                    __REGION,       /*!< region address */      \
+                                    __MODE)         /*!< copy mode */           \
+            arm_2dp_cccn888_tile_copy_with_des_mask(                            \
+                                        NULL,                                   \
+                                        (__SRC_ADDR),                           \
+                                        (__DES_ADDR),                           \
+                                        (__DES_MSK_ADDR),                       \
+                                        (__REGION),                             \
+                                        (__MODE))
+
+#define arm_2d_rgb888_tile_copy_with_des_mask(                                  \
+                                    __SRC_ADDR,     /*!< source tile address */ \
+                                    __DES_ADDR,     /*!< target tile address */ \
+                                    __DES_MSK_ADDR, /*!< target mask address */ \
+                                    __REGION,       /*!< region address */      \
+                                    __MODE)         /*!< copy mode */           \
+            arm_2dp_cccn888_tile_copy_with_des_mask(                            \
+                                        NULL,                                   \
+                                        (__SRC_ADDR),                           \
                                         (__DES_ADDR),                           \
                                         (__DES_MSK_ADDR),                       \
                                         (__REGION),                             \
@@ -881,12 +1000,12 @@ arm_fsm_rt_t arm_2dp_cccn888_alpha_blending_with_colour_keying(
                                                 arm_2d_color_rgb888_t tColour);
 
 /*----------------------------------------------------------------------------*
- * Copy tile to destination with a specified mask                             *
+ * Copy tile to destination with both a source mask and a target mask         *
  *----------------------------------------------------------------------------*/
 
 extern
-ARM_NONNULL(2,4)
-arm_fsm_rt_t arm_2dp_gray8_tile_copy_with_mask(
+ARM_NONNULL(2,3,4,5)
+arm_fsm_rt_t arm_2dp_gray8_tile_copy_with_masks(
                                         arm_2d_op_cp_msk_t *ptOP,
                                         const arm_2d_tile_t *ptSource,
                                         const arm_2d_tile_t *ptSrcMask,
@@ -896,8 +1015,8 @@ arm_fsm_rt_t arm_2dp_gray8_tile_copy_with_mask(
                                         uint32_t wMode); 
 
 extern
-ARM_NONNULL(2,4)
-arm_fsm_rt_t arm_2dp_rgb565_tile_copy_with_mask(
+ARM_NONNULL(2,3,4,5)
+arm_fsm_rt_t arm_2dp_rgb565_tile_copy_with_masks(
                                         arm_2d_op_cp_msk_t *ptOP,
                                         const arm_2d_tile_t *ptSource,
                                         const arm_2d_tile_t *ptSrcMask,
@@ -907,8 +1026,8 @@ arm_fsm_rt_t arm_2dp_rgb565_tile_copy_with_mask(
                                         uint32_t wMode);
 
 extern
-ARM_NONNULL(2,4)
-arm_fsm_rt_t arm_2dp_cccn888_tile_copy_with_mask(
+ARM_NONNULL(2,3,4,5)
+arm_fsm_rt_t arm_2dp_cccn888_tile_copy_with_masks(
                                         arm_2d_op_cp_msk_t *ptOP,
                                         const arm_2d_tile_t *ptSource,
                                         const arm_2d_tile_t *ptSrcMask,
@@ -916,6 +1035,75 @@ arm_fsm_rt_t arm_2dp_cccn888_tile_copy_with_mask(
                                         const arm_2d_tile_t *ptDesMask,
                                         const arm_2d_region_t *ptRegion,
                                         uint32_t wMode); 
+
+/*----------------------------------------------------------------------------*
+ * Copy tile to destination with a specified source mask                      *
+ *----------------------------------------------------------------------------*/
+
+extern
+ARM_NONNULL(2,3,4)
+arm_fsm_rt_t arm_2dp_gray8_tile_copy_with_src_mask(
+                                        arm_2d_op_cp_msk_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_tile_t *ptSrcMask,
+                                        const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_region_t *ptRegion,
+                                        uint32_t wMode); 
+
+extern
+ARM_NONNULL(2,3,4)
+arm_fsm_rt_t arm_2dp_rgb565_tile_copy_with_src_mask(
+                                        arm_2d_op_cp_msk_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_tile_t *ptSrcMask,
+                                        const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_region_t *ptRegion,
+                                        uint32_t wMode);
+
+extern
+ARM_NONNULL(2,3,4)
+arm_fsm_rt_t arm_2dp_cccn888_tile_copy_with_src_mask(
+                                        arm_2d_op_cp_msk_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_tile_t *ptSrcMask,
+                                        const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_region_t *ptRegion,
+                                        uint32_t wMode); 
+
+/*----------------------------------------------------------------------------*
+ * Copy tile to destination with a specified target mask                      *
+ *----------------------------------------------------------------------------*/
+
+extern
+ARM_NONNULL(2,3,4)
+arm_fsm_rt_t arm_2dp_gray8_tile_copy_with_des_mask(
+                                        arm_2d_op_cp_msk_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_tile_t *ptDesMask,
+                                        const arm_2d_region_t *ptRegion,
+                                        uint32_t wMode); 
+
+extern
+ARM_NONNULL(2,3,4)
+arm_fsm_rt_t arm_2dp_rgb565_tile_copy_with_des_mask(
+                                        arm_2d_op_cp_msk_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_tile_t *ptDesMask,
+                                        const arm_2d_region_t *ptRegion,
+                                        uint32_t wMode);
+
+extern
+ARM_NONNULL(2,3,4)
+arm_fsm_rt_t arm_2dp_cccn888_tile_copy_with_des_mask(
+                                        arm_2d_op_cp_msk_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_tile_t *ptTarget,
+                                        const arm_2d_tile_t *ptDesMask,
+                                        const arm_2d_region_t *ptRegion,
+                                        uint32_t wMode); 
+
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

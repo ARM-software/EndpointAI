@@ -9,7 +9,7 @@ LR_IROM1 0x10000000 0x00080000  {    ; load region size_region
         * (+RO-DATA)
     }
     
-    ARM_LIB_STACK +0 ALIGN 8  EMPTY 0x00000400 {
+    ARM_LIB_STACK +0 ALIGN 8  EMPTY 0x00000800 {
     }
     
     DTCM +0   {  ; RW data
@@ -17,7 +17,8 @@ LR_IROM1 0x10000000 0x00080000  {    ; load region size_region
         * (+ZI)
     }
     RW_IRAM_NO_INIT +0 UNINIT  {
-      * (.bss.noinit)
+        * (.bss.noinit)
+        * (.bss.noinit.arm_2d_pfb_pool)
     }
     
     

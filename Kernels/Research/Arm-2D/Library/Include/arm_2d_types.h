@@ -86,6 +86,7 @@ typedef enum {
 //! \note arm_2d_err_t is compatible with arm_fsm_rt_t
 //! @{
 typedef enum {
+    ARM_2D_ERR_UNSUPPORTED_COLOUR       = -11,  //!< the specified colour is not supported
     ARM_2D_ERR_BUSY                     = -10,  //!< service is busy
     ARM_2D_ERR_INSUFFICIENT_RESOURCE    = -9,   //!< insufficient resource
     ARM_2D_ERR_IO_BUSY                  = -8,   //!< HW accelerator is busy

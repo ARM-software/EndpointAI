@@ -20,7 +20,7 @@
 
 ## Features of the Arm-2D Library
 
-#### In this release ( ver0.9.9 dev )
+#### In this release ( ver0.9.9)
 
 The Arm-2D library provides **Low-Level 2D Image Processing Services** that are mainly used in **Display system**. The supported features include but not limited to:
 
@@ -32,7 +32,7 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
 - **Image Copy / Texture Paving**
   - With or without Colour-Keying (a.k.a colour masking)
   - Four mirroring mode: None, X-mirroring, Y-mirroring and XY-mirroring
-  - Support **alpha masks** on both source side and/or target side 
+  - Support **alpha masks** on both the source side and/or the target side 
 - **Colour format support**
   - **8-bit Grayscale**, **RGB565** and **RGB888**
   - Generic **8BIT colour**, **RGB16** and **RGB32**
@@ -191,6 +191,7 @@ Since there is no public benchmark available for micro-controllers, we decide to
 | README                           | .md    | The README.md you are currently reading.                     |
 | how_to_deploy_the_arm_2d_library | .md    | A step by step guidance helping you to deploy the Arm-2D library to your projects. |
 | LICENSE                          |        | The Apache 2.0 License                                       |
+| tools                            | Folder | This folder contains some useful utilities for using the library. For example, img2c.py is a python script that convert a specified picture into the tile data structure. |
 
 
 
@@ -318,6 +319,7 @@ Since there is no public benchmark available for micro-controllers, we decide to
   - [Macros with a Variable Number of Arguments](https://gcc.gnu.org/onlinedocs/gcc/Variadic-Macros.html#Variadic-Macros) 
   - [ ***\_\_alignof\_\_()*** ](https://gcc.gnu.org/onlinedocs/gcc/Alignment.html#Alignment) 
   - [Unnamed Structure and Union Fields](https://gcc.gnu.org/onlinedocs/gcc/Unnamed-Fields.html)
+  - [Statements and Declarations in Expressions](https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html#Statement-Exprs)
 - Some of the definitions are written with the support of the **Microsoft Extensions** in mind \( ***-fms-extensions*** \), but **the library never depends on it**. This means that if programmers enable the support of the Microsoft Extensions in their project, they can benefit from it. 
 - This library follows "***Using Extensions to replace Modifications***" principle
   - Keywords ***\_\_WEAK*** and ***\_\_OVERRIDE\_WEAK*** are introduced for default functions and extensions; it is similar to the concept of "virtual functions" and "override functions" in C#. 
@@ -472,7 +474,7 @@ def_low_lv_io(__ARM_2D_IO_ROTATE_RGB888,
   - LLVM
   - IAR
 - The library focus on **Low Level Pixel Processing Acceleration**
-  - In principle, the library will **NOT** provide APIs for content creation, such as drawing shapes, text display etc., but simple point drawing APIs.
+  - In principle, the library will **NOT** provide APIs for content creation, such as drawing shapes, text display etc., but simple point drawing and colour-filling APIs .
   - In principle, the library will **NOT** provide data structures or related algorithms essential for creating a GUI, for example, element tree, GUI message handling and the tree traversal algorithms.
 
 
@@ -481,14 +483,12 @@ def_low_lv_io(__ARM_2D_IO_ROTATE_RGB888,
 
 - The library currently is developed and validated using Arm Compiler 6, Arm Compiler 5 and GCC.
 - The library currently can only be used in the C environment. C++ support will be added later.
-- The library currently only supports two specific colours, i.e. **RGB565** and **RGB888**
-- Anti-aliasing algorithms haven't been implemented yet.
+- Generic Anti-aliasing algorithms haven't been introduced, but anti-alias in rotation is supported.
 - Zooming (Stretching) algorithms haven't been implemented yet.
-- Alpha-masking algorithms haven't been implemented yet.
 - The library currently only provides default software algorithms and a **[Helium](https://developer.arm.com/architectures/instruction-sets/simd-isas/helium) based acceleration library**. 
   - Although planned, no hardware acceleration is implemented or supported for now.
   - Although planned and implemented, the [ACI (Arm Custom Instruction)](https://developer.arm.com/architectures/instruction-sets/custom-instructions) acceleration solutions are not open-source for now. Please contact local Arm FAE for details. 
-- The provided example projects only run on [MPS2](https://developer.arm.com/tools-and-software/development-boards/fpga-prototyping-boards/mps2), [MPS3](https://developer.arm.com/tools-and-software/development-boards/fpga-prototyping-boards/mps3), [FVP](https://developer.arm.com/tools-and-software/open-source-software/arm-platforms-software/cortex-m-platforms-software) and some 3rd party development platforms, e.g. STM32F746G-Discovery. 
+- The provided example projects only run on [MPS2](https://developer.arm.com/tools-and-software/development-boards/fpga-prototyping-boards/mps2), [MPS3](https://developer.arm.com/tools-and-software/development-boards/fpga-prototyping-boards/mps3), [FVP](https://developer.arm.com/tools-and-software/open-source-software/arm-platforms-software/cortex-m-platforms-software) and some 3rd party development platforms, e.g. **STM32F746G-Discovery** and **Raspberry Pi Pico**. 
   - Feel free to try the library on your own devices. The library depends on No specific peripheral. 
 - Example projects are based on MDK (one of the most popular development environments for Cortex-M processors ).
 
@@ -516,3 +516,5 @@ If you want to spend some time to try the library and leave some thoughts, pleas
 Thank you for your time.
 
 ***Arm-2D Development Team.***
+
+08-Oct-2021
