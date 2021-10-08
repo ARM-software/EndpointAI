@@ -41,7 +41,10 @@ extern "C" {
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
+#   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wcast-align"
 #   pragma clang diagnostic ignored "-Wextra-semi-stmt"
@@ -68,13 +71,13 @@ extern "C" {
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
 
-void __arm_2d_impl_rgb888_to_rgb565(uint32_t *__RESTRICT pwSource,
+void __arm_2d_impl_cccn888_to_rgb565(uint32_t *__RESTRICT pwSource,
                                     int16_t iSourceStride,
                                     uint16_t *__RESTRICT phwTarget,
                                     int16_t iTargetStride,
                                     arm_2d_size_t *__RESTRICT ptCopySize);
 
-void __arm_2d_impl_rgb565_to_rgb888(uint16_t *__RESTRICT phwSourceBase,
+void __arm_2d_impl_rgb565_to_cccn888(uint16_t *__RESTRICT phwSourceBase,
                                     int16_t iSourceStride,
                                     uint32_t *__RESTRICT pwTargetBase,
                                     int16_t iTargetStride,
@@ -88,13 +91,15 @@ void __arm_2d_impl_rgb565_to_rgb888(uint16_t *__RESTRICT phwSourceBase,
  * Convert Colour format                                                      *
  *----------------------------------------------------------------------------*/
 
-
-arm_fsm_rt_t arm_2d_convert_colour_to_rbg888(   const arm_2d_tile_t *ptSource,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_convert_colour_to_rgb888(  arm_2d_op_cl_convt_t *ptOP,
+                                                const arm_2d_tile_t *ptSource,
                                                 const arm_2d_tile_t *ptTarget)
 {
+    assert(NULL != ptSource);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_cl_convt_t);
+    ARM_2D_IMPL(arm_2d_op_cl_convt_t, ptOP);
     
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -108,17 +113,19 @@ arm_fsm_rt_t arm_2d_convert_colour_to_rbg888(   const arm_2d_tile_t *ptSource,
     this.Target.ptRegion = NULL;
     this.Source.ptTile = ptSource;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 
-ARM_NONNULL(1,2)
-arm_fsm_rt_t arm_2d_convert_colour_to_rgb565(   const arm_2d_tile_t *ptSource,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_convert_colour_to_rgb565(  arm_2d_op_cl_convt_t *ptOP,
+                                                const arm_2d_tile_t *ptSource,
                                                 const arm_2d_tile_t *ptTarget)
 {
+    assert(NULL != ptSource);
     assert(NULL != ptTarget);
 
-    ARM_2D_IMPL(arm_2d_op_cl_convt_t);
+    ARM_2D_IMPL(arm_2d_op_cl_convt_t, ptOP);
     
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
@@ -132,7 +139,7 @@ arm_fsm_rt_t arm_2d_convert_colour_to_rgb565(   const arm_2d_tile_t *ptSource,
     this.Target.ptRegion = NULL;
     this.Source.ptTile = ptSource;
 
-    return __arm_2d_op_invoke(NULL);
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
 
@@ -152,14 +159,14 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb565(
             /* no need to convert, return cpl directly */
             break;
         case ARM_2D_COLOUR_SZ_32BIT:
-            __arm_2d_impl_rgb888_to_rgb565( ptTask->Param.tCopy.tSource.pBuffer,
+            __arm_2d_impl_cccn888_to_rgb565( ptTask->Param.tCopy.tSource.pBuffer,
                                             ptTask->Param.tCopy.tSource.iStride,
                                             ptTask->Param.tCopy.tTarget.pBuffer,
                                             ptTask->Param.tCopy.tTarget.iStride,
                                             &(ptTask->Param.tCopy.tCopySize));
             break;
         default:
-            return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+            return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
     }
 
     return arm_fsm_rt_cpl;
@@ -177,7 +184,7 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb888(
 
     switch ( this.Source.ptTile->tInfo.tColourInfo.u3ColourSZ) {
         case ARM_2D_COLOUR_SZ_16BIT:
-            __arm_2d_impl_rgb565_to_rgb888( ptTask->Param.tCopy.tSource.pBuffer,
+            __arm_2d_impl_rgb565_to_cccn888( ptTask->Param.tCopy.tSource.pBuffer,
                                             ptTask->Param.tCopy.tSource.iStride,
                                             ptTask->Param.tCopy.tTarget.pBuffer,
                                             ptTask->Param.tCopy.tTarget.iStride,
@@ -187,7 +194,7 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb888(
             /* no need to convert, return cpl directly */
             break;
         default:
-            return (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;
+            return (arm_fsm_rt_t)ARM_2D_ERR_UNSUPPORTED_COLOUR;
     }
 
     return arm_fsm_rt_cpl;
@@ -198,7 +205,7 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb888(
  *----------------------------------------------------------------------------*/
 
 __WEAK
-void __arm_2d_impl_rgb888_to_rgb565(uint32_t *__RESTRICT pwSourceBase,
+void __arm_2d_impl_cccn888_to_rgb565(uint32_t *__RESTRICT pwSourceBase,
                                     int16_t iSourceStride,
                                     uint16_t *__RESTRICT phwTargetBase,
                                     int16_t iTargetStride,
@@ -227,7 +234,7 @@ void __arm_2d_impl_rgb888_to_rgb565(uint32_t *__RESTRICT pwSourceBase,
 }
 
 __WEAK
-void __arm_2d_impl_rgb565_to_rgb888(uint16_t *__RESTRICT phwSourceBase,
+void __arm_2d_impl_rgb565_to_cccn888(uint16_t *__RESTRICT phwSourceBase,
                                     int16_t iSourceStride,
                                     uint32_t *__RESTRICT pwTargetBase,
                                     int16_t iTargetStride,
@@ -246,6 +253,7 @@ void __arm_2d_impl_rgb565_to_rgb888(uint16_t *__RESTRICT phwSourceBase,
             wTargetPixel.u8R = hwSrcPixel.R;
             wTargetPixel.u8G = hwSrcPixel.G;
             wTargetPixel.u8B = hwSrcPixel.B;
+            wTargetPixel.u8A = 0xFF;
             *pwTarget++ = wTargetPixel.tValue;
         }
 
@@ -254,6 +262,57 @@ void __arm_2d_impl_rgb565_to_rgb888(uint16_t *__RESTRICT phwSourceBase,
     }
 }
 
+
+/*----------------------------------------------------------------------------*
+ * Low Level IO Interfaces                                                    *
+ *----------------------------------------------------------------------------*/
+
+__WEAK
+def_low_lv_io(__ARM_2D_IO_COLOUR_CONVERT_TO_RGB565, 
+                __arm_2d_sw_convert_colour_to_rgb565);
+__WEAK
+def_low_lv_io(__ARM_2D_IO_COLOUR_CONVERT_TO_RGB888, 
+                __arm_2d_sw_convert_colour_to_rgb888);
+
+
+const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB565 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB565,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasTarget             = true,
+            .bAllowEnforcedColour   = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_COLOUR_FORMAT_CONVERSION,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COLOUR_CONVERT_TO_RGB565),
+            .ptFillLike = NULL,
+        },
+    },
+};
+    
+    
+const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB888 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB888,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasTarget             = true,
+            .bAllowEnforcedColour   = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_COLOUR_FORMAT_CONVERSION,
+        
+        .LowLevelIO = {
+            .ptCopyLike = ref_low_lv_io(__ARM_2D_IO_COLOUR_CONVERT_TO_RGB888),
+            .ptFillLike = NULL,
+        },
+    },
+};
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

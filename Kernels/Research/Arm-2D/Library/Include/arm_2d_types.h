@@ -42,12 +42,13 @@
 #include "__arm_2d_math.h"
 
 #ifdef   __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wmissing-declarations"
 #   pragma clang diagnostic ignored "-Wpadded"
 #   pragma clang diagnostic ignored "-Wc11-extensions"
@@ -85,6 +86,7 @@ typedef enum {
 //! \note arm_2d_err_t is compatible with arm_fsm_rt_t
 //! @{
 typedef enum {
+    ARM_2D_ERR_UNSUPPORTED_COLOUR       = -11,  //!< the specified colour is not supported
     ARM_2D_ERR_BUSY                     = -10,  //!< service is busy
     ARM_2D_ERR_INSUFFICIENT_RESOURCE    = -9,   //!< insufficient resource
     ARM_2D_ERR_IO_BUSY                  = -8,   //!< HW accelerator is busy
@@ -97,6 +99,15 @@ typedef enum {
     ARM_2D_ERR_UNKNOWN                  = -1,   //!< generic or unknown errors
     ARM_2D_ERR_NONE                     = 0,    //!< no error
 } arm_2d_err_t;
+//! @}
+
+//! \name compare result
+//! @{
+typedef enum {
+    ARM_2D_CMP_SMALLER = -1,    //!< the target is smaller than the reference
+    ARM_2D_CMP_EQUALS  = 0,     //!< the target is equal to the reference
+    ARM_2D_CMP_LARGER  = 1,     //!< the target is larger than the reference
+} arm_2d_cmp_t;
 //! @}
 
 /*----------------------------------------------------------------------------*
@@ -142,6 +153,38 @@ typedef union arm_2d_color_rgb888_t {
 } arm_2d_color_rgb888_t;
 
 
+typedef union arm_2d_color_ccca8888_t {
+    uint32_t tValue;
+    struct {
+        uint8_t u8C[3];
+        uint8_t u8A;
+    };
+} arm_2d_color_ccca8888_t;
+
+typedef union arm_2d_color_accc8888_t {
+    uint32_t tValue;
+    struct {
+        uint8_t u8A;
+        uint8_t u8C[3];
+    };
+} arm_2d_color_accc8888_t;
+
+typedef union arm_2d_color_cccn888_t {
+    uint32_t tValue;
+    struct {
+        uint8_t u8C[3];
+        uint8_t         : 8;
+    };
+} arm_2d_color_cccn888_t;
+
+typedef union arm_2d_color_nccc888_t {
+    uint32_t tValue;
+    struct {
+        uint8_t         : 8;
+        uint8_t u8C[3];
+    };
+} arm_2d_color_nccc888_t;
+
 //! \name colour size
 //! @{
 enum {
@@ -158,6 +201,7 @@ enum {
     ARM_2D_COLOUR_SZ_8BIT_msk =   ARM_2D_COLOUR_SZ_8BIT << 1,
     ARM_2D_COLOUR_SZ_16BIT_msk =  ARM_2D_COLOUR_SZ_16BIT<< 1,
     ARM_2D_COLOUR_SZ_32BIT_msk =  ARM_2D_COLOUR_SZ_32BIT<< 1,
+    ARM_2D_COLOUR_SZ_msk      =   (0x07 << 1),
 
     ARM_2D_COLOUR_LITTLE_ENDIAN       = 0,
     ARM_2D_COLOUR_BIG_ENDIAN          = 1,
@@ -170,6 +214,9 @@ enum {
 
     ARM_2D_COLOUR_NO_ALPHA_msk        = ARM_2D_COLOUR_NO_ALPHA      << 0,
     ARM_2D_COLOUR_HAS_ALPHA_msk       = ARM_2D_COLOUR_HAS_ALPHA     << 0,
+    
+    ARM_2D_COLOUR_VARIANT = 5,
+    ARM_2D_COLOUR_VARIANT_msk         = 0x07 << ARM_2D_COLOUR_VARIANT,
 };
 //! @}
 
@@ -177,16 +224,36 @@ enum {
 //! @{
 enum {
     ARM_2D_COLOUR_BIN         =   ARM_2D_COLOUR_SZ_1BIT_msk,
+    ARM_2D_COLOUR_1BIT        =   ARM_2D_COLOUR_SZ_1BIT_msk,
+    
     ARM_2D_COLOUR_8BIT        =   ARM_2D_COLOUR_SZ_8BIT_msk,
+    ARM_2D_COLOUR_GRAY8       =   ARM_2D_COLOUR_SZ_8BIT_msk,
+    
+    ARM_2D_COLOUR_16BIT       =   ARM_2D_COLOUR_SZ_16BIT_msk,
     ARM_2D_COLOUR_RGB16       =   ARM_2D_COLOUR_SZ_16BIT_msk,
     ARM_2D_COLOUR_RGB565      =   ARM_2D_COLOUR_RGB16,
-    ARM_2D_COLOUR_RGB565_BE   =   ARM_2D_COLOUR_SZ_16BIT_msk    |
-                                  ARM_2D_COLOUR_BIG_ENDIAN_msk  ,
+    ARM_2D_COLOUR_RGB565_BE   =   ARM_2D_COLOUR_SZ_16BIT_msk        |
+                                  ARM_2D_COLOUR_BIG_ENDIAN_msk      ,
+    ARM_2D_COLOUR_32BIT       =   ARM_2D_COLOUR_SZ_32BIT_msk        ,
+    ARM_2D_COLOUR_RGB32       =   ARM_2D_COLOUR_SZ_32BIT_msk        ,
+                                        
+    ARM_2D_COLOUR_RGB888      =   ARM_2D_COLOUR_RGB32               ,
+    ARM_2D_COLOUR_RGBA8888    =   ARM_2D_COLOUR_SZ_32BIT_msk        |
+                                  ARM_2D_COLOUR_HAS_ALPHA           ,
 
-    ARM_2D_COLOUR_RGB32       =   ARM_2D_COLOUR_SZ_32BIT_msk    ,
-    ARM_2D_COLOUR_RGB888      =   ARM_2D_COLOUR_RGB32           ,
-    ARM_2D_COLOUR_RGBA8888    =   ARM_2D_COLOUR_SZ_32BIT_msk    |
-                                    ARM_2D_COLOUR_HAS_ALPHA     ,
+    ARM_2D_COLOUR_CCCN888     =   ARM_2D_COLOUR_RGB32               ,
+    ARM_2D_COLOUR_CCCA8888    =   ARM_2D_COLOUR_SZ_32BIT_msk        |
+                                  ARM_2D_COLOUR_HAS_ALPHA           ,
+
+    ARM_2D_COLOUR_NCCC888     =   ARM_2D_COLOUR_RGB32               |
+                                  ARM_2D_COLOUR_BIG_ENDIAN_msk      ,
+    ARM_2D_COLOUR_ACCC8888    =   ARM_2D_COLOUR_SZ_32BIT_msk        |
+                                  ARM_2D_COLOUR_HAS_ALPHA           |
+                                  ARM_2D_COLOUR_BIG_ENDIAN_msk      ,
+                                  
+    ARM_2D_CHANNEL_8in32      =   ARM_2D_COLOUR_SZ_32BIT_msk        |
+                                  ARM_2D_COLOUR_HAS_ALPHA           |
+                                  (0x07 << ARM_2D_COLOUR_VARIANT)   ,
 };
 //! @}
 
@@ -237,7 +304,8 @@ struct arm_2d_tile_t {
     implement_ex(struct {
         uint8_t    bIsRoot              : 1;                                    //!< is this tile a root tile
         uint8_t    bHasEnforcedColour   : 1;                                    //!< does this tile contains enforced colour info
-        uint8_t                         : 6;
+        uint8_t    bDerivedResource     : 1;                                    //!< indicate whether this is a derived resources (when bIsRoot == 0)
+        uint8_t                         : 5;
         uint8_t                         : 8;
         uint8_t                         : 8;
         arm_2d_color_info_t    tColourInfo;                                     //!< enforced colour
@@ -253,6 +321,7 @@ struct arm_2d_tile_t {
         uint16_t            *phwBuffer;
         uint32_t            *pwBuffer;
         uint8_t             *pchBuffer;
+        intptr_t            nAddress;
     };
 };
 
@@ -280,7 +349,7 @@ typedef bool arm_2d_op_evt_handler_t(  arm_2d_op_core_t *ptThisOP,
 
 typedef struct arm_2d_op_evt_t {
     arm_2d_op_evt_handler_t    *fnHandler;                                      //!< event handler
-    void                    *pTarget;                                           //!< user attached target
+    void                       *pTarget;                                        //!< user attached target
 } arm_2d_op_evt_t;
 
 typedef bool arm_2d_evt_handler_t(void *pTarget);
@@ -291,10 +360,11 @@ typedef struct arm_2d_evt_t {
 } arm_2d_evt_t;
 
 
-#define ARM_2D_OP_INFO_PARAM_HAS_SOURCE           _BV(0)
-#define ARM_2D_OP_INFO_PARAM_HAS_ORIGIN           _BV(1)
-#define ARM_2D_OP_INFO_PARAM_HAS_TARGET           _BV(2)
-#define ARM_2D_OP_INFO_PARAM_HAS_ALPHA_MASK       _BV(3)
+#define ARM_2D_OP_INFO_PARAM_HAS_SOURCE             _BV(0)
+#define ARM_2D_OP_INFO_PARAM_HAS_TARGET             _BV(1)
+#define ARM_2D_OP_INFO_PARAM_HAS_SOURCE_MASK        _BV(2)
+#define ARM_2D_OP_INFO_PARAM_HAS_TARGET_MASK        _BV(3)
+#define ARM_2D_OP_INFO_PARAM_HAS_ORIGIN             _BV(4)
 
 //! an imcomplete defintion which is only used for defining pointers
 typedef struct __arm_2d_low_level_io_t __arm_2d_low_level_io_t;
@@ -305,11 +375,11 @@ typedef union __arm_2d_op_info_t {
         union {
             struct {
                 uint8_t bHasSource              : 1;                            //!< whether this operation contains source tile
-                uint8_t bHasOrigin              : 1;                            //!< whether the Source has an origin tile
                 uint8_t bHasTarget              : 1;                            //!< whether this operation contains target tile
-                uint8_t bHasAlphaMask           : 1;                            //!< whether this operation has Alpha Mask layer
-
-                uint8_t                         : 3;
+                uint8_t bHasSrcMask             : 1;                            //!< whether this operation has Mask layer for source tile
+                uint8_t bHasDesMask             : 1;                            //!< whether this operation has Mask layer for target tile
+                uint8_t bHasOrigin              : 1;                            //!< whether the Source has an origin tile
+                uint8_t                         : 2;
                 uint8_t bAllowEnforcedColour    : 1;                            //!< whether this operation allow enforced colours in tiles
             };
             uint8_t chValue;
@@ -369,6 +439,12 @@ enum {
 };
 //! @}
 
+
+#define __ARM_2D_OP_STATUS_BUSY_msk         (1 << 4)
+#define __ARM_2D_OP_STATUS_IO_ERROR_msk     (1 << 5)
+#define __ARM_2D_OP_STATUS_CPL_msk          (1 << 6)
+
+
 typedef union arm_2d_op_status_t {
     struct {
         uint16_t            u4SubTaskCount  : 4;    //!< sub task count
@@ -395,6 +471,7 @@ ARM_PRIVATE(
     volatile arm_2d_op_status_t Status;
 
     arm_2d_op_evt_t             evt2DOpCpl;             //!< operation complete event
+    
 )
     uintptr_t                   pUserParam;
 };
@@ -407,7 +484,40 @@ typedef struct arm_2d_op_t {
     } Target;
 } arm_2d_op_t;
 
+/*! \brief arm_2d_op_msk_t is inherit from arm_2d_op_t
+ */
+typedef struct arm_2d_op_msk_t {
+    inherit(arm_2d_op_core_t);
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+        const arm_2d_region_t   *ptRegion;      //!< target region
+    } Target;
+    
+    
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+    } Mask;
+} arm_2d_op_msk_t;
+
+/*! \brief arm_2d_op_src_t is inherit from arm_2d_op_t
+ */
 typedef struct arm_2d_op_src_t {
+    inherit(arm_2d_op_core_t);
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+        const arm_2d_region_t   *ptRegion;      //!< target region
+    } Target;
+    
+    
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< source tile
+    }Source;
+    uint32_t wMode;
+} arm_2d_op_src_t;
+
+/*! \brief arm_2d_op_src_msk_t is inherit from arm_2d_op_src_t
+ */
+typedef struct arm_2d_op_src_msk_t {
     inherit(arm_2d_op_core_t);
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile
@@ -417,7 +527,14 @@ typedef struct arm_2d_op_src_t {
         const arm_2d_tile_t     *ptTile;        //!< source tile
     }Source;
     uint32_t wMode;
-} arm_2d_op_src_t;
+    
+    
+    struct {
+        const arm_2d_tile_t     *ptSourceSide;  //!< source side mask
+        const arm_2d_tile_t     *ptTargetSide;  //!< target side mask
+    } Mask;
+} arm_2d_op_src_msk_t;
+
 
 /*! \brief arm_2d_op_src_orig_t is inherit from arm_2d_op_src_t
  */
@@ -440,17 +557,29 @@ typedef struct arm_2d_op_src_orig_t {
 } arm_2d_op_src_orig_t;
 
 
-typedef struct arm_2d_op_src_alpha_msk_t {
+/*! \brief arm_2d_op_src_orig_msk_t is inherit from arm_2d_op_src_orig_t
+ */
+typedef struct arm_2d_op_src_orig_msk_t {
     inherit(arm_2d_op_core_t);
     struct {
-        const arm_2d_tile_t *ptTile;        //!< target tile
-        const arm_2d_tile_t *ptRegion;      //!< target region
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+        const arm_2d_region_t   *ptRegion;      //!< target region
     } Target;
     struct {
-        const arm_2d_tile_t *ptTile;        //!< source tile
-        const uint8_t *pchAlphaMask;        //!< alpha mask
+        const arm_2d_tile_t     *ptTile;        //!< source tile
     }Source;
-} arm_2d_op_src_alpha_msk_t;
+    uint32_t wMode;
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< the origin tile
+        arm_2d_tile_t           tDummySource;   //!< the buffer for the source
+    }Origin;
+    
+    
+    struct {
+        const arm_2d_tile_t     *ptSourceSide;  //!< source side mask
+        const arm_2d_tile_t     *ptTargetSide;  //!< target side mask
+    } Mask;
+} arm_2d_op_src_orig_msk_t;
 
 
 /*----------------------------------------------------------------------------*
@@ -490,7 +619,7 @@ typedef struct arm_2d_rot_linear_regr_t {
 #endif
 
 #ifdef   __cplusplus
-extern "C" {
+}
 #endif
 
 #endif // __ARM_2D_TYPES_H__

@@ -30,6 +30,7 @@ extern "C" {
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#   pragma clang diagnostic ignored "-Wpadded"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -45,7 +46,8 @@ extern "C" {
                                 ...             /* Event Handler */             \
                                 )                                               \
     ({                                                                          \
-        ARM_NOINIT static struct {                                              \
+        __attribute__((section(".bss.noinit.arm_2d_pfb_pool")))                 \
+         static struct {                                                        \
             arm_2d_pfb_t tFPB;                                                  \
             __ALIGNED(4)                                                        \
             __PIXEL_TYPE tBuffer[(__WIDTH) * (__HEIGHT)];                       \
@@ -184,6 +186,7 @@ extern "C" {
 typedef struct arm_2d_pfb_t {
     struct arm_2d_pfb_t *ptNext;
     arm_2d_tile_t tTile;
+    bool bIsNewFrame;
 }arm_2d_pfb_t;
 
 typedef struct arm_2d_region_list_item_t {
@@ -269,10 +272,17 @@ ARM_PRIVATE(
         bool                        bFirstIteration;
         bool                        bIsRegionChanged;
         uint8_t                     chPT;
-        uint8_t                     bIsNewFrame;
+        struct {
+            uint8_t                 bIsNewFrame  : 1;
+            uint8_t                 bIsFlushRequested :1;
+        };
         
         arm_2d_pfb_t               *ptCurrent;
         arm_2d_pfb_t               *ptFreeList;
+        struct {
+            arm_2d_pfb_t           *ptHead;
+            arm_2d_pfb_t           *ptTail;
+        }FlushFIFO;
         arm_2d_tile_t               *ptFrameBuffer;
     } Adapter;
 )   
@@ -288,27 +298,26 @@ ARM_PRIVATE(
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ PROTOTYPES ====================================*/
 
-ARM_NONNULL(1,2)
 extern
+ARM_NONNULL(1,2)
 arm_2d_err_t arm_2d_helper_pfb_init(arm_2d_helper_pfb_t *ptThis, 
                                     arm_2d_helper_pfb_cfg_t *ptCFG);
 
-ARM_NONNULL(1)
 extern
+ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_helper_pfb_task(arm_2d_helper_pfb_t *ptThis, 
                                     arm_2d_region_list_item_t *ptDirtyRegions);
                                     
-
-ARM_NONNULL(1,3)
 extern
+ARM_NONNULL(1,3)
 arm_2d_err_t arm_2d_helper_pfb_update_dependency(
                             arm_2d_helper_pfb_t *ptThis, 
                             uint_fast8_t chMask,
                             const arm_2d_helper_pfb_dependency_t *ptDependency);
 
 
-ARM_NONNULL(1,2)
 extern
+ARM_NONNULL(1,2)
 void arm_2d_helper_pfb_report_rendering_complete(   arm_2d_helper_pfb_t *ptThis,
                                                     arm_2d_pfb_t *ptPFB);
 

@@ -50,7 +50,7 @@ void __ARM_2D_FUNC(draw_pattern_fg_only)(uint8_t *__RESTRICT pchSourceBase,
                                          __API_INT_TYPE *__RESTRICT pTargetBase,
                                          int16_t iTargetStride,
                                          arm_2d_size_t *__RESTRICT ptCopySize,
-                                         __API_INT_TYPE hwForeColour)
+                                         __API_INT_TYPE ForeColour)
 {
     //! get in byte offset
     iOffset &= 0x07;
@@ -65,7 +65,7 @@ void __ARM_2D_FUNC(draw_pattern_fg_only)(uint8_t *__RESTRICT pchSourceBase,
         for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++) {
             
             if ((*pchSrc) & chBitMask) {
-                *pTarget = hwForeColour;
+                *pTarget = ForeColour;
             }
             
             pTarget++;
@@ -128,7 +128,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_only)(   uint8_t *__RESTRICT pchSourceBase,
                                             __API_INT_TYPE *__RESTRICT pTargetBase,
                                             int16_t iTargetStride,
                                             arm_2d_size_t *__RESTRICT ptCopySize,
-                                            __API_INT_TYPE hwBackColour)
+                                            __API_INT_TYPE BackColour)
 {
     //! get in byte offset
     iOffset &= 0x07;
@@ -143,7 +143,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_only)(   uint8_t *__RESTRICT pchSourceBase,
         for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++) {
             
             if (!((*pchSrc) & chBitMask)) {
-                *pTarget = hwBackColour;
+                *pTarget = BackColour;
             }
             
             pTarget++;
@@ -168,8 +168,8 @@ void __ARM_2D_FUNC(draw_pattern_bg_fg)( uint8_t *__RESTRICT pchSourceBase,
                                         __API_INT_TYPE *__RESTRICT pTargetBase,
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
-                                        __API_INT_TYPE hwForeColour,
-                                        __API_INT_TYPE hwBackColour)
+                                        __API_INT_TYPE ForeColour,
+                                        __API_INT_TYPE BackColour)
 {
     //! get in byte offset
     iOffset &= 0x07;
@@ -184,9 +184,9 @@ void __ARM_2D_FUNC(draw_pattern_bg_fg)( uint8_t *__RESTRICT pchSourceBase,
         for (int_fast16_t x = 0; x < ptCopySize->iWidth; x++) {
             
             if ((*pchSrc) & chBitMask) {
-                *pTarget++ = hwForeColour;
+                *pTarget++ = ForeColour;
             } else {
-                *pTarget++ = hwBackColour;
+                *pTarget++ = BackColour;
             }
             
             chBitMask <<= 1;
@@ -209,7 +209,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_comp)(   uint8_t *__RESTRICT pchSourceBase,
                                             __API_INT_TYPE *__RESTRICT pTargetBase,
                                             int16_t iTargetStride,
                                             arm_2d_size_t *__RESTRICT ptCopySize,
-                                            __API_INT_TYPE hwBackColour)
+                                            __API_INT_TYPE BackColour)
 {
     //! get in byte offset
     iOffset &= 0x07;
@@ -226,7 +226,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_comp)(   uint8_t *__RESTRICT pchSourceBase,
             if ((*pchSrc) & chBitMask) {
                 *pTarget = ~(*pTarget);
             } else {
-                *pTarget = hwBackColour;
+                *pTarget = BackColour;
             }
             
             pTarget++;
@@ -252,8 +252,8 @@ void __ARM_2D_FUNC(draw_pattern)(   uint8_t *__RESTRICT pchSourceBase,
                                     int16_t iTargetStride,
                                     arm_2d_size_t *__RESTRICT ptCopySize,
                                     uint8_t chMode,
-                                    __API_INT_TYPE hwForeColour,
-                                    __API_INT_TYPE hwBackColour)
+                                    __API_INT_TYPE ForeColour,
+                                    __API_INT_TYPE BackColour)
 {
 
     switch (chMode  &  (ARM_2D_DRW_PATN_MODE_NO_FG_COLOR    | 
@@ -268,7 +268,7 @@ void __ARM_2D_FUNC(draw_pattern)(   uint8_t *__RESTRICT pchSourceBase,
                                                 pTargetBase,
                                                 iTargetStride,
                                                 ptCopySize,
-                                                hwForeColour);
+                                                ForeColour);
             break;
             
         case ARM_2D_DRW_PATN_MODE_WITH_BG_COLOR:
@@ -279,8 +279,8 @@ void __ARM_2D_FUNC(draw_pattern)(   uint8_t *__RESTRICT pchSourceBase,
                                                 pTargetBase,
                                                 iTargetStride,
                                                 ptCopySize,
-                                                hwForeColour,
-                                                hwBackColour);
+                                                ForeColour,
+                                                BackColour);
             
             break;
             
@@ -297,7 +297,7 @@ void __ARM_2D_FUNC(draw_pattern)(   uint8_t *__RESTRICT pchSourceBase,
                                                 pTargetBase,
                                                 iTargetStride,
                                                 ptCopySize,
-                                                hwBackColour);
+                                                BackColour);
             break;
     
         case ARM_2D_DRW_PATH_MODE_COMP_FG_COLOUR:
@@ -322,7 +322,7 @@ void __ARM_2D_FUNC(draw_pattern)(   uint8_t *__RESTRICT pchSourceBase,
                                                 pTargetBase,
                                                 iTargetStride,
                                                 ptCopySize,
-                                                hwBackColour);
+                                                BackColour);
             
             break;
     

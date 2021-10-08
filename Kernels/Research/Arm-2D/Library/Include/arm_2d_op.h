@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the all avaialble Arm-2D 
  *               interface header files 
  *
- * $Date:        01. December 2020
- * $Revision:    V.0.5.0
+ * $Date:        08. Sept 2021
+ * $Revision:    V.0.9.0
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -39,6 +39,8 @@ extern "C" {
 #endif
 
 /*============================ MACROS ========================================*/
+#define LOW_LEVEL_IO__ARM_2D_IO_NONE    (*(void *)NULL)
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
@@ -46,22 +48,83 @@ extern
 const __arm_2d_op_info_t ARM_2D_OP_BARRIER;
     
 extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_C8BIT;    
+
+extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_RGB16;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_RGB32;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB16;
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_C8BIT;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_MASKING_RGB32;
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_RGB16;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_RGB32;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_MASK_GRAY8;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_MASK_RGB565;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_MASK_CCCN888;
+    
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_SRC_MASK_GRAY8;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_SRC_MASK_RGB565;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_SRC_MASK_CCCN888;
+
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_DES_MASK_GRAY8;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_DES_MASK_RGB565;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_DES_MASK_CCCN888;
+
+
+
+extern 
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_C8BIT;
+
+extern 
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_RGB16;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_RGB32;
     
 extern 
-const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_RGB16;
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_GRAY8;
+
+extern 
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_RGB565;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_COLOUR_FILL_RGB32;
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_CCCN888;
+
+extern 
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_GRAY8;
+
+extern 
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_RGB565;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_CCCN888;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_GRAY8;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_RGB565;
@@ -70,22 +133,36 @@ extern
 const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_RGB888;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB565;
+const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_KEYING_GRAY8;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_MASKING_RGB888;
+const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_KEYING_RGB565;
     
+extern
+const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_KEYING_RGB888;
+    
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_ALPHA_COLOUR_FILL_GRAY8;
+
 extern
 const __arm_2d_op_info_t ARM_2D_OP_ALPHA_COLOUR_FILL_RGB565;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_ALPHA_COLOUR_FILL_RGB888;
     
+  
+extern
+const __arm_2d_op_info_t ARM_2D_OP_DRAW_POINT_C8BIT;
+  
 extern
 const __arm_2d_op_info_t ARM_2D_OP_DRAW_POINT_RGB16;
 
 extern
 const __arm_2d_op_info_t ARM_2D_OP_DRAW_POINT_RGB32;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_DRAW_PATTERN_C8BIT;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_DRAW_PATTERN_RGB16;
@@ -98,6 +175,9 @@ const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB565;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB888;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_GRAY8;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_ROTATE_RGB565;

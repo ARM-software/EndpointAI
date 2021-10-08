@@ -41,11 +41,28 @@ extern "C" {
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
 #endif
 
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
+
+#define arm_2d_convert_colour_to_rgb888(__SRC_ADDR, /*!< source tile address */ \
+                                        __DES_ADDR /*!< target tile address */) \
+            arm_2dp_convert_colour_to_rgb888(   NULL,                           \
+                                                (__SRC_ADDR),                   \
+                                                (__DES_ADDR))
+
+#define arm_2d_convert_colour_to_rgb565(__SRC_ADDR, /*!< source tile address */ \
+                                        __DES_ADDR /*!< target tile address */) \
+            arm_2dp_convert_colour_to_rgb565(   NULL,                           \
+                                                (__SRC_ADDR),                   \
+                                                (__DES_ADDR))
+
 /*============================ TYPES =========================================*/
 
 typedef arm_2d_op_src_t arm_2d_op_cl_convt_t;
@@ -92,26 +109,32 @@ __STATIC_INLINE uint16_t __arm_2d_rgb565_pack(__arm_2d_color_fast_rgb_t * ptRGB)
     return tOutput.tValue;
 }
 
-__STATIC_INLINE uint32_t __arm_2d_rgb888_pack(__arm_2d_color_fast_rgb_t * ptRGB)
+__STATIC_INLINE uint32_t __arm_2d_cccn888_pack(__arm_2d_color_fast_rgb_t * ptRGB)
 {
-    arm_2d_color_rgb888_t tOutput = {
+    arm_2d_color_rgba8888_t tOutput = {
         .u8R = (uint16_t) ptRGB->R,
         .u8G = (uint16_t) ptRGB->G,
         .u8B = (uint16_t) ptRGB->B,
+        .u8A = 0xFF,
     };
     return tOutput.tValue;
 }
 
 
+/*----------------------------------------------------------------------------*
+ * Colour Conversion                                                          *
+ *----------------------------------------------------------------------------*/
 
 extern
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_convert_colour_to_rbg888(   const arm_2d_tile_t *ptSource,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_convert_colour_to_rgb888(  arm_2d_op_cl_convt_t *ptOP,
+                                                const arm_2d_tile_t *ptSource,
                                                 const arm_2d_tile_t *ptTarget);
 
 extern
-ARM_NONNULL(1)
-arm_fsm_rt_t arm_2d_convert_colour_to_rgb565(   const arm_2d_tile_t *ptSource,
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_convert_colour_to_rgb565(  arm_2d_op_cl_convt_t *ptOP,
+                                                const arm_2d_tile_t *ptSource,
                                                 const arm_2d_tile_t *ptTarget);
 
 #if defined(__clang__)

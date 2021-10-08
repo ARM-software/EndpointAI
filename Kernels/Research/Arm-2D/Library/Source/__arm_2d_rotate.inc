@@ -100,41 +100,37 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_float_t *ptPoint,
     tOriginLocation.iX = ptPoint->fX;
     tOriginLocation.iY = ptPoint->fY;
 
-    __arm_2d_point_adj_alpha_t tAdjacentArray 
-        = __arm_2d_point_get_adjacent_alpha(ptPoint);
+    __arm_2d_point_adj_alpha_t tAdjacentArray
+        = __arm_2d_point_get_adjacent_alpha_fp(ptPoint);
 
     __API_PIXEL_AVERAGE_INIT();
-    
+
     __API_INT_TYPE TempPixel;
-    int_fast8_t nOutsideOriginCounter = 4;
-    
+    bool bIsInside = false;
+
     for (int_fast8_t n = 0; n < 4; n++) {
         uint8_t chAlpha = tAdjacentArray.tMatrix[n].chAlpha;
         arm_2d_location_t tTemp = {
             .iX = tOriginLocation.iX + tAdjacentArray.tMatrix[n].tOffset.iX,
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
         };
-        
+        TempPixel = (*pTarget);
+
         if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
-        
-            TempPixel = pOrigin[   tTemp.iY * iOrigStride
-                                    +   tTemp.iX];
-                            
-            if (TempPixel != MaskColour) {
-            
-                //! use original pixel
-                __API_PIXEL_AVERAGE(TempPixel, chAlpha);
-                
-                continue;
+
+            __API_INT_TYPE OriginPixel = pOrigin[   tTemp.iY * iOrigStride
+                                            +   tTemp.iX];
+
+            if (OriginPixel != MaskColour) {
+                bIsInside = true;
+                TempPixel = OriginPixel;
             }
-        } 
-        
-        nOutsideOriginCounter--;
-        
-        __API_PIXEL_AVERAGE((*pTarget), chAlpha);
+        }
+
+        __API_PIXEL_AVERAGE(TempPixel, chAlpha);
     }
-    
-    if (nOutsideOriginCounter) {
+
+    if (bIsInside) {
         TempPixel = __API_PIXEL_AVERAGE_RESULT();
     } else {
         TempPixel = *pTarget;
@@ -172,10 +168,10 @@ void __ARM_2D_FUNC(rotate)( __arm_2d_param_copy_orig_t *ptParam,
     __API_INT_TYPE *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
     int_fast16_t iOrigStride = ptParam->tOrigin.iStride;
     __API_INT_TYPE MaskColour = ptInfo->Mask.hwColour;
-    
+
     float fAngle = -ptInfo->fAngle;
     arm_2d_location_t tOffset = ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
-    float               invIWidth = 1.0f / (float) (iWidth - 1);
+    float           invIWidth = iWidth > 1 ? 1.0f / (float) (iWidth - 1) : 100.0f;
     arm_2d_rot_linear_regr_t regrCoefs[2];
     arm_2d_location_t   SrcPt = ptInfo->tDummySourceOffset;
 
@@ -234,7 +230,7 @@ void __ARM_2D_FUNC(rotate)( __arm_2d_param_copy_orig_t *ptParam,
 #else /* __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__ */
 
 __WEAK
-__API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(   
+__API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(
                                             arm_2d_point_fx_t  *ptFxPoint,
                                             arm_2d_region_t *ptOrigValidRegion,
                                             __API_INT_TYPE *pOrigin,
@@ -251,41 +247,37 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(
         .iY = ptFxPoint->Y >> 16,
     };
 
-    __arm_2d_point_adj_alpha_t tAdjacentArray 
+    __arm_2d_point_adj_alpha_t tAdjacentArray
         = __arm_2d_point_get_adjacent_alpha_q16(ptFxPoint);
 
     __API_PIXEL_AVERAGE_INIT();
-    
+
     __API_INT_TYPE TempPixel;
-    int_fast8_t nOutsideOriginCounter = 4;
-    
+    bool bIsInside = false;
+
     for (int_fast8_t n = 0; n < 4; n++) {
         uint8_t chAlpha = tAdjacentArray.tMatrix[n].chAlpha;
         arm_2d_location_t tTemp = {
             .iX = tOriginLocation.iX + tAdjacentArray.tMatrix[n].tOffset.iX,
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
         };
-        
+        TempPixel = (*pTarget);
+
         if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
-        
-            TempPixel = pOrigin[   tTemp.iY * iOrigStride
-                                    +   tTemp.iX];
-                            
-            if (TempPixel != MaskColour) {
-            
-                //! use original pixel
-                __API_PIXEL_AVERAGE(TempPixel, chAlpha);
-                
-                continue;
+
+            __API_INT_TYPE Temp = pOrigin[   tTemp.iY * iOrigStride
+                                            +   tTemp.iX];
+
+            if (Temp != MaskColour) {
+                bIsInside = true;
+                TempPixel = Temp;
             }
-        } 
-        
-        nOutsideOriginCounter--;
-        
-        __API_PIXEL_AVERAGE((*pTarget), chAlpha);
+        }
+
+        __API_PIXEL_AVERAGE(TempPixel, chAlpha);
     }
-    
-    if (nOutsideOriginCounter) {
+
+    if (bIsInside) {
         TempPixel = __API_PIXEL_AVERAGE_RESULT();
     } else {
         TempPixel = *pTarget;
@@ -324,7 +316,7 @@ void __ARM_2D_FUNC(rotate)(   __arm_2d_param_copy_orig_t *ptParam,
     __API_INT_TYPE MaskColour = ptInfo->Mask.hwColour;
     float fAngle = -ptInfo->fAngle;
     arm_2d_location_t tOffset = ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
-    q31_t           invIWidth = 0x7fffffff / (iWidth - 1);
+    q31_t             invIWidth = iWidth > 1 ? 0x7fffffff / (iWidth - 1) : 0x7fffffff;
     arm_2d_rot_linear_regr_t regrCoefs[2];
     arm_2d_location_t   SrcPt = ptInfo->tDummySourceOffset;
 
@@ -407,44 +399,40 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
     tOriginLocation.iX = ptPoint->fX;
     tOriginLocation.iY = ptPoint->fY;
 
-    __arm_2d_point_adj_alpha_t tAdjacentArray 
-        = __arm_2d_point_get_adjacent_alpha(ptPoint);
+    __arm_2d_point_adj_alpha_t tAdjacentArray
+        = __arm_2d_point_get_adjacent_alpha_fp(ptPoint);
 
     __API_PIXEL_AVERAGE_INIT();
-    
+
     __API_INT_TYPE TempPixel;
-    int_fast8_t nOutsideOriginCounter = 4;
-    
+    bool bIsInside = false;
+
     for (int_fast8_t n = 0; n < 4; n++) {
         uint8_t chAlpha = tAdjacentArray.tMatrix[n].chAlpha;
         arm_2d_location_t tTemp = {
             .iX = tOriginLocation.iX + tAdjacentArray.tMatrix[n].tOffset.iX,
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
         };
-        
+        TempPixel = (*pTarget);
+
         if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
-        
-            TempPixel = pOrigin[   tTemp.iY * iOrigStride
-                                    +   tTemp.iX];
-                            
-            if (TempPixel != MaskColour) {
-            
-                //! use original pixel
-                __API_PIXEL_AVERAGE(TempPixel, chAlpha);
-                
-                continue;
+
+            __API_INT_TYPE OriginPixel = pOrigin[   tTemp.iY * iOrigStride
+                                            +   tTemp.iX];
+
+            if (OriginPixel != MaskColour) {
+                bIsInside = true;
+                TempPixel = OriginPixel;
             }
-        } 
-        
-        nOutsideOriginCounter--;
-        
-        __API_PIXEL_AVERAGE((*pTarget), chAlpha);
+        }
+
+        __API_PIXEL_AVERAGE(TempPixel, chAlpha);
     }
-    
-    if (nOutsideOriginCounter) {
+
+    if (bIsInside) {
         TempPixel = *pTarget;
         __API_INT_TYPE tSourcPixel = __API_PIXEL_AVERAGE_RESULT();
-        
+
         __API_PIXEL_BLENDING( &tSourcPixel, &TempPixel, chOpacity);
     } else {
         TempPixel = *pTarget;
@@ -490,44 +478,40 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
         .iY = ptFxPoint->Y >> 16,
     };
 
-    __arm_2d_point_adj_alpha_t tAdjacentArray 
+    __arm_2d_point_adj_alpha_t tAdjacentArray
         = __arm_2d_point_get_adjacent_alpha_q16(ptFxPoint);
 
     __API_PIXEL_AVERAGE_INIT();
-    
+
     __API_INT_TYPE TempPixel;
-    int_fast8_t nOutsideOriginCounter = 4;
-    
+    bool bIsInside = false;
+
     for (int_fast8_t n = 0; n < 4; n++) {
         uint8_t chAlpha = tAdjacentArray.tMatrix[n].chAlpha;
         arm_2d_location_t tTemp = {
             .iX = tOriginLocation.iX + tAdjacentArray.tMatrix[n].tOffset.iX,
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
         };
-        
+        TempPixel = (*pTarget);
+
         if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
-        
-            TempPixel = pOrigin[   tTemp.iY * iOrigStride
-                                    +   tTemp.iX];
-                            
-            if (TempPixel != MaskColour) {
-            
-                //! use original pixel
-                __API_PIXEL_AVERAGE(TempPixel, chAlpha);
-                
-                continue;
+
+            __API_INT_TYPE Temp = pOrigin[   tTemp.iY * iOrigStride
+                                            +   tTemp.iX];
+
+            if (Temp != MaskColour) {
+                bIsInside = true;
+                TempPixel = Temp;
             }
-        } 
-        
-        nOutsideOriginCounter--;
-        
-        __API_PIXEL_AVERAGE((*pTarget), chAlpha);
+        }
+
+        __API_PIXEL_AVERAGE(TempPixel, chAlpha);
     }
-    
-    if (nOutsideOriginCounter) {
+
+    if (bIsInside) {
         TempPixel = *pTarget;
         __API_INT_TYPE tSourcPixel = __API_PIXEL_AVERAGE_RESULT();
-        
+
         __API_PIXEL_BLENDING( &tSourcPixel, &TempPixel, chOpacity);
     } else {
         TempPixel = *pTarget;
@@ -574,7 +558,7 @@ void __ARM_2D_FUNC(rotate_alpha)(   __arm_2d_param_copy_orig_t *ptParam,
     arm_2d_location_t   tOffset =
         ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
     uint16_t            hwRatioCompl = 256 - chRatio;
-    float               invIWidth = 1.0f / (float) (iWidth - 1);
+    float               invIWidth = iWidth > 1 ? 1.0f / (float) (iWidth - 1) : 100.0f;
     arm_2d_rot_linear_regr_t regrCoefs[2];
     arm_2d_location_t   SrcPt = ptInfo->tDummySourceOffset;
 
@@ -649,7 +633,7 @@ void __ARM_2D_FUNC(rotate_alpha)(   __arm_2d_param_copy_orig_t *ptParam,
     arm_2d_location_t   tOffset =
         ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
     uint16_t            hwRatioCompl = 256 - chRatio;
-    q31_t           invIWidth = 0x7fffffff / (iWidth - 1);
+    q31_t               invIWidth = iWidth > 1 ? 0x7fffffff / (iWidth - 1) : 0x7fffffff;
     arm_2d_rot_linear_regr_t regrCoefs[2];
     arm_2d_location_t   SrcPt = ptInfo->tDummySourceOffset;
 

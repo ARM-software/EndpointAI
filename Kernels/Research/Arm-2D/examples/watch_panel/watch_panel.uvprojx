@@ -550,16 +550,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_impl.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\__arm_2d_impl.h</FilePath>
@@ -648,6 +638,16 @@
               <FileName>__arm_2d_rotate.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_rotate.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1575,16 +1575,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_impl.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\__arm_2d_impl.h</FilePath>
@@ -1673,6 +1663,16 @@
               <FileName>__arm_2d_rotate.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_rotate.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2668,16 +2668,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_impl.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\__arm_2d_impl.h</FilePath>
@@ -2766,6 +2756,16 @@
               <FileName>__arm_2d_rotate.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_rotate.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3693,16 +3693,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_impl.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\__arm_2d_impl.h</FilePath>
@@ -3791,6 +3781,16 @@
               <FileName>__arm_2d_rotate.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_rotate.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4505,7 +4505,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0</Define>
+              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -4718,16 +4718,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_impl.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\__arm_2d_impl.h</FilePath>
@@ -4816,6 +4806,16 @@
               <FileName>__arm_2d_rotate.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_rotate.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5743,16 +5743,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_impl.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\__arm_2d_impl.h</FilePath>
@@ -5841,6 +5831,16 @@
               <FileName>__arm_2d_rotate.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_rotate.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6768,16 +6768,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_impl.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\__arm_2d_impl.h</FilePath>
@@ -6866,6 +6856,16 @@
               <FileName>__arm_2d_rotate.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_rotate.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -7793,16 +7793,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_impl.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\__arm_2d_impl.h</FilePath>
@@ -7891,6 +7881,16 @@
               <FileName>__arm_2d_rotate.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_rotate.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -8512,7 +8512,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>0</Optim>
+            <Optim>6</Optim>
             <oTime>1</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -8535,8 +8535,8 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Wno-padded -Omax</MiscControls>
-              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__USE_AN547__</Define>
+              <MiscControls>-Wno-padded</MiscControls>
+              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__USE_AN547__,ITERATION_CNT=10</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -8749,16 +8749,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_impl.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\__arm_2d_impl.h</FilePath>
@@ -8847,6 +8837,16 @@
               <FileName>__arm_2d_rotate.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_rotate.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -9774,16 +9774,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_impl.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\__arm_2d_impl.h</FilePath>
@@ -9872,6 +9862,16 @@
               <FileName>__arm_2d_rotate.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_rotate.inc</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
             </File>
           </Files>
         </Group>

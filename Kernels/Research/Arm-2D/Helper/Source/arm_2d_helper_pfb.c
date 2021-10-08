@@ -27,6 +27,8 @@
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
 #   pragma clang diagnostic ignored "-Wpadded"
@@ -36,6 +38,7 @@
 #   pragma clang diagnostic ignored "-Wundef"
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
 #   pragma clang diagnostic ignored "-Wcast-align"
+#   pragma clang diagnostic ignored "-Wconditional-uninitialized"
 #elif defined(__IS_COMPILER_GCC__)
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wpedantic"
@@ -142,13 +145,13 @@ arm_2d_err_t arm_2d_helper_pfb_init(arm_2d_helper_pfb_t *ptThis,
         return ARM_2D_ERR_MISSING_PARAM;
     }
     
-    //! do validation
+    //! perform validation
     do {
         int_fast16_t n = this.tCFG.FrameBuffer.hwPFBNum;
         arm_2d_pfb_t *ptItem = this.tCFG.FrameBuffer.ptPFBs;
         uint32_t wBufferSize = this.tCFG.FrameBuffer.wBufferSize;
         
-        //! handle alignment problem
+        //! handle alignments
         wBufferSize += __alignof__(arm_2d_pfb_t) - 1;
         wBufferSize &= ~(__alignof__(arm_2d_pfb_t) - 1);
         
@@ -160,7 +163,7 @@ arm_2d_err_t arm_2d_helper_pfb_init(arm_2d_helper_pfb_t *ptThis,
             return ARM_2D_ERR_INVALID_PARAM;
         }
         
-        //! add PFBs
+        //! add PFBs to pool
         do {
             ptItem->tTile = (arm_2d_tile_t) {
                 .tRegion = {
@@ -175,13 +178,12 @@ arm_2d_err_t arm_2d_helper_pfb_init(arm_2d_helper_pfb_t *ptThis,
             ptItem = (arm_2d_pfb_t *)(  (uintptr_t)ptItem 
                                      +  wBufferSize
                                      +  sizeof(arm_2d_pfb_t));
-            
         } while(--n);
-    
     
     } while(0);
 
     this.Adapter.bFirstIteration = true;
+    this.Adapter.bIsFlushRequested = true;
     
     return ARM_2D_ERR_NONE;
 }
@@ -216,6 +218,46 @@ void __arm_2d_helper_swap_rgb16(uint16_t *phwBuffer, uint32_t wSize)
     
 }
 
+static 
+void __arm_2d_helper_flush_pfb(arm_2d_helper_pfb_t *ptThis)
+{
+    arm_2d_pfb_t *ptPFB = NULL;
+    
+    arm_irq_safe {
+        ARM_LIST_QUEUE_DEQUEUE( this.Adapter.FlushFIFO.ptHead, 
+                                this.Adapter.FlushFIFO.ptTail, 
+                                ptPFB);
+        this.Adapter.bIsFlushRequested = (NULL == ptPFB);
+    }
+
+    if (NULL != ptPFB) {
+        //! call handler
+        (*this.tCFG.Dependency.evtOnLowLevelRendering.fnHandler)(
+                        this.tCFG.Dependency.evtOnLowLevelRendering.pTarget,
+                        ptPFB,
+                        ptPFB->bIsNewFrame);
+    }
+}
+
+static 
+void __arm_2d_helper_enqueue_pfb(arm_2d_helper_pfb_t *ptThis)
+{
+    this.Adapter.ptCurrent->bIsNewFrame = this.Adapter.bFirstIteration;
+    bool bIsFlushRequested;
+    
+    arm_irq_safe {
+        bIsFlushRequested = this.Adapter.bIsFlushRequested;
+        ARM_LIST_QUEUE_ENQUEUE( this.Adapter.FlushFIFO.ptHead, 
+                                this.Adapter.FlushFIFO.ptTail, 
+                                this.Adapter.ptCurrent);
+    }
+    
+    if (bIsFlushRequested) {
+        __arm_2d_helper_flush_pfb(ptThis);
+    }
+    
+}
+
 
 static
 void __arm_2d_helper_low_level_rendering(arm_2d_helper_pfb_t *ptThis)
@@ -238,12 +280,8 @@ void __arm_2d_helper_low_level_rendering(arm_2d_helper_pfb_t *ptThis)
                                         this.Adapter.ptCurrent->tTile));
     }
 
-    //! call handler
-    (*this.tCFG.Dependency.evtOnLowLevelRendering.fnHandler)(
-                    this.tCFG.Dependency.evtOnLowLevelRendering.pTarget,
-                    this.Adapter.ptCurrent,
-                    this.Adapter.bFirstIteration);
-    
+    __arm_2d_helper_enqueue_pfb(ptThis);
+
     this.Adapter.bFirstIteration = false;
 
 }
@@ -469,6 +507,8 @@ void arm_2d_helper_pfb_report_rendering_complete(arm_2d_helper_pfb_t *ptThis,
     arm_irq_safe {
         ARM_LIST_STACK_PUSH(this.Adapter.ptFreeList, ptPFB);
     }
+    
+    __arm_2d_helper_flush_pfb(ptThis);
 }
 
 
@@ -575,9 +615,12 @@ ARM_PT_BEGIN(this.Adapter.chPT)
                                         this.tCFG.Dependency.evtOnDrawing.pTarget,
                                         this.Adapter.ptFrameBuffer,
                                         this.Adapter.bIsNewFrame);
+        //! just in case some one forgot to do this...
+        arm_2d_op_wait_async(NULL);
+        
         this.Adapter.bIsNewFrame = false;
         this.Statistics.nTotalCycle += arm_2d_helper_perf_counter_stop();                                 
-        
+
         if (arm_fsm_rt_on_going == tResult) {
     ARM_PT_GOTO_PREV_ENTRY()
         } else if (tResult < 0) {

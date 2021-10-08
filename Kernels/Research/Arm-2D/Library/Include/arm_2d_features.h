@@ -132,6 +132,14 @@ extern "C" {
 #   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   0
 #endif
 
+/*! \note In your application, if you do need to use RGBA8888 for some resources
+ *!       and you want to use colour channels (e.g. the alpha channel) in mask 
+ *!       related APIs, please set this macro to 1 in your project.
+ */
+#ifndef __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
+#   define __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__ 0
+#endif
+
 /*----------------------------------------------------------------------------*
  * Unsafe configurations                                                      *
  *----------------------------------------------------------------------------*

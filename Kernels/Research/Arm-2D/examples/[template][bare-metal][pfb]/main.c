@@ -154,6 +154,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_handler)
     ARM_2D_UNUSED(pTarget);
     example_gui_refresh(ptTile, bIsNewFrame);
 
+    arm_2d_op_wait_async(NULL);
     return arm_fsm_rt_cpl;
 }
 
@@ -165,6 +166,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
 
     arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLUE);
 
+    arm_2d_op_wait_async(NULL);
     return arm_fsm_rt_cpl;
 }
 

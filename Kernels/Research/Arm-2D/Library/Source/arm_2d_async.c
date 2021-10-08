@@ -43,6 +43,8 @@ extern "C" {
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wcast-align"
@@ -674,7 +676,7 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_tile_process(
 
     (*ptTask) = (__arm_2d_sub_task_t) {
                     .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
-                    .chLowLeveIOIndex = 0,//OP_CORE.ptOp->Info.LowLevelInterfaceIndex.TileProcessLike,
+                    .chLowLeveIOIndex = 0,
                     .Param.tTileProcess = *ptParam,
                 };
     
@@ -711,6 +713,49 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_fill(
 }
 
 __OVERRIDE_WEAK
+arm_fsm_rt_t __arm_2d_issue_sub_task_fill_with_mask(
+                                    arm_2d_op_cp_t *ptThis,
+                                    __arm_2d_tile_param_t *ptSource,
+                                    __arm_2d_tile_param_t *ptSourceMask,
+                                    __arm_2d_tile_param_t *ptTarget,
+                                    __arm_2d_tile_param_t *ptTargetMask)
+{
+    __arm_2d_sub_task_t *ptTask = __arm_2d_sub_task_new();
+    assert(NULL != ptTask);         
+
+    (*ptTask) = (__arm_2d_sub_task_t) {
+                    .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
+                    .chLowLeveIOIndex = 1,
+                    .Param.tFillMask = {
+                        .use_as____arm_2d_param_fill_t = {
+                            .tSource        = *ptSource,
+                            .tTarget        = *ptTarget,
+                        },
+                    },
+                };
+    
+    if (NULL == ptSourceMask){
+        ptTask->Param.tFillMask.tSrcMask.bInvalid = true;
+    } else {
+        ptTask->Param.tFillMask.tSrcMask = *ptSourceMask;
+    }
+    
+    if (NULL == ptTargetMask){
+        ptTask->Param.tFillMask.tDesMask.bInvalid = true;
+    } else {
+        ptTask->Param.tFillMask.tDesMask = *ptTargetMask;
+    }
+    
+    OP_CORE.Status.u4SubTaskCount++;
+    
+    __arm_2d_sub_task_add(ptTask);
+
+    return arm_fsm_rt_async;
+}
+
+
+
+__OVERRIDE_WEAK
 arm_fsm_rt_t __arm_2d_issue_sub_task_copy(
                                     arm_2d_op_cp_t *ptThis,
                                     __arm_2d_tile_param_t *ptSource,
@@ -729,6 +774,50 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_copy(
                         .tCopySize          = *ptCopySize,
                     },
                 };
+    OP_CORE.Status.u4SubTaskCount++;
+    
+    __arm_2d_sub_task_add(ptTask);
+
+    return arm_fsm_rt_async;
+}
+
+__OVERRIDE_WEAK
+arm_fsm_rt_t __arm_2d_issue_sub_task_copy_with_mask(
+                                    arm_2d_op_cp_t *ptThis,
+                                    __arm_2d_tile_param_t *ptSource,
+                                    __arm_2d_tile_param_t *ptSourceMask,
+                                    __arm_2d_tile_param_t *ptTarget,
+                                    __arm_2d_tile_param_t *ptTargetMask,
+                                    arm_2d_size_t * __RESTRICT ptCopySize)
+{
+
+    __arm_2d_sub_task_t *ptTask = __arm_2d_sub_task_new();
+    assert(NULL != ptTask);         
+
+    (*ptTask) = (__arm_2d_sub_task_t) {
+                    .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
+                    .chLowLeveIOIndex = 0,
+                    .Param.tCopyMask = {
+                        .use_as____arm_2d_param_copy_t = {
+                            .tSource        = *ptSource,
+                            .tTarget        = *ptTarget,
+                            .tCopySize      = *ptCopySize,
+                        },
+                    },
+                };
+    
+    if (NULL == ptSourceMask){
+        ptTask->Param.tCopyMask.tSrcMask.bInvalid = true;
+    } else {
+        ptTask->Param.tCopyMask.tSrcMask = *ptSourceMask;
+    }
+    
+    if (NULL == ptTargetMask){
+        ptTask->Param.tCopyMask.tDesMask.bInvalid = true;
+    } else {
+        ptTask->Param.tCopyMask.tDesMask = *ptTargetMask;
+    }
+    
     OP_CORE.Status.u4SubTaskCount++;
     
     __arm_2d_sub_task_add(ptTask);

@@ -170,22 +170,6 @@
           <ExecCommand></ExecCommand>
           <Expression>0x00000000</Expression>
         </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>1</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\main.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
       </Breakpoint>
       <MemoryWindow1>
         <Mm>
@@ -732,20 +716,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_op_table.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_op_table.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\Library\Source\arm_2d_rotation.c</PathWithFileName>
+      <FilenameWithoutPath>arm_2d_rotation.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
       <FileNumber>38</FileNumber>
-      <FileType>1</FileType>
+      <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_tile.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_tile.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\Library\Include\arm_2d_rotation.h</PathWithFileName>
+      <FilenameWithoutPath>arm_2d_rotation.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -756,20 +740,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_rotation.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_rotation.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\Library\Source\__arm_2d_tile.c</PathWithFileName>
+      <FilenameWithoutPath>__arm_2d_tile.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
       <FileNumber>40</FileNumber>
-      <FileType>5</FileType>
+      <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_rotation.h</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_rotation.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\Library\Source\__arm_2d_core.c</PathWithFileName>
+      <FilenameWithoutPath>__arm_2d_core.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

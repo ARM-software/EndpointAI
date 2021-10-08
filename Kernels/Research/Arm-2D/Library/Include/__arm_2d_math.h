@@ -110,10 +110,7 @@ extern "C" {
 #define MUL_Q16(x,y)         (q31_t)((q63_t)((q63_t) (x) * (q63_t)(y)) >> 16)
 
 
-#define vec_rgb16              uint16x8_t
-#define vec_rgb32              uint32x4_t
 #define ARM_PIX_SCLTYP(sz)     ARM_CONNECT2(ARM_CONNECT2(uint, sz), _t)
-#define ARM_PIX_VECTYP(sz)     ARM_CONNECT2(vec_rgb,sz)
 
 #define ARM_2D_ANGLE(__ANGLE)  ((float)((float)(__ANGLE) * 3.1416926f / 180.0f))
 

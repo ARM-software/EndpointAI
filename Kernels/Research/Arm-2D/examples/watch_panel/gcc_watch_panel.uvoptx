@@ -337,7 +337,7 @@
         <bEvRecOn>1</bEvRecOn>
         <bSchkAxf>0</bSchkAxf>
         <bTchkAxf>0</bTchkAxf>
-        <nTsel>1</nTsel>
+        <nTsel>5</nTsel>
         <sDll></sDll>
         <sDllPa></sDllPa>
         <sDlgDll></sDlgDll>
@@ -348,9 +348,14 @@
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
         <tIfile></tIfile>
-        <pMon>BIN\ULP2CM3.DLL</pMon>
+        <pMon>BIN\DbgFM.DLL</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>DbgFM</Key>
+          <Name>-I -S"System Generator:FVP_MPS2_Cortex_M0plus_MDK" -L"armcortexm0plusct" -O4102 -C0 -MC".\FVP\MPS2_Cortex-M\FVP_MPS2_Cortex-M0plus_MDK.exe" -MF -PF -MA</Name>
+        </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
           <Key>ULP2CM3</Key>
@@ -384,7 +389,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name></Name>
+          <Name>(105=-1,-1,-1,-1,0)(106=-1,-1,-1,-1,0)(107=-1,-1,-1,-1,0)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
       <Breakpoint>
@@ -443,7 +448,7 @@
       <DebugFlag>
         <trace>0</trace>
         <periodic>1</periodic>
-        <aLwin>0</aLwin>
+        <aLwin>1</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
         <aSer2>0</aSer2>
@@ -919,20 +924,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_op_table.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_op_table.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\Library\Source\arm_2d_rotation.c</PathWithFileName>
+      <FilenameWithoutPath>arm_2d_rotation.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
       <FileNumber>36</FileNumber>
-      <FileType>1</FileType>
+      <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_tile.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_tile.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\Library\Include\arm_2d_rotation.h</PathWithFileName>
+      <FilenameWithoutPath>arm_2d_rotation.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -943,20 +948,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_rotation.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_rotation.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\Library\Source\__arm_2d_tile.c</PathWithFileName>
+      <FilenameWithoutPath>__arm_2d_tile.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
       <FileNumber>38</FileNumber>
-      <FileType>5</FileType>
+      <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_rotation.h</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_rotation.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\Library\Source\__arm_2d_core.c</PathWithFileName>
+      <FilenameWithoutPath>__arm_2d_core.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

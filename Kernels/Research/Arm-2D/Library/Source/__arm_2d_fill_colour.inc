@@ -57,8 +57,6 @@ void __ARM_2D_FUNC(colour_filling)( __API_INT_TYPE *__RESTRICT pTarget,
     }
 }
 
-
-
 #undef ____ARM_2D_FUNC
 #undef ___ARM_2D_FUNC
 #undef __ARM_2D_FUNC

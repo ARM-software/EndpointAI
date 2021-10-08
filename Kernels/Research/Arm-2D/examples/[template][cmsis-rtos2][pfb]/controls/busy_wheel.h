@@ -34,4 +34,7 @@ void busy_wheel_init(void);
 extern
 void busy_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame);
 
+extern 
+void busy_wheel2_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame);
+
 #endif

@@ -1,11 +1,5 @@
-/******************************************************************************
- * @file     arm_2d_utils.h
- * @brief    Public header file for Arm-2D Library
- * @version  V0.5.0
- * @date     01. December 2020
- ******************************************************************************/
 /*
- * Copyright (c) 2010-2020 Arm Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2021 Arm Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,6 +16,16 @@
  * limitations under the License.
  */
 
+/* ----------------------------------------------------------------------
+ * Project:      Arm-2D Library
+ * Title:        arm_2d_utils.h
+ * Description:  Public header file for Arm-2D Library
+ *
+ * $Date:        20. sep 2021
+ * $Revision:    V.0.6.0
+ *
+ * -------------------------------------------------------------------- */
+
 #ifndef __ARM_2D_UTILS_H__
 #define __ARM_2D_UTILS_H__
 
@@ -29,6 +33,8 @@
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #   pragma clang diagnostic ignored "-Wpadded"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
@@ -159,6 +165,9 @@ extern "C" {
 #   define dimof(__array)          (sizeof(__array)/sizeof(__array[0]))
 #endif
 
+#define __ARM_TO_STRING(A)          #A
+#define TO_STRING(A)                __ARM_TO_STRING(A)
+
 #define __ARM_VA_NUM_ARGS_IMPL(   _0,_1,_2,_3,_4,_5,_6,_7,_8,_9,_10,_11,_12,    \
                                     _13,_14,_15,_16,__N,...)      __N
 #define __ARM_VA_NUM_ARGS(...)                                                  \
@@ -195,7 +204,7 @@ extern "C" {
 #define arm_connect(...)                                                        \
             ARM_CONNECT2(ARM_CONNECT, __ARM_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)
 
-
+#define ARM_CONNECT(...)        arm_connect(__VA_ARGS__)
 
 #define __ARM_USING1(__declare)                                                 \
             for (__declare, *ARM_CONNECT3(__ARM_USING_, __LINE__,_ptr) = NULL;  \
@@ -287,7 +296,7 @@ extern "C" {
 
 #ifndef ARM_ALIGN
 #   define __ARM_ALIGN(__N)        __attribute__((aligned(__N)))
-#   define ARM_ALIGN(__N)          __ARM_ALIGN(__N) 
+#   define ARM_ALIGN(__N)          __ARM_ALIGN(__N)
 #endif
 
 
@@ -299,13 +308,17 @@ extern "C" {
 #   define __OVERRIDE_WEAK          __USED
 #endif
 
+#define ARM_2D_SAFE_NAME(...)    ARM_CONNECT(__,__LINE__,##__VA_ARGS__)
+#define arm_2d_safe_name(...)    ARM_2D_SAFE_NAME(__VA_ARGS__)
 
 #undef arm_irq_safe
 
 #define arm_irq_safe                                                            \
-            arm_using(  uint32_t ARM_CONNECT2(temp,__LINE__) =                  \
+            arm_using(  uint32_t ARM_2D_SAFE_NAME(temp) =                       \
                         ({uint32_t temp=__get_PRIMASK();__disable_irq();temp;}),\
-                        __set_PRIMASK(ARM_CONNECT2(temp,__LINE__)))
+                        __set_PRIMASK(ARM_2D_SAFE_NAME(temp)))
+
+
 
 
 

@@ -510,16 +510,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
-            </File>
-            <File>
               <FileName>arm_2d_rotation.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
@@ -528,6 +518,16 @@
               <FileName>arm_2d_rotation.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -854,7 +854,7 @@
             <UseExternalTool>1</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>1</Capability>
+            <Capability>0</Capability>
             <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
@@ -963,7 +963,7 @@
             <uThumb>1</uThumb>
             <VariousControls>
               <MiscControls>-Ofast -flto -fdata-sections -ffunction-sections -fms-extensions -mfloat-abi=soft -std=gnu11</MiscControls>
-              <Define>RTE_Compiler_IO_STDOUT_User,CMSDK_CM0plus</Define>
+              <Define>RTE_Compiler_IO_STDOUT_User,CMSDK_CM0plus,ITERATION_CNT=10</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;..\..\Library\Include;.;..\..\Helper\Include;.\platform\lib;.\platform\mps2</IncludePath>
             </VariousControls>
@@ -1231,16 +1231,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_op_table.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_op_table.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_tile.c</FilePath>
-            </File>
-            <File>
               <FileName>arm_2d_rotation.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
@@ -1249,6 +1239,16 @@
               <FileName>arm_2d_rotation.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_tile.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
             </File>
           </Files>
         </Group>

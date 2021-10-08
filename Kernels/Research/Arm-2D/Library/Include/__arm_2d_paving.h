@@ -42,6 +42,8 @@ extern "C" {
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #elif __IS_COMPILER_GCC__
 #   pragma GCC diagnostic push
@@ -51,17 +53,21 @@ extern "C" {
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
+#define SETUP_DIRECT_COPY_8(srcWidth)          (void)srcWidth;
 #define SETUP_DIRECT_COPY_16(srcWidth)         (void)srcWidth;
 #define SETUP_DIRECT_COPY_32(srcWidth)         (void)srcWidth;
 
 
 /* scalar copy w/o mirroring */
+#define LOAD_SRC_DIRECT_8(pSource, offset)     *pSource++;
 #define LOAD_SRC_DIRECT_16(pSource, offset)    *pSource++;
 #define LOAD_SRC_DIRECT_32(pSource, offset)    *pSource++;
 
+#define LOAD_SRC_X_MIRROR_8(pSource, offset)   pSource[offset]; offset -= 1;
 #define LOAD_SRC_X_MIRROR_16(pSource, offset)  pSource[offset]; offset -= 1;
 #define LOAD_SRC_X_MIRROR_32(pSource, offset)  pSource[offset]; offset -= 1;
 
+#define SETUP_MIRROR_COPY_8(srcWidth)          uint32_t offset = srcWidth - 1;
 #define SETUP_MIRROR_COPY_16(srcWidth)         uint32_t offset = srcWidth - 1;
 #define SETUP_MIRROR_COPY_32(srcWidth)         uint32_t offset = srcWidth - 1;
 
@@ -71,6 +77,12 @@ extern "C" {
 #define BOTTOM_TO_TOP      INCR_Y_DIR
 #define TOP_TO_BOTTOM      DECR_Y_DIR
 
+#ifndef PAVING_OP
+    #define PAVING_OP(__DES_ADDR, __SRC)                                        \
+            do {                                                                \
+                *(__DES_ADDR) = (__SRC);                                        \
+            }while(0)
+#endif
 
 #define PAVING_DIRECT_START_OFFS(strd, heig)    0
 #define PAVING_DIRECT_READ_DIR                  BOTTOM_TO_TOP
@@ -391,10 +403,10 @@ extern "C" {
                                                                                 \
                     in = LOAD(pSource, offset);                                 \
                     if (true,##__VA_ARGS__) {                                   \
-                        *pDst00 ++ = in;                                        \
-                        *pDst01 ++ = in;                                        \
-                        *pDst10 ++ = in;                                        \
-                        *pDst11 ++ = in;                                        \
+                        PAVING_OP(pDst00++, in);                                \
+                        PAVING_OP(pDst01++, in);                                \
+                        PAVING_OP(pDst10++, in);                                \
+                        PAVING_OP(pDst11++, in);                                \
                     } else {                                                    \
                         pDst00++;pDst01++;pDst10++;pDst11++;                    \
                     }                                                           \
@@ -468,8 +480,8 @@ extern "C" {
                                                                                 \
                 in = LOAD(pSource, offset);                                     \
                 if (true,##__VA_ARGS__) {                                       \
-                    *pDst00 ++ = in;                                            \
-                    *pDst10 ++ = in;                                            \
+                     PAVING_OP(pDst00++, in);                                   \
+                     PAVING_OP(pDst10++, in);                                   \
                 } else {                                                        \
                     pDst00 ++;                                                  \
                     pDst10 ++;                                                  \
@@ -535,8 +547,8 @@ extern "C" {
                                                                                 \
                 in = LOAD(pSource, offset);                                     \
                 if (true,##__VA_ARGS__) {                                       \
-                    *pDst00 ++ = in;                                            \
-                    *pDst01 ++ = in;                                            \
+                    PAVING_OP(pDst00++, in);                                    \
+                    PAVING_OP(pDst01++, in);                                    \
                 } else {                                                        \
                     pDst00 ++;                                                  \
                     pDst01 ++;                                                  \
@@ -576,7 +588,7 @@ extern "C" {
                                                                                 \
             in = LOAD(pSrc, offset);                                            \
             if (true,##__VA_ARGS__) {                                           \
-                *pDst ++ = in;                                                  \
+                PAVING_OP(pDst++,in);                                           \
             } else {                                                            \
                 pDst++;                                                         \
             }                                                                   \
@@ -592,6 +604,26 @@ extern "C" {
 
 
 /*============================ TYPES =========================================*/
+
+typedef void    (arm_2d_c8bit_paving_2x2) (const uint8_t *, int16_t, const arm_2d_size_t *,
+                                            uint8_t *, int16_t, uint16_t, uint16_t);
+
+typedef void    (arm_2d_c8bit_paving_1x2) (const uint8_t *, int16_t, const arm_2d_size_t *,
+                                            uint8_t *, int16_t, uint32_t, uint16_t);
+
+typedef void    (arm_2d_c8bit_paving_2x1) (const uint8_t *, int16_t,
+                                             const arm_2d_size_t *, uint8_t *, int16_t, uint16_t, uint16_t);
+
+typedef void    (arm_2d_c8bit_paving_1x1) (const uint8_t *, int16_t, uint8_t *, int16_t,
+                                           const arm_2d_size_t *, const arm_2d_size_t *);
+
+
+typedef struct arm_2d_c8bit_paving_fct_t {
+    arm_2d_c8bit_paving_2x2    *pav_2x2;
+    arm_2d_c8bit_paving_1x2    *pav_1x2;
+    arm_2d_c8bit_paving_2x1    *pav_2x1;
+    arm_2d_c8bit_paving_1x1    *pav_1x1;
+} arm_2d_c8bit_paving_fct_t;
 
 
 typedef void    (arm_2d_rgb16_paving_2x2) (const uint16_t *, int16_t, const arm_2d_size_t *,
@@ -635,7 +667,52 @@ typedef struct arm_2d_rgb32_paving_fct_t {
 } arm_2d_rgb32_paving_fct_t;
 
 
-typedef void    (arm_2d_rgb16_cl_msk_paving_2x2)(   const uint16_t * __RESTRICT, 
+
+typedef void    (arm_2d_c8bit_cl_key_paving_2x2)(   const uint8_t * __RESTRICT, 
+                                                    int16_t, 
+                                                    const arm_2d_size_t * __RESTRICT,
+                                                    uint8_t * __RESTRICT, 
+                                                    int16_t, 
+                                                    uint16_t, 
+                                                    uint16_t, 
+                                                    uint8_t);
+
+typedef void    (arm_2d_c8bit_cl_key_paving_1x2) (  const uint8_t *__RESTRICT , 
+                                                    int16_t, 
+                                                    const arm_2d_size_t *__RESTRICT,
+                                                    uint8_t *__RESTRICT, 
+                                                    int16_t, 
+                                                    uint32_t, 
+                                                    uint16_t, 
+                                                    uint8_t);
+
+typedef void    (arm_2d_c8bit_cl_key_paving_2x1) (  const uint8_t *__RESTRICT, 
+                                                    int16_t,
+                                                    const arm_2d_size_t *__RESTRICT, 
+                                                    uint8_t *__RESTRICT, 
+                                                    int16_t, 
+                                                    uint16_t, 
+                                                    uint16_t, 
+                                                    uint8_t);
+
+typedef void    (arm_2d_c8bit_cl_key_paving_1x1) (  const uint8_t *__RESTRICT, 
+                                                    int16_t, 
+                                                    uint8_t *__RESTRICT, 
+                                                    int16_t,
+                                                    const arm_2d_size_t *__RESTRICT, 
+                                                    const arm_2d_size_t *__RESTRICT, 
+                                                    uint8_t);
+
+
+typedef struct arm_2d_c8bit_cl_key_paving_fct_t {
+    arm_2d_c8bit_cl_key_paving_2x2    *pav_2x2;
+    arm_2d_c8bit_cl_key_paving_1x2    *pav_1x2;
+    arm_2d_c8bit_cl_key_paving_2x1    *pav_2x1;
+    arm_2d_c8bit_cl_key_paving_1x1    *pav_1x1;
+} arm_2d_c8bit_cl_key_paving_fct_t;
+
+
+typedef void    (arm_2d_rgb16_cl_key_paving_2x2)(   const uint16_t * __RESTRICT, 
                                                     int16_t, 
                                                     const arm_2d_size_t * __RESTRICT,
                                                     uint16_t * __RESTRICT, 
@@ -644,7 +721,7 @@ typedef void    (arm_2d_rgb16_cl_msk_paving_2x2)(   const uint16_t * __RESTRICT,
                                                     uint16_t, 
                                                     uint16_t);
 
-typedef void    (arm_2d_rgb16_cl_msk_paving_1x2) (  const uint16_t *__RESTRICT , 
+typedef void    (arm_2d_rgb16_cl_key_paving_1x2) (  const uint16_t *__RESTRICT , 
                                                     int16_t, 
                                                     const arm_2d_size_t *__RESTRICT,
                                                     uint16_t *__RESTRICT, 
@@ -653,7 +730,7 @@ typedef void    (arm_2d_rgb16_cl_msk_paving_1x2) (  const uint16_t *__RESTRICT ,
                                                     uint16_t, 
                                                     uint16_t);
 
-typedef void    (arm_2d_rgb16_cl_msk_paving_2x1) (  const uint16_t *__RESTRICT, 
+typedef void    (arm_2d_rgb16_cl_key_paving_2x1) (  const uint16_t *__RESTRICT, 
                                                     int16_t,
                                                     const arm_2d_size_t *__RESTRICT, 
                                                     uint16_t *__RESTRICT, 
@@ -662,7 +739,7 @@ typedef void    (arm_2d_rgb16_cl_msk_paving_2x1) (  const uint16_t *__RESTRICT,
                                                     uint16_t, 
                                                     uint16_t);
 
-typedef void    (arm_2d_rgb16_cl_msk_paving_1x1) (  const uint16_t *__RESTRICT, 
+typedef void    (arm_2d_rgb16_cl_key_paving_1x1) (  const uint16_t *__RESTRICT, 
                                                     int16_t, 
                                                     uint16_t *__RESTRICT, 
                                                     int16_t,
@@ -671,16 +748,16 @@ typedef void    (arm_2d_rgb16_cl_msk_paving_1x1) (  const uint16_t *__RESTRICT,
                                                     uint16_t);
 
 
-typedef struct arm_2d_rgb16_cl_msk_paving_fct_t {
-    arm_2d_rgb16_cl_msk_paving_2x2    *pav_2x2;
-    arm_2d_rgb16_cl_msk_paving_1x2    *pav_1x2;
-    arm_2d_rgb16_cl_msk_paving_2x1    *pav_2x1;
-    arm_2d_rgb16_cl_msk_paving_1x1    *pav_1x1;
-} arm_2d_rgb16_cl_msk_paving_fct_t;
+typedef struct arm_2d_rgb16_cl_key_paving_fct_t {
+    arm_2d_rgb16_cl_key_paving_2x2    *pav_2x2;
+    arm_2d_rgb16_cl_key_paving_1x2    *pav_1x2;
+    arm_2d_rgb16_cl_key_paving_2x1    *pav_2x1;
+    arm_2d_rgb16_cl_key_paving_1x1    *pav_1x1;
+} arm_2d_rgb16_cl_key_paving_fct_t;
 
 
 
-typedef void    (arm_2d_rgb32_cl_msk_paving_2x2)(   const uint32_t *__RESTRICT, 
+typedef void    (arm_2d_rgb32_cl_key_paving_2x2)(   const uint32_t *__RESTRICT, 
                                                     int16_t, 
                                                     const arm_2d_size_t *__RESTRICT,
                                                     uint32_t *__RESTRICT, 
@@ -689,7 +766,7 @@ typedef void    (arm_2d_rgb32_cl_msk_paving_2x2)(   const uint32_t *__RESTRICT,
                                                     uint16_t, 
                                                     uint32_t);
 
-typedef void    (arm_2d_rgb32_cl_msk_paving_1x2) (  const uint32_t *__RESTRICT, 
+typedef void    (arm_2d_rgb32_cl_key_paving_1x2) (  const uint32_t *__RESTRICT, 
                                                     int16_t, 
                                                     const arm_2d_size_t *__RESTRICT,
                                                     uint32_t *__RESTRICT, 
@@ -698,7 +775,7 @@ typedef void    (arm_2d_rgb32_cl_msk_paving_1x2) (  const uint32_t *__RESTRICT,
                                                     uint16_t, 
                                                     uint32_t);
 
-typedef void    (arm_2d_rgb32_cl_msk_paving_2x1) (  const uint32_t *__RESTRICT, 
+typedef void    (arm_2d_rgb32_cl_key_paving_2x1) (  const uint32_t *__RESTRICT, 
                                                     int16_t,
                                                     const arm_2d_size_t *__RESTRICT, 
                                                     uint32_t *__RESTRICT, 
@@ -707,7 +784,7 @@ typedef void    (arm_2d_rgb32_cl_msk_paving_2x1) (  const uint32_t *__RESTRICT,
                                                     uint16_t, 
                                                     uint32_t);
 
-typedef void    (arm_2d_rgb32_cl_msk_paving_1x1) (  const uint32_t *__RESTRICT, 
+typedef void    (arm_2d_rgb32_cl_key_paving_1x1) (  const uint32_t *__RESTRICT, 
                                                     int16_t, 
                                                     uint32_t *__RESTRICT, 
                                                     int16_t,
@@ -716,12 +793,12 @@ typedef void    (arm_2d_rgb32_cl_msk_paving_1x1) (  const uint32_t *__RESTRICT,
                                                     uint32_t);
 
 
-typedef struct arm_2d_rgb32_cl_msk_paving_fct_t {
-    arm_2d_rgb32_cl_msk_paving_2x2    *pav_2x2;
-    arm_2d_rgb32_cl_msk_paving_1x2    *pav_1x2;
-    arm_2d_rgb32_cl_msk_paving_2x1    *pav_2x1;
-    arm_2d_rgb32_cl_msk_paving_1x1    *pav_1x1;
-} arm_2d_rgb32_cl_msk_paving_fct_t;
+typedef struct arm_2d_rgb32_cl_key_paving_fct_t {
+    arm_2d_rgb32_cl_key_paving_2x2    *pav_2x2;
+    arm_2d_rgb32_cl_key_paving_1x2    *pav_1x2;
+    arm_2d_rgb32_cl_key_paving_2x1    *pav_2x1;
+    arm_2d_rgb32_cl_key_paving_1x1    *pav_1x1;
+} arm_2d_rgb32_cl_key_paving_fct_t;
 
 
 /*============================ GLOBAL VARIABLES ==============================*/

@@ -27,6 +27,11 @@
 extern "C" {
 #endif
 
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#endif
+
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
@@ -34,7 +39,7 @@ extern "C" {
             extern const arm_2d_tile_t __NAME;
 #define declare_tile(__NAME)            __declare_tile(__NAME)
 
-#define __implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE)                     \
+#define __implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE, ...)                \
             ARM_NOINIT static __TYPE                                            \
                 __NAME##Buffer[(__WIDTH) * (__HEIGHT)];                         \
             const arm_2d_tile_t __NAME = {                                      \
@@ -43,10 +48,11 @@ extern "C" {
                 },                                                              \
                 .tInfo.bIsRoot = true,                                          \
                 .pchBuffer = (uint8_t *)__NAME##Buffer,                         \
-            }
+                __VA_ARGS__                                                     \
+            };
             
-#define implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE)                       \
-            __implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE)
+#define implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE, ...)                  \
+            __implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE, ##__VA_ARGS__)
                         
 #define get_tile_buffer_pixel_count(__NAME)                                     \
             (uint32_t)(     (__NAME.tRegion.tSize.iWidth)                       \
@@ -56,10 +62,47 @@ extern "C" {
             (get_2d_layer_buffer_pixel_count(__NAME) * sizeof(TYPE))
 
 
+
+#define __arm_2d_align_centre2(__region, __size)                                \
+    for (arm_2d_region_t __centre_region = {                                    \
+            .tSize = (__size),                                                  \
+            .tLocation = {                                                      \
+                .iX = ((__region).tRegion.tSize.iWidth - (__size).iWidth)  >> 1,\
+                .iY = ((__region).tRegion.tSize.iHeight - (__size).iHeight)>> 1,\
+            },                                                                  \
+        },                                                                      \
+        *ARM_CONNECT3(__ARM_USING_, __LINE__,_ptr) = NULL;                      \
+         ARM_CONNECT3(__ARM_USING_, __LINE__,_ptr)++ == NULL;                   \
+        )
+                
+#define __arm_2d_align_centre3(__region, __width, __height)                     \
+    for (arm_2d_region_t __centre_region = {                                    \
+            .tSize = {                                                          \
+                .iWidth = (__width),                                            \
+                .iHeight = (__height),                                          \
+            },                                                                  \
+            .tLocation = {                                                      \
+                .iX = ((__region).tRegion.tSize.iWidth - (__width))  >> 1,      \
+                .iY = ((__region).tRegion.tSize.iHeight - (__height))>> 1,      \
+            },                                                                  \
+        },                                                                      \
+        *ARM_CONNECT3(__ARM_USING_, __LINE__,_ptr) = NULL;                      \
+         ARM_CONNECT3(__ARM_USING_, __LINE__,_ptr)++ == NULL;                   \
+         arm_2d_op_wait_async(NULL)                                             \
+        )    
+
+#define arm_2d_align_centre(...)                                                \
+            ARM_CONNECT2(   __arm_2d_align_centre,                              \
+                            __ARM_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)
+
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ PROTOTYPES ====================================*/
+
+#if defined(__clang__)
+#   pragma clang diagnostic pop
+#endif
 
 #ifdef   __cplusplus
 }

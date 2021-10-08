@@ -43,7 +43,10 @@ extern "C" {
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
+#   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wcast-align"
 #   pragma clang diagnostic ignored "-Wextra-semi-stmt"
@@ -83,6 +86,8 @@ extern "C" {
  * Code Template                                                              *
  *----------------------------------------------------------------------------*/
 
+#define __API_PIXEL_AVERAGE_RESULT_GRAY8()                      \
+    (   tPixel >> 8)
 
 #define __API_PIXEL_AVERAGE_RESULT_RGB565()                     \
     (   tPixel.R >>= 8,                                         \
@@ -94,7 +99,16 @@ extern "C" {
     (   tPixel.R >>= 8,                                         \
         tPixel.G >>= 8,                                         \
         tPixel.B >>= 8,                                         \
-        __arm_2d_rgb888_pack(&tPixel));
+        __arm_2d_cccn888_pack(&tPixel));
+
+
+#define __API_COLOUR                gray8
+#define __API_INT_TYPE              uint8_t
+#define __API_PIXEL_AVERAGE_INIT()  uint16_t tPixel = 0;
+#define __API_PIXEL_BLENDING        __ARM_2D_PIXEL_BLENDING_GRAY8
+#define __API_PIXEL_AVERAGE         __ARM_2D_PIXEL_AVERAGE_GRAY8
+#define __API_PIXEL_AVERAGE_RESULT  __API_PIXEL_AVERAGE_RESULT_GRAY8
+#include "__arm_2d_rotate.inc"
 
 #define __API_COLOUR                rgb565
 #define __API_INT_TYPE              uint16_t
@@ -103,10 +117,10 @@ extern "C" {
 #define __API_PIXEL_AVERAGE_RESULT  __API_PIXEL_AVERAGE_RESULT_RGB565
 #include "__arm_2d_rotate.inc"
 
-#define __API_COLOUR                rgb888
+#define __API_COLOUR                cccn888
 #define __API_INT_TYPE              uint32_t
-#define __API_PIXEL_BLENDING        __ARM_2D_PIXEL_BLENDING_RGB888
-#define __API_PIXEL_AVERAGE         __ARM_2D_PIXEL_AVERAGE_RGB888
+#define __API_PIXEL_BLENDING        __ARM_2D_PIXEL_BLENDING_CCCN888
+#define __API_PIXEL_AVERAGE         __ARM_2D_PIXEL_AVERAGE_CCCN888
 #define __API_PIXEL_AVERAGE_RESULT  __API_PIXEL_AVERAGE_RESULT_RGB888
 
 #include "__arm_2d_rotate.inc"
@@ -117,47 +131,6 @@ extern "C" {
 /*============================ PROTOTYPES ====================================*/
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ IMPLEMENTATION ================================*/
-
-#if 0
-
-/* faster atan(y/x) float version */
-static
-float32_t __atan2_f32(float32_t y, float32_t x)
-{
-    float32_t       xabs = fabsf(x);
-    float32_t       yabs = fabsf(y);
-    float32_t       atan2est, div;
-
-    if (xabs >= yabs) {
-        /* division is in the [-1 +1] range */
-        div = yabs / (xabs + EPS_ATAN2);
-        atan2est = FAST_ATAN_F32_1(div, div);
-    } else {
-        /* division is in the ]1 x*1e5] range */
-        div = xabs / (yabs + EPS_ATAN2);
-        atan2est = PI / 2 - FAST_ATAN_F32_1(div, div);
-    }
-    /* append sign */
-    return copysignf(1.0f, y) * copysignf(1.0f, x) * atan2est;
-}
-
-static
-void __arm_2d_rotate_get_rotated_corner(const arm_2d_location_t *ptLocation,
-                                            const arm_2d_location_t *ptCenter,
-                                            float fAngle,
-                                            arm_2d_point_float_t *ptOutBuffer)
-{
-    int16_t         iX = ptLocation->iX - ptCenter->iX;
-    int16_t         iY = ptLocation->iY - ptCenter->iY;
-
-    float           cosAngle = arm_cos_f32(fAngle);
-    float           sinAngle = arm_sin_f32(fAngle);
-
-    ptOutBuffer->fY = (iY * cosAngle + iX * sinAngle + ptCenter->iY);
-    ptOutBuffer->fX = (-iY * sinAngle + iX * cosAngle + ptCenter->iX);
-
-}
-#endif
 
 #if __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
 
@@ -476,17 +449,31 @@ static arm_2d_err_t __arm_2d_rotate_preprocess_source(arm_2d_op_rotate_t *ptThis
 }
 
 
-static void __arm_2d_rotate_preprocess_target(arm_2d_op_rotate_t *ptThis)
+static void __arm_2d_rotate_preprocess_target(
+                                        arm_2d_op_rotate_t *ptThis,
+                                        const arm_2d_location_t *ptTargetCentre)
 {
-    this.tRotate.tTargetRegion.tSize = this.Source.ptTile->tRegion.tSize;
+    this.tRotate.Target.tRegion.tSize = this.Source.ptTile->tRegion.tSize;
 
-    arm_2d_region_t *ptTargetRegion = this.Target.ptRegion;
-    if (NULL == ptTargetRegion) {
-        ptTargetRegion = &this.Target.ptTile->tRegion;
+#if 0  //!< please keep this code for understanding the original meaning
+    arm_2d_region_t tTargetRegion = {0};
+    if (NULL != this.Target.ptRegion) {
+        tTargetRegion = *this.Target.ptRegion;
+    } else {
+        tTargetRegion.tSize = this.Target.ptTile->tRegion.tSize;
     }
-    this.Target.ptRegion = &this.tRotate.tTargetRegion;
+#else
+    //! equivalent code
+    assert(NULL == this.Target.ptRegion);
+    
+    arm_2d_region_t tTargetRegion = {
+        .tSize = this.Target.ptTile->tRegion.tSize,
+    };
+#endif
+    
+    this.Target.ptRegion = &this.tRotate.Target.tRegion;
 
-    this.tRotate.tTargetRegion.tLocation = ptTargetRegion->tLocation;
+    this.tRotate.Target.tRegion.tLocation = tTargetRegion.tLocation;
 
     //! align with the specified center point
     do {
@@ -495,21 +482,52 @@ static void __arm_2d_rotate_preprocess_target(arm_2d_op_rotate_t *ptThis)
             .iX = this.tRotate.tCenter.iX - this.tRotate.tDummySourceOffset.iX,
             .iY = this.tRotate.tCenter.iY - this.tRotate.tDummySourceOffset.iY,
         };
-
-        arm_2d_location_t tTargetCenter = {
-            .iX = ptTargetRegion->tSize.iWidth >> 1,
-            .iY = ptTargetRegion->tSize.iHeight >> 1,
-        };
-
-        tOffset.iX = tTargetCenter.iX - tOffset.iX;
-        tOffset.iY = tTargetCenter.iY - tOffset.iY;
-
-        this.tRotate.tTargetRegion.tLocation.iX += tOffset.iX;
-        this.tRotate.tTargetRegion.tLocation.iY += tOffset.iY;
+        
+        if (NULL == ptTargetCentre) {
+            arm_2d_location_t tTargetCenter = {
+                .iX = tTargetRegion.tSize.iWidth >> 1,
+                .iY = tTargetRegion.tSize.iHeight >> 1,
+            };
+            
+            tOffset.iX = tTargetCenter.iX - tOffset.iX;
+            tOffset.iY = tTargetCenter.iY - tOffset.iY;
+        } else {
+            tOffset.iX = ptTargetCentre->iX - tOffset.iX;
+            tOffset.iY = ptTargetCentre->iY - tOffset.iY;
+        }
+        this.tRotate.Target.tRegion.tLocation.iX += tOffset.iX;
+        this.tRotate.Target.tRegion.tLocation.iY += tOffset.iY;
 
     } while(0);
 }
 
+ARM_NONNULL(2)
+arm_2d_err_t arm_2dp_gray8_tile_rotation_prepare(
+                                            arm_2d_op_rotate_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_location_t tCentre,
+                                            float fAngle,
+                                            uint8_t chFillColour)
+{
+    assert(NULL != ptSource);
+
+    ARM_2D_IMPL(arm_2d_op_rotate_t, ptOP);
+
+    if (!arm_2d_op_wait_async((arm_2d_op_core_t *)ptThis)) {
+        return ARM_2D_ERR_BUSY;
+    }
+
+    OP_CORE.ptOp = &ARM_2D_OP_ROTATE_GRAY8;
+
+    this.Source.ptTile = &this.Origin.tDummySource;
+    this.Origin.ptTile = ptSource;
+    this.wMode = 0;
+    this.tRotate.fAngle = fAngle;
+    this.tRotate.tCenter = tCentre;
+    this.tRotate.Mask.hwColour = chFillColour;
+
+    return __arm_2d_rotate_preprocess_source(ptThis);
+}
 
 ARM_NONNULL(2)
 arm_2d_err_t arm_2dp_rgb565_tile_rotation_prepare(
@@ -540,7 +558,7 @@ arm_2d_err_t arm_2dp_rgb565_tile_rotation_prepare(
 }
 
 ARM_NONNULL(2)
-arm_2d_err_t arm_2dp_rgb888_tile_rotation_prepare(
+arm_2d_err_t arm_2dp_cccn888_tile_rotation_prepare(
                                             arm_2d_op_rotate_t *ptOP,
                                             const arm_2d_tile_t *ptSource,
                                             const arm_2d_location_t tCentre,
@@ -567,6 +585,18 @@ arm_2d_err_t arm_2dp_rgb888_tile_rotation_prepare(
     return __arm_2d_rotate_preprocess_source(ptThis);
 }
 
+arm_fsm_rt_t __arm_2d_gray8_sw_rotate(__arm_2d_sub_task_t *ptTask)
+{
+    ARM_2D_IMPL(arm_2d_op_rotate_t, ptTask->ptOP);
+    assert(ARM_2D_COLOUR_8BIT == OP_CORE.ptOp->Info.Colour.chScheme);
+
+    __arm_2d_impl_gray8_rotate(&(ptTask->Param.tCopyOrig),
+                                &this.tRotate);
+
+
+    return arm_fsm_rt_cpl;
+}
+
 arm_fsm_rt_t __arm_2d_rgb565_sw_rotate(__arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_rotate_t, ptTask->ptOP);
@@ -579,13 +609,13 @@ arm_fsm_rt_t __arm_2d_rgb565_sw_rotate(__arm_2d_sub_task_t *ptTask)
     return arm_fsm_rt_cpl;
 }
 
-arm_fsm_rt_t __arm_2d_rgb888_sw_rotate(__arm_2d_sub_task_t *ptTask)
+arm_fsm_rt_t __arm_2d_cccn888_sw_rotate(__arm_2d_sub_task_t *ptTask)
 {
     ARM_2D_IMPL(arm_2d_op_rotate_t, ptTask->ptOP);
     assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
 
 
-    __arm_2d_impl_rgb888_rotate(&(ptTask->Param.tCopyOrig),
+    __arm_2d_impl_cccn888_rotate(&(ptTask->Param.tCopyOrig),
                                 &this.tRotate);
 
     return arm_fsm_rt_cpl;
@@ -593,8 +623,8 @@ arm_fsm_rt_t __arm_2d_rgb888_sw_rotate(__arm_2d_sub_task_t *ptTask)
 
 
 ARM_NONNULL(2)
-arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_alpha_prepare(
-                                        arm_2d_op_rotate_alpha_t *ptOP,
+arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_opacity_prepare(
+                                        arm_2d_op_rotate_opacity_t *ptOP,
                                         const arm_2d_tile_t *ptSource,
                                         const arm_2d_location_t tCentre,
                                         float fAngle,
@@ -603,7 +633,7 @@ arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_alpha_prepare(
 {
     assert(NULL != ptSource);
 
-    ARM_2D_IMPL(arm_2d_op_rotate_alpha_t, ptOP);
+    ARM_2D_IMPL(arm_2d_op_rotate_opacity_t, ptOP);
 
     if (!arm_2d_op_wait_async((arm_2d_op_core_t *)ptThis)) {
         return ARM_2D_ERR_BUSY;
@@ -623,8 +653,8 @@ arm_2d_err_t arm_2dp_rgb565_tile_rotation_with_alpha_prepare(
 }
 
 ARM_NONNULL(2)
-arm_2d_err_t arm_2dp_rgb888_tile_rotation_with_alpha_prepare(
-                                        arm_2d_op_rotate_alpha_t *ptOP,
+arm_2d_err_t arm_2dp_cccn888_tile_rotation_with_opacity_prepare(
+                                        arm_2d_op_rotate_opacity_t *ptOP,
                                         const arm_2d_tile_t *ptSource,
                                         const arm_2d_location_t tCentre,
                                         float fAngle,
@@ -633,7 +663,7 @@ arm_2d_err_t arm_2dp_rgb888_tile_rotation_with_alpha_prepare(
 {
     assert(NULL != ptSource);
 
-    ARM_2D_IMPL(arm_2d_op_rotate_alpha_t, ptOP);
+    ARM_2D_IMPL(arm_2d_op_rotate_opacity_t, ptOP);
 
     if (!arm_2d_op_wait_async((arm_2d_op_core_t *)ptThis)) {
         return ARM_2D_ERR_BUSY;
@@ -654,7 +684,7 @@ arm_2d_err_t arm_2dp_rgb888_tile_rotation_with_alpha_prepare(
 
 arm_fsm_rt_t __arm_2d_rgb565_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask)
 {
-    ARM_2D_IMPL(arm_2d_op_rotate_alpha_t, ptTask->ptOP);
+    ARM_2D_IMPL(arm_2d_op_rotate_opacity_t, ptTask->ptOP);
     assert(ARM_2D_COLOUR_RGB565 == OP_CORE.ptOp->Info.Colour.chScheme);
 
     __arm_2d_impl_rgb565_rotate_alpha(  &(ptTask->Param.tCopyOrig),
@@ -665,33 +695,62 @@ arm_fsm_rt_t __arm_2d_rgb565_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask)
     return arm_fsm_rt_cpl;
 }
 
-arm_fsm_rt_t __arm_2d_rgb888_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask)
+arm_fsm_rt_t __arm_2d_cccn888_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask)
 {
-    ARM_2D_IMPL(arm_2d_op_rotate_alpha_t, ptTask->ptOP);
+    ARM_2D_IMPL(arm_2d_op_rotate_opacity_t, ptTask->ptOP);
     assert(ARM_2D_COLOUR_SZ_32BIT == OP_CORE.ptOp->Info.Colour.u3ColourSZ);
 
-    __arm_2d_impl_rgb888_rotate_alpha(&(ptTask->Param.tCopyOrig),
+    __arm_2d_impl_cccn888_rotate_alpha(&(ptTask->Param.tCopyOrig),
                                         &this.tRotate,
                                         this.chRatio);
 
     return arm_fsm_rt_cpl;
 }
 
-
+ARM_NONNULL(2)
 arm_fsm_rt_t arm_2dp_tile_rotate(arm_2d_op_rotate_t *ptOP,
                                  const arm_2d_tile_t *ptTarget,
-                                 const arm_2d_region_t *ptRegion)
+                                 const arm_2d_region_t *ptRegion,
+                                 const arm_2d_location_t *ptTargetCentre)
 {
+    assert(NULL != ptTarget);
+
     ARM_2D_IMPL(arm_2d_op_rotate_t, ptOP);
+    arm_2d_location_t tTargetCentre;
 
     if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
         return arm_fsm_rt_on_going;
     }
+    
+    if (NULL != ptRegion) {
+        this.Target.ptTile = arm_2d_tile_generate_child( 
+                                                    ptTarget, 
+                                                    ptRegion, 
+                                                    &this.tRotate.Target.tTile, 
+                                                    false);
+        if (NULL == this.Target.ptTile) {
+            arm_fsm_rt_t tResult = (arm_fsm_rt_t)ARM_2D_ERR_OUT_OF_REGION;
+            if (ARM_2D_RUNTIME_FEATURE.TREAT_OUT_OF_RANGE_AS_COMPLETE) {
+                tResult = arm_fsm_rt_cpl;
+            }
+            
+            return __arm_2d_op_depose((arm_2d_op_core_t *)ptThis, tResult);
+        }
+        
+        if (NULL != ptTargetCentre) {
+            tTargetCentre.iX = ptTargetCentre->iX - ptRegion->tLocation.iX;
+            tTargetCentre.iY = ptTargetCentre->iY - ptRegion->tLocation.iY;
+            
+            ptTargetCentre = &tTargetCentre;
+        }
+    } else {
+        this.Target.ptTile = ptTarget;
+        //this.Target.ptRegion = ptRegion;
+    }
+    
+    this.Target.ptRegion = NULL;
 
-    this.Target.ptTile = ptTarget;
-    this.Target.ptRegion = ptRegion;
-
-    __arm_2d_rotate_preprocess_target(ptThis);
+    __arm_2d_rotate_preprocess_target(ptThis, ptTargetCentre);
     return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
 }
 
@@ -740,6 +799,130 @@ static arm_2d_region_t *__arm_2d_calculate_region(  const arm_2d_point_float_t *
 #endif
 
 
+
+/*----------------------------------------------------------------------------*
+ * Low Level IO Interfaces                                                    *
+ *----------------------------------------------------------------------------*/
+
+__WEAK
+def_low_lv_io(__ARM_2D_IO_ROTATE_GRAY8, 
+                __arm_2d_gray8_sw_rotate);
+                
+__WEAK
+def_low_lv_io(__ARM_2D_IO_ROTATE_RGB565, 
+                __arm_2d_rgb565_sw_rotate);
+
+__WEAK
+def_low_lv_io(__ARM_2D_IO_ROTATE_RGB888, 
+                __arm_2d_cccn888_sw_rotate);
+
+
+__WEAK
+def_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB565, 
+                __arm_2d_rgb565_sw_rotate_with_alpha);
+
+__WEAK
+def_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB888, 
+                __arm_2d_cccn888_sw_rotate_with_alpha);
+
+    
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_GRAY8 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_8BIT,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasOrigin             = true,
+            .bHasTarget             = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_ROTATE,
+
+        .LowLevelIO = {
+            .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_GRAY8),
+            .ptFillOrigLike = NULL,
+        },
+    },
+};
+    
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_RGB565 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB565,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasOrigin             = true,
+            .bHasTarget             = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_ROTATE,
+
+        .LowLevelIO = {
+            .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_RGB565),
+            .ptFillOrigLike = NULL,
+        },
+    },
+};
+    
+    
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_RGB888 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB888,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasOrigin             = true,
+            .bHasTarget             = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_ROTATE,
+        
+        .LowLevelIO = {
+            .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_RGB888),
+            .ptFillOrigLike = NULL,
+        },
+    },
+};
+
+
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_WITH_ALPHA_RGB565 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB565,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasOrigin             = true,
+            .bHasTarget             = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_ROTATE_WITH_ALPHA,
+
+        .LowLevelIO = {
+            .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB565),
+            .ptFillOrigLike = NULL,
+        },
+    },
+};
+    
+    
+const __arm_2d_op_info_t ARM_2D_OP_ROTATE_WITH_ALPHA_RGB888 = {
+    .Info = {
+        .Colour = {
+            .chScheme   = ARM_2D_COLOUR_RGB888,
+        },
+        .Param = {
+            .bHasSource             = true,
+            .bHasOrigin             = true,
+            .bHasTarget             = true,
+        },
+        .chOpIndex      = __ARM_2D_OP_IDX_ROTATE_WITH_ALPHA,
+        
+        .LowLevelIO = {
+            .ptCopyOrigLike = ref_low_lv_io(__ARM_2D_IO_ROTATE_WITH_ALPHA_RGB888),
+            .ptFillOrigLike = NULL,
+        },
+    },
+};
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

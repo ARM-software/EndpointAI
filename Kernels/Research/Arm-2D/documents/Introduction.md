@@ -280,6 +280,7 @@ struct arm_2d_tile_t {
 | ------------------------ | ------------ | ------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | ***bIsRoot***            | Feature Info | bit-field                 | This bit indicates that whether a tile is a root tile or not. If it is "***1***", the target tile is a root tile that contains a pointer pointing to a display buffer. If it is "***0***", the target tile is a child tile that contains a pointer pointing to a parent tile which **NOT** necessarily to be a root tile. | See **[section 2.3.1](#231-root-tile)** and **[2.3.2](#232-child-tile)** for details. |
 | ***bHasEnforcedColour*** | Feature Info | bit-field                 | This bit indicates that whether a tile explicitly contains a descriptor for pixel colour. When this bit is set, ***tColourInfo*** is valid; otherwise, it is seen as containing no valid information.  If a Tile is used as the source tile of any Colour Conversion Operations, this bit has to be set and ***tColourInfo*** should contain a valid description. | For most of the Arm-2d operations, when this bit is zero, arm-2d API will use its own implicit understanding about the tile colour.  For example, ***arm_2d_rgb16_tile_copy()*** has describe its implicit colour, i.e. ***RGB16*** in function name, hence even ***bHasEnforcedColour*** is set and ***tColourInfo*** contains valid information, the operation still considers both the source and target tiles using ***RGB16***. |
+| ***bDerivedResource***   | Feature Info | bit-field                 | This bit indicates whether a child tile is used as a resource. | When creating a resource from a existing tile, you must set this bit to "1".  **It is only valid when bIsRoot is "0"**. |
 | ***tColourInfo***        | Feature Info | ***arm_2d_color_info_t*** | When ***bHasEnforcedColour*** is set, tColourInfo should contain a valid descriptor about the colour used in the target Tile. | See **[section 2.4](#24-colour)** for details.               |
 | ***tRegion***            | Region       | ***arm_2d_region_t***     | Depends on the type of a given tile, ***tRegion*** has a different meaning. | See **[section 2.3.1](#231-root-tile)** and **[2.3.2](#232-child-tile)** for details. |
 | ***ptParent***           | Pointers     | ***arm_2d_tile_t \****    | When ***bIsRoot*** is "***0***", this pointer is used to point the parent tile. | See **[section 2.3.1](#231-root-tile)** for details.         |
@@ -422,7 +423,7 @@ The so-called Partial Frame Buffer is a special use of the Tile Child scheme. It
 
 <img src="../documents/pictures/Introduction2_3b.png" style="zoom:67%;" /> 
 
-More details are shown in a dedicated example project located in "***examples/partial_frame_buffer***" directory.
+More details are shown in a dedicated example project located in "***examples/benchmark***" directory.
 
 
 

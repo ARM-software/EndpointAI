@@ -38,6 +38,7 @@
 #elif defined(__IS_COMPILER_GCC__)
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wmissing-braces"
+#   pragma GCC diagnostic ignored "-Wunused-value"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -55,11 +56,12 @@
 /*============================ TYPES =========================================*/
 
 typedef struct {
-    arm_2d_op_rotate_alpha_t tOP;
+    arm_2d_op_rotate_opacity_t tOP;
     const arm_2d_tile_t *ptTile;
     float fAngle;
     float fAngleSpeed;
     arm_2d_location_t tCentre;
+    arm_2d_location_t *ptTargetCentre;
     arm_2d_region_t tRegion;
     uint8_t chOpacity;
 } demo_gears_t;
@@ -119,13 +121,21 @@ demo_gears_t s_tGears[] = {
         .tRegion = {
             .tLocation = {
                 .iX = ((APP_SCREEN_WIDTH - 41) >> 1) + 30,
-                .iY = ((APP_SCREEN_HEIGHT - 40) >>1) + 30,
+                .iY = ((APP_SCREEN_HEIGHT - 41) >>1) + 30,
             },
             .tSize = {
                 .iWidth = 41,
                 .iHeight = 41,
             },
         },
+    #if 0  /*! a demo shows how to specifiy the centre of rotation on the target tile */
+        .ptTargetCentre = (arm_2d_location_t []){
+            {
+                .iX = ((APP_SCREEN_WIDTH - 41) >> 1) + 30,
+                .iY = ((APP_SCREEN_HEIGHT - 41) >>1) + 30,
+            },
+        },
+    #endif
         .chOpacity = 255,
     },
 
@@ -146,7 +156,7 @@ demo_gears_t s_tGears[] = {
                 .iHeight = 120,
             },
         },
-        .chOpacity = 200,
+        .chOpacity = 128,
     },
 
     {
@@ -158,17 +168,16 @@ demo_gears_t s_tGears[] = {
         },
         .tRegion = {
             .tLocation = {
-                .iX = ((APP_SCREEN_WIDTH - 12) >> 1),
-                .iY = ((APP_SCREEN_HEIGHT - 147) >>1),
+                .iX = ((APP_SCREEN_WIDTH - 222) >> 1),
+                .iY = ((APP_SCREEN_HEIGHT - 222) >>1),
             },
             .tSize = {
-                .iWidth = 12,
-                .iHeight = 147,
+                .iWidth = 222,
+                .iHeight = 222,
             },
         },
         .chOpacity = 255,
     },
-
 };
 
 
@@ -259,25 +268,16 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
 void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 {
 
-    static const arm_2d_region_t tPanelRegion = {
-        .tLocation = {
-            .iX = ((APP_SCREEN_WIDTH - 221) >> 1),
-            .iY = ((APP_SCREEN_HEIGHT - 221) >> 1),
-        },
-        .tSize = {
-            .iWidth = 221,
-            .iHeight = 221,
-        },
-    };
+
     
-    //arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
-    /*arm_2d_rgb16_tile_copy(&c_tileBackground,
-                            ptTile,
-                            NULL,
-                            ARM_2D_CP_MODE_COPY); */
+    if (    (c_tileBackground.tRegion.tSize.iHeight < APP_SCREEN_HEIGHT)
+        ||  (c_tileBackground.tRegion.tSize.iWidth < APP_SCREEN_WIDTH)) {
+        arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
+    }
                             
-    arm_foreach(arm_2d_layer_t, s_ptRefreshLayers, dimof(s_ptRefreshLayers), ptLayer) {
-        arm_2d_region_t tRegion = ptLayer->tRegion;
+    /*! for each layer (ptLayer) inside array s_ptRefreshLayers */
+    arm_foreach(arm_2d_layer_t, s_ptRefreshLayers, ptLayer) {
+        //arm_2d_region_t tRegion = ptLayer->tRegion;
 
         if (NULL == ptLayer->ptTile) { 
             continue;
@@ -286,67 +286,82 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
         if (ptLayer->bIsIrregular) {
             arm_2d_rgb16_tile_copy_with_colour_masking( ptLayer->ptTile,
                                         ptTile,
-                                        &tRegion,
+                                        &(ptLayer->tRegion),
                                         ptLayer->hwMaskingColour,
                                         ARM_2D_CP_MODE_COPY);
         } else {
             if (ptLayer->chTransparency) {
                 arm_2d_rgb565_alpha_blending(   ptLayer->ptTile,
                                                 ptTile,
-                                                &tRegion,
+                                                &(ptLayer->tRegion),
                                                 255 - ptLayer->chTransparency);
             } else {
                 arm_2d_rgb16_tile_copy( ptLayer->ptTile,
                                         ptTile,
-                                        &tRegion,
+                                        &(ptLayer->tRegion),
                                         ARM_2D_CP_MODE_COPY);
             }
         }
     }
     
-    arm_2d_rbg565_alpha_blending_with_colour_masking(
-                                &c_tileWatchPanel,
-                                ptTile,
-                                &tPanelRegion,
-                                128,
-                                (arm_2d_color_rgb565_t){GLCD_COLOR_BLACK});
+    //! draw the watch panel with transparency effect
+    do {
+        static const arm_2d_region_t tPanelRegion = {
+            .tLocation = {
+                .iX = ((APP_SCREEN_WIDTH - 221) >> 1),
+                .iY = ((APP_SCREEN_HEIGHT - 221) >> 1),
+            },
+            .tSize = {
+                .iWidth = 221,
+                .iHeight = 221,
+            },
+        };
+        arm_2d_rgb565_alpha_blending_with_colour_masking(
+                                    &c_tileWatchPanel,
+                                    ptTile,
+                                    &tPanelRegion,
+                                    128,    //!< 50% opacity
+                                    (arm_2d_color_rgb565_t){GLCD_COLOR_BLACK});
 
 
+    } while(0);
 
-
-    arm_foreach (demo_gears_t, s_tGears) {
+    /*! for each item (ptItem) inside array s_tGears */
+    arm_foreach (demo_gears_t, s_tGears, ptItem) {
 
         if (bIsNewFrame) {
-            _->fAngle += ARM_2D_ANGLE(_->fAngleSpeed);
+            ptItem->fAngle += ARM_2D_ANGLE(ptItem->fAngleSpeed);
 
-            _->fAngle = fmodf(_->fAngle,ARM_2D_ANGLE(360));
+            ptItem->fAngle = fmodf(ptItem->fAngle,ARM_2D_ANGLE(360));
 
         }
 
-        if (255 == _->chOpacity) {
-            arm_2dp_rgb565_tile_rotation(
-                                            (arm_2d_op_rotate_t *)&(_->tOP),
-                                            _->ptTile,          //!< source tile
+        if (255 == ptItem->chOpacity) {
+        
+            arm_2dp_rgb565_tile_rotation(   (arm_2d_op_rotate_t *)&(_->tOP),
+                                            ptItem->ptTile,     //!< source tile
                                             ptTile,             //!< target tile
-                                            &(_->tRegion),      //!< target region
-                                            _->tCentre,         //!< center point
-                                            _->fAngle,          //!< rotation angle
-                                            GLCD_COLOR_BLACK);  //!< masking colour
-
+                                            &(ptItem->tRegion), //!< target region
+                                            ptItem->tCentre,    //!< center point
+                                            ptItem->fAngle,     //!< rotation angle
+                                            GLCD_COLOR_BLACK,   //!< masking colour
+                                            ptItem->ptTargetCentre);
         } else {
             arm_2dp_rgb565_tile_rotation_with_alpha(
-                                            &(_->tOP),
-                                            _->ptTile,          //!< source tile
+                                            &(ptItem->tOP),
+                                            ptItem->ptTile,     //!< source tile
                                             ptTile,             //!< target tile
-                                            &(_->tRegion),      //!< target region
-                                            _->tCentre,         //!< center point
-                                            _->fAngle,          //!< rotation angle
+                                            &(ptItem->tRegion), //!< target region
+                                            ptItem->tCentre,    //!< center point
+                                            ptItem->fAngle,     //!< rotation angle
                                             GLCD_COLOR_BLACK,   //!< masking colour
-                                            _->chOpacity);      //!< Opacity
+                                            ptItem->chOpacity,  //!< Opacity
+                                            ptItem->ptTargetCentre);
         }
     }
 
     example_gui_on_refresh_evt_handler(ptTile);
+
 }
 
 

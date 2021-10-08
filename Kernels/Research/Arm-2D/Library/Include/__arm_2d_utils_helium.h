@@ -47,11 +47,35 @@ extern "C" {
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
+__STATIC_FORCEINLINE
+void __arm_2d_rgb565_unpack_single_vec(uint16x8_t in,
+                                            uint16x8_t * R, uint16x8_t * G, uint16x8_t * B)
+{
+    uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
+    uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
 
+    *R = (in & vecMaskR) * 8;
+    *B = ((in >> 11)) * 8;
+    *G = ((in >> 5) & vecMaskG) * 4;
+}
 
 
 __STATIC_FORCEINLINE
-uint16x8_t __rgb565_alpha_blending_single_vec(
+uint16x8_t __arm_2d_rgb565_pack_single_vec(uint16x8_t R, uint16x8_t G, uint16x8_t B)
+{
+    uint16x8_t      vecMaskBpck = vdupq_n_u16(0x00f8);
+    uint16x8_t      vecMaskGpck = vdupq_n_u16(0x00fc);
+
+    uint16x8_t      vOut = vorrq(vshrq(R, 3),
+                                 vmulq(vandq(G, vecMaskGpck), 8));
+
+    vOut = vorrq(vOut, vmulq(vandq(B, vecMaskBpck), 256));
+
+    return vOut;
+}
+
+__STATIC_FORCEINLINE
+uint16x8_t __arm_2d_rgb565_alpha_blending_single_vec(
                                             uint16x8_t      hwSource1,
                                             uint16x8_t      hwSource2,
                                             uint_fast8_t    chRatio)
@@ -97,6 +121,34 @@ uint16x8_t __rgb565_alpha_blending_single_vec(
         | vmulq((vecB0 & vecMaskBpck), 256);
 }
 
+
+__STATIC_FORCEINLINE
+uint16x8_t __arm_2d_rgb565_blending_opacity_single_vec(
+                                            uint16x8_t      hwSource1,
+                                            uint16x8_t      hwSource2,
+                                            uint16x8_t      vecHwOpacity)
+{
+    uint16x8_t      vecAlpha = vsubq_u16(vdupq_n_u16(256), vecHwOpacity);
+    uint16x8_t      vecR, vecG, vecB;
+    uint16x8_t      vecSrcR, vecSrcG, vecSrcB;
+
+    /* unpack sources */
+    __arm_2d_rgb565_unpack_single_vec(hwSource1, &vecR, &vecG, &vecB);
+    __arm_2d_rgb565_unpack_single_vec(hwSource2, &vecSrcR, &vecSrcG, &vecSrcB);
+
+    /* merge */
+    vecR = vecR * vecHwOpacity + vecSrcR * vecAlpha;
+    vecR = vecR >> 8;
+
+    vecG = vecG * vecHwOpacity + vecSrcG * vecAlpha;
+    vecG = vecG >> 8;
+
+    vecB = vecB * vecHwOpacity + vecSrcB * vecAlpha;
+    vecB = vecB >> 8;
+
+    /* pack */
+    return __arm_2d_rgb565_pack_single_vec(vecR, vecG, vecB);
+}
 
 
 __STATIC_FORCEINLINE

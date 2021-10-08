@@ -27,7 +27,10 @@
 
 #include "stm32f7xx.h"
 #include "stm32f7xx_hal.h"
+
+#if defined(RTE_Compiler_IO_STDOUT_User)
 #include "Driver_USART.h"
+#endif
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -41,7 +44,9 @@
 static void SystemClock_Config(void);
 static void MPU_Config(void);
 
+#if defined(RTE_Compiler_IO_STDOUT_User)
 extern   ARM_DRIVER_USART       Driver_USART1;
+#endif
 
 /**
   * @brief  This function is executed in case of error occurrence.
