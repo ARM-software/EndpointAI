@@ -42,7 +42,6 @@ extern "C" {
 #endif
 
 #if defined(__clang__)
-#   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
 #   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
@@ -65,8 +64,9 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wundef"
 #elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 174,177,188,68,513,144
+#elif defined(__IS_COMPILER_IAR__)
+#   pragma diag_suppress=Pa093
 #elif defined(__IS_COMPILER_GCC__)
-#   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
 #endif
 
@@ -351,7 +351,7 @@ arm_2d_point_float_t *__arm_2d_rotate_point(const arm_2d_location_t *ptLocation,
 
 static arm_2d_err_t __arm_2d_rotate_preprocess_source(arm_2d_op_rotate_t *ptThis)
 {
-    arm_2d_tile_t *ptSource = this.Source.ptTile;
+    arm_2d_tile_t *ptSource = (arm_2d_tile_t *)this.Source.ptTile;
 
     memset(ptSource, 0, sizeof(*ptSource));
 
@@ -923,14 +923,6 @@ const __arm_2d_op_info_t ARM_2D_OP_ROTATE_WITH_ALPHA_RGB888 = {
         },
     },
 };
-
-#if defined(__clang__)
-#   pragma clang diagnostic pop
-#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
-#   pragma diag_warning 174,177,188,68,513,144
-#elif defined(__IS_COMPILER_GCC__)
-#   pragma GCC diagnostic pop
-#endif
 
 #ifdef   __cplusplus
 }

@@ -1783,7 +1783,7 @@
         <periodic>1</periodic>
         <aLwin>1</aLwin>
         <aCover>0</aCover>
-        <aSer1>0</aSer1>
+        <aSer1>1</aSer1>
         <aSer2>0</aSer2>
         <aPa>0</aPa>
         <viewmode>1</viewmode>
@@ -2308,7 +2308,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\main.c</PathWithFileName>
+      <PathWithFileName>..\..\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2320,7 +2320,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\app_cfg.h</PathWithFileName>
+      <PathWithFileName>..\..\app_cfg.h</PathWithFileName>
       <FilenameWithoutPath>app_cfg.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2332,7 +2332,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\example_gui.c</PathWithFileName>
+      <PathWithFileName>..\..\example_gui.c</PathWithFileName>
       <FilenameWithoutPath>example_gui.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2344,7 +2344,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\example_gui.h</PathWithFileName>
+      <PathWithFileName>..\..\example_gui.h</PathWithFileName>
       <FilenameWithoutPath>example_gui.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2353,7 +2353,7 @@
 
   <Group>
     <GroupName>platform</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2364,7 +2364,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\platform.h</PathWithFileName>
+      <PathWithFileName>..\..\platform\platform.h</PathWithFileName>
       <FilenameWithoutPath>platform.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2376,7 +2376,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\app_platform.c</PathWithFileName>
+      <PathWithFileName>..\..\platform\app_platform.c</PathWithFileName>
       <FilenameWithoutPath>app_platform.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2388,7 +2388,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\GLCD_Fonts.c</PathWithFileName>
+      <PathWithFileName>..\..\platform\GLCD_Fonts.c</PathWithFileName>
       <FilenameWithoutPath>GLCD_Fonts.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2400,7 +2400,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\lcd_printf.c</PathWithFileName>
+      <PathWithFileName>..\..\platform\lcd_printf.c</PathWithFileName>
       <FilenameWithoutPath>lcd_printf.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2412,7 +2412,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\lcd_printf.h</PathWithFileName>
+      <PathWithFileName>..\..\platform\lcd_printf.h</PathWithFileName>
       <FilenameWithoutPath>lcd_printf.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2424,7 +2424,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\lib\perf_counter.lib</PathWithFileName>
+      <PathWithFileName>..\..\platform\lib\perf_counter.lib</PathWithFileName>
       <FilenameWithoutPath>perf_counter.lib</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2436,7 +2436,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\lib\perf_counter.h</PathWithFileName>
+      <PathWithFileName>..\..\platform\lib\perf_counter.h</PathWithFileName>
       <FilenameWithoutPath>perf_counter.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2445,7 +2445,7 @@
 
   <Group>
     <GroupName>asset</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2456,7 +2456,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\asset\whilte_dot.c.c</PathWithFileName>
+      <PathWithFileName>..\..\asset\whilte_dot.c.c</PathWithFileName>
       <FilenameWithoutPath>whilte_dot.c.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2465,7 +2465,7 @@
 
   <Group>
     <GroupName>controls</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2476,7 +2476,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\controls\busy_wheel.c</PathWithFileName>
+      <PathWithFileName>..\..\controls\busy_wheel.c</PathWithFileName>
       <FilenameWithoutPath>busy_wheel.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2488,7 +2488,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\controls\busy_wheel.h</PathWithFileName>
+      <PathWithFileName>..\..\controls\busy_wheel.h</PathWithFileName>
       <FilenameWithoutPath>busy_wheel.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2500,7 +2500,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\controls\controls.h</PathWithFileName>
+      <PathWithFileName>..\..\controls\controls.h</PathWithFileName>
       <FilenameWithoutPath>controls.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2512,7 +2512,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\controls\controls.c</PathWithFileName>
+      <PathWithFileName>..\..\controls\controls.c</PathWithFileName>
       <FilenameWithoutPath>controls.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2532,7 +2532,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Source\arm_2d.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2544,7 +2544,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_alpha_blending.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Source\arm_2d_alpha_blending.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_alpha_blending.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2556,7 +2556,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_async.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Source\arm_2d_async.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_async.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2568,7 +2568,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_conversion.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Source\arm_2d_conversion.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_conversion.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2580,7 +2580,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_draw.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Source\arm_2d_draw.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_draw.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2592,7 +2592,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_helium.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Source\arm_2d_helium.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_helium.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2604,7 +2604,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\__arm_2d_impl.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Include\__arm_2d_impl.h</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_impl.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2616,7 +2616,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\__arm_2d_paving.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Include\__arm_2d_paving.h</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_paving.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2628,7 +2628,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\__arm_2d_paving_helium.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Include\__arm_2d_paving_helium.h</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_paving_helium.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2640,7 +2640,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Include\arm_2d.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2652,7 +2652,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_alpha_blending.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Include\arm_2d_alpha_blending.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_alpha_blending.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2664,7 +2664,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_conversion.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Include\arm_2d_conversion.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_conversion.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2676,7 +2676,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_draw.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Include\arm_2d_draw.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_draw.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2688,7 +2688,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_features.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Include\arm_2d_features.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_features.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2700,7 +2700,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_tile.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Include\arm_2d_tile.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_tile.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2712,7 +2712,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_types.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Include\arm_2d_types.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_types.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2724,7 +2724,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_utils.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Include\arm_2d_utils.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_utils.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2736,7 +2736,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\__arm_2d_alpha_blending.inc</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Source\__arm_2d_alpha_blending.inc</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_alpha_blending.inc</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2748,7 +2748,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\__arm_2d_copy.inc</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Source\__arm_2d_copy.inc</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_copy.inc</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2760,7 +2760,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\__arm_2d_draw_pattern.inc</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Source\__arm_2d_draw_pattern.inc</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_draw_pattern.inc</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2772,7 +2772,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\__arm_2d_fill_colour.inc</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Source\__arm_2d_fill_colour.inc</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_fill_colour.inc</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2784,7 +2784,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_rotation.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Include\arm_2d_rotation.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_rotation.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2796,7 +2796,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_rotation.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Source\arm_2d_rotation.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_rotation.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2808,7 +2808,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\__arm_2d_tile.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Source\__arm_2d_tile.c</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_tile.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2820,7 +2820,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\__arm_2d_core.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Library\Source\__arm_2d_core.c</PathWithFileName>
       <FilenameWithoutPath>__arm_2d_core.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2829,7 +2829,7 @@
 
   <Group>
     <GroupName>bsp_mps2</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2840,7 +2840,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\mps2\GLCD_Config.h</PathWithFileName>
+      <PathWithFileName>..\..\platform\mps2\GLCD_Config.h</PathWithFileName>
       <FilenameWithoutPath>GLCD_Config.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2852,7 +2852,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\mps2\GLCD_V2M-MPS2.c</PathWithFileName>
+      <PathWithFileName>..\..\platform\mps2\GLCD_V2M-MPS2.c</PathWithFileName>
       <FilenameWithoutPath>GLCD_V2M-MPS2.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2864,7 +2864,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\mps2\platform_mps2.c</PathWithFileName>
+      <PathWithFileName>..\..\platform\mps2\platform_mps2.c</PathWithFileName>
       <FilenameWithoutPath>platform_mps2.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2876,7 +2876,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\mps2\stdout_USART.c</PathWithFileName>
+      <PathWithFileName>..\..\platform\mps2\stdout_USART.c</PathWithFileName>
       <FilenameWithoutPath>stdout_USART.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2896,7 +2896,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\mps3\GLCD_Config.h</PathWithFileName>
+      <PathWithFileName>..\..\platform\mps3\GLCD_Config.h</PathWithFileName>
       <FilenameWithoutPath>GLCD_Config.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2908,7 +2908,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</PathWithFileName>
+      <PathWithFileName>..\..\platform\mps3\GLCD_V2M-MPS3_AN540.c</PathWithFileName>
       <FilenameWithoutPath>GLCD_V2M-MPS3_AN540.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2920,7 +2920,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\mps3\platform_mps3.c</PathWithFileName>
+      <PathWithFileName>..\..\platform\mps3\platform_mps3.c</PathWithFileName>
       <FilenameWithoutPath>platform_mps3.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2932,7 +2932,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\mps3\stdout_USART.c</PathWithFileName>
+      <PathWithFileName>..\..\platform\mps3\stdout_USART.c</PathWithFileName>
       <FilenameWithoutPath>stdout_USART.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2952,7 +2952,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</PathWithFileName>
+      <PathWithFileName>..\..\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</PathWithFileName>
       <FilenameWithoutPath>GLCD_746G_Discovery.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2964,7 +2964,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\stm32f746g-discovery\GLCD_Config.h</PathWithFileName>
+      <PathWithFileName>..\..\platform\stm32f746g-discovery\GLCD_Config.h</PathWithFileName>
       <FilenameWithoutPath>GLCD_Config.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2976,7 +2976,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</PathWithFileName>
+      <PathWithFileName>..\..\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</PathWithFileName>
       <FilenameWithoutPath>platform_stm32f746g_discovery.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2996,7 +2996,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Helper\Include\arm_2d_helper.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Helper\Include\arm_2d_helper.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_helper.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -3008,7 +3008,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Helper\Include\arm_2d_helper_pfb.h</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Helper\Include\arm_2d_helper_pfb.h</PathWithFileName>
       <FilenameWithoutPath>arm_2d_helper_pfb.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -3020,7 +3020,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Helper\Source\arm_2d_helper_pfb.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\Helper\Source\arm_2d_helper_pfb.c</PathWithFileName>
       <FilenameWithoutPath>arm_2d_helper_pfb.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>

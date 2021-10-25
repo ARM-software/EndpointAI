@@ -20,7 +20,7 @@
 
 ## Features of the Arm-2D Library
 
-#### In this release ( ver0.9.9)
+#### In this release ( ver0.9.10 dev)
 
 The Arm-2D library provides **Low-Level 2D Image Processing Services** that are mainly used in **Display system**. The supported features include but not limited to:
 
@@ -481,7 +481,6 @@ def_low_lv_io(__ARM_2D_IO_ROTATE_RGB888,
 
 ### 5.2 The Temporary Limitations
 
-- The library currently is developed and validated using Arm Compiler 6, Arm Compiler 5 and GCC.
 - The library currently can only be used in the C environment. C++ support will be added later.
 - Generic Anti-aliasing algorithms haven't been introduced, but anti-alias in rotation is supported.
 - Zooming (Stretching) algorithms haven't been implemented yet.

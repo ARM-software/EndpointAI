@@ -46,6 +46,8 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
 #   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
+#elif defined(__IS_COMPILER_IAR__)
+#   pragma diag_suppress=Go029 
 #endif
 
 /*============================ MACROS ========================================*/
@@ -139,6 +141,8 @@ arm_fsm_rt_t arm_2dp_convert_colour_to_rgb565(  arm_2d_op_cl_convt_t *ptOP,
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
+#elif defined(__IS_COMPILER_IAR__)
+#   pragma diag_warning=Go029 
 #endif
 
 #ifdef   __cplusplus

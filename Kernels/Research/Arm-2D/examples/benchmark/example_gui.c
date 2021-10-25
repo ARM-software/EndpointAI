@@ -124,7 +124,7 @@ static arm_2d_layer_t s_ptRefreshLayers[] = {
 
 static floating_range_t s_ptFloatingBoxes[] = {
     {
-        .tRegion = {{0-100, 0-100}, {APP_SCREEN_WIDTH + 200, 256 + 200}},
+        .tRegion = {{0-200, 0-200}, {APP_SCREEN_WIDTH + 400, 256 + 400}},
         .ptLayer = &s_ptRefreshLayers[0],
         .tOffset = {-1, -1},
     },

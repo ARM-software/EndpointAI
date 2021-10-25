@@ -641,8 +641,3 @@ ARM_PT_END(this.Adapter.chPT)
     return arm_fsm_rt_cpl;
 }       
 
-#if defined(__clang__)
-#   pragma clang diagnostic pop
-#elif __IS_COMPILER_GCC__
-#   pragma GCC diagnostic pop
-#endif

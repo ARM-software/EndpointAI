@@ -935,7 +935,7 @@ arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_mask(
  *----------------------------------------------------------------------------*/
 
 extern
-ARM_NONNULL(2)
+ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_mask_and_opacity(
                                         arm_2d_op_alpha_fill_cl_msk_opc_t *ptOP,
                                         const arm_2d_tile_t *ptTarget,
@@ -945,7 +945,7 @@ arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_mask_and_opacity(
                                         uint8_t chOpacity);
                                         
 extern
-ARM_NONNULL(2)
+ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_mask_and_opacity(
                                         arm_2d_op_alpha_fill_cl_msk_opc_t *ptOP,
                                         const arm_2d_tile_t *ptTarget,
@@ -955,7 +955,7 @@ arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_mask_and_opacity(
                                         uint8_t chOpacity);
 
 extern
-ARM_NONNULL(2)
+ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_mask_and_opacity(
                                         arm_2d_op_alpha_fill_cl_msk_opc_t *ptOP,
                                         const arm_2d_tile_t *ptTarget,

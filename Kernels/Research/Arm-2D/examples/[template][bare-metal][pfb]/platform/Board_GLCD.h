@@ -39,6 +39,13 @@
 #include <stdbool.h>
 //#include "arm_2d/#include "arm_2d.h""
 
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#endif
+
+
 /* Font definitions */
 typedef struct _GLCD_FONT {
         uint16_t width;         ///< Character width
@@ -247,4 +254,10 @@ int32_t GLCD_Draw_Vertical_Bargraph (   arm_2d_region_t *ptRegion,
                                         const color_spectrum_t *ptSpectrum,
                                         uint_fast16_t hwVisibleHeight);
 */
+
+#if defined(__clang__)
+#   pragma clang diagnostic pop
+#endif
+
+
 #endif /* __BOARD_GLCD_H */

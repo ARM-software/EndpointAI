@@ -42,7 +42,6 @@ extern "C" {
 #if defined(__ARM_2D_HAS_ASYNC__) && __ARM_2D_HAS_ASYNC__
 
 #if defined(__clang__)
-#   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
 #   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
@@ -66,8 +65,9 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
 #elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 174,177,188,68,513,144
+#elif defined(__IS_COMPILER_IAR__)
+#   pragma diag_suppress=Pa089,Pe188
 #elif defined(__IS_COMPILER_GCC__)
-#   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wswitch"
 #   pragma GCC diagnostic ignored "-Wenum-compare"
 #   pragma GCC diagnostic ignored "-Wpedantic"
@@ -978,16 +978,6 @@ bool __arm_2d_op_acquire(arm_2d_op_core_t *ptOP)
     
     return !bResult;
 }
-
-
-
-#if defined(__clang__)
-#   pragma clang diagnostic pop
-#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
-#   pragma diag_warning 174,177,188,68,513,144
-#elif defined(__IS_COMPILER_GCC__)
-#   pragma GCC diagnostic pop
-#endif
 
 #ifdef   __cplusplus
 }

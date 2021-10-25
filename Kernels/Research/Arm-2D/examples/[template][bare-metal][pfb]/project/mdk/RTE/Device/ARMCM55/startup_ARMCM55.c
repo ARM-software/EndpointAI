@@ -28,6 +28,12 @@
   #error device not specified!
 #endif
 
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#endif
+
 /*----------------------------------------------------------------------------
   External References
  *----------------------------------------------------------------------------*/
@@ -150,5 +156,10 @@ void Default_Handler(void)
 
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
   #pragma clang diagnostic pop
+#endif
+
+
+#if defined(__clang__)
+#   pragma clang diagnostic pop
 #endif
 

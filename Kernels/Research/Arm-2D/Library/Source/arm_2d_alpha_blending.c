@@ -40,7 +40,6 @@ extern "C" {
 #endif
 
 #if defined(__clang__)
-#   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
 #   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
@@ -1001,7 +1000,7 @@ arm_fsm_rt_t __arm_2d_cccn888_sw_colour_filling_with_opacity(
  * Fill tile with a specified colour and an alpha mask                        *
  *----------------------------------------------------------------------------*/
 
-ARM_NONNULL(2)
+ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_mask(
                                         arm_2d_op_fill_cl_msk_t *ptOP,
                                         const arm_2d_tile_t *ptTarget,
@@ -1010,42 +1009,37 @@ arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_mask(
                                         uint8_t chColour)
 {
     assert(NULL != ptTarget);
+    assert(NULL != ptAlpha);
+    
+    ARM_2D_IMPL(arm_2d_op_fill_cl_msk_t, ptOP);
 
-    if (NULL == ptAlpha) {
-        return arm_2dp_c8bit_fill_colour(   (arm_2d_op_fill_cl_t *)ptOP,
-                                            ptTarget,
-                                            ptRegion,
-                                            chColour);
-    } else{
-        ARM_2D_IMPL(arm_2d_op_fill_cl_msk_t, ptOP);
-
-        //! valid alpha mask tile
-        if (0 == ptAlpha->bHasEnforcedColour) {
-            return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-        } else if ( (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ)
-               &&   (ARM_2D_CHANNEL_8in32 != ptAlpha->tColourInfo.chScheme)) {
-            return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-        }
-
-        if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
-            return arm_fsm_rt_on_going;
-        }
-
-        //memset(ptThis, 0, sizeof(*ptThis));
-
-        OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_GRAY8;
-
-        this.Target.ptTile = ptTarget;
-        this.Target.ptRegion = ptRegion;
-        this.Mask.ptTile = ptAlpha;
-        this.wMode = 0;
-        this.chColour = chColour;
-
-        return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+    //! valid alpha mask tile
+    if (0 == ptAlpha->bHasEnforcedColour) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    } else if ( (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ)
+           &&   (ARM_2D_CHANNEL_8in32 != ptAlpha->tColourInfo.chScheme)) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
     }
+
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+
+    //memset(ptThis, 0, sizeof(*ptThis));
+
+    OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_GRAY8;
+
+    this.Target.ptTile = ptTarget;
+    this.Target.ptRegion = ptRegion;
+    this.Mask.ptTile = ptAlpha;
+    this.wMode = 0;
+    this.chColour = chColour;
+
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+
 }
 
-ARM_NONNULL(2)
+ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_mask(
                                         arm_2d_op_fill_cl_msk_t *ptOP,
                                         const arm_2d_tile_t *ptTarget,
@@ -1054,38 +1048,34 @@ arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_mask(
                                         arm_2d_color_rgb565_t tColour)
 {
     assert(NULL != ptTarget);
-    if (NULL == ptAlpha) {
-        return arm_2dp_rgb16_fill_colour(   (arm_2d_op_fill_cl_t *)ptOP,
-                                            ptTarget,
-                                            ptRegion,
-                                            tColour.tValue);
-    } else{
-        ARM_2D_IMPL(arm_2d_op_fill_cl_msk_t, ptOP);
+    assert(NULL != ptAlpha);
 
-        //! valid alpha mask tile
-        if (0 == ptAlpha->bHasEnforcedColour) {
-            return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-        } else if ( (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ)
-               &&   (ARM_2D_CHANNEL_8in32 != ptAlpha->tColourInfo.chScheme)) {
-            return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-        }
+    ARM_2D_IMPL(arm_2d_op_fill_cl_msk_t, ptOP);
 
-        if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
-            return arm_fsm_rt_on_going;
-        }
-
-        //memset(ptThis, 0, sizeof(*ptThis));
-
-        OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_RGB565;
-
-        this.Target.ptTile = ptTarget;
-        this.Target.ptRegion = ptRegion;
-        this.Mask.ptTile = ptAlpha;
-        this.wMode = 0;
-        this.hwColour = tColour.tValue;
-
-        return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+    //! valid alpha mask tile
+    if (0 == ptAlpha->bHasEnforcedColour) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    } else if ( (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ)
+           &&   (ARM_2D_CHANNEL_8in32 != ptAlpha->tColourInfo.chScheme)) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
     }
+
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+
+    //memset(ptThis, 0, sizeof(*ptThis));
+
+    OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_RGB565;
+
+    this.Target.ptTile = ptTarget;
+    this.Target.ptRegion = ptRegion;
+    this.Mask.ptTile = ptAlpha;
+    this.wMode = 0;
+    this.hwColour = tColour.tValue;
+
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+
 }
 
 ARM_NONNULL(2,4)
@@ -1099,39 +1089,32 @@ arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_mask(
     assert(NULL != ptTarget);
     assert(NULL != ptAlpha);
 
-    if (NULL == ptAlpha) {
-        return arm_2dp_rgb32_fill_colour(   (arm_2d_op_fill_cl_t *)ptOP,
-                                            ptTarget,
-                                            ptRegion,
-                                            tColour.tValue);
-    } else{
-    
-        ARM_2D_IMPL(arm_2d_op_fill_cl_msk_t, ptOP);
+    ARM_2D_IMPL(arm_2d_op_fill_cl_msk_t, ptOP);
 
-        //! valid alpha mask tile
-        if (0 == ptAlpha->bHasEnforcedColour) {
-            return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-        } else if ( (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ)
-               &&   (ARM_2D_CHANNEL_8in32 != ptAlpha->tColourInfo.chScheme)) {
-            return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-        }
-
-        if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
-            return arm_fsm_rt_on_going;
-        }
-
-        //memset(ptThis, 0, sizeof(*ptThis));
-
-        OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_CCCN888;
-
-        this.Target.ptTile = ptTarget;
-        this.Target.ptRegion = ptRegion;
-        this.Mask.ptTile = ptAlpha;
-        this.wMode = 0;
-        this.wColour = tColour.tValue;
-
-        return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+    //! valid alpha mask tile
+    if (0 == ptAlpha->bHasEnforcedColour) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    } else if ( (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ)
+           &&   (ARM_2D_CHANNEL_8in32 != ptAlpha->tColourInfo.chScheme)) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
     }
+
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+
+    //memset(ptThis, 0, sizeof(*ptThis));
+
+    OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_CCCN888;
+
+    this.Target.ptTile = ptTarget;
+    this.Target.ptRegion = ptRegion;
+    this.Mask.ptTile = ptAlpha;
+    this.wMode = 0;
+    this.wColour = tColour.tValue;
+
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+
 }
 
 
@@ -1234,7 +1217,7 @@ arm_fsm_rt_t __arm_2d_cccn888_sw_colour_filling_with_mask(
  * Fill tile with a specified colour, an alpha mask and a specified opacity   *
  *----------------------------------------------------------------------------*/
 
-ARM_NONNULL(2)
+ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_mask_and_opacity(
                                         arm_2d_op_alpha_fill_cl_msk_opc_t *ptOP,
                                         const arm_2d_tile_t *ptTarget,
@@ -1244,45 +1227,39 @@ arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_mask_and_opacity(
                                         uint8_t chOpacity)
 {
     assert(NULL != ptTarget);
-    if (NULL == ptAlpha) {
-        return arm_2dp_gray8_fill_colour_with_opacity(
-                                            (arm_2d_op_fill_cl_opc_t *)ptOP,
-                                            ptTarget,
-                                            ptRegion,
-                                            chColour,
-                                            chOpacity);
-    } else{
+    assert(NULL != ptAlpha);
+
     
-        ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_msk_opc_t, ptOP);
+    ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_msk_opc_t, ptOP);
 
-        //! valid alpha mask tile
-        if (0 == ptAlpha->bHasEnforcedColour) {
-            return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-        } else if ( (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ)
-               &&   (ARM_2D_CHANNEL_8in32 != ptAlpha->tColourInfo.chScheme)) {
-            return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-        }
-
-        if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
-            return arm_fsm_rt_on_going;
-        }
-
-        //memset(ptThis, 0, sizeof(*ptThis));
-
-        OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_GRAY8;
-
-        this.Target.ptTile = ptTarget;
-        this.Target.ptRegion = ptRegion;
-        this.Mask.ptTile = ptAlpha;
-        this.wMode = 0;
-        this.chColour = chColour;
-        this.chOpacity = chOpacity;
-
-        return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+    //! valid alpha mask tile
+    if (0 == ptAlpha->bHasEnforcedColour) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    } else if ( (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ)
+           &&   (ARM_2D_CHANNEL_8in32 != ptAlpha->tColourInfo.chScheme)) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
     }
+
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+
+    //memset(ptThis, 0, sizeof(*ptThis));
+
+    OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_GRAY8;
+
+    this.Target.ptTile = ptTarget;
+    this.Target.ptRegion = ptRegion;
+    this.Mask.ptTile = ptAlpha;
+    this.wMode = 0;
+    this.chColour = chColour;
+    this.chOpacity = chOpacity;
+
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+
 }
 
-ARM_NONNULL(2)
+ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_mask_and_opacity(
                                         arm_2d_op_alpha_fill_cl_msk_opc_t *ptOP,
                                         const arm_2d_tile_t *ptTarget,
@@ -1292,45 +1269,39 @@ arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_mask_and_opacity(
                                         uint8_t chOpacity)
 {
     assert(NULL != ptTarget);
-    if (NULL == ptAlpha) {
-        return arm_2dp_rgb565_fill_colour_with_opacity(
-                                            (arm_2d_op_fill_cl_opc_t *)ptOP,
-                                            ptTarget,
-                                            ptRegion,
-                                            tColour,
-                                            chOpacity);
-    } else{
+    assert(NULL != ptAlpha);
+
     
-        ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_msk_opc_t, ptOP);
+    ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_msk_opc_t, ptOP);
 
-        //! valid alpha mask tile
-        if (0 == ptAlpha->bHasEnforcedColour) {
-            return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-        } else if ( (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ)
-               &&   (ARM_2D_CHANNEL_8in32 != ptAlpha->tColourInfo.chScheme)) {
-            return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-        }
-
-        if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
-            return arm_fsm_rt_on_going;
-        }
-
-        //memset(ptThis, 0, sizeof(*ptThis));
-
-        OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_RGB565;
-
-        this.Target.ptTile = ptTarget;
-        this.Target.ptRegion = ptRegion;
-        this.Mask.ptTile = ptAlpha;
-        this.wMode = 0;
-        this.hwColour = tColour.tValue;
-        this.chOpacity = chOpacity;
-
-        return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+    //! valid alpha mask tile
+    if (0 == ptAlpha->bHasEnforcedColour) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    } else if ( (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ)
+           &&   (ARM_2D_CHANNEL_8in32 != ptAlpha->tColourInfo.chScheme)) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
     }
+
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+
+    //memset(ptThis, 0, sizeof(*ptThis));
+
+    OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_RGB565;
+
+    this.Target.ptTile = ptTarget;
+    this.Target.ptRegion = ptRegion;
+    this.Mask.ptTile = ptAlpha;
+    this.wMode = 0;
+    this.hwColour = tColour.tValue;
+    this.chOpacity = chOpacity;
+
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+
 }
 
-ARM_NONNULL(2)
+ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_mask_and_opacity(
                                         arm_2d_op_alpha_fill_cl_msk_opc_t *ptOP,
                                         const arm_2d_tile_t *ptTarget,
@@ -1340,42 +1311,35 @@ arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_mask_and_opacity(
                                         uint8_t chOpacity)
 {
     assert(NULL != ptTarget);
+    assert(NULL != ptAlpha);
 
-    if (NULL == ptAlpha) {
-        return arm_2dp_cccn888_fill_colour_with_opacity(
-                                            (arm_2d_op_fill_cl_opc_t *)ptOP,
-                                            ptTarget,
-                                            ptRegion,
-                                            tColour,
-                                            chOpacity);
-    } else{
-        ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_msk_opc_t, ptOP);
+    ARM_2D_IMPL(arm_2d_op_alpha_fill_cl_msk_opc_t, ptOP);
 
-        //! valid alpha mask tile
-        if (0 == ptAlpha->bHasEnforcedColour) {
-            return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-        } else if ( (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ)
-               &&   (ARM_2D_CHANNEL_8in32 != ptAlpha->tColourInfo.chScheme)) {
-            return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
-        }
-
-        if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
-            return arm_fsm_rt_on_going;
-        }
-
-        //memset(ptThis, 0, sizeof(*ptThis));
-
-        OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_CCCN888;
-
-        this.Target.ptTile = ptTarget;
-        this.Target.ptRegion = ptRegion;
-        this.Mask.ptTile = ptAlpha;
-        this.wMode = 0;
-        this.wColour = tColour.tValue;
-        this.chOpacity = chOpacity;
-
-        return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+    //! valid alpha mask tile
+    if (0 == ptAlpha->bHasEnforcedColour) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
+    } else if ( (ARM_2D_COLOUR_SZ_8BIT != ptAlpha->tColourInfo.u3ColourSZ)
+           &&   (ARM_2D_CHANNEL_8in32 != ptAlpha->tColourInfo.chScheme)) {
+        return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
     }
+
+    if (!__arm_2d_op_acquire((arm_2d_op_core_t *)ptThis)) {
+        return arm_fsm_rt_on_going;
+    }
+
+    //memset(ptThis, 0, sizeof(*ptThis));
+
+    OP_CORE.ptOp = &ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_CCCN888;
+
+    this.Target.ptTile = ptTarget;
+    this.Target.ptRegion = ptRegion;
+    this.Mask.ptTile = ptAlpha;
+    this.wMode = 0;
+    this.wColour = tColour.tValue;
+    this.chOpacity = chOpacity;
+
+    return __arm_2d_op_invoke((arm_2d_op_core_t *)ptThis);
+
 }
 
 
@@ -2430,14 +2394,6 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_DES_MASK_CCCN888 = {
     },
 };
 
-
-
-
-#if defined(__clang__)
-#   pragma clang diagnostic pop
-#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
-#   pragma diag_warning 174,177,188,68,513,144
-#endif
 
 #ifdef   __cplusplus
 }

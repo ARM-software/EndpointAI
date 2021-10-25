@@ -359,7 +359,7 @@ extern "C" {
     do {                                                                        \
         uint32_t        rowCnt = 0;                                             \
                                                                                 \
-        pSourceBaseCur = pSourceBase;                                           \
+        pSourceBaseCur = (ARM_PIX_SCLTYP(sz) *)pSourceBase;                     \
                                                                                 \
         /* single source row loop */                                            \
         do {                                                                    \
@@ -443,7 +443,7 @@ extern "C" {
     do {                                                                        \
         uint32_t        rowCnt = 0;                                             \
                                                                                 \
-        pSourceBaseCur = pSourceBase;                                           \
+        pSourceBaseCur = (ARM_PIX_SCLTYP(sz) *)pSourceBase;                     \
                                                                                 \
         /* single source row loop */                                            \
         do {                                                                    \
@@ -526,7 +526,7 @@ extern "C" {
      *                  ........                                                \
      */                                                                         \
                                                                                 \
-    pSourceBaseCur = pSourceBase;                                               \
+    pSourceBaseCur = (ARM_PIX_SCLTYP(sz) *)pSourceBase;                         \
                                                                                 \
     /* copy 2 x 2 source image block */                                         \
     do {                                                                        \
@@ -577,7 +577,7 @@ extern "C" {
                                                                                 \
     for (int_fast16_t y = 0; y < ptDstCopySize->iHeight; y++) {                 \
         ARM_PIX_SCLTYP(sz)  *__RESTRICT pDst = pTarget;                         \
-        ARM_PIX_SCLTYP(sz)  *__RESTRICT pSrc = pSource;                         \
+        ARM_PIX_SCLTYP(sz)  *__RESTRICT pSrc = (ARM_PIX_SCLTYP(sz)  *)pSource;  \
         uint32_t             srcWidth = ptSrcCopySize->iWidth;                  \
         uint32_t             dstWidth = ptDstCopySize->iWidth;                  \
                                                                                 \

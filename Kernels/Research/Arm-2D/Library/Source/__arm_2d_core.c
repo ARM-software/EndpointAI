@@ -71,6 +71,8 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wswitch"
 #elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 174,177,188,68,513
+#elif defined(__IS_COMPILER_IAR__)
+#   pragma diag_suppress=Pa089
 #elif defined(__IS_COMPILER_GCC__)
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wenum-compare"
@@ -1502,6 +1504,8 @@ const __arm_2d_op_info_t ARM_2D_OP_BARRIER = {
 #   pragma clang diagnostic pop
 #elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_warning 174,177,188,68,513,144
+#elif defined(__IS_COMPILER_IAR__)
+#   pragma diag_warning=Pa089
 #elif defined(__IS_COMPILER_GCC__)
 #   pragma GCC diagnostic pop
 #endif

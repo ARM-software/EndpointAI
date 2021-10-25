@@ -29,6 +29,12 @@
   #error device not specified!
 #endif
 
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#endif
+
   #if defined (__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U)
     #include "partition_ARMCM55.h"
   #endif
@@ -92,3 +98,7 @@ __ISB();
   SystemCoreClock = SYSTEM_CLOCK;
   
 }
+
+#if defined(__clang__)
+#   pragma clang diagnostic pop
+#endif

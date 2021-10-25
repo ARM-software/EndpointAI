@@ -40,7 +40,6 @@ extern "C" {
 #endif
 
 #if defined(__clang__)
-#   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
 #   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
@@ -940,12 +939,6 @@ const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_RGB32 = {
         },
     },
 };
-
-#if defined(__clang__)
-#   pragma clang diagnostic pop
-#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
-#   pragma diag_warning 174,177,188,68,513,144
-#endif
 
 #ifdef   __cplusplus
 }
