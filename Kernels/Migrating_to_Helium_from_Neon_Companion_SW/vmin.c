@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        cmplx_dot.c
- * Description:  Floating-point complex dot product
+ * Project:      CMSIS DSP Library Extract
+ * Title:        vmin.c
+ * Description:  Minimum value of a floating-point vector
  *
  * $Date:        18. March 2019
  * $Revision:    V1.6.0
@@ -9,7 +9,7 @@
  * Target Processor: Cortex-M cores
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2020 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *

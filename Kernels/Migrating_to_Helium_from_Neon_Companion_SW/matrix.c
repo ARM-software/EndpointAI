@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        cmplx_dot.c
+ * Project:      CMSIS DSP Library Extract
+ * Title:        matrix.c
  * Description:  Floating-point complex dot product
  *
  * $Date:        18. March 2019
@@ -9,7 +9,7 @@
  * Target Processor: Cortex-M cores
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2020 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -28,6 +28,7 @@
 
 #include "matrix.h"
 
+/* index permutation table for 4x4 matrix transposition */
 static const uint8_t mat_4x4_transp_idx_u8[16] = {
     0, 4, 8, 12,
     1, 5, 9, 13,

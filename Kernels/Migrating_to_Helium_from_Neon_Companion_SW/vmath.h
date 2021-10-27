@@ -1,15 +1,15 @@
 /* ----------------------------------------------------------------------
- * Project:      mve vs neon conversion
- * Title:        opus_xcorr.h
- * Description:  opus xcorr sample to illustrate Neon to Helium comversion
+ * Project:      CMSIS DSP Library Extract
+ * Title:        vmath.h
+ * Description:  vectorized log/exp/sine implementations
  *
- * $Date:        Jul 2020
- * $Revision:    V.0.0.1
+ * $Date:        18. March 2019
+ * $Revision:    V1.6.0
  *
- * Target Processor: Cortex-M cores with MVE support
+ * Target Processor: Cortex-M cores
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2020 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *

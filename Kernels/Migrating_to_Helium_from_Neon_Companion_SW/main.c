@@ -1,3 +1,33 @@
+/* ----------------------------------------------------------------------
+ * Title:        main.c
+ * Description:  Test wrapper for the Helium Programmer's Guide:
+ *               Migrating to Helium from Neon
+ *               Code samples
+ *
+ * $Date:        Dec 2020
+ *
+ * $Revision:    V1.0.0
+ *
+ * Target Processor: Cortex-M and Cortex-A cores
+ * -------------------------------------------------------------------- */
+/*
+ * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the License); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #include <stdio.h>
 #include <stdint.h>
 #include "arm_math.h"
@@ -16,9 +46,9 @@
 
 
 #define FOREACH_TEST(TEST)                                 \
-                /*  0 */ TEST(xcorr_kernel_fx_scal)        \
-                /*  1 */ TEST(xcorr_kernel_fx_vec)         \
-                /*  2 */ TEST(xcorr_kernel_flt_vec)        \
+                /*  0 */ TEST(opus_xcorr_kernel_fx_scal)   \
+                /*  1 */ TEST(opus_xcorr_kernel_fx_vec)    \
+                /*  2 */ TEST(opus_xcorr_kernel_flt_vec)   \
                 /*  3 */ TEST(cmplx_dot_flt_vec)           \
                 /*  4 */ TEST(cmplx_dot_fx_vec)            \
                 /*  5 */ TEST(min_flt)                     \
@@ -29,9 +59,10 @@
                 /*  10 */ TEST(inv_flt)                    \
                 /*  11 */ TEST(mat_transp_flt)             \
                 /*  12 */ TEST(mat_transp_u8)              \
-                /*  11 */ TEST(vp10_avg_8x8)               \
-                /*  12 */ TEST(rgb2gray)                   \
-                /*  13 */ TEST(webrtc_aec_scal_err_sig)    \
+                /*  13 */ TEST(mat_mult4x4_flt)            \
+                /*  14 */ TEST(vp10_avg_8x8)               \
+                /*  15 */ TEST(rgb2gray)                   \
+                /*  16 */ TEST(webrtc_aec_scal_err_sig)    \
                 /* last */ TEST(last_test)
 
 #define GENERATE_ENUM(ENUM) ENUM,
@@ -246,7 +277,7 @@ int main(int argc, char **argv)
 
 
     switch (userInput0) {
-      case xcorr_kernel_fx_scal:
+      case opus_xcorr_kernel_fx_scal:
           {
               int32_t         len = userInput1;
               int16_t         a[userInput1 + 4];
@@ -265,7 +296,7 @@ int main(int argc, char **argv)
           }
           break;
 
-      case xcorr_kernel_fx_vec:
+      case opus_xcorr_kernel_fx_vec:
           {
               int32_t         len = userInput1;
               int16_t         a[userInput1 + 4];
@@ -292,7 +323,7 @@ int main(int argc, char **argv)
 
 
 
-      case xcorr_kernel_flt_vec:
+      case opus_xcorr_kernel_flt_vec:
           {
               float           len = userInput1;
               float           a[userInput1 + 4];
@@ -562,7 +593,30 @@ int main(int argc, char **argv)
           }
           break;
 
+      case mat_mult4x4_flt:
+          {
+              float32_t       a[4 * 4];
+              float32_t       b[4 * 4];
+              float32_t       c[4 * 4];
 
+              for (int i = 0; i < 4 * 4; ++i) {
+                  a[i] = i;
+                  b[i] = i;
+              }
+
+
+#if __ARM_FEATURE_NEON
+              mat_multiply_4x4_neon(a, b, c);
+#endif
+
+#if __ARM_FEATURE_MVE
+              mat_multiply_4x4_helium(a, b, c);
+#endif
+
+              if (dump)
+                  dump_buf(c, 16, 4, "%f");
+          }
+          break;
 
       case vp10_avg_8x8:
           {

@@ -2,7 +2,7 @@
 /* Copyright (c) 2014-2015 Xiph.Org Foundation */
 
 /* Helium version
- * Copyright (C) 2010-2020 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *

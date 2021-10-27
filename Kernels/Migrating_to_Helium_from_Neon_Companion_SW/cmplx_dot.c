@@ -1,15 +1,15 @@
 /* ----------------------------------------------------------------------
- * Project:      CMSIS DSP Library
- * Title:        cmplx_dot.c
- * Description:  Floating-point complex dot product
+ * Project:      CMSIS DSP Library Extract
+ * Title:        cmplx_dot.h
+ * Description:  Single Floating-point and Q.15 Fixed point complex dot products
  *
- * $Date:        18. March 2019
- * $Revision:    V1.6.0
+ * $Date:        Jul 2020
+ * $Revision:    V.0.0.1
  *
- * Target Processor: Cortex-M cores
+ * Target Processor: Cortex-M cores with MVE support
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2020 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -25,7 +25,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 #include "cmplx_dot.h"
 
 
