@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------
- * Project:      mve vs neon conversion
- * Title:        opus_xcorr.h
- * Description:  opus xcorr sample to illustrate Neon to Helium comversion
+ * Project:      CMSIS DSP Library Extract
+ * Title:        cmplx_dot.h
+ * Description:  Single Floating-point and Q.15 Fixed point complex dot products
  *
  * $Date:        Jul 2020
  * $Revision:    V.0.0.1
@@ -9,7 +9,7 @@
  * Target Processor: Cortex-M cores with MVE support
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2020 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *

@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------
  * Project:      mve vs neon conversion
- * Title:        opus_xcorr.h
- * Description:  opus xcorr sample to illustrate Neon to Helium comversion
+ * Title:        helium_neon_helpers.h
+ * Description:  misc. macros for illustrating neon to helium conversions
  *
  * $Date:        Jul 2020
  * $Revision:    V.0.0.1
@@ -9,7 +9,7 @@
  * Target Processor: Cortex-M cores with MVE support
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2020 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
