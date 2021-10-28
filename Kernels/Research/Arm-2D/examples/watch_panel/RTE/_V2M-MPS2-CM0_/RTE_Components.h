@@ -3,7 +3,7 @@
  * Auto generated Run-Time-Environment Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'gcc_watch_panel' 
+ * Project: 'watch_panel' 
  * Target:  'V2M-MPS2-CM0+' 
  */
 
@@ -14,7 +14,7 @@
 /*
  * Define the Device Header File: 
  */
-#define CMSIS_device_header "ARMCM0plus_MPU.h"
+#define CMSIS_device_header "CMSDK_CM0plus.h"
 
 
 

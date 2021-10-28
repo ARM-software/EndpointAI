@@ -40,7 +40,7 @@
 //#include "arm_2d/#include "arm_2d.h""
 
 /* Font definitions */
-typedef struct _GLCD_FONT {
+typedef struct {
         uint16_t width;         ///< Character width
         uint16_t height;        ///< Character height
         uint32_t offset;        ///< Character offset

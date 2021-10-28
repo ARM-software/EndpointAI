@@ -44,6 +44,12 @@
   #include "partition_IOTKit_CM33.h"
 #endif
 
+
+#if defined(__clang__)
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#endif
+
 extern void *__Vectors;                   /* see startup file */
 
 

@@ -23,7 +23,8 @@
 #include "example_gui.h"
 
 #if defined(__clang__)
-#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
 #   pragma clang diagnostic ignored "-Wpadded"
 #   pragma clang diagnostic ignored "-Wcast-qual"
@@ -36,7 +37,6 @@
 #   pragma clang diagnostic ignored "-Wdouble-promotion"
 #elif __IS_COMPILER_ARM_COMPILER_5__
 #elif __IS_COMPILER_GCC__
-#   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wformat="
 #   pragma GCC diagnostic ignored "-Wpedantic"
 #endif
@@ -304,9 +304,4 @@ int main (void)
         display_task();
     }
 }
-
-#if defined(__clang__)
-#   pragma clang diagnostic pop
-#endif
-
 

@@ -130,7 +130,11 @@ bool device_specific_init(void)
     return false;
 }
 
+#if __IS_COMPILER_IAR__
+__attribute__((used, constructor))
+#else
 __attribute__((used, constructor(101)))
+#endif
 void app_platform_init(void)
 {
     init_cycle_counter(device_specific_init());

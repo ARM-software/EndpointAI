@@ -28,6 +28,11 @@
   #error device not specified!
 #endif
 
+#if defined(__clang__)
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#endif
+
 /*----------------------------------------------------------------------------
   External References
  *----------------------------------------------------------------------------*/

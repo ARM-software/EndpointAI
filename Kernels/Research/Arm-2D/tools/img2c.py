@@ -44,8 +44,12 @@ hdr="""
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
 #   pragma clang diagnostic ignored "-Wcast-qual"
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
+#   pragma diag_suppress=1296
 #endif
 
 """
@@ -163,6 +167,8 @@ tail="""
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
+#   pragma diag_warning=1296
 #endif
 
 """

@@ -24,7 +24,8 @@
 #include <math.h>
 
 #if defined(__clang__)
-#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
 #   pragma clang diagnostic ignored "-Wpadded"
 #   pragma clang diagnostic ignored "-Wcast-qual"
@@ -36,7 +37,6 @@
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
 #elif defined(__IS_COMPILER_GCC__)
-#   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wmissing-braces"
 #   pragma GCC diagnostic ignored "-Wunused-value"
 #endif
@@ -364,9 +364,3 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 
 }
 
-
-#if     defined(__clang__)
-#   pragma clang diagnostic pop
-#elif   defined(__IS_COMPILER_GCC__)
-#   pragma GCC diagnostic pop
-#endif

@@ -22,7 +22,7 @@
 /*============================ INCLUDES ======================================*/
 #include <assert.h>
 
-#if !defined(__GNUC__)
+#if !defined(__GNUC__) && !defined(__IAR_SYSTEMS_ICC__)
 #   error This demo requires GNU extensions
 #endif
 

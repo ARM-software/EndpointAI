@@ -54,7 +54,9 @@ const arm_2d_tile_t c_tileWhiteDot;
 extern
 const arm_2d_tile_t c_tileWhiteDotAlpha;
 /*============================ PROTOTYPES ====================================*/
+#if !defined(__IS_COMPILER_IAR__)
 __attribute__((nothrow)) 
+#endif
 extern int64_t clock(void);
 
 /*============================ LOCAL VARIABLES ===============================*/

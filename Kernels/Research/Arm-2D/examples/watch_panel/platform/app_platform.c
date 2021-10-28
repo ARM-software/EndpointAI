@@ -27,6 +27,8 @@
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
 #   pragma clang diagnostic ignored "-Wformat-nonliteral"
 #   pragma clang diagnostic ignored "-Wsign-compare"
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
@@ -78,9 +80,6 @@ void SysTick_Handler(void)
     if (s_wDelayCounter) {
         s_wDelayCounter--;
     }
-#if defined(__IS_COMPILER_GCC__)
-    user_code_insert_to_systick_handler();
-#endif
 }
 #endif
 

@@ -52,8 +52,6 @@
 /*============================ PROTOTYPES ====================================*/
 /*============================ LOCAL VARIABLES ===============================*/
 
-
-extern const uint8_t c_bmpWhiteDot[19*20*sizeof(uint16_t)];
 extern const arm_2d_tile_t c_tPictureWhiteDot;
 
 
