@@ -472,7 +472,7 @@ static inline float32x4_t vdiv_helium_f32( float32x4_t num, float32x4_t den)
 static inline float32x4_t vsqrtq_helium_f32( float32x4_t in)
 {
     float32x4_t         dst;
-    
+
     dst = vinvsqrtq_helium_f32_neon_like(in);
     dst = vdupq_m_n_f32(dst, 0.0f, vcmpeqq_n_f32(in, 0.0f));
     dst = vmulq_f32(dst, in);
@@ -491,7 +491,7 @@ static inline float32x4_t vsqrtq_helium_f32( float32x4_t in)
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-void ScaleErrorSignalHELIUM_partial( float * aecxPow, float ef[2][PART_LEN1]) 
+void ScaleErrorSignalHELIUM_partial( float * aecxPow, float ef[2][PART_LEN1])
 {
   const float mu = 1.0f;
   const float error_threshold = 1e-5f;
@@ -510,7 +510,7 @@ void ScaleErrorSignalHELIUM_partial( float * aecxPow, float ef[2][PART_LEN1])
     const float32x4_t ef_re2 = vmulq_f32(ef_re, ef_re);
     const float32x4_t ef_sum2 = vfmaq_f32(ef_re2, ef_im, ef_im);
     const float32x4_t absEf = vsqrtq_helium_f32(ef_sum2);
-    mve_pred16_t bigger_pred = vcmpgtq_f32(absEf, kThresh); 
+    mve_pred16_t bigger_pred = vcmpgtq_f32(absEf, kThresh);
     const uint32x4_t bigger_mask = vpselq_u32(vdupq_n_u32(0xffffffff), vdupq_n_u32(0), bigger_pred);
     const float32x4_t absEfPlus = vaddq_f32(absEf, k1e_10f);
     const float32x4_t absEfInv = vdiv_helium_f32(kThresh, absEfPlus);
@@ -668,8 +668,51 @@ float32x4_t vinvq_neon_f32(float32x4_t x)
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
- 
-void ScaleErrorSignalNEON_partial( float * aecxPow, float ef[2][PART_LEN1]) 
+
+
+ #if !defined (__aarch64)
+static float32x4_t vdivq_f32(float32x4_t a, float32x4_t b) {
+  int i;
+  float32x4_t x = vrecpeq_f32(b);
+  // from arm documentation
+  // The Newton-Raphson iteration:
+  //     x[n+1] = x[n] * (2 - d * x[n])
+  // converges to (1/d) if x0 is the result of VRECPE applied to d.
+  //
+  // Note: The precision did not improve after 2 iterations.
+  for (i = 0; i < 2; i++) {
+    x = vmulq_f32(vrecpsq_f32(b, x), x);
+  }
+  // a/b = a*(1/b)
+  return vmulq_f32(a, x);
+}
+static float32x4_t vsqrtq_f32(float32x4_t s) {
+  int i;
+  float32x4_t x = vrsqrteq_f32(s);
+  // Code to handle sqrt(0).
+  // If the input to sqrtf() is zero, a zero will be returned.
+  // If the input to vrsqrteq_f32() is zero, positive infinity is returned.
+  const uint32x4_t vec_p_inf = vdupq_n_u32(0x7F800000);
+  // check for divide by zero
+  const uint32x4_t div_by_zero = vceqq_u32(vec_p_inf, vreinterpretq_u32_f32(x));
+  // zero out the positive infinity results
+  x = vreinterpretq_f32_u32(vandq_u32(vmvnq_u32(div_by_zero),
+                                      vreinterpretq_u32_f32(x)));
+  // from arm documentation
+  // The Newton-Raphson iteration:
+  //     x[n+1] = x[n] * (3 - d * (x[n] * x[n])) / 2)
+  // converges to (1/�??d) if x0 is the result of VRSQRTE applied to d.
+  //
+  // Note: The precision did not improve after 2 iterations.
+  for (i = 0; i < 2; i++) {
+    x = vmulq_f32(vrsqrtsq_f32(vmulq_f32(x, x), s), x);
+  }
+  // sqrt(s) = s * 1/sqrt(s)
+  return vmulq_f32(s, x);;
+}
+#endif  //
+
+void ScaleErrorSignalNEON_partial( float * aecxPow, float ef[2][PART_LEN1])
 {
   const float mu = 1.0f;
   const float error_threshold = 1e-5f;
