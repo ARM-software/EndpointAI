@@ -51,6 +51,14 @@ extern "C" {
 #endif
 
 /*============================ MACROS ========================================*/
+
+//! \name arm-2d version
+//! @{
+#define ARM_2D_VERSION_MAJOR        0
+#define ARM_2D_VERSION_MINOR        9
+#define ARM_2D_VERSION_PATCH        10     
+//! @}
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 
@@ -60,10 +68,20 @@ typedef struct {
     uint8_t                                             : 6;
 } arm_2d_runtime_feature_t;
 
+typedef struct {
+    uint8_t     Major;
+    uint8_t     Minor;
+    uint8_t     Patch;
+    uint8_t                 : 8;
+} arm_2d_version_t;
+
 /*============================ GLOBAL VARIABLES ==============================*/
 
 extern
 arm_2d_runtime_feature_t ARM_2D_RUNTIME_FEATURE;
+
+extern 
+const arm_2d_version_t ARM_2D_VERSION;
 
 /*============================ PROTOTYPES ====================================*/
 

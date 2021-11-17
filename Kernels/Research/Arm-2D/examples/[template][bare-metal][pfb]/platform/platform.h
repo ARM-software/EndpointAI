@@ -35,10 +35,7 @@
 #include "lcd_printf.h"
 
 //#include "Device.h"                     // Keil::Board Support:V2M-MPS2:Common
-
-#if !__IS_COMPILER_IAR__
-#   include "RTE_Components.h"             // Component selection
-#endif
+#include "RTE_Components.h"             // Component selection
 //#include "Board_LED.h"                  // ::Board Support:LED
 //#include "Board_Buttons.h"              // ::Board Support:Buttons
 //#include "Board_Touch.h"                // ::Board Support:Touchscreen

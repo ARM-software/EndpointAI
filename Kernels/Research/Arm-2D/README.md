@@ -71,7 +71,7 @@ Following features are planned and to be introduced in the near future:
 
 ### 1.1 The Background
 
-With more and more smart IoT edge devices introduced to our daily lives, people who are used to the smart-phone like graphic user interfaces (GUIs) want to have the same modernized user experience even when using micro-controller-based products. This trend has been long observed and understood by Arm's eco-partners. 
+With more and more smart IoT edge devices introduced to our daily lives, people who are used to the smart-phone like graphic user interfaces (GUIs) want to have the similar modernized user experience even when using microcontroller-based products. This trend has been long observed and understood by Arm's eco-partners. 
 
 As a result, many silicon vendors introduce dedicated hardware accelerators into their microcontroller products to help 2D image processing. Meanwhile, GUI service providers also update their product lines to target micro-controller based graphic user interface applications. Many open-source embedded GUI stacks are hot on GitHub, e.g. [LVGL](https://lvgl.io/). 
 
@@ -79,7 +79,7 @@ In fact, using GUI with microcontrollers isn't new at all. Still, until the rece
 
 On the other hand, seemingly complicated graphical interfaces often only require simple texture paving. Even the so-called transparency effects are not unaffordable for microcontrollers that often run under tens of MHz or even hundreds of MHz. 
 
-Technologies used for 2D graphics have been matured as early as the era of 8-bit Gaming Console. As 8-bit 6502 can achieve fancy graphics effects, why can't the most advanced Cortex-M processor of the day?
+Technologies used for 2D graphics have been matured as early as the era of 8-bit Gaming Console. Since 8-bit 6502 can achieve fancy graphics effects, why can't the most advanced Cortex-M processor of the day?
 
 **Figure 1-1  2D Technologies used in Super-Mario-Brothers on NES** 
 

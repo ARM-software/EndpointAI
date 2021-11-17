@@ -91,7 +91,7 @@ void SystemInit (void)
 #endif
 
 // Enable Loop and branch info cache
-SCB->CCR |= SCB_CCR_LOB_Msk;
+SCB->CCR |= SCB_CCR_LOB_Msk | (1<<18);
 __ISB();
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)

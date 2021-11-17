@@ -643,7 +643,7 @@
         </Mm>
       </MemoryWindow4>
       <ScvdPack>
-        <Filename>C:\Work\CPMK\Git\CMSIS_5\CMSIS\RTOS2\RTX\RTX5.scvd</Filename>
+        <Filename>C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\RTX5.scvd</Filename>
         <Type>ARM.CMSIS.5.8.0</Type>
         <SubType>1</SubType>
       </ScvdPack>
@@ -2580,334 +2580,14 @@
   </Group>
 
   <Group>
-    <GroupName>arm-2d </GroupName>
-    <tvExp>1</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>17</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>18</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_alpha_blending.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_alpha_blending.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>19</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_async.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_async.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>20</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_conversion.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_conversion.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>21</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_draw.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_draw.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>22</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_helium.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_helium.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>23</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\__arm_2d_impl.h</PathWithFileName>
-      <FilenameWithoutPath>__arm_2d_impl.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>24</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\__arm_2d_paving.h</PathWithFileName>
-      <FilenameWithoutPath>__arm_2d_paving.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>25</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\__arm_2d_paving_helium.h</PathWithFileName>
-      <FilenameWithoutPath>__arm_2d_paving_helium.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>26</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d.h</PathWithFileName>
-      <FilenameWithoutPath>arm_2d.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>27</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_alpha_blending.h</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_alpha_blending.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>28</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_conversion.h</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_conversion.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>29</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_draw.h</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_draw.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>30</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_features.h</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_features.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>31</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_tile.h</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_tile.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>32</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_types.h</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_types.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>33</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_utils.h</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_utils.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>34</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\__arm_2d_alpha_blending.inc</PathWithFileName>
-      <FilenameWithoutPath>__arm_2d_alpha_blending.inc</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>35</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\__arm_2d_copy.inc</PathWithFileName>
-      <FilenameWithoutPath>__arm_2d_copy.inc</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>36</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\__arm_2d_draw_pattern.inc</PathWithFileName>
-      <FilenameWithoutPath>__arm_2d_draw_pattern.inc</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>37</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\__arm_2d_fill_colour.inc</PathWithFileName>
-      <FilenameWithoutPath>__arm_2d_fill_colour.inc</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>38</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Include\arm_2d_rotation.h</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_rotation.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>39</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\arm_2d_rotation.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_rotation.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>40</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\__arm_2d_core.c</PathWithFileName>
-      <FilenameWithoutPath>__arm_2d_core.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>41</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\__arm_2d_tile.c</PathWithFileName>
-      <FilenameWithoutPath>__arm_2d_tile.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>42</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Library\Source\__arm_2d_meta_copy_and_fill.inc</PathWithFileName>
-      <FilenameWithoutPath>__arm_2d_meta_copy_and_fill.inc</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-  </Group>
-
-  <Group>
     <GroupName>bsp_mps2</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>43</FileNumber>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>17</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2918,8 +2598,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>44</FileNumber>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>18</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2930,8 +2610,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>45</FileNumber>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>19</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2942,8 +2622,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>46</FileNumber>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>20</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2962,8 +2642,8 @@
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>47</FileNumber>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>21</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2974,8 +2654,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>48</FileNumber>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>22</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2986,8 +2666,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>49</FileNumber>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>23</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2998,8 +2678,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>50</FileNumber>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>24</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -3018,8 +2698,8 @@
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>51</FileNumber>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>25</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -3030,8 +2710,8 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>52</FileNumber>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>26</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -3042,58 +2722,14 @@
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>8</GroupNumber>
-      <FileNumber>53</FileNumber>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>27</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</PathWithFileName>
       <FilenameWithoutPath>platform_stm32f746g_discovery.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-  </Group>
-
-  <Group>
-    <GroupName>arm-2d-helper</GroupName>
-    <tvExp>1</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
-    <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>54</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Helper\Include\arm_2d_helper.h</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_helper.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>55</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Helper\Include\arm_2d_helper_pfb.h</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_helper_pfb.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>56</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Helper\Source\arm_2d_helper_pfb.c</PathWithFileName>
-      <FilenameWithoutPath>arm_2d_helper_pfb.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -3133,6 +2769,14 @@
 
   <Group>
     <GroupName>::Device</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>1</RteFlg>
+  </Group>
+
+  <Group>
+    <GroupName>::Graphics</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>

@@ -4386,7 +4386,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
+              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -7527,7 +7527,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Wno-nonportable-include-path -Omax</MiscControls>
-              <Define>__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
+              <Define>NDEBUG,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;..\..\Library\Include;.;.\platform\stm32f746g-discovery;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -9598,7 +9598,7 @@
           <Cads>
             <interw>1</interw>
             <Optim>4</Optim>
-            <oTime>0</oTime>
+            <oTime>1</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
             <Strict>0</Strict>
@@ -9621,7 +9621,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
+              <Define>NDEBUG,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;..\..\Library\Include;.;.\platform\stm32f746g-discovery;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -10927,6 +10927,12 @@
           <targetInfo name="STM32F746G-Discovery"/>
           <targetInfo name="STM32F746G-Discovery-AC5"/>
         </targetInfos>
+      </file>
+      <file attr="config" category="preIncludeLocal" name="Library\Include\template\arm_2d_cfg.h" version="1.0.0">
+        <instance index="0" removed="1">RTE\Graphics\arm_2d_cfg.h</instance>
+        <component Cclass="Graphics" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="0.9.10" condition="CMSIS-CORE"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="0.9.10"/>
+        <targetInfos/>
       </file>
     </files>
   </RTE>

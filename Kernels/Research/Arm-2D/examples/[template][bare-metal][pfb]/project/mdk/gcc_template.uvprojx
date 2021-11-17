@@ -244,7 +244,7 @@
               <MiscControls>-Os -fdata-sections -ffunction-sections -fms-extensions -mcpu=cortex-m7 -mfloat-abi=soft -mfpu=fpv5-sp-d16 -std=gnu11</MiscControls>
               <Define>RTE_Compiler_IO_STDOUT_User</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\platform;..\..\..\..\Library\Include;..\..\platform\stm32f746g-discovery;..\..\;..\..\..\..\Helper\Include;..\..\platform\lib</IncludePath>
+              <IncludePath>..\..\platform;..\..\platform\stm32f746g-discovery;..\..\;..\..\platform\lib</IncludePath>
             </VariousControls>
           </Carm>
           <Aarm>
@@ -365,156 +365,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Arm-2D</GroupName>
-          <Files>
-            <File>
-              <FileName>__arm_2d_impl.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Include\__arm_2d_impl.h</FilePath>
-            </File>
-            <File>
-              <FileName>__arm_2d_paving.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Include\__arm_2d_paving.h</FilePath>
-            </File>
-            <File>
-              <FileName>__arm_2d_paving_helium.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Include\__arm_2d_paving_helium.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Include\arm_2d.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_alpha_blending.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Include\arm_2d_alpha_blending.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_conversion.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Include\arm_2d_conversion.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_draw.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Include\arm_2d_draw.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_features.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Include\arm_2d_features.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_tile.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Include\arm_2d_tile.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_types.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Include\arm_2d_types.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_utils.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Include\arm_2d_utils.h</FilePath>
-            </File>
-            <File>
-              <FileName>__arm_2d_alpha_blending.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
-            </File>
-            <File>
-              <FileName>__arm_2d_copy.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Source\__arm_2d_copy.inc</FilePath>
-            </File>
-            <File>
-              <FileName>__arm_2d_draw_pattern.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Source\__arm_2d_draw_pattern.inc</FilePath>
-            </File>
-            <File>
-              <FileName>__arm_2d_fill_colour.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Source\__arm_2d_fill_colour.inc</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\Source\arm_2d.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_alpha_blending.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\Source\arm_2d_alpha_blending.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_async.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\Source\arm_2d_async.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_conversion.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\Source\arm_2d_conversion.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_draw.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\Source\arm_2d_draw.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_helium.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\Source\arm_2d_helium.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\Source\arm_2d_rotation.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Library\Include\arm_2d_rotation.h</FilePath>
-            </File>
-            <File>
-              <FileName>__arm_2d_tile.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\Source\__arm_2d_tile.c</FilePath>
-            </File>
-            <File>
-              <FileName>__arm_2d_core.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\Source\__arm_2d_core.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Arm-2D-Helper</GroupName>
-          <Files>
-            <File>
-              <FileName>arm_2d_helper_pfb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Helper\Source\arm_2d_helper_pfb.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_helper_pfb.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Helper\Include\arm_2d_helper_pfb.h</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_helper.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\..\Helper\Include\arm_2d_helper.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Control</GroupName>
           <Files>
             <File>
@@ -556,6 +406,9 @@
         <Group>
           <GroupName>::Device</GroupName>
         </Group>
+        <Group>
+          <GroupName>::Graphics</GroupName>
+        </Group>
       </Groups>
     </Target>
   </Targets>
@@ -594,6 +447,24 @@
               <MiscControls>-Ofast -w -fdata-sections -ffunction-sections</MiscControls>
             </c>
           </targetInfo>
+        </targetInfos>
+      </component>
+      <component Cclass="Graphics" Cgroup="Arm-2D Helper" Csub="PFB" Cvendor="Arm" Cversion="0.9.10" condition="Arm-2D-CORE">
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="0.9.10"/>
+        <targetInfos>
+          <targetInfo name="STM32F746G-Discovery-GCC"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Graphics" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="0.9.10" condition="CMSIS-CORE">
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="0.9.10"/>
+        <targetInfos>
+          <targetInfo name="STM32F746G-Discovery-GCC"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Graphics" Cgroup="Arm-2D" Csub="Rotation" Cvendor="Arm" Cversion="0.9.10" condition="Arm-2D-CORE">
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="0.9.10"/>
+        <targetInfos>
+          <targetInfo name="STM32F746G-Discovery-GCC"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32F746G-Discovery" Cclass="Board Support" Cgroup="Drivers" Csub="SDRAM" Cvendor="Keil" Cversion="1.1.1" condition="STM32F746G-Discovery BSP SDRAM">
@@ -748,6 +619,14 @@
         <package name="STM32F7xx_DFP" schemaVersion="1.7.1" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
         <targetInfos>
           <targetInfo excluded="1" name="STM32F746G-Discovery-GCC"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="preIncludeLocal" name="Library\Include\template\arm_2d_cfg.h" version="0.0.0">
+        <instance index="0">RTE\Graphics\arm_2d_cfg.h</instance>
+        <component Cclass="Graphics" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="0.9.10" condition="CMSIS-CORE"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="0.9.10"/>
+        <targetInfos>
+          <targetInfo name="STM32F746G-Discovery-GCC"/>
         </targetInfos>
       </file>
     </files>

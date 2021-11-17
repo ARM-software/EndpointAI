@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the APIs for colour space
  *               conversions
  *
- * $Date:        22. February 2021
- * $Revision:    V.0.5.0
+ * $Date:        16. Nov 2021
+ * $Revision:    V.1.0.0
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -216,6 +216,7 @@ __STATIC_INLINE void arm_2d_c8bit_draw_point_fast(
                                             const arm_2d_location_t tLocation,
                                             uint_fast8_t chColour)
 {
+    assert(NULL != ptTarget);
     assert(ptTarget->bIsRoot);          //!< must be root tile
     assert(tLocation.iX < ptTarget->tRegion.tSize.iWidth);
     assert(tLocation.iY < ptTarget->tRegion.tSize.iHeight);
@@ -232,6 +233,7 @@ __STATIC_INLINE void arm_2d_rgb16_draw_point_fast(
                                             const arm_2d_location_t tLocation,
                                             uint_fast16_t hwColour)
 {
+    assert(NULL != ptTarget);
     assert(ptTarget->bIsRoot);          //!< must be root tile
     assert(tLocation.iX < ptTarget->tRegion.tSize.iWidth);
     assert(tLocation.iY < ptTarget->tRegion.tSize.iHeight);
@@ -248,6 +250,7 @@ __STATIC_INLINE void arm_2d_rgb32_draw_point_fast(
                                             const arm_2d_location_t tLocation,
                                             uint32_t wColour)
 {
+    assert(NULL != ptTarget);
     assert(ptTarget->bIsRoot);          //!< must be root tile
     assert(tLocation.iX < ptTarget->tRegion.tSize.iWidth);
     assert(tLocation.iY < ptTarget->tRegion.tSize.iHeight);

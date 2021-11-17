@@ -16,6 +16,8 @@
  */
 #define CMSIS_device_header "SSE300MPS3.h"
 
+/* ARM::Device:Startup:BL2:1.1.0 */
+#define BL2
 
 
 #endif /* RTE_COMPONENTS_H */
