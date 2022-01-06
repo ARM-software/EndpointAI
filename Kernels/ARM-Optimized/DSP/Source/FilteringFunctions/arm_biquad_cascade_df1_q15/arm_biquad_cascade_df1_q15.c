@@ -137,14 +137,14 @@ void arm_biquad_cascade_df1_q15_mve(
 
 
             /* load a2 */
-            "   ldrh                   r9, [r8, #(5*2)]               \n"
+            "  ldrh                    r9, [r8, #(5*2)]               \n"
             "  vmov.s16                coeff0[6], r9                  \n"
             "  vmov.s16                coeff1[7], r9                  \n"
             "  vmov.s16                coeff2[6], r9                  \n"
             "  vmov.s16                coeff3[7], r9                  \n"
 
             /* load a1 */
-            "   ldrh                   r9, [r8, #(4*2)]               \n"
+            "  ldrh                    r9, [r8, #(4*2)]               \n"
             "  vmov.s16                coeff0[7], r9                  \n"
             "  vmov.s16                coeff1[6], r9                  \n"
             "  vmov.s16                coeff2[7], r9                  \n"
@@ -263,7 +263,7 @@ void arm_biquad_cascade_df1_q15_mve(
             "   cmp                    r0, #4                         \n"
             "   blt                    remlt4_%=                      \n"
 
-            /* handle last chunk        of 4 samples */
+            /* handle last chunk of 4 samples */
             "   vmov.s16               q0[7], r11                     \n"
             "   vmlaldav.s16           r8, r9, q0, coeff0             \n"
             /* store 2 elts */
@@ -400,7 +400,7 @@ void arm_biquad_cascade_df1_q15_mve(
     while (--stages);
 
 #else
-    /* CMSIS DSP intrinsic reference */
+    /* CMSIS DSP MVE intrinsic reference */
 
     do {
         q15x8_t         bCoeffs0, bCoeffs1, bCoeffs2, bCoeffs3;     /*  Coefficients vector           */

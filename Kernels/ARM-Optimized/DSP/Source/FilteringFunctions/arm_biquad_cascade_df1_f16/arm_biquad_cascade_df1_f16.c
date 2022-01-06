@@ -45,7 +45,7 @@
 /**
   @brief         Processing function for the floating-point Biquad cascade filter.
   @param[in]     S         points to an instance of the floating-point Biquad cascade structure
-  @param[in]     pSrc      points to the block of input data
+  @param[in]     pSrc      points to the block of input data (32-bit aligned)
   @param[out]    pDst      points to the block of output data
   @param[in]     blockSize  number of samples to process.
   @return        none
@@ -97,10 +97,12 @@ void arm_biquad_cascade_df1_f16_mve(
 
 
             /* main biquad loop */
+            /* process 8 samples per loop */
+
             /* 1st coef preloaded to avoid structural hazard  */
             /* after input samples loading */
             ".p2align 2                                             \n"
-            "   wlstp.16            lr, %[cnt], 1f                 \n"
+            "   wlstp.16            lr, %[cnt], 1f                  \n"
             "   vldrh.16            q2, [%[coefs], 16]              \n"
             "2:                                                     \n"
             /* load 4 x packed inputs                   */
@@ -218,7 +220,7 @@ void arm_biquad_cascade_df1_f16_mve(
             "   b                   cont                            \n"
 
             "rem0 :                                                 \n"
-            /* save state (blockSize multiple of 8)*/
+            /* save {Yn1, Yn2} 16-bit vector elts */
             "   strh                Yn1, [%[state]], #2             \n"
             "   strh                Yn2, [%[state]], #2             \n"
 

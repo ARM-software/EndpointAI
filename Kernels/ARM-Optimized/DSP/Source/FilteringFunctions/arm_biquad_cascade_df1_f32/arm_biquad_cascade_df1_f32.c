@@ -217,6 +217,7 @@ void arm_biquad_cascade_df1_f32_mve(
             "   strd                r8, r9, [%[scratch],#4]         \n"
 
             /* main biquad loop */
+            /* process 4 samples per loop */
 
             /* 1st coef preloaded to avoid structural hazard  */
             /* after input samples loading */
