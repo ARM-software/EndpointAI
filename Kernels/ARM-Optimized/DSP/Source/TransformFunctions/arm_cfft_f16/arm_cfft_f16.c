@@ -6,13 +6,13 @@
  *               This version allows boosting CFFT F16 performance when using compilers having suboptimal
  *               Helium intrinsic code generation.
  *
- * $Date:        Nov 2021
- * $Revision:    V1.0.0
+ * $Date:        Jan 2022
+ * $Revision:    V1.0.1
  *
  * Target Processor: Cortex-M with Helium
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -45,7 +45,8 @@
  * Floating point multiplication, 1st elt conjugated
  * Qd = Qn' * Qm
  */
-
+#undef cmplx_fx_mul_r_
+#undef cmplx_fx_mul_i_
 #define cmplx_flt_mul_r_conj(qd, qn, qm) " vcmul.f16    " #qd "," #qn "," #qm ", #0 \n"
 #define cmplx_flt_mul_i_conj(qd, qn, qm) " vcmla.f16    " #qd "," #qn "," #qm ", #270 \n"
 
@@ -53,6 +54,8 @@
  * Floating point multiplication
  * Qd = Qn * Qm
  */
+#undef cmplx_fx_mul_r_
+#undef cmplx_fx_mul_i_
 #define cmplx_flt_mul_r_(qd, qn, qm)    " vcmul.f16    " #qd "," #qn "," #qm ", #0 \n"
 #define cmplx_flt_mul_i_(qd, qn, qm)    " vcmla.f16    " #qd "," #qn "," #qm ", #90 \n"
 
@@ -80,7 +83,7 @@
 
 
 
-static void arm_bitreversal_16_inpl_mve_asm(
+static void arm_bitreversal_f16_inpl_mve_asm(
         uint16_t *pSrc,
   const uint16_t bitRevLen,
   const uint16_t *pBitRevTab)
@@ -963,7 +966,7 @@ void arm_cfft_f16_mve(
         if (bitReverseFlag)
         {
 #ifdef USE_ASM
-            arm_bitreversal_16_inpl_mve_asm((uint16_t*)pSrc, S->bitRevLength, S->pBitRevTable);
+            arm_bitreversal_f16_inpl_mve_asm((uint16_t*)pSrc, S->bitRevLength, S->pBitRevTable);
 #else
             arm_bitreversal_16_inpl_mve((uint16_t*)pSrc, S->bitRevLength, S->pBitRevTable);
 #endif

@@ -95,6 +95,15 @@ __asm volatile (                                                \
     "   ldrh           C8n_6, [%[pCoeffs]], #2             \n"  \
     "   ldrh           C8n_7, [%[pCoeffs]], #2             \n"
 
+#define FIR_F16_FORGET_8_COEFS()                                \
+    " .unreq C8n_0                                         \n"  \
+    " .unreq C8n_1                                         \n"  \
+    " .unreq C8n_2                                         \n"  \
+    " .unreq C8n_3                                         \n"  \
+    " .unreq C8n_4                                         \n"  \
+    " .unreq C8n_5                                         \n"  \
+    " .unreq C8n_6                                         \n"  \
+    " .unreq C8n_7                                         \n"  \
 
 #define FIR_F16_LOAD_4_COEFS(pCoeffs)                           \
     "C4n_0   .req   r2                                     \n"  \
@@ -107,6 +116,12 @@ __asm volatile (                                                \
     "   ldrh           C4n_2, [%[pCoeffs],#4]              \n"  \
     "   ldrh           C4n_3, [%[pCoeffs],#6]              \n"
 
+
+#define FIR_F16_FORGET_4_COEFS(pCoeffs)                         \
+    " .unreq C4n_0                                         \n"  \
+    " .unreq C4n_1                                         \n"  \
+    " .unreq C4n_2                                         \n"  \
+    " .unreq C4n_3                                         \n"  \
 
 
 /* block filter 8 samples with 4 taps */
@@ -180,6 +195,8 @@ __STATIC_INLINE void arm_fir_f16_1_4_mve(const arm_fir_instance_f16 * S,
         /* low overhead loop end */
         "1:                                                                \n"
 
+        FIR_F16_FORGET_4_COEFS()
+
        :[pSamples] "+r"(pSamples),[pOutput] "+r"(pOutput)
        :[cnt] "r"(blockSize), [pCoeffs] "r"(pCoeffs)
        :"q0", "q1",
@@ -233,6 +250,8 @@ __STATIC_INLINE void arm_fir_f16_5_8_mve(const arm_fir_instance_f16 * S,
         "   letp                lr, 2b                              \n"
         /* low overhead loop end */
         "1:                                                         \n"
+
+        FIR_F16_FORGET_8_COEFS()
 
        :[pSamples] "+r"(pSamples),[pOutput] "+r"(pOutput),
         [pCoeffs] "+r"(pCoeffs)
@@ -317,6 +336,8 @@ void arm_fir_f16_mve(const arm_fir_instance_f16 * S,
         /* low overhead loop end */
         "1:                                                             \n"
 
+        FIR_F16_FORGET_8_COEFS()
+
        :[pSamples] "+r"(pSamples),[partial_accu_ptr] "+r"(partial_accu_ptr),
         [pCoeffs] "+r"(pCoeffs)
        :[cnt] "r"(blockSize)
@@ -366,6 +387,8 @@ void arm_fir_f16_mve(const arm_fir_instance_f16 * S,
 
                 /* low overhead loop end */
                 "1:                                                             \n"
+
+                FIR_F16_FORGET_8_COEFS()
 
                 :[pSamples] "+r"(pSamples),[partial_accu_ptr] "+r"(partial_accu_ptr),
                 [pCoeffs] "+r"(pCoeffs)
@@ -420,6 +443,8 @@ void arm_fir_f16_mve(const arm_fir_instance_f16 * S,
                 /* low overhead loop end */
                 "1:                                                          \n"
 
+                FIR_F16_FORGET_8_COEFS()
+
                :[pSamples] "+r"(pSamples),[partial_accu_ptr] "+r"(partial_accu_ptr),
                 [pOutput] "+r"(pOutput), [count] "+r" (count), [pCoeffs] "+r"(pCoeffs)
                :
@@ -459,6 +484,8 @@ void arm_fir_f16_mve(const arm_fir_instance_f16 * S,
 
                 /* low overhead loop end */
                 "1:                                                          \n"
+
+                FIR_F16_FORGET_4_COEFS()
 
             :[pSamples] "+r"(pSamples),[partial_accu_ptr] "+r"(partial_accu_ptr),
             [pOutput] "+r"(pOutput), [count] "+r" (count)

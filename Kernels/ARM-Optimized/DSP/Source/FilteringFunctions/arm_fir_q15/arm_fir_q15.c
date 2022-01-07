@@ -122,6 +122,15 @@ __asm volatile (                                                \
                                                                      \
         "   vldrh.16        coef0_7, ["#coefPtr"]              \n"
 
+#define FIR_Q15_FORGET_COEFS(coefPtr)                                \
+        ".unreq coef0_7                                        \n"   \
+        ".unreq coef8_15                                       \n"   \
+        ".unreq coef16_23                                      \n"   \
+        ".unreq coef24_31                                      \n"   \
+        ".unreq coef32_39                                      \n"   \
+        ".unreq coef40_47                                      \n"   \
+        ".unreq coef48_55                                      \n"   \
+        ".unreq "#coefPtr"                                     \n"
 
 #define FIR_Q15_LOAD_16_COEFS(coefPtr)                               \
         FIR_Q15_LOAD_8_COEFS(coefPtr)                                \
@@ -380,6 +389,7 @@ __asm volatile (                                                \
         "   le              lr, 2b                                     \n"                  \
         "1:                                                            \n"                  \
                                                                                             \
+        FIR_Q15_FORGET_COEFS(coefPtr)                                                       \
     : [pSamples] "+r" (pSamples), [pOutput] "+r" (pOutput),                                 \
       [pTempSrc] "+r" (pTempSrc),[pTempDest] "+r" (pTempDest),                              \
       [acc0] "=&r"(acc0),[acc1] "=&r"(acc1),                                                \
@@ -525,6 +535,7 @@ static void arm_fir_q15_gt_56_mve(const arm_fir_instance_q15 * S,
         "   le              lr, 2b                                  \n"
         "1:                                                         \n"
 
+        FIR_Q15_FORGET_COEFS(coefPtr)
     : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
       [acc0] "=&r"(acc0),[acc1] "=&r"(acc1)
     : [scratch] "r" (scratch)
@@ -580,6 +591,8 @@ static void arm_fir_q15_gt_56_mve(const arm_fir_instance_q15 * S,
             /* low overhead loop end */
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
+
+            FIR_Q15_FORGET_COEFS(coefPtr)
 
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [acc0] "=&r"(acc0),[acc1] "=&r"(acc1)
@@ -643,6 +656,8 @@ static void arm_fir_q15_gt_56_mve(const arm_fir_instance_q15 * S,
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
 
+            FIR_Q15_FORGET_COEFS(coefPtr)
+
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),
           [acc0] "=&r"(acc0),[acc1] "=&r"(acc1)
@@ -689,6 +704,8 @@ static void arm_fir_q15_gt_56_mve(const arm_fir_instance_q15 * S,
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
 
+            FIR_Q15_FORGET_COEFS(coefPtr)
+
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),
           [acc0] "=&r"(acc0),[acc1] "=&r"(acc1)
@@ -733,6 +750,8 @@ static void arm_fir_q15_gt_56_mve(const arm_fir_instance_q15 * S,
             /* low overhead loop end */
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
+
+            FIR_Q15_FORGET_COEFS(coefPtr)
 
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),
@@ -779,6 +798,8 @@ static void arm_fir_q15_gt_56_mve(const arm_fir_instance_q15 * S,
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
 
+            FIR_Q15_FORGET_COEFS(coefPtr)
+
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),
           [acc0] "=&r"(acc0),[acc1] "=&r"(acc1)
@@ -823,6 +844,8 @@ static void arm_fir_q15_gt_56_mve(const arm_fir_instance_q15 * S,
             /* low overhead loop end */
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
+
+            FIR_Q15_FORGET_COEFS(coefPtr)
 
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),
@@ -869,6 +892,8 @@ static void arm_fir_q15_gt_56_mve(const arm_fir_instance_q15 * S,
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
 
+            FIR_Q15_FORGET_COEFS(coefPtr)
+
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),
           [acc0] "=&r"(acc0),[acc1] "=&r"(acc1)
@@ -913,6 +938,8 @@ static void arm_fir_q15_gt_56_mve(const arm_fir_instance_q15 * S,
             /* low overhead loop end */
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
+
+            FIR_Q15_FORGET_COEFS(coefPtr)
 
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),

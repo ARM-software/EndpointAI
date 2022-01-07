@@ -93,6 +93,12 @@ void arm_cmplx_dot_prod_f16_mve(
 
     __asm volatile (
         "accCpx             .req q3                         \n"
+        /* element pairs inside accCpx */
+        "accCpx01           .req s12                        \n"
+        "accCpx23           .req s13                        \n"
+        "accCpx45           .req s14                        \n"
+        "accCpx67           .req s15                        \n"
+
 
         "   vmov.i16        accCpx, #0                      \n"
 
@@ -132,15 +138,21 @@ void arm_cmplx_dot_prod_f16_mve(
         "1:                                                 \n"
 
         /* Sum the partial parts */
-        "   vadd.f16        s0, s12, s14                    \n"
-        "   vadd.f16        s1, s13, s15                    \n"
-        "   vshr.u32        q3, q3, #16                     \n"
-        "   vadd.f16        s2, s12, s14                    \n"
-        "   vadd.f16        s3, s13, s15                    \n"
+        "   vadd.f16        s0, accCpx01, accCpx45          \n"
+        "   vadd.f16        s1, accCpx23, accCpx67          \n"
+        "   vshr.u32        accCpx, accCpx, #16             \n"
+        "   vadd.f16        s2, accCpx01, accCpx45          \n"
+        "   vadd.f16        s3, accCpx23, accCpx67          \n"
         "   vadd.f16        s0, s0, s1                      \n"
         "   vadd.f16        s1, s2, s3                      \n"
         "   vstr.16         s0, [%[realResult]]             \n"
         "   vstr.16         s1, [%[imagResult]]             \n"
+
+        " .unreq accCpx                                     \n"
+        " .unreq accCpx01                                   \n"
+        " .unreq accCpx23                                   \n"
+        " .unreq accCpx45                                   \n"
+        " .unreq accCpx67                                   \n"
 
         :[pA] "+r"(pSrcA),[pB] "+r"(pSrcB)
         :[cnt] "r"(numSamples / 8), [tail] "r"(tail * CMPLX_DIM),

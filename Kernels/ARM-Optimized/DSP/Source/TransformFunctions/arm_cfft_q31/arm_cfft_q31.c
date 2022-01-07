@@ -6,13 +6,13 @@
  *               This version allows boosting CFFT Q31 performance when using compilers having suboptimal
  *               Helium intrinsic code generation.
  *
- * $Date:        Nov 2021
- * $Revision:    V1.0.0
+ * $Date:        Jan 2022
+ * $Revision:    V1.0.1
  *
  * Target Processor: Cortex-M with Helium
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -44,6 +44,8 @@
  * Qd = Qn * Qm'
  */
 
+#undef cmplx_fx_mul_r_conj
+#undef cmplx_fx_mul_i_conj
 #define cmplx_fx_mul_r_conj(qd, qn, qm) " vqrdmladh.s32    " #qd "," #qn "," #qm " \n"
 #define cmplx_fx_mul_i_conj(qd, qn, qm) " vqrdmlsdhx.s32   " #qd "," #qn "," #qm " \n"
 
@@ -51,6 +53,8 @@
  * Fx point multiplication
  * Qd = Qn * Qm
  */
+#undef cmplx_fx_mul_r_
+#undef cmplx_fx_mul_i_
 #define cmplx_fx_mul_r_(qd, qn, qm)     " vqrdmlsdh.s32    " #qd "," #qm "," #qn " \n"
 #define cmplx_fx_mul_i_(qd, qn, qm)     " vqrdmladhx.s32   " #qd "," #qm "," #qn " \n"
 
@@ -104,7 +108,7 @@
 
 
 
-static void arm_bitreversal_32_inpl_mve_asm(
+static void arm_bitreversal_q31_inpl_mve_asm(
         uint32_t *pSrc,
   const uint16_t bitRevLen,
   const uint16_t *pBitRevTab)
@@ -1014,7 +1018,7 @@ void arm_cfft_q31_mve(
         if (bitReverseFlag)
         {
 #ifdef USE_ASM
-            arm_bitreversal_32_inpl_mve_asm((uint32_t*)pSrc, S->bitRevLength, S->pBitRevTable);
+            arm_bitreversal_q31_inpl_mve_asm((uint32_t*)pSrc, S->bitRevLength, S->pBitRevTable);
 #else
             arm_bitreversal_32_inpl_mve((uint32_t*)pSrc, S->bitRevLength, S->pBitRevTable);
 #endif

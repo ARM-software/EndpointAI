@@ -6,13 +6,13 @@
  *               This version allows boosting DF1 F16 Biquad performance when using compilers having suboptimal
  *               Helium intrinsic code generation.
 
- * $Date:        Dec 2021
- * $Revision:    V1.0.0
+ * $Date:        Jan 2022
+ * $Revision:    V1.0.1
  *
  * Target Processor: Cortex-M and Cortex-A cores
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -67,8 +67,12 @@ void arm_biquad_cascade_df1_f16_mve(
     uint32_t  stage = S->numStages;         /*  loop counters             */
 
 #ifdef USE_ASM
+    uint32_t          scratch[2];                /*  scratch for saving      */
+                                                /*  block size & state      */
 
-    #pragma nounroll
+    scratch[0] = blockSize;
+    scratch[1] = (uint32_t)pState;
+
     do
     {
         __asm volatile (
@@ -76,24 +80,28 @@ void arm_biquad_cascade_df1_f16_mve(
             "Xn2                       .req r5                      \n"
             "Yn1                       .req r6                      \n"
             "Yn2                       .req r7                      \n"
-
+            "statePtr                  .req r11                     \n"
+            "cnt                       .req lr                      \n"
 
             /* restore state for current biquad */
-            "   ldrh                Xn1, [%[state]]                 \n"
-            "   ldrh                Xn2, [%[state],2]               \n"
-            "   ldrh                Yn1, [%[state],4]               \n"
-            "   ldrh                Yn2, [%[state],6]               \n"
+            "   ldrd                cnt, statePtr, [%[scratch], #0] \n"
+            "   ldrh                Xn1, [statePtr]                 \n"
+            "   ldrh                Xn2, [statePtr,2]               \n"
+            "   ldrh                Yn1, [statePtr,4]               \n"
+            "   ldrh                Yn2, [statePtr,6]               \n"
 
 
+            "   str                 statePtr, [%[scratch], #4]      \n"
             /* load input sample N-2 */
-            "   sub                 r9, %[cnt], #2                  \n"
+            "   sub                 r9, cnt, #2                      \n"
             "   ldrh                r8, [%[src], r9, LSL #1]        \n"
             /* load input sample N-1 */
-            "   sub                 r9, %[cnt], #1                  \n"
+            "   sub                 r9, cnt, #1                     \n"
             "   ldrh                r10, [%[src], r9, LSL #1]       \n"
             /* save fwd state */
-            "   strh                r10, [%[state]], #2             \n"
-            "   strh                r8, [%[state]], #2              \n"
+            "   strh                r10, [statePtr], #2             \n"
+            "   strh                r8, [statePtr], #2              \n"
+            "   str                 statePtr, [%[scratch], #4]      \n"
 
 
             /* main biquad loop */
@@ -102,7 +110,7 @@ void arm_biquad_cascade_df1_f16_mve(
             /* 1st coef preloaded to avoid structural hazard  */
             /* after input samples loading */
             ".p2align 2                                             \n"
-            "   wlstp.16            lr, %[cnt], 1f                  \n"
+            "   wlstp.16            lr, cnt, 1f                     \n"
             "   vldrh.16            q2, [%[coefs], 16]              \n"
             "2:                                                     \n"
             /* load 4 x packed inputs                   */
@@ -155,79 +163,90 @@ void arm_biquad_cascade_df1_f16_mve(
             "   letp                lr, 2b                          \n"
             "1:                                                     \n"
 
+            /* reload cnt + state from the scratch area */
+            "   ldrd                cnt, statePtr, [%[scratch]]     \n"
+
             /* tail handling (modulo 8) */
-            "   and                 r8, %[cnt], #7                  \n"
+            "   and                 r8, cnt, #7                     \n"
             "   tbb                 [pc, R8]                        \n"
             /* -----------------------------------------------------*/
             /* branch table for 0-7 case remainders */
-            "brTab:                                                 \n"
-            ".byte      ((rem0 - brTab)/2), ((rem1 - brTab)/2)      \n"
-            ".byte      ((rem2 - brTab)/2), ((rem3 - brTab)/2)      \n"
-            ".byte      ((rem4 - brTab)/2), ((rem5 - brTab)/2)      \n"
-            ".byte      ((rem6 - brTab)/2), ((rem7 - brTab)/2)      \n"
+            "brTab%=:                                               \n"
+            ".byte  ((rem0%= - brTab%=)/2), ((rem1%= - brTab%=)/2)  \n"
+            ".byte  ((rem2%= - brTab%=)/2), ((rem3%= - brTab%=)/2)  \n"
+            ".byte  ((rem4%= - brTab%=)/2), ((rem5%= - brTab%=)/2)  \n"
+            ".byte  ((rem6%= - brTab%=)/2), ((rem7%= - brTab%=)/2)  \n"
             /* -----------------------------------------------------*/
 
-            "rem1:                                                  \n"
+            "rem1%=:                                                \n"
             /* save {Yn1, q0[0]} 16-bit vector elts */
-            "   vstr.16             s0, [%[state]]                  \n"
-            "   add                 %[state], #2                    \n"
-            "   strh                Yn1, [%[state]], #2             \n"
-            "   b                   cont                            \n"
+            "   vstr.16             s0, [statePtr]                  \n"
+            "   add                 statePtr, #2                    \n"
+            "   strh                Yn1, [statePtr], #2             \n"
+            "   b                   cont%=                          \n"
 
-            "rem2:                                                  \n"
+            "rem2%=:                                                \n"
             /* save {q0[0], q0[1]} 16-bit vector elts */
             "   vmov.u32            r8, q0[0]                       \n"
             "   ror                 r8, r8, #16                     \n"
-            "   str                 r8, [%[state]], #4              \n"
-            "   b                   cont                            \n"
+            "   str                 r8, [statePtr], #4              \n"
+            "   b                   cont%=                          \n"
 
-            "rem3:                                                  \n"
+            "rem3%=:                                                \n"
             /* save {q0[1], q0[2]} 16-bit vector elts */
             "   vmov.u16            r9, q0[2]                       \n"
             "   vmov.u16            r8, q0[1]                       \n"
-            "   strh                r9, [%[state]], #2              \n"
-            "   strh                r8, [%[state]], #2              \n"
-            "   b                   cont                            \n"
+            "   strh                r9, [statePtr], #2              \n"
+            "   strh                r8, [statePtr], #2              \n"
+            "   b                   cont%=                          \n"
 
-            "rem4 :                                                 \n"
+            "rem4%=:                                                \n"
             /* save {q0[2], q0[3]} 16-bit vector elts */
             "   vmov.u32            r8, q0[1]                       \n"
             "   ror                 r8, r8, #16                     \n"
-            "   str                 r8, [%[state]], #4              \n"
-            "   b                   cont                            \n"
+            "   str                 r8, [statePtr], #4              \n"
+            "   b                   cont%=                          \n"
 
-            "rem5:                                                  \n"
+            "rem5%=:                                                \n"
             /* save {q0[3], q0[4]} 16-bit vector elts */
             "   vmov.u16            r9, q0[4]                       \n"
             "   vmov.u16            r8, q0[3]                       \n"
-            "   strh                r9, [%[state]], #2              \n"
-            "   strh                r8, [%[state]], #2              \n"
-            "   b                   cont                            \n"
+            "   strh                r9, [statePtr], #2              \n"
+            "   strh                r8, [statePtr], #2              \n"
+            "   b                   cont%=                          \n"
 
-            "rem6 :                                                 \n"
+            "rem6%=:                                                \n"
             /* save {q0[4], q0[5]} 16-bit vector elts */
             "   vmov.u32            r8, q0[2]                       \n"
             "   ror                 r8, r8, #16                     \n"
-            "   str                 r8, [%[state]], #4              \n"
-            "   b                   cont                            \n"
+            "   str                 r8, [statePtr], #4              \n"
+            "   b                   cont%=                          \n"
 
-            "rem7:                                                  \n"
+            "rem7%=:                                                \n"
             /* save {q0[5], q0[6]} 16-bit vector elts */
             "   vmov.u16            r9, q0[6]                       \n"
             "   vmov.u16            r8, q0[5]                       \n"
-            "   strh                r9, [%[state]], #2              \n"
-            "   strh                r8, [%[state]], #2              \n"
-            "   b                   cont                            \n"
+            "   strh                r9, [statePtr], #2              \n"
+            "   strh                r8, [statePtr], #2              \n"
+            "   b                   cont%=                          \n"
 
-            "rem0 :                                                 \n"
+            "rem0%=:                                                \n"
             /* save {Yn1, Yn2} 16-bit vector elts */
-            "   strh                Yn1, [%[state]], #2             \n"
-            "   strh                Yn2, [%[state]], #2             \n"
+            "   strh                Yn1, [statePtr], #2             \n"
+            "   strh                Yn2, [statePtr], #2             \n"
 
-            "cont:                                                  \n"
+            "cont%=:                                                \n"
+            "   str                 statePtr, [%[scratch], #4]      \n"
 
-            :[state] "+r" (pState), [src] "+r"(pIn),[dst] "+r"(pOut)
-            :[coefs] "r"(pCoeffs), [cnt] "r" (blockSize)
+            " .unreq Xn1                                            \n"
+            " .unreq Xn2                                            \n"
+            " .unreq Yn1                                            \n"
+            " .unreq Yn2                                            \n"
+            " .unreq statePtr                                       \n"
+            " .unreq cnt                                            \n"
+
+            :[src] "+r"(pIn),[dst] "+r"(pOut)
+            :[coefs] "r"(pCoeffs), [scratch] "r" (scratch)
             :"q0", "q1", "q2",
              "r4", "r5", "r6", "r7",
              "r8", "r9", "r10", "r11",

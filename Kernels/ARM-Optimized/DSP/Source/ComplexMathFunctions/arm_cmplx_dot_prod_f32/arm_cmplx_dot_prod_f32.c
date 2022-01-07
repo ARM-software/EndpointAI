@@ -91,7 +91,7 @@ void arm_cmplx_dot_prod_f32_mve(
     uint32_t  tail = numSamples & 3;
 
     __asm volatile (
-        "accCpx                     .req q3                 \n"
+        "accCpx        .req q3                              \n"
 
         "   vmov.i32        accCpx, #0                      \n"
 
@@ -135,6 +135,8 @@ void arm_cmplx_dot_prod_f32_mve(
         "   vadd.f32        s1, s13, s15                    \n"
         "   vstr.32         s0, [%[realResult]]             \n"
         "   vstr.32         s1, [%[imagResult]]             \n"
+
+        " .unreq accCpx                                     \n"
 
         :[pA] "+r"(pSrcA),[pB] "+r"(pSrcB)
         :[cnt] "r"(numSamples / 4), [tail] "r"(tail * CMPLX_DIM),

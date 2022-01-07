@@ -6,13 +6,13 @@
  *               This version allows boosting DF1 Q.15 Biquad performance when using compilers having suboptimal
  *               Helium intrinsic code generation.
 
- * $Date:        Dec 2021
- * $Revision:    V1.0.0
+ * $Date:        Jan 2022
+ * $Revision:    V1.0.1
  *
  * Target Processor: Cortex-M and Cortex-A cores
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -154,10 +154,8 @@ void arm_biquad_cascade_df1_q15_mve(
             /* update coef ptr */
             "  str                     r8, [%[scratch], #(1*4)]       \n"
 
-
             " pstate         .req r2                                  \n"
             " shift          .req r1                                  \n"
-
 
             /* state pointer */
             "   ldr                    pstate, [%[scratch], #(2*4)]   \n"
@@ -378,6 +376,12 @@ void arm_biquad_cascade_df1_q15_mve(
             "  add                    pstate, pstate, #(4*2)          \n"
             "  str                    pstate, [%[scratch], #(2*4)]    \n"
 
+            " .unreq pstate                                           \n"
+            " .unreq shift                                            \n"
+            " .unreq coeff0                                           \n"
+            " .unreq coeff1                                           \n"
+            " .unreq coeff2                                           \n"
+            " .unreq coeff3                                           \n"
 
         : [pIn] "+r" (pIn), [pOut] "+r" (pOut)
         : [scratch] "r" (scratch)

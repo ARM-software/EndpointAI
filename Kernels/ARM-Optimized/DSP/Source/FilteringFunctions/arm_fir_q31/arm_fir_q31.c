@@ -117,6 +117,15 @@ __asm volatile (                                                \
                                                                      \
         "   vldrw.32        coef0_3, ["#coefPtr"]              \n"
 
+#define FIR_Q31_FORGET_COEFS(coefPtr)                                \
+        ".unreq coef0_3                                        \n"   \
+        ".unreq coef4_7                                        \n"   \
+        ".unreq coef8_11                                       \n"   \
+        ".unreq coef12_15                                      \n"   \
+        ".unreq coef16_19                                      \n"   \
+        ".unreq coef20_23                                      \n"   \
+        ".unreq coef24_27                                      \n"   \
+        ".unreq "#coefPtr"                                     \n"
 
 #define FIR_Q31_LOAD_8_COEFS(coefPtr)                                \
         FIR_Q31_LOAD_4_COEFS(coefPtr)                                \
@@ -330,7 +339,7 @@ __asm volatile (                                                \
         /* block filtering starting &pSample[2] */                                          \
         FIR_Q31_FILTER_##TAPS## _COEFS(acc1, pSamples, 8, CLEAR)                            \
                                                                                             \
-        /* block filtering starting &pSample[1] */                                          \                                                                                            \
+        /* block filtering starting &pSample[1] */                                          \
         FIR_Q31_FILTER_##TAPS##_COEFS(acc2, pSamples, 4, CLEAR)                             \
                                                                                             \
         /* block filtering starting &pSample[0] + advance to &pSample[4] */                 \
@@ -353,6 +362,8 @@ __asm volatile (                                                \
         /* low overhead loop end */                                                         \
         "   le              lr, 2b                                    \n"                   \
         "1:                                                           \n"                   \
+                                                                                            \
+        FIR_Q31_FORGET_COEFS(coefPtr)                                                       \
                                                                                             \
     : [pSamples] "+r" (pSamples), [pOutput] "+r" (pOutput),                                 \
       [pTempSrc] "+r" (pTempSrc),[pTempDest] "+r" (pTempDest),                              \
@@ -506,6 +517,8 @@ static void arm_fir_q31_gt_28_mve(const arm_fir_instance_q31 * S,
         "   le              lr, 2b                                  \n"
         "1:                                                         \n"
 
+        FIR_Q31_FORGET_COEFS(coefPtr)
+
     : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
       [acc0] "=&r"(acc0),[acc1] "=&r"(acc1),
       [acc2] "=&r"(acc2),[acc3] "=&r"(acc3)
@@ -573,6 +586,8 @@ static void arm_fir_q31_gt_28_mve(const arm_fir_instance_q31 * S,
             /* low overhead loop end */
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
+
+            FIR_Q31_FORGET_COEFS(coefPtr)
 
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [acc0] "=&r"(acc0),[acc1] "=&r"(acc1),
@@ -648,6 +663,8 @@ static void arm_fir_q31_gt_28_mve(const arm_fir_instance_q31 * S,
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
 
+            FIR_Q31_FORGET_COEFS(coefPtr)
+
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),
           [acc0] "=&r"(acc0),[acc1] "=&r"(acc1),
@@ -706,6 +723,8 @@ static void arm_fir_q31_gt_28_mve(const arm_fir_instance_q31 * S,
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
 
+            FIR_Q31_FORGET_COEFS(coefPtr)
+
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),
           [acc0] "=&r"(acc0),[acc1] "=&r"(acc1),
@@ -762,6 +781,8 @@ static void arm_fir_q31_gt_28_mve(const arm_fir_instance_q31 * S,
             /* low overhead loop end */
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
+
+            FIR_Q31_FORGET_COEFS(coefPtr)
 
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),
@@ -820,6 +841,8 @@ static void arm_fir_q31_gt_28_mve(const arm_fir_instance_q31 * S,
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
 
+            FIR_Q31_FORGET_COEFS(coefPtr)
+
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),
           [acc0] "=&r"(acc0),[acc1] "=&r"(acc1),
@@ -876,6 +899,8 @@ static void arm_fir_q31_gt_28_mve(const arm_fir_instance_q31 * S,
             /* low overhead loop end */
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
+
+            FIR_Q31_FORGET_COEFS(coefPtr)
 
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),
@@ -934,6 +959,8 @@ static void arm_fir_q31_gt_28_mve(const arm_fir_instance_q31 * S,
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
 
+            FIR_Q31_FORGET_COEFS(coefPtr)
+
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),
           [acc0] "=&r"(acc0),[acc1] "=&r"(acc1),
@@ -990,6 +1017,8 @@ static void arm_fir_q31_gt_28_mve(const arm_fir_instance_q31 * S,
             /* low overhead loop end */
             "   le              lr, 2b                                  \n"
             "1:                                                         \n"
+
+            FIR_Q31_FORGET_COEFS(coefPtr)
 
         : [pSamples] "+r" (pSamples), [pap] "+r" (partial_accu_ptr),
           [pOutput] "+r" (pOutput),

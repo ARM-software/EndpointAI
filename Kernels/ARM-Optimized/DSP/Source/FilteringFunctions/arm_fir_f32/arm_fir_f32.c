@@ -6,13 +6,13 @@
  *               This version allows boosting F32 FIR Filter performance when using compilers having suboptimal
  *               Helium intrinsic code generation.
  *
- * $Date:        Dec 2021
- * $Revision:    V1.0.0
+ * $Date:        Jan 2022
+ * $Revision:    V1.0.1
  *
  * Target Processor: Cortex-M and Cortex-A cores
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -192,6 +192,15 @@ __asm volatile (                                                \
     "   ldrd        C8n_2, C8n_3, [%["#pCoeffs"], #8]      \n"  \
     "   ldrd        C8n_0, C8n_1, [%["#pCoeffs"]], #32     \n"
 
+#define FIR_F32_FORGET_8_COEFS()                                \
+    " .unreq C8n_0                                         \n"  \
+    " .unreq C8n_1                                         \n"  \
+    " .unreq C8n_2                                         \n"  \
+    " .unreq C8n_3                                         \n"  \
+    " .unreq C8n_4                                         \n"  \
+    " .unreq C8n_5                                         \n"  \
+    " .unreq C8n_6                                         \n"  \
+    " .unreq C8n_7                                         \n"  \
 
 #define FIR_F32_LOAD_4_COEFS(pCoeffs)                           \
     "C4n_0   .req   r2                                     \n"  \
@@ -201,6 +210,12 @@ __asm volatile (                                                \
                                                                 \
     "   ldrd        C4n_0, C4n_1, [%["#pCoeffs"]]          \n"  \
     "   ldrd        C4n_2, C4n_3, [%["#pCoeffs"], #8]      \n"
+
+#define FIR_F32_FORGET_4_COEFS(pCoeffs)                         \
+    " .unreq C4n_0                                         \n"  \
+    " .unreq C4n_1                                         \n"  \
+    " .unreq C4n_2                                         \n"  \
+    " .unreq C4n_3                                         \n"  \
 
 
 /* block filter 4 samples with 4 taps */
@@ -273,6 +288,8 @@ __STATIC_INLINE void arm_fir_f32_1_4_mve(const arm_fir_instance_f32 * S,
         /* low overhead loop end */
         "1:                                                                \n"
 
+        FIR_F32_FORGET_4_COEFS()
+
        :[pSamples] "+r"(pSamples),[pOutput] "+r"(pOutput)
        :[cnt] "r"(blockSize), [pCoeffs] "r"(pCoeffs)
        :"q0", "q1",
@@ -325,6 +342,8 @@ __STATIC_INLINE void arm_fir_f32_5_8_mve(const arm_fir_instance_f32 * S,
         "   letp                lr, 2b                              \n"
         /* low overhead loop end */
         "1:                                                         \n"
+
+        FIR_F32_FORGET_8_COEFS()
 
        :[pSamples] "+r"(pSamples),[pOutput] "+r"(pOutput),
         [pCoeffs] "+r"(pCoeffs)
@@ -409,6 +428,8 @@ void arm_fir_f32_mve(const arm_fir_instance_f32 * S,
         /* low overhead loop end */
         "1:                                                             \n"
 
+        FIR_F32_FORGET_8_COEFS()
+
        :[pSamples] "+r"(pSamples),[partial_accu_ptr] "+r"(partial_accu_ptr),
         [pCoeffs] "+r"(pCoeffs)
        :[cnt] "r"(blockSize)
@@ -459,8 +480,10 @@ void arm_fir_f32_mve(const arm_fir_instance_f32 * S,
                 /* low overhead loop end */
                 "1:                                                             \n"
 
+                FIR_F32_FORGET_8_COEFS()
+
                 :[pSamples] "+r"(pSamples),[partial_accu_ptr] "+r"(partial_accu_ptr),
-                [pCoeffs] "+r"(pCoeffs)
+                 [pCoeffs] "+r"(pCoeffs)
                 :[cnt] "r"(blockSize)
                 :"q0", "q1", "q2",
                 "r2", "r3", "r4", "r5",
@@ -513,6 +536,8 @@ void arm_fir_f32_mve(const arm_fir_instance_f32 * S,
                 /* low overhead loop end */
                 "1:                                                          \n"
 
+                FIR_F32_FORGET_8_COEFS()
+
                :[pSamples] "+r"(pSamples),[partial_accu_ptr] "+r"(partial_accu_ptr),
                 [pOutput] "+r"(pOutput), [count] "+r" (count), [pCoeffs] "+r"(pCoeffs)
                :
@@ -553,8 +578,10 @@ void arm_fir_f32_mve(const arm_fir_instance_f32 * S,
                 /* low overhead loop end */
                 "1:                                                          \n"
 
+                FIR_F32_FORGET_4_COEFS()
+
             :[pSamples] "+r"(pSamples),[partial_accu_ptr] "+r"(partial_accu_ptr),
-            [pOutput] "+r"(pOutput), [count] "+r" (count)
+             [pOutput] "+r"(pOutput), [count] "+r" (count)
             :[pCoeffs] "r"(pCoeffs)
             :"q0", "q1", "q2",
             "r2", "r3", "r4", "r5",

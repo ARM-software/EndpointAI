@@ -86,7 +86,7 @@ void arm_cmplx_mult_cmplx_f16_mve(
 
     /* Core loop is unrolled to optimize load / multiplication interleaving */
     __asm volatile (
-        "curCpx                 .req q2                 \n"
+        "curCpx          .req q2                        \n"
 
         /* preload */
         "   vldrh.16        q0, [%[pA]], #16            \n"
@@ -128,6 +128,8 @@ void arm_cmplx_mult_cmplx_f16_mve(
         "   vldrh.16        q1, [%[pB]], 16             \n"
         "   letp            lr, 2b                      \n"
         "1:                                             \n"
+
+        " .unreq curCpx                                 \n"
 
         :[pD] "+r"(pDst), [pA] "+r"(pSrcA), [pB] "+r"(pSrcB)
         :[cnt] "r"(numSamples / 8), [tail] "r" (tail * CMPLX_DIM)

@@ -65,7 +65,7 @@ void arm_cmplx_mult_cmplx_q15_mve(
 
     /* Core loop is unrolled to optimize load / multiplication interleaving */
     __asm volatile (
-        "curCpx                 .req q2                 \n"
+        "curCpx           .req q2                       \n"
 
         /* preload */
         "   vldrh.16        q0, [%[pA]], #16            \n"
@@ -100,7 +100,7 @@ void arm_cmplx_mult_cmplx_q15_mve(
         "1:                                             \n"
 
         /* tail handling */
-        "   wlstp.16        lr, %[tail], 1f              \n"
+        "   wlstp.16        lr, %[tail], 1f             \n"
         "2:                                             \n"
         "   vqdmlsdh.s16    curCpx, q0, q1              \n"
         "   vqdmladhx.s16   curCpx, q0, q1              \n"
@@ -110,6 +110,9 @@ void arm_cmplx_mult_cmplx_q15_mve(
         "   vldrh.16        q1, [%[pB]], 16             \n"
         "   letp            lr, 2b                      \n"
         "1:                                             \n"
+
+        " .unreq curCpx                                 \n"
+
         :[pD] "+r"(pDst), [pA] "+r"(pSrcA), [pB] "+r"(pSrcB)
         :[cnt] "r"(numSamples / 8), [tail] "r" (tail * CMPLX_DIM)
         : "q0", "q1", "q2", "q3",

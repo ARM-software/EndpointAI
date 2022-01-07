@@ -6,13 +6,13 @@
  *               This version allows boosting DF1 Q.31 Biquad performance when using compilers having suboptimal
  *               Helium intrinsic code generation.
 
- * $Date:        Dec 2021
- * $Revision:    V1.0.0
+ * $Date:        Jan 2022
+ * $Revision:    V1.0.1
  *
  * Target Processor: Cortex-M with Helium
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -298,6 +298,13 @@ void arm_biquad_cascade_df1_q31_mve(
             "cont_%=:                                                                 \n"
             "  add                     pstate, pstate, #(4*4)                         \n"
             "  str                     pstate, [%[scratch], #(2*4)]                   \n"
+
+            " .unreq pstate                                                           \n"
+            " .unreq shift                                                            \n"
+            " .unreq b0Coeffs                                                         \n"
+            " .unreq b1Coeffs                                                         \n"
+            " .unreq a0Coeffs                                                         \n"
+            " .unreq a1Coeffs                                                         \n"
 
              :[pIn] "+r"(pIn), [pOut] "+r"(pOut),
               [acc0] "=&r"(acc0),[acc1] "=&r"(acc1),

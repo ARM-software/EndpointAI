@@ -6,13 +6,13 @@
  *               This version allows boosting DF1 F32 Biquad performance when using compilers having suboptimal
  *               Helium intrinsic code generation.
 
- * $Date:        Dec 2021
- * $Revision:    V1.0.0
+ * $Date:        Jan 2022
+ * $Revision:    V1.0.1
  *
  * Target Processor: Cortex-M with Helium
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -192,7 +192,6 @@ void arm_biquad_cascade_df1_f32_mve(
 
 #ifdef USE_ASM
 
-    #pragma nounroll
     do {
     __asm volatile (
             "Xn1                       .req r4                      \n"
@@ -270,11 +269,11 @@ void arm_biquad_cascade_df1_f32_mve(
             "3:                                                     \n"
             /* save state for 3 remainders */
             /* last 2 valid input samples are r9 & r0 */
-            "   strd                r0, r9, [%[state]], #8         \n"
+            "   strd                r0, r9, [%[state]], #8          \n"
             /* last 2 valid output samples are s1-s2 */
             "   vmov                r7, r6, s1, s2                  \n"
             "   strd                r6, r7, [%[state]], #8          \n"
-            "   b                   cont                            \n"
+            "   b                   cont%=                          \n"
 
             "2:                                                     \n"
             /* save state for 2 remainders */
@@ -283,7 +282,7 @@ void arm_biquad_cascade_df1_f32_mve(
             /* last 2 valid output samples are s0-s1 */
             "   vmov                r7, r6, s0, s1                  \n"
             "   strd                r6, r7, [%[state]], #8          \n"
-            "   b                   cont                            \n"
+            "   b                   cont%=                          \n"
 
             "1:                                                     \n"
             /* save state for 1 remainder */
@@ -293,13 +292,18 @@ void arm_biquad_cascade_df1_f32_mve(
             /* last 2 valid output samples are taken on the dst buffer*/
             "   ldrd                r9, r8, [%[dst], #-20]          \n"
             "   strd                r8, r9, [%[state]], #8          \n"
-            "   b                   cont                            \n"
+            "   b                   cont%=                          \n"
 
             "0:                                                     \n"
             /* save state if len is an exact multiple of 4 */
             "   strd                Xn1, Xn2, [%[state]], #8        \n"
             "   strd                Yn1, Yn2, [%[state]], #8        \n"
-            "cont:                                                  \n"
+            "cont%=:                                                \n"
+
+            " .unreq Xn1                                            \n"
+            " .unreq Xn2                                            \n"
+            " .unreq Yn1                                            \n"
+            " .unreq Yn2                                            \n"
 
             :[state] "+r"(pState),[src] "+r"(pIn),[dst] "+r"(pOut)
             :[coefs] "r"(pCoeffs), [scratch] "r" (scratch)
