@@ -6,7 +6,7 @@
 [CMSIS-DSP](https://github.com/ARM-software/CMSIS_5/tree/develop/CMSIS/DSP) with ARMv8.1M **Helium** assembly
 
 
-Combined Radix Decimation in Frequency CFFT fixed point processing function
+Combined Radix Decimation in Frequency CFFT single precision floating-point processing function
 
 This version allows boosting CFFT F32 performance when using compilers having suboptimal Helium intrinsic code generation and can be sustitued to CMSIS DSP intrinsic variant.
 

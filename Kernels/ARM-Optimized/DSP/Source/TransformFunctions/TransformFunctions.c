@@ -30,3 +30,7 @@
 #include "arm_cfft_f32/arm_cfft_f32.c"
 #include "arm_cfft_q31/arm_cfft_q31.c"
 
+#include "arm_rfft_q15/arm_rfft_q15.c"
+#include "arm_rfft_q31/arm_rfft_q31.c"
+#include "arm_rfft_fast_f32/arm_rfft_fast_f32.c"
+

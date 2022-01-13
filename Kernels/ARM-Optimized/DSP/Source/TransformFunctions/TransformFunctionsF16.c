@@ -27,3 +27,5 @@
  */
 
 #include "arm_cfft_f16/arm_cfft_f16.c"
+
+#include "arm_rfft_fast_f16/arm_rfft_fast_f16.c"
