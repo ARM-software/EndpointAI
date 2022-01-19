@@ -17,7 +17,7 @@ The library name, i.e. Arm-2D, is a temporary term and might be subject to chang
   <repository type="git">https://github.com/ARM-software/EndpointAI.git</repository>
   
   <releases>
-    <release date="2021-11-16" version="0.9.10" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/Arm.Arm-2D.0.9.10.pack">
+    <release date="2022-01-19" version="1.0.0" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/Arm.Arm-2D.1.0.0.pack">
       - Add CMSIS-Pack
     </release>
     
@@ -29,6 +29,13 @@ The library name, i.e. Arm-2D, is a temporary term and might be subject to chang
     <keyword>Arm-2D</keyword>
     <keyword>Image Processing</keyword>
   </keywords>
+  
+    <requirements>
+        <languages>
+            <language name="C" version="99"/>
+        </languages>
+    </requirements>
+  
   
     <conditions> 
         <!--
@@ -71,15 +78,21 @@ The library name, i.e. Arm-2D, is a temporary term and might be subject to chang
             <require Cclass="CMSIS" Cgroup="CORE"/>
         </condition>
         
+        <condition id="CMSIS-DSP">
+            <description>Require CMSIS-DSP Support</description>
+            <require condition="CMSIS-CORE"/>
+            <require Cclass="CMSIS" Cgroup="DSP" Cversion="1.8.0"/>
+        </condition>
+        
         <condition id="Arm-2D-CORE">
             <description>Require Arm-2D Core Service</description>
             <require Cclass="Graphics" Cgroup="Arm-2D" Csub="Core"/>
         </condition>
         
-        <condition id="CMSIS-DSP">
-            <description>Require CMSIS-DSP Support</description>
-            <require condition="CMSIS-CORE"/>
-            <require Cclass="CMSIS" Cgroup="DSP" Cversion="1.8.0"/>
+        <condition id="Arm-2D-DSP">
+            <description>Require Arm-2D Core Service</description>
+            <require condition="Arm-2D-CORE"/>
+            <require condition="CMSIS-DSP"/>
         </condition>
         
         <!--
@@ -139,7 +152,7 @@ The library name, i.e. Arm-2D, is a temporary term and might be subject to chang
   -->
 
     <components>
-        <component Cclass="Graphics" Cgroup="Arm-2D" Csub="Core" Cversion="0.9.10" condition="CMSIS-CORE">
+        <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core" Cversion="0.9.10" condition="CMSIS-CORE">
           <description>A 2D image processing library for Cortex-M processors</description>
           <files>
             <file category="include"     name="Library/Include/" />
@@ -147,7 +160,6 @@ The library name, i.e. Arm-2D, is a temporary term and might be subject to chang
             <file category="sourceC"     name="Library/Source/arm_2d_async.c" />
             <file category="sourceC"     name="Library/Source/arm_2d_draw.c" />
             <file category="sourceC"     name="Library/Source/arm_2d_conversion.c" />
-            <file category="sourceC"     name="Library/Source/arm_2d_alpha_blending.c" />
             <file category="sourceC"     name="Library/Source/arm_2d_helium.c"        condition="Helium" />
             <file category="doc"         name="README.md"/>
             <file category="preIncludeLocal"    name="Library/Include/template/arm_2d_cfg.h" attr="config" version="1.0.0" />
@@ -161,7 +173,14 @@ The library name, i.e. Arm-2D, is a temporary term and might be subject to chang
           -->
         </component>
         
-        <component Cclass="Graphics" Cgroup="Arm-2D" Csub="Rotation" Cversion="0.9.10" condition="Arm-2D-CORE">
+        <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Alpha-Blending" Cversion="0.9.10" condition="Arm-2D-CORE">
+          <description>Alpha-blending related APIs for Arm-2D</description>
+          <files>
+            <file category="sourceC"     name="Library/Source/arm_2d_alpha_blending.c" />
+          </files>
+        </component>
+        
+        <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Rotation" Cversion="0.9.10" condition="Arm-2D-DSP">
           <description>Rotation APIs for Arm-2D</description>
           <files>
             <file category="sourceC"     name="Library/Source/arm_2d_rotation.c"       condition="CMSIS-DSP"/>
@@ -169,7 +188,7 @@ The library name, i.e. Arm-2D, is a temporary term and might be subject to chang
         </component>
         
         
-        <component Cclass="Graphics" Cgroup="Arm-2D Helper" Csub="PFB" Cversion="0.9.10" condition="Arm-2D-CORE">
+        <component Cclass="Acceleration" Cgroup="Arm-2D Helper" Csub="PFB" Cversion="0.9.10" condition="Arm-2D-CORE">
           <description>A helper service for LCD adaptor(s) with generic partial framebuffer support</description>
           <files>
             <file category="include"     name="Helper/Include/" />
