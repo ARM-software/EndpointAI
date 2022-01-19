@@ -86,7 +86,7 @@ The library name, i.e. Arm-2D, is a temporary term and might be subject to chang
         
         <condition id="Arm-2D-CORE">
             <description>Require Arm-2D Core Service</description>
-            <require Cclass="Graphics" Cgroup="Arm-2D" Csub="Core"/>
+            <require Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core"/>
         </condition>
         
         <condition id="Arm-2D-DSP">
