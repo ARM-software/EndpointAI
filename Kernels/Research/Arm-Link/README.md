@@ -5,4 +5,3 @@
 
 - **From the system integrator view**, it eases the tuning and the replacement of one component by another one. It is made to ease processing split with multiprocessing. The stream is described with a graph (a text file) which can be designed with a graphical tool:  we have in mind to ease the development of DSP/ML processing without need to write code. CMSIS-LINK lets the system integrator focus on the dynamic behavior of the system. 
 
-A prototype will be published here in December.
