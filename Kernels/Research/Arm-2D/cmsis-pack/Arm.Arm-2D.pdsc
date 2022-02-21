@@ -17,8 +17,9 @@ The library name, i.e. Arm-2D, is a temporary term and might be subject to chang
   <repository type="git">https://github.com/ARM-software/EndpointAI.git</repository>
   
   <releases>
-    <release date="2022-02-21" version="1.0.0-alpha1" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/Arm.Arm-2D.1.0.0.pack">
+    <release date="2022-02-21" version="1.0.0-alpha1" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/Arm.Arm-2D.1.0.0-alpha1.pack">
       - Add CMSIS-Pack
+      - Arm-2D v0.9.10 dev
     </release>
     
   </releases>
