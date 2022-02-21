@@ -6,9 +6,9 @@
 
 
 
-### 1.1 Alpha-blending
+### 1.1 Benchmark
 
-**PROJECT:    alpha-blending**
+**PROJECT:    benchmark**
 
 It is an **ALL-IN-ONE** example that demonstrates almost all the features provided by the library. It is also used as a benchmark of Arm-2D. Since there is no public benchmark available for micro-controllers, we decide to overcome this problem with the following methods and considerations:
 
@@ -46,15 +46,7 @@ It is an **ALL-IN-ONE** example that demonstrates almost all the features provid
 
 
 
-### 1.2 Partial-Frame-Buffer
-
-**PROJECT:    partial_frame_buffer**
-
-The visual effects is the same as Alpha-blending but using Partial-Frame-buffer scheme.
-
-
-
-### 1.3 Watch-Panel
+### 1.2 Watch-Panel
 
 **PROJECT:    watch_panel**
 
@@ -67,5 +59,3 @@ It is an example of rotation APIs. It consists of five layers:
 5. A red pointer (Rotation)
 
 This demo also shows how a fancy looking clock could be rendered with just less than 10K RAM (or even less by using a smaller PFB size). 
-
-![watch_panel](../documents/pictures/watch_panel.gif) 
