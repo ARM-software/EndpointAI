@@ -54,7 +54,6 @@
 /*! \note arm-2d relies on CMSIS 5.4.0 and above.
  */
 #include "cmsis_compiler.h"
-#include <arm_math.h>
 
 #ifdef   __cplusplus
 extern "C" {
@@ -306,7 +305,7 @@ extern "C" {
 #endif
 
 #ifndef __OVERRIDE_WEAK
-#   define __OVERRIDE_WEAK          __USED
+#   define __OVERRIDE_WEAK
 #endif
 
 #define ARM_2D_SAFE_NAME(...)    ARM_CONNECT(__,__LINE__,##__VA_ARGS__)

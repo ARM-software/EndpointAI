@@ -39,6 +39,7 @@
 /*============================ INCLUDES ======================================*/
 #include "arm_2d.h"
 #include <arm_math.h>
+#include "__arm_2d_cde.h"
 
 #ifdef   __cplusplus
 extern "C" {
@@ -74,12 +75,16 @@ uint16x8_t __arm_2d_rgb565_pack_single_vec(uint16x8_t R, uint16x8_t G, uint16x8_
     return vOut;
 }
 
+
+#if !defined(__ARM_2D_HAS_CDE__) || __ARM_2D_HAS_CDE__ == 0
+
 __STATIC_FORCEINLINE
-uint16x8_t __arm_2d_rgb565_alpha_blending_single_vec(
+uint16x8_t __arm_2d_rgb565_blending_scal_opacity_single_vec(
                                             uint16x8_t      Source1,
                                             uint16x8_t      Source2,
                                             uint_fast8_t    chRatio)
 {
+    /* scalar ratio allows extra optimization */
     uint16_t        ratio1x8 = (256 - chRatio) * 8;
     uint16_t        ratio1x4 = (256 - chRatio) * 4;
     uint16_t        ratio2x8 = (chRatio) * 8;
@@ -122,6 +127,8 @@ uint16x8_t __arm_2d_rgb565_alpha_blending_single_vec(
 }
 
 
+
+
 __STATIC_FORCEINLINE
 uint16x8_t __arm_2d_rgb565_blending_opacity_single_vec(
                                             uint16x8_t      Source1,
@@ -149,6 +156,8 @@ uint16x8_t __arm_2d_rgb565_blending_opacity_single_vec(
     /* pack */
     return __arm_2d_rgb565_pack_single_vec(vecR, vecG, vecB);
 }
+
+#endif
 
 
 __STATIC_FORCEINLINE

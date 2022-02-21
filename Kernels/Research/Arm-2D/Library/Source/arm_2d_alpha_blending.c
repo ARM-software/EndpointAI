@@ -924,7 +924,7 @@ arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_opacity(
                                                 arm_2d_op_fill_cl_opc_t *ptOP,
                                                 const arm_2d_tile_t *ptTarget,
                                                 const arm_2d_region_t *ptRegion,
-                                                arm_2d_color_rgb888_t tColour,
+                                                arm_2d_color_cccn888_t tColour,
                                                 uint_fast8_t chRatio)
 {
     assert(NULL != ptTarget);
@@ -1307,7 +1307,7 @@ arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_mask_and_opacity(
                                         const arm_2d_tile_t *ptTarget,
                                         const arm_2d_region_t *ptRegion,
                                         const arm_2d_tile_t *ptAlpha,
-                                        arm_2d_color_rgb888_t tColour,
+                                        arm_2d_color_cccn888_t tColour,
                                         uint8_t chOpacity)
 {
     assert(NULL != ptTarget);
@@ -1521,7 +1521,7 @@ arm_fsm_rt_t arm_2dp_cccn888_alpha_blending_with_colour_keying(
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion,
                                             uint_fast8_t chRatio,
-                                            arm_2d_color_rgb888_t tColour)
+                                            arm_2d_color_cccn888_t tColour)
 {
     assert(NULL != ptSource);
     assert(NULL != ptTarget);

@@ -56,7 +56,11 @@ extern "C" {
 //! @{
 #define ARM_2D_VERSION_MAJOR        0
 #define ARM_2D_VERSION_MINOR        9
-#define ARM_2D_VERSION_PATCH        10     
+#define ARM_2D_VERSION_PATCH        10   
+
+#define ARM_2D_VERISON              (   ARM_2D_VERSION_MAJOR * 10000ul          \
+                                    +   ARM_2D_VERSION_MINOR * 100ul            \
+                                        ARM_2D_VERSION_PATCH)
 //! @}
 
 /*============================ MACROFIED FUNCTIONS ===========================*/

@@ -2627,7 +2627,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(
 
     /* alpha blending */
     uint16x8_t      vBlended =
-        __arm_2d_rgb565_alpha_blending_single_vec(ptVal, vTarget, chOpacity);
+        __arm_2d_rgb565_blending_scal_opacity_single_vec(ptVal, vTarget, chOpacity);
 
     /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
     vTarget = vpselq_u16(vBlended, vTarget, vcmpneq_m_n_u16(ptVal, MaskColour, p));
@@ -2751,7 +2751,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(
 
     /* alpha blending */
     uint16x8_t      vBlended =
-        __arm_2d_rgb565_alpha_blending_single_vec(ptVal, vTarget, chOpacity);
+        __arm_2d_rgb565_blending_scal_opacity_single_vec(ptVal, vTarget, chOpacity);
 
     /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
     vTarget = vpselq_u16(vBlended, vTarget, vcmpneq_m_n_u16(ptVal, MaskColour, p));
@@ -3949,7 +3949,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(
 
     /* alpha blending */
     uint16x8_t      vBlended =
-        __arm_2d_rgb565_alpha_blending_single_vec(ptVal, vTarget, chOpacity);
+        __arm_2d_rgb565_blending_scal_opacity_single_vec(ptVal, vTarget, chOpacity);
 
     /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
     vTarget = vpselq_u16(vBlended, vTarget, vcmpneq_m_n_u16(ptVal, MaskColour, p));
@@ -4074,7 +4074,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(
 
     /* alpha blending */
     uint16x8_t      vBlended =
-        __arm_2d_rgb565_alpha_blending_single_vec(ptVal, vTarget, chOpacity);
+        __arm_2d_rgb565_blending_scal_opacity_single_vec(ptVal, vTarget, chOpacity);
 
     /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
     vTarget = vpselq_u16(vBlended, vTarget, vcmpneq_m_n_u16(ptVal, MaskColour, p));

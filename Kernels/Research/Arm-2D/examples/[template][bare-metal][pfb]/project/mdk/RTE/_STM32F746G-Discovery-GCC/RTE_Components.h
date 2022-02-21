@@ -16,6 +16,8 @@
  */
 #define CMSIS_device_header "stm32f7xx.h"
 
+/* Arm::Acceleration:Arm-2D:Core:0.9.10 */
+#define __RTE_ACCELERATION_ARM_2D__
 /* Keil::CMSIS Driver:USART:1.16.0 */
 #define RTE_Drivers_USART1              /* Driver USART1 */
         #define RTE_Drivers_USART2              /* Driver USART2 */

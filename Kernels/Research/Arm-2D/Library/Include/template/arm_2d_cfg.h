@@ -16,10 +16,12 @@
  * limitations under the License.
  */
 
-#ifndef __ARM_2D_CFG_H__
-#define __ARM_2D_CFG_H__
+#ifndef __ARM_2D_USER_CFG_H__
+#define __ARM_2D_USER_CFG_H__
 
 /*============================ INCLUDES ======================================*/
+
+#include "RTE_Components.h"
 
 #ifdef   __cplusplus
 extern "C" {

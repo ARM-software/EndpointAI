@@ -78,8 +78,6 @@ osEventFlagsId_t s_evt2DResourceAvailable = NULL;
 static ARM_NOINIT arm_2d_helper_pfb_t s_tExamplePFB;
 
 /*============================ IMPLEMENTATION ================================*/
-
-
 void display_task(void) 
 {  
     /*! define dirty regions */
@@ -122,13 +120,13 @@ void display_task(void)
         int32_t nTotalCyclCount = s_tExamplePFB.Statistics.nTotalCycle;
         int32_t nTotalLCDCycCount = s_tExamplePFB.Statistics.nRenderingCycle;
         int64_t lTemp = clock();
-        static int64_t s_tLast = 0;
-        int32_t nElapsed = lTemp - s_tLast;
-        s_tLast = lTemp;
+        static int64_t s_lLast = 0;
+        int32_t nElapsed = lTemp - s_lLast;
+        s_lLast = lTemp;
 
         snprintf(s_chPerformanceInfo, 
                  sizeof(s_chPerformanceInfo),
-                "UPS %d\tCPU Usage %2.1f%% (Including LCD Latency %2dms)", 
+                "UPS %d\tCPU Usage %2.1f%% (LCD Latency %2dms)", 
                 (int32_t)SystemCoreClock / nElapsed, 
                 (float)nTotalCyclCount / (float)nElapsed * 100.0f,
                 nTotalLCDCycCount / ((int32_t)SystemCoreClock / 1000));
