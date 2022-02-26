@@ -95,7 +95,7 @@ extern "C" {
 #endif
 
 #undef __ARM_2D_HAS_DSP__
-#if defined(__ARM_FEATURE_DSP)
+#if defined(__ARM_FEATURE_DSP) && __ARM_FEATURE_DSP
 #define __ARM_2D_HAS_DSP__                              1
 #else
 #define __ARM_2D_HAS_DSP__                              0

@@ -75,6 +75,8 @@ typedef float float16_t;
 
 #endif
 
+#include "arm_math.h"
+
 
 #ifdef   __cplusplus
 extern "C" {
