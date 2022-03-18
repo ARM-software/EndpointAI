@@ -605,16 +605,6 @@
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_alpha_blending.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
@@ -673,6 +663,16 @@
               <FileName>__arm_2d_alpha_blending_wrapper.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending_wrapper.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Include\arm_2d_transform.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1583,16 +1583,6 @@
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_alpha_blending.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
@@ -1651,6 +1641,16 @@
               <FileName>__arm_2d_alpha_blending_wrapper.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending_wrapper.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Include\arm_2d_transform.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2629,16 +2629,6 @@
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_alpha_blending.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
@@ -2697,6 +2687,16 @@
               <FileName>__arm_2d_alpha_blending_wrapper.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending_wrapper.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Include\arm_2d_transform.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3676,16 +3676,6 @@
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_alpha_blending.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
@@ -3744,6 +3734,16 @@
               <FileName>__arm_2d_alpha_blending_wrapper.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending_wrapper.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Include\arm_2d_transform.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -4654,16 +4654,6 @@
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_alpha_blending.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
@@ -4722,6 +4712,16 @@
               <FileName>__arm_2d_alpha_blending_wrapper.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending_wrapper.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Include\arm_2d_transform.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -5701,16 +5701,6 @@
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_alpha_blending.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
@@ -5769,6 +5759,16 @@
               <FileName>__arm_2d_alpha_blending_wrapper.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending_wrapper.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Include\arm_2d_transform.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -6748,16 +6748,6 @@
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_alpha_blending.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
@@ -6816,6 +6806,16 @@
               <FileName>__arm_2d_alpha_blending_wrapper.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending_wrapper.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Include\arm_2d_transform.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -7795,16 +7795,6 @@
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_alpha_blending.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
@@ -7863,6 +7853,16 @@
               <FileName>__arm_2d_alpha_blending_wrapper.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending_wrapper.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Include\arm_2d_transform.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -8253,7 +8253,7 @@
         <TargetCommonOption>
           <Device>SSE-300-MPS3</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.V2M_MPS3_SSE_300_BSP.1.1.0</PackID>
+          <PackID>ARM.V2M_MPS3_SSE_300_BSP.1.2.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x00000000,0x00080000) IRAM2(0x01000000,0x00200000) XRAM(0x20000000,0x00020000) XRAM2(0x20020000,0x00020000) XRAM3(0x20040000,0x00020000) CPUTYPE("Cortex-M55") FPU3(DFPU) DSP TZ MVE(FP) CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -8842,16 +8842,6 @@
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_alpha_blending.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
@@ -8910,6 +8900,16 @@
               <FileName>__arm_2d_alpha_blending_wrapper.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending_wrapper.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Include\arm_2d_transform.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -9889,16 +9889,6 @@
               <FilePath>..\..\Library\Include\arm_2d_utils.h</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_alpha_blending.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending.inc</FilePath>
@@ -9957,6 +9947,16 @@
               <FileName>__arm_2d_alpha_blending_wrapper.inc</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_alpha_blending_wrapper.inc</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Include\arm_2d_transform.h</FilePath>
             </File>
           </Files>
         </Group>

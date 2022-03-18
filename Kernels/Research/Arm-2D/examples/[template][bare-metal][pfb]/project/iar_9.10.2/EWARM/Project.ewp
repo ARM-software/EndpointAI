@@ -1133,10 +1133,10 @@
                     <name>$PROJ_DIR$\..\..\..\..\..\Library\Include\arm_2d_op.h</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\..\..\..\..\Library\Include\arm_2d_rotation.h</name>
+                    <name>$PROJ_DIR$\..\..\..\..\..\Library\Include\arm_2d_tile.h</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\..\..\..\..\Library\Include\arm_2d_tile.h</name>
+                    <name>$PROJ_DIR$\..\..\..\..\..\Library\Include\arm_2d_transform.h</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\..\..\..\..\Library\Include\arm_2d_types.h</name>
@@ -1166,7 +1166,7 @@
                     <name>$PROJ_DIR$\..\..\..\..\..\Library\Source\arm_2d_helium.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\..\..\..\..\Library\Source\arm_2d_rotation.c</name>
+                    <name>$PROJ_DIR$\..\..\..\..\..\Library\Source\arm_2d_transform.c</name>
                 </file>
             </group>
         </group>

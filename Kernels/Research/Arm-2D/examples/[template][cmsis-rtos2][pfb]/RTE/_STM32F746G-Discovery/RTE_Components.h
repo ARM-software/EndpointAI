@@ -20,9 +20,15 @@
 #define RTE_CMSIS_RTOS2                 /* CMSIS-RTOS2 */
         #define RTE_CMSIS_RTOS2_RTX5            /* CMSIS-RTOS2 Keil RTX5 */
         #define RTE_CMSIS_RTOS2_RTX5_SOURCE     /* CMSIS-RTOS2 Keil RTX5 Source */
-/* Arm::Acceleration:Arm-2D:Core:0.9.10 */
+/* Arm::Acceleration:Arm-2D Helper:PFB:0.9.11-dev */
+#define __RTE_ACCELERATION_ARM_2D_HELPER_PFB__
+/* Arm::Acceleration:Arm-2D:Alpha-Blending:0.9.11-dev */
+#define __RTE_ACCELERATION_ARM_2D_ALPHA_BLENDING__
+/* Arm::Acceleration:Arm-2D:Core:0.9.11-dev */
 #define __RTE_ACCELERATION_ARM_2D__
-/* GorgonMeducer.Performance Counter::Utilities:perf_counter:Core:Library:1.9.2 */
+/* Arm::Acceleration:Arm-2D:Transform:0.9.11-dev */
+#define __RTE_ACCELERATION_ARM_2D_TRANSFORM__
+/* GorgonMeducer.Performance Counter::Utilities:perf_counter:Core:Library:1.9.3 */
 #define __PERF_COUNTER__
 /* Keil.ARM Compiler::Compiler:I/O:STDOUT:User:1.2.0 */
 #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */

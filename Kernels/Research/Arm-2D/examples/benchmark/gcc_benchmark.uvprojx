@@ -53,7 +53,7 @@
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
-          <DebugInformation>1</DebugInformation>
+          <DebugInformation>0</DebugInformation>
           <BrowseInformation>0</BrowseInformation>
           <ListingPath>.\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
@@ -241,7 +241,7 @@
             <wLevel>1</wLevel>
             <uThumb>1</uThumb>
             <VariousControls>
-              <MiscControls>-Ofast -fdata-sections -ffunction-sections -fms-extensions -mcpu=cortex-m7 -mfloat-abi=soft -mfpu=fpv5-sp-d16 -std=gnu11</MiscControls>
+              <MiscControls>-Ofast -flto -fdata-sections -ffunction-sections -fms-extensions -mcpu=cortex-m7 -mfloat-abi=soft -mfpu=fpv5-sp-d16 -std=gnu11</MiscControls>
               <Define>RTE_Compiler_IO_STDOUT_User,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
               <Undefine></Undefine>
               <IncludePath>.\platform;..\..\Library\Include;.\platform\stm32f746g-discovery;.;..\..\Helper\Include;.\platform\lib</IncludePath>
@@ -269,7 +269,7 @@
             <IncludeLibs></IncludeLibs>
             <IncludeDir></IncludeDir>
             <Misc>--specs=nosys.specs -Wl,--gc-sections -Ofast
--mfloat-abi=soft -mfpu=fpv5-sp-d16  -mcpu=cortex-m7 -lc -ffunction-sections  -fdata-sections
+-mfloat-abi=soft -mfpu=fpv5-sp-d16 -flto -mcpu=cortex-m7 -lc -ffunction-sections  -fdata-sections
 -fshort-enums -fshort-wchar
 -Wl,--wrap=SysTick_Handler
 -Wl,--wrap=printf
@@ -473,14 +473,14 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.c</FileName>
+              <FileName>arm_2d_transform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
+              <FilePath>..\..\Library\Source\arm_2d_transform.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.h</FileName>
+              <FileName>arm_2d_transform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
+              <FilePath>..\..\Library\Include\arm_2d_transform.h</FilePath>
             </File>
           </Files>
         </Group>

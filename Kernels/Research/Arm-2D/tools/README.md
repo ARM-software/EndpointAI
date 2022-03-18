@@ -22,7 +22,7 @@ img2c.py [***-h***] [***--format*** \<***FORMAT***\>] [***--name \<NAME\>***] [*
 ## Example:
 
 ```
-python img2c.py -i ..\examples\alpha_blending\asset\HeliumRes.jpg --name Helium
+python img2c.py -i ..\examples\benchmark\asset\HeliumRes.jpg --name Helium
 ```
 
 

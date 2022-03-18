@@ -10,7 +10,7 @@
 #ifndef PRE_INCLUDE_GLOBAL_H
 #define PRE_INCLUDE_GLOBAL_H
 
-/* GorgonMeducer.Performance Counter::Utilities:perf_counter:RTX5 Patch:1.9.2 */
+/* GorgonMeducer.Performance Counter::Utilities:perf_counter:RTX5 Patch:1.9.3 */
 //! \brief Enable RTOS Patch for perf_counter
 #define __PERF_CNT_USE_RTOS__
 /* Keil::Device:STM32Cube HAL:Common:1.2.8 */

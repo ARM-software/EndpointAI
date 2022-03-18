@@ -1942,7 +1942,7 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
 
 
 #if     __ARM_2D_HAS_HELIUM_FLOAT__                                             \
-    && !__ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
+    && !__ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__
 
 #define __CALIB             0.009f16
 
@@ -1977,9 +1977,10 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
 
 
 static
-bool __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
+bool __arm_2d_transform_regression(arm_2d_size_t * __RESTRICT ptCopySize,
                                     arm_2d_location_t * pSrcPoint,
                                     float fAngle,
+                                    float fScale,
                                     arm_2d_location_t * tOffset,
                                     arm_2d_location_t * center,
                                     int32_t             iOrigStride,
@@ -1992,8 +1993,8 @@ bool __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     arm_2d_point_s32x4_t vPointCornerI;
     int32x4_t       vCornerX = { 0, 1, 0, 1 };
     int32x4_t       vCornerY = { 0, 0, 1, 1 };
-    float           cosAngle = arm_cos_f32(fAngle);
-    float           sinAngle = arm_sin_f32(fAngle);
+    float           cosAngle = arm_cos_f32(fAngle) * fScale;
+    float           sinAngle = arm_sin_f32(fAngle) * fScale;
     arm_2d_point_float_t centerf;
     float           slopeX, slopeY;
     bool            gatherLoadIdxOverflow = 0;
@@ -2085,7 +2086,7 @@ void __arm_2d_impl_gray8_get_pixel_colour(arm_2d_point_f16x8_t
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vldrbq_u16(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
     float16x8_t     vOne = vdupq_n_f16(1.0f);
     int16x8_t       vXi = vcvtq_s16_f16(ptPoint->X);
     int16x8_t       vYi = vcvtq_s16_f16(ptPoint->Y);
@@ -2195,7 +2196,7 @@ void __arm_2d_impl_gray8_get_pixel_colour_with_alpha(arm_2d_point_f16x8_t * ptPo
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vldrbq_u16(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
 
     float16x8_t     vOne = vdupq_n_f16(1.0f);
     int16x8_t       vXi = vcvtq_s16_f16(ptPoint->X);
@@ -2316,7 +2317,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour(arm_2d_point_f16x8_t * ptPoint,
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
     float16x8_t     vOne = vdupq_n_f16(1.0f);
     int16x8_t       vXi = vcvtq_s16_f16(ptPoint->X);
     int16x8_t       vYi = vcvtq_s16_f16(ptPoint->Y);
@@ -2423,7 +2424,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_offs_compensated(arm_2d_point_f16x8_t
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
     float16x8_t     vOne = vdupq_n_f16(1.0f);
     int16x8_t       vXi = vcvtq_s16_f16(ptPoint->X);
     int16x8_t       vYi = vcvtq_s16_f16(ptPoint->Y);
@@ -2535,7 +2536,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
 
     float16x8_t     vOne = vdupq_n_f16(1.0f);
     int16x8_t       vXi = vcvtq_s16_f16(ptPoint->X);
@@ -2651,7 +2652,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
 
     float16x8_t     vOne = vdupq_n_f16(1.0f);
     int16x8_t       vXi = vcvtq_s16_f16(ptPoint->X);
@@ -2773,7 +2774,7 @@ void __arm_2d_impl_cccn888_get_pixel_colour(   arm_2d_point_f16x8_t *ptPoint,
                                             uint32_t MaskColour,
                                             int16_t elts)
 {
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
     ARM_ALIGN(8) uint32_t scratch32[32];
     int16_t        *pscratch16 = (int16_t *) scratch32;
     uint32x4_t      vTargetLo = vld1q(pTarget);
@@ -2919,7 +2920,7 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
                                             uint8_t                  chOpacity,
                                             int16_t                  elts)
 {
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__)  &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__)  &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
     ARM_ALIGN(8) uint32_t scratch32[32];
     int16_t        *pscratch16 = (int16_t *) scratch32;
     uint32x4_t      vTargetLo = vld1q(pTarget);
@@ -3104,7 +3105,7 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
 #endif
 }
 
-#else /* __ARM_2D_HAS_HELIUM_FLOAT__ && ! __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__ */
+#else /* __ARM_2D_HAS_HELIUM_FLOAT__ && ! __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__ */
 
 
 /* extra calibration removed in fixed-point code since offset is lower than Q9.6 representation */
@@ -3143,112 +3144,12 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
         vAvgPixelB += vmulhq_u16(vScal, B);
 
 
-#ifdef VECTORIZED_ROTATION_REGR
-/* disabled as slower than scalar */
-static
-bool __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
-                                    arm_2d_location_t * pSrcPoint,
-                                    float fAngle,
-                                    arm_2d_location_t * tOffset,
-                                    arm_2d_location_t * center,
-                                    int32_t             iOrigStride,
-                                    arm_2d_rot_linear_regr_t regrCoefs[]
-    )
-{
-    int32_t         iHeight = ptCopySize->iHeight;
-    int32_t         iWidth = ptCopySize->iWidth;
-    q31_t           invHeightFx = 0x7fffffff / (iHeight - 1);
-    arm_2d_point_s32x4_t vPointCornerI;
-    int32_t         AngleFx = (int32_t) roundf(fAngle * ONE_BY_2PI_Q31);
-    q31_t           cosAngleFx = arm_cos_q31(AngleFx);
-    q31_t           sinAngleFx = arm_sin_q31(AngleFx);
-    int32x4_t       vCornerX = { 0, 1, 0, 1 };
-    int32x4_t       vCornerY = { 0, 0, 1, 1 };
-    bool            gatherLoadIdxOverflow = 0;
-
-    vPointCornerI.X = vdupq_n_s32(pSrcPoint->iX + tOffset->iX);
-    vPointCornerI.X = vPointCornerI.X + vmulq_n_s32(vCornerX, (iWidth - 1));
-
-    vPointCornerI.Y = vdupq_n_s32(pSrcPoint->iY + tOffset->iY);
-    vPointCornerI.Y = vPointCornerI.Y + vmulq_n_s32(vCornerY, (iHeight - 1));
-
-    /*
-       Vector version of:
-
-       int16_t         iX = ptLocation->iX - ptCenter->iX;
-       int16_t         iY = ptLocation->iY - ptCenter->iY;
-
-       q31_t           cosAngleFx = arm_cos_q31(fAngle);
-       q31_t           sinAngleFx = arm_sin_q31(fAngle);
-       tPointCornerFx[0][0].Y =
-       __QDADD(__QDADD(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
-       tPointCornerFx[0][0].X =
-       __QDSUB(__QDADD(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
-
-     */
-
-    arm_2d_point_s32x4_t vTmp1;
-
-    vTmp1.X = vsubq_n_s16(vPointCornerI.X, center->iX);
-    vTmp1.Y = vsubq_n_s16(vPointCornerI.Y, center->iY);
-    vTmp1.X <<= 16;
-    vTmp1.Y <<= 16;
-
-
-    vPointCornerI.X =
-        vqsubq(vqdmulhq_n_s32(vTmp1.X, cosAngleFx), vqdmulhq_n_s32(vTmp1.Y, sinAngleFx));
-    vPointCornerI.X = vqaddq_n_s32(vPointCornerI.X, (center->iX << 16));
-
-    vPointCornerI.Y = vqdmlahq(vqdmulhq_n_s32(vTmp1.X, sinAngleFx), vTmp1.Y, cosAngleFx);
-    vPointCornerI.Y = vqaddq_n_s32(vPointCornerI.Y, (center->iY << 16));
-
-    /*
-       Check whether rotated index offsets could exceed 16-bit limits
-       used in subsequent gather loads
-       This will occur for parts of large images (e.g. 320*200)
-       To avoid unconditional penalties for small/medium images,
-       returns a speculative overflow allowing to handle large offsets.
-    */
-    int32_t maxY = vmaxvq(0.0f, vPointCornerI.Y);
-
-    if(MULTFX(TO_Q16(iOrigStride), maxY) > UINT16_MAX)
-        gatherLoadIdxOverflow = true;
-
-
-    /* regression parameters */
-
-    vTmp1.X[0] = vPointCornerI.X[0];
-    vTmp1.X[1] = vPointCornerI.X[1];
-    vTmp1.X[2] = vPointCornerI.Y[0];
-    vTmp1.X[3] = vPointCornerI.Y[1];
-
-    vTmp1.Y[0] = vPointCornerI.X[2];
-    vTmp1.Y[1] = vPointCornerI.X[3];
-    vTmp1.Y[2] = vPointCornerI.Y[2];
-    vTmp1.Y[3] = vPointCornerI.Y[3];
-
-    /* slopes */
-    vTmp1.X = vqdmulhq_n_s32(vTmp1.Y - vTmp1.X, invHeightFx);
-
-    regrCoefs[0].slopeY = vTmp1.X[2];
-    regrCoefs[0].slopeX = vTmp1.X[0];
-    regrCoefs[0].interceptY = vPointCornerI.Y[0];
-    regrCoefs[0].interceptX = vPointCornerI.X[0];
-
-    regrCoefs[1].slopeY = vTmp1.X[3];
-    regrCoefs[1].slopeX = vTmp1.X[1];
-    regrCoefs[1].interceptY = vPointCornerI.Y[1];
-    regrCoefs[1].interceptX = vPointCornerI.X[1];
-
-    return gatherLoadIdxOverflow;
-}
-
-#else
 
 static
-bool __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
+bool __arm_2d_transform_regression(arm_2d_size_t * __RESTRICT ptCopySize,
                                             arm_2d_location_t * pSrcPoint,
                                             float fAngle,
+                                            float fScale,
                                             arm_2d_location_t * tOffset,
                                             arm_2d_location_t * center,
                                             int32_t             iOrigStride,
@@ -3259,8 +3160,9 @@ bool __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     int_fast16_t        iWidth = ptCopySize->iWidth;
     q31_t               invHeightFx = 0x7fffffff / (iHeight - 1);
     int32_t             AngleFx = lroundf(fAngle * ONE_BY_2PI_Q31);
-    q31_t               cosAngleFx = arm_cos_q31(AngleFx);
-    q31_t               sinAngleFx = arm_sin_q31(AngleFx);
+    int32_t             ScaleFx = (int32_t)((float)fScale * (float)TO_Q16(1));
+    q31_t               cosAngleFx = MULTFX(arm_cos_q31(AngleFx), ScaleFx);
+    q31_t               sinAngleFx = MULTFX(arm_sin_q31(AngleFx), ScaleFx);
     arm_2d_point_fx_t   tPointCornerFx[2][2];
     arm_2d_point_fx_t   centerQ16;
     arm_2d_point_fx_t   srcPointQ16;
@@ -3288,9 +3190,11 @@ bool __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     iYQ16 = tmp.Y - centerQ16.Y;
 
     tPointCornerFx[0][0].Y =
-        __QDADD(__QDADD(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
+        __QDADD(__QDADD(centerQ16.Y, MUL_Q16(iYQ16, cosAngleFx)),
+                MUL_Q16(iXQ16, sinAngleFx));
     tPointCornerFx[0][0].X =
-        __QDSUB(__QDADD(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
+        __QDSUB(__QDADD(centerQ16.X, MUL_Q16(iXQ16, cosAngleFx)),
+                MUL_Q16(iYQ16, sinAngleFx));
 
 
     /* ((iWidth - 1),0) corner */
@@ -3298,9 +3202,11 @@ bool __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     iXQ16 = tmp.X - centerQ16.X;
 
     tPointCornerFx[1][0].Y =
-        __QDADD(__QDADD(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
+        __QDADD(__QDADD(centerQ16.Y, MUL_Q16(iYQ16, cosAngleFx)),
+                MUL_Q16(iXQ16, sinAngleFx));
     tPointCornerFx[1][0].X =
-        __QDSUB(__QDADD(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
+        __QDSUB(__QDADD(centerQ16.X, MUL_Q16(iXQ16, cosAngleFx)),
+                MUL_Q16(iYQ16, sinAngleFx));
 
 
     /* ((iWidth - 1),(iHeight - 1)) corner */
@@ -3308,9 +3214,11 @@ bool __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     iYQ16 = tmp.Y - centerQ16.Y;
 
     tPointCornerFx[1][1].Y =
-        __QDADD(__QDADD(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
+        __QDADD(__QDADD(centerQ16.Y, MUL_Q16(iYQ16, cosAngleFx)),
+                MUL_Q16(iXQ16, sinAngleFx));
     tPointCornerFx[1][1].X =
-        __QDSUB(__QDADD(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
+        __QDSUB(__QDADD(centerQ16.X, MUL_Q16(iXQ16, cosAngleFx)),
+                MUL_Q16(iYQ16, sinAngleFx));
 
 
     /* (0,(iHeight - 1)) corner */
@@ -3318,9 +3226,12 @@ bool __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     iXQ16 = tmp.X - centerQ16.X;
 
     tPointCornerFx[0][1].Y =
-        __QDADD(__QDADD(centerQ16.Y, MULTFX(iYQ16, cosAngleFx)), MULTFX(iXQ16, sinAngleFx));
+        __QDADD(__QDADD(centerQ16.Y, MUL_Q16(iYQ16, cosAngleFx)),
+                MUL_Q16(iXQ16, sinAngleFx));
     tPointCornerFx[0][1].X =
-        __QDSUB(__QDADD(centerQ16.X, MULTFX(iXQ16, cosAngleFx)), MULTFX(iYQ16, sinAngleFx));
+        __QDSUB(__QDADD(centerQ16.X, MUL_Q16(iXQ16, cosAngleFx)),
+                MUL_Q16(iYQ16, sinAngleFx));
+
     /*
        Check whether rotated index offsets could exceed 16-bit limits
        used in subsequent gather loads
@@ -3362,7 +3273,6 @@ bool __arm_2d_rotate_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     return gatherLoadIdxOverflow;
 }
 
-#endif
 
 
 static
@@ -3376,7 +3286,7 @@ void __arm_2d_impl_gray8_get_pixel_colour(arm_2d_point_s16x8_t * ptPoint,
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vldrbq_u16(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
     int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
     int16x8_t       vXi = GET_Q6INT(ptPoint->X);
     int16x8_t       vYi = GET_Q6INT(ptPoint->Y);
@@ -3497,7 +3407,7 @@ void __arm_2d_impl_gray8_get_pixel_colour_with_alpha(arm_2d_point_s16x8_t * ptPo
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vldrbq_u16(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
     int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
     int16x8_t       vXi = GET_Q6INT(ptPoint->X);
     int16x8_t       vYi = GET_Q6INT(ptPoint->Y);
@@ -3623,7 +3533,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour(   arm_2d_point_s16x8_t *ptPoint,
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
     int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
     int16x8_t       vXi = GET_Q6INT(ptPoint->X);
     int16x8_t       vYi = GET_Q6INT(ptPoint->Y);
@@ -3733,7 +3643,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_offs_compensated(   arm_2d_point_s16x
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
     int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
     int16x8_t       vXi = GET_Q6INT(ptPoint->X);
     int16x8_t       vYi = GET_Q6INT(ptPoint->Y);
@@ -3855,7 +3765,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
     int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
     int16x8_t       vXi = GET_Q6INT(ptPoint->X);
     int16x8_t       vYi = GET_Q6INT(ptPoint->Y);
@@ -3973,7 +3883,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
     int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
     int16x8_t       vXi = GET_Q6INT(ptPoint->X);
     int16x8_t       vYi = GET_Q6INT(ptPoint->Y);
@@ -4093,7 +4003,7 @@ void __arm_2d_impl_cccn888_get_pixel_colour(   arm_2d_point_s16x8_t *ptPoint,
                                             uint32_t MaskColour,
                                             int16_t elts)
 {
-#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__) &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if     defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
     ARM_ALIGN(8) uint32_t scratch32[32];
     int16_t        *pscratch16 = (int16_t *) scratch32;
     uint32x4_t      vTargetLo = vld1q(pTarget);
@@ -4244,7 +4154,7 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
                                             uint8_t                  chOpacity,
                                             int16_t                  elts)
 {
-#if     defined(__ARM_2D_HAS_INTERPOLATION_ROTATION__)  &&  __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#if     defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__)  &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
     ARM_ALIGN(8) uint32_t scratch32[32];
     int16_t        *pscratch16 = (int16_t *) scratch32;
     uint32x4_t      vTargetLo = vld1q(pTarget);
@@ -4432,15 +4342,15 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
 
 #define __API_INT_TYPE_BIT_NUM      8
 #define __API_COLOUR                gray8
-#include "__arm_2d_rotate_helium.inc"
+#include "__arm_2d_transform_helium.inc"
 
 #define __API_INT_TYPE_BIT_NUM      16
 #define __API_COLOUR                rgb565
-#include "__arm_2d_rotate_helium.inc"
+#include "__arm_2d_transform_helium.inc"
 
 #define __API_INT_TYPE_BIT_NUM      32
 #define __API_COLOUR                cccn888
-#include "__arm_2d_rotate_helium.inc"
+#include "__arm_2d_transform_helium.inc"
 
 
 /* rgb8_draw_pattern helpers */

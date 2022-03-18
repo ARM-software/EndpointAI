@@ -7021,7 +7021,7 @@
         <TargetCommonOption>
           <Device>SSE-300-MPS3</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.V2M_MPS3_SSE_300_BSP.1.1.0</PackID>
+          <PackID>ARM.V2M_MPS3_SSE_300_BSP.1.2.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x00000000,0x00080000) IRAM2(0x01000000,0x00200000) XRAM(0x20000000,0x00020000) XRAM2(0x20020000,0x00020000) XRAM3(0x20040000,0x00020000) CPUTYPE("Cortex-M55") FPU3(DFPU) DSP TZ MVE(FP) CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -9013,7 +9013,7 @@
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="Definition" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device">
-        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
+        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
         </targetInfos>
@@ -9031,28 +9031,13 @@
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device">
-        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
+        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
         </targetInfos>
       </component>
-      <component Cclass="Acceleration" Cgroup="Arm-2D Helper" Csub="PFB" Cvendor="Arm" Cversion="0.9.10" condition="Arm-2D-CORE">
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-alpha1"/>
-        <targetInfos>
-          <targetInfo name="AN547-Cortex-M55_r0"/>
-          <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
-          <targetInfo name="FastModel"/>
-          <targetInfo name="STM32F746G-Discovery"/>
-          <targetInfo name="STM32F746G-Discovery-AC5"/>
-          <targetInfo name="V2M-MPS2-CM0+"/>
-          <targetInfo name="V2M-MPS2-CM33"/>
-          <targetInfo name="V2M-MPS2-CM4"/>
-          <targetInfo name="V2M-MPS2-CM7"/>
-          <targetInfo name="V2M-MPS3-CM55"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Alpha-Blending" Cvendor="Arm" Cversion="0.9.10" condition="Arm-2D-CORE">
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-alpha1"/>
+      <component Cclass="Acceleration" Cgroup="Arm-2D Helper" Csub="PFB" Cvendor="Arm" Cversion="0.9.11-dev" condition="Arm-2D-CORE">
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-alpha3"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -9066,8 +9051,8 @@
           <targetInfo name="V2M-MPS3-CM55"/>
         </targetInfos>
       </component>
-      <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="0.9.10" condition="CMSIS-CORE">
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-alpha1"/>
+      <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Alpha-Blending" Cvendor="Arm" Cversion="0.9.11-dev" condition="Arm-2D-CORE">
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-alpha3"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -9081,8 +9066,8 @@
           <targetInfo name="V2M-MPS3-CM55"/>
         </targetInfos>
       </component>
-      <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Rotation" Cvendor="Arm" Cversion="0.9.10" condition="Arm-2D-DSP">
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-alpha1"/>
+      <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="0.9.11-dev" condition="CMSIS-DSP">
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-alpha3"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -9096,8 +9081,8 @@
           <targetInfo name="V2M-MPS3-CM55"/>
         </targetInfos>
       </component>
-      <component Cbundle="Performance Counter" Cclass="Utilities" Cgroup="perf_counter" Csub="Core" Cvariant="Library" Cvendor="GorgonMeducer" Cversion="1.9.2" condition="CMSIS-CORE">
-        <package name="perf_counter" schemaVersion="1.4" url="https://raw.githubusercontent.com/GorgonMeducer/perf_counter/CMSIS-Pack/cmsis-pack/" vendor="GorgonMeducer" version="1.9.2"/>
+      <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Transform" Cvendor="Arm" Cversion="0.9.11-dev" condition="Arm-2D-CORE">
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-alpha3"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -9111,8 +9096,23 @@
           <targetInfo name="V2M-MPS3-CM55"/>
         </targetInfos>
       </component>
-      <component Cbundle="Performance Counter" Cclass="Utilities" Cgroup="perf_counter" Csub="RTX5 Patch" Cvendor="GorgonMeducer" Cversion="1.9.2" condition="RTX5 Patch">
-        <package name="perf_counter" schemaVersion="1.4" url="https://raw.githubusercontent.com/GorgonMeducer/perf_counter/CMSIS-Pack/cmsis-pack/" vendor="GorgonMeducer" version="1.9.2"/>
+      <component Cbundle="Performance Counter" Cclass="Utilities" Cgroup="perf_counter" Csub="Core" Cvariant="Library" Cvendor="GorgonMeducer" Cversion="1.9.3" condition="CMSIS-CORE">
+        <package name="perf_counter" schemaVersion="1.4" url="https://raw.githubusercontent.com/GorgonMeducer/perf_counter/CMSIS-Pack/cmsis-pack/" vendor="GorgonMeducer" version="1.9.3"/>
+        <targetInfos>
+          <targetInfo name="AN547-Cortex-M55_r0"/>
+          <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
+          <targetInfo name="FastModel"/>
+          <targetInfo name="STM32F746G-Discovery"/>
+          <targetInfo name="STM32F746G-Discovery-AC5"/>
+          <targetInfo name="V2M-MPS2-CM0+"/>
+          <targetInfo name="V2M-MPS2-CM33"/>
+          <targetInfo name="V2M-MPS2-CM4"/>
+          <targetInfo name="V2M-MPS2-CM7"/>
+          <targetInfo name="V2M-MPS3-CM55"/>
+        </targetInfos>
+      </component>
+      <component Cbundle="Performance Counter" Cclass="Utilities" Cgroup="perf_counter" Csub="RTX5 Patch" Cvendor="GorgonMeducer" Cversion="1.9.3" condition="RTX5 Patch">
+        <package name="perf_counter" schemaVersion="1.4" url="https://raw.githubusercontent.com/GorgonMeducer/perf_counter/CMSIS-Pack/cmsis-pack/" vendor="GorgonMeducer" version="1.9.3"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -9319,8 +9319,8 @@
     <files>
       <file attr="config" category="preIncludeGlobal" name="Library\Include\template\arm_2d_cfg.h" version="1.0.0">
         <instance index="0">RTE\Acceleration\arm_2d_cfg.h</instance>
-        <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="0.9.10" condition="CMSIS-CORE"/>
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-alpha1"/>
+        <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="0.9.11-dev" condition="CMSIS-DSP"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-alpha3"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -9618,7 +9618,7 @@
       <file attr="config" category="header" name="CMSIS_Driver\Config\RTE_Device.h" version="1.0.0">
         <instance index="0">RTE\Device\SSE-300-MPS3\RTE_Device.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
-        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
+        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
         </targetInfos>
@@ -9626,7 +9626,7 @@
       <file attr="config" category="header" name="CMSIS_Driver\Config\Baremetal\cmsis_driver_config.h" version="1.1.1">
         <instance index="0">RTE\Device\SSE-300-MPS3\cmsis_driver_config.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
-        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
+        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
         </targetInfos>
@@ -9634,7 +9634,7 @@
       <file attr="config" category="header" name="Device\Config\Baremetal\device_cfg.h" version="1.1.1">
         <instance index="0">RTE\Device\SSE-300-MPS3\device_cfg.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
-        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
+        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
         </targetInfos>
@@ -9642,7 +9642,7 @@
       <file attr="config" category="linkerScript" name="Device\Source\armclang\fvp_sse300_mps3_s.sct" version="1.1.0">
         <instance index="0">RTE\Device\SSE-300-MPS3\fvp_sse300_mps3_s.sct</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
-        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
+        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
         </targetInfos>
@@ -9650,7 +9650,7 @@
       <file attr="config" category="header" name="Board\Platform\platform_base_address.h" version="1.1.2">
         <instance index="0">RTE\Device\SSE-300-MPS3\platform_base_address.h</instance>
         <component Cclass="Device" Cgroup="Definition" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
-        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
+        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
         </targetInfos>
@@ -9658,7 +9658,7 @@
       <file attr="config" category="header" name="Device\Include\region_defs.h" version="1.0.0">
         <instance index="0">RTE\Device\SSE-300-MPS3\region_defs.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
-        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
+        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
         </targetInfos>
@@ -9666,7 +9666,7 @@
       <file attr="config" category="header" name="Device\Include\region_limits.h" version="1.0.0">
         <instance index="0">RTE\Device\SSE-300-MPS3\region_limits.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
-        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
+        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
         </targetInfos>
@@ -9674,7 +9674,7 @@
       <file attr="config" category="source" name="Device\Source\startup_fvp_sse300_mps3.c" version="1.1.1">
         <instance index="0">RTE\Device\SSE-300-MPS3\startup_fvp_sse300_mps3.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
-        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
+        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
         </targetInfos>
@@ -9682,7 +9682,7 @@
       <file attr="config" category="source" name="Device\Source\system_SSE300MPS3.c" version="1.0.0">
         <instance index="0">RTE\Device\SSE-300-MPS3\system_SSE300MPS3.c</instance>
         <component Cclass="Device" Cgroup="Definition" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
-        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.1.0"/>
+        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
         </targetInfos>

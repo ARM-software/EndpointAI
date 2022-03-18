@@ -56,13 +56,13 @@
 /*============================ TYPES =========================================*/
 
 typedef struct {
-    arm_2d_op_rotate_opacity_t tOP;
+    arm_2d_op_trans_opa_t tOP;
     const arm_2d_tile_t *ptTile;
     float fAngle;
     float fAngleSpeed;
     arm_2d_location_t tCentre;
     arm_2d_location_t *ptTargetCentre;
-    arm_2d_region_t tRegion;
+    arm_2d_region_t *ptRegion;
     uint8_t chOpacity;
 } demo_gears_t;
 
@@ -84,9 +84,12 @@ const arm_2d_tile_t c_tileClockface;
 extern 
 const arm_2d_tile_t c_tileBackground;
 
+extern const arm_2d_tile_t c_tileStar;
+
 /*============================ PROTOTYPES ====================================*/
 /*============================ LOCAL VARIABLES ===============================*/
 
+static arm_2d_op_trans_opa_t s_tStarOP;
 
 
 static arm_2d_layer_t s_ptRefreshLayers[] = {
@@ -118,7 +121,7 @@ demo_gears_t s_tGears[] = {
             .iY = 20,
         },
 
-        .tRegion = {
+        .ptRegion = (arm_2d_region_t []){ {
             .tLocation = {
                 .iX = ((APP_SCREEN_WIDTH - 41) >> 1) + 30,
                 .iY = ((APP_SCREEN_HEIGHT - 41) >>1) + 30,
@@ -127,6 +130,7 @@ demo_gears_t s_tGears[] = {
                 .iWidth = 41,
                 .iHeight = 41,
             },
+            }
         },
     #if 0  /*! a demo shows how to specifiy the centre of rotation on the target tile */
         .ptTargetCentre = (arm_2d_location_t []){
@@ -146,7 +150,7 @@ demo_gears_t s_tGears[] = {
             .iX = 61,
             .iY = 60,
         },
-        .tRegion = {
+        .ptRegion = (arm_2d_region_t []){ {
             .tLocation = {
                 .iX = ((APP_SCREEN_WIDTH - 120) >> 1),
                 .iY = ((APP_SCREEN_HEIGHT - 120) >>1),
@@ -155,7 +159,7 @@ demo_gears_t s_tGears[] = {
                 .iWidth = 120,
                 .iHeight = 120,
             },
-        },
+        }},
         .chOpacity = 128,
     },
 
@@ -166,7 +170,7 @@ demo_gears_t s_tGears[] = {
             .iX = 6,
             .iY = 111,
         },
-        .tRegion = {
+        .ptRegion = (arm_2d_region_t []){ {
             .tLocation = {
                 .iX = ((APP_SCREEN_WIDTH - 222) >> 1),
                 .iY = ((APP_SCREEN_HEIGHT - 222) >>1),
@@ -175,7 +179,7 @@ demo_gears_t s_tGears[] = {
                 .iWidth = 222,
                 .iHeight = 222,
             },
-        },
+        }},
         .chOpacity = 255,
     },
 };
@@ -338,10 +342,10 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 
         if (255 == ptItem->chOpacity) {
         
-            arm_2dp_rgb565_tile_rotation(   (arm_2d_op_rotate_t *)&(_->tOP),
+            arm_2dp_rgb565_tile_rotation(   (arm_2d_op_trans_t *)&(_->tOP),
                                             ptItem->ptTile,     //!< source tile
                                             ptTile,             //!< target tile
-                                            &(ptItem->tRegion), //!< target region
+                                            ptItem->ptRegion,   //!< target region
                                             ptItem->tCentre,    //!< center point
                                             ptItem->fAngle,     //!< rotation angle
                                             GLCD_COLOR_BLACK,   //!< masking colour
@@ -351,7 +355,7 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
                                             &(ptItem->tOP),
                                             ptItem->ptTile,     //!< source tile
                                             ptTile,             //!< target tile
-                                            &(ptItem->tRegion), //!< target region
+                                            ptItem->ptRegion,   //!< target region
                                             ptItem->tCentre,    //!< center point
                                             ptItem->fAngle,     //!< rotation angle
                                             GLCD_COLOR_BLACK,   //!< masking colour
@@ -359,6 +363,44 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
                                             ptItem->ptTargetCentre);
         }
     }
+    
+    //! demo for transform
+    do {
+        static float s_fAngle = 0.0f;
+        static float s_fScale = 0.5f;
+        static uint8_t s_chOpacity = 255;
+    
+        if (bIsNewFrame) {
+            
+            s_fAngle += ARM_2D_ANGLE(10.0f);
+            s_fAngle = fmodf(s_fAngle,ARM_2D_ANGLE(360));
+            s_fScale += 0.05f;
+            
+            if (s_chOpacity >= 8) {
+                s_chOpacity -= 8;
+            } else {
+                s_fScale = 0.5f;
+                s_chOpacity = 255;
+            }
+        }
+        
+        arm_2d_location_t tCentre = {
+            .iX = c_tileStar.tRegion.tSize.iWidth >> 1,
+            .iY = c_tileStar.tRegion.tSize.iHeight >> 1,
+        };
+        
+        arm_2dp_rgb565_tile_transform_with_opacity(
+            &s_tStarOP,         //!< control block
+            &c_tileStar,        //!< source tile
+            ptTile,             //!< target tile
+            NULL,               //!< target region
+            tCentre,            //!< pivot on source
+            s_fAngle,           //!< rotation angle 
+            s_fScale,           //!< zoom scale 
+            GLCD_COLOR_BLACK,   //!< chromekeying colour
+            s_chOpacity         //!< opacity
+        );                  
+    } while(0);
 
     example_gui_on_refresh_evt_handler(ptTile);
 

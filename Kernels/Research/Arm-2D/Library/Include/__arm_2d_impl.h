@@ -199,8 +199,8 @@ enum {
     
     __ARM_2D_OP_IDX_COLOUR_FORMAT_CONVERSION,
     
-    __ARM_2D_OP_IDX_ROTATE,
-    __ARM_2D_OP_IDX_ROTATE_WITH_ALPHA
+    __ARM_2D_OP_IDX_TRANSFORM,
+    __ARM_2D_OP_IDX_TRANSFORM_WITH_ALPHA
     /*------------ cmsisi-2d operation idx end --------------*/
 };
 //! @}
@@ -325,8 +325,8 @@ ARM_PRIVATE(
         arm_2d_op_cp_msk_t                  tCopyMasks;
         
         arm_2d_op_drw_patn_t                tDrawPattern;
-        arm_2d_op_rotate_t                  tRotate;
-        arm_2d_op_rotate_opacity_t          tRotateOpacity;
+        arm_2d_op_trans_t                   tTransform;
+        arm_2d_op_trans_opa_t               tRotateOpacity;
         
         arm_2d_op_msk_t                     tBasicMask;
         arm_2d_op_src_msk_t                 tSourceMask;
@@ -595,19 +595,22 @@ arm_fsm_rt_t __arm_2d_sw_convert_colour_to_rgb888(
                                     __arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_gray8_sw_rotate(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_gray8_sw_transform(__arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_rgb565_sw_rotate(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_rgb565_sw_transform(__arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_cccn888_sw_rotate(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_cccn888_sw_transform(__arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_rgb565_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_gray8_sw_transform_with_alpha(__arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_cccn888_sw_rotate_with_alpha(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t __arm_2d_rgb565_sw_transform_with_alpha(__arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_cccn888_sw_transform_with_alpha(__arm_2d_sub_task_t *ptTask);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

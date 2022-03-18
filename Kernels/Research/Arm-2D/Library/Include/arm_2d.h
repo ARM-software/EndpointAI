@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the all avaialble Arm-2D 
  *               interface header files 
  *
- * $Date:        01. December 2020
- * $Revision:    V.0.5.0
+ * $Date:        17. March 2022
+ * $Revision:    V.1.0.0
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -38,7 +38,7 @@
 #include "arm_2d_draw.h"
 #include "arm_2d_conversion.h"
 #include "arm_2d_alpha_blending.h"
-#include "arm_2d_rotation.h"
+#include "arm_2d_transform.h"
 
 #ifdef   __cplusplus
 extern "C" {
@@ -56,7 +56,8 @@ extern "C" {
 //! @{
 #define ARM_2D_VERSION_MAJOR        0
 #define ARM_2D_VERSION_MINOR        9
-#define ARM_2D_VERSION_PATCH        10   
+#define ARM_2D_VERSION_PATCH        11
+#define ARM_2D_VERSION_STR          "dev"   
 
 #define ARM_2D_VERISON              (   ARM_2D_VERSION_MAJOR * 10000ul          \
                                     +   ARM_2D_VERSION_MINOR * 100ul            \

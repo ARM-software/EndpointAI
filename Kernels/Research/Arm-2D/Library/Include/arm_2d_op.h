@@ -177,19 +177,22 @@ extern
 const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB888;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_ROTATE_GRAY8;
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_GRAY8;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_ROTATE_RGB565;
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_RGB565;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_ROTATE_RGB888;
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_RGB888;
 
 extern
-const __arm_2d_op_info_t ARM_2D_OP_ROTATE_WITH_ALPHA_RGB565;
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_ALPHA_GRAY8;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_ALPHA_RGB565;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_ROTATE_WITH_ALPHA_RGB888;
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_ALPHA_RGB888;
 
 /*============================ PROTOTYPES ====================================*/
 

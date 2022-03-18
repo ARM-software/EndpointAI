@@ -16,8 +16,14 @@
  */
 #define CMSIS_device_header "stm32f7xx.h"
 
-/* Arm::Acceleration:Arm-2D:Core:0.9.10 */
+/* Arm::Acceleration:Arm-2D Helper:PFB:0.9.11-dev */
+#define __RTE_ACCELERATION_ARM_2D_HELPER_PFB__
+/* Arm::Acceleration:Arm-2D:Alpha-Blending:0.9.11-dev */
+#define __RTE_ACCELERATION_ARM_2D_ALPHA_BLENDING__
+/* Arm::Acceleration:Arm-2D:Core:0.9.11-dev */
 #define __RTE_ACCELERATION_ARM_2D__
+/* Arm::Acceleration:Arm-2D:Transform:0.9.11-dev */
+#define __RTE_ACCELERATION_ARM_2D_TRANSFORM__
 /* Keil.ARM Compiler::Compiler:I/O:STDOUT:User:1.2.0 */
 #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
           #define RTE_Compiler_IO_STDOUT_User     /* Compiler I/O: STDOUT User */

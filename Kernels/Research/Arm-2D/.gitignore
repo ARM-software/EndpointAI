@@ -53,3 +53,6 @@ examples/watch_panel/Objects/gcc_template.hex
 *.dbgdt
 *.wsdt
 *.dnx
+examples/[template][bare-metal][pfb]/project/iar_9.10.2/EWARM/settings/Project.STM32746G_DISCOVERY.cspy.bat
+examples/[template][bare-metal][pfb]/project/iar_9.10.2/EWARM/settings/Project.STM32746G_DISCOVERY.cspy.ps1
+examples/[template][bare-metal][pfb]/project/iar_9.10.2/EWARM/settings/Project.crun

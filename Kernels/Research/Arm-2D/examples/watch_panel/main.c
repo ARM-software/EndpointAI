@@ -154,7 +154,7 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
     if (0 == BENCHMARK.wIterations) {
 
         lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
-        lcd_puts(  "Rotation Test, running "
+        lcd_puts(  "Transform Test, running "
                     STR(ITERATION_CNT)
                     " iterations\r\n");
 
@@ -219,7 +219,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
     __PRINT_BANNER("Arm-2D Benchmark");
 
     lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
-    lcd_puts(  "Rotation Test, running "
+    lcd_puts(  "Transform Test, running "
                 STR(ITERATION_CNT)
                 " iterations\r\n");
 

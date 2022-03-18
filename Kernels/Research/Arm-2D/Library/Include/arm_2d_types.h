@@ -587,7 +587,7 @@ typedef struct arm_2d_op_src_orig_msk_t {
  *----------------------------------------------------------------------------*/
 
 #if     (__ARM_2D_HAS_HELIUM_FLOAT__ || __ARM_2D_HAS_FPU__)                     \
-    && !__ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
+    && !__ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__
 typedef struct arm_2d_rot_linear_regr_t {
     float   slopeY;
     float   interceptY;

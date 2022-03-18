@@ -303,7 +303,9 @@ __attribute__((nothrow))
 extern int64_t clock(void);
 #endif
 
+#if !__IS_COMPILER_IAR__
 __attribute__((nothrow)) 
+#endif
 extern int64_t get_system_ticks(void);
 
 

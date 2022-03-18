@@ -20,7 +20,7 @@
 
 ## Features of the Arm-2D Library
 
-#### In this release ( ver0.9.10)
+#### In this release ( ver0.9.11 dev)
 
 The Arm-2D library provides **Low-Level 2D Image Processing Services** that are mainly used in **Deep Embedded Display system**. The supported features include but not limited to:
 
@@ -46,11 +46,11 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
   - Supports the **Dirty Regions** when performing the low level refreshing
   - Supports swapping high and low bytes for RGB16 pixels
   - Has built-in frame buffer pool and supports 3-FB scheme
-- **Rotation**
+- **Transform** (i.e. rotation and scaling)
   - Supports Colour-keying by default
   - Supports an optional **Opacity** ratio
   - Supports the Anti-Alias feature. 
-    - You can enable it by defining macro  **\_\_ARM_2D_HAS_INTERPOLATION_ROTATION\_\_** to "**1**" on **compile-time**.
+    - You can enable it by defining macro  **\_\_ARM_2D_HAS_INTERPOLATION_TRANSFORM to "**1**" on **compile-time**.
 - **An Unified and User-Friendly Programmers' Model**
   - APIs can be used in **Synchronous** manner (  **Classic and Blocking** ) and/or **Asynchronous** manner ( **Event-Driven** )
   - Supports both **bare-metal** and **RTOS** environment

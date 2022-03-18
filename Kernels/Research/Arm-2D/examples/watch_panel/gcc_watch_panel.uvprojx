@@ -510,16 +510,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_tile.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
@@ -528,6 +518,16 @@
               <FileName>__arm_2d_core.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Include\arm_2d_transform.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -737,7 +737,7 @@
         <TargetCommonOption>
           <Device>ARMCM0P_MPU</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.CMSIS.5.8.0</PackID>
+          <PackID>ARM.CMSIS.5.8.1</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00020000) IROM(0x00000000,0x00040000) CPUTYPE("Cortex-M0+") CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -1231,16 +1231,6 @@
               <FilePath>..\..\Library\Source\arm_2d_helium.c</FilePath>
             </File>
             <File>
-              <FileName>arm_2d_rotation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Library\Source\arm_2d_rotation.c</FilePath>
-            </File>
-            <File>
-              <FileName>arm_2d_rotation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Library\Include\arm_2d_rotation.h</FilePath>
-            </File>
-            <File>
               <FileName>__arm_2d_tile.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_tile.c</FilePath>
@@ -1249,6 +1239,16 @@
               <FileName>__arm_2d_core.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Library\Source\__arm_2d_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Include\arm_2d_transform.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1682,7 +1682,7 @@
       <file attr="config" category="linkerScript" condition="GCC" name="Device\ARM\ARMCM0plus\Source\GCC\gcc_arm.ld" version="0.0.0">
         <instance index="0">RTE\Device\ARMCM0P_MPU\gcc_arm.ld</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.3" condition="ARMCM0+ CMSIS" isDefaultVariant="1"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.1"/>
         <targetInfos>
           <targetInfo name="V2M-MPS2-CM0+"/>
         </targetInfos>
@@ -1690,7 +1690,7 @@
       <file attr="config" category="sourceC" name="Device\ARM\ARMCM0plus\Source\startup_ARMCM0plus.c" version="0.0.0">
         <instance index="0">RTE\Device\ARMCM0P_MPU\startup_ARMCM0plus.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.3" condition="ARMCM0+ CMSIS" isDefaultVariant="1"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.1"/>
         <targetInfos>
           <targetInfo name="V2M-MPS2-CM0+"/>
         </targetInfos>
@@ -1698,7 +1698,7 @@
       <file attr="config" category="sourceC" name="Device\ARM\ARMCM0plus\Source\system_ARMCM0plus.c" version="0.0.0">
         <instance index="0">RTE\Device\ARMCM0P_MPU\system_ARMCM0plus.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.3" condition="ARMCM0+ CMSIS" isDefaultVariant="1"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.1"/>
         <targetInfos>
           <targetInfo name="V2M-MPS2-CM0+"/>
         </targetInfos>

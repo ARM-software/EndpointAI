@@ -22,8 +22,8 @@
  * Description:  Public header file to indicate features avaialble for this
  *               arm-2d library variant.
  *
- * $Date:        29. Jan 2020
- * $Revision:    V.0.5.0
+ * $Date:        17. March 2022
+ * $Revision:    V.1.0.0
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -101,35 +101,45 @@ extern "C" {
 #define __ARM_2D_HAS_DSP__                              0
 #endif
 
+#ifndef __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
 
-#ifndef __ARM_2D_HAS_INTERPOLATION_ROTATION__
-#   define __ARM_2D_HAS_INTERPOLATION_ROTATION__        0
+
+#   ifdef __ARM_2D_HAS_INTERPOLATION_ROTATION__
+
+/*! \brief  __ARM_2D_HAS_INTERPOLATION_ROTATION__ is deprecated 
+ *!         add this for backward compatible
+ */
+#       define __ARM_2D_HAS_INTERPOLATION_TRANSFORM__                               \
+                __ARM_2D_HAS_INTERPOLATION_ROTATION__
+#   else
+#       define __ARM_2D_HAS_INTERPOLATION_TRANSFORM__        0
+#   endif
 #endif
 
 
-/*! \note DO NOT define macro __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__ unless
+/*! \note DO NOT define macro __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__ unless
  *!       you sure about what you are doing.
  */
 #if !__ARM_2D_HAS_FPU__
-#   undef __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
-#   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   1
+#   undef __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__
+#   define __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__   1
 #elif   !__ARM_2D_HAS_HELIUM__                                                  \
-    &&  !defined(__ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__)
+    &&  !defined(__ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__)
     /*! \note For Armv7-m processors and Armv8-m processors that have no Helium
      *!       extension but only FPU, fixed point rotation is faster than the
      *!       float point rotation even if FPU can accelerate float point
      *!       operations.
      */
-#   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   1
+#   define __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__   1
 #endif
 
 #if __ARM_2D_HAS_HELIUM_INTEGER__ && !__ARM_2D_HAS_HELIUM_FLOAT__
-#   undef __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
-#   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   1
+#   undef __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__
+#   define __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__   1
 #endif
 
-#ifndef __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__
-#   define __ARM_2D_CFG_FORCED_FIXED_POINT_ROTATION__   0
+#ifndef __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__
+#   define __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__   0
 #endif
 
 /*! \note In your application, if you do need to use RGBA8888 for some resources
