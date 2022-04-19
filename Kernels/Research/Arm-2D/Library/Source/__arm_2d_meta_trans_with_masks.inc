@@ -237,15 +237,15 @@ __API_INT_TYPE __MTWM_FUNC(get_pixel_colour_mask)(
     return TempPixel;
 
 #else
-    arm_2d_location_t tOriginLocation;
+    arm_2d_location_t tTemp;
 
-    tOriginLocation.iX = ptPoint->fX;
-    tOriginLocation.iY = ptPoint->fY;
+    tTemp.iX = ptPoint->fX;
+    tTemp.iY = ptPoint->fY;
     __API_INT_TYPE TempPixel = *pTarget;
 
-    if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tOriginLocation)) {
-        __API_INT_TYPE Temp = pOrigin[   tOriginLocation.iY * iOrigStride
-                                     +   tOriginLocation.iX];
+    if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
+        __API_INT_TYPE Temp = pOrigin[   tTemp.iY * iOrigStride
+                                     +   tTemp.iX];
                                      
     #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK     
         #if __API_MTWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
@@ -482,15 +482,15 @@ __API_INT_TYPE __MTWM_FUNC(get_pixel_colour_mask)(
     return TempPixel;
 #else
 
-    arm_2d_location_t tOriginLocation;
+    arm_2d_location_t tTemp;
 
-    tOriginLocation.iX = ptFxPoint->X >> 16;
-    tOriginLocation.iY = ptFxPoint->Y >> 16;
+    tTemp.iX = ptFxPoint->X >> 16;
+    tTemp.iY = ptFxPoint->Y >> 16;
     __API_INT_TYPE TempPixel = *pTarget;
 
-    if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tOriginLocation)) {
-        __API_INT_TYPE Temp = pOrigin[   tOriginLocation.iY * iOrigStride
-                                     +   tOriginLocation.iX];
+    if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
+        __API_INT_TYPE Temp = pOrigin[   tTemp.iY * iOrigStride
+                                     +   tTemp.iX];
                                      
     #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK     
         #if __API_MTWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
