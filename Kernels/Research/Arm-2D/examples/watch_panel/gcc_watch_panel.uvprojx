@@ -52,7 +52,7 @@
           <OutputName>gcc_template</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>1</CreateHexFile>
+          <CreateHexFile>0</CreateHexFile>
           <DebugInformation>0</DebugInformation>
           <BrowseInformation>0</BrowseInformation>
           <ListingPath>.\</ListingPath>
@@ -241,10 +241,10 @@
             <wLevel>2</wLevel>
             <uThumb>1</uThumb>
             <VariousControls>
-              <MiscControls>-Ofast -flto -fdata-sections -ffunction-sections -fms-extensions -mcpu=cortex-m7 -mfloat-abi=soft -mfpu=fpv5-sp-d16 -std=gnu11</MiscControls>
-              <Define>NDEBUG,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
+              <MiscControls>-Ofast -flto -fdata-sections -ffunction-sections -fms-extensions -mcpu=cortex-m7 -mfloat-abi=hard -mfpu=fpv5-sp-d16 -std=gnu11</MiscControls>
+              <Define>NDEBUG,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;..\..\Library\Include;.\platform\stm32f746g-discovery;.;..\..\Helper\Include;.\platform\lib</IncludePath>
+              <IncludePath>..\common\platform;..\..\Library\Include;..\common\platform\stm32f746g-discovery;.;..\..\Helper\Include;..\common\platform\lib</IncludePath>
             </VariousControls>
           </Carm>
           <Aarm>
@@ -269,10 +269,10 @@
             <IncludeLibs></IncludeLibs>
             <IncludeDir></IncludeDir>
             <Misc>--specs=nosys.specs -Wl,--gc-sections
--mfloat-abi=soft -mfpu=fpv5-sp-d16  -mcpu=cortex-m7 -lc -ffunction-sections  -fdata-sections
+-mfloat-abi=hard -mfpu=fpv5-sp-d16  -mcpu=cortex-m7 -lc -ffunction-sections  -fdata-sections
 -fshort-enums -fshort-wchar
 -Wl,--wrap=printf</Misc>
-            <ScatterFile>.\platform\stm32f746g-discovery\GCC\gcc_arm.ld</ScatterFile>
+            <ScatterFile>..\common\platform\stm32f746g-discovery\GCC\gcc_arm.ld</ScatterFile>
           </LDarm>
         </TargetArm>
       </TargetOption>
@@ -306,98 +306,34 @@
           <GroupName>Platform</GroupName>
           <Files>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\app_platform.c</FilePath>
+              <FilePath>..\common\platform\app_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\lcd_printf.h</FilePath>
+              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\platform.h</FilePath>
-            </File>
-            <File>
-              <FileName>libperf_counter_gcc.a</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\lib\libperf_counter_gcc.a</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArm/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\lib\perf_counter.h</FilePath>
+              <FilePath>..\common\platform\platform.h</FilePath>
             </File>
             <File>
               <FileName>perf_counter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lib\perf_counter.c</FilePath>
+              <FilePath>..\common\platform\lib\perf_counter.c</FilePath>
             </File>
             <File>
-              <FileName>systick_wrapper_gcc.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\platform\lib\systick_wrapper_gcc.s</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArm>
-                  <Aarm>
-                    <bBE>2</bBE>
-                    <interw>2</interw>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Aarm>
-                </FileArm>
-              </FileOption>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -574,6 +510,11 @@
               <FileType>5</FileType>
               <FilePath>.\controls\controls.h</FilePath>
             </File>
+            <File>
+              <FileName>star.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\star.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -692,11 +633,6 @@
           <GroupName>bsp_stm32f746_discovery</GroupName>
           <Files>
             <File>
-              <FileName>startup_ARMCM7.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\startup_ARMCM7.c</FilePath>
-            </File>
-            <File>
               <FileName>system_stm32f7xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32F746NGHx\system_stm32f7xx.c</FilePath>
@@ -704,12 +640,17 @@
             <File>
               <FileName>platform_stm32f746g_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>startup_ARMCM7.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\startup_ARMCM7.c</FilePath>
             </File>
             <File>
               <FileName>GLCD_746G_Discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -737,7 +678,7 @@
         <TargetCommonOption>
           <Device>ARMCM0P_MPU</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.CMSIS.5.8.1</PackID>
+          <PackID>ARM.CMSIS.5.8.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00020000) IROM(0x00000000,0x00040000) CPUTYPE("Cortex-M0+") CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -1027,98 +968,34 @@
           <GroupName>Platform</GroupName>
           <Files>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\app_platform.c</FilePath>
+              <FilePath>..\common\platform\app_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\lcd_printf.h</FilePath>
+              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\platform.h</FilePath>
-            </File>
-            <File>
-              <FileName>libperf_counter_gcc.a</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\lib\libperf_counter_gcc.a</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArm/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>perf_counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\lib\perf_counter.h</FilePath>
+              <FilePath>..\common\platform\platform.h</FilePath>
             </File>
             <File>
               <FileName>perf_counter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lib\perf_counter.c</FilePath>
+              <FilePath>..\common\platform\lib\perf_counter.c</FilePath>
             </File>
             <File>
-              <FileName>systick_wrapper_gcc.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\platform\lib\systick_wrapper_gcc.s</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArm>
-                  <Aarm>
-                    <bBE>2</bBE>
-                    <interw>2</interw>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Aarm>
-                </FileArm>
-              </FileOption>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1295,6 +1172,11 @@
               <FileType>5</FileType>
               <FilePath>.\controls\controls.h</FilePath>
             </File>
+            <File>
+              <FileName>star.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\asset\star.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1413,11 +1295,6 @@
           </GroupOption>
           <Files>
             <File>
-              <FileName>startup_ARMCM7.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\startup_ARMCM7.c</FilePath>
-            </File>
-            <File>
               <FileName>system_stm32f7xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32F746NGHx\system_stm32f7xx.c</FilePath>
@@ -1425,12 +1302,17 @@
             <File>
               <FileName>platform_stm32f746g_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>startup_ARMCM7.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\startup_ARMCM7.c</FilePath>
             </File>
             <File>
               <FileName>GLCD_746G_Discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1682,7 +1564,7 @@
       <file attr="config" category="linkerScript" condition="GCC" name="Device\ARM\ARMCM0plus\Source\GCC\gcc_arm.ld" version="0.0.0">
         <instance index="0">RTE\Device\ARMCM0P_MPU\gcc_arm.ld</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.3" condition="ARMCM0+ CMSIS" isDefaultVariant="1"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.1"/>
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
         <targetInfos>
           <targetInfo name="V2M-MPS2-CM0+"/>
         </targetInfos>
@@ -1690,7 +1572,7 @@
       <file attr="config" category="sourceC" name="Device\ARM\ARMCM0plus\Source\startup_ARMCM0plus.c" version="0.0.0">
         <instance index="0">RTE\Device\ARMCM0P_MPU\startup_ARMCM0plus.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.3" condition="ARMCM0+ CMSIS" isDefaultVariant="1"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.1"/>
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
         <targetInfos>
           <targetInfo name="V2M-MPS2-CM0+"/>
         </targetInfos>
@@ -1698,7 +1580,7 @@
       <file attr="config" category="sourceC" name="Device\ARM\ARMCM0plus\Source\system_ARMCM0plus.c" version="0.0.0">
         <instance index="0">RTE\Device\ARMCM0P_MPU\system_ARMCM0plus.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.3" condition="ARMCM0+ CMSIS" isDefaultVariant="1"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.1"/>
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
         <targetInfos>
           <targetInfo name="V2M-MPS2-CM0+"/>
         </targetInfos>

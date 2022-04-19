@@ -440,6 +440,11 @@ void __CAFWM_FUNC(des_msk_fill)(
 
                     __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecTargetMask);
 
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                        ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
+
                     vecTarget = __API_CAFWM_PIXEL_BLENDING(
                                                     vecTarget, vecSource, vecHwOpacity);
                     /* tail predication */
@@ -571,6 +576,10 @@ void __CAFWM_FUNC(des_msk_fill_x_mirror)(
             #endif
                     __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecTargetMask);
 
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                        ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
 
                     vecTarget =
                         __API_CAFWM_PIXEL_BLENDING(vecTarget, vecSource,
@@ -705,6 +714,11 @@ void __CAFWM_FUNC(des_msk_fill_y_mirror)(
 
                     __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecTargetMask);
 
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                        ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
+
                     vecTarget = __API_CAFWM_PIXEL_BLENDING(
                                                     vecTarget, vecSource, vecHwOpacity);
                     /* tail predication */
@@ -835,6 +849,11 @@ void __CAFWM_FUNC(des_msk_fill_xy_mirror)(
             #endif
                     __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecTargetMask);
 
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                        ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
+
                     vecTarget =
                         __API_CAFWM_PIXEL_BLENDING(vecTarget, vecSource,
                                                                     vecHwOpacity);
@@ -962,6 +981,11 @@ void __CAFWM_FUNC(src_msk_fill)(
 
 
                     __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecSrcMsk);
+
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                        ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
 
                     vecTarget = __API_CAFWM_PIXEL_BLENDING(
                                                     vecTarget, vecSource, vecHwOpacity);
@@ -1102,6 +1126,10 @@ void __CAFWM_FUNC(src_msk_fill_x_mirror)(
             #endif
                     __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecSrcMsk);
 
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                        ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
 
                     vecTarget =
                         __API_CAFWM_PIXEL_BLENDING(vecTarget, vecSource,
@@ -1235,6 +1263,11 @@ void __CAFWM_FUNC(src_msk_fill_y_mirror)(
 
 
                     __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecSrcMsk);
+
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                        ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
 
                     vecTarget = __API_CAFWM_PIXEL_BLENDING(
                                                     vecTarget, vecSource, vecHwOpacity);
@@ -1373,6 +1406,11 @@ void __CAFWM_FUNC(src_msk_fill_xy_mirror)(
             #endif
                     __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecSrcMsk);
 
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                        ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
+
                     vecTarget =
                         __API_CAFWM_PIXEL_BLENDING(vecTarget, vecSource,
                                                                     vecHwOpacity);
@@ -1500,6 +1538,11 @@ void __CAFWM_FUNC(des_msk_copy)(
 
             __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecTargetMask);
 
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
+
             vecTarget = __API_CAFWM_PIXEL_BLENDING(
                                             vecTarget, vecSource, vecHwOpacity);
             /* tail predication */
@@ -1606,6 +1649,11 @@ void __CAFWM_FUNC(des_msk_copy_x_mirror)(
     #endif
             __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecTargetMask);
 
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
+
             vecTarget =
                 __API_CAFWM_PIXEL_BLENDING(vecTarget, vecSource,
                                                             vecHwOpacity);
@@ -1710,6 +1758,12 @@ void __CAFWM_FUNC(des_msk_copy_y_mirror)(
             #endif
 
             __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecTargetMask);
+
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
+
             vecTarget = __API_CAFWM_PIXEL_BLENDING(
                                             vecTarget, vecSource, vecHwOpacity);
             /* tail predication */
@@ -1819,6 +1873,11 @@ void __CAFWM_FUNC(des_msk_copy_xy_mirror)(
     #endif
             __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecTargetMask);
 
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
+
             vecTarget =
                 __API_CAFWM_PIXEL_BLENDING(vecTarget, vecSource,
                                                             vecHwOpacity);
@@ -1920,6 +1979,11 @@ void __CAFWM_FUNC(src_msk_copy)(
             #endif
 
             __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecSrcMsk);
+
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
 
             vecTarget = __API_CAFWM_PIXEL_BLENDING(
                                             vecTarget, vecSource, vecHwOpacity);
@@ -2032,6 +2096,11 @@ void __CAFWM_FUNC(src_msk_copy_x_mirror)(
     #endif
             __API_CAFWM_PIXEL_VECTYP      vecHwOpacity =  vsubq(v256, vecSrcMsk);
 
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
+
             vecTarget =
                 __API_CAFWM_PIXEL_BLENDING(vecTarget, vecSource,
                                                             vecHwOpacity);
@@ -2143,6 +2212,11 @@ void __CAFWM_FUNC(src_msk_copy_y_mirror)(
 
 
             __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecSrcMsk);
+
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
 
             vecTarget = __API_CAFWM_PIXEL_BLENDING(
                                             vecTarget, vecSource, vecHwOpacity);
@@ -2260,6 +2334,11 @@ void __CAFWM_FUNC(src_msk_copy_xy_mirror)(
                 ARM_CONNECT2(vldrbq_gather_offset_u, __API_CAFWM_PIXEL_BIT_NUM)(ptSrcMsk, vDecrStride1Offs);
     #endif
             __API_CAFWM_PIXEL_VECTYP      vecHwOpacity = vsubq(v256, vecSrcMsk);
+
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            vecHwOpacity = vpselq(ARM_CONNECT2(vdupq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(0),vecHwOpacity,
+                ARM_CONNECT2(vcmpeqq_n_u, __API_CAFWM_PIXEL_BIT_NUM)(vecHwOpacity, 1));
+            #endif
 
             vecTarget =
                 __API_CAFWM_PIXEL_BLENDING(vecTarget, vecSource,

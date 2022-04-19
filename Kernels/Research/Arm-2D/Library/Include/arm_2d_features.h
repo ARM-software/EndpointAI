@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Arm Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2022 Arm Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,8 +22,8 @@
  * Description:  Public header file to indicate features avaialble for this
  *               arm-2d library variant.
  *
- * $Date:        17. March 2022
- * $Revision:    V.1.0.0
+ * $Date:        19. April 2022
+ * $Revision:    V.1.0.2
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -81,9 +81,9 @@ extern "C" {
 #   define __ARM_2D_HAS_ASYNC__                         1
 #endif
 #if defined(__ARM_2D_HAS_ASYNC__) &&  __ARM_2D_HAS_ASYNC__
-#   if  !defined(__ARM_2D_DEFAULT_SUB_TASK_POOL_SIZE) ||                        \
-        __ARM_2D_DEFAULT_SUB_TASK_POOL_SIZE < 4
-#       define __ARM_2D_DEFAULT_SUB_TASK_POOL_SIZE      4
+#   if  !defined(__ARM_2D_CFG_DEFAULT_SUB_TASK_POOL_SIZE__) ||                        \
+        __ARM_2D_CFG_DEFAULT_SUB_TASK_POOL_SIZE__ < 4
+#       define __ARM_2D_CFG_DEFAULT_SUB_TASK_POOL_SIZE__      4
 #   endif
 #endif
 
@@ -101,18 +101,16 @@ extern "C" {
 #define __ARM_2D_HAS_DSP__                              0
 #endif
 
-#ifndef __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
-
-
+#ifndef __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
 #   ifdef __ARM_2D_HAS_INTERPOLATION_ROTATION__
-
+#   warning __ARM_2D_HAS_INTERPOLATION_ROTATION__ is deprecated, please use __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__ instead.
 /*! \brief  __ARM_2D_HAS_INTERPOLATION_ROTATION__ is deprecated 
  *!         add this for backward compatible
  */
-#       define __ARM_2D_HAS_INTERPOLATION_TRANSFORM__                               \
+#       define __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__                              \
                 __ARM_2D_HAS_INTERPOLATION_ROTATION__
 #   else
-#       define __ARM_2D_HAS_INTERPOLATION_TRANSFORM__        0
+#       define __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__        0
 #   endif
 #endif
 
@@ -158,48 +156,57 @@ extern "C" {
  * Those macros are undefined by defaults. Please use with cautions.          *
  *----------------------------------------------------------------------------*
  *                                                                            *
- * 1. __ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__          *
+ * 1. __ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_TRANSFORM__                         *
  *    This option is used to remove calibration in angle computations to gain *
  *    a better performance, small error might be noticible for angles like    *
  *    90, 180, 270 etc.                                                       *
  *                                                                            *
- * 2. __ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT_FOR_PERFROMANCE__      *
+ * 2. __ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT__                      *
  *    This option is used to speed up M-cores without DSP support             *
  *    It skips saturation in the QADD/QDADD/QDSUB involved in the rotation.   *
  *    The chances of overflow remain low as elements involved are using       *
  *    non-accumulating Q15.16 format and integer parts are in the range of    *
  *    the screen size providing enough margin.                                *
+ *                                                                            *
+ * 3. __ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__                     *
+ *    When define this macro, alpha value 0xFF will not be treated as opaque  *
+ *    in mask related operations you can barely see the background. Defining  *
+ *    this macro can get a big performance uplift.                            * 
  *----------------------------------------------------------------------------*/
 
+
+/*! \note __ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__ is 
+ *        deprecated. 
+ *        Please use __ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_TRANSFORM__ instead.
+ */
+#ifndef __ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_TRANSFORM__
+#   ifdef  __ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__
+
+#       warning __ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__\
+ is deprecated, please use __ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_TRANSFORM__\
+ instead.
+
+#       define __ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_TRANSFORM__                  \
+                __ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__
+#   endif
+#endif
+
+/*! \note __ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT_FOR_PERFROMANCE__ is 
+ *        deprecated. 
+ *        Please use __ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT__ instead.
+ */
+#ifndef __ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT__
+#   ifdef  __ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT_FOR_PERFROMANCE__
+#       warning __ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT_FOR_PERFROMANCE__\
+ is deprecated, please use __ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT__\
+ instead.
+
+#       define  __ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT__              \
+            __ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT_FOR_PERFROMANCE__
+#endif
+#endif
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
-
-#if defined(__ARM_2D_HAS_CDE__) && !__ARM_2D_HAS_CDE__
-#   define __arm_2d_cde_init()
-#endif
-
-#if defined(__ARM_2D_HAS_HELIUM__) && !__ARM_2D_HAS_HELIUM__
-#   define __arm_2d_helium_init()
-#endif
-
-#if defined(__ARM_2D_HAS_HW_ACC__) && !__ARM_2D_HAS_HW_ACC__
-#   define __arm_2d_acc_init()
-#endif
-
-#if defined(__ARM_2D_HAS_ASYNC__) && !__ARM_2D_HAS_ASYNC__
-#   define __arm_2d_async_init()
-#endif
-
-
-#undef arm_2d_init
-#define arm_2d_init()                                                           \
-        do {                                                                    \
-            __arm_2d_init();                                                    \
-            __arm_2d_async_init();                                              \
-            __arm_2d_helium_init();                                             \
-            __arm_2d_cde_init();                                                \
-            __arm_2d_acc_init();                                                \
-        } while(0)
-
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/

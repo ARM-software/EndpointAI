@@ -81,11 +81,11 @@ void __ARM_2D_FUNC(transform)( __arm_2d_param_copy_orig_t *ptParam,
 #endif
     __arm_2d_transform_regression(
         &ptParam->use_as____arm_2d_param_copy_t.tCopySize,
-        &SrcPt, 
+        &SrcPt,
         fAngle,
-        ptInfo->fScale,        
-        &tOffset, 
-        pCenter, 
+        ptInfo->fScale,
+        &tOffset,
+        pCenter,
         iOrigStride,
         regrCoefs);
 
@@ -184,9 +184,9 @@ void __ARM_2D_FUNC(transform)( __arm_2d_param_copy_orig_t *ptParam,
 
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(transform_alpha)(__arm_2d_param_copy_orig_t *ptParam,
+void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
                                     __arm_2d_transform_info_t *ptInfo,
-                                    uint_fast8_t chRatio)
+                                    uint_fast16_t hwRatio)
 {
     int32_t         iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
     int32_t         iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
@@ -201,11 +201,15 @@ void __ARM_2D_FUNC(transform_alpha)(__arm_2d_param_copy_orig_t *ptParam,
     arm_2d_location_t   tOffset =
         ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
     arm_2d_location_t  *pCenter = &(ptInfo->tCenter);
-
-    uint16_t            hwRatioCompl = 256 - chRatio;
+    uint16_t            hwRatioCompl;
     float32_t           invIWidth = iWidth > 1 ? 1.0f / (float32_t) (iWidth - 1) : __LARGEINVF32;
     arm_2d_rot_linear_regr_t regrCoefs[2];
     arm_2d_location_t SrcPt = ptInfo->tDummySourceOffset;
+
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+    hwRatioCompl = 256 - hwRatio;
 
     /* get regression parameters over 1st and last column */
 #if __API_INT_TYPE_BIT_NUM == 16
@@ -214,11 +218,11 @@ void __ARM_2D_FUNC(transform_alpha)(__arm_2d_param_copy_orig_t *ptParam,
 #endif
     __arm_2d_transform_regression(
         &ptParam->use_as____arm_2d_param_copy_t.tCopySize,
-        &SrcPt, 
-        fAngle, 
+        &SrcPt,
+        fAngle,
         ptInfo->fScale,
-        &tOffset, 
-        pCenter, 
+        &tOffset,
+        pCenter,
         iOrigStride,
         regrCoefs);
 
@@ -361,11 +365,11 @@ void __ARM_2D_FUNC(transform)(   __arm_2d_param_copy_orig_t *ptParam,
 #endif
     __arm_2d_transform_regression(
         &ptParam->use_as____arm_2d_param_copy_t.tCopySize,
-        &SrcPt, 
+        &SrcPt,
         fAngle,
         ptInfo->fScale,
-        &tOffset, 
-        pCenter, 
+        &tOffset,
+        pCenter,
         iOrigStride,
         regrCoefs);
 
@@ -483,9 +487,9 @@ void __ARM_2D_FUNC(transform)(   __arm_2d_param_copy_orig_t *ptParam,
 
 
 __OVERRIDE_WEAK
-void __ARM_2D_FUNC(transform_alpha)(   __arm_2d_param_copy_orig_t *ptParam,
+void __ARM_2D_FUNC(transform_with_opacity)(   __arm_2d_param_copy_orig_t *ptParam,
                                     __arm_2d_transform_info_t *ptInfo,
-                                    uint_fast8_t chRatio)
+                                    uint_fast16_t hwRatio)
 {
     int32_t         iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
     int32_t         iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
@@ -501,10 +505,14 @@ void __ARM_2D_FUNC(transform_alpha)(   __arm_2d_param_copy_orig_t *ptParam,
         ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
     arm_2d_location_t *pCenter = &(ptInfo->tCenter);
 
-    uint16_t        hwRatioCompl = 256 - chRatio;
+    uint16_t        hwRatioCompl;
     q31_t           invIWidth = iWidth > 1 ? 0x7fffffff / (iWidth - 1) : 0x7fffffff;
     arm_2d_rot_linear_regr_t regrCoefs[2];
     arm_2d_location_t SrcPt = ptInfo->tDummySourceOffset;
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+    hwRatioCompl = 256 - hwRatio;
 
     /* get regression parameters over 1st and last column */
 #if __API_INT_TYPE_BIT_NUM == 16
@@ -513,11 +521,11 @@ void __ARM_2D_FUNC(transform_alpha)(   __arm_2d_param_copy_orig_t *ptParam,
 #endif
     __arm_2d_transform_regression(
         &ptParam->use_as____arm_2d_param_copy_t.tCopySize,
-        &SrcPt, 
-        fAngle, 
+        &SrcPt,
+        fAngle,
         ptInfo->fScale,
-        &tOffset, 
-        pCenter, 
+        &tOffset,
+        pCenter,
         iOrigStride,
         regrCoefs);
 

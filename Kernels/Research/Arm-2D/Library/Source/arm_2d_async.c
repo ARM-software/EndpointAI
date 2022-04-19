@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2021 Arm Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 Arm Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm-2d_async.c
  * Description:  Pixel pipeline extensions for support hardware acceleration.
  *
- * $Date:        29. April 2021
- * $Revision:    V.0.8.0
+ * $Date:        14. April 2022
+ * $Revision:    V.1.0.0
  *
  * Target Processor:  Cortex-M cores
  *
@@ -75,16 +75,6 @@ extern "C" {
 #endif
 
 /*============================ MACROS ========================================*/
-#ifndef __ARM_2D_DEFAULT_SUB_TASK_POOL_SIZE
-#   define __ARM_2D_DEFAULT_SUB_TASK_POOL_SIZE        4
-#endif
-#if __ARM_2D_DEFAULT_SUB_TASK_POOL_SIZE < 4
-#   warning The __ARM_2D_DEFAULT_SUB_TASK_POOL_SIZE should be larger than or\
- equal to 3, set it to the default value 4.
-#   undef __ARM_2D_DEFAULT_SUB_TASK_POOL_SIZE
-#   define __ARM_2D_DEFAULT_SUB_TASK_POOL_SIZE    4
-#endif
-
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
@@ -886,24 +876,64 @@ arm_fsm_rt_t __arm_2d_issue_sub_task_copy_origin(
 }
 
 
+__OVERRIDE_WEAK
+arm_fsm_rt_t __arm_2d_issue_sub_task_copy_origin_masks(
+                                        arm_2d_op_cp_t *ptThis,
+                                        __arm_2d_tile_param_t *ptSource,
+                                        __arm_2d_tile_param_t *ptOrigin,
+                                        __arm_2d_tile_param_t *ptOriginMask,
+                                        __arm_2d_tile_param_t *ptTarget,
+                                        __arm_2d_tile_param_t *ptTargetMask,
+                                        arm_2d_size_t * __RESTRICT ptCopySize)
+{
+    __arm_2d_sub_task_t *ptTask = __arm_2d_sub_task_new();
+    assert(NULL != ptTask);         
+
+    (*ptTask) = (__arm_2d_sub_task_t) {
+                    .ptOP = &(ptThis->use_as__arm_2d_op_core_t),
+                    .chLowLeveIOIndex = 0,
+                    .Param.tCopyOrigMask = {
+                        .use_as____arm_2d_param_copy_orig_t = {
+                            .use_as____arm_2d_param_copy_t = {
+                                .tSource        = *ptSource,
+                                .tTarget        = *ptTarget,
+                                .tCopySize      = *ptCopySize,
+                            },
+                            
+                            .tOrigin        = *ptOrigin,
+                        },
+                        .tOrigMask = *ptOriginMask,
+                        .tDesMask  = *ptTargetMask,
+                    },
+                };
+    OP_CORE.Status.u4SubTaskCount++;
+    
+    __arm_2d_sub_task_add(ptTask);
+
+    return arm_fsm_rt_async;
+}
+
 
 
 /*! \brief initialise the whole arm-2d service
- *! \param none
+ *! \param ptSubTasks an array of __arm_2d_sub_task_t objects
+ *! \param hwCount the number of items in the array
  *! \return none
  */
-void __arm_2d_async_init(void)
+arm_2d_err_t __arm_2d_async_init(   __arm_2d_sub_task_t *ptSubTasks, 
+                                    uint_fast16_t hwCount)
 {   
+
+    if ((NULL == ptSubTasks) || (0 == hwCount )) {
+        return ARM_2D_ERR_INSUFFICIENT_RESOURCE;
+    }
+    
     //! initialise sub task pool
     do {
-        static __arm_2d_sub_task_t 
-            s_tDefaultTaskPool[__ARM_2D_DEFAULT_SUB_TASK_POOL_SIZE];
-        
-        arm_foreach(__arm_2d_sub_task_t, s_tDefaultTaskPool) {
-            __arm_2d_sub_task_free(_);
-        }
-        
-    } while(0);
+        __arm_2d_sub_task_free(ptSubTasks++);
+    } while(--hwCount);
+    
+    return ARM_2D_ERR_NONE;
 }
 
 

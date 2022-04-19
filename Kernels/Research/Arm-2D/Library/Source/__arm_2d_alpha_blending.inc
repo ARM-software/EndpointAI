@@ -52,12 +52,17 @@ void __ARM_2D_FUNC(alpha_blending) (__API_INT_TYPE *__RESTRICT pSourceBase,
                                     __API_INT_TYPE *__RESTRICT pTargetBase,
                                     int16_t iTargetStride,
                                     arm_2d_size_t *__RESTRICT ptCopySize,
-                                    uint_fast8_t chRatio)
+                                    uint_fast16_t hwRatio)
 {
     int_fast16_t iHeight = ptCopySize->iHeight;
     int_fast16_t iWidth  = ptCopySize->iWidth;
-    uint16_t        hwRatioCompl = 256 - chRatio;
-    
+
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+
+    uint16_t        hwRatioCompl = 256 - hwRatio;
+
     for (int_fast16_t y = 0; y < iHeight; y++) {
 
         for (int_fast16_t x = 0; x < iWidth; x++) {
@@ -76,7 +81,7 @@ void __ARM_2D_FUNC(alpha_blending) (__API_INT_TYPE *__RESTRICT pSourceBase,
                                     __API_INT_TYPE *__RESTRICT pTargetBase,
                                     int16_t iTargetStride,
                                     arm_2d_size_t *__RESTRICT ptCopySize,
-                                    uint_fast8_t chRatio);
+                                    uint_fast16_t hwRatio);
 #endif
 
 
@@ -89,13 +94,18 @@ void __ARM_2D_FUNC(alpha_blending_colour_keying)(
                                                 __API_INT_TYPE * __RESTRICT pTargetBase,
                                                 int16_t         iTargetStride,
                                                 arm_2d_size_t * __RESTRICT ptCopySize,
-                                                uint_fast8_t    chRatio,
+                                                uint_fast16_t hwRatio,
                                                 __API_INT_TYPE   Colour)
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
-    uint16_t        hwRatioCompl = 256 - chRatio;
+    
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
 
+    uint16_t        hwRatioCompl = 256 - hwRatio;
+    
     for (int_fast16_t y = 0; y < iHeight; y++) {
     
         for (int_fast16_t x = 0; x < iWidth; x++) {
@@ -118,7 +128,7 @@ void __ARM_2D_FUNC(alpha_blending_colour_keying)(
                                                 __API_INT_TYPE * __RESTRICT pTargetBase,
                                                 int16_t         iTargetStride,
                                                 arm_2d_size_t * __RESTRICT ptCopySize,
-                                                uint_fast8_t    chRatio,
+                                                uint_fast16_t hwRatio,
                                                 __API_INT_TYPE   Colour);
 #endif
 
@@ -129,11 +139,16 @@ void __ARM_2D_FUNC(colour_filling_with_opacity)(
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
                                         __API_INT_TYPE Colour,
-                                        uint_fast8_t chRatio)
+                                        uint_fast16_t hwRatio)
 {
-    uint16_t hwRatioCompl = 256 - chRatio;
     int_fast16_t iWidth = ptCopySize->iWidth;
     int_fast16_t iHeight = ptCopySize->iHeight;
+
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+
+    uint16_t hwRatioCompl = 256 - hwRatio;
     
     for (int_fast16_t y = 0; y < iHeight; y++) {
         
@@ -151,7 +166,7 @@ void __ARM_2D_FUNC(colour_filling_with_opacity)(
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
                                         __API_INT_TYPE Colour,
-                                        uint_fast8_t chRatio);
+                                        uint_fast16_t hwRatio);
 #endif
 
 #ifndef __PATCH_COLOUR_FILLING_ALPHA_MASK
@@ -171,6 +186,9 @@ void __ARM_2D_FUNC(colour_filling_mask)(
 
         for (int_fast16_t x = 0; x < iWidth; x++) {
             uint16_t hwAlpha = 256 - (*pchAlpha++);
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            hwAlpha -= (hwAlpha == 1);
+#endif
             __API_PIXEL_BLENDING(&Colour, pTarget++, hwAlpha);
         }
 
@@ -200,15 +218,21 @@ void __ARM_2D_FUNC(colour_filling_mask_opacity)(
                             int16_t iAlphaStride,
                             arm_2d_size_t *__RESTRICT ptCopySize,
                             __API_INT_TYPE Colour,
-                            uint8_t chOpacity)
+                            uint_fast16_t hwOpacity)
 {
     int_fast16_t iHeight = ptCopySize->iHeight;
     int_fast16_t iWidth  = ptCopySize->iWidth;
+
     
     for (int_fast16_t y = 0; y < iHeight; y++) {
 
         for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwAlpha = 256 - ((*pchAlpha++) * chOpacity >> 8);
+            uint16_t hwAlpha = 256 - ((*pchAlpha++) * hwOpacity >> 8);
+            
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            hwAlpha -= (hwAlpha == 2) * 2;
+#endif
+
             __API_PIXEL_BLENDING(&Colour, pTarget++, hwAlpha);
         }
 
@@ -225,7 +249,7 @@ void __ARM_2D_FUNC(colour_filling_mask_opacity)(
                             int16_t iAlphaStride,
                             arm_2d_size_t *__RESTRICT ptCopySize,
                             __API_INT_TYPE Colour,
-                            uint8_t chOpacity);
+                            uint_fast16_t hwOpacity);
 #endif
 
 
@@ -247,6 +271,11 @@ void __ARM_2D_FUNC(colour_filling_channel_mask)(
 
         for (int_fast16_t x = 0; x < iWidth; x++) {
             uint16_t hwAlpha = 256 - *(uint8_t *)(pwAlpha++);
+
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            hwAlpha -= (hwAlpha == 1);
+#endif
+            
             __API_PIXEL_BLENDING(&Colour, pTarget++, hwAlpha);
         }
 
@@ -275,7 +304,7 @@ void __ARM_2D_FUNC(colour_filling_channel_mask_opacity)(
                             int16_t iAlphaStride,
                             arm_2d_size_t *__RESTRICT ptCopySize,
                             __API_INT_TYPE Colour,
-                            uint8_t chOpacity)
+                            uint_fast16_t hwOpacity)
 {
     int_fast16_t iHeight = ptCopySize->iHeight;
     int_fast16_t iWidth  = ptCopySize->iWidth;
@@ -283,7 +312,12 @@ void __ARM_2D_FUNC(colour_filling_channel_mask_opacity)(
     for (int_fast16_t y = 0; y < iHeight; y++) {
 
         for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwAlpha = 256 - (*(uint8_t *)(pwAlpha++) * chOpacity >> 8);
+            uint16_t hwAlpha = 256 - (*(uint8_t *)(pwAlpha++) * hwOpacity >> 8);
+
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            hwAlpha -= (hwAlpha == 2) * 2;
+#endif
+
             __API_PIXEL_BLENDING(&Colour, pTarget++, hwAlpha);
         }
 
@@ -300,7 +334,7 @@ void __ARM_2D_FUNC(colour_filling_channel_mask_opacity)(
                             int16_t iAlphaStride,
                             arm_2d_size_t *__RESTRICT ptCopySize,
                             __API_INT_TYPE Colour,
-                            uint8_t chOpacity);
+                            uint_fast16_t hwOpacity);
 #endif
 
 

@@ -35,6 +35,7 @@
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#   pragma clang diagnostic ignored "-Wundef"
 #elif defined(__IS_COMPILER_GCC__)
 #   pragma GCC diagnostic push
 #   pragma GCC diagnostic ignored "-Wpedantic"
@@ -64,12 +65,16 @@ void ARM_WRAP(osRtxTick_Handler)(void)
 }
 
 #else
-__OVERRIDE_WEAK
+__attribute__((used))
 void SysTick_Handler(void)
 {
     platform_1ms_event_handler();
     
     bsp_1ms_event_handler();
+    
+#if __IS_COMPILER_GCC__ || __IS_COMPILER_LLVM__
+    user_code_insert_to_systick_handler();
+#endif
 }
 #endif
 

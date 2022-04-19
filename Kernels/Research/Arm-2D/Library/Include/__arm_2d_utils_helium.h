@@ -82,13 +82,13 @@ __STATIC_FORCEINLINE
 uint16x8_t __arm_2d_rgb565_blending_scal_opacity_single_vec(
                                             uint16x8_t      Source1,
                                             uint16x8_t      Source2,
-                                            uint_fast8_t    chRatio)
+                                            uint_fast16_t hwRatio)
 {
     /* scalar ratio allows extra optimization */
-    uint16_t        ratio1x8 = (256 - chRatio) * 8;
-    uint16_t        ratio1x4 = (256 - chRatio) * 4;
-    uint16_t        ratio2x8 = (chRatio) * 8;
-    uint16_t        ratio2x4 = (chRatio) * 4;
+    uint16_t        ratio1x8 = (256 - hwRatio) * 8;
+    uint16_t        ratio1x4 = (256 - hwRatio) * 4;
+    uint16_t        ratio2x8 = (hwRatio) * 8;
+    uint16_t        ratio2x4 = (hwRatio) * 4;
     uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
     uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
     uint16x8_t      vecMaskBpck = vdupq_n_u16(0x00f8);
@@ -239,12 +239,12 @@ __STATIC_FORCEINLINE
 uint16x8_t __rgb888_alpha_blending_direct_single_vec(
                                         uint16x8_t      wSource1,  /* widened input bytes */
                                         uint16x8_t      wSource2,  /* widened input bytes */
-                                        uint_fast8_t    chRatio)
+                                        uint_fast16_t hwRatio)
 {
-    uint16_t        chRatioCompl = 256 - (uint16_t) chRatio;
+    uint16_t        chRatioCompl = 256 - (uint16_t) hwRatio;
     uint16x8_t      vecOut;
 
-    vecOut = vmulq_n_u16(wSource1, (uint16_t) chRatio);
+    vecOut = vmulq_n_u16(wSource1, (uint16_t) hwRatio);
     vecOut = vmlaq_n_u16(vecOut, wSource2, chRatioCompl);
 
     /* widened output */

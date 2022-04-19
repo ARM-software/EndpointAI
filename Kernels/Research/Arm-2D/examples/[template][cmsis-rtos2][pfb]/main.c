@@ -154,17 +154,21 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
     lcd_puts(s_chPerformanceInfo);
 }
 
+ARM_NOINIT
+static task_cycle_info_t s_tArm2DTaskInfo;
+ARM_NOINIT
+static task_cycle_info_agent_t s_tArm2DTaskInfoAgent;
 
 __OVERRIDE_WEAK 
 void arm_2d_helper_perf_counter_start(void)
 {
-    start_cycle_counter();
+    start_task_cycle_counter(&s_tArm2DTaskInfo);
 }
 
 __OVERRIDE_WEAK 
 int32_t arm_2d_helper_perf_counter_stop(void)
 {
-    return stop_cycle_counter();
+    return stop_task_cycle_counter(&s_tArm2DTaskInfo);
 }
 
 
@@ -261,6 +265,9 @@ void arm_2d_notif_aync_sub_task_cpl(uintptr_t pUserParam)
  __NO_RETURN
 void app_main (void *argument) 
 {
+    init_task_cycle_counter();
+    register_task_cycle_agent(&s_tArm2DTaskInfo, &s_tArm2DTaskInfoAgent);
+
     ARM_2D_UNUSED(argument);
     //! draw background first
     while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task(&s_tExamplePFB,NULL));
@@ -284,10 +291,14 @@ void app_main (void *argument)
 __NO_RETURN
 void arm_2d_thread(void *argument)
 {
+    init_task_cycle_counter();
+    register_task_cycle_agent(&s_tArm2DTaskInfo, &s_tArm2DTaskInfoAgent);
+
     ARM_2D_UNUSED(argument);
 
     arm_fsm_rt_t tTaskResult;
     arm_2d_task_t tTaskCB = {0};
+    
     
     do {
         tTaskResult = arm_2d_task(&tTaskCB);
@@ -359,6 +370,8 @@ int main (void)
         //! error detected
         assert(false);
     }
+    
+    init_task_cycle_info(&s_tArm2DTaskInfo);
     
     /* Initialize CMSIS-RTOS2 */
     osKernelInitialize ();

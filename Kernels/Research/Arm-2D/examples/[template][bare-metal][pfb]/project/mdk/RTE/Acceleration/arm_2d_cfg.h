@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2020 Arm Limited. All rights reserved.
+ * Copyright (c) 2009-2022 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -43,11 +43,11 @@ extern "C" {
 #   define __ARM_2D_HAS_ASYNC__                                     1
 #endif
 
-// <q>Enable anti-alias support for all rotation operations.
+// <q>Enable anti-alias support for all tranform operations.
 // <i> Note that enabling this feature suffers a non-negligible performance drop.
 // <i> This feature is disabled by default.
-#ifndef __ARM_2D_HAS_INTERPOLATION_ROTATION__
-#   define __ARM_2D_HAS_INTERPOLATION_ROTATION__                    0
+#ifndef __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
+#   define __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__                      0
 #endif
 
 // <q>Enable support for accessing individual colour channels
@@ -57,6 +57,25 @@ extern "C" {
 #   define __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__             0
 #endif
 // </h>
+
+// <h>Patches for improving performance
+// =======================
+// 
+// <c1> Do NOT treat alpha value 255 as completely opaque in mask related operations
+// <i> When define this macro, alpha value 0xFF will not be treated as opaque in mask related operations and you can barely see the background. Defining this macro improves performance. Althought this is marked as UNSAFE, we highly recommend users to define this macro by default.
+#define __ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__  
+// </c>
+
+// <c1> Ignore calibrartion for small angles in transform operations
+// <i> This option is used to speed up M-cores without DSP support. It skips saturation in the QADD/QDADD/QDSUB involved in the rotation. The chances of overflow remain low as elements involved are using non-accumulating Q15.16 format and integer parts are in the range of the screen size providing enough margin.
+//#define __ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_TRANSFORM__ 
+// </c>
+
+// <c1> Ignore satuation protection in fixed-point operations
+// <i> This option is used to remove calibration in angle computations to gain a better performance, small error might be noticible for angles like 90, 180, 270 etc.
+//#define __ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT__ 
+// </c>
+
 
 
 // <<< end of configuration section >>>

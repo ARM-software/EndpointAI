@@ -813,7 +813,7 @@ typedef struct arm_2d_op_alpha_fill_cl_msk_opc_t {
         uint16_t hwColour;
         uint32_t wColour;
     };
-    uint8_t chOpacity;
+    uint8_t chRatio;
 } arm_2d_op_alpha_fill_cl_msk_opc_t;
 
 /*! \note arm_2d_op_fill_cl_t inherits from arm_2d_op_t explicitly 
@@ -829,7 +829,7 @@ typedef struct arm_2d_op_fill_cl_opc_t {
         uint16_t hwColour;
         uint32_t wColour;
     };
-    uint_fast8_t chRatio;                       //!< transparency ratio 
+    uint8_t chRatio;                       //!< transparency ratio 
 } arm_2d_op_fill_cl_opc_t;
 
 

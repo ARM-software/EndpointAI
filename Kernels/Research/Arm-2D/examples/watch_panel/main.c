@@ -269,25 +269,25 @@ int main (void)
 
     //! initialise FPB helper
     if (ARM_2D_HELPER_PFB_INIT(
-            &s_tExamplePFB,                 //!< FPB Helper object
-            APP_SCREEN_WIDTH,               //!< screen width
-            APP_SCREEN_HEIGHT,              //!< screen height
-            uint16_t,                       //!< colour date type
-            PFB_BLOCK_WIDTH,                //!< PFB block width
-            PFB_BLOCK_HEIGHT,               //!< PFB block height
-            1,                              //!< number of PFB in the PFB pool
-            {
-                .evtOnLowLevelRendering = {
-                    //! callback for low level rendering
-                    .fnHandler = &__pfb_render_handler,
-                },
-                .evtOnDrawing = {
-                    //! callback for drawing GUI
-                    .fnHandler = &__pfb_draw_background_handler,
-                },
+        &s_tExamplePFB,                 //!< FPB Helper object
+        APP_SCREEN_WIDTH,               //!< screen width
+        APP_SCREEN_HEIGHT,              //!< screen height
+        uint16_t,                       //!< colour date type
+        PFB_BLOCK_WIDTH,                //!< PFB block width
+        PFB_BLOCK_HEIGHT,               //!< PFB block height
+        1,                              //!< number of PFB in the PFB pool
+        {
+            .evtOnLowLevelRendering = {
+                //! callback for low level rendering
+                .fnHandler = &__pfb_render_handler,
             },
-            //.FrameBuffer.bSwapRGB16 = true,
-        ) < 0) {
+            .evtOnDrawing = {
+                //! callback for drawing GUI
+                .fnHandler = &__pfb_draw_background_handler,
+            },
+        },
+        //.FrameBuffer.bSwapRGB16 = true,
+    ) < 0) {
         //! error detected
         assert(false);
     }

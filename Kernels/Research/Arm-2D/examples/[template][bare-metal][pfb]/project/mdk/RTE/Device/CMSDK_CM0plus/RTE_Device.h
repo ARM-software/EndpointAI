@@ -30,7 +30,7 @@
 
 // <q> USART0 (Universal synchronous asynchronous receiver transmitter) [Driver_USART0]
 // <i> Configuration settings for Driver_USART0 in component ::CMSIS Driver:USART
-#define RTE_USART0                      0
+#define RTE_USART0                      1
 
 
 // <q> USART1 (Universal synchronous asynchronous receiver transmitter) [Driver_USART1]

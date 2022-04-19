@@ -2251,7 +2251,7 @@
         <periodic>1</periodic>
         <aLwin>1</aLwin>
         <aCover>0</aCover>
-        <aSer1>1</aSer1>
+        <aSer1>0</aSer1>
         <aSer2>0</aSer2>
         <aPa>0</aPa>
         <viewmode>1</viewmode>
@@ -2360,24 +2360,24 @@
     <File>
       <GroupNumber>2</GroupNumber>
       <FileNumber>5</FileNumber>
-      <FileType>5</FileType>
+      <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\platform.h</PathWithFileName>
-      <FilenameWithoutPath>platform.h</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\common\platform\app_platform.c</PathWithFileName>
+      <FilenameWithoutPath>app_platform.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>2</GroupNumber>
       <FileNumber>6</FileNumber>
-      <FileType>1</FileType>
+      <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\app_platform.c</PathWithFileName>
-      <FilenameWithoutPath>app_platform.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\common\platform\Board_GLCD.h</PathWithFileName>
+      <FilenameWithoutPath>Board_GLCD.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2388,7 +2388,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\GLCD_Fonts.c</PathWithFileName>
+      <PathWithFileName>..\..\..\common\platform\GLCD_Fonts.c</PathWithFileName>
       <FilenameWithoutPath>GLCD_Fonts.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2400,7 +2400,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\lcd_printf.c</PathWithFileName>
+      <PathWithFileName>..\..\..\common\platform\lcd_printf.c</PathWithFileName>
       <FilenameWithoutPath>lcd_printf.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2412,7 +2412,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\lcd_printf.h</PathWithFileName>
+      <PathWithFileName>..\..\..\common\platform\lcd_printf.h</PathWithFileName>
       <FilenameWithoutPath>lcd_printf.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2420,12 +2420,12 @@
     <File>
       <GroupNumber>2</GroupNumber>
       <FileNumber>10</FileNumber>
-      <FileType>4</FileType>
+      <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\lib\perf_counter.lib</PathWithFileName>
-      <FilenameWithoutPath>perf_counter.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\common\platform\platform.h</PathWithFileName>
+      <FilenameWithoutPath>platform.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2436,8 +2436,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\lib\perf_counter.h</PathWithFileName>
+      <PathWithFileName>..\..\..\common\platform\lib\perf_counter.h</PathWithFileName>
       <FilenameWithoutPath>perf_counter.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>2</GroupNumber>
+      <FileNumber>12</FileNumber>
+      <FileType>4</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\common\platform\lib\perf_counter.lib</PathWithFileName>
+      <FilenameWithoutPath>perf_counter.lib</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2451,7 +2463,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>12</FileNumber>
+      <FileNumber>13</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2471,7 +2483,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>13</FileNumber>
+      <FileNumber>14</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2483,7 +2495,7 @@
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>14</FileNumber>
+      <FileNumber>15</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2495,7 +2507,7 @@
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>15</FileNumber>
+      <FileNumber>16</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2507,7 +2519,7 @@
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>16</FileNumber>
+      <FileNumber>17</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2527,24 +2539,12 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>17</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\mps2\GLCD_Config.h</PathWithFileName>
-      <FilenameWithoutPath>GLCD_Config.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
       <FileNumber>18</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\mps2\GLCD_V2M-MPS2.c</PathWithFileName>
+      <PathWithFileName>..\..\..\common\platform\mps2\GLCD_V2M-MPS2.c</PathWithFileName>
       <FilenameWithoutPath>GLCD_V2M-MPS2.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2556,7 +2556,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\mps2\platform_mps2.c</PathWithFileName>
+      <PathWithFileName>..\..\..\common\platform\mps2\platform_mps2.c</PathWithFileName>
       <FilenameWithoutPath>platform_mps2.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2568,8 +2568,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\mps2\stdout_USART.c</PathWithFileName>
+      <PathWithFileName>..\..\..\common\platform\mps2\stdout_USART.c</PathWithFileName>
       <FilenameWithoutPath>stdout_USART.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>21</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\common\platform\mps2\GLCD_Config.h</PathWithFileName>
+      <FilenameWithoutPath>GLCD_Config.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2583,24 +2595,12 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>21</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\mps3\GLCD_Config.h</PathWithFileName>
-      <FilenameWithoutPath>GLCD_Config.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>6</GroupNumber>
       <FileNumber>22</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\mps3\GLCD_V2M-MPS3_AN540.c</PathWithFileName>
+      <PathWithFileName>..\..\..\common\platform\mps3\GLCD_V2M-MPS3_AN540.c</PathWithFileName>
       <FilenameWithoutPath>GLCD_V2M-MPS3_AN540.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2612,7 +2612,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\mps3\platform_mps3.c</PathWithFileName>
+      <PathWithFileName>..\..\..\common\platform\mps3\platform_mps3.c</PathWithFileName>
       <FilenameWithoutPath>platform_mps3.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -2624,8 +2624,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\mps3\stdout_USART.c</PathWithFileName>
+      <PathWithFileName>..\..\..\common\platform\mps3\stdout_USART.c</PathWithFileName>
       <FilenameWithoutPath>stdout_USART.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>25</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\common\platform\mps3\GLCD_Config.h</PathWithFileName>
+      <FilenameWithoutPath>GLCD_Config.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2639,25 +2651,13 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>25</FileNumber>
+      <FileNumber>26</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</PathWithFileName>
+      <PathWithFileName>..\..\..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</PathWithFileName>
       <FilenameWithoutPath>GLCD_746G_Discovery.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>26</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\stm32f746g-discovery\GLCD_Config.h</PathWithFileName>
-      <FilenameWithoutPath>GLCD_Config.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2668,8 +2668,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</PathWithFileName>
+      <PathWithFileName>..\..\..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</PathWithFileName>
       <FilenameWithoutPath>platform_stm32f746g_discovery.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>28</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\common\platform\stm32f746g-discovery\GLCD_Config.h</PathWithFileName>
+      <FilenameWithoutPath>GLCD_Config.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

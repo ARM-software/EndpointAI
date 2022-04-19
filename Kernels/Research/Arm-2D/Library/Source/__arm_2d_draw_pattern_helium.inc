@@ -96,7 +96,7 @@ void __ARM_2D_FUNC(draw_pattern_fg_only)(uint8_t *__RESTRICT pchSourceBase,
                               " q0, [%[src], %[offS]]               \n"
             "   vand            q0, q0, %[bitmask]                  \n"
 
-            "   vcmp.i" TO_STRING(__API_ELT_SZ)  \
+            "   vcmp.i" ARM_TO_STRING(__API_ELT_SZ)  \
                               " eq, q0, zr                          \n"
             /* contigous vector load  */
             ARM_VLD1_ASM(__API_ELT_SZ) \
@@ -149,7 +149,7 @@ void __ARM_2D_FUNC(draw_pattern_fg_only)(uint8_t *__RESTRICT pchSourceBase,
 
             __asm volatile(
                 ".p2align 2                                             \n"
-                "   wlstp."TO_STRING(__API_ELT_SZ) " lr, %[cnt], 1f     \n"
+                "   wlstp."ARM_TO_STRING(__API_ELT_SZ) " lr, %[cnt], 1f     \n"
                 "2:                                                     \n"
                 /* widened vector load  */
                 ARM_VLDWID_ASM(8,__API_ELT_SZ) \
@@ -158,7 +158,7 @@ void __ARM_2D_FUNC(draw_pattern_fg_only)(uint8_t *__RESTRICT pchSourceBase,
                 "   vand            q0, q0, %[bitmask]                  \n"
                 "   add             %[src], %[src], %[incrSrc]          \n"
 
-                "   vpt.i" TO_STRING(__API_ELT_SZ)  \
+                "   vpt.i" ARM_TO_STRING(__API_ELT_SZ)  \
                                   " ne, q0, zr                          \n"
 
                 /* predicated contigous vector store  */
@@ -234,7 +234,7 @@ void __ARM_2D_FUNC(draw_pattern_no_bg_comp)(
             ARM_VLD1_ASM(__API_ELT_SZ) \
                               " q1, [%[target]]                     \n"
 
-            "   vpt.i" TO_STRING(__API_ELT_SZ)  \
+            "   vpt.i" ARM_TO_STRING(__API_ELT_SZ)  \
                               " ne, q0, zr                          \n"
             "   vmvnt           q1, q1                              \n"
 
@@ -287,7 +287,7 @@ void __ARM_2D_FUNC(draw_pattern_no_bg_comp)(
 
             __asm volatile(
                 ".p2align 2                                             \n"
-                "   wlstp."TO_STRING(__API_ELT_SZ) \
+                "   wlstp."ARM_TO_STRING(__API_ELT_SZ) \
                                   " lr, %[cnt], 1f                      \n"
                 "2:                                                     \n"
                 /* widened vector load  */
@@ -300,7 +300,7 @@ void __ARM_2D_FUNC(draw_pattern_no_bg_comp)(
                 ARM_VLD1_ASM(__API_ELT_SZ) \
                                   " q1, [%[target]]                     \n"
 
-                "   vpt.i" TO_STRING(__API_ELT_SZ)  \
+                "   vpt.i" ARM_TO_STRING(__API_ELT_SZ)  \
                                   " ne, q0, zr                          \n"
                 "   vmvnt           q1, q1                              \n"
                 /* contigous vector store  */
@@ -375,7 +375,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_only)(   uint8_t *__RESTRICT pchSourceBase,
                               " q0, [%[src], %[offS]]               \n"
             "   vand            q0, q0, %[bitmask]                  \n"
 
-            "   vcmp.i" TO_STRING(__API_ELT_SZ)  \
+            "   vcmp.i" ARM_TO_STRING(__API_ELT_SZ)  \
                               " eq, q0, zr                          \n"
             /* contigous vector load  */
             ARM_VLD1_ASM(__API_ELT_SZ) \
@@ -430,7 +430,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_only)(   uint8_t *__RESTRICT pchSourceBase,
 
             __asm volatile(
                 ".p2align 2                                             \n"
-                "   wlstp."TO_STRING(__API_ELT_SZ) " lr, %[cnt], 1f     \n"
+                "   wlstp."ARM_TO_STRING(__API_ELT_SZ) " lr, %[cnt], 1f     \n"
                 "2:                                                     \n"
                 /* widened vector load  */
                 ARM_VLDWID_ASM(8,__API_ELT_SZ) \
@@ -439,7 +439,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_only)(   uint8_t *__RESTRICT pchSourceBase,
                 "   vand            q0, q0, %[bitmask]                  \n"
                 "   add             %[src], %[src], %[incrSrc]          \n"
 
-                "   vpt.i" TO_STRING(__API_ELT_SZ)  \
+                "   vpt.i" ARM_TO_STRING(__API_ELT_SZ)  \
                                   " ne, q0, zr                          \n"
 
                 /* predicated contigous vector store  */
@@ -519,7 +519,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_fg)( uint8_t *__RESTRICT pchSourceBase,
                               " q0, [%[src], %[offS]]               \n"
             "   vand            q0, q0, %[bitmask]                  \n"
 
-            "   vcmp.i" TO_STRING(__API_ELT_SZ)  \
+            "   vcmp.i" ARM_TO_STRING(__API_ELT_SZ)  \
                               " eq, q0, zr                          \n"
             "   vpsel           q0, %[vBackG], %[vForeG]            \n"
             "   vmsr            P0, %[p]                            \n"
@@ -571,7 +571,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_fg)( uint8_t *__RESTRICT pchSourceBase,
 #else
             __asm volatile(
                 ".p2align 2                                             \n"
-                "   wlstp."TO_STRING(__API_ELT_SZ) " lr, %[cnt], 1f     \n"
+                "   wlstp."ARM_TO_STRING(__API_ELT_SZ) " lr, %[cnt], 1f     \n"
                 "2:                                                     \n"
                 /* widened vector load  */
                 ARM_VLDWID_ASM(8,__API_ELT_SZ) \
@@ -580,7 +580,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_fg)( uint8_t *__RESTRICT pchSourceBase,
                 "   vand            q0, q0, %[bitmask]                  \n"
                 "   add             %[src], %[src], %[incrSrc]          \n"
 
-                "   vcmp.i" TO_STRING(__API_ELT_SZ)  \
+                "   vcmp.i" ARM_TO_STRING(__API_ELT_SZ)  \
                                   " eq, q0, zr                          \n"
                 "   vpsel           q0, %[vBackG], %[vForeG]            \n"
 
@@ -660,7 +660,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_comp)(   uint8_t *__RESTRICT pchSourceBase,
 
             "   vmvn            q1, q1                              \n"
 
-            "   vcmp.i" TO_STRING(__API_ELT_SZ)  \
+            "   vcmp.i" ARM_TO_STRING(__API_ELT_SZ)  \
                               " eq, q0, zr                          \n"
             "   vpsel           q1, %[vBackG], q1                   \n"
 
@@ -710,7 +710,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_comp)(   uint8_t *__RESTRICT pchSourceBase,
 #else
             __asm volatile(
                 ".p2align 2                                             \n"
-                "   wlstp."TO_STRING(__API_ELT_SZ) " lr, %[cnt], 1f     \n"
+                "   wlstp."ARM_TO_STRING(__API_ELT_SZ) " lr, %[cnt], 1f     \n"
                 "2:                                                     \n"
                 /* widened vector load  */
                 ARM_VLDWID_ASM(8,__API_ELT_SZ) \
@@ -724,7 +724,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_comp)(   uint8_t *__RESTRICT pchSourceBase,
 
                 "   vmvn            q1, q1                              \n"
 
-                "   vcmp.i" TO_STRING(__API_ELT_SZ)  \
+                "   vcmp.i" ARM_TO_STRING(__API_ELT_SZ)  \
                                   " eq, q0, zr                          \n"
                 "   vpsel           q1, %[vBackG], q1                   \n"
 

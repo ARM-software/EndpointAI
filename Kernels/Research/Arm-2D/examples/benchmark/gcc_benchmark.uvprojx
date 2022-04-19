@@ -241,10 +241,10 @@
             <wLevel>1</wLevel>
             <uThumb>1</uThumb>
             <VariousControls>
-              <MiscControls>-Ofast -flto -fdata-sections -ffunction-sections -fms-extensions -mcpu=cortex-m7 -mfloat-abi=soft -mfpu=fpv5-sp-d16 -std=gnu11</MiscControls>
-              <Define>RTE_Compiler_IO_STDOUT_User,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
+              <MiscControls>-Ofast -flto  -fdata-sections -ffunction-sections -fms-extensions -mcpu=cortex-m7 -mfloat-abi=hard -mfpu=fpv5-sp-d16 -std=gnu11</MiscControls>
+              <Define>RTE_Compiler_IO_STDOUT_User,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;..\..\Library\Include;.\platform\stm32f746g-discovery;.;..\..\Helper\Include;.\platform\lib</IncludePath>
+              <IncludePath>..\common\platform;..\..\Library\Include;..\common\platform\stm32f746g-discovery;.;..\..\Helper\Include;..\common\platform\lib</IncludePath>
             </VariousControls>
           </Carm>
           <Aarm>
@@ -268,13 +268,13 @@
             <BSSAddressRange></BSSAddressRange>
             <IncludeLibs></IncludeLibs>
             <IncludeDir></IncludeDir>
-            <Misc>--specs=nosys.specs -Wl,--gc-sections -Ofast
--mfloat-abi=soft -mfpu=fpv5-sp-d16 -flto -mcpu=cortex-m7 -lc -ffunction-sections  -fdata-sections
+            <Misc>--specs=nosys.specs -Wl,--gc-sections
+-mfloat-abi=hard -mfpu=fpv5-sp-d16 -mcpu=cortex-m7 -lc -ffunction-sections  -fdata-sections
 -fshort-enums -fshort-wchar
 -Wl,--wrap=SysTick_Handler
 -Wl,--wrap=printf
 -Wl,--wrap=platform_1ms_event_handler</Misc>
-            <ScatterFile>.\platform\stm32f746g-discovery\GCC\gcc_arm.ld</ScatterFile>
+            <ScatterFile>..\common\platform\stm32f746g-discovery\GCC\gcc_arm.ld</ScatterFile>
           </LDarm>
         </TargetArm>
       </TargetOption>
@@ -308,59 +308,69 @@
           <GroupName>Platform</GroupName>
           <Files>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>app_platform.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>GLCD_746G_Discovery.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
-            </File>
-            <File>
-              <FileName>platform_stm32f746g_discovery.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
-            </File>
-            <File>
               <FileName>system_stm32f7xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTE\Device\STM32F746NGHx\system_stm32f7xx.c</FilePath>
             </File>
             <File>
+              <FileName>perf_counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\platform\app_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>Board_GLCD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\Board_GLCD.h</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lcd_printf.c</FilePath>
+              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lcd_printf.h</FilePath>
-            </File>
-            <File>
-              <FileName>startup_ARMCM7.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\startup_ARMCM7.c</FilePath>
+              <FilePath>..\common\platform\lcd_printf.h</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\platform.h</FilePath>
+              <FilePath>..\common\platform\platform.h</FilePath>
             </File>
             <File>
-              <FileName>libperf_counter_gcc.a</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\lib\libperf_counter_gcc.a</FilePath>
+              <FileName>startup_ARMCM7.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\startup_ARMCM7.c</FilePath>
             </File>
             <File>
-              <FileName>perf_counter.h</FileName>
+              <FileName>platform_stm32f746g_discovery.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lib\perf_counter.h</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_746G_Discovery.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -18,11 +18,11 @@
 
 /* ----------------------------------------------------------------------
  * Project:      Arm-2D Library
- * Title:        arm-2d_acc.h
- * Description:  Basic Tile operations
+ * Title:        __arm_2d_impl.h
+ * Description:  header files for internal users or professional developers
  *
- * $Date:        13. Jan 2021
- * $Revision:    V.0.5.0
+ * $Date:        11. April 2022
+ * $Revision:    V.1.1.0
  *
  * Target Processor:  Cortex-M cores
  *
@@ -89,28 +89,21 @@ extern "C" {
         } else {                                                                \
             tResult = (arm_fsm_rt_t)ARM_2D_ERR_NOT_SUPPORT;                     \
         }
-
-
-
-#define __ARM_2D_PIXEL_AVERAGE_GRAY8(__PIXEL_IN, __ALPHA)                       \
-    do {                                                                        \
-        tPixel += (uint16_t)(__PIXEL_IN) * (uint16_t)(__ALPHA);                 \
-    } while(0)
     
-#define __ARM_2D_PIXEL_BLENDING_GRAY8(__SRC_ADDR, __DES_ADDR, __OPACITY)        \
+#define __ARM_2D_PIXEL_BLENDING_GRAY8(__SRC_ADDR, __DES_ADDR, __TRANS)          \
             do {                                                                \
-                uint16_t chTransparency = 256 - (__OPACITY);                    \
+                uint16_t hwOPA = 256 - (__TRANS);                               \
                 const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
                 uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
                                                                                 \
-                *pchDes = ((uint16_t)( ((uint16_t)(*pchSrc++) * chTransparency) \
-                                     + ((uint16_t)(*pchDes) * (__OPACITY))      \
+                *pchDes = ((uint16_t)( ((uint16_t)(*pchSrc++) * hwOPA)          \
+                                     + ((uint16_t)(*pchDes) * (__TRANS))        \
                                      ) >> 8);                                   \
             } while(0)
 
-#define __ARM_2D_PIXEL_BLENDING_RGB565(__SRC_ADDR, __DES_ADDR, __OPACITY)       \
+#define __ARM_2D_PIXEL_BLENDING_RGB565(__SRC_ADDR, __DES_ADDR, __TRANS)         \
             do {                                                                \
-                uint16_t chTransparency = 256 - (__OPACITY);                    \
+                uint16_t hwOPA = 256 - (__TRANS);                               \
                 __arm_2d_color_fast_rgb_t tSrcPix, tTargetPix;                  \
                 uint16_t *phwTargetPixel = (__DES_ADDR);                        \
                 __arm_2d_rgb565_unpack(*(__SRC_ADDR), &tSrcPix);                \
@@ -118,14 +111,76 @@ extern "C" {
                                                                                 \
                 for (int i = 0; i < 3; i++) {                                   \
                     uint16_t        hwTemp =                                    \
-                        (uint16_t) (tSrcPix.RGB[i] * chTransparency) +          \
-                        (tTargetPix.RGB[i] * (__OPACITY));                      \
+                        (uint16_t) (tSrcPix.RGB[i] * hwOPA) +                   \
+                        (tTargetPix.RGB[i] * (__TRANS));                        \
                     tTargetPix.RGB[i] = (uint16_t) (hwTemp >> 8);               \
                 }                                                               \
                                                                                 \
                 /* pack merged stream */                                        \
                 *phwTargetPixel = __arm_2d_rgb565_pack(&tTargetPix);            \
-            } while(0);
+            } while(0)
+            
+#define __ARM_2D_PIXEL_BLENDING_CCCN888(__SRC_ADDR, __DES_ADDR, __TRANS)        \
+            do {                                                                \
+                uint16_t hwOPA = 256 - (__TRANS);                               \
+                uint_fast8_t ARM_2D_SAFE_NAME(n) = sizeof(uint32_t) - 1; /* do not change alpha */\
+                const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
+                uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
+                                                                                \
+                do {                                                            \
+                    *pchDes = ( ((uint_fast16_t)(*pchSrc++) * hwOPA)            \
+                              + ((uint_fast16_t)(*pchDes) * (__TRANS))          \
+                              ) >> 8;                                           \
+                     pchDes++;                                                  \
+                } while(--ARM_2D_SAFE_NAME(n));                                                   \
+            } while(0)
+            
+            
+            
+#define __ARM_2D_PIXEL_BLENDING_OPA_GRAY8(__SRC_ADDR, __DES_ADDR, __OPA)        \
+            do {                                                                \
+                uint16_t hwTrans = 256 - (__OPA);                               \
+                const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
+                uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
+                                                                                \
+                *pchDes = ((uint16_t)( ((uint16_t)(*pchSrc++) * (__OPA))        \
+                                     + ((uint16_t)(*pchDes) * hwTrans)          \
+                                     ) >> 8);                                   \
+            } while(0)
+
+#define __ARM_2D_PIXEL_BLENDING_OPA_RGB565(__SRC_ADDR, __DES_ADDR, __OPA)       \
+            do {                                                                \
+                uint16_t hwTrans = 256 - (__OPA);                               \
+                __arm_2d_color_fast_rgb_t tSrcPix, tTargetPix;                  \
+                uint16_t *phwTargetPixel = (__DES_ADDR);                        \
+                __arm_2d_rgb565_unpack(*(__SRC_ADDR), &tSrcPix);                \
+                __arm_2d_rgb565_unpack(*phwTargetPixel, &tTargetPix);           \
+                                                                                \
+                for (int i = 0; i < 3; i++) {                                   \
+                    uint16_t        hwTemp =                                    \
+                        (uint16_t) (tSrcPix.RGB[i] * (__OPA)) +                 \
+                        (tTargetPix.RGB[i] * hwTrans);                          \
+                    tTargetPix.RGB[i] = (uint16_t) (hwTemp >> 8);               \
+                }                                                               \
+                                                                                \
+                /* pack merged stream */                                        \
+                *phwTargetPixel = __arm_2d_rgb565_pack(&tTargetPix);            \
+            } while(0)
+            
+#define __ARM_2D_PIXEL_BLENDING_OPA_CCCN888(__SRC_ADDR, __DES_ADDR, __OPA)      \
+            do {                                                                \
+                uint16_t hwTrans = 256 - (__OPA);                               \
+                uint_fast8_t ARM_2D_SAFE_NAME(n) = sizeof(uint32_t) - 1; /* do not change alpha */\
+                const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
+                uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
+                                                                                \
+                do {                                                            \
+                    *pchDes = ( ((uint_fast16_t)(*pchSrc++) * (__OPA))          \
+                              + ((uint_fast16_t)(*pchDes) * hwTrans)            \
+                              ) >> 8;                                           \
+                     pchDes++;                                                  \
+                } while(--ARM_2D_SAFE_NAME(n));                                 \
+            } while(0)
 
 #define __ARM_2D_PIXEL_AVERAGE_RGB565(__PIXEL_IN, __ALPHA)                      \
     do {                                                                        \
@@ -144,28 +199,18 @@ extern "C" {
         tPixel.G += tTempColour.u8G * (__ALPHA);                                \
         tPixel.B += tTempColour.u8B * (__ALPHA);                                \
     } while(0)
-
-#define __ARM_2D_PIXEL_BLENDING_CCCN888(__SRC_ADDR, __DES_ADDR, __OPACITY)      \
-            do {                                                                \
-                uint16_t chTransparency = 256 - (__OPACITY);                    \
-                uint_fast8_t n = sizeof(uint32_t) - 1; /* do not change alpha */\
-                const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
-                uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
-                                                                                \
-                do {                                                            \
-                    *pchDes = ( ((uint_fast16_t)(*pchSrc++) * chTransparency)   \
-                              + ((uint_fast16_t)(*pchDes) * (__OPACITY))        \
-                              ) >> 8;                                           \
-                     pchDes++;                                                  \
-                } while(--n);                                                   \
-            } while(0)
+    
+#define __ARM_2D_PIXEL_AVERAGE_GRAY8(__PIXEL_IN, __ALPHA)                       \
+    do {                                                                        \
+        tPixel += (uint16_t)(__PIXEL_IN) * (uint16_t)(__ALPHA);                 \
+    } while(0)
 
 /*============================ TYPES =========================================*/
 
 typedef struct __arm_2d_point_adj_alpha_t{
     struct {
         arm_2d_location_t tOffset;
-        uint8_t chAlpha;
+        uint_fast8_t chAlpha;
     }tMatrix[4];
 } __arm_2d_point_adj_alpha_t;
 
@@ -181,9 +226,9 @@ enum {
     
     __ARM_2D_OP_IDX_COPY,
     __ARM_2D_OP_IDX_COPY_WITH_COLOUR_KEYING,
-    __ARM_2D_OP_IDX_COPY_WITH_MASK,
-    __ARM_2D_OP_IDX_COPY_WITH_SRC_MASK,
-    __ARM_2D_OP_IDX_COPY_WITH_DES_MASK,
+    __ARM_2D_OP_IDX_COPY_WITH_MASKS,
+    __ARM_2D_OP_IDX_COPY_WITH_SOURCE_MASK,
+    __ARM_2D_OP_IDX_COPY_WITH_TARGET_MASK,
     __ARM_2D_OP_IDX_FILL_COLOUR,
     __ARM_2D_OP_IDX_FILL_COLOUR_WITH_COLOUR_KEYING,
     __ARM_2D_OP_IDX_FILL_COLOUR_WITH_MASK,
@@ -200,7 +245,14 @@ enum {
     __ARM_2D_OP_IDX_COLOUR_FORMAT_CONVERSION,
     
     __ARM_2D_OP_IDX_TRANSFORM,
-    __ARM_2D_OP_IDX_TRANSFORM_WITH_ALPHA
+    //__ARM_2D_OP_IDX_TRANSFORM_WITH_MASKS,                                     //!< todo in v1.xx
+    __ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK,                                 
+    //__ARM_2D_OP_IDX_TRANSFORM_WITH_TARGET_MASK,                               //!< todo in v1.xx
+    
+    __ARM_2D_OP_IDX_TRANSFORM_WITH_OPACITY,
+    //__ARM_2D_OP_IDX_TRANSFORM_WITH_MASKS_AND_OPACITY,                         //!< todo in v1.xx
+    __ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK_AND_OPACITY,
+    //__ARM_2D_OP_IDX_TRANSFORM_WITH_TARGET_MASK_AND_OPACITY,                   //!< todo in v1.xx
     /*------------ cmsisi-2d operation idx end --------------*/
 };
 //! @}
@@ -250,6 +302,14 @@ typedef struct __arm_2d_param_copy_orig_t {
     
 } __arm_2d_param_copy_orig_t;
 
+typedef struct __arm_2d_param_copy_orig_msk_t {
+    implement(__arm_2d_param_copy_orig_t);
+    
+    __arm_2d_tile_param_t tOrigMask;
+    __arm_2d_tile_param_t tDesMask;
+    
+} __arm_2d_param_copy_orig_msk_t;
+
 typedef struct __arm_2d_param_fill_t {
     __arm_2d_tile_param_t tSource;
     __arm_2d_tile_param_t tTarget;
@@ -275,19 +335,22 @@ ARM_PRIVATE(
     
     arm_2d_op_core_t            *ptOP;
     
-    uint8_t         chLowLeveIOIndex;                                              //!< the type of IO interface
+    uint8_t         chLowLeveIOIndex;                                           //!< the type of IO interface
     uint8_t         bIsCPL              : 1;
     uint8_t                             : 7;
     uint16_t                            : 16;
     
     union {
         __arm_2d_tile_param_t           tTileProcess;
+        
         __arm_2d_param_copy_t           tCopy;
-        __arm_2d_param_fill_t           tFill;
-        __arm_2d_param_copy_orig_t      tCopyOrig;
         __arm_2d_param_copy_msk_t       tCopyMask;
-        __arm_2d_param_fill_orig_t      tFillOrig;
+        __arm_2d_param_copy_orig_t      tCopyOrig;                              //!< for transform
+        __arm_2d_param_copy_orig_msk_t  tCopyOrigMask;                          //!< for transform with masks
+        
+        __arm_2d_param_fill_t           tFill;
         __arm_2d_param_fill_msk_t       tFillMask;
+        __arm_2d_param_fill_orig_t      tFillOrig;
     }Param;
 )};
 
@@ -383,6 +446,13 @@ extern
 __arm_2d_point_adj_alpha_t 
 __arm_2d_point_get_adjacent_alpha_q16(arm_2d_point_fx_t *ptPoint);
 
+extern
+arm_2d_err_t  __arm_mask_validate(  const arm_2d_tile_t *ptSource,
+                                    const arm_2d_tile_t *ptSrcMask,
+                                    const arm_2d_tile_t *ptTarget,
+                                    const arm_2d_tile_t *ptDesMask,
+                                    uint32_t wMode);
+
 /*----------------------------------------------------------------------------*
  * Default Software Implementations                                           *
  *----------------------------------------------------------------------------*/
@@ -441,8 +511,6 @@ arm_fsm_rt_t __arm_2d_cccn888_sw_tile_copy_with_masks(
 extern
 arm_fsm_rt_t __arm_2d_cccn888_sw_tile_fill_with_masks(
                                                 __arm_2d_sub_task_t *ptTask);
-
-
 
 extern
 arm_fsm_rt_t __arm_2d_gray8_sw_tile_copy_with_src_mask(
@@ -604,13 +672,45 @@ extern
 arm_fsm_rt_t __arm_2d_cccn888_sw_transform(__arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_gray8_sw_transform_with_alpha(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t 
+__arm_2d_gray8_sw_transform_with_alpha(__arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_rgb565_sw_transform_with_alpha(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t 
+__arm_2d_rgb565_sw_transform_with_alpha(__arm_2d_sub_task_t *ptTask);
 
 extern
-arm_fsm_rt_t __arm_2d_cccn888_sw_transform_with_alpha(__arm_2d_sub_task_t *ptTask);
+arm_fsm_rt_t 
+__arm_2d_cccn888_sw_transform_with_alpha(__arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t 
+__arm_2d_gray8_sw_transform_with_src_mask(__arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t 
+__arm_2d_rgb565_sw_transform_with_src_mask(__arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t 
+__arm_2d_cccn888_sw_transform_with_src_mask(__arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t 
+__arm_2d_gray8_sw_transform_with_src_mask_and_opacity(
+                                                __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t 
+__arm_2d_rgb565_sw_transform_with_src_mask_and_opacity(
+                                                __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t 
+__arm_2d_cccn888_sw_transform_with_src_mask_and_opacity(
+                                                __arm_2d_sub_task_t *ptTask);
+/*========================== POST INCLUDES ===================================*/
+#include "__arm_2d_direct.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Arm Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 Arm Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        #include "arm_2d_transform.h"
  * Description:  Public header file to contain the APIs for transform
  *
- * $Date:        17 March 2022
- * $Revision:    V.0.9.0
+ * $Date:        14 April 2022
+ * $Revision:    V.1.0.0
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -96,7 +96,6 @@ extern "C" {
                                             (float)(__ANGLE),                   \
                                                    1.0f,                        \
                                                    (__MSK_COLOUR))
-
                                      
 #define arm_2d_rgb888_tile_rotation_prepare(__SRC_TILE_ADDR,                    \
                                             __CENTRE,                           \
@@ -222,6 +221,87 @@ extern "C" {
                                                    (__MSK_COLOUR),              \
                                                    (__RATIO))
 
+#define arm_2d_gray8_tile_rotation_with_src_mask_prepare(                       \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE)                            \
+            arm_2dp_gray8_tile_transform_with_src_mask_prepare(  NULL,          \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   1.0f)
+
+#define arm_2d_rgb565_tile_rotation_with_src_mask_prepare(                      \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE)                            \
+            arm_2dp_rgb565_tile_transform_with_src_mask_prepare(  NULL,         \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   1.0f)
+
+#define arm_2d_cccn888_tile_rotation_with_src_mask_prepare(                     \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE)                            \
+            arm_2dp_cccn888_tile_transform_with_src_mask_prepare(  NULL,        \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   1.0f)
+
+#define arm_2d_gray8_tile_rotation_with_src_mask_and_opacity_prepare(           \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __OPACITY)                          \
+            arm_2dp_gray8_tile_transform_with_src_mask_and_opacity_prepare(     \
+                                                    NULL,                       \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   1.0f,                        \
+                                                   (__OPACITY))
+
+#define arm_2d_rgb565_tile_rotation_with_src_mask_and_opacity_prepare(          \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __OPACITY)                          \
+            arm_2dp_rgb565_tile_transform_with_src_mask_and_opacity_prepare(    \
+                                                    NULL,                       \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   1.0f,                        \
+                                                   (__OPACITY))
+
+#define arm_2d_cccn888_tile_rotation_with_src_mask_and_opacity_prepare(         \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __OPACITY)                          \
+            arm_2dp_cccn888_tile_transform_with_src_mask_and_opacity_prepare(   \
+                                                    NULL,                       \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                                   1.0f,                        \
+                                                   (__OPACITY))
+
 #define arm_2d_tile_rotate( __DES_TILE_ADDR,                                    \
                             __DES_REGION_ADDR,                                  \
                             __DES_CENTRE_ADDR)                                  \
@@ -231,12 +311,11 @@ extern "C" {
                                 (__DES_CENTRE_ADDR))
 
 
-/*! \note arm_2dp_gray8_tile_rotation(), arm_2dp_rgb565_tile_rotation() and 
- *!       arm_2d_2dp_rgb888_tile_rotation() relies on the boolean variable
- *!       bIsNewFrame. Please make sure you have define it with the correct
- *!       name and the corresponding value. If you don't use the PFB interfaces
- *!       for neight the low level rendering nor the high level GUI drawing, 
- *!       please find such variable with the value "true".
+/*! \note following macro APIs rely on the boolean variable bIsNewFrame. 
+ *!       Please make sure you have define it with the correct name and the 
+ *!       corresponding value. If you don't use the PFB interfaces for neight 
+ *!       the low level rendering nor the high level GUI drawing, please find 
+ *!       such variable with the value "true".
  */
  
 #define arm_2dp_gray8_tile_rotation(    __CB_ADDR,                              \
@@ -508,6 +587,156 @@ extern "C" {
                             (__DES_REGION_ADDR),                                \
                             (NULL,##__VA_ARGS__));                              \
         })
+        
+#define arm_2dp_gray8_tile_rotation_with_src_mask(                              \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_gray8_tile_transform_with_src_mask_prepare(                 \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        1.0f);                                  \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+        
+#define arm_2dp_rgb565_tile_rotation_with_src_mask(                             \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_rgb565_tile_transform_with_src_mask_prepare(                \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        1.0f);                                  \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2dp_cccn888_tile_rotation_with_src_mask(                            \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_cccn888_tile_transform_with_src_mask_prepare(               \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        1.0f);                                  \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2dp_gray8_tile_rotation_with_src_mask_and_opacity(                  \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __OPACITY,                              \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_gray8_tile_transform_with_src_mask_and_opacity_prepare(     \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        1.0f,                                   \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+        
+#define arm_2dp_rgb565_tile_rotation_with_src_mask_and_opacity(                 \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __OPACITY,                              \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_rgb565_tile_transform_with_src_mask_and_opacity_prepare(    \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        1.0f,                                   \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2dp_cccn888_tile_rotation_with_src_mask_and_opacity(                \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __OPACITY,                              \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_cccn888_tile_transform_with_src_mask_and_opacity_prepare(   \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        1.0f,                                   \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
 
 #define arm_2d_gray8_tile_rotation(                                             \
                                         __SRC_TILE_ADDR,                        \
@@ -771,6 +1000,149 @@ extern "C" {
                             (NULL,##__VA_ARGS__));                              \
         })
 
+#define arm_2d_gray8_tile_rotation_with_src_mask(                               \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_gray8_tile_transform_with_src_mask_prepare(                 \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        1.0f);                                  \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2d_rgb565_tile_rotation_with_src_mask(                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_rgb565_tile_transform_with_src_mask_prepare(                \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        1.0f);                                  \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2d_cccn888_tile_rotation_with_src_mask(                             \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_cccn888_tile_transform_with_src_mask_prepare(               \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        1.0f);                                  \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2d_gray8_tile_rotation_with_src_mask_and_opacity(                   \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __OPACITY,                              \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_gray8_tile_transform_with_src_mask_and_opacity_prepare(     \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        1.0f,                                   \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2d_rgb565_tile_rotation_with_src_mask_and_opacity(                  \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __OPACITY,                              \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_rgb565_tile_transform_with_src_mask_and_opacity_prepare(    \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        1.0f,                                   \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2d_cccn888_tile_rotation_with_src_mask_and_opacity(                 \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __OPACITY,                              \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_cccn888_tile_transform_with_src_mask_and_opacity_prepare(   \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (__ANGLE),                              \
+                                        1.0f,                                   \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
 
 /*! \brief API wrappers: Transform
  */
@@ -933,6 +1305,93 @@ extern "C" {
                                                    (__MSK_COLOUR),              \
                                                    (__RATIO))
 
+#define arm_2d_gray8_tile_transform_with_src_mask_prepare(                      \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __SCALE)                            \
+            arm_2dp_gray8_tile_transform_with_src_mask_prepare(  NULL,          \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                            (float)(__SCALE))
+
+#define arm_2d_rgb565_tile_transform_with_src_mask_prepare(                     \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __SCALE)                            \
+            arm_2dp_rgb565_tile_transform_with_src_mask_prepare(  NULL,         \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                            (float)(__SCALE))
+
+#define arm_2d_cccn888_tile_transform_with_src_mask_prepare(                    \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __SCALE)                            \
+            arm_2dp_cccn888_tile_transform_with_src_mask_prepare(  NULL,        \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                            (float)(__SCALE))
+
+#define arm_2d_gray8_tile_transform_with_src_mask_and_opacity_prepare(          \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __SCALE,                            \
+                                            __OPACITY)                          \
+            arm_2dp_gray8_tile_transform_with_src_mask_and_opacity_prepare(     \
+                                                    NULL,                       \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                            (float)(__SCALE),                   \
+                                                   (__OPACITY))
+
+#define arm_2d_rgb565_tile_transform_with_src_mask_and_opacity_prepare(         \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __SCALE,                            \
+                                            __OPACITY)                          \
+            arm_2dp_rgb565_tile_transform_with_src_mask_and_opacity_prepare(    \
+                                                    NULL,                       \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                            (float)(__SCALE),                   \
+                                                   (__OPACITY))
+
+#define arm_2d_cccn888_tile_transform_with_src_mask_and_opacity_prepare(        \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __ANGLE,                            \
+                                            __SCALE,                            \
+                                            __OPACITY)                          \
+            arm_2dp_cccn888_tile_transform_with_src_mask_and_opacity_prepare(   \
+                                                    NULL,                       \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                            (float)(__ANGLE),                   \
+                                            (float)(__SCALE),                   \
+                                                   (__OPACITY))
+
 #define arm_2d_tile_transform( __DES_TILE_ADDR,                                 \
                             __DES_REGION_ADDR,                                  \
                             __DES_CENTRE_ADDR)                                  \
@@ -942,12 +1401,11 @@ extern "C" {
                                 (__DES_CENTRE_ADDR))
 
 
-/*! \note arm_2dp_gray8_tile_transform(), arm_2dp_rgb565_tile_transform() and 
- *!       arm_2d_2dp_rgb888_tile_transform() relies on the boolean variable
- *!       bIsNewFrame. Please make sure you have define it with the correct
- *!       name and the corresponding value. If you don't use the PFB interfaces
- *!       for neight the low level rendering nor the high level GUI drawing, 
- *!       please find such variable with the value "true".
+/*! \note following macro APIs rely on the boolean variable bIsNewFrame. 
+ *!       Please make sure you have define it with the correct name and the 
+ *!       corresponding value. If you don't use the PFB interfaces for neight 
+ *!       the low level rendering nor the high level GUI drawing, please find 
+ *!       such variable with the value "true".
  */
  
 #define arm_2dp_gray8_tile_transform(   __CB_ADDR,                              \
@@ -1231,6 +1689,168 @@ extern "C" {
                             (NULL,##__VA_ARGS__));                              \
         })
 
+
+#define arm_2dp_gray8_tile_transform_with_src_mask(                             \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __SCALE,                                \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_gray8_tile_transform_with_src_mask_prepare(                 \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (float)(__ANGLE),                       \
+                                        (float)(__SCALE));                      \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+ 
+#define arm_2dp_rgb565_tile_transform_with_src_mask(                            \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __SCALE,                                \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_rgb565_tile_transform_with_src_mask_prepare(                \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (float)(__ANGLE),                       \
+                                        (float)(__SCALE));                      \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+
+#define arm_2dp_cccn888_tile_transform_with_src_mask(                           \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __SCALE,                                \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_cccn888_tile_transform_with_src_mask_prepare(               \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (float)(__ANGLE),                       \
+                                        (float)(__SCALE));                      \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+
+
+#define arm_2dp_gray8_tile_transform_with_src_mask_and_opacity(                 \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __SCALE,                                \
+                                        __OPACITY,                              \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_gray8_tile_transform_with_src_mask_and_opacity_prepare(     \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (float)(__ANGLE),                       \
+                                        (float)(__SCALE),                       \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+ 
+#define arm_2dp_rgb565_tile_transform_with_src_mask_and_opacity(                \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __SCALE,                                \
+                                        __OPACITY,                              \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_rgb565_tile_transform_with_src_mask_and_opacity_prepare(    \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (float)(__ANGLE),                       \
+                                        (float)(__SCALE),                       \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+
+#define arm_2dp_cccn888_tile_transform_with_src_mask_and_opacity(               \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __SCALE,                                \
+                                        __OPACITY,                              \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_cccn888_tile_transform_with_src_mask_and_opacity_prepare(   \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (float)(__ANGLE),                       \
+                                        (float)(__SCALE),                       \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+
 #define arm_2d_gray8_tile_transform(                                            \
                                         __SRC_TILE_ADDR,                        \
                                         __DES_TILE_ADDR,                        \
@@ -1253,7 +1873,6 @@ extern "C" {
                             (__DES_REGION_ADDR),                                \
                             (NULL,##__VA_ARGS__));                              \
         })
-
 
 #define arm_2d_rgb565_tile_transform(                                           \
                                         __SRC_TILE_ADDR,                        \
@@ -1505,8 +2124,155 @@ extern "C" {
         })
 
 
+#define arm_2d_gray8_tile_transform_with_src_mask(                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __SCALE,                                \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_gray8_tile_transform_with_src_mask_prepare(                 \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (float)(__ANGLE),                       \
+                                        (float)(__SCALE));                      \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
 
+#define arm_2d_rgb565_tile_transform_with_src_mask(                             \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __SCALE,                                \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_rgb565_tile_transform_with_src_mask_prepare(                \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (float)(__ANGLE),                       \
+                                        (float)(__SCALE));                      \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
 
+#define arm_2d_cccn888_tile_transform_with_src_mask(                            \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __SCALE,                                \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_cccn888_tile_transform_with_src_mask_prepare(               \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (float)(__ANGLE),                       \
+                                        (float)(__SCALE));                      \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2d_gray8_tile_transform_with_src_mask_and_opacity(                  \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __SCALE,                                \
+                                        __OPACITY,                              \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_gray8_tile_transform_with_src_mask_and_opacity_prepare(     \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (float)(__ANGLE),                       \
+                                        (float)(__SCALE),                       \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2d_rgb565_tile_transform_with_src_mask_and_opacity(                 \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __SCALE,                                \
+                                        __OPACITY,                              \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_rgb565_tile_transform_with_src_mask_and_opacity_prepare(    \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (float)(__ANGLE),                       \
+                                        (float)(__SCALE),                       \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2d_cccn888_tile_transform_with_src_mask_and_opacity(                \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __ANGLE,                                \
+                                        __SCALE,                                \
+                                        __OPACITY,                              \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_cccn888_tile_transform_with_src_mask_and_opacity_prepare(   \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        (float)(__ANGLE),                       \
+                                        (float)(__SCALE),                       \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
 
 /*! \brief API wrappers: scaling
  */
@@ -1532,7 +2298,6 @@ extern "C" {
                                             (float)(__SCALE),                   \
                                                    (__MSK_COLOUR))
 
-                                     
 #define arm_2d_rgb888_tile_scaling_prepare(__SRC_TILE_ADDR,                     \
                                             __CENTRE,                           \
                                             __SCALE,                            \
@@ -1628,7 +2393,6 @@ extern "C" {
                                                    (__MSK_COLOUR),              \
                                                    (__RATIO))
 
-
 #define arm_2d_cccn888_tile_scaling_with_alpha_prepare(                         \
                                             __SRC_TILE_ADDR,                    \
                                             __CENTRE,                           \
@@ -1657,6 +2421,87 @@ extern "C" {
                                                    (__MSK_COLOUR),              \
                                                    (__RATIO))
 
+#define arm_2d_gray8_tile_scaling_with_src_mask_prepare(                        \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __SCALE)                            \
+            arm_2dp_gray8_tile_transform_with_src_mask_prepare(  NULL,          \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                                   0.0f,                        \
+                                            (float)(__SCALE))
+
+#define arm_2d_rgb565_tile_scaling_with_src_mask_prepare(                       \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __SCALE)                            \
+            arm_2dp_rgb565_tile_transform_with_src_mask_prepare(  NULL,         \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                                   0.0f,                        \
+                                            (float)(__SCALE))
+
+#define arm_2d_cccn888_tile_scaling_with_src_mask_prepare(                      \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __SCALE)                            \
+            arm_2dp_cccn888_tile_transform_with_src_mask_prepare(  NULL,        \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                                   0.0f,                        \
+                                            (float)(__SCALE))
+
+#define arm_2d_gray8_tile_scaling_with_src_mask_and_opacity_prepare(            \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __SCALE,                            \
+                                            __OPACITY)                          \
+            arm_2dp_gray8_tile_transform_with_src_mask_and_opacity_prepare(     \
+                                                    NULL,                       \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                                   0.0f,                        \
+                                            (float)(__SCALE),                   \
+                                                   (__OPACITY))
+
+#define arm_2d_rgb565_tile_scaling_with_src_mask_and_opacity_prepare(           \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __SCALE,                            \
+                                            __OPACITY)                          \
+            arm_2dp_rgb565_tile_transform_with_src_mask_and_opacity_prepare(    \
+                                                    NULL,                       \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                                   0.0f,                        \
+                                            (float)(__SCALE),                   \
+                                                   (__OPACITY))
+
+#define arm_2d_cccn888_tile_scaling_with_src_mask_and_opacity_prepare(          \
+                                            __SRC_TILE_ADDR,                    \
+                                            __SRC_MASK_ADDR,                    \
+                                            __CENTRE,                           \
+                                            __SCALE,                            \
+                                            __OPACITY)                          \
+            arm_2dp_cccn888_tile_transform_with_src_mask_and_opacity_prepare(   \
+                                                    NULL,                       \
+                                                   (__SRC_TILE_ADDR),           \
+                                                   (__SRC_MASK_ADDR),           \
+                                                   (__CENTRE),                  \
+                                                   0.0f,                        \
+                                            (float)(__SCALE),                   \
+                                                   (__OPACITY))
+
 #define arm_2d_tile_scale( __DES_TILE_ADDR,                                     \
                             __DES_REGION_ADDR,                                  \
                             __DES_CENTRE_ADDR)                                  \
@@ -1666,12 +2511,11 @@ extern "C" {
                                 (__DES_CENTRE_ADDR))
 
 
-/*! \note arm_2dp_gray8_tile_scaling(), arm_2dp_rgb565_tile_scaling() and 
- *!       arm_2d_2dp_rgb888_tile_scaling() relies on the boolean variable
- *!       bIsNewFrame. Please make sure you have define it with the correct
- *!       name and the corresponding value. If you don't use the PFB interfaces
- *!       for neight the low level rendering nor the high level GUI drawing, 
- *!       please find such variable with the value "true".
+/*! \note following macro APIs rely on the boolean variable bIsNewFrame. 
+ *!       Please make sure you have define it with the correct name and the 
+ *!       corresponding value. If you don't use the PFB interfaces for neight 
+ *!       the low level rendering nor the high level GUI drawing, please find 
+ *!       such variable with the value "true".
  */
  
 #define arm_2dp_gray8_tile_scaling(    __CB_ADDR,                               \
@@ -1943,6 +2787,157 @@ extern "C" {
                             (__DES_REGION_ADDR),                                \
                             (NULL,##__VA_ARGS__));                              \
         })
+        
+        
+#define arm_2dp_gray8_tile_scaling_with_src_mask(                               \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __SCALE,                                \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_gray8_tile_transform_with_src_mask_prepare(                 \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        0.0f,                                   \
+                                        (__SCALE));                             \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+        
+#define arm_2dp_rgb565_tile_scaling_with_src_mask(                              \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __SCALE,                                \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_rgb565_tile_transform_with_src_mask_prepare(                \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        0.0f,                                   \
+                                        (__SCALE));                             \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2dp_cccn888_tile_scaling_with_src_mask(                             \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __SCALE,                                \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_cccn888_tile_transform_with_src_mask_prepare(               \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        0.0f,                                   \
+                                        (__SCALE));                             \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+        
+#define arm_2dp_gray8_tile_scaling_with_src_mask_and_opacity(                   \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __SCALE,                                \
+                                        __OPACITY,                              \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_gray8_tile_transform_with_src_mask_and_opacity_prepare(     \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        0.0f,                                   \
+                                        (__SCALE),                              \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+        
+#define arm_2dp_rgb565_tile_scaling_with_src_mask_and_opacity(                  \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __SCALE,                                \
+                                        __OPACITY,                              \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_rgb565_tile_transform_with_src_mask_and_opacity_prepare(    \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        0.0f,                                   \
+                                        (__SCALE),                              \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2dp_cccn888_tile_scaling_with_src_mask_and_opacity(                 \
+                                        __CB_ADDR,                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __SCALE,                                \
+                                        __OPACITY,                              \
+                                        ...)                                    \
+        ({assert(NULL != (__CB_ADDR)); if (bIsNewFrame) {                       \
+            arm_2dp_cccn888_tile_transform_with_src_mask_and_opacity_prepare(   \
+                                        (__CB_ADDR),                            \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        0.0f,                                   \
+                                        (__SCALE),                              \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform((arm_2d_op_trans_t *)(__CB_ADDR),                \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
 
 #define arm_2d_gray8_tile_scaling(                                              \
                                         __SRC_TILE_ADDR,                        \
@@ -1965,7 +2960,6 @@ extern "C" {
                             (__DES_REGION_ADDR),                                \
                             (NULL,##__VA_ARGS__));                              \
         })
-
 
 #define arm_2d_rgb565_tile_scaling(                                             \
                                         __SRC_TILE_ADDR,                        \
@@ -2206,8 +3200,150 @@ extern "C" {
                             (NULL,##__VA_ARGS__));                              \
         })
 
+#define arm_2d_gray8_tile_scaling_with_src_mask(                                \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __SCALE,                                \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_gray8_tile_transform_with_src_mask_prepare(                 \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        0.0f,                                   \
+                                        (__SCALE));                             \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
 
+#define arm_2d_rgb565_tile_scaling_with_src_mask(                               \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __SCALE,                                \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_rgb565_tile_transform_with_src_mask_prepare(                \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        0.0f,                                   \
+                                        (__SCALE));                             \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+        
+#define arm_2d_cccn888_tile_scaling_with_src_mask(                              \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __SCALE,                                \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_cccn888_tile_transform_with_src_mask_prepare(               \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        0.0f,                                   \
+                                        (__SCALE));                             \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
 
+#define arm_2d_gray8_tile_scaling_with_src_mask_and_opacity(                    \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __SCALE,                                \
+                                        __OPACITY,                              \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_gray8_tile_transform_with_src_mask_and_opacity_prepare(     \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        0.0f,                                   \
+                                        (__SCALE),                              \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+
+#define arm_2d_rgb565_tile_scaling_with_src_mask_and_opacity(                   \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __SCALE,                                \
+                                        __OPACITY,                              \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_rgb565_tile_transform_with_src_mask_and_opacity_prepare(    \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        0.0f,                                   \
+                                        (__SCALE),                              \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+        
+#define arm_2d_cccn888_tile_scaling_with_src_mask_and_opacity(                  \
+                                        __SRC_TILE_ADDR,                        \
+                                        __SRC_MASK_ADDR,                        \
+                                        __DES_TILE_ADDR,                        \
+                                        __DES_REGION_ADDR,                      \
+                                        __CENTRE,                               \
+                                        __SCALE,                                \
+                                        __OPACITY,                              \
+                                         ...)                                   \
+        ({{                                                                     \
+            arm_2dp_cccn888_tile_transform_with_src_mask_and_opacity_prepare(   \
+                                        (NULL),                                 \
+                                        (__SRC_TILE_ADDR),                      \
+                                        (__SRC_MASK_ADDR),                      \
+                                        (__CENTRE),                             \
+                                        0.0f,                                   \
+                                        (__SCALE),                              \
+                                        (__OPACITY));                           \
+        };                                                                      \
+        arm_2dp_tile_transform(NULL,                                            \
+                            (__DES_TILE_ADDR),                                  \
+                            (__DES_REGION_ADDR),                                \
+                            (NULL,##__VA_ARGS__));                              \
+        })
+        
 /*============================ TYPES =========================================*/
 
 typedef struct __arm_2d_transform_info_t {
@@ -2229,7 +3365,7 @@ ARM_PRIVATE(
 )
 } __arm_2d_transform_info_t;
 
-/*! \brief arm_2d_op_rotat_t is inherit from arm_2d_op_src_orig_t
+/*! \brief arm_2d_op_trans_t is inherit from arm_2d_op_src_orig_t
  */
 typedef struct arm_2d_op_trans_t {
     inherit(arm_2d_op_core_t);
@@ -2247,7 +3383,7 @@ typedef struct arm_2d_op_trans_t {
         arm_2d_tile_t           tDummySource;   //!< the buffer for the source
     }Origin;
     
-    __arm_2d_transform_info_t      tTransform;
+    __arm_2d_transform_info_t   tTransform;
     
 } arm_2d_op_trans_t;
 
@@ -2271,9 +3407,64 @@ typedef struct arm_2d_op_trans_opa_t {
     }Origin;
     
     __arm_2d_transform_info_t   tTransform;
-    uint8_t                     chRatio;
+    uint8_t                     chOpacity;
     
 } arm_2d_op_trans_opa_t;
+
+
+/*! \brief arm_2d_op_trans_msk_t is inherit from arm_2d_op_src_orig_msk_t
+ */
+typedef struct arm_2d_op_trans_msk_t {
+    inherit(arm_2d_op_core_t);
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+        const arm_2d_region_t   *ptRegion;      //!< target region
+    } Target;
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< source tile
+    }Source;
+    uint32_t wMode;
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< the origin tile
+        arm_2d_tile_t           tDummySource;   //!< the buffer for the source
+    }Origin;
+    struct {
+        const arm_2d_tile_t     *ptOriginSide;  //!< origin side mask
+        const arm_2d_tile_t     *ptTargetSide;  //!< target side mask
+    } Mask;
+    
+    
+    __arm_2d_transform_info_t   tTransform;
+    
+} arm_2d_op_trans_msk_t;
+
+
+/*! \brief arm_2d_op_trans_msk_t is inherit from arm_2d_op_trans_msk_t
+ */
+typedef struct arm_2d_op_trans_msk_opa_t {
+    inherit(arm_2d_op_core_t);
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile
+        const arm_2d_region_t   *ptRegion;      //!< target region
+    } Target;
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< source tile
+    }Source;
+    uint32_t wMode;
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< the origin tile
+        arm_2d_tile_t           tDummySource;   //!< the buffer for the source
+    }Origin;
+    struct {
+        const arm_2d_tile_t     *ptOriginSide;  //!< origin side mask
+        const arm_2d_tile_t     *ptTargetSide;  //!< target side mask
+    } Mask;
+    
+    
+    __arm_2d_transform_info_t   tTransform;
+    uint8_t                     chOpacity;
+    
+} arm_2d_op_trans_msk_opa_t;
 
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
@@ -2340,7 +3531,68 @@ arm_2d_err_t arm_2dp_cccn888_tile_transform_with_opacity_prepare(
                                         uint32_t wFillColour,
                                         uint_fast8_t chRatio);
 
+extern
+ARM_NONNULL(2,3)
+arm_2d_err_t arm_2dp_gray8_tile_transform_with_src_mask_prepare(
+                                        arm_2d_op_trans_msk_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_tile_t *ptSourceMask,
+                                        const arm_2d_location_t tCentre,
+                                        float fAngle,
+                                        float fScale);
 
+extern
+ARM_NONNULL(2,3)
+arm_2d_err_t arm_2dp_rgb565_tile_transform_with_src_mask_prepare(
+                                        arm_2d_op_trans_msk_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_tile_t *ptSourceMask,
+                                        const arm_2d_location_t tCentre,
+                                        float fAngle,
+                                        float fScale);
+
+extern
+ARM_NONNULL(2,3)
+arm_2d_err_t arm_2dp_cccn888_tile_transform_with_src_mask_prepare(
+                                        arm_2d_op_trans_msk_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_tile_t *ptSourceMask,
+                                        const arm_2d_location_t tCentre,
+                                        float fAngle,
+                                        float fScale);
+extern
+ARM_NONNULL(2,3)
+arm_2d_err_t arm_2dp_gray8_tile_transform_with_src_mask_and_opacity_prepare(
+                                        arm_2d_op_trans_msk_opa_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_tile_t *ptSourceMask,
+                                        const arm_2d_location_t tCentre,
+                                        float fAngle,
+                                        float fScale,
+                                        uint_fast8_t chOpacity);
+
+extern
+ARM_NONNULL(2,3)
+arm_2d_err_t arm_2dp_rgb565_tile_transform_with_src_mask_and_opacity_prepare(
+                                        arm_2d_op_trans_msk_opa_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_tile_t *ptSourceMask,
+                                        const arm_2d_location_t tCentre,
+                                        float fAngle,
+                                        float fScale,
+                                        uint_fast8_t chOpacity);
+
+extern
+ARM_NONNULL(2,3)
+arm_2d_err_t arm_2dp_cccn888_tile_transform_with_src_mask_and_opacity_prepare(
+                                        arm_2d_op_trans_msk_opa_t *ptOP,
+                                        const arm_2d_tile_t *ptSource,
+                                        const arm_2d_tile_t *ptSourceMask,
+                                        const arm_2d_location_t tCentre,
+                                        float fAngle,
+                                        float fScale,
+                                        uint_fast8_t chOpacity);
+                                        
 extern
 ARM_NONNULL(2)
 arm_fsm_rt_t arm_2dp_tile_transform( arm_2d_op_trans_t *ptOP,

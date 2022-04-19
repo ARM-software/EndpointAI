@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2021 Arm Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 Arm Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm-2d_helium.c
  * Description:  Acceleration extensions using Helium.
  *
- * $Date:        22. Sep 2021
- * $Revision:    V.0.12.0
+ * $Date:        25. March 2022
+ * $Revision:    V.0.13.0
  *
  * Target Processor:  Cortex-M cores with Helium
  *
@@ -338,11 +338,11 @@ void __arm_2d_impl_rgb16_copy(   uint16_t *phwSource,
 }
 
 __OVERRIDE_WEAK
- void __arm_2d_impl_rgb32_copy(   uint32_t *pwSource,
-                                                int16_t iSourceStride,
-                                                uint32_t *pwTarget,
-                                                int16_t iTargetStride,
-                                                arm_2d_size_t *ptCopySize)
+ void __arm_2d_impl_rgb32_copy( uint32_t *pwSource,
+                                int16_t iSourceStride,
+                                uint32_t *pwTarget,
+                                int16_t iTargetStride,
+                                arm_2d_size_t *ptCopySize)
 {
     if(ptCopySize->iWidth <= 2) {
         /*
@@ -437,12 +437,15 @@ void __arm_2d_impl_gray8_alpha_blending(uint8_t * __RESTRICT pSourceBase,
                                         uint8_t * __RESTRICT pTargetBase,
                                         int16_t iTargetStride,
                                         arm_2d_size_t * __RESTRICT ptCopySize,
-                                        uint_fast8_t chRatio)
+                                        uint_fast16_t hwRatio)
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
-    uint16_t        hwRatioCompl = 256 - chRatio;
 
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+    uint16_t        hwRatioCompl = 256 - hwRatio;
 
     for (int_fast16_t y = 0; y < iHeight; y++) {
 
@@ -457,7 +460,7 @@ void __arm_2d_impl_gray8_alpha_blending(uint8_t * __RESTRICT pSourceBase,
             uint16x8_t      vecSrc = vldrbq_z_u16(pSource, tailPred);
 
             vecTgt = vmulq_x(vecTgt, hwRatioCompl, tailPred);
-            vecTgt = vmlaq_m(vecTgt, vecSrc, chRatio, tailPred);
+            vecTgt = vmlaq_m(vecTgt, vecSrc, hwRatio, tailPred);
             vecTgt  = vecTgt  >> 8;
 
             vstrbq_p_u16(pTarget , vecTgt , tailPred);
@@ -476,13 +479,13 @@ void __arm_2d_impl_gray8_alpha_blending(uint8_t * __RESTRICT pSourceBase,
             "2:                                                      \n"
             "   vmul.u16                q0, q0, %[hwRatioCompl]      \n"
             "   vldrb.u16               q1, [%[pSource]], #8         \n"
-            "   vmla.u16                q0, q1, %[chRatio]           \n"
+            "   vmla.s16                q0, q1, %[hwRatio]           \n"
             "   vldrb.u16               q2, [%[pTarget], #8]         \n"
             "   vshr.u16                q0, q0, #8                   \n"
             "   vstrb.u16               q0, [%[pTarget]], #8         \n"
             "   vmul.u16                q2, q2, %[hwRatioCompl]      \n"
             "   vldrb.u16               q1, [%[pSource]], #8         \n"
-            "   vmla.u16                q2, q1, %[chRatio]           \n"
+            "   vmla.s16                q2, q1, %[hwRatio]           \n"
             "   vldrb.u16               q0, [%[pTarget], #8]         \n"
             "   vshr.u16                q2, q2, #8                   \n"
             "   vstrb.u16               q2, [%[pTarget]], #8         \n"
@@ -493,7 +496,7 @@ void __arm_2d_impl_gray8_alpha_blending(uint8_t * __RESTRICT pSourceBase,
             "2:                                                      \n"
             "   vmul.u16                q0, q0, %[hwRatioCompl]      \n"
             "   vldrb.u16               q1, [%[pSource]], #8         \n"
-            "   vmla.u16                q0, q1, %[chRatio]           \n"
+            "   vmla.s16                q0, q1, %[hwRatio]           \n"
             "   vshr.u16                q1, q0, #8                   \n"
             "   vldrb.u16               q0, [%[pTarget], #8]         \n"
             "   vstrb.u16               q1, [%[pTarget]], #8         \n"
@@ -501,7 +504,7 @@ void __arm_2d_impl_gray8_alpha_blending(uint8_t * __RESTRICT pSourceBase,
             "1:                                                      \n"
 
             : [pTarget] "+r"(pTarget),  [pSource] "+r" (pSource)
-            : [chRatio] "r" (chRatio), [hwRatioCompl] "r" (hwRatioCompl),
+            : [hwRatio] "r" (hwRatio), [hwRatioCompl] "r" (hwRatioCompl),
               [loopCnt] "r"(blkCnt/16), [tail] "r"(blkCnt & 0xf)
             :"q0", "q1", "q2", "memory", "r14");
 #endif
@@ -517,13 +520,16 @@ void __arm_2d_impl_gray8_alpha_blending_colour_keying(uint8_t * __RESTRICT pSour
                                                       int16_t iTargetStride,
                                                       arm_2d_size_t *
                                                       __RESTRICT ptCopySize,
-                                                      uint_fast8_t chRatio,
+                                                      uint_fast16_t hwRatio,
                                                       uint8_t Colour)
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
-    uint16_t        hwRatioCompl = 256 - chRatio;
 
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+    uint16_t        hwRatioCompl = 256 - hwRatio;
 
     for (int_fast16_t y = 0; y < iHeight; y++) {
 
@@ -538,7 +544,7 @@ void __arm_2d_impl_gray8_alpha_blending_colour_keying(uint8_t * __RESTRICT pSour
             uint16x8_t      vecSrc = vldrbq_z_u16(pSource, tailPred);
 
             vecTgt = vmulq_x(vecTgt, hwRatioCompl, tailPred);
-            vecTgt = vmlaq_m(vecTgt, vecSrc, chRatio, tailPred);
+            vecTgt = vmlaq_m(vecTgt, vecSrc, hwRatio, tailPred);
             vecTgt  = vecTgt  >> 8;
 
             vstrbq_p_u16(pTarget , vecTgt ,
@@ -558,14 +564,14 @@ void __arm_2d_impl_gray8_alpha_blending_colour_keying(uint8_t * __RESTRICT pSour
             "2:                                                      \n"
             "   vmul.u16                q0, q0, %[hwRatioCompl]      \n"
             "   vldrb.u16               q1, [%[pSource]], #8         \n"
-            "   vmla.u16                q0, q1, %[chRatio]           \n"
+            "   vmla.s16                q0, q1, %[hwRatio]           \n"
             "   vldrb.u16               q2, [%[pTarget], #8]         \n"
             "   vshr.u16                q0, q0, #8                   \n"
             "   vpt.u16                 ne, q1, %[Colour]            \n"
             "   vstrbt.u16              q0, [%[pTarget]], #8         \n"
             "   vmul.u16                q2, q2, %[hwRatioCompl]      \n"
             "   vldrb.u16               q1, [%[pSource]], #8         \n"
-            "   vmla.u16                q2, q1, %[chRatio]           \n"
+            "   vmla.s16                q2, q1, %[hwRatio]           \n"
             "   vldrb.u16               q0, [%[pTarget], #8]         \n"
             "   vshr.u16                q2, q2, #8                   \n"
             "   vpt.u16                 ne, q1, %[Colour]            \n"
@@ -577,7 +583,7 @@ void __arm_2d_impl_gray8_alpha_blending_colour_keying(uint8_t * __RESTRICT pSour
             "2:                                                      \n"
             "   vmul.u16                q0, q0, %[hwRatioCompl]      \n"
             "   vldrb.u16               q1, [%[pSource]], #8         \n"
-            "   vmla.u16                q0, q1, %[chRatio]           \n"
+            "   vmla.s16                q0, q1, %[hwRatio]           \n"
             "   vshr.u16                q2, q0, #8                   \n"
             "   vldrb.u16               q0, [%[pTarget], #8]         \n"
             "   vpt.u16                 ne, q1, %[Colour]            \n"
@@ -586,7 +592,7 @@ void __arm_2d_impl_gray8_alpha_blending_colour_keying(uint8_t * __RESTRICT pSour
             "1:                                                      \n"
 
             : [pTarget] "+r"(pTarget),  [pSource] "+r" (pSource)
-            : [chRatio] "r" (chRatio), [hwRatioCompl] "r" (hwRatioCompl),
+            : [hwRatio] "r" (hwRatio), [hwRatioCompl] "r" (hwRatioCompl),
               [loopCnt] "r"(blkCnt/16), [tail] "r"(blkCnt & 0xf),
               [Colour] "r" (Colour)
             :"q0", "q1", "q2", "memory", "r14");
@@ -602,11 +608,18 @@ void __arm_2d_impl_gray8_colour_filling_with_opacity(uint8_t * __restrict pTarge
                                                      int16_t iTargetStride,
                                                      arm_2d_size_t *
                                                      __restrict ptCopySize,
-                                                     uint8_t Colour, uint_fast8_t chRatio)
+                                                     uint8_t Colour,
+                                                     uint_fast16_t hwRatio)
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
-    uint16_t        hwRatioCompl = 256 - chRatio;
+
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+
+    uint16_t        hwRatioCompl = 256 - hwRatio;
+
     uint16x8_t      vecSrc = vdupq_n_u16(Colour);
 
     for (int_fast16_t y = 0; y < iHeight; y++) {
@@ -620,7 +633,7 @@ void __arm_2d_impl_gray8_colour_filling_with_opacity(uint8_t * __restrict pTarge
             uint16x8_t      vecTgt = vldrbq_z_u16(pTarget, tailPred);
 
             vecTgt = vmulq_x(vecTgt, hwRatioCompl, tailPred);
-            vecTgt = vmlaq_m(vecTgt, vecSrc, chRatio, tailPred);
+            vecTgt = vmlaq_m(vecTgt, vecSrc, hwRatio, tailPred);
             vecTgt  = vecTgt  >> 8;
 
             vstrbq_p_u16(pTarget , vecTgt , tailPred);
@@ -638,12 +651,12 @@ void __arm_2d_impl_gray8_colour_filling_with_opacity(uint8_t * __restrict pTarge
             "   wls                     lr, %[loopCnt], 1f           \n"
             "2:                                                      \n"
 
-            "   vmla.u16                q0, %[vecSrc], %[chRatio]    \n"
+            "   vmla.s16                q0, %[vecSrc], %[hwRatio]    \n"
             "   vldrb.u16               q2, [%[pTarget], #8]         \n"
             "   vshr.u16                q0, q0, #8                   \n"
             "   vmul.u16                q2, q2, %[hwRatioCompl]      \n"
             "   vstrb.u16               q0, [%[pTarget]], #8         \n"
-            "   vmla.u16                q2, %[vecSrc], %[chRatio]    \n"
+            "   vmla.s16                q2, %[vecSrc], %[hwRatio]    \n"
             "   vldrb.u16               q0, [%[pTarget], #8]         \n"
             "   vshr.u16                q2, q2, #8                   \n"
             "   vmul.u16                q0, q0, %[hwRatioCompl]      \n"
@@ -654,7 +667,7 @@ void __arm_2d_impl_gray8_colour_filling_with_opacity(uint8_t * __restrict pTarge
             "   wlstp.16                lr, %[tail], 1f              \n"
             "2:                                                      \n"
 
-            "   vmla.u16                q0, %[vecSrc], %[chRatio]    \n"
+            "   vmla.s16                q0, %[vecSrc], %[hwRatio]    \n"
             "   vshr.u16                q2, q0, #8                   \n"
             "   vldrb.u16               q0, [%[pTarget], #8]         \n"
             "   vmul.u16                q0, q0, %[hwRatioCompl]      \n"
@@ -663,7 +676,7 @@ void __arm_2d_impl_gray8_colour_filling_with_opacity(uint8_t * __restrict pTarge
             "1:                                                      \n"
 
             : [pTarget] "+r"(pTarget)
-            : [chRatio] "r" (chRatio), [hwRatioCompl] "r" (hwRatioCompl),
+            : [hwRatio] "r" (hwRatio), [hwRatioCompl] "r" (hwRatioCompl),
               [loopCnt] "r"(blkCnt/16), [tail] "r"(blkCnt & 0xf),
               [vecSrc] "t" (vecSrc)
             :"q0", "q2", "memory", "r14");
@@ -682,14 +695,18 @@ void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *phwSourceBase,
                                             uint16_t *phwTargetBase,
                                             int16_t iTargetStride,
                                             arm_2d_size_t *ptCopySize,
-                                            uint_fast8_t chRatio)
+                                            uint_fast16_t hwRatio)
 {
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+
 #ifdef USE_MVE_INTRINSICS
     int32_t         blkCnt;
-    uint16_t        ratio1x8 = chRatio * 8;
-    uint16_t        ratio1x4 = chRatio * 4;
-    uint16_t        ratio2x8 = (256 - chRatio) * 8;
-    uint16_t        ratio2x4 = (256 - chRatio) * 4;
+    uint16_t        ratio1x8 = hwRatio * 8;
+    uint16_t        ratio1x4 = hwRatio * 4;
+    uint16_t        ratio2x8 = (256 - hwRatio) * 8;
+    uint16_t        ratio2x4 = (256 - hwRatio) * 4;
 
     uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
     uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
@@ -759,10 +776,10 @@ void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *phwSourceBase,
 #else /* USE_MVE_INTRINSICS  */
 
 
-    uint16_t        ratio1x8 = chRatio * 8;
-    uint16_t        ratio1x4 = chRatio * 4;
-    uint16_t        ratio2x8 = (256 - chRatio) * 8;
-    uint16_t        ratio2x4 = (256 - chRatio) * 4;
+    uint16_t        ratio1x8 = hwRatio * 8;
+    uint16_t        ratio1x4 = hwRatio * 4;
+    uint16_t        ratio2x8 = (256 - hwRatio) * 8;
+    uint16_t        ratio2x4 = (256 - hwRatio) * 4;
     uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
     uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
     uint16x8_t      vecMaskBpck = vdupq_n_u16(0x00f8);
@@ -795,7 +812,7 @@ void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *phwSourceBase,
         // B source extraction
         "   vand                    q7, q5, %[vecMaskR]          \n"
         // B mix
-        "   vmla.u16                q6, q7, %[ratio1x8]          \n"
+        "   vmla.s16                q6, q7, %[ratio1x8]          \n"
         // G extraction
         "   vand                    q2, q2, %[vecMaskG]          \n"
         "   vshr.u16                q7, q5, #5                   \n"
@@ -803,14 +820,14 @@ void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *phwSourceBase,
         // G extraction
         "   vand                    q7, q7, %[vecMaskG]          \n"
         // G mix
-        "   vmla.u16                q2, q7, %[ratio1x4]          \n"
+        "   vmla.s16                q2, q7, %[ratio1x4]          \n"
         // R extraction
         "   vshr.u16                q4, q4, #11                  \n"
         "   vmul.i16                q7, q4, %[ratio2x8]          \n"
         // R extraction
         "   vshr.u16                q5, q5, #11                  \n"
         // R mix
-        "   vmla.u16                q7, q5, %[ratio1x8]          \n"
+        "   vmla.s16                q7, q5, %[ratio1x8]          \n"
 
         "   vshr.u16                q2, q2, #8                   \n"
         "   vldrh.16                q5, [%[scratch]]             \n"
@@ -824,7 +841,7 @@ void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *phwSourceBase,
         "   vand                    q7, q4, %[vecMaskBpck]       \n"
         // pack R & G
         // vmulq((vecG0 & vecMaskGpck), 8) + vmulq((vecR0 & vecMaskRpck), 256)
-        "   vmla.u16                q2, q7, %[twofiftysix]       \n"
+        "   vmla.s16                q2, q7, %[twofiftysix]       \n"
         // downshift B ((vecB0 >> 8) >> 3)
         "   vshr.u16                q7, q6, #11                  \n"
         // schedule next target load (pre offset as target not imcrementred so far)
@@ -859,14 +876,19 @@ void __arm_2d_impl_rgb565_colour_filling_with_opacity(
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
                                         uint16_t Colour,
-                                        uint_fast8_t chRatio)
+                                        uint_fast16_t hwRatio)
 {
+
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+
 #ifdef USE_MVE_INTRINSICS
     int32_t         blkCnt;
-    uint16_t        ratio1x8 = chRatio * 8;
-    uint16_t        ratio1x4 = chRatio * 4;
-    uint16_t        ratio2x8 = (256 - chRatio) * 8;
-    uint16_t        ratio2x4 = (256 - chRatio) * 4;
+    uint16_t        ratio1x8 = hwRatio * 8;
+    uint16_t        ratio1x4 = hwRatio * 4;
+    uint16_t        ratio2x8 = (256 - hwRatio) * 8;
+    uint16_t        ratio2x4 = (256 - hwRatio) * 4;
 
     uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
     uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
@@ -928,10 +950,10 @@ void __arm_2d_impl_rgb565_colour_filling_with_opacity(
 
 #else /* USE_MVE_INTRINSICS  */
 
-    uint16_t        ratio1x8 = chRatio * 8;
-    uint16_t        ratio1x4 = chRatio * 4;
-    uint16_t        ratio2x8 = (256 - chRatio) * 8;
-    uint16_t        ratio2x4 = (256 - chRatio) * 4;
+    uint16_t        ratio1x8 = hwRatio * 8;
+    uint16_t        ratio1x4 = hwRatio * 4;
+    uint16_t        ratio2x8 = (256 - hwRatio) * 8;
+    uint16_t        ratio2x4 = (256 - hwRatio) * 4;
     uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
     uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
     uint16x8_t      vecMaskBpck = vdupq_n_u16(0x00f8);
@@ -968,21 +990,21 @@ void __arm_2d_impl_rgb565_colour_filling_with_opacity(
         "   vshr.u16                q2, q4, #5                   \n"
 
         // B mix
-        "   vmla.u16                q6, q7, %[ratio2x8]          \n"
+        "   vmla.s16                q6, q7, %[ratio2x8]          \n"
         // G extraction
         "   vand                    q7, q2, %[vecMaskG]          \n"
 
         // G extraction
         "   vldrh.u16               q2, [%[scratch], #32]        \n"
         // G mix
-        "   vmla.u16                q2, q7, %[ratio2x4]          \n"
+        "   vmla.s16                q2, q7, %[ratio2x4]          \n"
 
         "   vshr.u16                q4, q4, #11                  \n"
         // R extraction
         "   vldrh.u16               q7, [%[scratch], #16]        \n"
         "   vshr.u16                q2, q2, #8                   \n"
         // R mix
-        "   vmla.u16                q7, q4, %[ratio2x8]          \n"
+        "   vmla.s16                q7, q4, %[ratio2x8]          \n"
         "   vshr.u16                q4, q7, #8                   \n"
 
         // load duplicated 0xfc mask
@@ -993,7 +1015,7 @@ void __arm_2d_impl_rgb565_colour_filling_with_opacity(
         "   vand                    q7, q4, %[vecMaskBpck]       \n"
 
         // pack R & G
-        "   vmla.u16                q2, q7, %[twofiftysix]       \n"
+        "   vmla.s16                q2, q7, %[twofiftysix]       \n"
         // downshift B ((vecB0 >> 8) >> 3)
         "   vshr.u16                q7, q6, #11                  \n"
         // schedule next target load
@@ -1025,18 +1047,22 @@ void __arm_2d_impl_rgb565_alpha_blending_colour_keying(
                                                 uint16_t * __RESTRICT phwTarget,
                                                 int16_t         iTargetStride,
                                                 arm_2d_size_t * __RESTRICT ptCopySize,
-                                                uint_fast8_t    chRatio,
-                                                uint32_t   hwColour)
+                                                uint_fast16_t hwRatio,
+                                                uint16_t   hwColour)
 {
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+
 #ifdef USE_MVE_INTRINSICS
     uint32_t        iHeight = ptCopySize->iHeight;
     uint32_t        iWidth = ptCopySize->iWidth;
 
     int32_t         blkCnt;
-    uint16_t        ratio1x8 = chRatio * 8;
-    uint16_t        ratio1x4 = chRatio * 4;
-    uint16_t        ratio2x8 = (256 - chRatio) * 8;
-    uint16_t        ratio2x4 = (256 - chRatio) * 4;
+    uint16_t        ratio1x8 = hwRatio * 8;
+    uint16_t        ratio1x4 = hwRatio * 4;
+    uint16_t        ratio2x8 = (256 - hwRatio) * 8;
+    uint16_t        ratio2x4 = (256 - hwRatio) * 4;
 
     uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
     uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
@@ -1137,10 +1163,10 @@ void __arm_2d_impl_rgb565_alpha_blending_colour_keying(
     uint32_t        iHeight = ptCopySize->iHeight;
     uint32_t        iWidth = ptCopySize->iWidth;
 
-    uint16_t        ratio1x8 = chRatio * 8;
-    uint16_t        ratio1x4 = chRatio * 4;
-    uint16_t        ratio2x8 = (256 - chRatio) * 8;
-    uint16_t        ratio2x4 = (256 - chRatio) * 4;
+    uint16_t        ratio1x8 = hwRatio * 8;
+    uint16_t        ratio1x4 = hwRatio * 4;
+    uint16_t        ratio2x8 = (256 - hwRatio) * 8;
+    uint16_t        ratio2x4 = (256 - hwRatio) * 4;
 
     uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
     uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
@@ -1169,7 +1195,7 @@ void __arm_2d_impl_rgb565_alpha_blending_colour_keying(
         // B source extraction
         "   vand                    q7, q5, %[vecMaskR]          \n"
         // B mix
-        "   vmla.u16                q6, q7, %[ratio1x8]          \n"
+        "   vmla.s16                q6, q7, %[ratio1x8]          \n"
         // G extraction
         "   vand                    q2, q2, %[vecMaskG]          \n"
         "   vshr.u16                q7, q5, #5                   \n"
@@ -1177,14 +1203,14 @@ void __arm_2d_impl_rgb565_alpha_blending_colour_keying(
         // G extraction
         "   vand                    q7, q7, %[vecMaskG]          \n"
         // G mix
-        "   vmla.u16                q2, q7, %[ratio1x4]          \n"
+        "   vmla.s16                q2, q7, %[ratio1x4]          \n"
         // R extraction
         "   vshr.u16                q4, q4, #11                  \n"
         "   vmul.i16                q7, q4, %[ratio2x8]          \n"
         // R extraction
         "   vshr.u16                q5, q5, #11                  \n"
         // R mix
-        "   vmla.u16                q7, q5, %[ratio1x8]          \n"
+        "   vmla.s16                q7, q5, %[ratio1x8]          \n"
 
         "   vshr.u16                q2, q2, #8                   \n"
         "   vldrh.16                q5, [%[scratch]]             \n"
@@ -1198,7 +1224,7 @@ void __arm_2d_impl_rgb565_alpha_blending_colour_keying(
         "   vand                    q7, q4, %[vecMaskBpck]       \n"
         // pack R & G
         // vmulq((vecG0 & vecMaskGpck), 8) + vmulq((vecR0 & vecMaskRpck), 256)
-        "   vmla.u16                q2, q7, %[twofiftysix]       \n"
+        "   vmla.s16                q2, q7, %[twofiftysix]       \n"
         // downshift B ((vecB0 >> 8) >> 3)
         "   vshr.u16                q7, q6, #11                  \n"
         // schedule next target load (pre offset as target not imcrementred so far)
@@ -1235,10 +1261,16 @@ void __arm_2d_impl_cccn888_alpha_blending(   uint32_t *pwSourceBase,
                                             uint32_t *pwTargetBase,
                                             int16_t iTargetStride,
                                             arm_2d_size_t *ptCopySize,
-                                            uint_fast8_t chRatio)
+                                            uint_fast16_t hwRatio)
 {
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+    uint16_t        hwRatioCompl = 256 - (uint16_t) hwRatio;
+
 #ifdef USE_MVE_INTRINSICS
-    uint16_t        chRatioCompl = 256 - (uint16_t) chRatio;
+
+
     int32_t         blkCnt;
     int32_t         row = ptCopySize->iHeight;
 
@@ -1255,7 +1287,7 @@ void __arm_2d_impl_cccn888_alpha_blending(   uint32_t *pwSourceBase,
 
         while (blkCnt > 0) {
             vstrbq_u16((const uint8_t *)pwTarget,
-                       vmlaq(vmulq(vecSrc, chRatio), vecTrg, chRatioCompl) >> 8);
+                       vmlaq(vmulq(vecSrc, hwRatio), vecTrg, hwRatioCompl) >> 8);
 
             pwTarget += 2;
 
@@ -1270,7 +1302,7 @@ void __arm_2d_impl_cccn888_alpha_blending(   uint32_t *pwSourceBase,
         row--;
     }
 #else
-    uint16_t        chRatioCompl = 256 - (uint16_t) chRatio;
+
     register unsigned blkCnt  __asm("lr");
     int32_t row = ptCopySize->iHeight;
 
@@ -1286,9 +1318,9 @@ void __arm_2d_impl_cccn888_alpha_blending(   uint32_t *pwSourceBase,
 
             "   wlstp.16                lr, %[loopCnt], 1f             \n"
             "2:                                                        \n"
-            "   vmul.u16                q2, q0, %[chRatio]             \n"
+            "   vmul.u16                q2, q0, %[hwRatio]             \n"
             "   vldrb.u16               q0, [%[pwSource]], #8          \n"
-            "   vmla.u16                q2, q1, %[chRatioCompl]        \n"
+            "   vmla.s16                q2, q1, %[hwRatioCompl]        \n"
             "   vldrb.u16               q1, [%[pwTarget], #8]          \n"
             "   vshr.u16                q2, q2, #8                     \n"
             "   vstrb.16                q2, [%[pwTarget]], #8          \n"
@@ -1297,7 +1329,7 @@ void __arm_2d_impl_cccn888_alpha_blending(   uint32_t *pwSourceBase,
 
             : [pwSource] "+l"(pwSource),  [pwTarget] "+l"(pwTarget),
               [loopCnt] "+r"(blkCnt)
-            : [chRatio] "r" (chRatio), [chRatioCompl] "r" (chRatioCompl)
+            : [hwRatio] "r" (hwRatio), [hwRatioCompl] "r" (hwRatioCompl)
             : "q0", "q1", "q2", "memory" );
 
         pwSourceBase += iSourceStride;
@@ -1316,10 +1348,14 @@ void __arm_2d_impl_cccn888_colour_filling_with_opacity(
                                         int16_t iTargetStride,
                                         arm_2d_size_t *__RESTRICT ptCopySize,
                                         uint32_t Colour,
-                                        uint_fast8_t chRatio)
+                                        uint_fast16_t hwRatio)
 {
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+    uint16_t        hwRatioCompl = 256 - (uint16_t) hwRatio;
+
 #ifdef USE_MVE_INTRINSICS
-    uint16_t        chRatioCompl = 256 - (uint16_t) chRatio;
     int32_t         blkCnt;
     int32_t         row = ptCopySize->iHeight;
     uint32_t        scratch[2];
@@ -1327,7 +1363,7 @@ void __arm_2d_impl_cccn888_colour_filling_with_opacity(
 
     scratch[0] = scratch[1] = Colour;
     vColor = vldrbq_u16((uint8_t *) scratch);
-    vColor = vColor * (uint16_t)chRatio;
+    vColor = vColor * (uint16_t)hwRatio;
 
     while (row > 0) {
         uint32_t       *pTarget = pTargetBase;
@@ -1337,7 +1373,7 @@ void __arm_2d_impl_cccn888_colour_filling_with_opacity(
             /* byte extraction into 16-bit vector */
             uint16x8_t      vecTrg = vldrbq_u16((uint8_t *)pTarget);
 
-            vstrbq_u16((uint8_t *)pTarget, vmlaq(vColor, vecTrg, chRatioCompl) >> 8);
+            vstrbq_u16((uint8_t *)pTarget, vmlaq(vColor, vecTrg, hwRatioCompl) >> 8);
 
             pTarget += 2;
             blkCnt -= 2;
@@ -1347,7 +1383,6 @@ void __arm_2d_impl_cccn888_colour_filling_with_opacity(
     }
 #else /* USE_MVE_INTRINSICS  */
 
-    uint16_t        chRatioCompl = 256 - (uint16_t) chRatio;
     int32_t         blkCnt;
     int32_t         row = ptCopySize->iHeight;
     uint32_t        scratch[2];
@@ -1355,7 +1390,7 @@ void __arm_2d_impl_cccn888_colour_filling_with_opacity(
 
     scratch[0] = scratch[1] = Colour;
     vColor = vldrbq_u16((uint8_t *) scratch);
-    vColor = vColor * (uint16_t)chRatio;
+    vColor = vColor * (uint16_t)hwRatio;
 
     while (row > 0) {
         uint32_t       *pTarget = pTargetBase;
@@ -1369,14 +1404,14 @@ void __arm_2d_impl_cccn888_colour_filling_with_opacity(
         ".p2align 2                                                \n"
         "2:                                                        \n"
         "   vmov                    q2, %[vColor]                  \n"
-        "   vmla.u16                q2, q1, %[chRatioCompl]        \n"
+        "   vmla.s16                q2, q1, %[hwRatioCompl]        \n"
         "   vldrb.u16               q1, [%[pTarget], #8]           \n"
         "   vshr.u16                q2, q2, #8                     \n"
         "   vstrb.16                q2, [%[pTarget]], #8           \n"
         "   letp                    lr, 2b                         \n"
         "1:                                                        \n"
         : [pTarget] "+l"(pTarget)
-        : [loopCnt] "r"(blkCnt), [chRatioCompl] "r" (chRatioCompl), [vColor] "t" (vColor)
+        : [loopCnt] "r"(blkCnt), [hwRatioCompl] "r" (hwRatioCompl), [vColor] "t" (vColor)
         : "q0", "q1", "q2", "memory" );
 
         pTargetBase += iTargetStride;
@@ -1393,13 +1428,16 @@ void __arm_2d_impl_cccn888_alpha_blending_colour_keying(uint32_t * __RESTRICT pS
                                                        int16_t iTargetStride,
                                                        arm_2d_size_t *
                                                        __RESTRICT ptCopySize,
-                                                       uint_fast8_t chRatio,
+                                                       uint_fast16_t hwRatio,
                                                        uint32_t Colour)
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
-    uint16_t        chRatioCompl = 256 - chRatio;
 
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+    uint16_t        hwRatioCompl = 256 - hwRatio;
 
     for (int_fast16_t y = 0; y < iHeight; y++) {
         const uint32_t *pSource = pSourceBase;
@@ -1425,9 +1463,9 @@ void __arm_2d_impl_cccn888_alpha_blending_colour_keying(uint32_t * __RESTRICT pS
             uint16x8_t      vTrg16t = vmovltq_x(vTrg8, p);
 
             /* A/G blending */
-            int16x8_t       vecOutb = vmlaq_m(vmulq_x(vSrc16b, chRatio, p), vTrg16b, chRatioCompl, p);
+            int16x8_t       vecOutb = vmlaq_m(vmulq_x(vSrc16b, hwRatio, p), vTrg16b, hwRatioCompl, p);
             /* R/B blending */
-            int16x8_t       vecOutt = vmlaq_m(vmulq_x(vSrc16t, chRatio, p), vTrg16t, chRatioCompl, p);
+            int16x8_t       vecOutt = vmlaq_m(vmulq_x(vSrc16t, hwRatio, p), vTrg16t, hwRatioCompl, p);
 
             /* merge into 8-bit vector */
             int8x16_t       vecOut8 = vuninitializedq_s8();
@@ -1463,14 +1501,14 @@ void __arm_2d_impl_cccn888_alpha_blending_colour_keying(uint32_t * __RESTRICT pS
         /* 16-bit expansion R/B target pixels */
         "   vmovlt.u8       q2, q2                  \n"
         /* A/G blending */
-        "   vmla.u16        q1, q3, %[ratioCmp]     \n"
+        "   vmla.s16        q1, q3, %[ratioCmp]     \n"
         /* 16-bit expansion R/B source pixels */
         "   vmovlt.u8       q3, q0                  \n"
         "   vmul.i16        q3, q3, %[ratio]        \n"
         /* merge A/G into 8-bit vector */
         "   vqshrnb.s16     q1, q1, #8              \n"
         /* R/B blending */
-        "   vmla.u16        q3, q2, %[ratioCmp]     \n"
+        "   vmla.s16        q3, q2, %[ratioCmp]     \n"
         /* preload next target */
         "   vldrw.u32       q2, [%[targ], #16]      \n"
         /* merge R/B into 8-bit vector */
@@ -1481,8 +1519,8 @@ void __arm_2d_impl_cccn888_alpha_blending_colour_keying(uint32_t * __RESTRICT pS
         "   letp            lr, 2b                  \n"
         "1:                                         \n"
         :[targ] "+r" (pTarget), [src] "+r" (pSource)
-        :[loopCnt] "r" (iWidth), [ratio] "r" (chRatio),
-         [ratioCmp] "r" (chRatioCompl), [color] "r" (Colour)
+        :[loopCnt] "r" (iWidth), [ratio] "r" (hwRatio),
+         [ratioCmp] "r" (hwRatioCompl), [color] "r" (Colour)
         :"r14", "q0", "q1", "q2", "q3", "memory");
 #endif
         pSourceBase += (iSourceStride);
@@ -1497,14 +1535,18 @@ void __arm_2d_impl_rgb565_alpha_blending_direct(const uint16_t *phwSource,
                                                 const uint16_t *phwBackground,
                                                 uint16_t *phwDestination,
                                                 uint32_t wPixelCount,
-                                                uint_fast8_t chRatio)
+                                                uint_fast16_t hwRatio)
 {
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+
 #ifdef USE_MVE_INTRINSICS
     int32_t         blkCnt;
-    uint16_t        ratio1x8 = chRatio * 8;
-    uint16_t        ratio1x4 = chRatio * 4;
-    uint16_t        ratio2x8 = (256 - chRatio) * 8;
-    uint16_t        ratio2x4 = (256 - chRatio) * 4;
+    uint16_t        ratio1x8 = hwRatio * 8;
+    uint16_t        ratio1x4 = hwRatio * 4;
+    uint16_t        ratio2x8 = (256 - hwRatio) * 8;
+    uint16_t        ratio2x4 = (256 - hwRatio) * 4;
 
     uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
     uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
@@ -1567,10 +1609,10 @@ void __arm_2d_impl_rgb565_alpha_blending_direct(const uint16_t *phwSource,
 
 #else /* USE_MVE_INTRINSICS */
 
-    uint16_t        ratio1x8 = chRatio * 8;
-    uint16_t        ratio1x4 = chRatio * 4;
-    uint16_t        ratio2x8 = (256 - chRatio) * 8;
-    uint16_t        ratio2x4 = (256 - chRatio) * 4;
+    uint16_t        ratio1x8 = hwRatio * 8;
+    uint16_t        ratio1x4 = hwRatio * 4;
+    uint16_t        ratio2x8 = (256 - hwRatio) * 8;
+    uint16_t        ratio2x4 = (256 - hwRatio) * 4;
     uint16x8_t      vecMaskR = vdupq_n_u16(0x001f);
     uint16x8_t      vecMaskG = vdupq_n_u16(0x003f);
     uint16x8_t      vecMaskBpck = vdupq_n_u16(0x00f8);
@@ -1590,17 +1632,17 @@ void __arm_2d_impl_rgb565_alpha_blending_direct(const uint16_t *phwSource,
         "   vmul.i16                q6, q6, %[ratio2x8]          \n"
         "   vshr.u16                q2, q4, #5                   \n"
         "   vand                    q7, q5, %[vecMaskR]          \n"
-        "   vmla.u16                q6, q7, %[ratio1x8]          \n"
+        "   vmla.s16                q6, q7, %[ratio1x8]          \n"
         "   vand                    q2, q2, %[vecMaskG]          \n"
         "   vshr.u16                q7, q5, #5                   \n"
         "   vmul.i16                q2, q2, %[ratio2x4]          \n"
         "   vand                    q7, q7, %[vecMaskG]          \n"
-        "   vmla.u16                q2, q7, %[ratio1x4]          \n"
+        "   vmla.s16                q2, q7, %[ratio1x4]          \n"
         "   vshr.u16                q4, q4, #11                  \n"
         "   vmul.i16                q7, q4, %[ratio2x8]          \n"
         "   vshr.u16                q5, q5, #11                  \n"
         "   vshr.u16                q2, q2, #8                   \n"
-        "   vmla.u16                q7, q5, %[ratio1x8]          \n"
+        "   vmla.s16                q7, q5, %[ratio1x8]          \n"
 
         //  "   vmov.i16                 q6, #0x00fc  \n"
         "   vshr.u16                q7, q7, #8                   \n"
@@ -1611,7 +1653,7 @@ void __arm_2d_impl_rgb565_alpha_blending_direct(const uint16_t *phwSource,
         "   vmul.i16                q2, q2, %[eight]             \n"
         "   vand                    q4, q7, %[vecMaskBpck]       \n" // Q7 = vecB0
         "   vldrh.u16               q5, [%[in1]], #16            \n"
-        "   vmla.u16                q2, q4, %[twofiftysix]       \n"
+        "   vmla.s16                q2, q4, %[twofiftysix]       \n"
         // (vecR0 >> 3) >> 8
         "   vshr.u16                q6, q6, #11                  \n"
         "   vldrh.u16               q4, [%[in2]], #16            \n"
@@ -1637,11 +1679,16 @@ void __arm_2d_impl_cccn888_alpha_blending_direct(const uint32_t *pwSource,
                                                 const uint32_t *pwBackground,
                                                 uint32_t *pwDestination,
                                                 uint32_t wPixelCount,
-                                                uint_fast8_t chRatio)
+                                                uint_fast16_t hwRatio)
 {
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwRatio += (hwRatio == 255);
+#endif
+    uint16_t        hwRatioCompl = 256 - hwRatio;
+
 #ifdef USE_MVE_INTRINSICS
     int32_t         blkCnt;
-    uint16_t        chRatioCompl = 256 - (uint16_t) chRatio;
+
     uint16x8_t      vecSrc, vecBckg;
 
 
@@ -1655,11 +1702,11 @@ void __arm_2d_impl_cccn888_alpha_blending_direct(const uint32_t *pwSource,
     do {
         uint16x8_t      vecOut;
 
-        vecOut = vmulq_n_u16(vecSrc, (uint16_t) chRatio);
+        vecOut = vmulq_n_u16(vecSrc, (uint16_t) hwRatio);
         vecSrc = vldrbq_u16((uint8_t const *) pwSource);
         pwSource += 2;
 
-        vecOut = vmlaq_n_u16(vecOut, vecBckg, chRatioCompl);
+        vecOut = vmlaq_n_u16(vecOut, vecBckg, hwRatioCompl);
         vecBckg = vldrbq_u16((uint8_t const *) pwBackground);
         pwBackground += 2;
 
@@ -1673,7 +1720,6 @@ void __arm_2d_impl_cccn888_alpha_blending_direct(const uint32_t *pwSource,
     while (blkCnt > 0);
 
 #else /* USE_MVE_INTRINSICS */
-    uint16_t        chRatioCompl = 256 - (uint16_t) chRatio;
     register unsigned blkCnt  __asm("lr") = (wPixelCount * 4);
 
     __asm volatile(
@@ -1682,9 +1728,9 @@ void __arm_2d_impl_cccn888_alpha_blending_direct(const uint32_t *pwSource,
 
         "   wlstp.16                lr, %[loopCnt], 1f             \n"
         "2:                                                        \n"
-        "   vmul.u16                q2, q0, %[chRatio]             \n"
+        "   vmul.u16                q2, q0, %[hwRatio]             \n"
         "   vldrb.u16               q0, [%[pwSource]], #8          \n"
-        "   vmla.u16                q2, q1, %[chRatioCompl]        \n"
+        "   vmla.s16                q2, q1, %[hwRatioCompl]        \n"
         "   vldrb.u16               q1, [%[pwBackg]], #8           \n"
         "   vshr.u16                q2, q2, #8                     \n"
         "   vstrb.16                q2, [%[pwDest]], #8            \n"
@@ -1693,7 +1739,7 @@ void __arm_2d_impl_cccn888_alpha_blending_direct(const uint32_t *pwSource,
 
         : [pwSource] "+l"(pwSource),  [pwBackg] "+l"(pwBackground),
           [pwDest] "+l" (pwDestination), [loopCnt] "+r"(blkCnt)
-        : [chRatio] "r" (chRatio), [chRatioCompl] "r" (chRatioCompl)
+        : [hwRatio] "r" (hwRatio), [hwRatioCompl] "r" (hwRatioCompl)
         : "q0", "q1", "q2", "memory" );
 #endif
 
@@ -1921,24 +1967,26 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
   Alpha blending of a packed vector with 3 vectors of single R, G & B channels
  */
 
-#define __ARM_2D_BLEND_RGB565_TARGET_RGBVEC(chOpacity, vPackedTarget, vAvgR, vAvgG, vAvgB, vBlended)       \
-    uint16x8_t      vTargetR, vTargetG, vTargetB;                                                          \
-                                                                                                           \
-    __arm_2d_rgb565_unpack_single_vec(vTarget, &vTargetR, &vTargetG, &vTargetB);                           \
-                                                                                                           \
-    uint16_t        chOpacityCompl = (256 - chOpacity);                                                    \
-                                                                                                           \
-    /* merge */                                                                                            \
-    vAvgR = vAvgR * chOpacityCompl + vTargetR * chOpacity;                                                 \
-    vAvgR = vAvgR >> 8;                                                                                    \
-                                                                                                           \
-    vAvgG = vAvgG * chOpacityCompl + vTargetG * chOpacity;                                                 \
-    vAvgG = vAvgG >> 8;                                                                                    \
-                                                                                                           \
-    vAvgB = vAvgB * chOpacityCompl + vTargetB * chOpacity;                                                 \
-    vAvgB = vAvgB >> 8;                                                                                    \
-                                                                                                           \
-    vBlended = __arm_2d_rgb565_pack_single_vec(vAvgR, vAvgG, vAvgB);
+
+
+#define __ARM_2D_BLEND_RGB565_TARGET_RGBVEC(hwOpacity, vPackedTarget, vAvgR, vAvgG, vAvgB, vBlended)   \
+uint16x8_t      vTargetR, vTargetG, vTargetB;                                                          \
+                                                                                                       \
+__arm_2d_rgb565_unpack_single_vec(vTarget, &vTargetR, &vTargetG, &vTargetB);                           \
+                                                                                                       \
+uint16_t        chOpacityCompl = (256 - hwOpacity);                                                    \
+/* merge */                                                                                            \
+vAvgR = vAvgR * chOpacityCompl + vTargetR * hwOpacity;                                                 \
+vAvgR = vAvgR >> 8;                                                                                    \
+                                                                                                       \
+vAvgG = vAvgG * chOpacityCompl + vTargetG * hwOpacity;                                                 \
+vAvgG = vAvgG >> 8;                                                                                    \
+                                                                                                       \
+vAvgB = vAvgB * chOpacityCompl + vTargetB * hwOpacity;                                                 \
+vAvgB = vAvgB >> 8;                                                                                    \
+                                                                                                       \
+vBlended = __arm_2d_rgb565_pack_single_vec(vAvgR, vAvgG, vAvgB);
+
 
 
 #if     __ARM_2D_HAS_HELIUM_FLOAT__                                             \
@@ -2075,18 +2123,18 @@ bool __arm_2d_transform_regression(arm_2d_size_t * __RESTRICT ptCopySize,
 
 static
 void __arm_2d_impl_gray8_get_pixel_colour(arm_2d_point_f16x8_t
-                                                  * ptPoint,
-                                                  arm_2d_region_t *
-                                                  ptOrigValidRegion,
-                                                  uint8_t * pOrigin,
-                                                  int16_t iOrigStride,
-                                                  uint8_t * pTarget,
-                                                  uint8_t MaskColour, uint32_t elts)
+                                          * ptPoint,
+                                          arm_2d_region_t *
+                                          ptOrigValidRegion,
+                                          uint8_t * pOrigin,
+                                          int16_t iOrigStride,
+                                          uint8_t * pTarget,
+                                          uint8_t MaskColour, uint32_t elts)
 {
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vldrbq_u16(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
     float16x8_t     vOne = vdupq_n_f16(1.0f);
     int16x8_t       vXi = vcvtq_s16_f16(ptPoint->X);
     int16x8_t       vYi = vcvtq_s16_f16(ptPoint->Y);
@@ -2191,12 +2239,17 @@ void __arm_2d_impl_gray8_get_pixel_colour_with_alpha(arm_2d_point_f16x8_t * ptPo
                                                                 int16_t iOrigStride,
                                                                 uint8_t * pTarget,
                                                                 uint8_t MaskColour,
-                                                                uint8_t chOpacity, uint32_t elts)
+                                                                uint_fast16_t hwOpacity,
+                                                                uint32_t elts)
 {
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwOpacity += (hwOpacity == 255);
+#endif
+
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vldrbq_u16(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
 
     float16x8_t     vOne = vdupq_n_f16(1.0f);
     int16x8_t       vXi = vcvtq_s16_f16(ptPoint->X);
@@ -2265,8 +2318,9 @@ void __arm_2d_impl_gray8_get_pixel_colour_with_alpha(arm_2d_point_f16x8_t * ptPo
     /* blending */
     uint16x8_t      vAvg = vcvtq_s16_f16(vAvgPixel);
 
-    uint16_t        chTransparency = 256 - (chOpacity);
-    uint16x8_t      vBlended = (vAvg * chTransparency + vTarget * chOpacity) >> 8;
+    uint16_t        hwTransparency = 256 - (hwOpacity);
+
+    uint16x8_t      vBlended = (vAvg * hwTransparency + vTarget * (uint16_t)hwOpacity) >> 8;
 
 
     /* select between target pixel, averaged pixed */
@@ -2292,10 +2346,9 @@ void __arm_2d_impl_gray8_get_pixel_colour_with_alpha(arm_2d_point_f16x8_t * ptPo
     uint16x8_t      ptVal = vldrbq_gather_offset_z_u16(pOrigin, ptOffs, predTail);
 
     /* alpha blending */
-    uint16_t        chTransparency = 256 - (chOpacity);
-    uint16x8_t      vBlended = (ptVal * chTransparency + vTarget * chOpacity) >> 8;
+    uint16_t        hwTransparency = 256 - (hwOpacity);
 
-
+    uint16x8_t      vBlended = (ptVal * hwTransparency + vTarget * (uint16_t)hwOpacity) >> 8;
 
     /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
     vTarget = vpselq_u16(vBlended, vTarget, vcmpneq_m_n_u16(ptVal, MaskColour, p));
@@ -2312,12 +2365,13 @@ void __arm_2d_impl_rgb565_get_pixel_colour(arm_2d_point_f16x8_t * ptPoint,
                                            uint16_t * pOrigin,
                                            int16_t iOrigStride,
                                            uint16_t * pTarget,
-                                           uint16_t MaskColour, uint32_t elts)
+                                           uint16_t MaskColour,
+                                           uint32_t elts)
 {
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
     float16x8_t     vOne = vdupq_n_f16(1.0f);
     int16x8_t       vXi = vcvtq_s16_f16(ptPoint->X);
     int16x8_t       vYi = vcvtq_s16_f16(ptPoint->Y);
@@ -2424,7 +2478,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_offs_compensated(arm_2d_point_f16x8_t
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
     float16x8_t     vOne = vdupq_n_f16(1.0f);
     int16x8_t       vXi = vcvtq_s16_f16(ptPoint->X);
     int16x8_t       vYi = vcvtq_s16_f16(ptPoint->Y);
@@ -2530,13 +2584,17 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(
                                             int16_t                  iOrigStride,
                                             uint16_t                *pTarget,
                                             uint16_t                 MaskColour,
-                                            uint8_t                  chOpacity,
+                                            uint_fast16_t             hwOpacity,
                                             uint32_t                 elts)
 {
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwOpacity += (hwOpacity == 255);
+#endif
+
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
 
     float16x8_t     vOne = vdupq_n_f16(1.0f);
     int16x8_t       vXi = vcvtq_s16_f16(ptPoint->X);
@@ -2609,7 +2667,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(
 
     uint16x8_t      vBlended;
 
-    __ARM_2D_BLEND_RGB565_TARGET_RGBVEC(chOpacity, vTarget, vAvgR, vAvgG, vAvgB, vBlended);
+    __ARM_2D_BLEND_RGB565_TARGET_RGBVEC((uint16_t)hwOpacity, vTarget, vAvgR, vAvgG, vAvgB, vBlended);
 
     /* select between target pixel, averaged pixed */
     vTarget = vpselq_u16(vBlended, vTarget, predGlb);
@@ -2628,7 +2686,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(
 
     /* alpha blending */
     uint16x8_t      vBlended =
-        __arm_2d_rgb565_blending_scal_opacity_single_vec(ptVal, vTarget, chOpacity);
+        __arm_2d_rgb565_blending_scal_opacity_single_vec(ptVal, vTarget, hwOpacity);
 
     /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
     vTarget = vpselq_u16(vBlended, vTarget, vcmpneq_m_n_u16(ptVal, MaskColour, p));
@@ -2646,13 +2704,18 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(
                                             int16_t                  iOrigStride,
                                             uint16_t                *pTarget,
                                             uint16_t                 MaskColour,
-                                            uint8_t                  chOpacity,
+                                            uint_fast16_t            hwOpacity,
                                             uint32_t                 elts)
 {
+
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwOpacity += (hwOpacity == 255);
+#endif
+
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
 
     float16x8_t     vOne = vdupq_n_f16(1.0f);
     int16x8_t       vXi = vcvtq_s16_f16(ptPoint->X);
@@ -2725,7 +2788,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(
 
     uint16x8_t      vBlended;
 
-    __ARM_2D_BLEND_RGB565_TARGET_RGBVEC(chOpacity, vTarget, vAvgR, vAvgG, vAvgB, vBlended);
+    __ARM_2D_BLEND_RGB565_TARGET_RGBVEC((uint16_t)hwOpacity, vTarget, vAvgR, vAvgG, vAvgB, vBlended);
 
     /* select between target pixel, averaged pixed */
     vTarget = vpselq_u16(vBlended, vTarget, predGlb);
@@ -2752,7 +2815,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(
 
     /* alpha blending */
     uint16x8_t      vBlended =
-        __arm_2d_rgb565_blending_scal_opacity_single_vec(ptVal, vTarget, chOpacity);
+        __arm_2d_rgb565_blending_scal_opacity_single_vec(ptVal, vTarget, hwOpacity);
 
     /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
     vTarget = vpselq_u16(vBlended, vTarget, vcmpneq_m_n_u16(ptVal, MaskColour, p));
@@ -2774,7 +2837,7 @@ void __arm_2d_impl_cccn888_get_pixel_colour(   arm_2d_point_f16x8_t *ptPoint,
                                             uint32_t MaskColour,
                                             int16_t elts)
 {
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
     ARM_ALIGN(8) uint32_t scratch32[32];
     int16_t        *pscratch16 = (int16_t *) scratch32;
     uint32x4_t      vTargetLo = vld1q(pTarget);
@@ -2917,10 +2980,10 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
                                             int16_t                  iOrigStride,
                                             uint32_t                *pTarget,
                                             uint32_t                 MaskColour,
-                                            uint8_t                  chOpacity,
+                                            uint_fast16_t hwOpacity,
                                             int16_t                  elts)
 {
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__)  &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__)  &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
     ARM_ALIGN(8) uint32_t scratch32[32];
     int16_t        *pscratch16 = (int16_t *) scratch32;
     uint32x4_t      vTargetLo = vld1q(pTarget);
@@ -2997,7 +3060,7 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
 
     __arm_2d_unpack_rgb888_from_mem((const uint8_t *) pTarget, &vTargetR, &vTargetG, &vTargetB);
 
-    uint16_t        chOpacityCompl = (256 - chOpacity);
+    uint16_t        chOpacityCompl = (256 - hwOpacity);
 
     uint16x8_t      vAvgR, vAvgG, vAvgB;
 
@@ -3006,13 +3069,13 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
     vAvgB = vcvtq_s16_f16(vAvgPixelB);
 
     /* merge */
-    vAvgR = vAvgR * chOpacityCompl + vTargetR * chOpacity;
+    vAvgR = vAvgR * chOpacityCompl + vTargetR * (uint8_t)hwOpacity;
     vAvgR = vAvgR >> 8;
 
-    vAvgG = vAvgG * chOpacityCompl + vTargetG * chOpacity;
+    vAvgG = vAvgG * chOpacityCompl + vTargetG * (uint8_t)hwOpacity;
     vAvgG = vAvgG >> 8;
 
-    vAvgB = vAvgB * chOpacityCompl + vTargetB * chOpacity;
+    vAvgB = vAvgB * chOpacityCompl + vTargetB * (uint8_t)hwOpacity;
     vAvgB = vAvgB >> 8;
 
 
@@ -3063,11 +3126,11 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
     /* alpha-blending (requires widened inputs) */
     vstrbq_u16((uint8_t *) blendled,
                __rgb888_alpha_blending_direct_single_vec(vldrbq_u16((uint8_t const *) scratch),
-                                                         vldrbq_u16((uint8_t const *) pTarget), chOpacity));
+                                                         vldrbq_u16((uint8_t const *) pTarget), hwOpacity));
 
     vstrbq_u16((uint8_t *) blendled + 2,
                __rgb888_alpha_blending_direct_single_vec(vldrbq_u16((uint8_t const *)scratch + 4),
-                                                         vldrbq_u16((uint8_t const *)pTarget + 2), chOpacity));
+                                                         vldrbq_u16((uint8_t const *)pTarget + 2), hwOpacity));
 
     uint32x4_t      vBlended = vld1q(blendled);
 
@@ -3090,10 +3153,10 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
         /* alpha-blending (requires widened inputs) */
         vstrbq_u16((uint8_t *) blendled,
                    __rgb888_alpha_blending_direct_single_vec(vldrbq_u16((uint8_t const *) scratch),
-                                                             vldrbq_u16((uint8_t const *) pTarget), chOpacity));
+                                                             vldrbq_u16((uint8_t const *) pTarget), hwOpacity));
         vstrbq_u16((uint8_t *) blendled + 2,
                    __rgb888_alpha_blending_direct_single_vec(vldrbq_u16((uint8_t const *)scratch + 4),
-                                                             vldrbq_u16((uint8_t const *)pTarget + 2), chOpacity));
+                                                             vldrbq_u16((uint8_t const *)pTarget + 2), hwOpacity));
 
         vBlended = vld1q(blendled);
 
@@ -3276,17 +3339,17 @@ bool __arm_2d_transform_regression(arm_2d_size_t * __RESTRICT ptCopySize,
 
 
 static
-void __arm_2d_impl_gray8_get_pixel_colour(arm_2d_point_s16x8_t * ptPoint,
-                                                        arm_2d_region_t * ptOrigValidRegion,
-                                                        uint8_t * pOrigin,
-                                                        int16_t iOrigStride,
-                                                        uint8_t * pTarget,
-                                                        uint8_t MaskColour, uint32_t elts)
+void __arm_2d_impl_gray8_get_pixel_colour(  arm_2d_point_s16x8_t * ptPoint,
+                                            arm_2d_region_t * ptOrigValidRegion,
+                                            uint8_t * pOrigin,
+                                            int16_t iOrigStride,
+                                            uint8_t * pTarget,
+                                            uint8_t MaskColour, uint32_t elts)
 {
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vldrbq_u16(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
     int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
     int16x8_t       vXi = GET_Q6INT(ptPoint->X);
     int16x8_t       vYi = GET_Q6INT(ptPoint->Y);
@@ -3402,12 +3465,13 @@ void __arm_2d_impl_gray8_get_pixel_colour_with_alpha(arm_2d_point_s16x8_t * ptPo
                                                                    int16_t iOrigStride,
                                                                    uint8_t * pTarget,
                                                                    uint8_t MaskColour,
-                                                                   uint8_t chOpacity, uint32_t elts)
+                                                                   uint_fast16_t hwOpacity,
+                                                                   uint32_t elts)
 {
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vldrbq_u16(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
     int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
     int16x8_t       vXi = GET_Q6INT(ptPoint->X);
     int16x8_t       vYi = GET_Q6INT(ptPoint->Y);
@@ -3481,8 +3545,8 @@ void __arm_2d_impl_gray8_get_pixel_colour_with_alpha(arm_2d_point_s16x8_t * ptPo
 
 
     /* alpha blending */
-    uint16_t        chTransparency = 256 - (chOpacity);
-    uint16x8_t      vBlended = (vAvgPixel * chTransparency + vTarget * chOpacity) >> 8;
+    uint16_t        hwTransparency = 256 - (hwOpacity);
+    uint16x8_t      vBlended = (vAvgPixel * hwTransparency + vTarget * (uint16_t)hwOpacity) >> 8;
 
 
     /* select between target pixel, averaged pixed */
@@ -3509,8 +3573,8 @@ void __arm_2d_impl_gray8_get_pixel_colour_with_alpha(arm_2d_point_s16x8_t * ptPo
     uint16x8_t      ptVal = vldrbq_gather_offset_z_u16(pOrigin, ptOffs, predTail);
 
     /* alpha blending */
-    uint16_t        chTransparency = 256 - (chOpacity);
-    uint16x8_t      vBlended = (ptVal * chTransparency + vTarget * chOpacity) >> 8;
+    uint16_t        hwTransparency = 256 - (hwOpacity);
+    uint16x8_t      vBlended = (ptVal * hwTransparency + vTarget * hwOpacity) >> 8;
 
     /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
     vTarget = vpselq_u16(vBlended, vTarget, vcmpneq_m_n_u16(ptVal, MaskColour, p));
@@ -3533,7 +3597,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour(   arm_2d_point_s16x8_t *ptPoint,
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
     int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
     int16x8_t       vXi = GET_Q6INT(ptPoint->X);
     int16x8_t       vYi = GET_Q6INT(ptPoint->Y);
@@ -3643,7 +3707,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_offs_compensated(   arm_2d_point_s16x
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
     int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
     int16x8_t       vXi = GET_Q6INT(ptPoint->X);
     int16x8_t       vYi = GET_Q6INT(ptPoint->Y);
@@ -3759,13 +3823,17 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(
                                             int16_t                  iOrigStride,
                                             uint16_t                *pTarget,
                                             uint16_t                 MaskColour,
-                                            uint8_t                  chOpacity,
+                                            uint_fast16_t hwOpacity,
                                             uint32_t                 elts)
 {
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwOpacity += (hwOpacity == 255);
+#endif
+
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
     int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
     int16x8_t       vXi = GET_Q6INT(ptPoint->X);
     int16x8_t       vYi = GET_Q6INT(ptPoint->Y);
@@ -3838,7 +3906,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(
     /* alpha blending */
     uint16x8_t      vBlended;
 
-    __ARM_2D_BLEND_RGB565_TARGET_RGBVEC(chOpacity, vTarget, vAvgPixelR, vAvgPixelG, vAvgPixelB, vBlended);
+    __ARM_2D_BLEND_RGB565_TARGET_RGBVEC((uint16_t)hwOpacity, vTarget, vAvgPixelR, vAvgPixelG, vAvgPixelB, vBlended);
 
 
     /* select between target pixel, averaged pixed */
@@ -3859,7 +3927,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(
 
     /* alpha blending */
     uint16x8_t      vBlended =
-        __arm_2d_rgb565_blending_scal_opacity_single_vec(ptVal, vTarget, chOpacity);
+        __arm_2d_rgb565_blending_scal_opacity_single_vec(ptVal, vTarget, hwOpacity);
 
     /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
     vTarget = vpselq_u16(vBlended, vTarget, vcmpneq_m_n_u16(ptVal, MaskColour, p));
@@ -3877,13 +3945,17 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(
                                             int16_t                  iOrigStride,
                                             uint16_t                *pTarget,
                                             uint16_t                 MaskColour,
-                                            uint8_t                  chOpacity,
+                                            uint_fast16_t hwOpacity,
                                             uint32_t                 elts)
 {
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwOpacity += (hwOpacity == 255);
+#endif
+
     mve_pred16_t    predTail = vctp16q(elts);
     uint16x8_t      vTarget = vld1q(pTarget);
 
-#if defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
     int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
     int16x8_t       vXi = GET_Q6INT(ptPoint->X);
     int16x8_t       vYi = GET_Q6INT(ptPoint->Y);
@@ -3955,7 +4027,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(
     /* alpha blending */
     uint16x8_t      vBlended;
 
-    __ARM_2D_BLEND_RGB565_TARGET_RGBVEC(chOpacity, vTarget, vAvgPixelR, vAvgPixelG, vAvgPixelB, vBlended);
+    __ARM_2D_BLEND_RGB565_TARGET_RGBVEC((uint16_t)hwOpacity, vTarget, vAvgPixelR, vAvgPixelG, vAvgPixelB, vBlended);
 
 
 
@@ -3984,7 +4056,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(
 
     /* alpha blending */
     uint16x8_t      vBlended =
-        __arm_2d_rgb565_blending_scal_opacity_single_vec(ptVal, vTarget, chOpacity);
+        __arm_2d_rgb565_blending_scal_opacity_single_vec(ptVal, vTarget, hwOpacity);
 
     /* combine 2 predicates, set to true, if point is in the region & values different from color mask */
     vTarget = vpselq_u16(vBlended, vTarget, vcmpneq_m_n_u16(ptVal, MaskColour, p));
@@ -4003,7 +4075,7 @@ void __arm_2d_impl_cccn888_get_pixel_colour(   arm_2d_point_s16x8_t *ptPoint,
                                             uint32_t MaskColour,
                                             int16_t elts)
 {
-#if     defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__) &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+#if     defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
     ARM_ALIGN(8) uint32_t scratch32[32];
     int16_t        *pscratch16 = (int16_t *) scratch32;
     uint32x4_t      vTargetLo = vld1q(pTarget);
@@ -4151,10 +4223,15 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
                                             int16_t                  iOrigStride,
                                             uint32_t                *pTarget,
                                             uint32_t                 MaskColour,
-                                            uint8_t                  chOpacity,
+                                            uint_fast16_t hwOpacity,
                                             int16_t                  elts)
 {
-#if     defined(__ARM_2D_HAS_INTERPOLATION_TRANSFORM__)  &&  __ARM_2D_HAS_INTERPOLATION_TRANSFORM__
+
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+    hwOpacity += (hwOpacity == 255);
+#endif
+
+#if     defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__)  &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
     ARM_ALIGN(8) uint32_t scratch32[32];
     int16_t        *pscratch16 = (int16_t *) scratch32;
     uint32x4_t      vTargetLo = vld1q(pTarget);
@@ -4237,16 +4314,16 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
 
     __arm_2d_unpack_rgb888_from_mem((const uint8_t *) pTarget, &vTargetR, &vTargetG, &vTargetB);
 
-    uint16_t        chOpacityCompl = (256 - chOpacity);
+    uint16_t        chOpacityCompl = (256 - hwOpacity);
 
     /* merge */
-    vAvgPixelR = vmlaq_n_u16(vmulq_n_u16(vAvgPixelR, chOpacityCompl), vTargetR, chOpacity);
+    vAvgPixelR = vmlaq_n_u16(vmulq_n_u16(vAvgPixelR, chOpacityCompl), vTargetR, hwOpacity);
     vAvgPixelR = vAvgPixelR >> 8;
 
-    vAvgPixelG = vmlaq_n_u16(vmulq_n_u16(vAvgPixelG, chOpacityCompl), vTargetG, chOpacity);
+    vAvgPixelG = vmlaq_n_u16(vmulq_n_u16(vAvgPixelG, chOpacityCompl), vTargetG, hwOpacity);
     vAvgPixelG = vAvgPixelG >> 8;
 
-    vAvgPixelB = vmlaq_n_u16(vmulq_n_u16(vAvgPixelB, chOpacityCompl), vTargetB, chOpacity);
+    vAvgPixelB = vmlaq_n_u16(vmulq_n_u16(vAvgPixelB, chOpacityCompl), vTargetB, hwOpacity);
     vAvgPixelB = vAvgPixelB >> 8;
 
     /* pack */
@@ -4295,11 +4372,11 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
     /* alpha-blending (requires widened inputs) */
     vstrbq_u16((uint8_t *) blendled,
                __rgb888_alpha_blending_direct_single_vec(vldrbq_u16((uint8_t const *) scratch),
-                                                         vldrbq_u16((uint8_t const *) pTarget), chOpacity));
+                                                         vldrbq_u16((uint8_t const *) pTarget), hwOpacity));
 
     vstrbq_u16((uint8_t *) blendled + 2,
                __rgb888_alpha_blending_direct_single_vec(vldrbq_u16((uint8_t const *)scratch + 4),
-                                                         vldrbq_u16((uint8_t const *)pTarget + 2), chOpacity));
+                                                         vldrbq_u16((uint8_t const *)pTarget + 2), hwOpacity));
 
     uint32x4_t      vBlended = vld1q(blendled);
 
@@ -4322,10 +4399,10 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
         /* alpha-blending (requires widened inputs) */
         vstrbq_u16((uint8_t *) blendled,
                    __rgb888_alpha_blending_direct_single_vec(vldrbq_u16((uint8_t const *) scratch),
-                                                             vldrbq_u16((uint8_t const *) pTarget), chOpacity));
+                                                             vldrbq_u16((uint8_t const *) pTarget), hwOpacity));
         vstrbq_u16((uint8_t *) blendled + 2,
                    __rgb888_alpha_blending_direct_single_vec(vldrbq_u16((uint8_t const *)scratch + 4),
-                                                             vldrbq_u16((uint8_t const *)pTarget + 2), chOpacity));
+                                                             vldrbq_u16((uint8_t const *)pTarget + 2), hwOpacity));
 
         vBlended = vld1q(blendled);
 
@@ -4466,8 +4543,18 @@ static  uint32_t __draw_pattern_src_bitmask_rgb32[16] = {
   Macro assumes pTarget8/ pAlpha are already setup
  */
 
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+/* set vecAlpha value to 0 when equal to compensated value */
+/* (=1 or 2 when involving 2 alpha = 255 multiplications) */
+#define ALPHA_255_COMP(vecAlpha, compVal)   vecAlpha = \
+                vpselq(vdupq_n_u16(256), vecAlpha, vcmpeqq_n_u16(vecAlpha, compVal))
+#else
+#define ALPHA_255_COMP(vecAlpha, compVal)
+#endif
+
+
 #define C8BIT_COLOUR_FILLING_MASK_INNER_MVE(TRGT_LOAD, STRIDE, SCAL_OPACITY,                   \
-                                                                      OPACITY, ALPHA_SZ)       \
+                                                             OPACITY, ALPHA_SZ, COMPVAL)       \
         int32_t         blkCnt = iWidth;                                                       \
         do {                                                                                   \
             mve_pred16_t    tailPred = vctp16q(blkCnt);                                        \
@@ -4476,6 +4563,9 @@ static  uint32_t __draw_pattern_src_bitmask_rgb32[16] = {
             uint16x8_t      vecTransp = TRGT_LOAD(pAlpha, STRIDE, tailPred);                   \
                                                                                                \
             vecTransp = SCAL_OPACITY(vecTransp, OPACITY, tailPred);                            \
+                                                                                               \
+            ALPHA_255_COMP(vecTransp, COMPVAL);                                                \
+                                                                                               \
             uint16x8_t      vecAlpha = vsubq_x_u16(v256, vecTransp, tailPred);                 \
                                                                                                \
             vecTarget = vmulq_x(vecTarget, vecAlpha, tailPred);                                \
@@ -4508,7 +4598,7 @@ static  uint32_t __draw_pattern_src_bitmask_rgb32[16] = {
  */
 
 #define RGB565_COLOUR_FILLING_MASK_MVE(TRGT_LOAD, STRIDE, SCAL_OPACITY, OPACITY,               \
-                                                                 P_ALPHA,  ALPHA_SZ)           \
+                                                            P_ALPHA,  ALPHA_SZ, COMPVAL)       \
     uint16x8_t      v256 = vdupq_n_u16(256);                                                   \
                                                                                                \
     for (int_fast16_t y = 0; y < iHeight; y++) {                                               \
@@ -4520,6 +4610,9 @@ static  uint32_t __draw_pattern_src_bitmask_rgb32[16] = {
             uint16x8_t      vecTarget = vld1q(pCurTarget);                                     \
             uint16x8_t      vecTransp = TRGT_LOAD(pAlpha, STRIDE);                             \
             vecTransp = SCAL_OPACITY(vecTransp, OPACITY);                                      \
+                                                                                               \
+            ALPHA_255_COMP(vecTransp, COMPVAL);                                                \
+                                                                                               \
             uint16x8_t      vecAlpha = vsubq_u16(v256, vecTransp);                             \
             uint16x8_t      vecR, vecG, vecB;                                                  \
                                                                                                \
@@ -4569,7 +4662,7 @@ static  uint32_t __draw_pattern_src_bitmask_rgb32[16] = {
  */
 
 #define CCCN888_COLOUR_FILLING_MASK_INNER_MVE(TRGT_LOAD, STRIDE, SCAL_OPACITY,                 \
-                                                                           OPACITY, ALPHA_SZ)  \
+                                                                  OPACITY, ALPHA_SZ, COMPVAL)  \
         int32_t         blkCnt = iWidth;                                                       \
                                                                                                \
         do {                                                                                   \
@@ -4586,7 +4679,10 @@ static  uint32_t __draw_pattern_src_bitmask_rgb32[16] = {
                                                                                                \
             vecTransp = SCAL_OPACITY(vecTransp, OPACITY, tailPred);                            \
                                                                                                \
+            ALPHA_255_COMP(vecTransp, COMPVAL);                                                 \
+                                                                                               \
             uint16x8_t      vecAlpha = vsubq_x_u16(v256, vecTransp, tailPred);                 \
+                                                                                               \
                                                                                                \
             /*  scale ch0 vector with alpha vector */                                          \
             vecTargetC0 = vmulq_x(vecTargetC0, vecAlpha, tailPred);                            \
@@ -4653,19 +4749,27 @@ void __arm_2d_impl_gray8_colour_filling_mask(uint8_t * __RESTRICT pTarget,
 
 #ifdef USE_MVE_INTRINSICS
         C8BIT_COLOUR_FILLING_MASK_INNER_MVE(C8BIT_TRGT_LOAD, _,
-                                        C8BIT_SCAL_OPACITY_NONE, _, 1);
+                                        C8BIT_SCAL_OPACITY_NONE, _, 1, 255);
 #else
         register unsigned blkCnt __asm("lr");
         blkCnt = iWidth;
 
     __asm volatile(
+            "vecAlphaCompl            .req q2                        \n"
+
             ".p2align 2                                              \n"
             "   vldrb.u16               q0, [%[pTarget]]             \n"
             "   vldrb.u16               q1, [%[pAlpha]], #8          \n"
             "   wlstp.16                lr, %[loopCnt], 1f           \n"
             "2:                                                      \n"
-            "   vsub.i16                q2, %[vec256], q1            \n"
-            "   vmul.u16                q3, q0, q2                   \n"
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            /* if alpha == 255, boost to 256 */
+            "   vpt.i16                 eq, q1, %[alph255]           \n"
+            "   vmovt.i16               q1, #256                     \n"
+#endif
+
+            "   vsub.i16                vecAlphaCompl, %[vec256], q1 \n"
+            "   vmul.u16                q3, q0, vecAlphaCompl        \n"
             "   vldrb.u16               q0, [%[pTarget], #8]         \n"
             "   vmla.u16                q3, q1, %[Colour]            \n"
             "   vldrb.u16               q1, [%[pAlpha]], #8          \n"
@@ -4674,10 +4778,13 @@ void __arm_2d_impl_gray8_colour_filling_mask(uint8_t * __RESTRICT pTarget,
             "   letp                    lr, 2b                       \n"
             "1:                                                      \n"
 
+            " .unreq vecAlphaCompl                                   \n"
             : [pTarget] "+r"(pTarget8),  [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
             :[vec256] "t"   (v256),[Colour] "r"(Colour)
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            ,[alph255] "r" (255)
+#endif
             :"q0", "q1", "q2", "q3", "memory");
-
 #endif
         pchAlpha += (iAlphaStride);
         pTarget += (iTargetStride);
@@ -4691,11 +4798,12 @@ void __arm_2d_impl_gray8_colour_filling_mask_opacity(uint8_t * __RESTRICT pTarge
                                                                int16_t iAlphaStride,
                                                                arm_2d_size_t *
                                                                __RESTRICT ptCopySize,
-                                                               uint8_t Colour, uint8_t chOpacity)
+                                                               uint8_t Colour,
+                                                               uint_fast16_t hwOpacity)
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
-    uint8x16_t      vOpacity = vdupq_n_u8(chOpacity);
+    uint8x16_t      vOpacity = vdupq_n_u8(hwOpacity);
     uint16x8_t      v256 = vdupq_n_u16(256);
 
     for (int_fast16_t y = 0; y < iHeight; y++) {
@@ -4704,20 +4812,29 @@ void __arm_2d_impl_gray8_colour_filling_mask_opacity(uint8_t * __RESTRICT pTarge
 
 #ifdef USE_MVE_INTRINSICS
         C8BIT_COLOUR_FILLING_MASK_INNER_MVE(C8BIT_TRGT_LOAD, _,
-                                        C8BIT_SCAL_OPACITY, vOpacity, 1);
+                                        C8BIT_SCAL_OPACITY, vOpacity, 1, 254);
 #else
         register unsigned blkCnt __asm("lr");
         blkCnt = iWidth;
 
     __asm volatile(
+        "vecAlphaCompl            .req q2                        \n"
+
         ".p2align 2                                              \n"
         "   vldrb.u16               q0, [%[pTarget]]             \n"
         "   vldrb.u16               q1, [%[pAlpha]], #8          \n"
         "   vmulh.u8                q1, q1, %[vOpacity]          \n"
         "   wlstp.16                lr, %[loopCnt], 1f           \n"
         "2:                                                      \n"
-        "   vsub.i16                q2, %[vec256], q1            \n"
-        "   vmul.u16                q3, q0, q2                   \n"
+
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+        /* if vOpacity == 254, boost to 256 */
+        "   vpt.i16                 eq, q1, %[opa254]            \n"
+        "   vmovt.i16               q1, #256                     \n"
+#endif
+
+        "   vsub.i16                vecAlphaCompl, %[vec256], q1 \n"
+        "   vmul.u16                q3, q0, vecAlphaCompl        \n"
         "   vldrb.u16               q0, [%[pTarget], #8]         \n"
         "   vmla.u16                q3, q1, %[Colour]            \n"
         "   vldrb.u16               q1, [%[pAlpha]], #8          \n"
@@ -4727,8 +4844,12 @@ void __arm_2d_impl_gray8_colour_filling_mask_opacity(uint8_t * __RESTRICT pTarge
         "   letp                    lr, 2b                       \n"
         "1:                                                      \n"
 
+        " .unreq vecAlphaCompl                                   \n"
         : [pTarget] "+r"(pTarget8),  [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
         :[vec256] "t"   (v256),[Colour] "r"(Colour),[vOpacity] "t"(vOpacity)
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+         ,[opa254] "r" (254)
+#endif
         :"q0", "q1", "q2", "q3", "memory");
 
 #endif
@@ -4757,30 +4878,42 @@ void __arm_2d_impl_gray8_colour_filling_channel_mask(uint8_t * __RESTRICT pTarge
 
 #ifdef USE_MVE_INTRINSICS
         C8BIT_COLOUR_FILLING_MASK_INNER_MVE(C8BIT_TRGT_LOAD_STRIDE, vStride4Offs,
-                                        C8BIT_SCAL_OPACITY_NONE, _, 4);
+                                        C8BIT_SCAL_OPACITY_NONE, _, 4, 255);
 #else
         register unsigned blkCnt __asm("lr");
         blkCnt = iWidth;
 
     __asm volatile(
+        "vecAlphaCompl            .req q2                        \n"
+
         ".p2align 2                                              \n"
         "   vldrb.u16               q0, [%[pTarget]]             \n"
         "   vldrb.u16               q1, [%[pAlpha], %[str4Offs]] \n"
         "   wlstp.16                lr, %[loopCnt], 1f           \n"
         "2:                                                      \n"
-        "   vsub.i16                q2, %[vec256], q1            \n"
-        "   vmul.u16                q3, q0, q2                   \n"
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+        /* if alpha == 255, boost to 256 */
+        "   vpt.i16                 eq, q1, %[alph255]           \n"
+        "   vmovt.i16               q1, #256                     \n"
+#endif
+
         "   add                     %[pAlpha], %[pAlpha], #(8*4) \n"
+        "   vsub.i16                vecAlphaCompl, %[vec256], q1 \n"
+        "   vmul.u16                q3, q0, vecAlphaCompl        \n"
         "   vldrb.u16               q0, [%[pTarget], #8]         \n"
-        "   vmla.u16                q3, q1, %[Colour]            \n"
+        "   vmla.s16                q3, q1, %[Colour]            \n"
         "   vldrb.u16               q1, [%[pAlpha], %[str4Offs]] \n"
         "   vshr.u16                q3, q3, #8                   \n"
         "   vstrb.u16               q3, [%[pTarget]], #8         \n"
         "   letp                    lr, 2b                       \n"
         "1:                                                      \n"
 
+        " .unreq vecAlphaCompl                                   \n"
         : [pTarget] "+r"(pTarget8),  [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
         :[vec256] "t"   (v256),[Colour] "r"(Colour),[str4Offs] "t"(vStride4Offs)
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+        ,[alph255] "r" (255)
+#endif
         :"q0", "q1", "q2", "q3", "memory");
 
 #endif
@@ -4799,11 +4932,12 @@ void __arm_2d_impl_gray8_colour_filling_channel_mask_opacity(uint8_t * __RESTRIC
                                                                  int16_t iAlphaStride,
                                                                  arm_2d_size_t *
                                                                  __RESTRICT ptCopySize,
-                                                                 uint8_t Colour, uint8_t chOpacity)
+                                                                 uint8_t Colour,
+                                                                 uint_fast16_t hwOpacity)
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
-    uint8x16_t      vOpacity = vdupq_n_u8(chOpacity);
+    uint8x16_t      vOpacity = vdupq_n_u8(hwOpacity);
     uint16x8_t      v256 = vdupq_n_u16(256);
     uint16x8_t      vStride4Offs = vidupq_n_u16(0, 4);
 
@@ -4813,23 +4947,33 @@ void __arm_2d_impl_gray8_colour_filling_channel_mask_opacity(uint8_t * __RESTRIC
 
 #ifdef USE_MVE_INTRINSICS
         C8BIT_COLOUR_FILLING_MASK_INNER_MVE(C8BIT_TRGT_LOAD_STRIDE, vStride4Offs,
-                                        C8BIT_SCAL_OPACITY, vOpacity, 4);
+                                        C8BIT_SCAL_OPACITY, vOpacity, 4, 254);
 #else
         register unsigned blkCnt __asm("lr");
         blkCnt = iWidth;
 
     __asm volatile(
+        "vecAlphaCompl            .req q2                        \n"
+
         ".p2align 2                                              \n"
         "   vldrb.u16               q0, [%[pTarget]]             \n"
         "   vldrb.u16               q1, [%[pAlpha], %[str4Offs]] \n"
         "   vmulh.u8                q1, q1, %[vOpacity]          \n"
         "   wlstp.16                lr, %[loopCnt], 1f           \n"
         "2:                                                      \n"
-        "   vsub.i16                q2, %[vec256], q1            \n"
-        "   vmul.u16                q3, q0, q2                   \n"
-        "   vldrb.u16               q0, [%[pTarget], #8]         \n"
+
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+        /* if vOpacity == 254, boost to 256 */
+        "   vpt.i16                 eq, q1, %[opa254]            \n"
+        "   vmovt.i16               q1, #256                     \n"
+#endif
+
         "   add                     %[pAlpha], %[pAlpha], #(8*4) \n"
-        "   vmla.u16                q3, q1, %[Colour]            \n"
+
+        "   vsub.i16                vecAlphaCompl, %[vec256], q1 \n"
+        "   vmul.u16                q3, q0, vecAlphaCompl        \n"
+        "   vldrb.u16               q0, [%[pTarget], #8]         \n"
+        "   vmla.s16                q3, q1, %[Colour]            \n"
         "   vldrb.u16               q1, [%[pAlpha], %[str4Offs]] \n"
         "   vmulh.u8                q1, q1, %[vOpacity]          \n"
         "   vshr.u16                q3, q3, #8                   \n"
@@ -4837,9 +4981,13 @@ void __arm_2d_impl_gray8_colour_filling_channel_mask_opacity(uint8_t * __RESTRIC
         "   letp                    lr, 2b                       \n"
         "1:                                                      \n"
 
+        " .unreq vecAlphaCompl                                   \n"
         : [pTarget] "+r"(pTarget8),  [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
         :[vec256] "t"   (v256),[Colour] "r"(Colour),[vOpacity] "t"(vOpacity),
          [str4Offs] "t"(vStride4Offs)
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+         ,[opa254] "r" (254)
+#endif
         :"q0", "q1", "q2", "q3", "memory");
 
 #endif
@@ -4864,12 +5012,12 @@ void __arm_2d_impl_rgb565_colour_filling_mask(uint16_t * __RESTRICT pTarget,
     __arm_2d_rgb565_unpack(*(&Colour), &tSrcPix);
 
 #ifdef USE_MVE_INTRINSICS
-    RGB565_COLOUR_FILLING_MASK_MVE(RGB565_TRGT_LOAD, _,
-                                            RGB565_SCAL_OPACITY_NONE, _, pchAlpha, 1);
+    RGB565_COLOUR_FILLING_MASK_MVE( RGB565_TRGT_LOAD, _,
+                                    RGB565_SCAL_OPACITY_NONE, _, pchAlpha, 1, 255);
 #else
     /* RGB565 pack/unpack Masks */
     /* use memory rather than vmov to optimize Helium operations interleaving */
-    uint16x8_t scratch[4];
+    uint16x8_t scratch[5];
 
     // Unpacking Mask Red
     vst1q((uint16_t*)&scratch[0], vdupq_n_u16(0x1f));
@@ -4896,6 +5044,12 @@ void __arm_2d_impl_rgb565_colour_filling_mask(uint16_t * __RESTRICT pTarget,
             "   wlstp.16                lr, %[loopCnt], 1f         \n"
             "2:                                                    \n"
 
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            /* if alpha == 255, boost to 256 */
+            "   vpt.i16                 eq, q1, %[alph255]         \n"
+            "   vmovt.i16               q1, #256                   \n"
+#endif
+
             // vecAlpha
             "   vsub.i16                q2, q7, q1                 \n"
 
@@ -4920,7 +5074,7 @@ void __arm_2d_impl_rgb565_colour_filling_mask(uint16_t * __RESTRICT pTarget,
             "   vshr.u16                q6, q0, #11                \n"
 
             /*  blend G vector with input G color*/
-            "   vmla.u16                q5, q1, %[G]               \n"
+            "   vmla.s16                q5, q1, %[G]               \n"
 
             /* vecAlpha * 8 for R & B  upscale */
             "   vshl.i16                q2, q2, #1                 \n"
@@ -4931,7 +5085,7 @@ void __arm_2d_impl_rgb565_colour_filling_mask(uint16_t * __RESTRICT pTarget,
             "   vshr.u16                q5, q5, #8                 \n"
 
             /*  blend R vector with input R color*/
-            "   vmla.u16                q4, q1, %[R]               \n"
+            "   vmla.s16                q4, q1, %[R]               \n"
 
             /* load packing Mask for G channel */
             "   vldrh.u16               q7, [%[scratch], #(2*16)]  \n"
@@ -4941,7 +5095,7 @@ void __arm_2d_impl_rgb565_colour_filling_mask(uint16_t * __RESTRICT pTarget,
             "   vand                    q5, q5, q7                 \n"
 
             /*  blend B vector with input B color*/
-            "   vmla.u16                q6, q1, %[B]               \n"
+            "   vmla.s16                q6, q1, %[B]               \n"
 
             /* load packing Mask for B channel */
             "   vldrh.u16               q7, [%[scratch], #(3*16)]  \n"
@@ -4961,7 +5115,7 @@ void __arm_2d_impl_rgb565_colour_filling_mask(uint16_t * __RESTRICT pTarget,
             "   vmov.i16                q7, #0x0100                \n"
 
             /* pack G & B */
-            "   vmla.u16                q5, q6, %[twofiftysix]     \n"
+            "   vmla.s16                q5, q6, %[twofiftysix]     \n"
             /* combined (R >> 8) >> 3 */
             "   vshr.u16                q4, q4, #11                \n"
 
@@ -4977,6 +5131,9 @@ void __arm_2d_impl_rgb565_colour_filling_mask(uint16_t * __RESTRICT pTarget,
             :[Colour] "r"(Colour), [eight] "r" (8), [four] "r" (4),
             [R] "r" (tSrcPix.R), [G] "r" (tSrcPix.G), [B] "r" (tSrcPix.B),
             [twofiftysix] "r" (256), [scratch] "r" (scratch)
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            ,[alph255] "r" (255)
+#endif
             :"q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "memory");
 
         pchAlpha += (iAlphaStride);
@@ -4993,23 +5150,24 @@ void __arm_2d_impl_rgb565_colour_filling_mask_opacity(uint16_t * __RESTRICT pTar
                                                     uint8_t * __RESTRICT pchAlpha,
                                                     int16_t iAlphaStride,
                                                     arm_2d_size_t * __RESTRICT ptCopySize,
-                                                    uint16_t Colour, uint8_t chOpacity)
+                                                    uint16_t Colour,
+                                                    uint_fast16_t hwOpacity)
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
-    uint8x16_t      vOpacity = vdupq_n_u8(chOpacity);
+    uint8x16_t      vOpacity = vdupq_n_u8(hwOpacity);
 
     __arm_2d_color_fast_rgb_t tSrcPix;
 
     __arm_2d_rgb565_unpack(*(&Colour), &tSrcPix);
 
 #ifdef USE_MVE_INTRINSICS
-    RGB565_COLOUR_FILLING_MASK_MVE(RGB565_TRGT_LOAD, _,
-                                            RGB565_SCAL_OPACITY, vOpacity, pchAlpha, 1);
+    RGB565_COLOUR_FILLING_MASK_MVE( RGB565_TRGT_LOAD, _,
+                                    RGB565_SCAL_OPACITY, vOpacity, pchAlpha, 1, 254);
 #else
     /* RGB565 pack/unpack Masks + opacity */
     /* use memory rather than vmov to optimize Helium operations interleaving */
-    uint16x8_t scratch[5];
+    uint16x8_t scratch[6];
 
     // Unpacking Mask Red
     vst1q((uint16_t*)&scratch[0], vdupq_n_u16(0x1f));
@@ -5021,7 +5179,6 @@ void __arm_2d_impl_rgb565_colour_filling_mask_opacity(uint16_t * __RESTRICT pTar
     vst1q((uint16_t*)&scratch[3], vdupq_n_u16(0xf8));
     // opacity
     vst1q((uint16_t*)&scratch[4], (uint16x8_t)vOpacity);
-
 
     for (int_fast16_t y = 0; y < iHeight; y++) {
         const uint8_t  *pAlpha = pchAlpha;
@@ -5042,6 +5199,11 @@ void __arm_2d_impl_rgb565_colour_filling_mask_opacity(uint16_t * __RESTRICT pTar
             "   wlstp.16                lr, %[loopCnt], 1f         \n"
             "2:                                                    \n"
 
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            /* if vOpacity == 254, boost to 256 */
+            "   vpt.i16                 eq, q1, %[opa254]          \n"
+            "   vmovt.i16               q1, #256                   \n"
+#endif
             // vecAlpha
             "   vsub.i16                q2, q7, q1                 \n"
 
@@ -5066,7 +5228,7 @@ void __arm_2d_impl_rgb565_colour_filling_mask_opacity(uint16_t * __RESTRICT pTar
             "   vshr.u16                q6, q0, #11                \n"
 
             /*  blend G vector with input G color*/
-            "   vmla.u16                q5, q1, %[G]               \n"
+            "   vmla.s16                q5, q1, %[G]               \n"
 
             /* vecAlpha * 8 for R & B  upscale */
             "   vshl.i16                q2, q2, #1                 \n"
@@ -5077,7 +5239,7 @@ void __arm_2d_impl_rgb565_colour_filling_mask_opacity(uint16_t * __RESTRICT pTar
             "   vshr.u16                q5, q5, #8                 \n"
 
             /*  blend R vector with input R color*/
-            "   vmla.u16                q4, q1, %[R]               \n"
+            "   vmla.s16                q4, q1, %[R]               \n"
 
             /* load packing Mask for G channel */
             "   vldrh.u16               q7, [%[scratch], #(2*16)]  \n"
@@ -5087,7 +5249,7 @@ void __arm_2d_impl_rgb565_colour_filling_mask_opacity(uint16_t * __RESTRICT pTar
             "   vand                    q5, q5, q7                 \n"
 
             /*  blend B vector with input B color*/
-            "   vmla.u16                q6, q1, %[B]               \n"
+            "   vmla.s16                q6, q1, %[B]               \n"
 
             /* load packing Mask for B channel */
             "   vldrh.u16               q7, [%[scratch], #(3*16)]  \n"
@@ -5107,7 +5269,7 @@ void __arm_2d_impl_rgb565_colour_filling_mask_opacity(uint16_t * __RESTRICT pTar
             "   vmov.i16                q7, #0x0100                \n"
 
             /* pack G & B */
-            "   vmla.u16                q5, q6, %[twofiftysix]     \n"
+            "   vmla.s16                q5, q6, %[twofiftysix]     \n"
             /* reload opacity and scale alpha */
             "   vldrh.u16               q6, [%[scratch], #(4*16)]  \n"
             "   vmulh.u8                q1, q1, q6                 \n"
@@ -5127,6 +5289,9 @@ void __arm_2d_impl_rgb565_colour_filling_mask_opacity(uint16_t * __RESTRICT pTar
             :[Colour] "r"(Colour), [eight] "r" (8), [four] "r" (4),
             [R] "r" (tSrcPix.R), [G] "r" (tSrcPix.G), [B] "r" (tSrcPix.B),
             [twofiftysix] "r" (256), [scratch] "r" (scratch)
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+             ,[opa254] "r" (254)
+#endif
             :"q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "memory");
 
         pchAlpha += (iAlphaStride);
@@ -5153,7 +5318,7 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask(uint16_t * __RESTRICT pTar
 
 #ifdef USE_MVE_INTRINSICS
     RGB565_COLOUR_FILLING_MASK_MVE(RGB565_TRGT_LOAD_STRIDE, vStride4Offs,
-                                            RGB565_SCAL_OPACITY_NONE, _, pwAlpha, 4);
+                                            RGB565_SCAL_OPACITY_NONE, _, pwAlpha, 4, 1);
 #else
     /* RGB565 pack/unpack Masks  */
     /* use memory rather than vmov to optimize Helium operations interleaving */
@@ -5185,6 +5350,11 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask(uint16_t * __RESTRICT pTar
             "   wlstp.16                lr, %[loopCnt], 1f         \n"
             "2:                                                    \n"
             "   add                     %[pAlpha], %[pAlpha],#(8*4)\n"
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            /* if alpha == 255, boost to 256 */
+            "   vpt.i16                 eq, q1, %[alph255]         \n"
+            "   vmovt.i16               q1, #256                   \n"
+#endif
             // vecAlpha
             "   vsub.i16                q2, q7, q1                 \n"
 
@@ -5209,7 +5379,7 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask(uint16_t * __RESTRICT pTar
             "   vshr.u16                q6, q0, #11                \n"
 
             /*  blend G vector with input G color*/
-            "   vmla.u16                q5, q1, %[G]               \n"
+            "   vmla.s16                q5, q1, %[G]               \n"
 
             /* vecAlpha * 8 for R & B  upscale */
             "   vshl.i16                q2, q2, #1                 \n"
@@ -5220,7 +5390,7 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask(uint16_t * __RESTRICT pTar
             "   vshr.u16                q5, q5, #8                 \n"
 
             /*  blend R vector with input R color*/
-            "   vmla.u16                q4, q1, %[R]               \n"
+            "   vmla.s16                q4, q1, %[R]               \n"
 
             /* load packing Mask for G channel */
             "   vldrh.u16               q7, [%[scratch], #(2*16)]  \n"
@@ -5230,7 +5400,7 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask(uint16_t * __RESTRICT pTar
             "   vand                    q5, q5, q7                 \n"
 
             /*  blend B vector with input B color*/
-            "   vmla.u16                q6, q1, %[B]               \n"
+            "   vmla.s16                q6, q1, %[B]               \n"
 
             /* load packing Mask for B channel */
             "   vldrh.u16               q7, [%[scratch], #(3*16)]  \n"
@@ -5251,7 +5421,7 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask(uint16_t * __RESTRICT pTar
             "   vmov.i16                q7, #0x0100                \n"
 
             /* pack G & B */
-            "   vmla.u16                q5, q6, %[twofiftysix]     \n"
+            "   vmla.s16                q5, q6, %[twofiftysix]     \n"
             /* combined (R >> 8) >> 3 */
             "   vshr.u16                q4, q4, #11                \n"
 
@@ -5267,6 +5437,9 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask(uint16_t * __RESTRICT pTar
             :[Colour] "r"(Colour), [eight] "r" (8), [four] "r" (4),
             [R] "r" (tSrcPix.R), [G] "r" (tSrcPix.G), [B] "r" (tSrcPix.B),
             [twofiftysix] "r" (256), [scratch] "r" (scratch), [str4Offs] "t"(vStride4Offs)
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            ,[alph255] "r" (255)
+#endif
             :"q0", "q1", "q2", "q4", "q5", "q6", "q7", "memory");
 
         pwAlpha += (iAlphaStride);
@@ -5282,12 +5455,13 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask_opacity(uint16_t * __RESTR
                                                               uint32_t * __RESTRICT pwAlpha,
                                                               int16_t iAlphaStride,
                                                               arm_2d_size_t * __RESTRICT ptCopySize,
-                                                              uint16_t Colour, uint8_t chOpacity)
+                                                              uint16_t Colour,
+                                                              uint_fast16_t hwOpacity)
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
     uint16x8_t      vStride4Offs = vidupq_n_u16(0, 4);
-    uint8x16_t      vOpacity = vdupq_n_u8(chOpacity);
+    uint8x16_t      vOpacity = vdupq_n_u8(hwOpacity);
     __arm_2d_color_fast_rgb_t tSrcPix;
 
     __arm_2d_rgb565_unpack(*(&Colour), &tSrcPix);
@@ -5295,7 +5469,7 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask_opacity(uint16_t * __RESTR
 #ifdef USE_MVE_INTRINSICS
 
     RGB565_COLOUR_FILLING_MASK_MVE(RGB565_TRGT_LOAD_STRIDE, vStride4Offs,
-                                            RGB565_SCAL_OPACITY, vOpacity, pwAlpha, 4);
+                                            RGB565_SCAL_OPACITY, vOpacity, pwAlpha, 4, 2);
 #else
     /* RGB565 pack/unpack Masks + opacity */
     /* use memory rather than vmov to optimize Helium operations interleaving */
@@ -5332,6 +5506,11 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask_opacity(uint16_t * __RESTR
             "   wlstp.16                lr, %[loopCnt], 1f         \n"
             "2:                                                    \n"
             "   add                     %[pAlpha], %[pAlpha],#(8*4)\n"
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            /* if vOpacity == 254, boost to 256 */
+            "   vpt.i16                 eq, q1, %[opa254]          \n"
+            "   vmovt.i16               q1, #256                   \n"
+#endif
             // vecAlpha
             "   vsub.i16                q2, q7, q1                 \n"
 
@@ -5356,7 +5535,7 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask_opacity(uint16_t * __RESTR
             "   vshr.u16                q6, q0, #11                \n"
 
             /*  blend G vector with input G color*/
-            "   vmla.u16                q5, q1, %[G]               \n"
+            "   vmla.s16                q5, q1, %[G]               \n"
 
             /* vecAlpha * 8 for R & B  upscale */
             "   vshl.i16                q2, q2, #1                 \n"
@@ -5367,7 +5546,7 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask_opacity(uint16_t * __RESTR
             "   vshr.u16                q5, q5, #8                 \n"
 
             /*  blend R vector with input R color*/
-            "   vmla.u16                q4, q1, %[R]               \n"
+            "   vmla.s16                q4, q1, %[R]               \n"
 
             /* load packing Mask for G channel */
             "   vldrh.u16               q7, [%[scratch], #(2*16)]  \n"
@@ -5377,7 +5556,7 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask_opacity(uint16_t * __RESTR
             "   vand                    q5, q5, q7                 \n"
 
             /*  blend B vector with input B color*/
-            "   vmla.u16                q6, q1, %[B]               \n"
+            "   vmla.s16                q6, q1, %[B]               \n"
 
             /* load packing Mask for B channel */
             "   vldrh.u16               q7, [%[scratch], #(3*16)]  \n"
@@ -5398,7 +5577,7 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask_opacity(uint16_t * __RESTR
             "   vmov.i16                q7, #0x0100                \n"
 
             /* pack G & B */
-            "   vmla.u16                q5, q6, %[twofiftysix]     \n"
+            "   vmla.s16                q5, q6, %[twofiftysix]     \n"
             /* combined (R >> 8) >> 3 */
             "   vldrh.u16               q6, [%[scratch], #(4*16)]  \n"
             "   vmulh.u8                q1, q1, q6                 \n"
@@ -5416,6 +5595,9 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask_opacity(uint16_t * __RESTR
             :[Colour] "r"(Colour), [eight] "r" (8), [four] "r" (4),
             [R] "r" (tSrcPix.R), [G] "r" (tSrcPix.G), [B] "r" (tSrcPix.B),
             [twofiftysix] "r" (256), [scratch] "r" (scratch), [str4Offs] "t"(vStride4Offs)
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+             ,[opa254] "r" (254)
+#endif
             :"q0", "q1", "q2", "q4", "q5", "q6", "q7", "memory");
 
         pwAlpha += (iAlphaStride);
@@ -5453,13 +5635,15 @@ void __arm_2d_impl_cccn888_colour_filling_mask(uint32_t * __RESTRICT pTarget,
 #ifdef USE_MVE_INTRINSICS
 
         CCCN888_COLOUR_FILLING_MASK_INNER_MVE(CCCN888_TRGT_LOAD, _,
-                                        CCCN888_SCAL_OPACITY_NONE, _, 1);
+                                        CCCN888_SCAL_OPACITY_NONE, _, 1, 255);
 #else
 
         register unsigned blkCnt __asm("lr");
         blkCnt = iWidth;
 
     __asm volatile(
+            "vecAlphaCompl            .req q2                             \n"
+
             ".p2align 2                                                   \n"
             /* expand chan0 */
             "   vldrb.u16               q0, [%[pTargetCh0], %[str4Offs]]  \n"
@@ -5468,26 +5652,31 @@ void __arm_2d_impl_cccn888_colour_filling_mask(uint32_t * __RESTRICT pTarget,
             "   wlstp.16                lr, %[loopCnt], 1f                \n"
             "2:                                                           \n"
 
-            "   vsub.i16                q2, %[vec256], q1                 \n"
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            /* if alpha == 255, boost to 256 */
+            "   vpt.i16                 eq, q1, %[alph255]                \n"
+            "   vmovt.i16               q1, #256                          \n"
+#endif
 
+            "   vsub.i16                vecAlphaCompl, %[vec256], q1      \n"
             /*  scale ch0 vector with alpha vector */
-            "   vmul.u16                q3, q0, q2                        \n"
+            "   vmul.u16                q3, q0, vecAlphaCompl             \n"
 
             /* expand chan1 */
             "   vldrb.u16               q0, [%[pTargetCh1], %[str4Offs]]  \n"
             /*  blend ch0 vector with input ch0 color*/
-            "   vmla.u16                q3, q1, %[c0]                     \n"
+            "   vmla.s16                q3, q1, %[c0]                     \n"
             "   vshr.u16                q3, q3, #8                        \n"
 
             "   vstrb.u16               q3, [%[pTargetCh0], %[str4Offs]]  \n"
 
             /*  scale ch1 vector with alpha vector */
-            "   vmul.u16                q3, q0, q2                        \n"
+            "   vmul.u16                q3, q0, vecAlphaCompl             \n"
 
             /* expand chan2 */
             "   vldrb.u16               q0, [%[pTargetCh2], %[str4Offs]]  \n"
             /*  blend ch1 vector with input ch1 color*/
-            "   vmla.u16                q3, q1, %[c1]                     \n"
+            "   vmla.s16                q3, q1, %[c1]                     \n"
             "   vshr.u16                q3, q3, #8                        \n"
             "   vstrb.u16               q3, [%[pTargetCh1], %[str4Offs]]  \n"
 
@@ -5495,11 +5684,11 @@ void __arm_2d_impl_cccn888_colour_filling_mask(uint32_t * __RESTRICT pTarget,
             "   adds                    %[pTargetCh1], #32                \n"
 
             /*  scale ch2 vector with alpha vector */
-            "   vmul.u16                q3, q0, q2                        \n"
+            "   vmul.u16                q3, q0, vecAlphaCompl             \n"
             "   vldrb.u16               q0, [%[pTargetCh0], %[str4Offs]]  \n"
 
             /*  blend ch2 vector with input ch2 color*/
-            "   vmla.u16                q3, q1, %[c2]                     \n"
+            "   vmla.s16                q3, q1, %[c2]                     \n"
             "   vldrb.u16               q1, [%[pAlpha]], #8               \n"
 
             "   vshr.u16                q3, q3, #8                        \n"
@@ -5510,11 +5699,16 @@ void __arm_2d_impl_cccn888_colour_filling_mask(uint32_t * __RESTRICT pTarget,
             "   letp                    lr, 2b                            \n"
             "1:                                                           \n"
 
+            " .unreq vecAlphaCompl                                        \n"
+
             :[pTargetCh0] "+r"(pTargetCh0),  [pTargetCh1] "+r"(pTargetCh1),
              [pTargetCh2] "+r"(pTargetCh2), [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
             :[vec256] "t" (v256),[str4Offs] "t" (vStride4Offs),
              [c0] "r"(c0), [c1] "r"(c1), [c2] "r"(c2)
-            :"q0", "q1", "q2", "q3", "memory");
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            ,[alph255] "r" (255)
+#endif
+            :"q0", "q1", "q2", "q3", "memory", "cc");
 
 #endif
         pchAlpha += (iAlphaStride);
@@ -5530,13 +5724,14 @@ void __arm_2d_impl_cccn888_colour_filling_mask_opacity(uint32_t * __RESTRICT pTa
                                                              uint8_t * __RESTRICT pchAlpha,
                                                              int16_t iAlphaStride,
                                                              arm_2d_size_t * __RESTRICT ptCopySize,
-                                                             uint32_t Colour, uint8_t chOpacity)
+                                                             uint32_t Colour,
+                                                             uint_fast16_t hwOpacity)
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
     uint16x8_t      v256 = vdupq_n_u16(256);
     uint16x8_t      vStride4Offs = vidupq_n_u16(0, 4);
-    uint8x16_t      vOpacity = vdupq_n_u8(chOpacity);
+    uint8x16_t      vOpacity = vdupq_n_u8(hwOpacity);
     uint16_t        c0, c1, c2;
 
     c0 = Colour & 0xff;
@@ -5552,13 +5747,15 @@ void __arm_2d_impl_cccn888_colour_filling_mask_opacity(uint32_t * __RESTRICT pTa
 #ifdef USE_MVE_INTRINSICS
 
         CCCN888_COLOUR_FILLING_MASK_INNER_MVE(CCCN888_TRGT_LOAD, _,
-                                        CCCN888_SCAL_OPACITY, vOpacity, 1);
+                                        CCCN888_SCAL_OPACITY, vOpacity, 1, 254);
 #else
 
         register unsigned blkCnt __asm("lr");
         blkCnt = iWidth;
 
     __asm volatile(
+            "vecAlphaCompl            .req q2                             \n"
+
             ".p2align 2                                                   \n"
             /* expand chan0 */
             "   vldrb.u16               q0, [%[pTargetCh0], %[str4Offs]]  \n"
@@ -5568,26 +5765,31 @@ void __arm_2d_impl_cccn888_colour_filling_mask_opacity(uint32_t * __RESTRICT pTa
             "   wlstp.16                lr, %[loopCnt], 1f                \n"
             "2:                                                           \n"
 
-            "   vsub.i16                q2, %[vec256], q1                 \n"
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            /* if vOpacity == 254, boost to 256 */
+            "   vpt.i16                 eq, q1, %[opa254]                 \n"
+            "   vmovt.i16               q1, #256                          \n"
+#endif
 
+            "   vsub.i16                vecAlphaCompl, %[vec256], q1      \n"
             /*  scale ch0 vector with alpha vector */
-            "   vmul.u16                q3, q0, q2                        \n"
+            "   vmul.u16                q3, q0, vecAlphaCompl             \n"
 
             /* expand chan1 */
             "   vldrb.u16               q0, [%[pTargetCh1], %[str4Offs]]  \n"
             /*  blend ch0 vector with input ch0 color*/
-            "   vmla.u16                q3, q1, %[c0]                     \n"
+            "   vmla.s16                q3, q1, %[c0]                     \n"
             "   vshr.u16                q3, q3, #8                        \n"
 
             "   vstrb.u16               q3, [%[pTargetCh0], %[str4Offs]]  \n"
 
             /*  scale ch1 vector with alpha vector */
-            "   vmul.u16                q3, q0, q2                        \n"
+            "   vmul.u16                q3, q0, vecAlphaCompl             \n"
 
             /* expand chan2 */
             "   vldrb.u16               q0, [%[pTargetCh2], %[str4Offs]]  \n"
             /*  blend ch1 vector with input ch1 color*/
-            "   vmla.u16                q3, q1, %[c1]                     \n"
+            "   vmla.s16                q3, q1, %[c1]                     \n"
             "   vshr.u16                q3, q3, #8                        \n"
             "   vstrb.u16               q3, [%[pTargetCh1], %[str4Offs]]  \n"
 
@@ -5595,11 +5797,11 @@ void __arm_2d_impl_cccn888_colour_filling_mask_opacity(uint32_t * __RESTRICT pTa
             "   adds                    %[pTargetCh1], #32                \n"
 
             /*  scale ch2 vector with alpha vector */
-            "   vmul.u16                q3, q0, q2                        \n"
+            "   vmul.u16                q3, q0, vecAlphaCompl             \n"
             "   vldrb.u16               q0, [%[pTargetCh0], %[str4Offs]]  \n"
 
             /*  blend ch2 vector with input ch2 color*/
-            "   vmla.u16                q3, q1, %[c2]                     \n"
+            "   vmla.s16                q3, q1, %[c2]                     \n"
             "   vldrb.u16               q1, [%[pAlpha]], #8               \n"
             "   vmulh.u8                q1, q1, %[vOpacity]               \n"
 
@@ -5616,7 +5818,10 @@ void __arm_2d_impl_cccn888_colour_filling_mask_opacity(uint32_t * __RESTRICT pTa
             :[vec256] "t" (v256),[str4Offs] "t" (vStride4Offs),
              [vOpacity] "t"(vOpacity),
              [c0] "r"(c0), [c1] "r"(c1), [c2] "r"(c2)
-            :"q0", "q1", "q2", "q3", "memory");
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+             ,[opa254] "r" (254)
+#endif
+            :"q0", "q1", "q2", "q3", "memory", "cc");
 
 #endif
         pchAlpha += (iAlphaStride);
@@ -5652,13 +5857,15 @@ void __arm_2d_impl_cccn888_colour_filling_channel_mask(uint32_t * __RESTRICT pTa
 #ifdef USE_MVE_INTRINSICS
 
         CCCN888_COLOUR_FILLING_MASK_INNER_MVE(CCCN888_TRGT_LOAD_STRIDE, vStride4Offs,
-                                        CCCN888_SCAL_OPACITY_NONE, _, 4);
+                                        CCCN888_SCAL_OPACITY_NONE, _, 4, 255);
 #else
 
         register unsigned blkCnt __asm("lr");
         blkCnt = iWidth;
 
     __asm volatile(
+            "vecAlphaCompl            .req q2                             \n"
+
             ".p2align 2                                                   \n"
             /* expand chan0 */
             "   vldrb.u16               q0, [%[pTargetCh0], %[str4Offs]]  \n"
@@ -5667,26 +5874,31 @@ void __arm_2d_impl_cccn888_colour_filling_channel_mask(uint32_t * __RESTRICT pTa
             "   wlstp.16                lr, %[loopCnt], 1f                \n"
             "2:                                                           \n"
 
-            "   vsub.i16                q2, %[vec256], q1                 \n"
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            /* if alpha == 255, boost to 256 */
+            "   vpt.i16                 eq, q1, %[alph255]                \n"
+            "   vmovt.i16               q1, #256                          \n"
+#endif
+            "   vsub.i16                vecAlphaCompl, %[vec256], q1      \n"
 
             /*  scale ch0 vector with alpha vector */
-            "   vmul.u16                q3, q0, q2                        \n"
+            "   vmul.u16                q3, q0, vecAlphaCompl             \n"
 
             /* expand chan1 */
             "   vldrb.u16               q0, [%[pTargetCh1], %[str4Offs]]  \n"
             /*  blend ch0 vector with input ch0 color*/
-            "   vmla.u16                q3, q1, %[c0]                     \n"
+            "   vmla.s16                q3, q1, %[c0]                     \n"
             "   vshr.u16                q3, q3, #8                        \n"
 
             "   vstrb.u16               q3, [%[pTargetCh0], %[str4Offs]]  \n"
 
             /*  scale ch1 vector with alpha vector */
-            "   vmul.u16                q3, q0, q2                        \n"
+            "   vmul.u16                q3, q0, vecAlphaCompl             \n"
 
             /* expand chan2 */
             "   vldrb.u16               q0, [%[pTargetCh2], %[str4Offs]]  \n"
             /*  blend ch1 vector with input ch1 color*/
-            "   vmla.u16                q3, q1, %[c1]                     \n"
+            "   vmla.s16                q3, q1, %[c1]                     \n"
             "   vshr.u16                q3, q3, #8                        \n"
             "   vstrb.u16               q3, [%[pTargetCh1], %[str4Offs]]  \n"
 
@@ -5695,11 +5907,11 @@ void __arm_2d_impl_cccn888_colour_filling_channel_mask(uint32_t * __RESTRICT pTa
 
 
             /*  scale ch2 vector with alpha vector */
-            "   vmul.u16                q3, q0, q2                        \n"
+            "   vmul.u16                q3, q0, vecAlphaCompl             \n"
             "   vldrb.u16               q0, [%[pTargetCh0], %[str4Offs]]  \n"
 
             /*  blend ch2 vector with input ch2 color*/
-            "   vmla.u16                q3, q1, %[c2]                     \n"
+            "   vmla.s16                q3, q1, %[c2]                     \n"
             "   vldrb.u16               q1, [%[pAlpha], %[str4Offs]]      \n"
 
             "   vshr.u16                q3, q3, #8                        \n"
@@ -5715,7 +5927,10 @@ void __arm_2d_impl_cccn888_colour_filling_channel_mask(uint32_t * __RESTRICT pTa
              [pTargetCh2] "+r"(pTargetCh2), [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
             :[vec256] "t" (v256),[str4Offs] "t" (vStride4Offs),
              [c0] "r"(c0), [c1] "r"(c1), [c2] "r"(c2)
-            :"q0", "q1", "q2", "q3", "memory");
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            ,[alph255] "r" (255)
+#endif
+            :"q0", "q1", "q2", "q3", "memory", "cc");
 
 #endif
         pwAlpha += (iAlphaStride);
@@ -5732,13 +5947,14 @@ void __arm_2d_impl_cccn888_colour_filling_channel_mask_opacity(uint32_t * __REST
                                                                int16_t iAlphaStride,
                                                                arm_2d_size_t *
                                                                __RESTRICT ptCopySize,
-                                                               uint32_t Colour, uint8_t chOpacity)
+                                                               uint32_t Colour,
+                                                               uint_fast16_t hwOpacity)
 {
     int_fast16_t    iHeight = ptCopySize->iHeight;
     int_fast16_t    iWidth = ptCopySize->iWidth;
     uint16x8_t      v256 = vdupq_n_u16(256);
     uint16x8_t      vStride4Offs = vidupq_n_u16(0, 4);
-    uint8x16_t      vOpacity = vdupq_n_u8(chOpacity);
+    uint8x16_t      vOpacity = vdupq_n_u8(hwOpacity);
     uint16_t        c0, c1, c2;
 
     c0 = Colour & 0xff;
@@ -5754,13 +5970,15 @@ void __arm_2d_impl_cccn888_colour_filling_channel_mask_opacity(uint32_t * __REST
 #ifdef USE_MVE_INTRINSICS
 
         CCCN888_COLOUR_FILLING_MASK_INNER_MVE(CCCN888_TRGT_LOAD_STRIDE, vStride4Offs,
-                                        CCCN888_SCAL_OPACITY, vOpacity, 4);
+                                        CCCN888_SCAL_OPACITY, vOpacity, 4, 254);
 #else
 
         register unsigned blkCnt __asm("lr");
         blkCnt = iWidth;
 
     __asm volatile(
+            "vecAlphaCompl            .req q2                             \n"
+
             ".p2align 2                                                   \n"
             /* expand chan0 */
             "   vldrb.u16               q0, [%[pTargetCh0], %[str4Offs]]  \n"
@@ -5770,26 +5988,31 @@ void __arm_2d_impl_cccn888_colour_filling_channel_mask_opacity(uint32_t * __REST
             "   wlstp.16                lr, %[loopCnt], 1f                \n"
             "2:                                                           \n"
 
-            "   vsub.i16                q2, %[vec256], q1                 \n"
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            /* if vOpacity == 254, boost to 256 */
+            "   vpt.i16                 eq, q1, %[opa254]                 \n"
+            "   vmovt.i16               q1, #256                          \n"
+#endif
 
+            "   vsub.i16                vecAlphaCompl, %[vec256], q1      \n"
             /*  scale ch0 vector with alpha vector */
-            "   vmul.u16                q3, q0, q2                        \n"
+            "   vmul.u16                q3, q0, vecAlphaCompl             \n"
 
             /* expand chan1 */
             "   vldrb.u16               q0, [%[pTargetCh1], %[str4Offs]]  \n"
             /*  blend ch0 vector with input ch0 color*/
-            "   vmla.u16                q3, q1, %[c0]                     \n"
+            "   vmla.s16                q3, q1, %[c0]                     \n"
             "   vshr.u16                q3, q3, #8                        \n"
 
             "   vstrb.u16               q3, [%[pTargetCh0], %[str4Offs]]  \n"
 
             /*  scale ch1 vector with alpha vector */
-            "   vmul.u16                q3, q0, q2                        \n"
+            "   vmul.u16                q3, q0, vecAlphaCompl             \n"
 
             /* expand chan2 */
             "   vldrb.u16               q0, [%[pTargetCh2], %[str4Offs]]  \n"
             /*  blend ch1 vector with input ch1 color*/
-            "   vmla.u16                q3, q1, %[c1]                     \n"
+            "   vmla.s16                q3, q1, %[c1]                     \n"
             "   vshr.u16                q3, q3, #8                        \n"
             "   vstrb.u16               q3, [%[pTargetCh1], %[str4Offs]]  \n"
 
@@ -5798,11 +6021,11 @@ void __arm_2d_impl_cccn888_colour_filling_channel_mask_opacity(uint32_t * __REST
 
 
             /*  scale ch2 vector with alpha vector */
-            "   vmul.u16                q3, q0, q2                        \n"
+            "   vmul.u16                q3, q0, vecAlphaCompl              \n"
             "   vldrb.u16               q0, [%[pTargetCh0], %[str4Offs]]  \n"
 
             /*  blend ch2 vector with input ch2 color*/
-            "   vmla.u16                q3, q1, %[c2]                     \n"
+            "   vmla.s16                q3, q1, %[c2]                     \n"
             "   vldrb.u16               q1, [%[pAlpha], %[str4Offs]]      \n"
             "   vmulh.u8                q1, q1, %[vOpacity]               \n"
 
@@ -5819,7 +6042,10 @@ void __arm_2d_impl_cccn888_colour_filling_channel_mask_opacity(uint32_t * __REST
              [pTargetCh2] "+r"(pTargetCh2), [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
             :[vec256] "t" (v256),[str4Offs] "t" (vStride4Offs), [vOpacity] "t"(vOpacity),
              [c0] "r"(c0), [c1] "r"(c1), [c2] "r"(c2)
-            :"q0", "q1", "q2", "q3", "memory");
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+             ,[opa254] "r" (254)
+#endif
+            :"q0", "q1", "q2", "q3", "memory", "cc");
 
 #endif
         pwAlpha += (iAlphaStride);
@@ -6067,19 +6293,19 @@ void __arm_2d_impl_rgb565_to_cccn888(uint16_t *__RESTRICT phwSourceBase,
 #if defined(__IS_COMPILER_GCC__) && __IS_COMPILER_GCC__
 
 __OVERRIDE_WEAK
-void ARM_2D_WRAP_FUNC(__arm_2d_impl_rgb565_masks_fill)(
-                                     uint16_t * __RESTRICT ptSourceBase,
-                                     int16_t iSourceStride,
-                                     arm_2d_size_t * __RESTRICT ptSourceSize,
-                                     uint8_t * __RESTRICT pchSourceMaskBase,
-                                     int16_t iSourceMaskStride,
-                                     arm_2d_size_t * __RESTRICT ptSourceMaskSize,
-                                     uint16_t * __RESTRICT ptTargetBase,
-                                     int16_t iTargetStride,
-                                     arm_2d_size_t * __RESTRICT ptTargetSize,
-                                     uint8_t * __RESTRICT pchTargetMaskBase,
-                                     int16_t iTargetMaskStride,
-                                     arm_2d_size_t * __RESTRICT ptTargetMaskSize)
+void ARM_2D_WRAP_FUNC(  __arm_2d_impl_rgb565_masks_fill)(
+                         uint16_t * __RESTRICT ptSourceBase,
+                         int16_t iSourceStride,
+                         arm_2d_size_t * __RESTRICT ptSourceSize,
+                         uint8_t * __RESTRICT pchSourceMaskBase,
+                         int16_t iSourceMaskStride,
+                         arm_2d_size_t * __RESTRICT ptSourceMaskSize,
+                         uint16_t * __RESTRICT ptTargetBase,
+                         int16_t iTargetStride,
+                         arm_2d_size_t * __RESTRICT ptTargetSize,
+                         uint8_t * __RESTRICT pchTargetMaskBase,
+                         int16_t iTargetMaskStride,
+                         arm_2d_size_t * __RESTRICT ptTargetMaskSize)
 {
     uint8_t        *__RESTRICT pchTargetMaskLineBase = pchTargetMaskBase;
     uint16x8_t      v256 = vdupq_n_u16(256);
@@ -6201,7 +6427,7 @@ void ARM_2D_WRAP_FUNC(__arm_2d_impl_rgb565_masks_fill)(
                     /* blended G */
                     /* vadd.i16            q2, q4, q2
                        addition using vmla for more efficient overlap */
-                    "   vmla.u16            q2, q4, %[one]                    \n"
+                    "   vmla.s16            q2, q4, %[one]                    \n"
                     /* vecB extract and scale */
                     "   vshr.u16            q4, q6, #8                        \n"
                     "   vand                q4, q4, vecRBUnpackMask           \n"
@@ -6219,7 +6445,7 @@ void ARM_2D_WRAP_FUNC(__arm_2d_impl_rgb565_masks_fill)(
                     /* blended B
                        vadd.i16            q0, q4, q0
                        addition using vmla for more efficient overlap */
-                    "   vmla.u16            q0, q4, %[one]                    \n"
+                    "   vmla.s16            q0, q4, %[one]                    \n"
                     /* pack R */
                     "   vshr.u16            q3, q1, #11                       \n"
                     /* B channel packing mask 0xf800 */
@@ -6284,19 +6510,19 @@ void ARM_2D_WRAP_FUNC(__arm_2d_impl_rgb565_masks_fill)(
 
 
 __OVERRIDE_WEAK
-void ARM_2D_WRAP_FUNC(__arm_2d_impl_rgb565_src_msk_1h_des_msk_fill)(
-                                    uint16_t * __RESTRICT ptSourceBase,
-                                    int16_t iSourceStride,
-                                    arm_2d_size_t * __RESTRICT ptSourceSize,
-                                    uint8_t * __RESTRICT pchSourceMaskBase,
-                                    int16_t iSourceMaskStride,
-                                    arm_2d_size_t * __RESTRICT ptSourceMaskSize,
-                                    uint16_t * __RESTRICT ptTargetBase,
-                                    int16_t iTargetStride,
-                                    arm_2d_size_t * __RESTRICT ptTargetSize,
-                                    uint8_t * __RESTRICT pchTargetMaskBase,
-                                    int16_t iTargetMaskStride,
-                                    arm_2d_size_t * __RESTRICT ptTargetMaskSize)
+void ARM_2D_WRAP_FUNC(  __arm_2d_impl_rgb565_src_msk_1h_des_msk_fill)(
+                        uint16_t * __RESTRICT ptSourceBase,
+                        int16_t iSourceStride,
+                        arm_2d_size_t * __RESTRICT ptSourceSize,
+                        uint8_t * __RESTRICT pchSourceMaskBase,
+                        int16_t iSourceMaskStride,
+                        arm_2d_size_t * __RESTRICT ptSourceMaskSize,
+                        uint16_t * __RESTRICT ptTargetBase,
+                        int16_t iTargetStride,
+                        arm_2d_size_t * __RESTRICT ptTargetSize,
+                        uint8_t * __RESTRICT pchTargetMaskBase,
+                        int16_t iTargetMaskStride,
+                        arm_2d_size_t * __RESTRICT ptTargetMaskSize)
 {
     uint8_t        *__RESTRICT pchTargetMaskLineBase = pchTargetMaskBase;
     uint16x8_t      v256 = vdupq_n_u16(256);
@@ -6418,7 +6644,7 @@ void ARM_2D_WRAP_FUNC(__arm_2d_impl_rgb565_src_msk_1h_des_msk_fill)(
                     /* blended G */
                     /* vadd.i16            q2, q4, q2
                        addition using vmla for more efficient overlap */
-                    "   vmla.u16            q2, q4, %[one]                    \n"
+                    "   vmla.s16            q2, q4, %[one]                    \n"
                     /* vecB extract and scale */
                     "   vshr.u16            q4, q6, #8                        \n"
                     "   vand                q4, q4, vecRBUnpackMask           \n"
@@ -6436,7 +6662,7 @@ void ARM_2D_WRAP_FUNC(__arm_2d_impl_rgb565_src_msk_1h_des_msk_fill)(
                     /* blended B
                        vadd.i16            q0, q4, q0
                        addition using vmla for more efficient overlap */
-                    "   vmla.u16            q0, q4, %[one]                    \n"
+                    "   vmla.s16            q0, q4, %[one]                    \n"
                     /* pack R */
                     "   vshr.u16            q3, q1, #11                       \n"
                     /* B channel packing mask 0xf800 */
@@ -6505,4 +6731,3 @@ void ARM_2D_WRAP_FUNC(__arm_2d_impl_rgb565_src_msk_1h_des_msk_fill)(
 #endif
 
 #endif // __ARM_2D_HAS_HELIUM__
-

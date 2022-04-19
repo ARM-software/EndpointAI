@@ -297,7 +297,7 @@ const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB565 = {
 const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB888 = {
     .Info = {
         .Colour = {
-            .chScheme   = ARM_2D_COLOUR_RGB888,
+            .chScheme   = ARM_2D_COLOUR_CCCN888,
         },
         .Param = {
             .bHasSource             = true,

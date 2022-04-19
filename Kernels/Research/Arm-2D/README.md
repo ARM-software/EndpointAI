@@ -20,10 +20,12 @@
 
 ## Features of the Arm-2D Library
 
-#### In this release ( ver0.9.11 dev)
+#### In this release ( ver1.0.0-preview)
 
 The Arm-2D library provides **Low-Level 2D Image Processing Services** that are mainly used in **Deep Embedded Display system**. The supported features include but not limited to:
 
+- **Support Accelerating LVGL** (**v8.2.0** or newer)
+- **CMSIS-Pack is available.**
 - **Alpha-Blending** / **Alpha-Masking**
   - With or without Colour-Keying
   - Colour-filling with an Alpha-Mask
@@ -50,7 +52,8 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
   - Supports Colour-keying by default
   - Supports an optional **Opacity** ratio
   - Supports the Anti-Alias feature. 
-    - You can enable it by defining macro  **\_\_ARM_2D_HAS_INTERPOLATION_TRANSFORM to "**1**" on **compile-time**.
+    - You can enable it by defining macro  **\_\_ARM_2D_HAS_INTERPOLATION_TRANSFORM\_\_** to "**1**" on **compile-time**.
+  - Support Source masks
 - **An Unified and User-Friendly Programmers' Model**
   - APIs can be used in **Synchronous** manner (  **Classic and Blocking** ) and/or **Asynchronous** manner ( **Event-Driven** )
   - Supports both **bare-metal** and **RTOS** environment
@@ -484,8 +487,8 @@ def_low_lv_io(__ARM_2D_IO_ROTATE_RGB888,
 ### 5.2 The Temporary Limitations
 
 - The library currently can only be used in the C environment. C++ support will be added later.
-- Generic Anti-aliasing algorithms haven't been introduced, but anti-alias in rotation is supported.
-- Zooming (Stretching) algorithms haven't been implemented yet.
+- The GCC support for Cortex-M55 (helium acceleration) is broken (waiting for tool-chain improvement). 
+- Generic Anti-aliasing algorithms haven't been introduced, but anti-alias in transform (i.e. rotation and scaling) is supported.
 - The library currently only provides default software algorithms and a **[Helium](https://developer.arm.com/architectures/instruction-sets/simd-isas/helium) based acceleration library**. 
   - Although planned, no hardware acceleration is implemented or supported for now.
   - Although planned and implemented, the [ACI (Arm Custom Instruction)](https://developer.arm.com/architectures/instruction-sets/custom-instructions) acceleration solutions are not open-source for now. Please contact local Arm FAE for details. 

@@ -232,25 +232,29 @@ enum {
     ARM_2D_COLOUR_16BIT       =   ARM_2D_COLOUR_SZ_16BIT_msk,
     ARM_2D_COLOUR_RGB16       =   ARM_2D_COLOUR_SZ_16BIT_msk,
     ARM_2D_COLOUR_RGB565      =   ARM_2D_COLOUR_RGB16,
+    
+/*! will not support
     ARM_2D_COLOUR_RGB565_BE   =   ARM_2D_COLOUR_SZ_16BIT_msk        |
                                   ARM_2D_COLOUR_BIG_ENDIAN_msk      ,
+ */
+ 
     ARM_2D_COLOUR_32BIT       =   ARM_2D_COLOUR_SZ_32BIT_msk        ,
     ARM_2D_COLOUR_RGB32       =   ARM_2D_COLOUR_SZ_32BIT_msk        ,
-                                        
-    ARM_2D_COLOUR_RGB888      =   ARM_2D_COLOUR_RGB32               ,
-    ARM_2D_COLOUR_RGBA8888    =   ARM_2D_COLOUR_SZ_32BIT_msk        |
-                                  ARM_2D_COLOUR_HAS_ALPHA           ,
 
     ARM_2D_COLOUR_CCCN888     =   ARM_2D_COLOUR_RGB32               ,
     ARM_2D_COLOUR_CCCA8888    =   ARM_2D_COLOUR_SZ_32BIT_msk        |
                                   ARM_2D_COLOUR_HAS_ALPHA           ,
 
+    ARM_2D_COLOUR_RGB888      =   ARM_2D_COLOUR_CCCN888             ,
+    ARM_2D_COLOUR_RGBA8888    =   ARM_2D_COLOUR_CCCA8888            ,
+
+/*! not supported yet
     ARM_2D_COLOUR_NCCC888     =   ARM_2D_COLOUR_RGB32               |
                                   ARM_2D_COLOUR_BIG_ENDIAN_msk      ,
     ARM_2D_COLOUR_ACCC8888    =   ARM_2D_COLOUR_SZ_32BIT_msk        |
                                   ARM_2D_COLOUR_HAS_ALPHA           |
                                   ARM_2D_COLOUR_BIG_ENDIAN_msk      ,
-                                  
+*/
     ARM_2D_CHANNEL_8in32      =   ARM_2D_COLOUR_SZ_32BIT_msk        |
                                   ARM_2D_COLOUR_HAS_ALPHA           |
                                   (0x07 << ARM_2D_COLOUR_VARIANT)   ,
@@ -385,7 +389,7 @@ typedef union __arm_2d_op_info_t {
             uint8_t chValue;
         }Param;
 
-        uint8_t                 : 8;    //!< reserved
+        uint8_t chInClassOffset;        //!< some operation uses this as the offset of the key member in the class
         uint8_t chOpIndex;              //!< __ARM_2D_OP_IDX_XXXXXX
 
         union {
@@ -574,9 +578,8 @@ typedef struct arm_2d_op_src_orig_msk_t {
         arm_2d_tile_t           tDummySource;   //!< the buffer for the source
     }Origin;
     
-    
     struct {
-        const arm_2d_tile_t     *ptSourceSide;  //!< source side mask
+        const arm_2d_tile_t     *ptOriginSide;  //!< origin side mask
         const arm_2d_tile_t     *ptTargetSide;  //!< target side mask
     } Mask;
 } arm_2d_op_src_orig_msk_t;

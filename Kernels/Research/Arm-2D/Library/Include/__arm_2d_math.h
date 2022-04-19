@@ -123,11 +123,13 @@ extern "C" {
 #define __QDADD(X, Y)     __qadd(X, __qdbl(Y))
 #define __QDSUB(X, Y)     __qsub(X, __qdbl(Y))
 
+#define __LARGEINVF32       100.0f
+
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
 
-#elif defined(__ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT_FOR_PERFROMANCE__)
+#elif defined(__ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT__)
 /*
  * @brief C custom defined QDADD
  */

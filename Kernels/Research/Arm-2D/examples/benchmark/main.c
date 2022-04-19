@@ -58,8 +58,6 @@
 /*============================ PROTOTYPES ====================================*/
 /*============================ LOCAL VARIABLES ===============================*/
 
-static char s_chPerformanceInfo[MAX(((GLCD_WIDTH/6)+1), 54)] = {0};
-
 static struct {
     uint32_t wMin;
     uint32_t wMax;

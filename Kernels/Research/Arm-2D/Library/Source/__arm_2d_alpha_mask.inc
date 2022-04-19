@@ -21,8 +21,8 @@
  * Title:        __arm_2d_alpha_mask.inc
  * Description:  c code template for copy and fill like operations
  *
- * $Date:        30. Sept 2021
- * $Revision:    V.1.0.0
+ * $Date:        25. March 2022
+ * $Revision:    V.1.0.1
  *
  * -------------------------------------------------------------------- */
  
@@ -382,6 +382,11 @@ void __CAFWM_FUNC(des_msk_fill)(
                 #else
                     uint16_t hwOpacity = 256 - (*ptTargetMask++);
                 #endif
+
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    hwOpacity -= (hwOpacity == 1);
+            #endif
+                
                     __API_CAFWM_PIXEL_BLENDING(ptSrc++, ptTarget++, hwOpacity);
                 }
 
@@ -462,6 +467,11 @@ void __CAFWM_FUNC(des_msk_fill_x_mirror)(
                 #else
                     uint16_t hwOpacity = 256 - (*ptTargetMask++);
                 #endif
+                
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    hwOpacity -= (hwOpacity == 1);
+            #endif
+            
                     __API_CAFWM_PIXEL_BLENDING(ptSrc--, ptTarget++, hwOpacity);
                 }
 
@@ -543,6 +553,11 @@ void __CAFWM_FUNC(des_msk_fill_y_mirror)(
                 #else
                     uint16_t hwOpacity = 256 - (*ptTargetMask++);
                 #endif
+
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    hwOpacity -= (hwOpacity == 1);
+            #endif
+                
                     __API_CAFWM_PIXEL_BLENDING(ptSrc++, ptTarget++, hwOpacity);
                 }
 
@@ -624,6 +639,11 @@ void __CAFWM_FUNC(des_msk_fill_xy_mirror)(
                 #else
                     uint16_t hwOpacity = 256 - (*ptTargetMask++);
                 #endif
+                
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    hwOpacity -= (hwOpacity == 1);
+            #endif
+                
                     __API_CAFWM_PIXEL_BLENDING(ptSrc--, ptTarget++, hwOpacity);
                 }
 
@@ -757,6 +777,11 @@ void __CAFWM_FUNC(src_msk_fill)(
                 #else
                     uint16_t hwOpacity = 256 - (*ptSrcMsk++);
                 #endif
+                
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    hwOpacity -= (hwOpacity == 1);
+            #endif
+                
                     __API_CAFWM_PIXEL_BLENDING(ptSrc++, ptTarget++, hwOpacity);
                 }
 
@@ -849,6 +874,11 @@ void __CAFWM_FUNC(src_msk_fill_x_mirror)(
                 #else
                     uint16_t hwOpacity = 256 - (*ptSrcMsk--);
                 #endif
+
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    hwOpacity -= (hwOpacity == 1);
+            #endif
+                
                     __API_CAFWM_PIXEL_BLENDING(ptSrc--, ptTarget++, hwOpacity);
                 }
 
@@ -943,6 +973,11 @@ void __CAFWM_FUNC(src_msk_fill_y_mirror)(
                 #else
                     uint16_t hwOpacity = 256 - (*ptSrcMsk++);
                 #endif
+                
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    hwOpacity -= (hwOpacity == 1);
+            #endif
+                
                     __API_CAFWM_PIXEL_BLENDING(ptSrc++, ptTarget++, hwOpacity);
                 }
 
@@ -1041,6 +1076,11 @@ void __CAFWM_FUNC(src_msk_fill_xy_mirror)(
                 #else
                     uint16_t hwOpacity = 256 - (*ptSrcMsk--);
                 #endif
+                
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    hwOpacity -= (hwOpacity == 1);
+            #endif
+                
                     __API_CAFWM_PIXEL_BLENDING(ptSrc--, ptTarget++, hwOpacity);
                 }
 
@@ -1163,6 +1203,11 @@ void __CAFWM_FUNC(des_msk_copy)(
         #else
             uint16_t hwOpacity = 256 - (*ptTargetMask++);
         #endif
+        
+        #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            hwOpacity -= (hwOpacity == 1);
+        #endif
+        
             __API_CAFWM_PIXEL_BLENDING( pSourceBase++, pTargetBase++, hwOpacity);
             
         }
@@ -1220,6 +1265,11 @@ void __CAFWM_FUNC(des_msk_copy_x_mirror)(
         #else
             uint16_t hwOpacity = 256 - (*ptTargetMask++);
         #endif
+        
+        #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            hwOpacity -= (hwOpacity == 1);
+        #endif
+        
             __API_CAFWM_PIXEL_BLENDING( ptSourceCur--, pTargetBase++, hwOpacity);
             
         }
@@ -1273,6 +1323,11 @@ void __CAFWM_FUNC(des_msk_copy_y_mirror)(
         #else
             uint16_t hwOpacity = 256 - (*ptTargetMask++);
         #endif
+
+        #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            hwOpacity -= (hwOpacity == 1);
+        #endif
+        
             __API_CAFWM_PIXEL_BLENDING( ptSourceCur++, pTargetBase++, hwOpacity);
             
         }
@@ -1328,6 +1383,10 @@ void __CAFWM_FUNC(des_msk_copy_xy_mirror)(
             uint16_t hwOpacity = 256 - *(uint8_t *)(ptTargetMask++);
         #else
             uint16_t hwOpacity = 256 - (*ptTargetMask++);
+        #endif
+
+        #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            hwOpacity -= (hwOpacity == 1);
         #endif
 
             __API_CAFWM_PIXEL_BLENDING( ptSourceCur--, pTargetBase++, hwOpacity);
@@ -1436,6 +1495,11 @@ void __CAFWM_FUNC(src_msk_copy)(
         #else
             uint16_t hwOpacity = 256 - (*ptSourceMask++);
         #endif
+        
+        #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            hwOpacity -= (hwOpacity == 1);
+        #endif
+        
             __API_CAFWM_PIXEL_BLENDING( pSourceBase++, pTargetBase++, hwOpacity);
             
         }
@@ -1510,6 +1574,11 @@ void __CAFWM_FUNC(src_msk_copy_x_mirror)(
         #else
             uint16_t hwOpacity = 256 - (*pchSourceMaskCur--);
         #endif
+        
+        #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            hwOpacity -= (hwOpacity == 1);
+        #endif
+        
             __API_CAFWM_PIXEL_BLENDING( ptSourceCur--, ptTargetCur++, hwOpacity);
             
         }
@@ -1585,6 +1654,11 @@ void __CAFWM_FUNC(src_msk_copy_y_mirror)(
         #else
             uint16_t hwOpacity = 256 - (*pchSourceMaskCur++);
         #endif
+        
+        #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            hwOpacity -= (hwOpacity == 1);
+        #endif
+        
             __API_CAFWM_PIXEL_BLENDING( ptSourceCur++, pTargetBase++, hwOpacity);
         }
         
@@ -1663,6 +1737,10 @@ void __CAFWM_FUNC(src_msk_copy_xy_mirror)(
             uint16_t hwOpacity = 256 - *(uint8_t *)(pchSourceMaskCur--);
         #else
             uint16_t hwOpacity = 256 - (*pchSourceMaskCur--);
+        #endif
+
+        #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+            hwOpacity -= (hwOpacity == 1);
         #endif
 
             __API_CAFWM_PIXEL_BLENDING( ptSourceCur--, pTargetBase++, hwOpacity);

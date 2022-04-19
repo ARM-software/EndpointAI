@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the all avaialble Arm-2D 
  *               interface header files 
  *
- * $Date:        08. Sept 2021
- * $Revision:    V.0.9.0
+ * $Date:        11. April 2022
+ * $Revision:    V.1.1.0
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -44,9 +44,16 @@ extern "C" {
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
+
+/*----------------------------------------------------------------------------*
+ * Misc                                                                       *
+ *----------------------------------------------------------------------------*/
 extern
 const __arm_2d_op_info_t ARM_2D_OP_BARRIER;
-    
+
+/*----------------------------------------------------------------------------*
+ * Basic Tile Operation (Core)                                                *
+ *----------------------------------------------------------------------------*/
 extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_C8BIT;    
 
@@ -65,63 +72,27 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_RGB16;
 extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_RGB32;
 
-extern
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_MASK_GRAY8;
 
-extern
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_MASK_RGB565;
-
-extern
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_MASK_CCCN888;
-    
-
-extern
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_SRC_MASK_GRAY8;
-
-extern
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_SRC_MASK_RGB565;
-
-extern
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_SRC_MASK_CCCN888;
-
-
-extern
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_DES_MASK_GRAY8;
-
-extern
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_DES_MASK_RGB565;
-
-extern
-const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_DES_MASK_CCCN888;
-
-
+/*----------------------------------------------------------------------------*
+ * Alpha-Blending and Masks                                                   *
+ *----------------------------------------------------------------------------*/
+extern 
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_MASK_GRAY8;
 
 extern 
-const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_C8BIT;
-
-extern 
-const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_RGB16;
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_MASK_RGB565;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_RGB32;
-    
-extern 
-const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_GRAY8;
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_MASK_CCCN888;
 
 extern 
-const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_RGB565;
-    
-extern
-const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_CCCN888;
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_MASK_AND_OPACITY_GRAY8;
 
 extern 
-const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_GRAY8;
-
-extern 
-const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_RGB565;
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_MASK_AND_OPACITY_RGB565;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_ALPHA_MASK_AND_OPACITY_CCCN888;
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_WITH_MASK_AND_OPACITY_CCCN888;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_GRAY8;
@@ -141,7 +112,6 @@ const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_KEYING_RGB565;
 extern
 const __arm_2d_op_info_t ARM_2D_OP_ALPHA_BLENDING_WITH_COLOUR_KEYING_RGB888;
     
-    
 extern
 const __arm_2d_op_info_t ARM_2D_OP_ALPHA_COLOUR_FILL_GRAY8;
 
@@ -151,7 +121,45 @@ const __arm_2d_op_info_t ARM_2D_OP_ALPHA_COLOUR_FILL_RGB565;
 extern
 const __arm_2d_op_info_t ARM_2D_OP_ALPHA_COLOUR_FILL_RGB888;
     
-  
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_MASK_GRAY8;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_MASK_RGB565;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_MASK_CCCN888;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_SRC_MASK_GRAY8;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_SRC_MASK_RGB565;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_SRC_MASK_CCCN888;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_DES_MASK_GRAY8;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_DES_MASK_RGB565;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_DES_MASK_CCCN888;
+
+/*----------------------------------------------------------------------------*
+ * Basic Drawing                                                              *
+ *----------------------------------------------------------------------------*/
+extern 
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_C8BIT;
+
+extern 
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_RGB16;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_RGB32; 
+
 extern
 const __arm_2d_op_info_t ARM_2D_OP_DRAW_POINT_C8BIT;
   
@@ -169,13 +177,19 @@ const __arm_2d_op_info_t ARM_2D_OP_DRAW_PATTERN_RGB16;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_DRAW_PATTERN_RGB32;
-    
+
+/*----------------------------------------------------------------------------*
+ * Colour Conversion                                                          *
+ *----------------------------------------------------------------------------*/
 extern
 const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB565;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_CONVERT_TO_RGB888;
-    
+
+/*----------------------------------------------------------------------------*
+ * Transform                                                                  *
+ *----------------------------------------------------------------------------*/
 extern
 const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_GRAY8;
     
@@ -183,16 +197,34 @@ extern
 const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_RGB565;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_RGB888;
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_CCCN888;
 
 extern
-const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_ALPHA_GRAY8;
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_OPACITY_GRAY8;
 
 extern
-const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_ALPHA_RGB565;
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_OPACITY_RGB565;
     
 extern
-const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_ALPHA_RGB888;
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_OPACITY_CCCN888;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_GRAY8;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_RGB565;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_CCCN888;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_GRAY8;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_RGB565;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_CCCN888;
 
 /*============================ PROTOTYPES ====================================*/
 

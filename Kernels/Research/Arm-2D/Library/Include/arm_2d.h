@@ -44,20 +44,24 @@
 extern "C" {
 #endif
 
+/*! \brief suppress some warnings for user applications when using arm-2d.
+ */
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
 #   pragma clang diagnostic ignored "-Wreserved-identifier"
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
+#   pragma diag_suppress 1296,174
 #endif
 
 /*============================ MACROS ========================================*/
 
 //! \name arm-2d version
 //! @{
-#define ARM_2D_VERSION_MAJOR        0
-#define ARM_2D_VERSION_MINOR        9
-#define ARM_2D_VERSION_PATCH        11
-#define ARM_2D_VERSION_STR          "dev"   
+#define ARM_2D_VERSION_MAJOR        1
+#define ARM_2D_VERSION_MINOR        0
+#define ARM_2D_VERSION_PATCH        0
+#define ARM_2D_VERSION_STR          "preview"   
 
 #define ARM_2D_VERISON              (   ARM_2D_VERSION_MAJOR * 10000ul          \
                                     +   ARM_2D_VERSION_MINOR * 100ul            \
@@ -90,51 +94,12 @@ const arm_2d_version_t ARM_2D_VERSION;
 
 /*============================ PROTOTYPES ====================================*/
 
-#if defined(__ARM_2D_HAS_ASYNC__) && __ARM_2D_HAS_ASYNC__
-/*! \brief initialise the whole arm-2d service
+/*! \brief initialise arm-2d
  *! \param none
  *! \return none
  */
 extern
-void __arm_2d_async_init(void);
-#endif
-
-#if defined(__ARM_2D_HAS_HELIUM__) && __ARM_2D_HAS_HELIUM__
-/*! \brief initialise the helium service
- *! \param none
- *! \return none
- */
-extern
-void __arm_2d_helium_init(void);
-#endif
-
-#if defined(__ARM_2D_HAS_CDE__) && __ARM_2D_HAS_CDE__
-/*! \brief initialise the cde service
- *! \param none
- *! \return none
- */
-extern
-void __arm_2d_cde_init(void);
-#endif
-
-
-
-#if defined(__ARM_2D_HAS_HW_ACC__) && __ARM_2D_HAS_HW_ACC__
-/*! \brief initialise the hardware accelerator adapter
- *! \param none
- *! \return none
- */
-extern
-void __arm_2d_acc_init(void);
-#endif
-
-
-/*! \brief initialise the whole arm-2d service
- *! \param none
- *! \return none
- */
-extern
-void __arm_2d_init(void);
+void arm_2d_init(void);
 
 /*! \brief set the default frame buffer
  *! \param ptFramebuffer the new frame buffer, if NULL is given, no default
@@ -205,9 +170,10 @@ arm_2d_op_status_t arm_2d_get_op_status(arm_2d_op_core_t *ptOP);
 extern
 arm_fsm_rt_t arm_2d_task(arm_2d_task_t *ptTask);
 
-#if defined(__clang__)
-#   pragma clang diagnostic pop
-#endif
+/*! \note delibrately comment out */
+//#if defined(__clang__)
+//#   pragma clang diagnostic pop
+//#endif
 
 #ifdef   __cplusplus
 }

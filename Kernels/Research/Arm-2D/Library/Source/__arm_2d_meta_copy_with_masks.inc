@@ -25,7 +25,7 @@
  * $Revision:    V.1.0.0
  *
  * -------------------------------------------------------------------- */
- 
+
 #ifndef __API_MCWM_COLOUR
 #   error You have to define __API_MCWM_COLOUR before using this c template
 #endif
@@ -70,7 +70,7 @@
 #ifndef __API_MCWM_OP_NAME
 #   define ____MCWM_FUNC(__NAME, __COLOUR)                                      \
         __arm_2d_impl_##__COLOUR##_##__NAME
-#   define ___MCWM_FUNC(__NAME, __COLOUR)   ____MCWM_FUNC(__NAME, __COLOUR) 
+#   define ___MCWM_FUNC(__NAME, __COLOUR)   ____MCWM_FUNC(__NAME, __COLOUR)
 #else
 #   define _____MCWM_FUNC(__OP_NAME, __NAME, __COLOUR)                          \
         __arm_2d_impl_##__COLOUR##_##__OP_NAME##_##__NAME
@@ -89,14 +89,14 @@
 
 #ifndef __API_MCWM_OP_NAME
 #   define ____MCWM_TYPE(__NAME, __COLOUR)  arm_2d_##__COLOUR##_##__NAME
-#   define ___MCWM_TYPE(__NAME, __COLOUR)   ____MCWM_TYPE(__NAME, __COLOUR) 
+#   define ___MCWM_TYPE(__NAME, __COLOUR)   ____MCWM_TYPE(__NAME, __COLOUR)
 #else
 #   define _____MCWM_TYPE(__OP_NAME, __NAME, __COLOUR)                        \
         arm_2d_##__COLOUR##_##__OP_NAME##_##__NAME
 #   define ____MCWM_TYPE(__OP_NAME, __NAME, __COLOUR)                         \
         _____MCWM_TYPE(__OP_NAME, __NAME, __COLOUR)
 #   define ___MCWM_TYPE(__NAME, __COLOUR)                                     \
-        ____MCWM_TYPE(__API_MCWM_OP_NAME, __NAME, __COLOUR) 
+        ____MCWM_TYPE(__API_MCWM_OP_NAME, __NAME, __COLOUR)
 #endif
 
 
@@ -112,7 +112,7 @@ void __MCWM_FUNC(masks_fill)(
                         __API_MCWM_INT_TYPE * __RESTRICT ptSourceBase,
                         int16_t iSourceStride,
                         arm_2d_size_t *__RESTRICT ptSourceSize,
-                        
+
                     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                         uint32_t * __RESTRICT ptSourceMaskBase,
                     #else
@@ -120,7 +120,7 @@ void __MCWM_FUNC(masks_fill)(
                     #endif
                         int16_t iSourceMaskStride,
                         arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-                        
+
                         __API_MCWM_INT_TYPE *__RESTRICT ptTargetBase,
                         int16_t iTargetStride,
                         arm_2d_size_t *__RESTRICT ptTargetSize,
@@ -135,31 +135,31 @@ void __MCWM_FUNC(masks_fill)(
 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
     uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;
 #else
-    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;  
+    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;
 #endif
 
     for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
-    
+
         //! reset source
-        __API_MCWM_INT_TYPE *__RESTRICT ptSource = ptSourceBase;  
+        __API_MCWM_INT_TYPE *__RESTRICT ptSource = ptSourceBase;
     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
         uint32_t *ptSourceMask = ptSourceMaskBase;
     #else
         uint8_t *ptSourceMask = ptSourceMaskBase;
     #endif
-    
+
     #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
         int_fast16_t iSourceMaskY = 0;
     #endif
-        
+
         for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
             __API_MCWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;
         #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
-            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;   
+            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;
         #else
-            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;      
+            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;
         #endif
-        
+
             /*---------------- Height Loop Begin----------------*/
             uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
 
@@ -168,44 +168,49 @@ void __MCWM_FUNC(masks_fill)(
                 /*---------------- Width Loop Begin----------------*/
 
                 __API_MCWM_INT_TYPE *__RESTRICT ptSrc = ptSource;
-                
+
             #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                 uint32_t *__RESTRICT ptSrcMsk = ptSourceMask;
             #else
                 uint8_t *__RESTRICT ptSrcMsk = ptSourceMask;
             #endif
-            
+
                 for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 
+                    uint16_t hwOpacity =
                         256 - (
                         #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                             *(uint8_t *)(ptSrcMsk++)
                         #else
-                            (*ptSrcMsk++) 
+                            (*ptSrcMsk++)
                         #endif
-                        
-                            * 
+
+                            *
                         #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
                             *(uint8_t *)(ptTargetMask++)
                         #else
-                            (*ptTargetMask++) 
+                            (*ptTargetMask++)
                         #endif
-                            
+
                             >> 8);
+
+                #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    hwOpacity -= (hwOpacity == 2) * 2;
+                #endif
+
                     __API_MCWM_PIXEL_BLENDING(ptSrc++, ptTarget++, hwOpacity);
                 }
 
                 /*---------------- Width Loop End----------------*/
                 wLengthLeft -= wLength;
             } while (wLengthLeft);
-            
+
             /*---------------- Height Loop End----------------*/
             ptSource += iSourceStride;
             ptTargetBase += iTargetStride;
-        
+
         #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
             iSourceMaskY++;
-            //! handle source mask 
+            //! handle source mask
             if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
                ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
                 ptSourceMask = ptSourceMaskBase;
@@ -216,13 +221,13 @@ void __MCWM_FUNC(masks_fill)(
         #else
             ptSourceMask += iSourceMaskStride;
         #endif
-        
+
         #if __API_MCWM_CFG_1_HORIZONTAL_LINE
             ptTargetMaskLineBase = ptTargetMaskBase;
         #else
             ptTargetMaskLineBase += iTargetMaskStride;
         #endif
-            
+
             iTargetY++;
             if (iTargetY >= ptTargetSize->iHeight) {
                 break;
@@ -236,7 +241,7 @@ void __MCWM_FUNC(masks_fill_x_mirror)(
                         __API_MCWM_INT_TYPE * __RESTRICT ptSourceBase,
                         int16_t iSourceStride,
                         arm_2d_size_t *__RESTRICT ptSourceSize,
-                        
+
                     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                         uint32_t * __RESTRICT ptSourceMaskBase,
                     #else
@@ -244,11 +249,11 @@ void __MCWM_FUNC(masks_fill_x_mirror)(
                     #endif
                         int16_t iSourceMaskStride,
                         arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-                        
+
                         __API_MCWM_INT_TYPE *__RESTRICT ptTargetBase,
                         int16_t iTargetStride,
                         arm_2d_size_t *__RESTRICT ptTargetSize,
-                        
+
                     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
                         uint32_t *__RESTRICT ptTargetMaskBase,
                     #else
@@ -258,34 +263,34 @@ void __MCWM_FUNC(masks_fill_x_mirror)(
                         arm_2d_size_t *__RESTRICT ptTargetMaskSize)
 {
 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
-    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;  
+    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;
 #else
-    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;  
+    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;
 #endif
 
     for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
-    
+
         //! reset source
         __API_MCWM_INT_TYPE *__RESTRICT ptSource = ptSourceBase;
     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
         uint32_t *ptSourceMask = ptSourceMaskBase;
     #else
-        uint8_t *ptSourceMask = ptSourceMaskBase;    
+        uint8_t *ptSourceMask = ptSourceMaskBase;
     #endif
-    
+
     #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
         int_fast16_t iSourceMaskY = 0;
     #endif
-        
+
         for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
             __API_MCWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;
-        
+
         #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
             uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;
         #else
-            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;      
+            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;
         #endif
-        
+
             /*---------------- Height Loop Begin----------------*/
             uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
 
@@ -299,41 +304,46 @@ void __MCWM_FUNC(masks_fill_x_mirror)(
             #else
                 uint8_t *__RESTRICT ptSrcMsk = ptSourceMask;
             #endif
-            
+
                 ptSrc += ptSourceSize->iWidth - 1;
                 ptSrcMsk += ptSourceSize->iWidth - 1;
-                
+
                 for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 
+                    uint16_t hwOpacity =
                         256 - (
                         #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                             *(uint8_t *)(ptSrcMsk--)
                         #else
-                            (*ptSrcMsk--) 
+                            (*ptSrcMsk--)
                         #endif
-                        
-                            * 
+
+                            *
                         #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
                             *(uint8_t *)(ptTargetMask++)
                         #else
-                            (*ptTargetMask++) 
+                            (*ptTargetMask++)
                         #endif
-                            
+
                             >> 8);
+
+                #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    hwOpacity -= (hwOpacity == 2) * 2;
+                #endif
+
                     __API_MCWM_PIXEL_BLENDING(ptSrc--, ptTarget++, hwOpacity);
                 }
 
                 /*---------------- Width Loop End----------------*/
                 wLengthLeft -= wLength;
             } while (wLengthLeft);
-            
+
             /*---------------- Height Loop End----------------*/
             ptSource += iSourceStride;
             ptTargetBase += iTargetStride;
-        
+
         #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
             iSourceMaskY++;
-            //! handle source mask 
+            //! handle source mask
             if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
                ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
                 ptSourceMask = ptSourceMaskBase;
@@ -344,13 +354,13 @@ void __MCWM_FUNC(masks_fill_x_mirror)(
         #else
             ptSourceMask += iSourceMaskStride;
         #endif
-            
+
         #if __API_MCWM_CFG_1_HORIZONTAL_LINE
             ptTargetMaskLineBase = ptTargetMaskBase;
         #else
             ptTargetMaskLineBase += iTargetMaskStride;
         #endif
-            
+
             iTargetY++;
             if (iTargetY >= ptTargetSize->iHeight) {
                 break;
@@ -366,7 +376,7 @@ void __MCWM_FUNC(masks_fill_y_mirror)(
                         __API_MCWM_INT_TYPE * __RESTRICT ptSourceBase,
                         int16_t iSourceStride,
                         arm_2d_size_t *__RESTRICT ptSourceSize,
-                        
+
                     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                         uint32_t * __RESTRICT ptSourceMaskBase,
                     #else
@@ -374,11 +384,11 @@ void __MCWM_FUNC(masks_fill_y_mirror)(
                     #endif
                         int16_t iSourceMaskStride,
                         arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-                        
+
                         __API_MCWM_INT_TYPE *__RESTRICT ptTargetBase,
                         int16_t iTargetStride,
                         arm_2d_size_t *__RESTRICT ptTargetSize,
-                        
+
                     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
                         uint32_t *__RESTRICT ptTargetMaskBase,
                     #else
@@ -389,37 +399,37 @@ void __MCWM_FUNC(masks_fill_y_mirror)(
 {
     assert(ptSourceSize->iHeight <= ptSourceMaskSize->iHeight);
     ptSourceMaskBase += iSourceMaskStride * (ptSourceSize->iHeight - 1);
-    
+
 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
-    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase; 
+    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;
 #else
-    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;  
+    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;
 #endif
 
     for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
-    
+
         //! reset source
-        __API_MCWM_INT_TYPE *__RESTRICT ptSource 
-            = ptSourceBase + iSourceStride * (ptSourceSize->iHeight - 1); 
+        __API_MCWM_INT_TYPE *__RESTRICT ptSource
+            = ptSourceBase + iSourceStride * (ptSourceSize->iHeight - 1);
     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
         uint32_t *ptSourceMask = ptSourceMaskBase;
     #else
-        uint8_t *ptSourceMask = ptSourceMaskBase;   
+        uint8_t *ptSourceMask = ptSourceMaskBase;
     #endif
-    
+
     #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
         int_fast16_t iSourceMaskY = 0;
     #endif
-    
+
         for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
             __API_MCWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;
-            
+
         #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
-            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;  
+            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;
         #else
-            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;      
+            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;
         #endif
-        
+
             /*---------------- Height Loop Begin----------------*/
             uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
 
@@ -434,36 +444,40 @@ void __MCWM_FUNC(masks_fill_y_mirror)(
                 uint8_t *__RESTRICT ptSrcMsk = ptSourceMask;
             #endif
                 for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 
+                    uint16_t hwOpacity =
                         256 - (
                         #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                             *(uint8_t *)(ptSrcMsk++)
                         #else
-                            (*ptSrcMsk++) 
+                            (*ptSrcMsk++)
                         #endif
-                        
-                            * 
+
+                            *
                         #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
                             *(uint8_t *)(ptTargetMask++)
                         #else
-                            (*ptTargetMask++) 
+                            (*ptTargetMask++)
                         #endif
-                            
+
                             >> 8);
+
+                #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    hwOpacity -= (hwOpacity == 2) * 2;
+                #endif
                     __API_MCWM_PIXEL_BLENDING(ptSrc++, ptTarget++, hwOpacity);
                 }
 
                 /*---------------- Width Loop End----------------*/
                 wLengthLeft -= wLength;
             } while (wLengthLeft);
-            
+
             /*---------------- Height Loop End----------------*/
             ptSource -= iSourceStride;
             ptTargetBase += iTargetStride;
-        
+
         #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
             iSourceMaskY++;
-            //! handle source mask 
+            //! handle source mask
             if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
                ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
                 ptSourceMask = ptSourceMaskBase;
@@ -474,13 +488,13 @@ void __MCWM_FUNC(masks_fill_y_mirror)(
         #else
             ptSourceMask -= iSourceMaskStride;
         #endif
-        
+
         #if __API_MCWM_CFG_1_HORIZONTAL_LINE
             ptTargetMaskLineBase = ptTargetMaskBase;
         #else
             ptTargetMaskLineBase += iTargetMaskStride;
         #endif
-            
+
             iTargetY++;
             if (iTargetY >= ptTargetSize->iHeight) {
                 break;
@@ -495,7 +509,7 @@ void __MCWM_FUNC(masks_fill_xy_mirror)(
                         __API_MCWM_INT_TYPE * __RESTRICT ptSourceBase,
                         int16_t iSourceStride,
                         arm_2d_size_t *__RESTRICT ptSourceSize,
-                        
+
                     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                         uint32_t * __RESTRICT ptSourceMaskBase,
                     #else
@@ -503,11 +517,11 @@ void __MCWM_FUNC(masks_fill_xy_mirror)(
                     #endif
                         int16_t iSourceMaskStride,
                         arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-                        
+
                         __API_MCWM_INT_TYPE *__RESTRICT ptTargetBase,
                         int16_t iTargetStride,
                         arm_2d_size_t *__RESTRICT ptTargetSize,
-                        
+
                     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
                         uint32_t *__RESTRICT ptTargetMaskBase,
                     #else
@@ -518,37 +532,37 @@ void __MCWM_FUNC(masks_fill_xy_mirror)(
 {
     assert(ptSourceSize->iHeight <= ptSourceMaskSize->iHeight);
     ptSourceMaskBase += iSourceMaskStride * (ptSourceSize->iHeight - 1);
-    
+
 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
-    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;  
+    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;
 #else
-    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;  
+    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;
 #endif
 
     for (int_fast16_t iTargetY = 0; iTargetY < ptTargetSize->iHeight;) {
-    
+
         //! reset source
-        __API_MCWM_INT_TYPE *__RESTRICT ptSource 
-            = ptSourceBase + iSourceStride * (ptSourceSize->iHeight - 1);  
+        __API_MCWM_INT_TYPE *__RESTRICT ptSource
+            = ptSourceBase + iSourceStride * (ptSourceSize->iHeight - 1);
     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
-        uint32_t *ptSourceMask = ptSourceMaskBase; 
+        uint32_t *ptSourceMask = ptSourceMaskBase;
     #else
-        uint8_t *ptSourceMask = ptSourceMaskBase;    
+        uint8_t *ptSourceMask = ptSourceMaskBase;
     #endif
-    
+
     #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
         int_fast16_t iSourceMaskY = 0;
     #endif
-        
+
         for (int_fast16_t iSourceY = 0; iSourceY < ptSourceSize->iHeight; iSourceY++) {
             __API_MCWM_INT_TYPE *__RESTRICT ptTarget = ptTargetBase;
-            
+
         #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
-            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;      
+            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;
         #else
-            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;      
+            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;
         #endif
-        
+
             /*---------------- Height Loop Begin----------------*/
             uint_fast32_t   wLengthLeft = ptTargetSize->iWidth;
 
@@ -562,42 +576,46 @@ void __MCWM_FUNC(masks_fill_xy_mirror)(
             #else
                 uint8_t *__RESTRICT ptSrcMsk = ptSourceMask;
             #endif
-            
+
                 ptSrc += ptSourceSize->iWidth - 1;
                 ptSrcMsk += ptSourceSize->iWidth - 1;
-                
-                
+
+
                 for (int_fast16_t x = 0; x < wLength; x++) {
-                    uint16_t hwOpacity = 
+                    uint16_t hwOpacity =
                         256 - (
                         #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                             *(uint8_t *)(ptSrcMsk--)
                         #else
-                            (*ptSrcMsk--) 
+                            (*ptSrcMsk--)
                         #endif
-                        
-                            * 
+
+                            *
                         #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
                             *(uint8_t *)(ptTargetMask++)
                         #else
-                            (*ptTargetMask++) 
+                            (*ptTargetMask++)
                         #endif
-                            
+
                             >> 8);
+
+                #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                    hwOpacity -= (hwOpacity == 2) * 2;
+                #endif
                     __API_MCWM_PIXEL_BLENDING(ptSrc--, ptTarget++, hwOpacity);
                 }
 
                 /*---------------- Width Loop End----------------*/
                 wLengthLeft -= wLength;
             } while (wLengthLeft);
-            
+
             /*---------------- Height Loop End----------------*/
             ptSource -= iSourceStride;
             ptTargetBase += iTargetStride;
-        
+
         #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
             iSourceMaskY++;
-            //! handle source mask 
+            //! handle source mask
             if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
                ||   (iSourceMaskY >= ptSourceSize->iHeight)) {
                 ptSourceMask = ptSourceMaskBase;
@@ -608,13 +626,13 @@ void __MCWM_FUNC(masks_fill_xy_mirror)(
         #else
             ptSourceMask -= iSourceMaskStride;
         #endif
-        
+
         #if __API_MCWM_CFG_1_HORIZONTAL_LINE
             ptTargetMaskLineBase = ptTargetMaskBase;
         #else
             ptTargetMaskLineBase += iTargetMaskStride;
         #endif
-            
+
             iTargetY++;
             if (iTargetY >= ptTargetSize->iHeight) {
                 break;
@@ -630,7 +648,7 @@ void __MCWM_FUNC(masks_fill_mirror)(
                         __API_MCWM_INT_TYPE * __RESTRICT ptSourceBase,
                         int16_t iSourceStride,
                         arm_2d_size_t *__RESTRICT ptSourceSize,
-                        
+
                     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                         uint32_t * __RESTRICT ptSourceMaskBase,
                     #else
@@ -638,11 +656,11 @@ void __MCWM_FUNC(masks_fill_mirror)(
                     #endif
                         int16_t iSourceMaskStride,
                         arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-                        
+
                         __API_MCWM_INT_TYPE *__RESTRICT ptTargetBase,
                         int16_t iTargetStride,
                         arm_2d_size_t *__RESTRICT ptTargetSize,
-                        
+
                     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
                         uint32_t *__RESTRICT ptTargetMaskBase,
                     #else
@@ -685,10 +703,10 @@ void __MCWM_FUNC(masks_fill_mirror)(
  * Copy with Mirroring  (both masks)                                          *
  *----------------------------------------------------------------------------*/
 __WEAK
-void __MCWM_FUNC(masks_copy)(   
+void __MCWM_FUNC(masks_copy)(
                             __API_MCWM_INT_TYPE * __RESTRICT pSourceBase,
                             int16_t iSourceStride,
-                            
+
                     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                         uint32_t * __RESTRICT ptSourceMaskBase,
                     #else
@@ -696,7 +714,7 @@ void __MCWM_FUNC(masks_copy)(
                     #endif
                             int16_t iSourceMaskStride,
                             arm_2d_size_t *__RESTRICT ptSourceMaskSize,
-                            
+
                             __API_MCWM_INT_TYPE * __RESTRICT pTargetBase,
                             int16_t iTargetStride,
 
@@ -727,37 +745,40 @@ void __MCWM_FUNC(masks_copy)(
 
 #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
     int_fast16_t iSourceMaskY = 0;
-#endif    
-    
-    for (   int_fast16_t y = 0; 
-            y < iHeight; 
+#endif
+
+    for (   int_fast16_t y = 0;
+            y < iHeight;
             y++) {
-    
+
         for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwOpacity = 
+            uint16_t hwOpacity =
                 256 - (
                 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                     *(uint8_t *)(ptSourceMask++)
                 #else
-                    (*ptSourceMask++) 
+                    (*ptSourceMask++)
                 #endif
-                    * 
+                    *
                 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
                     *(uint8_t *)(ptTargetMask++)
                 #else
-                    (*ptTargetMask++) 
+                    (*ptTargetMask++)
                 #endif
-                
+
                     >> 8);
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                hwOpacity -= (hwOpacity == 2) * 2;
+            #endif
 
             __API_MCWM_PIXEL_BLENDING( pSourceBase++, pTargetBase++, hwOpacity);
-            
+
         }
         pSourceBase += (iSourceStride - iWidth);
         pTargetBase += (iTargetStride - iWidth);
-        
+
     #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
-        //! handle source mask 
+        //! handle source mask
         iSourceMaskY++;
         if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
            ||   (iSourceMaskY >= iHeight)) {
@@ -769,7 +790,7 @@ void __MCWM_FUNC(masks_copy)(
     #else
         ptSourceMask += (iSourceMaskStride - iWidth);
     #endif
-    
+
     #if __API_MCWM_CFG_1_HORIZONTAL_LINE
         ptTargetMask = ptTargetMaskBase;
     #else
@@ -780,7 +801,7 @@ void __MCWM_FUNC(masks_copy)(
 
 
 __WEAK
-void __MCWM_FUNC(masks_copy_x_mirror)(  
+void __MCWM_FUNC(masks_copy_x_mirror)(
                             __API_MCWM_INT_TYPE * __RESTRICT pSourceBase,
                             int16_t iSourceStride,
 
@@ -820,12 +841,12 @@ void __MCWM_FUNC(masks_copy_x_mirror)(
 
 #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
     int_fast16_t iSourceMaskY = 0;
-#endif  
+#endif
 
-    for (   int_fast16_t y = 0; 
-            y < iHeight; 
+    for (   int_fast16_t y = 0;
+            y < iHeight;
             y++) {
-    
+
         __API_MCWM_INT_TYPE  *ptTargetCur = pTargetBase;
         __API_MCWM_INT_TYPE  *ptSourceCur = pSourceBase;
     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
@@ -833,35 +854,40 @@ void __MCWM_FUNC(masks_copy_x_mirror)(
     #else
         uint8_t *pchSourceMaskCur = ptSourceMask;
     #endif
-    
+
         ptSourceCur += ptCopySize->iWidth - 1;
         //! \note do not use ptSourceMaskSize->iWidth
-        pchSourceMaskCur += ptCopySize->iWidth - 1; 
-        
+        pchSourceMaskCur += ptCopySize->iWidth - 1;
+
         for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwOpacity = 
+            uint16_t hwOpacity =
                 256 - (
                 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                     *(uint8_t *)(pchSourceMaskCur--)
                 #else
-                    (*pchSourceMaskCur--) 
+                    (*pchSourceMaskCur--)
                 #endif
-                    * 
+                    *
                 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
                     *(uint8_t *)(ptTargetMask++)
                 #else
-                    (*ptTargetMask++) 
+                    (*ptTargetMask++)
                 #endif
-                
+
                     >> 8);
+
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                hwOpacity -= (hwOpacity == 2) * 2;
+            #endif
+
             __API_MCWM_PIXEL_BLENDING( ptSourceCur--, ptTargetCur++, hwOpacity);
-            
+
         }
         pSourceBase += iSourceStride;
         pTargetBase += iTargetStride;
-    
+
     #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
-        //! handle source mask 
+        //! handle source mask
         iSourceMaskY++;
         if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
            ||   (iSourceMaskY >= iHeight)) {
@@ -873,7 +899,7 @@ void __MCWM_FUNC(masks_copy_x_mirror)(
     #else
         ptSourceMask += iSourceMaskStride;
     #endif
-    
+
     #if __API_MCWM_CFG_1_HORIZONTAL_LINE
         ptTargetMask = ptTargetMaskBase;
     #else
@@ -885,7 +911,7 @@ void __MCWM_FUNC(masks_copy_x_mirror)(
 
 
 __WEAK
-void __MCWM_FUNC(masks_copy_y_mirror)(  
+void __MCWM_FUNC(masks_copy_y_mirror)(
                             __API_MCWM_INT_TYPE * __RESTRICT pSourceBase,
                             int16_t iSourceStride,
 
@@ -915,10 +941,10 @@ void __MCWM_FUNC(masks_copy_y_mirror)(
     //uint16_t        hwRatioCompl = 256 - chRatio;
 
     pSourceBase += iSourceStride * (ptCopySize->iHeight - 1);
-    
+
     assert (ptCopySize->iHeight <= ptSourceMaskSize->iHeight);
     ptSourceMaskBase += iSourceMaskStride * (ptCopySize->iHeight - 1);
-    
+
 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
     uint32_t *ptSourceMask = ptSourceMaskBase;
 #else
@@ -932,45 +958,48 @@ void __MCWM_FUNC(masks_copy_y_mirror)(
 
 #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
     int_fast16_t iSourceMaskY = 0;
-#endif  
+#endif
 
-    for (   int_fast16_t y = 0; 
-            y < iHeight; 
+    for (   int_fast16_t y = 0;
+            y < iHeight;
             y++) {
-    
+
         __API_MCWM_INT_TYPE  *ptSourceCur = pSourceBase;
     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
         uint32_t *pchSourceMaskCur = ptSourceMask;
     #else
         uint8_t *pchSourceMaskCur = ptSourceMask;
     #endif
-    
+
         for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwOpacity = 
+            uint16_t hwOpacity =
                 256 - (
                 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                     *(uint8_t *)(pchSourceMaskCur++)
                 #else
-                    (*pchSourceMaskCur++) 
+                    (*pchSourceMaskCur++)
                 #endif
-                    * 
+                    *
                 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
                     *(uint8_t *)(ptTargetMask++)
                 #else
-                    (*ptTargetMask++) 
+                    (*ptTargetMask++)
                 #endif
-                
+
                     >> 8);
-            
+
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                hwOpacity -= (hwOpacity == 2) * 2;
+            #endif
 
             __API_MCWM_PIXEL_BLENDING( ptSourceCur++, pTargetBase++, hwOpacity);
-            
+
         }
         pSourceBase -= iSourceStride;
         pTargetBase += (iTargetStride - iWidth);
-        
+
     #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
-        //! handle source mask 
+        //! handle source mask
         iSourceMaskY++;
         if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
            ||   (iSourceMaskY >= iHeight)) {
@@ -982,7 +1011,7 @@ void __MCWM_FUNC(masks_copy_y_mirror)(
     #else
         ptSourceMask -= iSourceMaskStride;
     #endif
-        
+
     #if __API_MCWM_CFG_1_HORIZONTAL_LINE
         ptTargetMask = ptTargetMaskBase;
     #else
@@ -994,7 +1023,7 @@ void __MCWM_FUNC(masks_copy_y_mirror)(
 
 
 __WEAK
-void __MCWM_FUNC(masks_copy_xy_mirror)(  
+void __MCWM_FUNC(masks_copy_xy_mirror)(
                             __API_MCWM_INT_TYPE * __RESTRICT pSourceBase,
                             int16_t iSourceStride,
 
@@ -1024,11 +1053,11 @@ void __MCWM_FUNC(masks_copy_xy_mirror)(
     //uint16_t        hwRatioCompl = 256 - chRatio;
 
     pSourceBase += iSourceStride * (ptCopySize->iHeight - 1);
-    
+
     assert (ptCopySize->iHeight <= ptSourceMaskSize->iHeight);
     ptSourceMaskBase += iSourceMaskStride * (ptCopySize->iHeight - 1);
-    
-    
+
+
 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
     uint32_t *ptSourceMask = ptSourceMaskBase;
 #else
@@ -1043,49 +1072,53 @@ void __MCWM_FUNC(masks_copy_xy_mirror)(
 
 #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
     int_fast16_t iSourceMaskY = 0;
-#endif  
+#endif
 
-    for (   int_fast16_t y = 0; 
-            y < iHeight; 
+    for (   int_fast16_t y = 0;
+            y < iHeight;
             y++) {
-    
+
         __API_MCWM_INT_TYPE  *ptSourceCur = pSourceBase;
-        
+
     #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
         uint32_t *pchSourceMaskCur = ptSourceMask;
     #else
         uint8_t *pchSourceMaskCur = ptSourceMask;
     #endif
-    
+
         ptSourceCur += ptCopySize->iWidth - 1;
         //! \note do not use ptSourceMaskSize->iWidth
-        pchSourceMaskCur += ptCopySize->iWidth - 1; 
-        
+        pchSourceMaskCur += ptCopySize->iWidth - 1;
+
         for (int_fast16_t x = 0; x < iWidth; x++) {
-            uint16_t hwOpacity = 
+            uint16_t hwOpacity =
                 256 - (
                 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
                     *(uint8_t *)(pchSourceMaskCur--)
                 #else
-                    (*pchSourceMaskCur--) 
+                    (*pchSourceMaskCur--)
                 #endif
-                    * 
+                    *
                 #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
                     *(uint8_t *)(ptTargetMask++)
                 #else
-                    (*ptTargetMask++) 
+                    (*ptTargetMask++)
                 #endif
-                
+
                     >> 8);
 
+            #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+                hwOpacity -= (hwOpacity == 2) * 2;
+            #endif
+
             __API_MCWM_PIXEL_BLENDING( ptSourceCur--, pTargetBase++, hwOpacity);
-            
+
         }
         pSourceBase -= iSourceStride;
         pTargetBase += (iTargetStride - iWidth);
-        
+
     #if __API_MCWM_CFG_SUPPORT_SRC_MSK_WRAPING
-        //! handle source mask 
+        //! handle source mask
         iSourceMaskY++;
         if (    (iSourceMaskY >= ptSourceMaskSize->iHeight)
            ||   (iSourceMaskY >= iHeight)) {
@@ -1097,7 +1130,7 @@ void __MCWM_FUNC(masks_copy_xy_mirror)(
     #else
         ptSourceMask -= iSourceMaskStride;
     #endif
-    
+
     #if __API_MCWM_CFG_1_HORIZONTAL_LINE
         ptTargetMask = ptTargetMaskBase;
     #else
@@ -1108,7 +1141,7 @@ void __MCWM_FUNC(masks_copy_xy_mirror)(
 }
 
 __WEAK
-void __MCWM_FUNC(masks_copy_mirror)(  
+void __MCWM_FUNC(masks_copy_mirror)(
                             __API_MCWM_INT_TYPE * __RESTRICT pSourceBase,
                             int16_t iSourceStride,
 
@@ -1139,7 +1172,7 @@ void __MCWM_FUNC(masks_copy_mirror)(
           __MCWM_FUNC(masks_copy_x_mirror)(pSourceBase, iSourceStride,
                                             ptSourceMaskBase, iSourceMaskStride,
                                             ptSourceMaskSize,
-                                            pTargetBase, iTargetStride, 
+                                            pTargetBase, iTargetStride,
                                             ptTargetMaskBase, iTargetMaskStride,
                                             ptTargetMaskSize,
                                             ptCopySize);
@@ -1148,7 +1181,7 @@ void __MCWM_FUNC(masks_copy_mirror)(
           __MCWM_FUNC(masks_copy_y_mirror)(pSourceBase, iSourceStride,
                                             ptSourceMaskBase, iSourceMaskStride,
                                             ptSourceMaskSize,
-                                            pTargetBase, iTargetStride, 
+                                            pTargetBase, iTargetStride,
                                             ptTargetMaskBase, iTargetMaskStride,
                                             ptTargetMaskSize,
                                             ptCopySize);
@@ -1157,7 +1190,7 @@ void __MCWM_FUNC(masks_copy_mirror)(
           __MCWM_FUNC(masks_copy_xy_mirror)(pSourceBase, iSourceStride,
                                             ptSourceMaskBase, iSourceMaskStride,
                                             ptSourceMaskSize,
-                                            pTargetBase, iTargetStride, 
+                                            pTargetBase, iTargetStride,
                                             ptTargetMaskBase, iTargetMaskStride,
                                             ptTargetMaskSize,
                                             ptCopySize);
@@ -1169,19 +1202,19 @@ void __MCWM_FUNC(masks_copy_mirror)(
 }
 
 
-#undef masks_fill                 
-#undef masks_fill_x_mirror        
-#undef masks_fill_y_mirror        
-#undef masks_fill_xy_mirror       
-#undef masks_fill_mirror          
-                                       
+#undef masks_fill
+#undef masks_fill_x_mirror
+#undef masks_fill_y_mirror
+#undef masks_fill_xy_mirror
+#undef masks_fill_mirror
 
-#undef masks_copy                 
-#undef masks_copy_x_mirror        
-#undef masks_copy_y_mirror        
-#undef masks_copy_xy_mirror       
-#undef masks_copy_mirror                          
-                                  
+
+#undef masks_copy
+#undef masks_copy_x_mirror
+#undef masks_copy_y_mirror
+#undef masks_copy_xy_mirror
+#undef masks_copy_mirror
+
 
 #undef __API_MCWM_COPY_LIKE_OP_NAME
 #undef __API_MCWM_OP_NAME

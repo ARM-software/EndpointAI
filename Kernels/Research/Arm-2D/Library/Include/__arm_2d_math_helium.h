@@ -65,12 +65,12 @@ extern "C" {
 #define ARM_VLD_ASM(sz)       ARM_CONNECT2(vld, sz)
 #define ARM_VST_ASM(sz)       ARM_CONNECT2(vst, sz)
 
-#define ARM_VLD1_ASM(sz)      TO_STRING(ARM_VLD_ASM(sz).ARM_CONNECT2(u,sz))
-#define ARM_VST1_ASM(sz)      TO_STRING(ARM_VST_ASM(sz).ARM_CONNECT2(u,sz))
-#define ARM_VLD1Z_ASM(sz)     TO_STRING(ARM_VLD_ASM(sz)t.ARM_CONNECT2(u,sz))
-#define ARM_VST1P_ASM(sz)     TO_STRING(ARM_VST_ASM(sz)t.ARM_CONNECT2(u,sz))
-#define ARM_VLDWID_ASM(sz, wid)    TO_STRING(ARM_VLD_ASM(sz).ARM_CONNECT2(u,wid))
-#define ARM_VSTNRW_ASM(sz, nrw)    TO_STRING(ARM_VLD_ASM(sz).ARM_CONNECT2(u,nrw))
+#define ARM_VLD1_ASM(sz)      ARM_TO_STRING(ARM_VLD_ASM(sz).ARM_CONNECT2(u,sz))
+#define ARM_VST1_ASM(sz)      ARM_TO_STRING(ARM_VST_ASM(sz).ARM_CONNECT2(u,sz))
+#define ARM_VLD1Z_ASM(sz)     ARM_TO_STRING(ARM_VLD_ASM(sz)t.ARM_CONNECT2(u,sz))
+#define ARM_VST1P_ASM(sz)     ARM_TO_STRING(ARM_VST_ASM(sz)t.ARM_CONNECT2(u,sz))
+#define ARM_VLDWID_ASM(sz, wid)    ARM_TO_STRING(ARM_VLD_ASM(sz).ARM_CONNECT2(u,wid))
+#define ARM_VSTNRW_ASM(sz, nrw)    ARM_TO_STRING(ARM_VLD_ASM(sz).ARM_CONNECT2(u,nrw))
 
 
 /* number of vector elements */

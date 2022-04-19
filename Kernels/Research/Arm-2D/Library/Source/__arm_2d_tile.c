@@ -1207,7 +1207,7 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_RGB16 = {
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_RGB32 = {
     .Info = {
         .Colour = {
-            .chScheme   = ARM_2D_COLOUR_RGB888,
+            .chScheme   = ARM_2D_COLOUR_CCCN888,
         },
         .Param = {
             .bHasSource     = true,
