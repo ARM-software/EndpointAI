@@ -3,7 +3,7 @@
  * Auto generated Run-Time-Environment Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'watch_panel' 
+ * Project: 'gcc_watch_panel' 
  * Target:  'V2M-MPS2-CM0+' 
  */
 

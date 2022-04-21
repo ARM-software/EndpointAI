@@ -21,8 +21,8 @@
  * Title:        arm-2d_rotation.c
  * Description:  APIs for tile rotation
  *
- * $Date:        19 April 2022
- * $Revision:    V.1.0.0
+ * $Date:        21 April 2022
+ * $Revision:    V.1.0.1
  *
  * Target Processor:  Cortex-M cores
  *
@@ -62,6 +62,7 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wpadded"
 #   pragma clang diagnostic ignored "-Wundef"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
 #elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 174,177,188,68,513,144,1296
 #elif defined(__IS_COMPILER_IAR__)
@@ -155,11 +156,13 @@ __arm_2d_point_get_adjacent_alpha_fp(arm_2d_point_float_t *ptPoint)
                     .iX = -iXSign,
                     .iY = -iYSign,
                 },
+            #if 0
                 .chAlpha = (uint8_t)(
                                 ((float)(1-iXSign)  - (float)x)     //!< x
                             *   ((float)(1-iYSign)  - (float)y)     //!< y
-                            *   259.0f 
+                            *   256.0f 
                             ),
+            #endif
             },
             [1] = {
                 .tOffset = {
@@ -169,7 +172,7 @@ __arm_2d_point_get_adjacent_alpha_fp(arm_2d_point_float_t *ptPoint)
                 .chAlpha = (uint8_t)(
                                 ((float)iXSign      + (float)x)     //!< x
                             *   ((float)(1-iYSign)  - (float)y)     //!< y
-                            *   259.0f  
+                            *   256.0f  
                             ),
             },
             [2] = {
@@ -180,7 +183,7 @@ __arm_2d_point_get_adjacent_alpha_fp(arm_2d_point_float_t *ptPoint)
                 .chAlpha = (uint8_t)(
                                 ((float)(1-iXSign)  - (float)x)     //!< x
                             *   ((float)iYSign      + (float)y)     //!< y
-                            *   259.0f 
+                            *   256.0f 
                             ),
             },
             [3] = {
@@ -191,12 +194,17 @@ __arm_2d_point_get_adjacent_alpha_fp(arm_2d_point_float_t *ptPoint)
                 .chAlpha = (uint8_t)(
                                 ((float)iXSign      + (float)x)     //!< x
                             *   ((float)iYSign      + (float)y)     //!< y
-                            *   259.0f 
+                            *   256.0f 
                             ),
             },
         },
     };
-
+#if 1
+    tResult.tMatrix[0].chAlpha  = 256 
+                                - tResult.tMatrix[1].chAlpha
+                                - tResult.tMatrix[2].chAlpha
+                                - tResult.tMatrix[3].chAlpha;
+#endif
     return tResult;
 }
 
@@ -220,11 +228,13 @@ __arm_2d_point_get_adjacent_alpha_q16(arm_2d_point_fx_t *ptPoint)
                     .iX = -iXSign,
                     .iY = -iYSign,
                 },
+            #if 0
                 .chAlpha = (uint8_t)__USAT(
              MUL_Q16(MUL_Q16(   (TO_Q16(1-iXSign)   - x)        //!< x
                             ,   (TO_Q16(1-iYSign)   - y))       //!< y
-                            ,   TO_Q16(256 + 3)
+                            ,   TO_Q16(256)
                             ) >> 16, 8),
+            #endif
             },
             [1] = {
                 .tOffset = {
@@ -234,7 +244,7 @@ __arm_2d_point_get_adjacent_alpha_q16(arm_2d_point_fx_t *ptPoint)
                 .chAlpha = (uint8_t)__USAT(
              MUL_Q16(MUL_Q16(   (TO_Q16(iXSign)     + x)        //!< x
                             ,   (TO_Q16(1-iYSign)   - y))       //!< y
-                            ,   TO_Q16(256 + 3)
+                            ,   TO_Q16(256)
                             ) >> 16, 8),
             },
             [2] = {
@@ -245,7 +255,7 @@ __arm_2d_point_get_adjacent_alpha_q16(arm_2d_point_fx_t *ptPoint)
                 .chAlpha = (uint8_t)__USAT(
              MUL_Q16(MUL_Q16(   (TO_Q16(1-iXSign)   - x)        //!< x
                             ,   (TO_Q16(iYSign)     + y))       //!< y
-                            ,   TO_Q16(256 + 3)
+                            ,   TO_Q16(256)
                             ) >> 16, 8),
             },
             [3] = {
@@ -256,11 +266,17 @@ __arm_2d_point_get_adjacent_alpha_q16(arm_2d_point_fx_t *ptPoint)
                 .chAlpha = (uint8_t)__USAT(
              MUL_Q16(MUL_Q16(   (TO_Q16(iXSign)     + x)        //!< x
                             ,   (TO_Q16(iYSign)     + y))       //!< y
-                            ,   TO_Q16(256 + 3)
+                            ,   TO_Q16(256)
                             ) >> 16, 8),
             },
         },
     };
+#if 1
+    tResult.tMatrix[0].chAlpha  = 256 
+                                - tResult.tMatrix[1].chAlpha
+                                - tResult.tMatrix[2].chAlpha
+                                - tResult.tMatrix[3].chAlpha;
+#endif
 
     return tResult;
 }

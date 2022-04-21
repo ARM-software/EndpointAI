@@ -29,6 +29,7 @@
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
 #   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
 #   pragma clang diagnostic ignored "-Wformat-nonliteral"
 #   pragma clang diagnostic ignored "-Wsign-compare"
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
@@ -59,7 +60,11 @@ void ARM_WRAP(osRtxTick_Handler)(void)
 {
     platform_1ms_event_handler();
     bsp_1ms_event_handler();
-    
+
+#if __IS_COMPILER_GCC__ || __IS_COMPILER_LLVM__
+    user_code_insert_to_systick_handler();
+#endif
+
     extern void ARM_REAL(osRtxTick_Handler)(void);
     ARM_REAL(osRtxTick_Handler)();
 }

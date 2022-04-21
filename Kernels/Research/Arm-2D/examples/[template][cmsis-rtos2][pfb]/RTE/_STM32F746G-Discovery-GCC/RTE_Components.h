@@ -28,8 +28,6 @@
 #define __RTE_ACCELERATION_ARM_2D__
 /* Arm::Acceleration:Arm-2D:Transform:1.0.0-preview */
 #define __RTE_ACCELERATION_ARM_2D_TRANSFORM__
-/* GorgonMeducer.Performance Counter::Utilities:perf_counter:Core:Library:1.9.4-alpha */
-#define __PERF_COUNTER__
 /* Keil::CMSIS Driver:USART:1.16.0 */
 #define RTE_Drivers_USART1              /* Driver USART1 */
         #define RTE_Drivers_USART2              /* Driver USART2 */

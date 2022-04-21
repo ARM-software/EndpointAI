@@ -26,6 +26,13 @@
  *----------------------------------------------------------------------------*/
 
 #include "./app_cfg.h"
+
+#if defined(__clang__)
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
+#endif
+
 #include <stddef.h>
 //#include "RTE_Components.h"             /* Component selection */
 //#include CMSIS_device_header

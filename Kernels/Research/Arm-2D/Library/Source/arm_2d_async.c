@@ -21,8 +21,8 @@
  * Title:        arm-2d_async.c
  * Description:  Pixel pipeline extensions for support hardware acceleration.
  *
- * $Date:        14. April 2022
- * $Revision:    V.1.0.0
+ * $Date:        21. April 2022
+ * $Revision:    V.1.0.1
  *
  * Target Processor:  Cortex-M cores
  *
@@ -63,6 +63,7 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wswitch"
 #   pragma clang diagnostic ignored "-Wimplicit-fallthrough"
 #   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
 #elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 174,177,188,68,513,144
 #elif defined(__IS_COMPILER_IAR__)

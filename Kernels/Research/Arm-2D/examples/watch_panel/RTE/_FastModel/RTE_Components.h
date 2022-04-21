@@ -16,6 +16,8 @@
  */
 #define CMSIS_device_header "CMSDK_CM4_FP.h"
 
+/* Keil::CMSIS Driver:USART:1.0.3 */
+#define RTE_Drivers_USART
 
 
 #endif /* RTE_COMPONENTS_H */

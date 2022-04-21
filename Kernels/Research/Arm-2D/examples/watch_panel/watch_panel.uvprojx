@@ -410,39 +410,44 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>platform.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\platform.h</FilePath>
-            </File>
-            <File>
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\app_platform.c</FilePath>
+              <FilePath>..\common\platform\app_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>Board_GLCD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\Board_GLCD.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
+              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lcd_printf.c</FilePath>
+              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lcd_printf.h</FilePath>
+              <FilePath>..\common\platform\lcd_printf.h</FilePath>
             </File>
             <File>
-              <FileName>perf_counter.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\platform.h</FilePath>
             </File>
             <File>
               <FileName>perf_counter.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lib\perf_counter.h</FilePath>
+              <FilePath>..\common\platform\lib\perf_counter.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -450,54 +455,59 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
-              <FileName>whilte_dot.c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\whilte_dot.c.c</FilePath>
-            </File>
-            <File>
               <FileName>arrow.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\arrow.c</FilePath>
+              <FilePath>..\common\asset\arrow.c</FilePath>
             </File>
             <File>
-              <FileName>gear_01.c</FileName>
+              <FileName>SpinWheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_01.c</FilePath>
-            </File>
-            <File>
-              <FileName>gear_02.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\gear_02.c</FilePath>
-            </File>
-            <File>
-              <FileName>pointer_sec.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\pointer_sec.c</FilePath>
+              <FilePath>..\common\asset\SpinWheel.c</FilePath>
             </File>
             <File>
               <FileName>clockface.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\clockface.c</FilePath>
+              <FilePath>..\common\asset\clockface.c</FilePath>
             </File>
             <File>
-              <FileName>watch_panel.c</FileName>
+              <FileName>gear_01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\watch_panel.c</FilePath>
+              <FilePath>..\common\asset\gear_01.c</FilePath>
+            </File>
+            <File>
+              <FileName>gear_02.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\pointer_sec.c</FilePath>
             </File>
             <File>
               <FileName>background.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\background.c</FilePath>
+              <FilePath>..\common\asset\background.c</FilePath>
             </File>
             <File>
               <FileName>star.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star.c</FilePath>
+              <FilePath>..\common\asset\star.c</FilePath>
             </File>
             <File>
               <FileName>star32.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star32.c</FilePath>
+              <FilePath>..\common\asset\star32.c</FilePath>
+            </File>
+            <File>
+              <FileName>whilte_dot.c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\watch_panel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -507,22 +517,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\busy_wheel.c</FilePath>
+              <FilePath>..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\controls\controls.h</FilePath>
+              <FilePath>..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\controls.c</FilePath>
+              <FilePath>..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -756,22 +786,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps2\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+              <FilePath>..\common\platform\mps2\platform_mps2.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps2\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -781,22 +811,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps3\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+              <FilePath>..\common\platform\mps3\platform_mps3.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -875,17 +905,17 @@
             <File>
               <FileName>GLCD_746G_Discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
-            </File>
-            <File>
-              <FileName>GLCD_Config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
             </File>
             <File>
               <FileName>platform_stm32f746g_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1065,7 +1095,7 @@
       <TargetName>V2M-MPS2-CM4</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6170000::V6.17::.\ARMCompiler6.17</pCCUsed>
+      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -1392,9 +1422,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
+              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;..\..\Library\Include;.;..\..\Helper\Include</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1465,39 +1495,44 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>platform.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\platform.h</FilePath>
-            </File>
-            <File>
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\app_platform.c</FilePath>
+              <FilePath>..\common\platform\app_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>Board_GLCD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\Board_GLCD.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
+              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lcd_printf.c</FilePath>
+              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lcd_printf.h</FilePath>
+              <FilePath>..\common\platform\lcd_printf.h</FilePath>
             </File>
             <File>
-              <FileName>perf_counter.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\platform.h</FilePath>
             </File>
             <File>
               <FileName>perf_counter.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lib\perf_counter.h</FilePath>
+              <FilePath>..\common\platform\lib\perf_counter.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -1505,54 +1540,59 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
-              <FileName>whilte_dot.c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\whilte_dot.c.c</FilePath>
-            </File>
-            <File>
               <FileName>arrow.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\arrow.c</FilePath>
+              <FilePath>..\common\asset\arrow.c</FilePath>
             </File>
             <File>
-              <FileName>gear_01.c</FileName>
+              <FileName>SpinWheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_01.c</FilePath>
-            </File>
-            <File>
-              <FileName>gear_02.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\gear_02.c</FilePath>
-            </File>
-            <File>
-              <FileName>pointer_sec.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\pointer_sec.c</FilePath>
+              <FilePath>..\common\asset\SpinWheel.c</FilePath>
             </File>
             <File>
               <FileName>clockface.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\clockface.c</FilePath>
+              <FilePath>..\common\asset\clockface.c</FilePath>
             </File>
             <File>
-              <FileName>watch_panel.c</FileName>
+              <FileName>gear_01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\watch_panel.c</FilePath>
+              <FilePath>..\common\asset\gear_01.c</FilePath>
+            </File>
+            <File>
+              <FileName>gear_02.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\pointer_sec.c</FilePath>
             </File>
             <File>
               <FileName>background.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\background.c</FilePath>
+              <FilePath>..\common\asset\background.c</FilePath>
             </File>
             <File>
               <FileName>star.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star.c</FilePath>
+              <FilePath>..\common\asset\star.c</FilePath>
             </File>
             <File>
               <FileName>star32.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star32.c</FilePath>
+              <FilePath>..\common\asset\star32.c</FilePath>
+            </File>
+            <File>
+              <FileName>whilte_dot.c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\watch_panel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1562,22 +1602,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\busy_wheel.c</FilePath>
+              <FilePath>..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\controls\controls.h</FilePath>
+              <FilePath>..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\controls.c</FilePath>
+              <FilePath>..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1742,22 +1802,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps2\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+              <FilePath>..\common\platform\mps2\platform_mps2.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps2\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1836,22 +1896,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps3\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+              <FilePath>..\common\platform\mps3\platform_mps3.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1930,17 +1990,17 @@
             <File>
               <FileName>GLCD_746G_Discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
-            </File>
-            <File>
-              <FileName>GLCD_Config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
             </File>
             <File>
               <FileName>platform_stm32f746g_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2189,7 +2249,7 @@
       <TargetName>FastModel</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160001::V6.16.1::..\..\Program Files\ARMCompiler6.16.1</pCCUsed>
+      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -2492,7 +2552,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>0</Optim>
+            <Optim>5</Optim>
             <oTime>1</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -2511,14 +2571,14 @@
             <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
-            <v6Lto>1</v6Lto>
+            <v6Lto>0</v6Lto>
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,ITERATION_CNT=10</Define>
+              <MiscControls></MiscControls>
+              <Define>__USE_FVP__,NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;.;..\..\Library\Include;..\..\Helper\Include</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2588,39 +2648,44 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>platform.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\platform.h</FilePath>
-            </File>
-            <File>
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\app_platform.c</FilePath>
+              <FilePath>..\common\platform\app_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>Board_GLCD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\Board_GLCD.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
+              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lcd_printf.c</FilePath>
+              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lcd_printf.h</FilePath>
+              <FilePath>..\common\platform\lcd_printf.h</FilePath>
             </File>
             <File>
-              <FileName>perf_counter.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\platform.h</FilePath>
             </File>
             <File>
               <FileName>perf_counter.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lib\perf_counter.h</FilePath>
+              <FilePath>..\common\platform\lib\perf_counter.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -2628,54 +2693,59 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
-              <FileName>whilte_dot.c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\whilte_dot.c.c</FilePath>
-            </File>
-            <File>
               <FileName>arrow.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\arrow.c</FilePath>
+              <FilePath>..\common\asset\arrow.c</FilePath>
             </File>
             <File>
-              <FileName>gear_01.c</FileName>
+              <FileName>SpinWheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_01.c</FilePath>
-            </File>
-            <File>
-              <FileName>gear_02.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\gear_02.c</FilePath>
-            </File>
-            <File>
-              <FileName>pointer_sec.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\pointer_sec.c</FilePath>
+              <FilePath>..\common\asset\SpinWheel.c</FilePath>
             </File>
             <File>
               <FileName>clockface.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\clockface.c</FilePath>
+              <FilePath>..\common\asset\clockface.c</FilePath>
             </File>
             <File>
-              <FileName>watch_panel.c</FileName>
+              <FileName>gear_01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\watch_panel.c</FilePath>
+              <FilePath>..\common\asset\gear_01.c</FilePath>
+            </File>
+            <File>
+              <FileName>gear_02.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\pointer_sec.c</FilePath>
             </File>
             <File>
               <FileName>background.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\background.c</FilePath>
+              <FilePath>..\common\asset\background.c</FilePath>
             </File>
             <File>
               <FileName>star.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star.c</FilePath>
+              <FilePath>..\common\asset\star.c</FilePath>
             </File>
             <File>
               <FileName>star32.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star32.c</FilePath>
+              <FilePath>..\common\asset\star32.c</FilePath>
+            </File>
+            <File>
+              <FileName>whilte_dot.c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\watch_panel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2685,22 +2755,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\busy_wheel.c</FilePath>
+              <FilePath>..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\controls\controls.h</FilePath>
+              <FilePath>..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\controls.c</FilePath>
+              <FilePath>..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2865,22 +2955,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps2\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+              <FilePath>..\common\platform\mps2\platform_mps2.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps2\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2959,22 +3049,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps3\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+              <FilePath>..\common\platform\mps3\platform_mps3.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3053,17 +3143,17 @@
             <File>
               <FileName>GLCD_746G_Discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
-            </File>
-            <File>
-              <FileName>GLCD_Config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
             </File>
             <File>
               <FileName>platform_stm32f746g_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3243,7 +3333,7 @@
       <TargetName>V2M-MPS2-CM33</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6170000::V6.17::.\ARMCompiler6.17</pCCUsed>
+      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -3570,9 +3660,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
+              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;.\platform\v2m_mps3;..\..\Library\Include;.;..\..\Helper\Include</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3\v2m_mps3</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3643,39 +3733,44 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>platform.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\platform.h</FilePath>
-            </File>
-            <File>
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\app_platform.c</FilePath>
+              <FilePath>..\common\platform\app_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>Board_GLCD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\Board_GLCD.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
+              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lcd_printf.c</FilePath>
+              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lcd_printf.h</FilePath>
+              <FilePath>..\common\platform\lcd_printf.h</FilePath>
             </File>
             <File>
-              <FileName>perf_counter.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\platform.h</FilePath>
             </File>
             <File>
               <FileName>perf_counter.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lib\perf_counter.h</FilePath>
+              <FilePath>..\common\platform\lib\perf_counter.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -3683,54 +3778,59 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
-              <FileName>whilte_dot.c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\whilte_dot.c.c</FilePath>
-            </File>
-            <File>
               <FileName>arrow.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\arrow.c</FilePath>
+              <FilePath>..\common\asset\arrow.c</FilePath>
             </File>
             <File>
-              <FileName>gear_01.c</FileName>
+              <FileName>SpinWheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_01.c</FilePath>
-            </File>
-            <File>
-              <FileName>gear_02.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\gear_02.c</FilePath>
-            </File>
-            <File>
-              <FileName>pointer_sec.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\pointer_sec.c</FilePath>
+              <FilePath>..\common\asset\SpinWheel.c</FilePath>
             </File>
             <File>
               <FileName>clockface.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\clockface.c</FilePath>
+              <FilePath>..\common\asset\clockface.c</FilePath>
             </File>
             <File>
-              <FileName>watch_panel.c</FileName>
+              <FileName>gear_01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\watch_panel.c</FilePath>
+              <FilePath>..\common\asset\gear_01.c</FilePath>
+            </File>
+            <File>
+              <FileName>gear_02.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\pointer_sec.c</FilePath>
             </File>
             <File>
               <FileName>background.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\background.c</FilePath>
+              <FilePath>..\common\asset\background.c</FilePath>
             </File>
             <File>
               <FileName>star.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star.c</FilePath>
+              <FilePath>..\common\asset\star.c</FilePath>
             </File>
             <File>
               <FileName>star32.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star32.c</FilePath>
+              <FilePath>..\common\asset\star32.c</FilePath>
+            </File>
+            <File>
+              <FileName>whilte_dot.c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\watch_panel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3740,22 +3840,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\busy_wheel.c</FilePath>
+              <FilePath>..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\controls\controls.h</FilePath>
+              <FilePath>..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\controls.c</FilePath>
+              <FilePath>..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3920,22 +4040,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps2\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+              <FilePath>..\common\platform\mps2\platform_mps2.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps2\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4014,22 +4134,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps3\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+              <FilePath>..\common\platform\mps3\platform_mps3.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4108,17 +4228,17 @@
             <File>
               <FileName>GLCD_746G_Discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
-            </File>
-            <File>
-              <FileName>GLCD_Config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
             </File>
             <File>
               <FileName>platform_stm32f746g_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -4625,9 +4745,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
+              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=0</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -4698,39 +4818,44 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>platform.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\platform.h</FilePath>
-            </File>
-            <File>
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\app_platform.c</FilePath>
+              <FilePath>..\common\platform\app_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>Board_GLCD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\Board_GLCD.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
+              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lcd_printf.c</FilePath>
+              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lcd_printf.h</FilePath>
+              <FilePath>..\common\platform\lcd_printf.h</FilePath>
             </File>
             <File>
-              <FileName>perf_counter.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\platform.h</FilePath>
             </File>
             <File>
               <FileName>perf_counter.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lib\perf_counter.h</FilePath>
+              <FilePath>..\common\platform\lib\perf_counter.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -4738,54 +4863,59 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
-              <FileName>whilte_dot.c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\whilte_dot.c.c</FilePath>
-            </File>
-            <File>
               <FileName>arrow.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\arrow.c</FilePath>
+              <FilePath>..\common\asset\arrow.c</FilePath>
             </File>
             <File>
-              <FileName>gear_01.c</FileName>
+              <FileName>SpinWheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_01.c</FilePath>
-            </File>
-            <File>
-              <FileName>gear_02.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\gear_02.c</FilePath>
-            </File>
-            <File>
-              <FileName>pointer_sec.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\pointer_sec.c</FilePath>
+              <FilePath>..\common\asset\SpinWheel.c</FilePath>
             </File>
             <File>
               <FileName>clockface.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\clockface.c</FilePath>
+              <FilePath>..\common\asset\clockface.c</FilePath>
             </File>
             <File>
-              <FileName>watch_panel.c</FileName>
+              <FileName>gear_01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\watch_panel.c</FilePath>
+              <FilePath>..\common\asset\gear_01.c</FilePath>
+            </File>
+            <File>
+              <FileName>gear_02.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\pointer_sec.c</FilePath>
             </File>
             <File>
               <FileName>background.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\background.c</FilePath>
+              <FilePath>..\common\asset\background.c</FilePath>
             </File>
             <File>
               <FileName>star.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star.c</FilePath>
+              <FilePath>..\common\asset\star.c</FilePath>
             </File>
             <File>
               <FileName>star32.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star32.c</FilePath>
+              <FilePath>..\common\asset\star32.c</FilePath>
+            </File>
+            <File>
+              <FileName>whilte_dot.c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\watch_panel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4795,22 +4925,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\busy_wheel.c</FilePath>
+              <FilePath>..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\controls\controls.h</FilePath>
+              <FilePath>..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\controls.c</FilePath>
+              <FilePath>..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -5044,22 +5194,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps2\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+              <FilePath>..\common\platform\mps2\platform_mps2.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps2\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5069,22 +5219,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps3\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+              <FilePath>..\common\platform\mps3\platform_mps3.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5163,17 +5313,17 @@
             <File>
               <FileName>GLCD_746G_Discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
-            </File>
-            <File>
-              <FileName>GLCD_Config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
             </File>
             <File>
               <FileName>platform_stm32f746g_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -5353,7 +5503,7 @@
       <TargetName>V2M-MPS2-CM0+</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6170000::V6.17::.\ARMCompiler6.17</pCCUsed>
+      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -5680,9 +5830,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
+              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;..\..\Library\Include;.;..\..\Helper\Include</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -5753,39 +5903,44 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>platform.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\platform.h</FilePath>
-            </File>
-            <File>
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\app_platform.c</FilePath>
+              <FilePath>..\common\platform\app_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>Board_GLCD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\Board_GLCD.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
+              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lcd_printf.c</FilePath>
+              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lcd_printf.h</FilePath>
+              <FilePath>..\common\platform\lcd_printf.h</FilePath>
             </File>
             <File>
-              <FileName>perf_counter.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\platform.h</FilePath>
             </File>
             <File>
               <FileName>perf_counter.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lib\perf_counter.h</FilePath>
+              <FilePath>..\common\platform\lib\perf_counter.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -5793,54 +5948,59 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
-              <FileName>whilte_dot.c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\whilte_dot.c.c</FilePath>
-            </File>
-            <File>
               <FileName>arrow.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\arrow.c</FilePath>
+              <FilePath>..\common\asset\arrow.c</FilePath>
             </File>
             <File>
-              <FileName>gear_01.c</FileName>
+              <FileName>SpinWheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_01.c</FilePath>
-            </File>
-            <File>
-              <FileName>gear_02.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\gear_02.c</FilePath>
-            </File>
-            <File>
-              <FileName>pointer_sec.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\pointer_sec.c</FilePath>
+              <FilePath>..\common\asset\SpinWheel.c</FilePath>
             </File>
             <File>
               <FileName>clockface.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\clockface.c</FilePath>
+              <FilePath>..\common\asset\clockface.c</FilePath>
             </File>
             <File>
-              <FileName>watch_panel.c</FileName>
+              <FileName>gear_01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\watch_panel.c</FilePath>
+              <FilePath>..\common\asset\gear_01.c</FilePath>
+            </File>
+            <File>
+              <FileName>gear_02.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\pointer_sec.c</FilePath>
             </File>
             <File>
               <FileName>background.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\background.c</FilePath>
+              <FilePath>..\common\asset\background.c</FilePath>
             </File>
             <File>
               <FileName>star.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star.c</FilePath>
+              <FilePath>..\common\asset\star.c</FilePath>
             </File>
             <File>
               <FileName>star32.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star32.c</FilePath>
+              <FilePath>..\common\asset\star32.c</FilePath>
+            </File>
+            <File>
+              <FileName>whilte_dot.c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\watch_panel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5850,22 +6010,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\busy_wheel.c</FilePath>
+              <FilePath>..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\controls\controls.h</FilePath>
+              <FilePath>..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\controls.c</FilePath>
+              <FilePath>..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -6030,22 +6210,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps2\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+              <FilePath>..\common\platform\mps2\platform_mps2.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps2\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6124,22 +6304,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps3\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+              <FilePath>..\common\platform\mps3\platform_mps3.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6218,17 +6398,17 @@
             <File>
               <FileName>GLCD_746G_Discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
-            </File>
-            <File>
-              <FileName>GLCD_Config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
             </File>
             <File>
               <FileName>platform_stm32f746g_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -6408,7 +6588,7 @@
       <TargetName>V2M-MPS2-CM7</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6170000::V6.17::.\ARMCompiler6.17</pCCUsed>
+      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -6735,9 +6915,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax -Wno-nonportable-include-path</MiscControls>
-              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_INTERPOLATION_ROTATION__=1</Define>
+              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;..\..\Library\Include;.;..\..\Helper\Include</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -6808,39 +6988,44 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>platform.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\platform.h</FilePath>
-            </File>
-            <File>
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\app_platform.c</FilePath>
+              <FilePath>..\common\platform\app_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>Board_GLCD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\Board_GLCD.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
+              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lcd_printf.c</FilePath>
+              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lcd_printf.h</FilePath>
+              <FilePath>..\common\platform\lcd_printf.h</FilePath>
             </File>
             <File>
-              <FileName>perf_counter.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\platform.h</FilePath>
             </File>
             <File>
               <FileName>perf_counter.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lib\perf_counter.h</FilePath>
+              <FilePath>..\common\platform\lib\perf_counter.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -6848,54 +7033,59 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
-              <FileName>whilte_dot.c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\whilte_dot.c.c</FilePath>
-            </File>
-            <File>
               <FileName>arrow.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\arrow.c</FilePath>
+              <FilePath>..\common\asset\arrow.c</FilePath>
             </File>
             <File>
-              <FileName>gear_01.c</FileName>
+              <FileName>SpinWheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_01.c</FilePath>
-            </File>
-            <File>
-              <FileName>gear_02.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\gear_02.c</FilePath>
-            </File>
-            <File>
-              <FileName>pointer_sec.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\pointer_sec.c</FilePath>
+              <FilePath>..\common\asset\SpinWheel.c</FilePath>
             </File>
             <File>
               <FileName>clockface.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\clockface.c</FilePath>
+              <FilePath>..\common\asset\clockface.c</FilePath>
             </File>
             <File>
-              <FileName>watch_panel.c</FileName>
+              <FileName>gear_01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\watch_panel.c</FilePath>
+              <FilePath>..\common\asset\gear_01.c</FilePath>
+            </File>
+            <File>
+              <FileName>gear_02.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\pointer_sec.c</FilePath>
             </File>
             <File>
               <FileName>background.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\background.c</FilePath>
+              <FilePath>..\common\asset\background.c</FilePath>
             </File>
             <File>
               <FileName>star.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star.c</FilePath>
+              <FilePath>..\common\asset\star.c</FilePath>
             </File>
             <File>
               <FileName>star32.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star32.c</FilePath>
+              <FilePath>..\common\asset\star32.c</FilePath>
+            </File>
+            <File>
+              <FileName>whilte_dot.c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\watch_panel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6905,22 +7095,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\busy_wheel.c</FilePath>
+              <FilePath>..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\controls\controls.h</FilePath>
+              <FilePath>..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\controls.c</FilePath>
+              <FilePath>..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -7085,22 +7295,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps2\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+              <FilePath>..\common\platform\mps2\platform_mps2.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps2\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -7179,22 +7389,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps3\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+              <FilePath>..\common\platform\mps3\platform_mps3.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -7273,17 +7483,17 @@
             <File>
               <FileName>GLCD_746G_Discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
-            </File>
-            <File>
-              <FileName>GLCD_Config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
             </File>
             <File>
               <FileName>platform_stm32f746g_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -7463,7 +7673,7 @@
       <TargetName>STM32F746G-Discovery</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6170000::V6.17::.\ARMCompiler6.17</pCCUsed>
+      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -7792,7 +8002,7 @@
               <MiscControls> -Wno-nonportable-include-path -Omax</MiscControls>
               <Define>NDEBUG,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;..\..\Library\Include;.\platform\stm32f746g-discovery;.;..\..\Helper\Include</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\stm32f746g-discovery;..\..\Library\Include;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -7863,39 +8073,44 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>platform.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\platform.h</FilePath>
-            </File>
-            <File>
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\app_platform.c</FilePath>
+              <FilePath>..\common\platform\app_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>Board_GLCD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\Board_GLCD.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
+              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lcd_printf.c</FilePath>
+              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lcd_printf.h</FilePath>
+              <FilePath>..\common\platform\lcd_printf.h</FilePath>
             </File>
             <File>
-              <FileName>perf_counter.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\platform.h</FilePath>
             </File>
             <File>
               <FileName>perf_counter.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lib\perf_counter.h</FilePath>
+              <FilePath>..\common\platform\lib\perf_counter.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -7903,54 +8118,59 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
-              <FileName>whilte_dot.c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\whilte_dot.c.c</FilePath>
-            </File>
-            <File>
               <FileName>arrow.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\arrow.c</FilePath>
+              <FilePath>..\common\asset\arrow.c</FilePath>
             </File>
             <File>
-              <FileName>gear_01.c</FileName>
+              <FileName>SpinWheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_01.c</FilePath>
-            </File>
-            <File>
-              <FileName>gear_02.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\gear_02.c</FilePath>
-            </File>
-            <File>
-              <FileName>pointer_sec.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\pointer_sec.c</FilePath>
+              <FilePath>..\common\asset\SpinWheel.c</FilePath>
             </File>
             <File>
               <FileName>clockface.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\clockface.c</FilePath>
+              <FilePath>..\common\asset\clockface.c</FilePath>
             </File>
             <File>
-              <FileName>watch_panel.c</FileName>
+              <FileName>gear_01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\watch_panel.c</FilePath>
+              <FilePath>..\common\asset\gear_01.c</FilePath>
+            </File>
+            <File>
+              <FileName>gear_02.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\pointer_sec.c</FilePath>
             </File>
             <File>
               <FileName>background.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\background.c</FilePath>
+              <FilePath>..\common\asset\background.c</FilePath>
             </File>
             <File>
               <FileName>star.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star.c</FilePath>
+              <FilePath>..\common\asset\star.c</FilePath>
             </File>
             <File>
               <FileName>star32.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star32.c</FilePath>
+              <FilePath>..\common\asset\star32.c</FilePath>
+            </File>
+            <File>
+              <FileName>whilte_dot.c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\watch_panel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -7960,22 +8180,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\busy_wheel.c</FilePath>
+              <FilePath>..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\controls\controls.h</FilePath>
+              <FilePath>..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\controls.c</FilePath>
+              <FilePath>..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -8209,22 +8449,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps2\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+              <FilePath>..\common\platform\mps2\platform_mps2.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps2\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -8303,22 +8543,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps3\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+              <FilePath>..\common\platform\mps3\platform_mps3.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -8328,17 +8568,17 @@
             <File>
               <FileName>GLCD_746G_Discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
-            </File>
-            <File>
-              <FileName>GLCD_Config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
             </File>
             <File>
               <FileName>platform_stm32f746g_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -8449,7 +8689,7 @@
       <TargetName>AN547-Cortex-M55_r0</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6170000::V6.17::.\ARMCompiler6.17</pCCUsed>
+      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -8778,7 +9018,7 @@
               <MiscControls>-Wno-padded</MiscControls>
               <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__USE_AN547__,ITERATION_CNT=10</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -8849,39 +9089,44 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>platform.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\platform.h</FilePath>
-            </File>
-            <File>
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\app_platform.c</FilePath>
+              <FilePath>..\common\platform\app_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>Board_GLCD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\Board_GLCD.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
+              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lcd_printf.c</FilePath>
+              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lcd_printf.h</FilePath>
+              <FilePath>..\common\platform\lcd_printf.h</FilePath>
             </File>
             <File>
-              <FileName>perf_counter.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\platform.h</FilePath>
             </File>
             <File>
               <FileName>perf_counter.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lib\perf_counter.h</FilePath>
+              <FilePath>..\common\platform\lib\perf_counter.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -8889,54 +9134,59 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
-              <FileName>whilte_dot.c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\whilte_dot.c.c</FilePath>
-            </File>
-            <File>
               <FileName>arrow.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\arrow.c</FilePath>
+              <FilePath>..\common\asset\arrow.c</FilePath>
             </File>
             <File>
-              <FileName>gear_01.c</FileName>
+              <FileName>SpinWheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_01.c</FilePath>
-            </File>
-            <File>
-              <FileName>gear_02.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\gear_02.c</FilePath>
-            </File>
-            <File>
-              <FileName>pointer_sec.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\pointer_sec.c</FilePath>
+              <FilePath>..\common\asset\SpinWheel.c</FilePath>
             </File>
             <File>
               <FileName>clockface.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\clockface.c</FilePath>
+              <FilePath>..\common\asset\clockface.c</FilePath>
             </File>
             <File>
-              <FileName>watch_panel.c</FileName>
+              <FileName>gear_01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\watch_panel.c</FilePath>
+              <FilePath>..\common\asset\gear_01.c</FilePath>
+            </File>
+            <File>
+              <FileName>gear_02.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\pointer_sec.c</FilePath>
             </File>
             <File>
               <FileName>background.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\background.c</FilePath>
+              <FilePath>..\common\asset\background.c</FilePath>
             </File>
             <File>
               <FileName>star.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star.c</FilePath>
+              <FilePath>..\common\asset\star.c</FilePath>
             </File>
             <File>
               <FileName>star32.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star32.c</FilePath>
+              <FilePath>..\common\asset\star32.c</FilePath>
+            </File>
+            <File>
+              <FileName>whilte_dot.c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\watch_panel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -8946,22 +9196,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\busy_wheel.c</FilePath>
+              <FilePath>..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\controls\controls.h</FilePath>
+              <FilePath>..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\controls.c</FilePath>
+              <FilePath>..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -9195,22 +9465,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps2\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+              <FilePath>..\common\platform\mps2\platform_mps2.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps2\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -9220,22 +9490,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps3\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+              <FilePath>..\common\platform\mps3\platform_mps3.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -9314,17 +9584,17 @@
             <File>
               <FileName>GLCD_746G_Discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
-            </File>
-            <File>
-              <FileName>GLCD_Config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
             </File>
             <File>
               <FileName>platform_stm32f746g_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -9504,7 +9774,7 @@
               <RVCTZI>0</RVCTZI>
               <RVCTOtherData>0</RVCTOtherData>
               <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>0</IncludeInBuild>
+              <IncludeInBuild>1</IncludeInBuild>
               <AlwaysBuild>2</AlwaysBuild>
               <GenerateAssemblyFile>2</GenerateAssemblyFile>
               <AssembleAssemblyFile>2</AssembleAssemblyFile>
@@ -9902,7 +10172,7 @@
               <MiscControls></MiscControls>
               <Define>NDEBUG,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;..\..\Library\Include;.\platform\stm32f746g-discovery;.;..\..\Helper\Include</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\stm32f746g-discovery</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -9973,39 +10243,44 @@
           <GroupName>platform</GroupName>
           <Files>
             <File>
-              <FileName>platform.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\platform.h</FilePath>
-            </File>
-            <File>
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\app_platform.c</FilePath>
+              <FilePath>..\common\platform\app_platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>Board_GLCD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\Board_GLCD.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_Fonts.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\GLCD_Fonts.c</FilePath>
+              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\lcd_printf.c</FilePath>
+              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>lcd_printf.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lcd_printf.h</FilePath>
+              <FilePath>..\common\platform\lcd_printf.h</FilePath>
             </File>
             <File>
-              <FileName>perf_counter.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>.\platform\lib\perf_counter.lib</FilePath>
+              <FileName>platform.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\platform.h</FilePath>
             </File>
             <File>
               <FileName>perf_counter.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\lib\perf_counter.h</FilePath>
+              <FilePath>..\common\platform\lib\perf_counter.h</FilePath>
+            </File>
+            <File>
+              <FileName>perf_counter.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\common\platform\lib\perf_counter.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -10013,54 +10288,59 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
-              <FileName>whilte_dot.c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\whilte_dot.c.c</FilePath>
-            </File>
-            <File>
               <FileName>arrow.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\arrow.c</FilePath>
+              <FilePath>..\common\asset\arrow.c</FilePath>
             </File>
             <File>
-              <FileName>gear_01.c</FileName>
+              <FileName>SpinWheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_01.c</FilePath>
-            </File>
-            <File>
-              <FileName>gear_02.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\gear_02.c</FilePath>
-            </File>
-            <File>
-              <FileName>pointer_sec.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\pointer_sec.c</FilePath>
+              <FilePath>..\common\asset\SpinWheel.c</FilePath>
             </File>
             <File>
               <FileName>clockface.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\clockface.c</FilePath>
+              <FilePath>..\common\asset\clockface.c</FilePath>
             </File>
             <File>
-              <FileName>watch_panel.c</FileName>
+              <FileName>gear_01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\watch_panel.c</FilePath>
+              <FilePath>..\common\asset\gear_01.c</FilePath>
+            </File>
+            <File>
+              <FileName>gear_02.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\gear_02.c</FilePath>
+            </File>
+            <File>
+              <FileName>pointer_sec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\pointer_sec.c</FilePath>
             </File>
             <File>
               <FileName>background.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\background.c</FilePath>
+              <FilePath>..\common\asset\background.c</FilePath>
             </File>
             <File>
               <FileName>star.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star.c</FilePath>
+              <FilePath>..\common\asset\star.c</FilePath>
             </File>
             <File>
               <FileName>star32.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star32.c</FilePath>
+              <FilePath>..\common\asset\star32.c</FilePath>
+            </File>
+            <File>
+              <FileName>whilte_dot.c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>watch_panel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\watch_panel.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -10070,22 +10350,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\busy_wheel.c</FilePath>
+              <FilePath>..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\controls\controls.h</FilePath>
+              <FilePath>..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\controls.c</FilePath>
+              <FilePath>..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -10319,22 +10619,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps2\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+              <FilePath>..\common\platform\mps2\platform_mps2.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps2\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -10413,22 +10713,22 @@
             <File>
               <FileName>GLCD_Config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\platform\mps3\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_Config.h</FilePath>
             </File>
             <File>
               <FileName>GLCD_V2M-MPS3_AN540.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
+              <FilePath>..\common\platform\mps3\GLCD_V2M-MPS3_AN540.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\platform_mps3.c</FilePath>
+              <FilePath>..\common\platform\mps3\platform_mps3.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps3\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps3\stdout_USART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -10438,17 +10738,17 @@
             <File>
               <FileName>GLCD_746G_Discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
-            </File>
-            <File>
-              <FileName>GLCD_Config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_746G_Discovery.c</FilePath>
             </File>
             <File>
               <FileName>platform_stm32f746g_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+              <FilePath>..\common\platform\stm32f746g-discovery\platform_stm32f746g_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\stm32f746g-discovery\GLCD_Config.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -10577,13 +10877,41 @@
       <api Capiversion="2.4.0" Cclass="CMSIS Driver" Cgroup="USART" exclusive="0">
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
         <targetInfos>
-          <targetInfo name="FastModel"/>
-          <targetInfo name="STM32F746G-Discovery"/>
-          <targetInfo name="STM32F746G-Discovery-AC5"/>
-          <targetInfo name="V2M-MPS2-CM0+"/>
-          <targetInfo name="V2M-MPS2-CM33"/>
-          <targetInfo name="V2M-MPS2-CM4"/>
-          <targetInfo name="V2M-MPS2-CM7"/>
+          <targetInfo name="FastModel">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
+          <targetInfo name="STM32F746G-Discovery">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
+          <targetInfo name="STM32F746G-Discovery-AC5">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
+          <targetInfo name="V2M-MPS2-CM0+">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
+          <targetInfo name="V2M-MPS2-CM33">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
+          <targetInfo name="V2M-MPS2-CM4">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
+          <targetInfo name="V2M-MPS2-CM7">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
         </targetInfos>
       </api>
       <api Capiversion="1.1.0" Cclass="Device" Cgroup="STM32Cube Framework" exclusive="1">
@@ -10667,6 +10995,12 @@
           </targetInfo>
         </targetInfos>
       </component>
+      <component Cclass="Device" Cgroup="Definition" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device">
+        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
+        <targetInfos>
+          <targetInfo name="AN547-Cortex-M55_r0"/>
+        </targetInfos>
+      </component>
       <component Cclass="Device" Cgroup="Startup" Cvendor="ARM" Cversion="1.3.0" condition="ARMCM33 CMSIS">
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
         <targetInfos>
@@ -10677,6 +11011,12 @@
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
         <targetInfos>
           <targetInfo name="V2M-MPS3-CM55"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device">
+        <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
+        <targetInfos>
+          <targetInfo name="AN547-Cortex-M55_r0"/>
         </targetInfos>
       </component>
       <component Cbundle="STM32F746G-Discovery" Cclass="Board Support" Cgroup="Drivers" Csub="SDRAM" Cvendor="Keil" Cversion="1.1.1" condition="STM32F746G-Discovery BSP SDRAM">
@@ -10704,23 +11044,51 @@
       <component Capiversion="2.1.0" Cclass="CMSIS Driver" Cgroup="USART" Cvendor="Keil" Cversion="1.0.3" condition="CMSDK CMSIS">
         <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.7.0"/>
         <targetInfos>
-          <targetInfo name="FastModel"/>
-          <targetInfo name="V2M-MPS2-CM0+"/>
-          <targetInfo name="V2M-MPS2-CM4"/>
-          <targetInfo name="V2M-MPS2-CM7"/>
+          <targetInfo name="FastModel">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
+          <targetInfo name="V2M-MPS2-CM0+">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
+          <targetInfo name="V2M-MPS2-CM4">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
+          <targetInfo name="V2M-MPS2-CM7">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
         </targetInfos>
       </component>
       <component Capiversion="2.1.0" Cclass="CMSIS Driver" Cgroup="USART" Cvendor="Keil" Cversion="1.0.0" condition="IOTKit CMSIS">
         <package name="V2M-MPS2_IOTKit_BSP" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.4.2"/>
         <targetInfos>
-          <targetInfo name="V2M-MPS2-CM33"/>
+          <targetInfo name="V2M-MPS2-CM33">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
         </targetInfos>
       </component>
       <component Capiversion="2.1.0" Cclass="CMSIS Driver" Cgroup="USART" Cvendor="Keil" Cversion="1.16.0" condition="STM32F7 CMSIS_Driver USART">
         <package name="STM32F7xx_DFP" schemaVersion="1.7.1" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
         <targetInfos>
-          <targetInfo name="STM32F746G-Discovery"/>
-          <targetInfo name="STM32F746G-Discovery-AC5"/>
+          <targetInfo name="STM32F746G-Discovery">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
+          <targetInfo name="STM32F746G-Discovery-AC5">
+            <c>
+              <MiscControls>-w</MiscControls>
+            </c>
+          </targetInfo>
         </targetInfos>
       </component>
       <component Capiversion="1.0.0" Cclass="Device" Cgroup="STM32Cube Framework" Csub="Classic" Cvendor="Keil" Cversion="1.2.8" condition="STM32F7 Framework Classic">
@@ -11096,58 +11464,76 @@
         <targetInfos/>
       </file>
       <file attr="config" category="header" name="CMSIS_Driver\Config\RTE_Device.h" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\SSE-300-MPS3\RTE_Device.h</instance>
+        <instance index="0">RTE\Device\SSE-300-MPS3\RTE_Device.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
         <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="AN547-Cortex-M55_r0"/>
+        </targetInfos>
       </file>
       <file attr="config" category="header" name="CMSIS_Driver\Config\Baremetal\cmsis_driver_config.h" version="1.1.1">
-        <instance index="0" removed="1">RTE\Device\SSE-300-MPS3\cmsis_driver_config.h</instance>
+        <instance index="0">RTE\Device\SSE-300-MPS3\cmsis_driver_config.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
         <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="AN547-Cortex-M55_r0"/>
+        </targetInfos>
       </file>
       <file attr="config" category="header" name="Device\Config\Baremetal\device_cfg.h" version="1.1.1">
-        <instance index="0" removed="1">RTE\Device\SSE-300-MPS3\device_cfg.h</instance>
+        <instance index="0">RTE\Device\SSE-300-MPS3\device_cfg.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
         <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="AN547-Cortex-M55_r0"/>
+        </targetInfos>
       </file>
       <file attr="config" category="linkerScript" name="Device\Source\armclang\fvp_sse300_mps3_s.sct" version="1.1.0">
-        <instance index="0" removed="1">RTE\Device\SSE-300-MPS3\fvp_sse300_mps3_s.sct</instance>
+        <instance index="0">RTE\Device\SSE-300-MPS3\fvp_sse300_mps3_s.sct</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
         <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="AN547-Cortex-M55_r0"/>
+        </targetInfos>
       </file>
       <file attr="config" category="header" name="Board\Platform\platform_base_address.h" version="1.1.2">
-        <instance index="0" removed="1">RTE\Device\SSE-300-MPS3\platform_base_address.h</instance>
+        <instance index="0">RTE\Device\SSE-300-MPS3\platform_base_address.h</instance>
         <component Cclass="Device" Cgroup="Definition" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
         <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="AN547-Cortex-M55_r0"/>
+        </targetInfos>
       </file>
       <file attr="config" category="header" name="Device\Include\region_defs.h" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\SSE-300-MPS3\region_defs.h</instance>
+        <instance index="0">RTE\Device\SSE-300-MPS3\region_defs.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
         <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="AN547-Cortex-M55_r0"/>
+        </targetInfos>
       </file>
       <file attr="config" category="header" name="Device\Include\region_limits.h" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\SSE-300-MPS3\region_limits.h</instance>
+        <instance index="0">RTE\Device\SSE-300-MPS3\region_limits.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
         <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="AN547-Cortex-M55_r0"/>
+        </targetInfos>
       </file>
       <file attr="config" category="source" name="Device\Source\startup_fvp_sse300_mps3.c" version="1.1.1">
-        <instance index="0" removed="1">RTE\Device\SSE-300-MPS3\startup_fvp_sse300_mps3.c</instance>
+        <instance index="0">RTE\Device\SSE-300-MPS3\startup_fvp_sse300_mps3.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="Baremetal" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
         <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="AN547-Cortex-M55_r0"/>
+        </targetInfos>
       </file>
-      <file attr="config" category="source" name="Device\Source\system_SSE300MPS3.c" version="1.0.0">
-        <instance index="0" removed="1">RTE\Device\SSE-300-MPS3\system_SSE300MPS3.c</instance>
+      <file attr="config" category="source" name="Device\Source\system_SSE300MPS3.c" version="1.1.1">
+        <instance index="0">RTE\Device\SSE-300-MPS3\system_SSE300MPS3.c</instance>
         <component Cclass="Device" Cgroup="Definition" Cvendor="ARM" Cversion="1.1.0" condition="SSE-300-MPS3 Device"/>
         <package name="V2M_MPS3_SSE_300_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.2.0"/>
-        <targetInfos/>
+        <targetInfos>
+          <targetInfo name="AN547-Cortex-M55_r0"/>
+        </targetInfos>
       </file>
       <file attr="config" category="header" name="CMSIS\Driver\Config\RTE_Device.h" version="1.5.1">
         <instance index="0">RTE\Device\STM32F746NGHx\RTE_Device.h</instance>

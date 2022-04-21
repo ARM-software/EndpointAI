@@ -38,8 +38,8 @@
 
 #define __ARM_2D_COMPILATION_UNIT
 
-#include "..\source\__arm_2d_core.c"
-#include "..\source\__arm_2d_tile.c"
+#include "..\Source\__arm_2d_core.c"
+#include "..\Source\__arm_2d_tile.c"
 
 #ifdef   __cplusplus
 extern "C" {

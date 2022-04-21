@@ -363,29 +363,59 @@
           <GroupName>Control</GroupName>
           <Files>
             <File>
-              <FileName>whilte_dot.c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\asset\whilte_dot.c.c</FilePath>
-            </File>
-            <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\busy_wheel.c</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\controls\busy_wheel.h</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\controls.c</FilePath>
+              <FilePath>..\..\..\common\controls\controls.c</FilePath>
             </File>
             <File>
               <FileName>controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\controls\controls.h</FilePath>
+              <FilePath>..\..\..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>asset</GroupName>
+          <Files>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\asset\SpinWheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>whilte_dot.c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\asset\whilte_dot.c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -581,7 +611,7 @@
       <file attr="config" category="sourceC" name="Library\Source\arm_2d.c" version="1.0.0">
         <instance index="0">RTE\Acceleration\arm_2d.c</instance>
         <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="1.0.0-preview" condition="CMSIS-DSP"/>
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha1"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha2"/>
         <targetInfos>
           <targetInfo name="STM32F746G-Discovery-GCC"/>
         </targetInfos>
@@ -589,7 +619,7 @@
       <file attr="config" category="preIncludeGlobal" name="Library\Include\template\arm_2d_cfg.h" version="1.0.2">
         <instance index="0">RTE\Acceleration\arm_2d_cfg.h</instance>
         <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="1.0.0-preview" condition="CMSIS-DSP"/>
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha1"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha2"/>
         <targetInfos>
           <targetInfo name="STM32F746G-Discovery-GCC"/>
         </targetInfos>

@@ -28,8 +28,6 @@
 #define __RTE_ACCELERATION_ARM_2D__
 /* Arm::Acceleration:Arm-2D:Transform:1.0.0-preview */
 #define __RTE_ACCELERATION_ARM_2D_TRANSFORM__
-/* GorgonMeducer.Performance Counter::Utilities:perf_counter:Core:Library:1.9.4-alpha */
-#define __PERF_COUNTER__
 /* Keil.ARM Compiler::Compiler:I/O:STDOUT:User:1.2.0 */
 #define RTE_Compiler_IO_STDOUT          /* Compiler I/O: STDOUT */
           #define RTE_Compiler_IO_STDOUT_User     /* Compiler I/O: STDOUT User */

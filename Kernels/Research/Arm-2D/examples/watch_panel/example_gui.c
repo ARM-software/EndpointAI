@@ -20,12 +20,13 @@
 #include <stdio.h>
 #include "platform.h"
 #include "example_gui.h"
-#include "./controls/controls.h"
+#include "../common/controls/controls.h"
 #include <math.h>
 
 #if defined(__clang__)
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
 #   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
 #   pragma clang diagnostic ignored "-Wpadded"
 #   pragma clang diagnostic ignored "-Wcast-qual"
@@ -365,6 +366,21 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 #else
     (void)s_tGears;
     arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_WHITE);
+    
+    const arm_2d_region_t c_tRightScreen = {
+        .tLocation = {
+            .iX = GLCD_WIDTH >> 1,
+        },
+        .tSize = {
+            .iWidth = GLCD_WIDTH >> 1,
+            .iHeight = GLCD_HEIGHT,
+        },
+    };
+    
+    static arm_2d_tile_t s_tTempTile;
+    arm_2d_tile_generate_child(ptTile, &c_tRightScreen, &s_tTempTile, false);
+    
+    spinning_wheel_show(&s_tTempTile, bIsNewFrame);
 #endif
     
     //! demo for transform

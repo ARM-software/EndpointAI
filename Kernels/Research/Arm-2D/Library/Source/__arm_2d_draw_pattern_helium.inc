@@ -114,7 +114,7 @@ void __ARM_2D_FUNC(draw_pattern_fg_only)(uint8_t *__RESTRICT pchSourceBase,
             "   le               lr, 2b                             \n"
             "1:                                                     \n"
 
-            : [src] "+r"(pchSourceBase),  [target] "+r" (pTargetBase)
+            : [src] "+l"(pchSourceBase),  [target] "+r" (pTargetBase)
             : [bitmask] "t"   (vBitMask),[ForeG] "t"(vForeG),
               [srcStride] "r" (iSourceStride >> 3),
               [targStride] "r" (iTargetStride * (__API_ELT_SZ/8)),
@@ -168,7 +168,7 @@ void __ARM_2D_FUNC(draw_pattern_fg_only)(uint8_t *__RESTRICT pchSourceBase,
                 "   letp               lr, 2b                           \n"
                 "1:                                                     \n"
 
-                : [src] "+r"(pchSourceBaseCur),  [target] "+r" (pTargetBaseCur)
+                : [src] "+l"(pchSourceBaseCur),  [target] "+r" (pTargetBaseCur)
                 : [bitmask] "t"   (vBitMask),[ForeG] "t"(vForeG),
                   [cnt] "r" (cnt), [incrSrc] "i" (ARM_PIX_VECELT(__API_ELT_SZ) / 8),
                   [offS] "t" (offS)
@@ -250,7 +250,7 @@ void __ARM_2D_FUNC(draw_pattern_no_bg_comp)(
             "   le               lr, 2b                             \n"
             "1:                                                     \n"
 
-            : [src] "+r"(pchSourceBase),  [target] "+r" (pTargetBase)
+            : [src] "+l"(pchSourceBase),  [target] "+r" (pTargetBase)
             : [bitmask] "t"   (vBitMask),
               [srcStride] "r" (iSourceStride >> 3),
               [targStride] "r" (iTargetStride*(__API_ELT_SZ/8)),
@@ -310,7 +310,7 @@ void __ARM_2D_FUNC(draw_pattern_no_bg_comp)(
                 "   letp            lr, 2b                              \n"
                 "1:                                                     \n"
 
-                : [src] "+r"(pchSourceBaseCur),  [target] "+r" (pTargetBaseCur)
+                : [src] "+l"(pchSourceBaseCur),  [target] "+r" (pTargetBaseCur)
                 : [bitmask] "t"   (vBitMask),
                   [cnt] "r" (cnt), [incrSrc] "i" (ARM_PIX_VECELT(__API_ELT_SZ) / 8),
                   [offS] "t" (offS)
@@ -393,7 +393,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_only)(   uint8_t *__RESTRICT pchSourceBase,
             "   le               lr, 2b                             \n"
             "1:                                                     \n"
 
-            : [src] "+r"(pchSourceBase),  [target] "+r" (pTargetBase)
+            : [src] "+l"(pchSourceBase),  [target] "+r" (pTargetBase)
             : [bitmask] "t"   (vBitMask),[vBackG] "t"(vBackG),
               [srcStride] "r" (iSourceStride >> 3),
               [targStride] "r" (iTargetStride*(__API_ELT_SZ/8)),
@@ -449,7 +449,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_only)(   uint8_t *__RESTRICT pchSourceBase,
                 "   letp               lr, 2b                           \n"
                 "1:                                                     \n"
 
-                : [src] "+r"(pchSourceBaseCur),  [target] "+r" (pTargetBaseCur)
+                : [src] "+l"(pchSourceBaseCur),  [target] "+r" (pTargetBaseCur)
                 : [bitmask] "t"   (vBitMask),[vBackG] "t"(vBackG),
                   [cnt] "r" (cnt), [incrSrc] "i" (ARM_PIX_VECELT(__API_ELT_SZ) / 8),
                   [offS] "t" (offS)
@@ -534,7 +534,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_fg)( uint8_t *__RESTRICT pchSourceBase,
             "   le               lr, 2b                             \n"
             "1:                                                     \n"
 
-            : [src] "+r"(pchSourceBase),  [target] "+r" (pTargetBase)
+            : [src] "+l"(pchSourceBase),  [target] "+r" (pTargetBase)
             : [bitmask] "t"   (vBitMask),[vBackG] "t"(vBgColor),
               [vForeG] "t" (vFgColor),
               [srcStride] "r" (iSourceStride >> 3),
@@ -590,7 +590,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_fg)( uint8_t *__RESTRICT pchSourceBase,
                 "   letp               lr, 2b                           \n"
                 "1:                                                     \n"
 
-                : [src] "+r"(pchSourceBaseCur),  [target] "+r" (pTargetBaseCur)
+                : [src] "+l"(pchSourceBaseCur),  [target] "+r" (pTargetBaseCur)
                 : [bitmask] "t"   (vBitMask),[vBackG] "t"(vBgColor),
                   [vForeG] "t" (vFgColor),
                   [cnt] "r" (cnt), [incrSrc] "i" (ARM_PIX_VECELT(__API_ELT_SZ) / 8),
@@ -676,7 +676,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_comp)(   uint8_t *__RESTRICT pchSourceBase,
             "   le               lr, 2b                             \n"
             "1:                                                     \n"
 
-            : [src] "+r"(pchSourceBase),  [target] "+r" (pTargetBase)
+            : [src] "+l"(pchSourceBase),  [target] "+r" (pTargetBase)
             : [bitmask] "t"   (vBitMask), [vBackG] "t" (vBgColor),
               [srcStride] "r" (iSourceStride >> 3),
               [targStride] "r" (iTargetStride*(__API_ELT_SZ/8)),
@@ -734,7 +734,7 @@ void __ARM_2D_FUNC(draw_pattern_bg_comp)(   uint8_t *__RESTRICT pchSourceBase,
                 "   letp               lr, 2b                           \n"
                 "1:                                                     \n"
 
-                : [src] "+r"(pchSourceBaseCur),  [target] "+r" (pTargetBaseCur)
+                : [src] "+l"(pchSourceBaseCur),  [target] "+r" (pTargetBaseCur)
                 : [bitmask] "t"   (vBitMask), [vBackG] "t" (vBgColor),
                   [cnt] "r" (cnt), [incrSrc] "i" (ARM_PIX_VECELT(__API_ELT_SZ) / 8),
                   [offS] "t" (offS)

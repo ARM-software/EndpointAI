@@ -22,12 +22,13 @@
 #include "example_gui.h"
 #include "arm_2d.h"
 #include "arm_2d_helper.h"
-#include "./controls/controls.h"
+#include "../common/controls/controls.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
 #   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
 #   pragma clang diagnostic ignored "-Wpadded"
 #   pragma clang diagnostic ignored "-Wcast-qual"

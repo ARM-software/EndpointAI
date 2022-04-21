@@ -34,6 +34,12 @@
 #   define ITERATION_CNT       1000
 #endif
 
+#if defined(__USE_FVP__)
+#   undef ITERATION_CNT
+#   define ITERATION_CNT        1
+#endif
+
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
 #define ASSERT(...)         assert(__VA_ARGS__)

@@ -152,7 +152,7 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
     //! print performance info
 
     if (0 == BENCHMARK.wIterations) {
-
+    #if !defined(__USE_FVP__)
         lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
         lcd_puts(  "Transform Test, running "
                     STR(ITERATION_CNT)
@@ -170,7 +170,7 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
                             BENCHMARK.wAverage / (SystemCoreClock / 1000ul));
         lcd_printf("LCD Latency: %2dms", BENCHMARK.wLCDLatency / (SystemCoreClock / 1000ul) );
         //lcd_printf(" %08x", (int32_t)get_system_ticks() );
-
+    #endif
     }
 }
 
@@ -217,7 +217,8 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
                         ARM_2D_CP_MODE_COPY);
     
     __PRINT_BANNER("Arm-2D Benchmark");
-
+    
+#if !defined(__USE_FVP__)
     lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
     lcd_puts(  "Transform Test, running "
                 STR(ITERATION_CNT)
@@ -227,6 +228,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
                 "  Screen Size: "STR(APP_SCREEN_WIDTH)"*" STR(APP_SCREEN_HEIGHT));
     lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
     lcd_puts( "Testing...\r\n\r\n");
+#endif
 
     //lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
     //lcd_puts("Cycles\tAvrage\tUPS30Freq\tUPS\tLCD Latency");

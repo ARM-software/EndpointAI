@@ -52,8 +52,8 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
   - Supports Colour-keying by default
   - Supports an optional **Opacity** ratio
   - Supports the Anti-Alias feature. 
-    - You can enable it by defining macro  **\_\_ARM_2D_HAS_INTERPOLATION_TRANSFORM\_\_** to "**1**" on **compile-time**.
-  - Support Source masks
+    - You can enable it by defining macro  **\_\_ARM_2D_HAS_ANTI_ALIAS_TRANSFORM to "**1**" on **compile-time**.
+  - Support source masks
 - **An Unified and User-Friendly Programmers' Model**
   - APIs can be used in **Synchronous** manner (  **Classic and Blocking** ) and/or **Asynchronous** manner ( **Event-Driven** )
   - Supports both **bare-metal** and **RTOS** environment
@@ -66,7 +66,6 @@ The Arm-2D library provides **Low-Level 2D Image Processing Services** that are 
 Following features are planned and to be introduced in the future versions:
 
 - **Image Filters, e.g. Generic Anti-aliasing algorithms**
-- **Zooming/Stretching Algorithms**
 
 
 
@@ -154,7 +153,12 @@ There is no public 2D image processing benchmark available for microcontrollers.
 
 - **Choose the widely used algorithms in embedded GUI as the body of the benchmark**
   - Alpha-blending
-  - Image Copy and Tiling
+  - Colour-Keying
+  - Image Copy
+  - Texture Paving
+  - Rotation
+  - Mirroring
+  - Masking
 - **Simulate a typical application scenario with sufficient complexity**
   - Background with Texture paving (switching different mirroring modes every 4 second)
   - Foreground picture 
@@ -167,9 +171,9 @@ There is no public 2D image processing benchmark available for microcontrollers.
 
 
 
-**Figure 1-4 A snapshot of alpha-blending demo running on MPS3 platform**
+**Figure 1-4 A snapshot of benchmark running on Cortex-M4 FVP platform**
 
-![Alpha-blending](./documents/pictures/Alpha-blending.gif) 
+![Alpha-blending](./documents/pictures/benchmark)  
 
 
 
@@ -225,88 +229,8 @@ There is no public 2D image processing benchmark available for microcontrollers.
 
   1. ***arm_2d_init()*** is a function-like macro that initialises different parts of the library depending on the feature configuration macros.  
   2. Feature configuration macros are checked by "***arm_2d_feature.h***". For the current stage of the library, please **DO NOT** override those feature configuration macros.
-
-```c
-#undef __ARM_2D_HAS_HELIUM__
-#undef __ARM_2D_HAS_HELIUM_INTEGER__
-#undef __ARM_2D_HAS_HELIUM_FLOAT__
-
-#if defined(__ARM_FEATURE_MVE) && __ARM_FEATURE_MVE
-#   define __ARM_2D_HAS_HELIUM__                        1
-#   define __ARM_2D_HAS_HELIUM_INTEGER__                1
-#   if (__ARM_FEATURE_MVE & 2)
-#       define __ARM_2D_HAS_HELIUM_FLOAT__              1
-#   else
-#       define __ARM_2D_HAS_HELIUM_FLOAT__              0
-#   endif
-#else
-#   define __ARM_2D_HAS_HELIUM__                        0
-#   define __ARM_2D_HAS_HELIUM_INTEGER__                0
-#   define __ARM_2D_HAS_HELIUM_FLOAT__                  0
-#endif
-
-#ifndef __ARM_2D_HAS_CDE__
-#   define __ARM_2D_HAS_CDE__                           0
-#endif
-
-#ifndef __ARM_2D_HAS_HW_ACC__
-#   define __ARM_2D_HAS_HW_ACC__                        0
-#endif
-#if defined(__ARM_2D_HAS_HW_ACC__) && __ARM_2D_HAS_HW_ACC__
-#   if defined(__ARM_2D_HAS_ASYNC__) && !__ARM_2D_HAS_ASYNC__
-#       warning As long as __ARM_2D_HAS_HW_ACC__ is set to 1,\
- __ARM_2D_HAS_ASYNC__ is forced to 1. Since you set __ARM_2D_HAS_ASYNC__ to\
- 0, please remove your macro definition for __ARM_2D_HAS_ASYNC__ to avoid this\
- warning.
-#   endif
-#   undef __ARM_2D_HAS_ASYNC__
-#   define __ARM_2D_HAS_ASYNC__                         1
-#endif
-
-#ifndef __ARM_2D_HAS_ASYNC__
-#   define __ARM_2D_HAS_ASYNC__                         1
-#endif
-#if defined(__ARM_2D_HAS_ASYNC__) &&  __ARM_2D_HAS_ASYNC__
-#   if  !defined(__ARM_2D_DEFAULT_SUB_TASK_POOL_SIZE) ||                        \
-        __ARM_2D_DEFAULT_SUB_TASK_POOL_SIZE < 4
-#       define __ARM_2D_DEFAULT_SUB_TASK_POOL_SIZE      4
-#   endif
-#endif
-
-...
-
-/*============================ MACROFIED FUNCTIONS ===========================*/
-
-#if defined(__ARM_2D_HAS_CDE__) && !__ARM_2D_HAS_CDE__
-#   define __arm_2d_cde_init()
-#endif
-
-#if defined(__ARM_2D_HAS_HELIUM__) && !__ARM_2D_HAS_HELIUM__
-#   define __arm_2d_helium_init()
-#endif
-
-#if defined(__ARM_2D_HAS_HW_ACC__) && !__ARM_2D_HAS_HW_ACC__
-#   define __arm_2d_acc_init()
-#endif
-
-#if defined(__ARM_2D_HAS_ASYNC__) && !__ARM_2D_HAS_ASYNC__
-#   define __arm_2d_async_init()
-#endif
-
-
-#undef arm_2d_init
-#define arm_2d_init()                                                           \
-        do {                                                                    \
-            __arm_2d_init();                                                    \
-            __arm_2d_async_init();                                              \
-            __arm_2d_helium_init();                                             \
-            __arm_2d_cde_init();                                                \
-            __arm_2d_acc_init();                                                \
-        } while(0)
-...
-```
-
-
+  
+  
 
 ### 3.2 "I am interested in the implementation"
 
@@ -487,7 +411,7 @@ def_low_lv_io(__ARM_2D_IO_ROTATE_RGB888,
 ### 5.2 The Temporary Limitations
 
 - The library currently can only be used in the C environment. C++ support will be added later.
-- The GCC support for Cortex-M55 (helium acceleration) is broken (waiting for tool-chain improvement). 
+- The GCC support for Cortex-M55 (helium acceleration) is broken (waiting for tool-chain update). 
 - Generic Anti-aliasing algorithms haven't been introduced, but anti-alias in transform (i.e. rotation and scaling) is supported.
 - The library currently only provides default software algorithms and a **[Helium](https://developer.arm.com/architectures/instruction-sets/simd-isas/helium) based acceleration library**. 
   - Although planned, no hardware acceleration is implemented or supported for now.
@@ -521,4 +445,4 @@ Thank you for your time.
 
 ***Arm-2D Development Team.***
 
-08-Oct-2021
+21-April-2022

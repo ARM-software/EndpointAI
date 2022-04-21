@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include "platform.h"
 #include "example_gui.h"
-#include "./controls/controls.h"
+#include "../common/controls/controls.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -83,19 +83,21 @@ void example_gui_do_events(void)
 
 
 __WEAK 
-void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
+void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptTile)
 {
-     ARM_2D_UNUSED(ptFrameBuffer);
+     ARM_2D_UNUSED(ptTile);
 }
 
 
-void example_gui_refresh(const arm_2d_tile_t *ptFrameBuffer, bool bIsNewFrame)
+void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 {
-    arm_2d_rgb16_fill_colour(ptFrameBuffer, NULL, GLCD_COLOR_BLUE);
+    arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_NAVY);
     
-    busy_wheel2_show(ptFrameBuffer, bIsNewFrame);
+    arm_2d_op_wait_async(NULL);
+    
+    busy_wheel2_show(ptTile, bIsNewFrame);
 
-    example_gui_on_refresh_evt_handler(ptFrameBuffer);
+    example_gui_on_refresh_evt_handler(ptTile);
 }
 
 

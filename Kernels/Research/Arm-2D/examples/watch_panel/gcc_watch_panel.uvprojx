@@ -493,27 +493,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\busy_wheel.c</FilePath>
+              <FilePath>..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\busy_wheel.h</FilePath>
+              <FilePath>..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\controls.c</FilePath>
+              <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
               <FileName>controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\controls.h</FilePath>
+              <FilePath>..\common\controls\controls.h</FilePath>
             </File>
             <File>
-              <FileName>star.c</FileName>
+              <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star.c</FilePath>
+              <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -521,44 +536,54 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
-              <FileName>arrow.c</FileName>
+              <FileName>star.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\arrow.c</FilePath>
+              <FilePath>..\common\asset\star.c</FilePath>
+            </File>
+            <File>
+              <FileName>star32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\star32.c</FilePath>
             </File>
             <File>
               <FileName>background.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\background.c</FilePath>
+              <FilePath>..\common\asset\background.c</FilePath>
             </File>
             <File>
               <FileName>clockface.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\clockface.c</FilePath>
+              <FilePath>..\common\asset\clockface.c</FilePath>
             </File>
             <File>
               <FileName>gear_01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_01.c</FilePath>
+              <FilePath>..\common\asset\gear_01.c</FilePath>
             </File>
             <File>
               <FileName>gear_02.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_02.c</FilePath>
+              <FilePath>..\common\asset\gear_02.c</FilePath>
             </File>
             <File>
               <FileName>pointer_sec.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\pointer_sec.c</FilePath>
+              <FilePath>..\common\asset\pointer_sec.c</FilePath>
+            </File>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\SpinWheel.c</FilePath>
             </File>
             <File>
               <FileName>watch_panel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\watch_panel.c</FilePath>
+              <FilePath>..\common\asset\watch_panel.c</FilePath>
             </File>
             <File>
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\whilte_dot.c.c</FilePath>
+              <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -613,19 +638,29 @@
           </GroupOption>
           <Files>
             <File>
+              <FileName>GLCD_Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\mps2\GLCD_Config.h</FilePath>
+            </File>
+            <File>
               <FileName>GLCD_V2M-MPS2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+              <FilePath>..\common\platform\mps2\platform_mps2.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps2\stdout_USART.c</FilePath>
+            </File>
+            <File>
+              <FileName>startup_CMSDK_CM0plus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\CMSDK_CM0plus\startup_CMSDK_CM0plus.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -676,16 +711,16 @@
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
-          <Device>ARMCM0P_MPU</Device>
+          <Device>CMSDK_CM0plus</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.CMSIS.5.8.0</PackID>
+          <PackID>Keil.V2M-MPS2_CMx_BSP.1.7.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
-          <Cpu>IRAM(0x20000000,0x00020000) IROM(0x00000000,0x00040000) CPUTYPE("Cortex-M0+") CLOCK(12000000) ESEL ELITTLE</Cpu>
+          <Cpu>IRAM(0x20000000,0x00400000) IROM(0x00000000,0x00400000) CPUTYPE("Cortex-M0+") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
           <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000)</FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile>$$Device:ARMCM0P_MPU$Device\ARM\ARMCM0plus\Include\ARMCM0plus_MPU.h</RegisterFile>
+          <RegisterFile>$$Device:CMSDK_CM0plus$Device\CMSDK_CM0plus\Include\CMSDK_CM0plus.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -695,7 +730,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile></SFDFile>
+          <SFDFile>$$Device:CMSDK_CM0plus$SVD\CMSDK_CM0plus.svd</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -772,11 +807,11 @@
         </CommonProperty>
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
-          <SimDllArguments> -MPU </SimDllArguments>
+          <SimDllArguments>  </SimDllArguments>
           <SimDlgDll>DARMCM1.DLL</SimDlgDll>
           <SimDlgDllArguments>-pCM0+</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
-          <TargetDllArguments>-MPU </TargetDllArguments>
+          <TargetDllArguments> </TargetDllArguments>
           <TargetDlgDll>TARMCM1.DLL</TargetDlgDll>
           <TargetDlgDllArguments>-pCM0+</TargetDlgDllArguments>
         </DllOption>
@@ -795,12 +830,12 @@
             <UseExternalTool>1</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
+            <Capability>1</Capability>
             <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3>"" ()</Flash3>
+          <Flash3></Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -868,12 +903,12 @@
               <IRAM>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x20000</Size>
+                <Size>0x400000</Size>
               </IRAM>
               <IROM>
                 <Type>1</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0x40000</Size>
+                <Size>0x400000</Size>
               </IROM>
               <XRAM>
                 <Type>0</Type>
@@ -906,7 +941,7 @@
               <MiscControls>-Ofast -flto -fdata-sections -ffunction-sections -fms-extensions -mfloat-abi=soft -std=gnu11</MiscControls>
               <Define>RTE_Compiler_IO_STDOUT_User,CMSDK_CM0plus,ITERATION_CNT=10</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;..\..\Library\Include;.;..\..\Helper\Include;.\platform\lib;.\platform\mps2</IncludePath>
+              <IncludePath>..\common\platform;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\lib;..\common\platform\mps2</IncludePath>
             </VariousControls>
           </Carm>
           <Aarm>
@@ -1155,27 +1190,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\busy_wheel.c</FilePath>
+              <FilePath>..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\busy_wheel.h</FilePath>
+              <FilePath>..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\controls.c</FilePath>
+              <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
               <FileName>controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\controls.h</FilePath>
+              <FilePath>..\common\controls\controls.h</FilePath>
             </File>
             <File>
-              <FileName>star.c</FileName>
+              <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\star.c</FilePath>
+              <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1183,44 +1233,54 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
-              <FileName>arrow.c</FileName>
+              <FileName>star.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\arrow.c</FilePath>
+              <FilePath>..\common\asset\star.c</FilePath>
+            </File>
+            <File>
+              <FileName>star32.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\star32.c</FilePath>
             </File>
             <File>
               <FileName>background.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\background.c</FilePath>
+              <FilePath>..\common\asset\background.c</FilePath>
             </File>
             <File>
               <FileName>clockface.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\clockface.c</FilePath>
+              <FilePath>..\common\asset\clockface.c</FilePath>
             </File>
             <File>
               <FileName>gear_01.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_01.c</FilePath>
+              <FilePath>..\common\asset\gear_01.c</FilePath>
             </File>
             <File>
               <FileName>gear_02.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\gear_02.c</FilePath>
+              <FilePath>..\common\asset\gear_02.c</FilePath>
             </File>
             <File>
               <FileName>pointer_sec.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\pointer_sec.c</FilePath>
+              <FilePath>..\common\asset\pointer_sec.c</FilePath>
+            </File>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\SpinWheel.c</FilePath>
             </File>
             <File>
               <FileName>watch_panel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\watch_panel.c</FilePath>
+              <FilePath>..\common\asset\watch_panel.c</FilePath>
             </File>
             <File>
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\asset\whilte_dot.c.c</FilePath>
+              <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1228,19 +1288,29 @@
           <GroupName>bsp_mps2</GroupName>
           <Files>
             <File>
+              <FileName>GLCD_Config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\platform\mps2\GLCD_Config.h</FilePath>
+            </File>
+            <File>
               <FileName>GLCD_V2M-MPS2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
+              <FilePath>..\common\platform\mps2\GLCD_V2M-MPS2.c</FilePath>
             </File>
             <File>
               <FileName>platform_mps2.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\platform_mps2.c</FilePath>
+              <FilePath>..\common\platform\mps2\platform_mps2.c</FilePath>
             </File>
             <File>
               <FileName>stdout_USART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\platform\mps2\stdout_USART.c</FilePath>
+              <FilePath>..\common\platform\mps2\stdout_USART.c</FilePath>
+            </File>
+            <File>
+              <FileName>startup_CMSDK_CM0plus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RTE\Device\CMSDK_CM0plus\startup_CMSDK_CM0plus.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1433,12 +1503,6 @@
           </targetInfo>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.3" condition="ARMCM0+ CMSIS">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
-        <targetInfos>
-          <targetInfo name="V2M-MPS2-CM0+"/>
-        </targetInfos>
-      </component>
       <component Cbundle="STM32F746G-Discovery" Cclass="Board Support" Cgroup="Drivers" Csub="SDRAM" Cvendor="Keil" Cversion="1.1.1" condition="STM32F746G-Discovery BSP SDRAM">
         <package name="STM32F7xx_DFP" schemaVersion="1.7.1" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
         <targetInfos>
@@ -1541,6 +1605,12 @@
           <targetInfo name="STM32F746G-Discovery-GCC"/>
         </targetInfos>
       </component>
+      <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="CMSDK_CM0plus CMSIS">
+        <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.7.0"/>
+        <targetInfos>
+          <targetInfo name="V2M-MPS2-CM0+"/>
+        </targetInfos>
+      </component>
       <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.2.5" condition="STM32F7 CMSIS">
         <package name="STM32F7xx_DFP" schemaVersion="1.7.1" url="http://www.keil.com/pack/" vendor="Keil" version="2.14.0"/>
         <targetInfos>
@@ -1562,25 +1632,35 @@
         <targetInfos/>
       </file>
       <file attr="config" category="linkerScript" condition="GCC" name="Device\ARM\ARMCM0plus\Source\GCC\gcc_arm.ld" version="0.0.0">
-        <instance index="0">RTE\Device\ARMCM0P_MPU\gcc_arm.ld</instance>
+        <instance index="0" removed="1">RTE\Device\ARMCM0P_MPU\gcc_arm.ld</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.3" condition="ARMCM0+ CMSIS" isDefaultVariant="1"/>
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
-        <targetInfos>
-          <targetInfo name="V2M-MPS2-CM0+"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="sourceC" name="Device\ARM\ARMCM0plus\Source\startup_ARMCM0plus.c" version="0.0.0">
-        <instance index="0">RTE\Device\ARMCM0P_MPU\startup_ARMCM0plus.c</instance>
+        <instance index="0" removed="1">RTE\Device\ARMCM0P_MPU\startup_ARMCM0plus.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.3" condition="ARMCM0+ CMSIS" isDefaultVariant="1"/>
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
+        <targetInfos/>
+      </file>
+      <file attr="config" category="sourceC" name="Device\ARM\ARMCM0plus\Source\system_ARMCM0plus.c" version="0.0.0">
+        <instance index="0" removed="1">RTE\Device\ARMCM0P_MPU\system_ARMCM0plus.c</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.3" condition="ARMCM0+ CMSIS" isDefaultVariant="1"/>
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
+        <targetInfos/>
+      </file>
+      <file attr="config" category="header" name="CMSIS\Config\RTE_Device.h" version="1.0.0">
+        <instance index="0">RTE\Device\CMSDK_CM0plus\RTE_Device.h</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="CMSDK_CM0plus CMSIS"/>
+        <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.7.0"/>
         <targetInfos>
           <targetInfo name="V2M-MPS2-CM0+"/>
         </targetInfos>
       </file>
-      <file attr="config" category="sourceC" name="Device\ARM\ARMCM0plus\Source\system_ARMCM0plus.c" version="0.0.0">
-        <instance index="0">RTE\Device\ARMCM0P_MPU\system_ARMCM0plus.c</instance>
-        <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="2.0.3" condition="ARMCM0+ CMSIS" isDefaultVariant="1"/>
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.8.0"/>
+      <file attr="config" category="source" name="Device\CMSDK_CM0plus\Source\system_CMSDK_CM0plus.c" version="1.0.0">
+        <instance index="0">RTE\Device\CMSDK_CM0plus\system_CMSDK_CM0plus.c</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="CMSDK_CM0plus CMSIS"/>
+        <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.7.0"/>
         <targetInfos>
           <targetInfo name="V2M-MPS2-CM0+"/>
         </targetInfos>

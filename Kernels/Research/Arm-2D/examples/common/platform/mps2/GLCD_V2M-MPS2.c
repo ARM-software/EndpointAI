@@ -38,6 +38,13 @@
 #include "GLCD_Config.h"
 #include "Board_GLCD.h"
 
+#if defined(__clang__)
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
+#endif
+
+
 #define UNUSED(x) (void)(x)             /* macro to get rid of 'unused parameter' warning */ 
 
 #if defined(IOTKit_CM33_FP)

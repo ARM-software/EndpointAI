@@ -155,6 +155,7 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
 
     if (0 == BENCHMARK.wIterations) {
 
+#if !defined(__USE_FVP__)
         lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
         lcd_puts(  "All-in-One Test, running "
                     STR(ITERATION_CNT)
@@ -171,6 +172,7 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
                             SystemCoreClock / BENCHMARK.wAverage,
                             BENCHMARK.wAverage / (SystemCoreClock / 1000ul));
         lcd_printf("LCD Latency: %2dms", BENCHMARK.wLCDLatency / (SystemCoreClock / 1000ul) );
+#endif
 
     }
 }
@@ -209,7 +211,8 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
     arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
     
     __PRINT_BANNER("Arm-2D Benchmark");
-
+    
+#if !defined(__USE_FVP__)
     lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
     lcd_puts(  "All-in-One Test, running "
                 STR(ITERATION_CNT)
@@ -222,6 +225,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
 
     //lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
     //lcd_puts("Cycles\tAvrage\tUPS30Freq\tUPS\tLCD Latency");
+#endif
 
     arm_2d_op_wait_async(NULL);
     
@@ -263,25 +267,25 @@ int main (void)
 
     //! initialise FPB helper
     if (ARM_2D_HELPER_PFB_INIT(
-            &s_tExamplePFB,                 //!< FPB Helper object
-            APP_SCREEN_WIDTH,               //!< screen width
-            APP_SCREEN_HEIGHT,              //!< screen height
-            uint16_t,                       //!< colour date type
-            PFB_BLOCK_WIDTH,                //!< PFB block width
-            PFB_BLOCK_HEIGHT,               //!< PFB block height
-            1,                              //!< number of PFB in the PFB pool
-            {
-                .evtOnLowLevelRendering = {
-                    //! callback for low level rendering
-                    .fnHandler = &__pfb_render_handler,
-                },
-                .evtOnDrawing = {
-                    //! callback for drawing GUI
-                    .fnHandler = &__pfb_draw_background_handler,
-                },
+        &s_tExamplePFB,                 //!< FPB Helper object
+        APP_SCREEN_WIDTH,               //!< screen width
+        APP_SCREEN_HEIGHT,              //!< screen height
+        uint16_t,                       //!< colour date type
+        PFB_BLOCK_WIDTH,                //!< PFB block width
+        PFB_BLOCK_HEIGHT,               //!< PFB block height
+        1,                              //!< number of PFB in the PFB pool
+        {
+            .evtOnLowLevelRendering = {
+                //! callback for low level rendering
+                .fnHandler = &__pfb_render_handler,
             },
-            //.FrameBuffer.bSwapRGB16 = true,
-        ) < 0) {
+            .evtOnDrawing = {
+                //! callback for drawing GUI
+                .fnHandler = &__pfb_draw_background_handler,
+            },
+        },
+        //.FrameBuffer.bSwapRGB16 = true,
+    ) < 0) {
         //! error detected
         assert(false);
     }

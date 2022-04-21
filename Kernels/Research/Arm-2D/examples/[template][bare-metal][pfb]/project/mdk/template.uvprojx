@@ -455,9 +455,14 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\asset\SpinWheel.c</FilePath>
+            </File>
+            <File>
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\asset\whilte_dot.c.c</FilePath>
+              <FilePath>..\..\..\common\asset\whilte_dot.c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -467,22 +472,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\busy_wheel.c</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\controls\controls.h</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\controls.c</FilePath>
+              <FilePath>..\..\..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1301,9 +1326,14 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\asset\SpinWheel.c</FilePath>
+            </File>
+            <File>
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\asset\whilte_dot.c.c</FilePath>
+              <FilePath>..\..\..\common\asset\whilte_dot.c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1313,22 +1343,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\busy_wheel.c</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\controls\controls.h</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\controls.c</FilePath>
+              <FilePath>..\..\..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1771,7 +1821,7 @@
       <TargetName>FastModel</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6170000::V6.17::.\ARMCompiler6.17</pCCUsed>
+      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -2215,9 +2265,14 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\asset\SpinWheel.c</FilePath>
+            </File>
+            <File>
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\asset\whilte_dot.c.c</FilePath>
+              <FilePath>..\..\..\common\asset\whilte_dot.c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2227,22 +2282,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\busy_wheel.c</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\controls\controls.h</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\controls.c</FilePath>
+              <FilePath>..\..\..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3130,9 +3205,14 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\asset\SpinWheel.c</FilePath>
+            </File>
+            <File>
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\asset\whilte_dot.c.c</FilePath>
+              <FilePath>..\..\..\common\asset\whilte_dot.c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3142,22 +3222,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\busy_wheel.c</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\controls\controls.h</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\controls.c</FilePath>
+              <FilePath>..\..\..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3976,9 +4076,14 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\asset\SpinWheel.c</FilePath>
+            </File>
+            <File>
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\asset\whilte_dot.c.c</FilePath>
+              <FilePath>..\..\..\common\asset\whilte_dot.c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3988,22 +4093,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\busy_wheel.c</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\controls\controls.h</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\controls.c</FilePath>
+              <FilePath>..\..\..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -4891,9 +5016,14 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\asset\SpinWheel.c</FilePath>
+            </File>
+            <File>
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\asset\whilte_dot.c.c</FilePath>
+              <FilePath>..\..\..\common\asset\whilte_dot.c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4903,22 +5033,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\busy_wheel.c</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\controls\controls.h</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\controls.c</FilePath>
+              <FilePath>..\..\..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -5806,9 +5956,14 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\asset\SpinWheel.c</FilePath>
+            </File>
+            <File>
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\asset\whilte_dot.c.c</FilePath>
+              <FilePath>..\..\..\common\asset\whilte_dot.c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5818,22 +5973,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\busy_wheel.c</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\controls\controls.h</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\controls.c</FilePath>
+              <FilePath>..\..\..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -6276,7 +6451,7 @@
       <TargetName>STM32F746G-Discovery</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6170000::V6.17::.\ARMCompiler6.17</pCCUsed>
+      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -6603,7 +6778,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Wno-nonportable-include-path</MiscControls>
-              <Define></Define>
+              <Define>__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\..\common\platform;..\..\..\common\platform\stm32f746g-discovery;..\..\;..\..\..\common\platform\lib</IncludePath>
             </VariousControls>
@@ -6721,9 +6896,14 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\asset\SpinWheel.c</FilePath>
+            </File>
+            <File>
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\asset\whilte_dot.c.c</FilePath>
+              <FilePath>..\..\..\common\asset\whilte_dot.c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6733,22 +6913,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\busy_wheel.c</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\controls\controls.h</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\controls.c</FilePath>
+              <FilePath>..\..\..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -7567,9 +7767,14 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\asset\SpinWheel.c</FilePath>
+            </File>
+            <File>
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\asset\whilte_dot.c.c</FilePath>
+              <FilePath>..\..\..\common\asset\whilte_dot.c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -7579,22 +7784,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\busy_wheel.c</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\controls\controls.h</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\controls.c</FilePath>
+              <FilePath>..\..\..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -8482,9 +8707,14 @@
           <GroupName>asset</GroupName>
           <Files>
             <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\asset\SpinWheel.c</FilePath>
+            </File>
+            <File>
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\asset\whilte_dot.c.c</FilePath>
+              <FilePath>..\..\..\common\asset\whilte_dot.c.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -8494,22 +8724,42 @@
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\busy_wheel.c</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\controls\controls.h</FilePath>
+              <FilePath>..\..\..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\controls\controls.c</FilePath>
+              <FilePath>..\..\..\common\controls\controls.c</FilePath>
+            </File>
+            <File>
+              <FileName>controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.c</FilePath>
+            </File>
+            <File>
+              <FileName>shape_round_corner_box.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\shape_round_corner_box.h</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>spinning_wheel.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -9013,7 +9263,7 @@
         </targetInfos>
       </component>
       <component Cclass="Acceleration" Cgroup="Arm-2D Helper" Csub="PFB" Cvendor="Arm" Cversion="1.0.0-preview" condition="Arm-2D-CORE">
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha1"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha2"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -9028,7 +9278,7 @@
         </targetInfos>
       </component>
       <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Alpha-Blending" Cvendor="Arm" Cversion="1.0.0-preview" condition="Arm-2D-CORE">
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha1"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha2"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -9043,7 +9293,7 @@
         </targetInfos>
       </component>
       <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="1.0.0-preview" condition="CMSIS-DSP">
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha1"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha2"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -9058,7 +9308,7 @@
         </targetInfos>
       </component>
       <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Transform" Cvendor="Arm" Cversion="1.0.0-preview" condition="Arm-2D-CORE">
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha1"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha2"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -9263,7 +9513,7 @@
       <file attr="config" category="sourceC" name="Library\Source\arm_2d.c" version="1.0.0">
         <instance index="0">RTE\Acceleration\arm_2d.c</instance>
         <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="1.0.0-preview" condition="CMSIS-DSP"/>
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha1"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha2"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -9280,7 +9530,7 @@
       <file attr="config" category="preIncludeGlobal" name="Library\Include\template\arm_2d_cfg.h" version="1.0.2">
         <instance index="0">RTE\Acceleration\arm_2d_cfg.h</instance>
         <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="1.0.0-preview" condition="CMSIS-DSP"/>
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha1"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha2"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>

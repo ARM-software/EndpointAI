@@ -14,8 +14,12 @@ It is an **ALL-IN-ONE** example that demonstrates almost all the features provid
 
 - **Choose the widely used algorithms in embedded GUI as the body of the benchmark**
   - Alpha-blending
+  - Colour-Keying
   - Image Copy
   - Texture Paving
+  - Rotation
+  - Mirroring
+  - Masking
 - **Simulate a typical application scenario with sufficient complexity**
   - Background with Texture paving (switching different mirroring modes every 4 second)
   - Foreground picture 
@@ -28,9 +32,9 @@ It is an **ALL-IN-ONE** example that demonstrates almost all the features provid
 
 
 
-**Figure 1-1 A snapshot of alpha-blending demos running on MPS3 platform**
+**Figure 1-1 A snapshot of benchmark running on Cortex-M4 FVP platform**
 
-![Alpha-blending](../documents/pictures/Alpha-blending.gif)  
+![](../documents/pictures/benchmark) 
 
 
 
@@ -53,9 +57,14 @@ It is an **ALL-IN-ONE** example that demonstrates almost all the features provid
 It is an example of rotation APIs. It consists of five layers:
 
 1. A floating background layer (Using Tile Copy)
-2. A clock_panel layer (Using Alpha-Blending-With-Colour-Masking)
+2. A clock_panel layer (Using Alpha Blending With Colour Keying)
 3. A small gold gear (Rotation)
-4. A big black gear (Rotation with Alpha Blending)
+4. A big black gear (Rotation with Opacity)
 5. A red pointer (Rotation)
+6. A golden star (Rotation, scaling with Opacity)
 
 This demo also shows how a fancy looking clock could be rendered with just less than 10K RAM (or even less by using a smaller PFB size). 
+
+**Figure 1-3  A snapshot of watch-panel running on Cortex-M4 FVP platform**
+
+![](../documents/pictures/watch-panel) 

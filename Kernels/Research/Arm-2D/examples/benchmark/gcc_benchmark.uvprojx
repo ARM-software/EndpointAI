@@ -515,82 +515,82 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>asset</GroupName>
+          <Files>
+            <File>
+              <FileName>cmsis_logo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\cmsis_logo.c</FilePath>
+            </File>
+            <File>
+              <FileName>helium.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\helium.c</FilePath>
+            </File>
+            <File>
+              <FileName>software.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\software.c</FilePath>
+            </File>
+            <File>
+              <FileName>small_icon_sun.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\small_icon_sun.c</FilePath>
+            </File>
+            <File>
+              <FileName>SpinWheel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\SpinWheel.c</FilePath>
+            </File>
+            <File>
+              <FileName>whilte_dot.c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Control</GroupName>
           <Files>
             <File>
               <FileName>busy_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\busy_wheel.c</FilePath>
+              <FilePath>..\common\controls\busy_wheel.c</FilePath>
             </File>
             <File>
               <FileName>busy_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\busy_wheel.h</FilePath>
+              <FilePath>..\common\controls\busy_wheel.h</FilePath>
             </File>
             <File>
               <FileName>controls.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\controls.c</FilePath>
+              <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
               <FileName>controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\controls.h</FilePath>
+              <FilePath>..\common\controls\controls.h</FilePath>
             </File>
             <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\shape_round_corner_box.c</FilePath>
+              <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
             </File>
             <File>
               <FileName>shape_round_corner_box.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\shape_round_corner_box.h</FilePath>
+              <FilePath>..\common\controls\shape_round_corner_box.h</FilePath>
             </File>
             <File>
               <FileName>spinning_wheel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\controls\spinning_wheel.c</FilePath>
+              <FilePath>..\common\controls\spinning_wheel.c</FilePath>
             </File>
             <File>
               <FileName>spinning_wheel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controls\spinning_wheel.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>asset</GroupName>
-          <Files>
-            <File>
-              <FileName>whilte_dot.c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\whilte_dot.c.c</FilePath>
-            </File>
-            <File>
-              <FileName>cmsis_logo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\cmsis_logo.c</FilePath>
-            </File>
-            <File>
-              <FileName>helium.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\helium.c</FilePath>
-            </File>
-            <File>
-              <FileName>small_icon_sun.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\small_icon_sun.c</FilePath>
-            </File>
-            <File>
-              <FileName>software.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\software.c</FilePath>
-            </File>
-            <File>
-              <FileName>SpinWheel.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\asset\SpinWheel.c</FilePath>
+              <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
           </Files>
         </Group>

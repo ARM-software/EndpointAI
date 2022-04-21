@@ -39,7 +39,10 @@
 /*============================ INCLUDES ======================================*/
 #include "arm_2d.h"
 #include <arm_math.h>
+
+#if defined(__ARM_2D_HAS_CDE__) && __ARM_2D_HAS_CDE__
 #include "__arm_2d_cde.h"
+#endif
 
 #ifdef   __cplusplus
 extern "C" {

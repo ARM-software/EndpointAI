@@ -24,6 +24,9 @@
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
 #   pragma clang diagnostic ignored "-Wpadded"
 #   pragma clang diagnostic ignored "-Wcast-qual"
@@ -85,11 +88,11 @@ void display_task(void)
         
         /* a region for the busy wheel */
         ADD_REGION_TO_LIST(s_tDirtyRegions,
-            .tLocation = {(APP_SCREEN_WIDTH - 80) / 2,
-                          (APP_SCREEN_HEIGHT - 80) / 2},
+            .tLocation = {(APP_SCREEN_WIDTH - 100) / 2,
+                          (APP_SCREEN_HEIGHT - 100) / 2},
             .tSize = {
-                .iWidth = 80,
-                .iHeight = 80,  
+                .iWidth = 100,
+                .iHeight = 100,  
             },
         ),
         
@@ -140,6 +143,7 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
 {
     ARM_2D_UNUSED(ptFrameBuffer);
     
+#if !defined(__USE_FVP__)
     //! print performance info
     lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
     
@@ -152,6 +156,7 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
                 
     //lcd_text_location( 0, 0);
     lcd_puts(s_chPerformanceInfo);
+#endif
 }
 
 ARM_NOINIT
@@ -349,24 +354,24 @@ int main (void)
 
     //! initialise FPB helper
     if (ARM_2D_HELPER_PFB_INIT( 
-            &s_tExamplePFB,                 //!< FPB Helper object
-            APP_SCREEN_WIDTH,               //!< screen width
-            APP_SCREEN_HEIGHT,              //!< screen height
-            uint16_t,                       //!< colour date type
-            PFB_BLOCK_WIDTH,                //!< PFB block width
-            PFB_BLOCK_HEIGHT,               //!< PFB block height
-            1,                              //!< number of PFB in the PFB pool
-            {
-                .evtOnLowLevelRendering = {
-                    //! callback for low level rendering 
-                    .fnHandler = &__pfb_render_handler,                         
-                },
-                .evtOnDrawing = {
-                    //! callback for drawing GUI 
-                    .fnHandler = &__pfb_draw_background_handler, 
-                },
-            }
-        ) < 0) {
+        &s_tExamplePFB,                 //!< FPB Helper object
+        APP_SCREEN_WIDTH,               //!< screen width
+        APP_SCREEN_HEIGHT,              //!< screen height
+        uint16_t,                       //!< colour date type
+        PFB_BLOCK_WIDTH,                //!< PFB block width
+        PFB_BLOCK_HEIGHT,               //!< PFB block height
+        1,                              //!< number of PFB in the PFB pool
+        {
+            .evtOnLowLevelRendering = {
+                //! callback for low level rendering 
+                .fnHandler = &__pfb_render_handler,                         
+            },
+            .evtOnDrawing = {
+                //! callback for drawing GUI 
+                .fnHandler = &__pfb_draw_background_handler, 
+            },
+        }
+    ) < 0) {
         //! error detected
         assert(false);
     }

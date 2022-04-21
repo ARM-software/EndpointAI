@@ -94,7 +94,7 @@ extern "C" {
 #define __LARGEINVF32          100.0f
 
 #define __PI_2_F16             (__PIF16/2.0f16)
-#define INV_NEWTON_INIT_F16  0x7773
+#define INV_NEWTON_INIT_F16     0x7773
 
 #define INFINITY_F16           ((float16_t)__builtin_inf())
 

@@ -21,8 +21,8 @@
  * Title:        arm-2d_helium.c
  * Description:  Acceleration extensions using Helium.
  *
- * $Date:        25. March 2022
- * $Revision:    V.0.13.0
+ * $Date:        21. April 2022
+ * $Revision:    V.0.13.1
  *
  * Target Processor:  Cortex-M cores with Helium
  *
@@ -56,6 +56,7 @@
 #   pragma clang diagnostic ignored "-Wpadded"
 #   pragma clang diagnostic ignored "-Wvector-conversion"
 #   pragma clang diagnostic ignored "-Wundef"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
 #endif
 
 
@@ -4779,7 +4780,7 @@ void __arm_2d_impl_gray8_colour_filling_mask(uint8_t * __RESTRICT pTarget,
             "1:                                                      \n"
 
             " .unreq vecAlphaCompl                                   \n"
-            : [pTarget] "+r"(pTarget8),  [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
+            : [pTarget] "+l"(pTarget8),  [pAlpha] "+l" (pAlpha), [loopCnt] "+r"(blkCnt)
             :[vec256] "t"   (v256),[Colour] "r"(Colour)
 #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
             ,[alph255] "r" (255)
@@ -4845,7 +4846,7 @@ void __arm_2d_impl_gray8_colour_filling_mask_opacity(uint8_t * __RESTRICT pTarge
         "1:                                                      \n"
 
         " .unreq vecAlphaCompl                                   \n"
-        : [pTarget] "+r"(pTarget8),  [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
+        : [pTarget] "+l"(pTarget8),  [pAlpha] "+l" (pAlpha), [loopCnt] "+r"(blkCnt)
         :[vec256] "t"   (v256),[Colour] "r"(Colour),[vOpacity] "t"(vOpacity)
 #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
          ,[opa254] "r" (254)
@@ -4909,7 +4910,7 @@ void __arm_2d_impl_gray8_colour_filling_channel_mask(uint8_t * __RESTRICT pTarge
         "1:                                                      \n"
 
         " .unreq vecAlphaCompl                                   \n"
-        : [pTarget] "+r"(pTarget8),  [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
+        : [pTarget] "+l"(pTarget8),  [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
         :[vec256] "t"   (v256),[Colour] "r"(Colour),[str4Offs] "t"(vStride4Offs)
 #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
         ,[alph255] "r" (255)
@@ -4982,7 +4983,7 @@ void __arm_2d_impl_gray8_colour_filling_channel_mask_opacity(uint8_t * __RESTRIC
         "1:                                                      \n"
 
         " .unreq vecAlphaCompl                                   \n"
-        : [pTarget] "+r"(pTarget8),  [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
+        : [pTarget] "+l"(pTarget8),  [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
         :[vec256] "t"   (v256),[Colour] "r"(Colour),[vOpacity] "t"(vOpacity),
          [str4Offs] "t"(vStride4Offs)
 #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
@@ -5127,7 +5128,7 @@ void __arm_2d_impl_rgb565_colour_filling_mask(uint16_t * __RESTRICT pTarget,
             "   vstrh.16                q4, [%[pTarget]], #16      \n"
             "   letp                    lr, 2b                     \n"
             "1:                                                    \n"
-            :[pTarget]"+r"(pCurTarget),[pAlpha] "+r"(pAlpha),[loopCnt] "+r"(blkCnt)
+            :[pTarget]"+l"(pCurTarget),[pAlpha] "+l"(pAlpha),[loopCnt] "+r"(blkCnt)
             :[Colour] "r"(Colour), [eight] "r" (8), [four] "r" (4),
             [R] "r" (tSrcPix.R), [G] "r" (tSrcPix.G), [B] "r" (tSrcPix.B),
             [twofiftysix] "r" (256), [scratch] "r" (scratch)
@@ -5285,7 +5286,7 @@ void __arm_2d_impl_rgb565_colour_filling_mask_opacity(uint16_t * __RESTRICT pTar
             "   vstrh.16                q4, [%[pTarget]], #16      \n"
             "   letp                    lr, 2b                     \n"
             "1:                                                    \n"
-            :[pTarget]"+r"(pCurTarget),[pAlpha] "+r"(pAlpha),[loopCnt] "+r"(blkCnt)
+            :[pTarget]"+r"(pCurTarget),[pAlpha] "+l"(pAlpha),[loopCnt] "+r"(blkCnt)
             :[Colour] "r"(Colour), [eight] "r" (8), [four] "r" (4),
             [R] "r" (tSrcPix.R), [G] "r" (tSrcPix.G), [B] "r" (tSrcPix.B),
             [twofiftysix] "r" (256), [scratch] "r" (scratch)
@@ -5702,7 +5703,7 @@ void __arm_2d_impl_cccn888_colour_filling_mask(uint32_t * __RESTRICT pTarget,
             " .unreq vecAlphaCompl                                        \n"
 
             :[pTargetCh0] "+r"(pTargetCh0),  [pTargetCh1] "+r"(pTargetCh1),
-             [pTargetCh2] "+r"(pTargetCh2), [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
+             [pTargetCh2] "+r"(pTargetCh2), [pAlpha] "+l" (pAlpha), [loopCnt] "+r"(blkCnt)
             :[vec256] "t" (v256),[str4Offs] "t" (vStride4Offs),
              [c0] "r"(c0), [c1] "r"(c1), [c2] "r"(c2)
 #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
@@ -5814,7 +5815,7 @@ void __arm_2d_impl_cccn888_colour_filling_mask_opacity(uint32_t * __RESTRICT pTa
             "1:                                                           \n"
 
             :[pTargetCh0] "+r"(pTargetCh0),  [pTargetCh1] "+r"(pTargetCh1),
-             [pTargetCh2] "+r"(pTargetCh2), [pAlpha] "+r" (pAlpha), [loopCnt] "+r"(blkCnt)
+             [pTargetCh2] "+r"(pTargetCh2), [pAlpha] "+l" (pAlpha), [loopCnt] "+r"(blkCnt)
             :[vec256] "t" (v256),[str4Offs] "t" (vStride4Offs),
              [vOpacity] "t"(vOpacity),
              [c0] "r"(c0), [c1] "r"(c1), [c2] "r"(c2)

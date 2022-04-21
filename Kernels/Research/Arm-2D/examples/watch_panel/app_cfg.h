@@ -32,6 +32,11 @@
 #   define ITERATION_CNT       1000
 #endif
 
+#if defined(__USE_FVP__)
+#   undef ITERATION_CNT
+#   define ITERATION_CNT        1
+#endif
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
 #define ASSERT(...)         assert(__VA_ARGS__)
@@ -50,7 +55,7 @@
  */
 
 #define PFB_BLOCK_WIDTH                 GLCD_WIDTH
-#define PFB_BLOCK_HEIGHT                20
+#define PFB_BLOCK_HEIGHT                24
 
 #define BUSY_WHEEL_SPIN_SPEED           100
 

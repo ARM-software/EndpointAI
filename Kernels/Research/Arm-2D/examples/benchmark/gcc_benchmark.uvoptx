@@ -257,7 +257,7 @@
 
   <Group>
     <GroupName>Application</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -804,7 +804,7 @@
   </Group>
 
   <Group>
-    <GroupName>Control</GroupName>
+    <GroupName>asset</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
@@ -816,20 +816,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\controls\busy_wheel.c</PathWithFileName>
-      <FilenameWithoutPath>busy_wheel.c</FilenameWithoutPath>
+      <PathWithFileName>..\common\asset\cmsis_logo.c</PathWithFileName>
+      <FilenameWithoutPath>cmsis_logo.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
       <FileNumber>45</FileNumber>
-      <FileType>5</FileType>
+      <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\controls\busy_wheel.h</PathWithFileName>
-      <FilenameWithoutPath>busy_wheel.h</FilenameWithoutPath>
+      <PathWithFileName>..\common\asset\helium.c</PathWithFileName>
+      <FilenameWithoutPath>helium.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -840,20 +840,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\controls\controls.c</PathWithFileName>
-      <FilenameWithoutPath>controls.c</FilenameWithoutPath>
+      <PathWithFileName>..\common\asset\software.c</PathWithFileName>
+      <FilenameWithoutPath>software.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
       <FileNumber>47</FileNumber>
-      <FileType>5</FileType>
+      <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\controls\controls.h</PathWithFileName>
-      <FilenameWithoutPath>controls.h</FilenameWithoutPath>
+      <PathWithFileName>..\common\asset\small_icon_sun.c</PathWithFileName>
+      <FilenameWithoutPath>small_icon_sun.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -864,55 +864,55 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\controls\shape_round_corner_box.c</PathWithFileName>
-      <FilenameWithoutPath>shape_round_corner_box.c</FilenameWithoutPath>
+      <PathWithFileName>..\common\asset\SpinWheel.c</PathWithFileName>
+      <FilenameWithoutPath>SpinWheel.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
       <FileNumber>49</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>.\controls\shape_round_corner_box.h</PathWithFileName>
-      <FilenameWithoutPath>shape_round_corner_box.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>50</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\controls\spinning_wheel.c</PathWithFileName>
-      <FilenameWithoutPath>spinning_wheel.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>51</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>.\controls\spinning_wheel.h</PathWithFileName>
-      <FilenameWithoutPath>spinning_wheel.h</FilenameWithoutPath>
+      <PathWithFileName>..\common\asset\whilte_dot.c.c</PathWithFileName>
+      <FilenameWithoutPath>whilte_dot.c.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
   </Group>
 
   <Group>
-    <GroupName>asset</GroupName>
+    <GroupName>Control</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>50</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\common\controls\busy_wheel.c</PathWithFileName>
+      <FilenameWithoutPath>busy_wheel.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>51</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\common\controls\busy_wheel.h</PathWithFileName>
+      <FilenameWithoutPath>busy_wheel.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
     <File>
       <GroupNumber>6</GroupNumber>
       <FileNumber>52</FileNumber>
@@ -920,20 +920,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\asset\whilte_dot.c.c</PathWithFileName>
-      <FilenameWithoutPath>whilte_dot.c.c</FilenameWithoutPath>
+      <PathWithFileName>..\common\controls\controls.c</PathWithFileName>
+      <FilenameWithoutPath>controls.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
       <FileNumber>53</FileNumber>
-      <FileType>1</FileType>
+      <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\asset\cmsis_logo.c</PathWithFileName>
-      <FilenameWithoutPath>cmsis_logo.c</FilenameWithoutPath>
+      <PathWithFileName>..\common\controls\controls.h</PathWithFileName>
+      <FilenameWithoutPath>controls.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -944,20 +944,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\asset\helium.c</PathWithFileName>
-      <FilenameWithoutPath>helium.c</FilenameWithoutPath>
+      <PathWithFileName>..\common\controls\shape_round_corner_box.c</PathWithFileName>
+      <FilenameWithoutPath>shape_round_corner_box.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
       <FileNumber>55</FileNumber>
-      <FileType>1</FileType>
+      <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\asset\small_icon_sun.c</PathWithFileName>
-      <FilenameWithoutPath>small_icon_sun.c</FilenameWithoutPath>
+      <PathWithFileName>..\common\controls\shape_round_corner_box.h</PathWithFileName>
+      <FilenameWithoutPath>shape_round_corner_box.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -968,20 +968,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\asset\software.c</PathWithFileName>
-      <FilenameWithoutPath>software.c</FilenameWithoutPath>
+      <PathWithFileName>..\common\controls\spinning_wheel.c</PathWithFileName>
+      <FilenameWithoutPath>spinning_wheel.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
       <FileNumber>57</FileNumber>
-      <FileType>1</FileType>
+      <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\asset\SpinWheel.c</PathWithFileName>
-      <FilenameWithoutPath>SpinWheel.c</FilenameWithoutPath>
+      <PathWithFileName>..\common\controls\spinning_wheel.h</PathWithFileName>
+      <FilenameWithoutPath>spinning_wheel.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
