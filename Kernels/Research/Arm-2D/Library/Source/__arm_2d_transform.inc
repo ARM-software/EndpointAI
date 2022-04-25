@@ -1,6 +1,6 @@
 
 /*
- * Copyright (C) 2010-2021 Arm Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 Arm Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,8 +22,8 @@
  * Title:        __arm_2d_fill_colour.inc
  * Description:  c code template for drawing pattern
  *
- * $Date:        14. April 2020
- * $Revision:    V.1.0.0
+ * $Date:        26. April 2022
+ * $Revision:    V.1.1.0
  *
  * -------------------------------------------------------------------- */
 
@@ -73,6 +73,11 @@ void __arm_2d_transform_regression( arm_2d_size_t * __RESTRICT ptCopySize,
                                     arm_2d_rot_linear_regr_t regrCoefs[]);
 
 
+/*! \note Please only set this to zero for function correctness verification of 
+ *!       __arm_2d_meta_trans_with_masks.inc
+ */
+#if 1   
+
 extern
 void __ARM_2D_FUNC(transform)(  __arm_2d_param_copy_orig_t *ptParam,
                                 __arm_2d_transform_info_t *ptInfo);
@@ -85,15 +90,15 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 #if !__ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__
 
 static
-__API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_float_t *ptPoint,
-                                            arm_2d_region_t *ptOrigValidRegion,
-                                            __API_INT_TYPE *pOrigin,
-                                            int16_t iOrigStride,
-                                            //arm_2d_location_t *ptTargetPoint,
-                                            //arm_2d_region_t *ptTargetValidRegion,
-                                            __API_INT_TYPE *pTarget,
-                                            //int16_t iTargetSride,
-                                            __API_INT_TYPE MaskColour)
+void __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_float_t *ptPoint,
+                                        arm_2d_region_t *ptOrigValidRegion,
+                                        __API_INT_TYPE *pOrigin,
+                                        int16_t iOrigStride,
+                                        //arm_2d_location_t *ptTargetPoint,
+                                        //arm_2d_region_t *ptTargetValidRegion,
+                                        __API_INT_TYPE *pTarget,
+                                        //int16_t iTargetSride,
+                                        __API_INT_TYPE MaskColour)
 {
 #if     defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__)                            \
     &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
@@ -135,12 +140,8 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_float_t *ptPoint,
     }
 
     if (bIsInside) {
-        TempPixel = __API_PIXEL_AVERAGE_RESULT();
-    } else {
-        TempPixel = *pTarget;
+        (*pTarget) = __API_PIXEL_AVERAGE_RESULT();
     }
-
-    return TempPixel;
 
 #else
     arm_2d_location_t tOriginLocation;
@@ -153,11 +154,9 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_float_t *ptPoint,
         __API_INT_TYPE Temp = pOrigin[   tOriginLocation.iY * iOrigStride
                                      +   tOriginLocation.iX];
         if (Temp != MaskColour) {
-            Pixel = Temp;
+            *pTarget = Temp;
         }
     }
-
-    return Pixel;
 #endif
 }
 
@@ -220,7 +219,7 @@ void __ARM_2D_FUNC(transform)( __arm_2d_param_copy_orig_t *ptParam,
             }
         #endif
 
-            *pTargetBase = __ARM_2D_FUNC(get_pixel_colour)(
+            __ARM_2D_FUNC(get_pixel_colour)(
                                 &tPoint,
                                 &ptParam->tOrigin.tValidRegion,
                                 ptParam->tOrigin.pBuffer,
@@ -240,14 +239,13 @@ void __ARM_2D_FUNC(transform)( __arm_2d_param_copy_orig_t *ptParam,
 #else /* __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__ */
 
 static
-__API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(
-                                            arm_2d_point_fx_t  *ptFxPoint,
-                                            arm_2d_region_t *ptOrigValidRegion,
-                                            __API_INT_TYPE *pOrigin,
-                                            int16_t iOrigStride,
-                                            __API_INT_TYPE *pTarget,
-                                            //int16_t iTargetSride,
-                                            __API_INT_TYPE MaskColour)
+void __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_fx_t  *ptFxPoint,
+                                        arm_2d_region_t *ptOrigValidRegion,
+                                        __API_INT_TYPE *pOrigin,
+                                        int16_t iOrigStride,
+                                        __API_INT_TYPE *pTarget,
+                                        //int16_t iTargetSride,
+                                        __API_INT_TYPE MaskColour)
 {
 #if     defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__)                          \
     &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
@@ -289,12 +287,8 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(
     }
 
     if (bIsInside) {
-        TempPixel = __API_PIXEL_AVERAGE_RESULT();
-    } else {
-        TempPixel = *pTarget;
-    }
-
-    return TempPixel;
+        *pTarget = __API_PIXEL_AVERAGE_RESULT();
+    } 
 #else
     __API_INT_TYPE Pixel = *pTarget;
     arm_2d_location_t  tPoint = {
@@ -305,11 +299,9 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour)(
         __API_INT_TYPE Temp = pOrigin[   tPoint.iY * iOrigStride
                                      +   tPoint.iX];
         if (Temp != MaskColour) {
-            Pixel = Temp;
+            *pTarget = Temp;
         }
     }
-
-    return Pixel;
 #endif
 }
 
@@ -377,7 +369,7 @@ void __ARM_2D_FUNC(transform)(   __arm_2d_param_copy_orig_t *ptParam,
             }
         #endif
 
-            *pTargetBase = __ARM_2D_FUNC(get_pixel_colour)(
+            __ARM_2D_FUNC(get_pixel_colour)(
                                         &tPointFast,
                                         &ptParam->tOrigin.tValidRegion,
                                         pOrigin,
@@ -399,7 +391,7 @@ void __ARM_2D_FUNC(transform)(   __arm_2d_param_copy_orig_t *ptParam,
 
 #if !__ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__
 static
-__API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
+void __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
                                             arm_2d_point_float_t *ptPoint,
                                             arm_2d_region_t *ptOrigValidRegion,
                                             __API_INT_TYPE *pOrigin,
@@ -448,21 +440,16 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
     }
 
     if (bIsInside) {
-        TempPixel = *pTarget;
         __API_INT_TYPE tSourcPixel = __API_PIXEL_AVERAGE_RESULT();
 
-        __API_PIXEL_BLENDING( &tSourcPixel, &TempPixel, hwOpacity);
-    } else {
-        TempPixel = *pTarget;
-    }
-
-    return TempPixel;
+        __API_PIXEL_BLENDING( &tSourcPixel, pTarget, hwOpacity);
+    } 
+    
 #else
     arm_2d_location_t tOriginLocation;
 
     tOriginLocation.iX = ptPoint->fX;
     tOriginLocation.iY = ptPoint->fY;
-    __API_INT_TYPE Pixel = *pTarget;
 
     if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tOriginLocation)) {
         __API_INT_TYPE Temp = pOrigin[   tOriginLocation.iY * iOrigStride
@@ -470,16 +457,14 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
         if (Temp != MaskColour) {
             //Pixel = Temp;
 
-            __API_PIXEL_BLENDING( &Temp, &Pixel, hwOpacity);
+            __API_PIXEL_BLENDING( &Temp, pTarget, hwOpacity);
         }
     }
-
-    return Pixel;
 #endif
 }
 #else
 __WEAK
-__API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
+void __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
                                             arm_2d_point_fx_t  *ptFxPoint,
                                             arm_2d_region_t *ptOrigValidRegion,
                                             __API_INT_TYPE *pOrigin,
@@ -528,18 +513,13 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
     }
 
     if (bIsInside) {
-        TempPixel = *pTarget;
         __API_INT_TYPE tSourcPixel = __API_PIXEL_AVERAGE_RESULT();
 
-        __API_PIXEL_BLENDING( &tSourcPixel, &TempPixel, hwOpacity);
-    } else {
-        TempPixel = *pTarget;
-    }
-
-    return TempPixel;
+        __API_PIXEL_BLENDING( &tSourcPixel, pTarget, hwOpacity);
+    } 
+    
 #else
 
-    __API_INT_TYPE Pixel = *pTarget;
     arm_2d_location_t  tPoint = {
         .iX = ptFxPoint->X >> 16,
         .iY = ptFxPoint->Y >> 16,
@@ -548,11 +528,10 @@ __API_INT_TYPE __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
         __API_INT_TYPE Temp = pOrigin[   tPoint.iY * iOrigStride
                                      +   tPoint.iX];
         if (Temp != MaskColour) {
-            __API_PIXEL_BLENDING( &Temp, &Pixel, hwOpacity);
+            __API_PIXEL_BLENDING( &Temp, pTarget, hwOpacity);
         }
     }
 
-    return Pixel;
 #endif
 }
 #endif
@@ -627,7 +606,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
             }
         #endif
 
-            *pTargetBase = __ARM_2D_FUNC(get_pixel_colour_with_alpha) (
+            __ARM_2D_FUNC(get_pixel_colour_with_alpha) (
                                &tPoint,
                                &ptParam->tOrigin.
                                tValidRegion,
@@ -717,7 +696,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
             }
         #endif
 
-            *pTargetBase = __ARM_2D_FUNC(get_pixel_colour_with_alpha) (
+            __ARM_2D_FUNC(get_pixel_colour_with_alpha) (
                             &tPointFast,
                             &ptParam->tOrigin.
                             tValidRegion,
@@ -733,7 +712,34 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 }
 
 #endif /* __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__ */
+#else
 
+
+#   define __API_MTWM_COLOUR                       __API_COLOUR
+#   define __API_MTWM_INT_TYPE                     __API_INT_TYPE
+#   define __API_MTWM_PIXEL_BLENDING               __API_PIXEL_BLENDING
+#   define __API_MTWM_PIXEL_AVERAGE                __API_PIXEL_AVERAGE
+#   define __API_MTWM_PIXEL_AVERAGE_RESULT         __API_PIXEL_AVERAGE_RESULT
+#   define __API_MTWM_PIXEL_AVERAGE_INIT           __API_PIXEL_AVERAGE_INIT
+
+#   define get_pixel_colour_mask                   get_pixel_colour
+#   define transform_with_mask                     transform
+
+#   include "__arm_2d_meta_trans_with_masks.inc"
+
+#   define __API_MTWM_COLOUR                       __API_COLOUR
+#   define __API_MTWM_INT_TYPE                     __API_INT_TYPE
+#   define __API_MTWM_PIXEL_BLENDING               __API_PIXEL_BLENDING
+#   define __API_MTWM_PIXEL_AVERAGE                __API_PIXEL_AVERAGE
+#   define __API_MTWM_PIXEL_AVERAGE_RESULT         __API_PIXEL_AVERAGE_RESULT
+#   define __API_MTWM_PIXEL_AVERAGE_INIT           __API_PIXEL_AVERAGE_INIT
+#   define __API_MTWM_CFG_SUPPORT_OPATICY          1
+
+#   define get_pixel_colour_mask                   get_pixel_colour_with_opacity
+#   define transform_with_mask                     transform_with_opacity
+
+#   include "__arm_2d_meta_trans_with_masks.inc"
+#endif
 
 #define __API_MTWM_COLOUR                       __API_COLOUR
 #define __API_MTWM_INT_TYPE                     __API_INT_TYPE

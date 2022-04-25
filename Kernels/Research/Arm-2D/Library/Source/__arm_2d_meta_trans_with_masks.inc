@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2021 Arm Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 Arm Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        __arm_2d_meta_trans_with_masks.inc
  * Description:  c code template for copy and fill like operations
  *
- * $Date:        13. April 2022
- * $Revision:    V.1.0.0
+ * $Date:        26. April 2022
+ * $Revision:    V.1.1.0
  *
  * -------------------------------------------------------------------- */
  
@@ -125,8 +125,13 @@
 
 /*============================ PROTOTYPES ====================================*/
 extern
-void __ARM_2D_FUNC(transform_with_mask)(
-                                        __arm_2d_param_copy_orig_msk_t *ptParam,
+void __MTWM_FUNC(transform_with_mask)(
+                                    #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK      \
+                                     || __API_MTWM_CFG_SUPPORT_TARGET_MASK
+                                        __arm_2d_param_copy_orig_msk_t *ptThis,
+                                    #else
+                                        __arm_2d_param_copy_orig_t *ptParam,
+                                    #endif
                                         __arm_2d_transform_info_t *ptInfo
                                     #if __API_MTWM_CFG_SUPPORT_OPATICY
                                        ,uint_fast16_t hwOpacity
@@ -138,22 +143,21 @@ void __ARM_2D_FUNC(transform_with_mask)(
 #if !__ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__
 
 static
-__API_INT_TYPE __MTWM_FUNC(get_pixel_colour_mask)(   
-                                            arm_2d_point_float_t *ptPoint,
-                                            arm_2d_region_t *ptOrigValidRegion,
-                                            __API_INT_TYPE *pOrigin,
-                                            int16_t iOrigStride,
-                                        #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK
-                                            uint8_t *pchOrigMask,
-                                            int16_t iOrigMaskStride,
-                                        #else
-                                            __API_INT_TYPE MaskColour,
-                                        #endif
-    
-                                        #if __API_MTWM_CFG_SUPPORT_OPATICY
-                                            uint16_t hwOpacity,
-                                        #endif
-                                            __API_INT_TYPE *pTarget)
+void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_float_t *ptPoint,
+                                        arm_2d_region_t *ptOrigValidRegion,
+                                        __API_INT_TYPE *pOrigin,
+                                        int16_t iOrigStride,
+                                    #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK
+                                        uint8_t *pchOrigMask,
+                                        int16_t iOrigMaskStride,
+                                    #else
+                                        __API_INT_TYPE MaskColour,
+                                    #endif
+
+                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                        uint16_t hwOpacity,
+                                    #endif
+                                        __API_INT_TYPE *pTarget)
 {
 #if __API_MTWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
     iOrigMaskStride *= 4;
@@ -172,8 +176,9 @@ __API_INT_TYPE __MTWM_FUNC(get_pixel_colour_mask)(
 
     __API_PIXEL_AVERAGE_INIT();
 
-    __API_INT_TYPE TempPixel;
+    //__API_INT_TYPE TempPixel;
     bool bIsInside = false;
+    uint16_t hwTransparency = 0;
 
     for (int_fast8_t n = 0; n < 4; n++) {
         uint16_t hwAlpha = tAdjacentArray.tMatrix[n].chAlpha;
@@ -182,7 +187,8 @@ __API_INT_TYPE __MTWM_FUNC(get_pixel_colour_mask)(
             .iX = tOriginLocation.iX + tAdjacentArray.tMatrix[n].tOffset.iX,
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
         };
-        TempPixel = (*pTarget);
+
+        uint16_t hwPixelAlpha = 0;
 
         if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
             __API_INT_TYPE Temp = pOrigin[  tTemp.iY * iOrigStride
@@ -191,10 +197,10 @@ __API_INT_TYPE __MTWM_FUNC(get_pixel_colour_mask)(
     #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK
     
         #if __API_MTWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
-            uint16_t hwPixelAlpha = pchOrigMask[tTemp.iY * iOrigMaskStride
+            hwPixelAlpha = pchOrigMask[tTemp.iY * iOrigMaskStride
                                             +   tTemp.iX * 4];
         #else
-            uint16_t hwPixelAlpha = pchOrigMask[tTemp.iY * iOrigMaskStride
+            hwPixelAlpha = pchOrigMask[tTemp.iY * iOrigMaskStride
                                             +   tTemp.iX];
         #endif
         
@@ -206,35 +212,36 @@ __API_INT_TYPE __MTWM_FUNC(get_pixel_colour_mask)(
         #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
             hwPixelAlpha += (hwPixelAlpha == 255);
         #endif
+        
+            hwPixelAlpha = hwPixelAlpha * hwAlpha >> 8;
             
-            __API_MTWM_PIXEL_BLENDING( &Temp, &TempPixel, hwPixelAlpha);
+            __API_MTWM_PIXEL_AVERAGE(Temp, hwPixelAlpha);
             
             bIsInside = true;
     #else
             if (Temp != MaskColour) {
                 bIsInside = true;
-                TempPixel = Temp;
+                hwPixelAlpha = hwAlpha;
+                __API_MTWM_PIXEL_AVERAGE(Temp, hwAlpha);
             }
     #endif
         }
-
-        __API_MTWM_PIXEL_AVERAGE(TempPixel, hwAlpha);
+        
+        hwTransparency += hwAlpha - hwPixelAlpha;
+        
     }
 
     if (bIsInside) {
-    
+        __API_MTWM_PIXEL_AVERAGE(*pTarget, hwTransparency);
+        
     #if __API_MTWM_CFG_SUPPORT_OPATICY && !__API_MTWM_CFG_SUPPORT_SOURCE_MASK
         __API_INT_TYPE tSourcPixel = __API_PIXEL_AVERAGE_RESULT();
-        __API_MTWM_PIXEL_BLENDING( &tSourcPixel, &TempPixel, hwOpacity);
+        __API_MTWM_PIXEL_BLENDING( &tSourcPixel, pTarget, hwOpacity);
     #else
-        TempPixel = __API_PIXEL_AVERAGE_RESULT();
+        *pTarget = __API_PIXEL_AVERAGE_RESULT();
     #endif
         
-    } else {
-        TempPixel = *pTarget;
-    }
-
-    return TempPixel;
+    } 
 
 #else
     arm_2d_location_t tTemp;
@@ -265,35 +272,42 @@ __API_INT_TYPE __MTWM_FUNC(get_pixel_colour_mask)(
         hwPixelAlpha += (hwPixelAlpha == 255);
         #endif
             
-        __API_MTWM_PIXEL_BLENDING( &Temp, &TempPixel, hwPixelAlpha);
+        __API_MTWM_PIXEL_BLENDING( &Temp, pTarget, hwPixelAlpha);
     #else
         
         if (Temp != MaskColour) {
         #if __API_MTWM_CFG_SUPPORT_OPATICY
-            __API_MTWM_PIXEL_BLENDING( &Temp, &TempPixel, hwOpacity);
+            __API_MTWM_PIXEL_BLENDING( &Temp, pTarget, hwOpacity);
         #else
-            TempPixel = Temp;
+            *pTarget = Temp;
         #endif
         }
     #endif
     }
 
-    return TempPixel;
 #endif
 }
 
 __WEAK
 void __MTWM_FUNC(transform_with_mask)(
-                                    __arm_2d_param_copy_orig_msk_t *ptThis,
-                                    __arm_2d_transform_info_t *ptInfo
-                                #if __API_MTWM_CFG_SUPPORT_OPATICY
-                                    ,uint_fast16_t hwOpacity
-                                #endif
-                                    )
+                                    #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK      \
+                                     || __API_MTWM_CFG_SUPPORT_TARGET_MASK
+                                        __arm_2d_param_copy_orig_msk_t *ptThis,
+                                    #else
+                                        __arm_2d_param_copy_orig_t *ptParam,
+                                    #endif
+                                        __arm_2d_transform_info_t *ptInfo
+                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                       ,uint_fast16_t hwOpacity
+                                    #endif
+                                        )
 {
+#if __API_MTWM_CFG_SUPPORT_SOURCE_MASK                                          \
+ || __API_MTWM_CFG_SUPPORT_TARGET_MASK
     __arm_2d_param_copy_orig_t *ptParam = 
         &(ptThis->use_as____arm_2d_param_copy_orig_t);
-        
+#endif
+
     int_fast16_t iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
     int_fast16_t iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
 
@@ -360,7 +374,7 @@ void __MTWM_FUNC(transform_with_mask)(
             }
         #endif
 
-            *pTargetBase = __ARM_2D_FUNC(get_pixel_colour_mask)(
+            __ARM_2D_FUNC(get_pixel_colour_mask)(
                                 &tPoint,
                                 &ptParam->tOrigin.tValidRegion,
                                 ptParam->tOrigin.pBuffer,
@@ -386,21 +400,20 @@ void __MTWM_FUNC(transform_with_mask)(
 #else /* __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__ */
 
 static
-__API_INT_TYPE __MTWM_FUNC(get_pixel_colour_mask)(
-                                            arm_2d_point_fx_t  *ptFxPoint,
-                                            arm_2d_region_t *ptOrigValidRegion,
-                                            __API_INT_TYPE *pOrigin,
-                                            int16_t iOrigStride,
-                                        #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK
-                                            uint8_t *pchOrigMask,
-                                            int16_t iOrigMaskStride,
-                                        #else
-                                            __API_INT_TYPE MaskColour,
-                                        #endif
-                                        #if __API_MTWM_CFG_SUPPORT_OPATICY
-                                            uint16_t hwOpacity,
-                                        #endif
-                                            __API_INT_TYPE *pTarget
+void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_fx_t  *ptFxPoint,
+                                        arm_2d_region_t *ptOrigValidRegion,
+                                        __API_INT_TYPE *pOrigin,
+                                        int16_t iOrigStride,
+                                    #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK
+                                        uint8_t *pchOrigMask,
+                                        int16_t iOrigMaskStride,
+                                    #else
+                                        __API_INT_TYPE MaskColour,
+                                    #endif
+                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                        uint16_t hwOpacity,
+                                    #endif
+                                        __API_INT_TYPE *pTarget
                                             )
 {
 #if __API_MTWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
@@ -421,6 +434,7 @@ __API_INT_TYPE __MTWM_FUNC(get_pixel_colour_mask)(
 
     __API_INT_TYPE TempPixel;
     bool bIsInside = false;
+    uint16_t hwTransparency = 0;
 
     for (int_fast8_t n = 0; n < 4; n++) {
         uint16_t hwAlpha = tAdjacentArray.tMatrix[n].chAlpha;
@@ -430,21 +444,23 @@ __API_INT_TYPE __MTWM_FUNC(get_pixel_colour_mask)(
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
         };
         TempPixel = (*pTarget);
-
+        uint16_t hwPixelAlpha = 0;
+        
         if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
 
             __API_INT_TYPE Temp = pOrigin[   tTemp.iY * iOrigStride
                                             +   tTemp.iX];
                                             
     #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK
+    
         #if __API_MTWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE
-            uint16_t hwPixelAlpha = pchOrigMask[tTemp.iY * iOrigMaskStride
+            hwPixelAlpha = pchOrigMask[tTemp.iY * iOrigMaskStride
                                             +   tTemp.iX * 4];
         #else
-            uint16_t hwPixelAlpha = pchOrigMask[tTemp.iY * iOrigMaskStride
+            hwPixelAlpha = pchOrigMask[tTemp.iY * iOrigMaskStride
                                             +   tTemp.iX];
         #endif
-            
+        
         #if __API_MTWM_CFG_SUPPORT_OPATICY
             hwPixelAlpha = hwPixelAlpha * hwOpacity >> 8;
             assert(hwOpacity != 255);
@@ -453,33 +469,35 @@ __API_INT_TYPE __MTWM_FUNC(get_pixel_colour_mask)(
         #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
             hwPixelAlpha += (hwPixelAlpha == 255);
         #endif
+        
+            hwPixelAlpha = hwPixelAlpha * hwAlpha >> 8;
             
-            __API_MTWM_PIXEL_BLENDING( &Temp, &TempPixel, hwPixelAlpha);
+            __API_MTWM_PIXEL_AVERAGE(Temp, hwPixelAlpha);
             
             bIsInside = true;
     #else
             if (Temp != MaskColour) {
                 bIsInside = true;
-                TempPixel = Temp;
+                hwPixelAlpha = hwAlpha;
+                __API_MTWM_PIXEL_AVERAGE(Temp, hwAlpha);
             }
     #endif
         }
 
-        __API_MTWM_PIXEL_AVERAGE(TempPixel, hwAlpha);
+        hwTransparency += hwAlpha - hwPixelAlpha;    
     }
 
     if (bIsInside) {
+        __API_MTWM_PIXEL_AVERAGE(*pTarget, hwTransparency);
+        
     #if __API_MTWM_CFG_SUPPORT_OPATICY && !__API_MTWM_CFG_SUPPORT_SOURCE_MASK
         __API_INT_TYPE tSourcPixel = __API_PIXEL_AVERAGE_RESULT();
-        __API_MTWM_PIXEL_BLENDING( &tSourcPixel, &TempPixel, hwOpacity);
+        __API_MTWM_PIXEL_BLENDING( &tSourcPixel, pTarget, hwOpacity);
     #else
-        TempPixel = __API_PIXEL_AVERAGE_RESULT();
+        *pTarget = __API_PIXEL_AVERAGE_RESULT();
     #endif
-    } else {
-        TempPixel = *pTarget;
+        
     }
-
-    return TempPixel;
 #else
 
     arm_2d_location_t tTemp;
@@ -510,33 +528,41 @@ __API_INT_TYPE __MTWM_FUNC(get_pixel_colour_mask)(
         hwPixelAlpha += (hwPixelAlpha == 255);
         #endif
             
-        __API_MTWM_PIXEL_BLENDING( &Temp, &TempPixel, hwPixelAlpha);
+        __API_MTWM_PIXEL_BLENDING( &Temp, pTarget, hwPixelAlpha);
     #else
         
         if (Temp != MaskColour) {
         #if __API_MTWM_CFG_SUPPORT_OPATICY
-            __API_MTWM_PIXEL_BLENDING( &Temp, &TempPixel, hwOpacity);
+            __API_MTWM_PIXEL_BLENDING( &Temp, pTarget, hwOpacity);
         #else
-            TempPixel = Temp;
+            *pTarget = Temp;
         #endif
         }
     #endif
     }
-
-    return TempPixel;
 #endif
 }
 
 __WEAK
-void __MTWM_FUNC(transform_with_mask)(__arm_2d_param_copy_orig_msk_t *ptThis,
-                                      __arm_2d_transform_info_t *ptInfo
-                                #if __API_MTWM_CFG_SUPPORT_OPATICY
-                                      ,uint_fast16_t hwOpacity
-                                #endif
-                                      )
+__WEAK
+void __MTWM_FUNC(transform_with_mask)(
+                                    #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK      \
+                                     || __API_MTWM_CFG_SUPPORT_TARGET_MASK
+                                        __arm_2d_param_copy_orig_msk_t *ptThis,
+                                    #else
+                                        __arm_2d_param_copy_orig_t *ptParam,
+                                    #endif
+                                        __arm_2d_transform_info_t *ptInfo
+                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                       ,uint_fast16_t hwOpacity
+                                    #endif
+                                        )
 {
+#if __API_MTWM_CFG_SUPPORT_SOURCE_MASK                                          \
+ || __API_MTWM_CFG_SUPPORT_TARGET_MASK
     __arm_2d_param_copy_orig_t *ptParam = 
         &(ptThis->use_as____arm_2d_param_copy_orig_t);
+#endif
 
     int_fast16_t iHeight = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iHeight;
     int_fast16_t iWidth = ptParam->use_as____arm_2d_param_copy_t.tCopySize.iWidth;
@@ -609,7 +635,7 @@ void __MTWM_FUNC(transform_with_mask)(__arm_2d_param_copy_orig_msk_t *ptThis,
             }
         #endif
 
-            *pTargetBase = __ARM_2D_FUNC(get_pixel_colour_mask)(
+            __ARM_2D_FUNC(get_pixel_colour_mask)(
                                         &tPointFast,
                                         &ptParam->tOrigin.tValidRegion,
                                         pOrigin,
