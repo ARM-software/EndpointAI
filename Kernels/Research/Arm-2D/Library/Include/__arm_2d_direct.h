@@ -21,8 +21,8 @@
  * Title:        __arm_2d_direct.h
  * Description:  header files for internal users or professional developers
  *
- * $Date:        4. April 2022
- * $Revision:    V.1.0.1
+ * $Date:        29. April 2022
+ * $Revision:    V.1.0.2
  *
  * Target Processor:  Cortex-M cores
  *
@@ -776,14 +776,14 @@ void __arm_2d_impl_cccn888_alpha_blending(uint32_t * __restrict pSourceBase,
 					  uint32_t * __restrict pTargetBase,
 					  int16_t iTargetStride,
 					  arm_2d_size_t * __restrict ptCopySize,
-					  uint_fast8_t chRatio);
+					  uint_fast16_t chRatio);
 
 void __arm_2d_impl_cccn888_alpha_blending(uint32_t * pwSourceBase,
 					  int16_t iSourceStride,
 					  uint32_t * pwTargetBase,
 					  int16_t iTargetStride,
 					  arm_2d_size_t * ptCopySize,
-					  uint_fast8_t chRatio);
+					  uint_fast16_t chRatio);
 
 void __arm_2d_impl_cccn888_alpha_blending_colour_keying(uint32_t *
 							__restrict pSourceBase,
@@ -793,7 +793,7 @@ void __arm_2d_impl_cccn888_alpha_blending_colour_keying(uint32_t *
 							int16_t iTargetStride,
 							arm_2d_size_t *
 							__restrict ptCopySize,
-							uint_fast8_t chRatio,
+							uint_fast16_t chRatio,
 							uint32_t Colour);
 
 void __arm_2d_impl_cccn888_colour_filling_channel_mask(uint32_t *
@@ -820,8 +820,7 @@ void __arm_2d_impl_cccn888_colour_filling_channel_mask_opacity(uint32_t *
 							       __restrict
 							       ptCopySize,
 							       uint32_t Colour,
-							       uint_fast8_t
-							       chOpacity);
+							       uint_fast16_t hwOpacity);
 
 void __arm_2d_impl_cccn888_colour_filling_mask(uint32_t * __restrict pTarget,
 					       int16_t iTargetStride,
@@ -840,7 +839,7 @@ void __arm_2d_impl_cccn888_colour_filling_mask_opacity(uint32_t *
 						       arm_2d_size_t *
 						       __restrict ptCopySize,
 						       uint32_t Colour,
-						       uint_fast8_t chOpacity);
+						       uint_fast16_t hwOpacity);
 
 void __arm_2d_impl_cccn888_colour_filling_with_opacity(uint32_t *
 						       __restrict pTargetBase,
@@ -848,7 +847,7 @@ void __arm_2d_impl_cccn888_colour_filling_with_opacity(uint32_t *
 						       arm_2d_size_t *
 						       __restrict ptCopySize,
 						       uint32_t Colour,
-						       uint_fast8_t chRatio);
+						       uint_fast16_t hwRatio);
 
 void __arm_2d_impl_cccn888_des_chn_msk_copy(uint32_t * __restrict pSourceBase,
 					    int16_t iSourceStride,
@@ -3153,7 +3152,7 @@ void __arm_2d_impl_cccn888_transform(__arm_2d_param_copy_orig_t * ptParam,
 
 void __arm_2d_impl_cccn888_transform_with_opacity(__arm_2d_param_copy_orig_t * ptParam,
 					   __arm_2d_transform_info_t * ptInfo,
-					   uint_fast8_t chRatio);
+					   uint_fast16_t hwRatio);
                        
 void __arm_2d_impl_cccn888_transform_with_src_mask(
                                         __arm_2d_param_copy_orig_msk_t * ptParam,
@@ -3162,7 +3161,7 @@ void __arm_2d_impl_cccn888_transform_with_src_mask(
 void __arm_2d_impl_cccn888_transform_with_src_mask_and_opacity(
                                         __arm_2d_param_copy_orig_msk_t * ptParam,
                                         __arm_2d_transform_info_t * ptInfo,
-                                        uint_fast8_t chRatio);
+                                        uint_fast16_t hwRatio);
 
 void __arm_2d_impl_cccn888_transform_with_src_chn_mask(
                                         __arm_2d_param_copy_orig_msk_t * ptParam,
@@ -3171,7 +3170,7 @@ void __arm_2d_impl_cccn888_transform_with_src_chn_mask(
 void __arm_2d_impl_cccn888_transform_with_src_chn_mask_and_opacity(
                                         __arm_2d_param_copy_orig_msk_t * ptParam,
                                         __arm_2d_transform_info_t * ptInfo,
-                                        uint_fast8_t chRatio);
+                                        uint_fast16_t hwRatio);
 
 void __arm_2d_impl_gray8_1h_des_msk_copy(uint8_t * __restrict pSourceBase,
 					 int16_t iSourceStride,
@@ -3323,7 +3322,7 @@ void __arm_2d_impl_gray8_alpha_blending(uint8_t * __restrict pSourceBase,
 					uint8_t * __restrict pTargetBase,
 					int16_t iTargetStride,
 					arm_2d_size_t * __restrict ptCopySize,
-					uint_fast8_t chRatio);
+					uint_fast16_t hwRatio);
 
 void __arm_2d_impl_gray8_alpha_blending_colour_keying(uint8_t *
 						      __restrict pSourceBase,
@@ -3333,7 +3332,7 @@ void __arm_2d_impl_gray8_alpha_blending_colour_keying(uint8_t *
 						      int16_t iTargetStride,
 						      arm_2d_size_t *
 						      __restrict ptCopySize,
-						      uint_fast8_t chRatio,
+						      uint_fast16_t hwRatio,
 						      uint8_t Colour);
 
 void __arm_2d_impl_gray8_colour_filling_channel_mask(uint8_t *
@@ -3358,8 +3357,7 @@ void __arm_2d_impl_gray8_colour_filling_channel_mask_opacity(uint8_t *
 							     __restrict
 							     ptCopySize,
 							     uint8_t Colour,
-							     uint_fast8_t
-							     chOpacity);
+							     uint_fast16_t hwOpacity);
 
 void __arm_2d_impl_gray8_colour_filling_mask(uint8_t * __restrict pTarget,
 					     int16_t iTargetStride,
@@ -3378,7 +3376,7 @@ void __arm_2d_impl_gray8_colour_filling_mask_opacity(uint8_t *
 						     arm_2d_size_t *
 						     __restrict ptCopySize,
 						     uint8_t Colour,
-						     uint_fast8_t chOpacity);
+						     uint_fast16_t hwOpacity);
 
 void __arm_2d_impl_gray8_colour_filling_with_opacity(uint8_t *
 						     __restrict pTargetBase,
@@ -3386,7 +3384,7 @@ void __arm_2d_impl_gray8_colour_filling_with_opacity(uint8_t *
 						     arm_2d_size_t *
 						     __restrict ptCopySize,
 						     uint8_t Colour,
-						     uint_fast8_t chRatio);
+						     uint_fast16_t hwRatio);
 
 void __arm_2d_impl_gray8_des_chn_msk_copy(uint8_t * __restrict pSourceBase,
 					  int16_t iSourceStride,
@@ -5585,7 +5583,7 @@ void __arm_2d_impl_gray8_transform(__arm_2d_param_copy_orig_t * ptParam,
 
 void __arm_2d_impl_gray8_transform_with_opacity(__arm_2d_param_copy_orig_t * ptParam,
 					 __arm_2d_transform_info_t * ptInfo,
-					 uint_fast8_t chRatio);
+					 uint_fast16_t hwRatio);
 
 void __arm_2d_impl_gray8_transform_with_src_mask(
                                         __arm_2d_param_copy_orig_msk_t * ptParam,
@@ -5594,7 +5592,7 @@ void __arm_2d_impl_gray8_transform_with_src_mask(
 void __arm_2d_impl_gray8_transform_with_src_mask_and_opacity(
                                         __arm_2d_param_copy_orig_msk_t * ptParam,
                                         __arm_2d_transform_info_t * ptInfo,
-                                        uint_fast8_t chRatio);
+                                        uint_fast16_t hwRatio);
 
 void __arm_2d_impl_gray8_transform_with_src_chn_mask(
                                         __arm_2d_param_copy_orig_msk_t * ptParam,
@@ -5603,7 +5601,7 @@ void __arm_2d_impl_gray8_transform_with_src_chn_mask(
 void __arm_2d_impl_gray8_transform_with_src_chn_mask_and_opacity(
                                         __arm_2d_param_copy_orig_msk_t * ptParam,
                                         __arm_2d_transform_info_t * ptInfo,
-                                        uint_fast8_t chRatio);
+                                        uint_fast16_t hwRatio);
 
 void __arm_2d_impl_rgb16_1x1_paving(const uint16_t * __restrict pSource,
 				    int16_t iSourceStride,
@@ -6928,14 +6926,14 @@ void __arm_2d_impl_rgb565_alpha_blending(uint16_t * __restrict phwSourceBase,
 					 uint16_t * __restrict phwTargetBase,
 					 int16_t iTargetStride,
 					 arm_2d_size_t * __restrict ptCopySize,
-					 uint_fast8_t chRatio);
+					 uint_fast16_t hwRatio);
 
 void __arm_2d_impl_rgb565_alpha_blending(uint16_t * phwSourceBase,
 					 int16_t iSourceStride,
 					 uint16_t * phwTargetBase,
 					 int16_t iTargetStride,
 					 arm_2d_size_t * ptCopySize,
-					 uint_fast8_t chRatio);
+					 uint_fast16_t hwRatio);
 
 void __arm_2d_impl_rgb565_alpha_blending_colour_keying(uint16_t *
 						       __restrict pSourceBase,
@@ -6945,7 +6943,7 @@ void __arm_2d_impl_rgb565_alpha_blending_colour_keying(uint16_t *
 						       int16_t iTargetStride,
 						       arm_2d_size_t *
 						       __restrict ptCopySize,
-						       uint_fast8_t chRatio,
+						       uint_fast16_t hwRatio,
 						       uint16_t hwColour);
 
 void __arm_2d_impl_rgb565_colour_filling_channel_mask(uint16_t *
@@ -6972,8 +6970,7 @@ void __arm_2d_impl_rgb565_colour_filling_channel_mask_opacity(uint16_t *
 							      __restrict
 							      ptCopySize,
 							      uint16_t Colour,
-							      uint_fast8_t
-							      chOpacity);
+							      uint_fast16_t hwOpacity);
 
 void __arm_2d_impl_rgb565_colour_filling_mask(uint16_t * __restrict pTarget,
 					      int16_t iTargetStride,
@@ -6992,7 +6989,7 @@ void __arm_2d_impl_rgb565_colour_filling_mask_opacity(uint16_t *
 						      arm_2d_size_t *
 						      __restrict ptCopySize,
 						      uint16_t Colour,
-						      uint_fast8_t chOpacity);
+						      uint_fast16_t hwOpacity);
 
 void __arm_2d_impl_rgb565_colour_filling_with_opacity(uint16_t *
 						      __restrict pTargetBase,
@@ -7000,7 +6997,7 @@ void __arm_2d_impl_rgb565_colour_filling_with_opacity(uint16_t *
 						      arm_2d_size_t *
 						      __restrict ptCopySize,
 						      uint16_t Colour,
-						      uint_fast8_t chRatio);
+						      uint_fast16_t hwRatio);
 
 void __arm_2d_impl_rgb565_des_chn_msk_copy(uint16_t * __restrict pSourceBase,
 					   int16_t iSourceStride,
@@ -9258,7 +9255,7 @@ void __arm_2d_impl_rgb565_transform(__arm_2d_param_copy_orig_t * ptParam,
 void __arm_2d_impl_rgb565_transform_with_opacity(
                                         __arm_2d_param_copy_orig_t * ptParam,
                                         __arm_2d_transform_info_t * ptInfo,
-                                        uint_fast8_t chRatio);
+                                        uint_fast16_t hwRatio);
                       
 void __arm_2d_impl_rgb565_transform_with_src_mask(
                                         __arm_2d_param_copy_orig_msk_t * ptParam,
@@ -9267,7 +9264,7 @@ void __arm_2d_impl_rgb565_transform_with_src_mask(
 void __arm_2d_impl_rgb565_transform_with_src_mask_and_opacity(
                                         __arm_2d_param_copy_orig_msk_t * ptParam,
                                         __arm_2d_transform_info_t * ptInfo,
-                                        uint_fast8_t chRatio);
+                                        uint_fast16_t hwRatio);
 
 void __arm_2d_impl_rgb565_transform_with_src_chn_mask(
                                         __arm_2d_param_copy_orig_msk_t * ptParam,
@@ -9276,7 +9273,7 @@ void __arm_2d_impl_rgb565_transform_with_src_chn_mask(
 void __arm_2d_impl_rgb565_transform_with_src_chn_mask_and_opacity(
                                         __arm_2d_param_copy_orig_msk_t * ptParam,
                                         __arm_2d_transform_info_t * ptInfo,
-                                        uint_fast8_t chRatio);
+                                        uint_fast16_t hwRatio);
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

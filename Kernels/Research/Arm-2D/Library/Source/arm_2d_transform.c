@@ -21,8 +21,8 @@
  * Title:        arm-2d_rotation.c
  * Description:  APIs for tile rotation
  *
- * $Date:        21 April 2022
- * $Revision:    V.1.0.1
+ * $Date:        04 May 2022
+ * $Revision:    V.1.0.2
  *
  * Target Processor:  Cortex-M cores
  *
@@ -648,7 +648,7 @@ static void __arm_2d_transform_preprocess_target(
             (   (uintptr_t)ptThis 
             +   this.use_as__arm_2d_op_core_t.ptOp->Info.chInClassOffset);
 
-
+    //! the following code is correct. DO NOT modify it unless you 100% sure.
     ptTransform->Target.tRegion.tSize = this.Source.ptTile->tRegion.tSize;
 
 #if 0  //!< please keep this code for understanding the original meaning
@@ -988,10 +988,16 @@ arm_fsm_rt_t arm_2dp_tile_transform(arm_2d_op_trans_t *ptOP,
     }
 
     if (NULL != ptRegion) {
+        __arm_2d_transform_info_t *ptTransform 
+            = (__arm_2d_transform_info_t *)
+                (   (uintptr_t)ptThis 
+                +   this.use_as__arm_2d_op_core_t.ptOp->Info.chInClassOffset);
+    
+    
         this.Target.ptTile = arm_2d_tile_generate_child(
                                                     ptTarget,
                                                     ptRegion,
-                                                    &this.tTransform.Target.tTile,
+                                                    &ptTransform->Target.tTile,
                                                     false);
         if (NULL == this.Target.ptTile) {
             arm_fsm_rt_t tResult = (arm_fsm_rt_t)ARM_2D_ERR_OUT_OF_REGION;

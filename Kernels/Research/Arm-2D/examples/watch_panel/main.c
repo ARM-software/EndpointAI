@@ -89,12 +89,12 @@ void display_task(void)
         /* a region for the busy wheel */
         ADD_REGION_TO_LIST(s_tDirtyRegions,
             .tLocation = {
-                .iX = ((APP_SCREEN_WIDTH - 222) >> 1),
-                .iY = ((APP_SCREEN_HEIGHT - 222) >> 1),
+                .iX = ((APP_SCREEN_WIDTH - 240) >> 1),
+                .iY = ((APP_SCREEN_HEIGHT - 240) >> 1),
             },
             .tSize = {
-                .iWidth = 222,
-                .iHeight = 222,
+                .iWidth = 240,
+                .iHeight = 240,
             },
         ),
 
@@ -210,7 +210,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
     ARM_2D_UNUSED(pTarget);
     ARM_2D_UNUSED(bIsNewFrame);
 
-    //arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
+    arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
     arm_2d_rgb16_tile_copy(&c_tileBackground,
                         ptTile,
                         NULL,

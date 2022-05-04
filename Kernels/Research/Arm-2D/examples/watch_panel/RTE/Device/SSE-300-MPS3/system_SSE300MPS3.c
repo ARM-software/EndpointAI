@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2021 Arm Limited. All rights reserved.
+ * Copyright (c) 2009-2022 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -59,28 +59,28 @@ void SystemInit (void)
 {
 
 #if defined (__VTOR_PRESENT) && (__VTOR_PRESENT == 1U)
-  SCB->VTOR = (uint32_t)(&__VECTOR_TABLE);
+    SCB->VTOR = (uint32_t)(&__VECTOR_TABLE);
 #endif
 
-/* CMSIS System Initialization */
 #if (defined (__FPU_USED) && (__FPU_USED == 1U)) || \
-  (defined (__ARM_FEATURE_MVE) && (__ARM_FEATURE_MVE > 0U))
-  SCB->CPACR |= ((3U << 10U*2U) |           /* enable CP10 Full Access */
-                 (3U << 11U*2U)  );         /* enable CP11 Full Access */
+    (defined (__ARM_FEATURE_MVE) && (__ARM_FEATURE_MVE >= 1U))
+    SCB->CPACR |= ((3U << 10U*2U) |           /* enable CP10 Full Access */
+                   (3U << 11U*2U)  );         /* enable CP11 Full Access */
+
+    /* Set CPDLPSTATE.CLPSTATE to 0, so PDCORE will not enter low-power state. Set
+     * CPDLPSTATE.ELPSTATE to 0, to stop the processor from trying to switch the EPU
+     * into retention state
+     */
+    PWRMODCTL->CPDLPSTATE &= 0xFFFFFF00UL;
 #endif
 
 #ifdef UNALIGNED_SUPPORT_DISABLE
-  SCB->CCR |= SCB_CCR_UNALIGN_TRP_Msk;
+    SCB->CCR |= SCB_CCR_UNALIGN_TRP_Msk;
 #endif
 
-/* Enable Loop and branch info cache */
-  SCB->CCR |= SCB_CCR_LOB_Msk;
-  __ISB();
+    /* Enable Loop and branch info cache */
+    SCB->CCR |= SCB_CCR_LOB_Msk;
+    __DSB();
+    __ISB();
 
-/* Set CPDLPSTATE.CLPSTATE to 0, so PDCORE will not enter low-power state. Set
- CPDLPSTATE.ELPSTATE to 0, to stop the processor from trying to switch the EPU
- into retention state */
-#define CPDLPSTATE_ADDR (0xE001E300UL)
-#define CPDLPSTATE *(volatile unsigned int *) CPDLPSTATE_ADDR
-  CPDLPSTATE &= 0xFFFFFF00UL;
 }

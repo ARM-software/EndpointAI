@@ -89,6 +89,8 @@ extern const arm_2d_tile_t c_tileStar;
 extern const arm_2d_tile_t c_tileStarMask;
 extern const arm_2d_tile_t c_tileStar32Mask2;
 
+extern const arm_2d_tile_t c_tileCircleBackGroundMask;
+
 /*============================ PROTOTYPES ====================================*/
 /*============================ LOCAL VARIABLES ===============================*/
 
@@ -98,11 +100,11 @@ static arm_2d_layer_t s_ptRefreshLayers[] = {
 
 static floating_range_t s_ptFloatingBoxes[] = {
     {
-        .tRegion = {{   0-(559 - APP_SCREEN_WIDTH), 
-                        0-(280 - APP_SCREEN_HEIGHT)
+        .tRegion = {{   0-(559 - 240), 
+                        0-(260 - 240)
                     }, 
-                    {   APP_SCREEN_WIDTH + ((559 - APP_SCREEN_WIDTH) * 2), 
-                        APP_SCREEN_HEIGHT + ((280 - APP_SCREEN_HEIGHT) * 2)
+                    {   240 + ((559 - 240) * 2), 
+                        240 + ((260 - 240) * 2)
                     }
                    },
         .ptLayer = &s_ptRefreshLayers[0],
@@ -273,40 +275,32 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 {
 
 #if 1
+
+
+    arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
     
-    if (    (c_tileBackground.tRegion.tSize.iHeight < APP_SCREEN_HEIGHT)
-        ||  (c_tileBackground.tRegion.tSize.iWidth < APP_SCREEN_WIDTH)) {
-        arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
-    }
-
-    /*! for each layer (ptLayer) inside array s_ptRefreshLayers */
-    arm_foreach(arm_2d_layer_t, s_ptRefreshLayers, ptLayer) {
-        //arm_2d_region_t tRegion = ptLayer->tRegion;
-
-        if (NULL == ptLayer->ptTile) { 
-            continue;
-        }
-        
-        if (ptLayer->bIsIrregular) {
-            arm_2d_rgb16_tile_copy_with_colour_masking( ptLayer->ptTile,
-                                        ptTile,
-                                        &(ptLayer->tRegion),
-                                        ptLayer->hwMaskingColour,
-                                        ARM_2D_CP_MODE_COPY);
-        } else {
-//            if (ptLayer->chTransparency) {
-                arm_2d_rgb565_alpha_blending(   ptLayer->ptTile,
-                                                ptTile,
-                                                &(ptLayer->tRegion),
-                                                255 - ptLayer->chTransparency);
-//            } else {
-//                arm_2d_rgb16_tile_copy( ptLayer->ptTile,
-//                                        ptTile,
-//                                        &(ptLayer->tRegion),
-//                                        ARM_2D_CP_MODE_COPY);
-//            }
-        }
-    }
+    static arm_2d_tile_t s_tPanelTile;
+    
+    arm_2d_tile_generate_child( ptTile,
+                                (const arm_2d_region_t []) {
+                                    {
+                                        .tSize = {240, 240},
+                                        .tLocation = {
+                                            .iX = ((APP_SCREEN_WIDTH - 240) >> 1),
+                                            .iY = ((APP_SCREEN_HEIGHT - 240) >> 1),
+                                        },
+                                    },
+                                },
+                                &s_tPanelTile,
+                                false);
+    
+    arm_2d_rgb565_tile_copy_with_des_mask(
+        s_ptRefreshLayers->ptTile,
+        &s_tPanelTile,
+        &c_tileCircleBackGroundMask,
+        &(s_ptRefreshLayers->tRegion),
+        ARM_2D_CP_MODE_COPY
+    );
     
     //! draw the watch panel with transparency effect
     do {
@@ -324,11 +318,12 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
                                     &c_tileWatchPanel,
                                     ptTile,
                                     &tPanelRegion,
-                                    128,    //!< 50% opacity
+                                    64,    //!< 50% opacity
                                     (arm_2d_color_rgb565_t){GLCD_COLOR_BLACK});
 
 
     } while(0);
+
 
     /*! for each item (ptItem) inside array s_tGears */
     arm_foreach (demo_gears_t, s_tGears, ptItem) {

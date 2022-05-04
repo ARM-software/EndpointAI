@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2020 Arm Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 Arm Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm-2d.c
  * Description:  APIs for various alpha related operations
  *
- * $Date:        21. April 2022
- * $Revision:    V.1.0.1
+ * $Date:        29. April 2022
+ * $Revision:    V.1.0.2
  *
  * Target Processor:  Cortex-M cores
  *
@@ -206,7 +206,7 @@ void __arm_2d_impl_rgb565_alpha_blending_direct(
                                         const uint16_t *phwBackground,
                                         uint16_t *phwDestination,
                                         uint32_t wPixelCount,
-                                        uint_fast8_t chRatio);
+                                        uint_fast16_t hwRatio);
 
 extern
 void __arm_2d_impl_cccn888_alpha_blending_direct(
@@ -214,7 +214,7 @@ void __arm_2d_impl_cccn888_alpha_blending_direct(
                                         const uint32_t *__RESTRICT pwBackground,
                                         uint32_t *pwDestination,
                                         uint32_t wPixelCount,
-                                        uint_fast8_t chRatio);
+                                        uint_fast16_t hwRatio);
 
 
 /*----------------------------------------------------------------------------*
