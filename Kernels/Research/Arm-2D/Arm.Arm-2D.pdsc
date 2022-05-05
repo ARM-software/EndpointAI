@@ -17,14 +17,14 @@ The library name, i.e. Arm-2D, is a temporary term and it is subject to change i
   <repository type="git">https://github.com/ARM-software/EndpointAI.git</repository>
   
   <releases>
-    <release date="2022-05-04" version="1.0.0-preview-alpha4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/Arm.Arm-2D.1.0.0-preview-alpha4.pack">
+    <release date="2022-05-05" version="1.0.0-preview-alpha5" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/Arm.Arm-2D.1.0.0-preview-alpha5.pack">
       - Add CMSIS-Pack
       - Arm-2D v1.0.0 preview
       - Add support for transform (rotation and scaling)
       - Add a patch for alpha-255-opaque issue
       - Add a new header files __arm_2d_direct.h for professional developers.
       - Improve performance of transform-with-source-masks
-      - Fix a defect found in transform
+      - Fix defects found in transform
       - update examples to use common assets and controls
     </release>
     
