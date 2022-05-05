@@ -1832,7 +1832,7 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
         uint8_t       *pOriginCorrected = pOrigin + (correctionOffset * iOrigStride);               \
         /* retrieve all point values */                                                             \
         ptVal8 =                                                                                    \
-            vldrbq_gather_offset_z_u16(pOriginCorrected, ptOffs, predTail);                         \
+            vldrbq_gather_offset_z_u16(pOriginCorrected, ptOffs, predTail & p);                     \
                                                                                                     \
         /* combine 2 predicates set to true if point is in the region & values */                   \
         /*  different from color mask */                                                            \
@@ -1856,12 +1856,10 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
         pGlb |= p;                                                                                         \
                                                                                                            \
         /* prepare vector of point offsets */                                                              \
-        int16x8_t      ptOffs = vPoint.X + vPoint.Y * iOrigStride;                                         \
-        /* set negative values to 0 */                                                                     \
-        ptOffs = vmaxq(ptOffs, vdupq_n_s16(0));                                                            \
-        /* retrieve all point values */                                                                    \
+        uint16x8_t      ptOffs = vPoint.X + vPoint.Y * iOrigStride;                                         \
+         /* retrieve all point values */                                                                   \
         uint16x8_t      ptVal =                                                                            \
-            vldrhq_gather_shifted_offset_z_u16(pOrigin, (uint16x8_t)ptOffs, predTail);                     \
+            vldrhq_gather_shifted_offset_z_u16(pOrigin, ptOffs, predTail & p);                 \
                                                                                                            \
         /* combine 2 predicates set to true if point is in the region & values different from color mask */\
         p = vcmpneq_m_n_u16(ptVal, MaskColour, p);                                                         \
@@ -1895,7 +1893,7 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
         uint16_t       *pOriginCorrected = pOrigin + (correctionOffset * iOrigStride);                     \
         /* retrieve all point values */                                                                    \
         uint16x8_t      ptVal =                                                                            \
-            vldrhq_gather_shifted_offset_z_u16(pOriginCorrected, ptOffs, predTail);                        \
+            vldrhq_gather_shifted_offset_z_u16(pOriginCorrected, ptOffs, predTail & p);                    \
                                                                                                            \
         /* combine 2 predicates set to true if point is in the region & values different from color mask */\
         p = vcmpneq_m_n_u16(ptVal, MaskColour, p);                                                         \
@@ -1936,7 +1934,7 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
         uint32x4_t      ptOffs = tPointLo.X + tPointLo.Y * iOrigStride;                                    \
                                                                                                            \
         /* retrieve all point values */                                                                    \
-        uint32x4_t      ptVal = vldrwq_gather_shifted_offset_z_u32(pOrigin, ptOffs, predTailLow);          \
+        uint32x4_t      ptVal = vldrwq_gather_shifted_offset_z_u32(pOrigin, ptOffs, predTailLow & p);      \
                                                                                                            \
         /* combine 2 predicates set to true if point is in the region & values different from color mask */\
         p = vcmpneq_m_n_u32(ptVal, MaskColour, p);                                                         \
@@ -1953,7 +1951,7 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
         ptOffs = tPointHi.X + tPointHi.Y * iOrigStride;                                                    \
                                                                                                            \
         /* retrieve all point values */                                                                    \
-        ptVal = vldrwq_gather_shifted_offset_z_u32(pOrigin, ptOffs, predTailHigh);                         \
+        ptVal = vldrwq_gather_shifted_offset_z_u32(pOrigin, ptOffs, predTailHigh & p);                     \
                                                                                                            \
         /* combine 2 predicates set to true if point is in the region & values different from color mask */\
         p = vcmpneq_m_n_u32(ptVal, MaskColour, p);                                                         \
