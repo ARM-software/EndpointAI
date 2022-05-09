@@ -432,7 +432,7 @@ void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_fx_t  *ptFxPoint,
 
     __API_PIXEL_AVERAGE_INIT();
 
-    __API_INT_TYPE TempPixel;
+    //__API_INT_TYPE TempPixel;
     bool bIsInside = false;
     uint16_t hwTransparency = 0;
 
@@ -443,7 +443,7 @@ void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_fx_t  *ptFxPoint,
             .iX = tOriginLocation.iX + tAdjacentArray.tMatrix[n].tOffset.iX,
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
         };
-        TempPixel = (*pTarget);
+        //TempPixel = (*pTarget);
         uint16_t hwPixelAlpha = 0;
         
         if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tTemp)) {
