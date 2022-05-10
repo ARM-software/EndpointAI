@@ -22,7 +22,7 @@
 LR_CODE S_CODE_START {
     ER_CODE S_CODE_START {
         *.o (RESET +First)
-        .ANY (+RO)
+        .ANY (+RO-CODE)
     }
 
     /*
@@ -53,8 +53,11 @@ LR_CODE S_CODE_START {
      * size of the SRAM available.
      */
     ScatterAssert(ImageLimit(CODE_WATERMARK) <= S_CODE_START + S_CODE_SIZE)
+}
 
-    ER_DATA S_DATA_START {
+LR_DATA S_DATA_START {
+    ER_DATA +0  {
+        .ANY (+RO-DATA)
         .ANY (+ZI +RW)
     }
 

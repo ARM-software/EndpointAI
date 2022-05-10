@@ -2,11 +2,11 @@
  * @file     system_ARMCM55.c
  * @brief    CMSIS Device System Source File for
  *           ARMCM55 Device
- * @version  V1.0.0
- * @date     30. March 2020
+ * @version  V1.0.1
+ * @date     4. May 2021
  ******************************************************************************/
 /*
- * Copyright (c) 2009-2020 Arm Limited. All rights reserved.
+ * Copyright (c) 2009-2021 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -29,25 +29,16 @@
   #error device not specified!
 #endif
 
-
-
   #if defined (__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U)
     #include "partition_ARMCM55.h"
   #endif
-
-#if defined(__clang__)
-#   pragma clang diagnostic push
-#   pragma clang diagnostic ignored "-Wunknown-warning-option"
-#   pragma clang diagnostic ignored "-Wreserved-identifier"
-#   pragma clang diagnostic ignored "-Wmissing-noreturn"
-#endif
 
 /*----------------------------------------------------------------------------
   Define clocks
  *----------------------------------------------------------------------------*/
 #define  XTAL            ( 5000000UL)      /* Oscillator frequency */
 
-#define  SYSTEM_CLOCK    60000000UL //(5U * XTAL)
+#define  SYSTEM_CLOCK    (60000000UL)
 
 
 /*----------------------------------------------------------------------------
@@ -84,14 +75,27 @@ void SystemInit (void)
     (defined (__ARM_FEATURE_MVE) && (__ARM_FEATURE_MVE > 0U))
   SCB->CPACR |= ((3U << 10U*2U) |           /* enable CP10 Full Access */
                  (3U << 11U*2U)  );         /* enable CP11 Full Access */
+
+  /* Set low-power state for PDEPU                */
+  /*  0b00  | ON, PDEPU is not in low-power state */
+  /*  0b01  | ON, but the clock is off            */
+  /*  0b10  | RET(ention)                         */
+  /*  0b11  | OFF                                 */
+
+  /* Clear ELPSTATE, value is 0b11 on Cold reset */
+  PWRMODCTL->CPDLPSTATE &= ~(PWRMODCTL_CPDLPSTATE_ELPSTATE_Msk << PWRMODCTL_CPDLPSTATE_ELPSTATE_Pos);
+
+  /* Favor best FP/MVE performance by default, avoid EPU switch-ON delays */
+  /* PDEPU ON, Clock OFF */
+  PWRMODCTL->CPDLPSTATE |= 0x1 << PWRMODCTL_CPDLPSTATE_ELPSTATE_Pos;
 #endif
 
 #ifdef UNALIGNED_SUPPORT_DISABLE
   SCB->CCR |= SCB_CCR_UNALIGN_TRP_Msk;
 #endif
 
-// Enable Loop and branch info cache
-SCB->CCR |= SCB_CCR_LOB_Msk | (1<<18);
+  /* Enable Loop and branch info cache */
+  SCB->CCR |= SCB_CCR_LOB_Msk;
 __ISB();
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
@@ -99,9 +103,4 @@ __ISB();
 #endif
 
   SystemCoreClock = SYSTEM_CLOCK;
-  
 }
-
-#if defined(__clang__)
-#   pragma clang diagnostic pop
-#endif
