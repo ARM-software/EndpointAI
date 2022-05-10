@@ -103,11 +103,11 @@ static void delay_ms (uint32_t ms) {
     osDelay(ms);
   } else {
     ms *= (SystemCoreClock/1000);
-    while (ms--) { __NOP(); /*__NOP(); __NOP(); __NOP(); __NOP(); __NOP();*/ }
+    while (ms--) { __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); }
   }
 #else
     ms *= (SystemCoreClock/1000);
-    while (ms--) { __NOP(); /*__NOP(); __NOP(); __NOP(); __NOP(); __NOP();*/ }
+    while (ms--) { __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); __NOP(); }
 #endif
 }
 #else
