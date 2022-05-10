@@ -33,6 +33,12 @@
     #include "partition_ARMCM55.h"
   #endif
 
+
+#if defined(__clang__)
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#endif
+
 /*----------------------------------------------------------------------------
   Define clocks
  *----------------------------------------------------------------------------*/
@@ -95,7 +101,7 @@ void SystemInit (void)
 #endif
 
   /* Enable Loop and branch info cache */
-  SCB->CCR |= SCB_CCR_LOB_Msk;
+  SSCB->CCR |= SCB_CCR_LOB_Msk | (1<<18);
 __ISB();
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)

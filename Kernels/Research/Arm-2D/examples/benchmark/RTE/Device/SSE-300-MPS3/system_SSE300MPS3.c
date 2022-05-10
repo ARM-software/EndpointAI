@@ -23,6 +23,11 @@
 
 #include "SSE300MPS3.h"
 
+#if defined(__clang__)
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#endif
+
 /*----------------------------------------------------------------------------
   Define clocks
  *----------------------------------------------------------------------------*/

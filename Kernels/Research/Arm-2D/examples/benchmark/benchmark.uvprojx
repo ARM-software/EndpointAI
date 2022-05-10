@@ -9066,7 +9066,7 @@
             <UseExternalTool>1</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
+            <Capability>1</Capability>
             <DriverSelection>4102</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
