@@ -156,10 +156,9 @@ void draw_round_corner_box( const arm_2d_tile_t *ptTarget,
                             
     //! copy the bottom right corner 
     tRegion.tLocation.iY += ptRegion->tSize.iHeight - s_tCorner.tRegion.tSize.iHeight;
-    arm_2d_c8bit_tile_copy( &c_tileWhiteDotAlphaQuarter, 
-                            &s_tCorner, 
-                            NULL, 
-                            ARM_2D_CP_MODE_COPY);
+    arm_2d_c8bit_tile_copy_only(&c_tileWhiteDotAlphaQuarter, 
+                                &s_tCorner, 
+                                NULL);
 
     arm_2d_rgb565_fill_colour_with_mask_and_opacity(   
                                             ptTarget, 

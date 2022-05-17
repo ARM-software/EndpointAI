@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2021 Arm Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 Arm Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        __arm_2d_impl.h
  * Description:  header files for internal users or professional developers
  *
- * $Date:        11. April 2022
- * $Revision:    V.1.1.0
+ * $Date:        17. May 2022
+ * $Revision:    V.1.2.0
  *
  * Target Processor:  Cortex-M cores
  *
@@ -123,7 +123,8 @@ extern "C" {
 #define __ARM_2D_PIXEL_BLENDING_CCCN888(__SRC_ADDR, __DES_ADDR, __TRANS)        \
             do {                                                                \
                 uint16_t hwOPA = 256 - (__TRANS);                               \
-                uint_fast8_t ARM_2D_SAFE_NAME(n) = sizeof(uint32_t) - 1; /* do not change alpha */\
+                /* do not change alpha */                                       \
+                uint_fast8_t ARM_2D_SAFE_NAME(n) = sizeof(uint32_t) - 1;        \
                 const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
                 uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
                                                                                 \
@@ -132,7 +133,7 @@ extern "C" {
                               + ((uint_fast16_t)(*pchDes) * (__TRANS))          \
                               ) >> 8;                                           \
                      pchDes++;                                                  \
-                } while(--ARM_2D_SAFE_NAME(n));                                                   \
+                } while(--ARM_2D_SAFE_NAME(n));                                 \
             } while(0)
             
             
@@ -170,7 +171,8 @@ extern "C" {
 #define __ARM_2D_PIXEL_BLENDING_OPA_CCCN888(__SRC_ADDR, __DES_ADDR, __OPA)      \
             do {                                                                \
                 uint16_t hwTrans = 256 - (__OPA);                               \
-                uint_fast8_t ARM_2D_SAFE_NAME(n) = sizeof(uint32_t) - 1; /* do not change alpha */\
+                /* do not change alpha */                                       \
+                uint_fast8_t ARM_2D_SAFE_NAME(n) = sizeof(uint32_t) - 1;        \
                 const uint8_t *pchSrc = (uint8_t *)(__SRC_ADDR);                \
                 uint8_t *pchDes = (uint8_t *)(__DES_ADDR);                      \
                                                                                 \
@@ -225,6 +227,16 @@ enum {
     __ARM_2D_OP_IDX_SYNC = __ARM_2D_OP_IDX_BARRIER,
     
     __ARM_2D_OP_IDX_COPY,
+    __ARM_2D_OP_IDX_COPY_ONLY,
+    __ARM_2D_OP_IDX_COPY_X_MIRROR,
+    __ARM_2D_OP_IDX_COPY_Y_MIRROR,
+    __ARM_2D_OP_IDX_COPY_XY_MIRROR,
+    
+    __ARM_2D_OP_IDX_FILL_ONLY,
+    __ARM_2D_OP_IDX_FILL_X_MIRROR,
+    __ARM_2D_OP_IDX_FILL_Y_MIRROR,
+    __ARM_2D_OP_IDX_FILL_XY_MIRROR,
+    
     __ARM_2D_OP_IDX_COPY_WITH_COLOUR_KEYING,
     __ARM_2D_OP_IDX_COPY_WITH_MASKS,
     __ARM_2D_OP_IDX_COPY_WITH_SOURCE_MASK,
@@ -487,6 +499,14 @@ arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy(  __arm_2d_sub_task_t *ptTask);
 extern
 arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy(  __arm_2d_sub_task_t *ptTask);
 
+extern
+arm_fsm_rt_t __arm_2d_c8bit_sw_tile_copy_only(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy_only(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy_only(  __arm_2d_sub_task_t *ptTask);
 
 extern
 arm_fsm_rt_t __arm_2d_gray8_sw_tile_copy_with_masks(

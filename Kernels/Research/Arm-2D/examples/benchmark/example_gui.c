@@ -422,33 +422,32 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
         }
         
         if (ptLayer->bIsIrregular) {
-//            if (255 != ptLayer->chOpacity) {
+            if (255 != ptLayer->chOpacity) {
                 arm_2d_rgb565_alpha_blending_with_colour_keying(
                             ptLayer->ptTile,
                             ptFrameBuffer,
                             &tRegion,
                             ptLayer->chOpacity,
                             (arm_2d_color_rgb565_t){ ptLayer->hwKeyColour });
-//            } else {
-//                arm_2d_rgb16_tile_copy_with_colour_keying( 
-//                                            ptLayer->ptTile,
-//                                            ptFrameBuffer,
-//                                            &tRegion,
-//                                            ptLayer->hwKeyColour,
-//                                            ptLayer->wMode);
-//            }
+            } else {
+                arm_2d_rgb16_tile_copy_with_colour_keying( 
+                                            ptLayer->ptTile,
+                                            ptFrameBuffer,
+                                            &tRegion,
+                                            ptLayer->hwKeyColour,
+                                            ptLayer->wMode);
+            }
         } else {
-//            if (255 != ptLayer->chOpacity) {
+            if (255 != ptLayer->chOpacity) {
                 arm_2d_rgb565_alpha_blending(   ptLayer->ptTile,
                                                 ptFrameBuffer,
                                                 &tRegion,
                                                 ptLayer->chOpacity);
-//            } else {
-//                arm_2d_rgb16_tile_copy( ptLayer->ptTile,
-//                                        ptFrameBuffer,
-//                                        &tRegion,
-//                                        ARM_2D_CP_MODE_COPY);
-//            }
+            } else {
+                arm_2d_rgb16_tile_copy_only( ptLayer->ptTile,
+                                        ptFrameBuffer,
+                                        &tRegion);
+            }
         }
     }
     

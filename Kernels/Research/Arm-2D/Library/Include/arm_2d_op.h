@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Arm Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2022 Arm Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the all avaialble Arm-2D 
  *               interface header files 
  *
- * $Date:        11. April 2022
- * $Revision:    V.1.1.0
+ * $Date:        17. May 2022
+ * $Revision:    V.1.2.0
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -62,6 +62,15 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_RGB16;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_RGB32;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_ONLY_C8BIT;    
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_ONLY_RGB16;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_ONLY_RGB32;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_C8BIT;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Arm Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 Arm Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -21,8 +21,8 @@
  * Title:        arm_2d_tile.h
  * Description:  Public header file to contain the basic tile operations
  *
- * $Date:        01. December 2020
- * $Revision:    V.0.9.0
+ * $Date:        17. May 2022
+ * $Revision:    V.1.0.0
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -68,6 +68,33 @@ extern "C" {
                                     (__DES_ADDR),                               \
                                     (__DES_REGION_ADDR),                        \
                                     (__MODE))
+
+#define arm_2d_c8bit_tile_copy_only(                                            \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_c8bit_tile_copy_only(NULL,                                  \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
+#define arm_2d_rgb16_tile_copy_only(                                            \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_rgb16_tile_copy_only(NULL,                                  \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
+#define arm_2d_rgb32_tile_copy_only(                                            \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_rgb32_tile_copy_only(NULL,                                  \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
 
 #define arm_2d_c8bit_tile_copy_with_colour_masking(                             \
                                 __SRC_ADDR,         /*!< source tile address */ \
@@ -400,7 +427,7 @@ arm_2d_region_t *arm_2d_tile_region_diff(   const arm_2d_tile_t *ptTarget,
                                             const arm_2d_tile_t *ptReference,
                                             arm_2d_region_t *ptBuffer);
 /*----------------------------------------------------------------------------*
- * Copy tile to destination directly                                          *
+ * Copy/Fill tile to destination with Mirroring                               *
  *----------------------------------------------------------------------------*/
 
 enum {
@@ -434,9 +461,32 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_copy(arm_2d_op_cp_t *ptOP,
                                      const arm_2d_region_t *ptRegion,
                                      uint32_t wMode);
 
+/*----------------------------------------------------------------------------*
+ * Copy Only                                                                  *
+ *----------------------------------------------------------------------------*/
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_c8bit_tile_copy_only(arm_2d_op_cp_t *ptOP,
+                                     const arm_2d_tile_t *ptSource,
+                                     const arm_2d_tile_t *ptTarget,
+                                     const arm_2d_region_t *ptRegion);
+
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb16_tile_copy_only(arm_2d_op_cp_t *ptOP,
+                                     const arm_2d_tile_t *ptSource,
+                                     const arm_2d_tile_t *ptTarget,
+                                     const arm_2d_region_t *ptRegion);
+                                     
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb32_tile_copy_only(arm_2d_op_cp_t *ptOP,
+                                     const arm_2d_tile_t *ptSource,
+                                     const arm_2d_tile_t *ptTarget,
+                                     const arm_2d_region_t *ptRegion);
 
 /*----------------------------------------------------------------------------*
- * Copy tile to destination with specified transparency color mask            *
+ * Copy/Fill tile to destination with colour-keying and mirroring             *
  *----------------------------------------------------------------------------*/
 
 /*! \brief copy source tile to destination tile and use destination tile as 
