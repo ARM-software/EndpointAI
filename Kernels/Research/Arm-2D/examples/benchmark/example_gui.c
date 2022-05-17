@@ -347,11 +347,57 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
 
     //! handle the left half of the screen
     do {
+    #if 0 /* equivalent */
         //!< fill background with CMSISlogo (with colour keying)
         arm_2d_rgb16_tile_copy( &c_tileCMSISLogo,
                                 ptFrameBuffer,
                                 &c_tFillRegion,
-                                ptLayers[0].wMode);        
+                                ptLayers[0].wMode);
+    #else
+        switch (ptLayers[0].wMode) {
+            case ARM_2D_CP_MODE_FILL | ARM_2D_CP_MODE_X_MIRROR:
+                arm_2d_rgb16_tile_fill_with_x_mirror(  &c_tileCMSISLogo,
+                                                        ptFrameBuffer,
+                                                        &c_tFillRegion);
+                break;
+            case ARM_2D_CP_MODE_FILL | ARM_2D_CP_MODE_Y_MIRROR:
+                arm_2d_rgb16_tile_fill_with_y_mirror(   &c_tileCMSISLogo,
+                                                        ptFrameBuffer,
+                                                        &c_tFillRegion);
+                break;
+            case ARM_2D_CP_MODE_FILL | ARM_2D_CP_MODE_XY_MIRROR:
+                arm_2d_rgb16_tile_fill_with_xy_mirror(  &c_tileCMSISLogo,
+                                                        ptFrameBuffer,
+                                                        &c_tFillRegion);
+                break;
+            case ARM_2D_CP_MODE_FILL:
+                arm_2d_rgb16_tile_fill_only(&c_tileCMSISLogo,
+                                            ptFrameBuffer,
+                                            &c_tFillRegion);
+                break;
+                
+            case ARM_2D_CP_MODE_COPY | ARM_2D_CP_MODE_X_MIRROR:
+                arm_2d_rgb16_tile_copy_with_x_mirror(  &c_tileCMSISLogo,
+                                                        ptFrameBuffer,
+                                                        &c_tFillRegion);
+                break;
+            case ARM_2D_CP_MODE_COPY | ARM_2D_CP_MODE_Y_MIRROR:
+                arm_2d_rgb16_tile_copy_with_y_mirror(   &c_tileCMSISLogo,
+                                                        ptFrameBuffer,
+                                                        &c_tFillRegion);
+                break;
+            case ARM_2D_CP_MODE_COPY | ARM_2D_CP_MODE_XY_MIRROR:
+                arm_2d_rgb16_tile_copy_with_xy_mirror(  &c_tileCMSISLogo,
+                                                        ptFrameBuffer,
+                                                        &c_tFillRegion);
+                break;
+            case ARM_2D_CP_MODE_COPY:
+                arm_2d_rgb16_tile_copy_only(&c_tileCMSISLogo,
+                                            ptFrameBuffer,
+                                            &c_tFillRegion);
+                break;
+        };
+    #endif
     } while(0);
 
     //! handle the right half of the screen

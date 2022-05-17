@@ -186,6 +186,123 @@ extern "C" {
                                     (__DES_ADDR),                               \
                                     (__DES_REGION_ADDR))
 
+#define arm_2d_c8bit_tile_fill_only(                                            \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_c8bit_tile_fill_only(NULL,                                  \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
+#define arm_2d_rgb16_tile_fill_only(                                            \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_rgb16_tile_fill_only(NULL,                                  \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
+#define arm_2d_rgb32_tile_fill_only(                                            \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_rgb32_tile_fill_only(NULL,                                  \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
+#define arm_2d_c8bit_tile_fill_with_x_mirror(                                   \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_c8bit_tile_fill_with_x_mirror(                              \
+                                     NULL,                                      \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
+#define arm_2d_rgb16_tile_fill_with_x_mirror(                                   \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_rgb16_tile_fill_with_x_mirror(                              \
+                                     NULL,                                      \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
+#define arm_2d_rgb32_tile_fill_with_x_mirror(                                   \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_rgb32_tile_fill_with_x_mirror(                              \
+                                     NULL,                                      \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
+#define arm_2d_c8bit_tile_fill_with_y_mirror(                                   \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_c8bit_tile_fill_with_y_mirror(                              \
+                                     NULL,                                      \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
+#define arm_2d_rgb16_tile_fill_with_y_mirror(                                   \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_rgb16_tile_fill_with_y_mirror(                              \
+                                     NULL,                                      \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
+#define arm_2d_rgb32_tile_fill_with_y_mirror(                                   \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_rgb32_tile_fill_with_y_mirror(                              \
+                                     NULL,                                      \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
+#define arm_2d_c8bit_tile_fill_with_xy_mirror(                                  \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_c8bit_tile_fill_with_xy_mirror(                             \
+                                     NULL,                                      \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
+#define arm_2d_rgb16_tile_fill_with_xy_mirror(                                  \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_rgb16_tile_fill_with_xy_mirror(                             \
+                                     NULL,                                      \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
+#define arm_2d_rgb32_tile_fill_with_xy_mirror(                                  \
+                                __SRC_ADDR,         /*!< source tile address */ \
+                                __DES_ADDR,         /*!< target tile address */ \
+                                __DES_REGION_ADDR)  /*!< target region address*/\
+            arm_2dp_rgb32_tile_fill_with_xy_mirror(                             \
+                                     NULL,                                      \
+                                    (__SRC_ADDR),                               \
+                                    (__DES_ADDR),                               \
+                                    (__DES_REGION_ADDR))
+
 #define arm_2d_c8bit_tile_copy_with_colour_masking(                             \
                                 __SRC_ADDR,         /*!< source tile address */ \
                                 __DES_ADDR,         /*!< target tile address */ \
@@ -653,6 +770,111 @@ arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_xy_mirror(
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb32_tile_copy_with_xy_mirror(
+                                            arm_2d_op_cp_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion);
+
+/*----------------------------------------------------------------------------*
+ * Fill Only                                                                  *
+ *----------------------------------------------------------------------------*/
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_c8bit_tile_fill_only(  arm_2d_op_cp_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion);
+
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb16_tile_fill_only(  arm_2d_op_cp_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion);
+                                     
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb32_tile_fill_only(  arm_2d_op_cp_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion);
+
+/*----------------------------------------------------------------------------*
+ * Fill with X mirroring                                                      *
+ *----------------------------------------------------------------------------*/
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_c8bit_tile_fill_with_x_mirror(
+                                            arm_2d_op_cp_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion);
+
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb16_tile_fill_with_x_mirror(
+                                            arm_2d_op_cp_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion);
+                                     
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb32_tile_fill_with_x_mirror(
+                                            arm_2d_op_cp_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion);
+
+/*----------------------------------------------------------------------------*
+ * Fill with Y mirroring                                                      *
+ *----------------------------------------------------------------------------*/
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_c8bit_tile_fill_with_y_mirror(
+                                            arm_2d_op_cp_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion);
+
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb16_tile_fill_with_y_mirror(
+                                            arm_2d_op_cp_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion);
+                                     
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb32_tile_fill_with_y_mirror(
+                                            arm_2d_op_cp_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion);
+
+/*----------------------------------------------------------------------------*
+ * Fill with XY mirroring                                                      *
+ *----------------------------------------------------------------------------*/
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_c8bit_tile_fill_with_xy_mirror(
+                                            arm_2d_op_cp_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion);
+
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb16_tile_fill_with_xy_mirror(
+                                            arm_2d_op_cp_t *ptOP,
+                                            const arm_2d_tile_t *ptSource,
+                                            const arm_2d_tile_t *ptTarget,
+                                            const arm_2d_region_t *ptRegion);
+                                     
+extern
+ARM_NONNULL(2,3)
+arm_fsm_rt_t arm_2dp_rgb32_tile_fill_with_xy_mirror(
                                             arm_2d_op_cp_t *ptOP,
                                             const arm_2d_tile_t *ptSource,
                                             const arm_2d_tile_t *ptTarget,

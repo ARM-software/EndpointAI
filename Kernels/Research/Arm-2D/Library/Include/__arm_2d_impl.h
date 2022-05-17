@@ -536,6 +536,42 @@ extern
 arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy_xy_mirror(  __arm_2d_sub_task_t *ptTask);
 
 extern
+arm_fsm_rt_t __arm_2d_c8bit_sw_tile_fill_only(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill_only(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill_only(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_c8bit_sw_tile_fill_x_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill_x_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill_x_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_c8bit_sw_tile_fill_y_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill_y_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill_y_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_c8bit_sw_tile_fill_xy_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb16_sw_tile_fill_xy_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb32_sw_tile_fill_xy_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
 arm_fsm_rt_t __arm_2d_gray8_sw_tile_copy_with_masks(
                                                 __arm_2d_sub_task_t *ptTask);
 
