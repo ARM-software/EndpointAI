@@ -71,6 +71,33 @@ const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_ONLY_RGB16;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_ONLY_RGB32;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_X_MIRROR_C8BIT;    
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_X_MIRROR_RGB16;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_X_MIRROR_RGB32;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_Y_MIRROR_C8BIT;    
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_Y_MIRROR_RGB16;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_Y_MIRROR_RGB32;
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_XY_MIRROR_C8BIT;    
+
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_XY_MIRROR_RGB16;
+    
+extern
+const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_XY_MIRROR_RGB32;
     
 extern
 const __arm_2d_op_info_t ARM_2D_OP_TILE_COPY_WITH_COLOUR_KEYING_C8BIT;

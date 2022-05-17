@@ -228,14 +228,14 @@ enum {
     
     __ARM_2D_OP_IDX_COPY,
     __ARM_2D_OP_IDX_COPY_ONLY,
-    __ARM_2D_OP_IDX_COPY_X_MIRROR,
-    __ARM_2D_OP_IDX_COPY_Y_MIRROR,
-    __ARM_2D_OP_IDX_COPY_XY_MIRROR,
+    __ARM_2D_OP_IDX_COPY_WITH_X_MIRROR,
+    __ARM_2D_OP_IDX_COPY_WITH_Y_MIRROR,
+    __ARM_2D_OP_IDX_COPY_WITH_XY_MIRROR,
     
     __ARM_2D_OP_IDX_FILL_ONLY,
-    __ARM_2D_OP_IDX_FILL_X_MIRROR,
-    __ARM_2D_OP_IDX_FILL_Y_MIRROR,
-    __ARM_2D_OP_IDX_FILL_XY_MIRROR,
+    __ARM_2D_OP_IDX_FILL_WITH_X_MIRROR,
+    __ARM_2D_OP_IDX_FILL_WITH_Y_MIRROR,
+    __ARM_2D_OP_IDX_FILL_WITH_XY_MIRROR,
     
     __ARM_2D_OP_IDX_COPY_WITH_COLOUR_KEYING,
     __ARM_2D_OP_IDX_COPY_WITH_MASKS,
@@ -507,6 +507,33 @@ arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy_only(  __arm_2d_sub_task_t *ptTask);
 
 extern
 arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy_only(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_c8bit_sw_tile_copy_x_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy_x_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy_x_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_c8bit_sw_tile_copy_y_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy_y_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy_y_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_c8bit_sw_tile_copy_xy_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb16_sw_tile_copy_xy_mirror(  __arm_2d_sub_task_t *ptTask);
+
+extern
+arm_fsm_rt_t __arm_2d_rgb32_sw_tile_copy_xy_mirror(  __arm_2d_sub_task_t *ptTask);
 
 extern
 arm_fsm_rt_t __arm_2d_gray8_sw_tile_copy_with_masks(

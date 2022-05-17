@@ -85,12 +85,9 @@ void draw_round_corner_box( const arm_2d_tile_t *ptTarget,
     arm_2d_region_t tRegion = *ptRegion;
     
     //! copy the top left corner
-    arm_2d_c8bit_tile_copy( &c_tileWhiteDotAlphaQuarter, 
-                            &s_tCorner, 
-                            NULL, 
-                            ARM_2D_CP_MODE_COPY     |
-                            ARM_2D_CP_MODE_X_MIRROR |
-                            ARM_2D_CP_MODE_Y_MIRROR);
+    arm_2d_c8bit_tile_copy_with_xy_mirror(  &c_tileWhiteDotAlphaQuarter, 
+                                            &s_tCorner, 
+                                            NULL);
                             
     arm_2d_rgb565_fill_colour_with_mask_and_opacity(   
                                             ptTarget, 
@@ -103,11 +100,9 @@ void draw_round_corner_box( const arm_2d_tile_t *ptTarget,
 
     //! copy the top right corner
     tRegion.tLocation.iX += ptRegion->tSize.iWidth - s_tCorner.tRegion.tSize.iWidth;
-    arm_2d_c8bit_tile_copy( &c_tileWhiteDotAlphaQuarter, 
-                            &s_tCorner, 
-                            NULL, 
-                            ARM_2D_CP_MODE_COPY |
-                            ARM_2D_CP_MODE_Y_MIRROR);
+    arm_2d_c8bit_tile_copy_with_y_mirror(   &c_tileWhiteDotAlphaQuarter, 
+                                            &s_tCorner, 
+                                            NULL);
                             
     arm_2d_rgb565_fill_colour_with_mask_and_opacity(   
                                             ptTarget, 
@@ -171,11 +166,9 @@ void draw_round_corner_box( const arm_2d_tile_t *ptTarget,
 
     //! copy the bottom left corner 
     tRegion.tLocation.iX = ptRegion->tLocation.iX;
-    arm_2d_c8bit_tile_copy( &c_tileWhiteDotAlphaQuarter, 
-                            &s_tCorner, 
-                            NULL, 
-                            ARM_2D_CP_MODE_COPY     |
-                            ARM_2D_CP_MODE_X_MIRROR );
+    arm_2d_c8bit_tile_copy_with_x_mirror(   &c_tileWhiteDotAlphaQuarter, 
+                                            &s_tCorner, 
+                                            NULL);
                             
     arm_2d_rgb565_fill_colour_with_mask_and_opacity(  
                                             ptTarget, 
