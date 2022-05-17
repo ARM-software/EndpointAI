@@ -335,17 +335,17 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 
         }
 
-//        if (255 == ptItem->chOpacity) {
-//        
-//            arm_2dp_rgb565_tile_rotation(   (arm_2d_op_trans_t *)&(_->tOP),
-//                                            ptItem->ptTile,     //!< source tile
-//                                            ptTile,             //!< target tile
-//                                            ptItem->ptRegion,   //!< target region
-//                                            ptItem->tCentre,    //!< center point
-//                                            ptItem->fAngle,     //!< rotation angle
-//                                            GLCD_COLOR_BLACK,   //!< masking colour
-//                                            ptItem->ptTargetCentre);
-//        } else {
+        if (255 == ptItem->chOpacity) {
+        
+            arm_2dp_rgb565_tile_rotation(   (arm_2d_op_trans_t *)&(_->tOP),
+                                            ptItem->ptTile,     //!< source tile
+                                            ptTile,             //!< target tile
+                                            ptItem->ptRegion,   //!< target region
+                                            ptItem->tCentre,    //!< center point
+                                            ptItem->fAngle,     //!< rotation angle
+                                            GLCD_COLOR_BLACK,   //!< masking colour
+                                            ptItem->ptTargetCentre);
+        } else {
             arm_2dp_rgb565_tile_rotation_with_alpha(
                                             &(ptItem->tOP),
                                             ptItem->ptTile,     //!< source tile
@@ -356,7 +356,7 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
                                             GLCD_COLOR_BLACK,   //!< masking colour
                                             ptItem->chOpacity,  //!< Opacity
                                             ptItem->ptTargetCentre);
-//        }
+        }
     }
 #else
     (void)s_tGears;
