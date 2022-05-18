@@ -72,7 +72,7 @@ The library name, i.e. Arm-2D, is a temporary term and it is subject to change i
             <accept  Dcore="Cortex-M35P"/>
             <accept  Dcore="Cortex-M55"/>
             <accept  Dcore="Cortex-M85"/>
-            <accept  Dcore="STAR-MC1"/>
+            <accept  Dcore="Star-MC1"/>
             <accept  Dcore="SC000"/>
             <accept  Dcore="SC300"/>
             <accept  Dcore="ARMV8MBL"/>
@@ -222,7 +222,8 @@ The library name, i.e. Arm-2D, is a temporary term and it is subject to change i
         </component>
 
     </components>
-  
+
+    <!--
     <apis>
         <api Cclass="Acceleration" Cgroup="Arm-2D" Capiversion="1.0.0-preview" exclusive="1">
           <description>Arm-2D User APIs</description>
@@ -243,7 +244,8 @@ The library name, i.e. Arm-2D, is a temporary term and it is subject to change i
           </files>
         </api>
     </apis>
-  
+    -->
+
   <!-- optional taxonomy section for defining new component Class and Group names -->
   <!--
   <taxonomy>
