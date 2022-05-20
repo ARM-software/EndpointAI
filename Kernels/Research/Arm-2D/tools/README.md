@@ -2,7 +2,7 @@
 
 ## 1. Overview
 
-This tool helps you to convert a given image into 
+The `arm_2d_tile_t` descriptors are used as the standard input and output in most of the arm-2d APIs. This tool helps you to convert a given image into 
 
 - A C array for pixels and (for most of time) a dedicated alpha-mask if the format contains an alpha-channel.
 - `arm_2d_tile_t` descriptors for the image and the alpha-mask(s).
