@@ -1,8 +1,28 @@
-# How to Use
+# Image to Tile Convertor (img2c.py)
 
-image to C array converter with optional resize
+## 1. Overview
 
-## Usage :
+This tool helps you to convert a given image into 
+
+- A C array for pixels and (for most of time) a dedicated alpha-mask if the format contains an alpha-channel.
+- `arm_2d_tile_t` descriptors for the image and the alpha-mask(s).
+
+
+
+### FEATURE
+
+- Support popular image formats, e.g. PNG, JPG, JPEG, BMP etc.
+- Output formats:
+  - RGB565 with an optional alpha-mask
+  - RGBA8888 with alpha-masks, one in a separate alpha-mask and the other in `ARM_2D_CHANNEL_8in32` format. 
+- Support resize before conversion 
+- Support rotation before conversion
+
+
+
+## 2. How to Use
+
+### Usage :
 
 img2c.py [***-h***] [***--format*** \<***FORMAT***\>] [***--name \<NAME\>***] [***--dim DIM DIM***] [***--rot ANGLE***] \<***-i \<Input File Path***\>\> \[***-o \<Output file Path***\>\]
 
