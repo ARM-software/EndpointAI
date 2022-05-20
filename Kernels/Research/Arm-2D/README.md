@@ -113,8 +113,8 @@ When we look at the traditionally embedded  GUI architecture(as shown in **Figur
 
 - Armv6-M processors: Cortex-M0/M0+/M1/SC000
 - Armv7-M processors: Cortex-M3/M4/M7/SC300
-- Armv8-M processors: Cortex-M23/M33/M35P
-- Armv8.1-M processors: Cortex-M55
+- Armv8-M processors: Cortex-M23/M33/Star-MC1/M35P
+- Armv8.1-M processors: Cortex-M55/M85
 
 **The library is designed with ACI (Arm Custom Instructions) in mind.** Accelerations implemented with user-defined instructions can be integrated into the library easily without modifying the existing Arm-2D library or upper-layer software. 
 
@@ -213,22 +213,21 @@ There is no public 2D image processing benchmark available for microcontrollers.
 
 **Figure 3-1 Private and Public Files** 
 
-![image-20210317181453270](./documents/pictures/TopReadme_3_1.png) 
+![](./documents/pictures/TopReadme_3_1.png) 
 
 - Any symbol, e.g. file name, function name, macro name, type name etc., having a double under-scope as the prefix is considered as **PRIVATE** to the library. You should save your time from touching them. 
 
 - The library is designed with the philosophy that Users are free to use anything in public header files and should not touch anything marked implicitly or explicitly as private. 
 
-- Despite which processor you use, during the compilation, all C source files are safe to be added to the compilation (and we highly recommend you to do this for simplicity reason). For example, when you use Cortex-M4, which doesn't support Helium extension (introduced by Armv8.1-M architecture and first implemented by the Cortex-M55 processor), it is OK to include "***arm_2d_helium.c***" in the compilation process, as the C source files are constructed with environment detection pre-processing mechanisms. 
+- Despite which processor you use, during the compilation, all C source files are safe to be added to the compilation (and we highly recommend you to do this for simplicity reason). For example, when you use Cortex-M4, which doesn't support Helium extension (introduced by Armv8.1-M architecture and first implemented by the Cortex-M55 processor), it is OK to include "***arm_2d_helium.c***" in the compilation process, as the C source files are constructed with environment detection in pre-processing phase. 
 
-- In your application, only including "***arm_2d.h***" is sufficient to get all the services and APIs ready for you. 
+- In your application, including "***arm_2d.h***" is sufficient to get all the services and APIs ready for you. 
 
-- Make sure that the library is initialised by calling **arm_2d_init()** before using any of the services. 
+- Make sure that the library is initialised by calling `arm_2d_init()` before using any of the services. 
 
   **NOTE**: 
 
-  1. ***arm_2d_init()*** is a function-like macro that initialises different parts of the library depending on the feature configuration macros.  
-  2. Feature configuration macros are checked by "***arm_2d_feature.h***". For the current stage of the library, please **DO NOT** override those feature configuration macros.
+  1. Feature configuration macros are checked by "***arm_2d_feature.h***". For the current stage of the library, please **DO NOT** override those feature configuration macros.
   
   
 
@@ -242,7 +241,7 @@ There is no public 2D image processing benchmark available for microcontrollers.
   - What's the structure of the design in details
 - Some design considerations:
   - The library supports **Arm Compiler 5/6**, **GCC**, **LLVM** and **IAR**.
-  - The library supports **ALL** Cortex-M processors. There should be no problem for working with existing Cortex-M processors, i.e. **Cortex-M0/M0+/M1/M3/M4/M7/M23/M33/M35P/M55**. If you find any issue, please feel free to let us know. 
+  - The library supports **ALL** Cortex-M processors. There should be no problem for working with existing Cortex-M processors, i.e. **Cortex-M0/M0+/M1/M3/M4/M7/M23/M33/Star-MC1/M35P/M55/M85**. If you find any issue, please feel free to let us know. 
   - The library is designed with some **OOPC** (Object-Oriented Programming with ANSI-C) methodologies. And the bottom line is that any methods and tricks adopted in this library should come with no or very little cost. 
 - This library is compliant with **C11** standard and uses some **widely accepted GCC extensions**:
   - [Macros with a Variable Number of Arguments](https://gcc.gnu.org/onlinedocs/gcc/Variadic-Macros.html#Variadic-Macros) 
@@ -445,4 +444,4 @@ Thank you for your time.
 
 ***Arm-2D Development Team.***
 
-21-April-2022
+20-May-2022
