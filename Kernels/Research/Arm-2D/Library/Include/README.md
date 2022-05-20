@@ -2,13 +2,13 @@
 
 ## 1 Overview
 
-As an open-source project, arm-2d faces users with different purposes and background. In general, arm-2d is designed with two groups of users in mind:
+As an open-source project, arm-2d serves users with different purposes and background. In general, arm-2d is designed with two groups of users in mind:
 
 - **Library Users** - who use arm-2d public APIs in their applications
 - **Professional Users** - all other users who are
-  - Integrating arm-2d with a GUI stacks
+  - Integrating arm-2d with GUI stacks
   - Accelerating arm-2d with some 2D HW accelerators
-  - Hobbyists writing new GUIs or 2D game engines based on arm-2d.
+  - Hobbyists writing new GUIs and/or 2D game engines based on arm-2d.
 
 For the Library Users, **Public Header Files** provide all the information required to use arm-2d services. For the Professional Users, additional information are provided in **Private Header Files** to help their design. 
 
