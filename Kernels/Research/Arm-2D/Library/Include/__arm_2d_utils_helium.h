@@ -21,8 +21,8 @@
  * Title:        arm-2d_utils_helium.h
  * Description:  Provides helium utility routines
  *
- * $Date:        20. May 2021
- * $Revision:    V 0.0.1
+ * $Date:        20. May 2022
+ * $Revision:    V 0.0.2
  *
  * Target Processor:  Cortex-M cores with Helium
  *
@@ -49,6 +49,25 @@ extern "C" {
 #endif
 
 /*============================ MACROS ========================================*/
+
+#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
+/* set vecAlpha value to 0 when equal to the compensated value */
+/* (=1 or 2 when involving 2 alpha = 255 multiplications)      */
+
+/* 16-bit vector */
+#define ALPHA_255_COMP_VEC16(vecAlpha, compVal)   vecAlpha = \
+                vpselq(vdupq_n_u16(256), vecAlpha, vcmpeqq_n_u16(vecAlpha, compVal))
+
+/* 32-bit vector */
+#define ALPHA_255_COMP_VEC32(vecAlpha, compVal)   vecAlpha = \
+                vpselq(vdupq_n_u32(256), vecAlpha, vcmpeqq_n_u32(vecAlpha, compVal))
+
+#else
+#define ALPHA_255_COMP_VEC16(vecAlpha, compVal)
+#define ALPHA_255_COMP_VEC32(vecAlpha, compVal)
+#endif
+
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
 __STATIC_FORCEINLINE
@@ -242,13 +261,13 @@ __STATIC_FORCEINLINE
 uint16x8_t __rgb888_alpha_blending_direct_single_vec(
                                         uint16x8_t      wSource1,  /* widened input bytes */
                                         uint16x8_t      wSource2,  /* widened input bytes */
-                                        uint_fast16_t hwRatio)
+                                        uint_fast16_t   hwRatio)
 {
-    uint16_t        chRatioCompl = 256 - (uint16_t) hwRatio;
+    uint16_t        transp = 256 - (uint16_t) hwRatio;
     uint16x8_t      vecOut;
 
     vecOut = vmulq_n_u16(wSource1, (uint16_t) hwRatio);
-    vecOut = vmlaq_n_u16(vecOut, wSource2, chRatioCompl);
+    vecOut = vmlaq_n_u16(vecOut, wSource2, transp);
 
     /* widened output */
     return vecOut >> 8;

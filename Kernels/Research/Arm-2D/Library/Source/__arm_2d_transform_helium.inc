@@ -22,8 +22,8 @@
  * Title:        __arm_2d_rotate_helium.inc
  * Description:  c code template for rotation
  *
- * $Date:        22. Sept 2020
- * $Revision:    V.1.0.0
+ * $Date:        22. May 2022
+ * $Revision:    V.1.0.1
  *
  * -------------------------------------------------------------------- */
 
@@ -34,6 +34,9 @@
 #   error You have to define __API_COLOUR before using this c template
 #endif
 
+#ifndef __API_PIXEL_AVERAGE_INIT
+#   define __API_PIXEL_AVERAGE_INIT()   __arm_2d_color_fast_rgb_t tPixel = {0};
+#endif
 
 #undef ____ARM_2D_FUNC
 #undef ___ARM_2D_FUNC
@@ -201,7 +204,6 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
     arm_2d_location_t   tOffset =
         ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
     arm_2d_location_t  *pCenter = &(ptInfo->tCenter);
-    uint16_t            hwRatioCompl;
     float32_t           invIWidth = iWidth > 1 ? 1.0f / (float32_t) (iWidth - 1) : __LARGEINVF32;
     arm_2d_rot_linear_regr_t regrCoefs[2];
     arm_2d_location_t SrcPt = ptInfo->tDummySourceOffset;
@@ -209,7 +211,6 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
     hwRatio += (hwRatio == 255);
 #endif
-    hwRatioCompl = 256 - hwRatio;
 
     /* get regression parameters over 1st and last column */
 #if __API_INT_TYPE_BIT_NUM == 16
@@ -268,7 +269,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
                                                              pOrigin, iOrigStride,
                                                              pTargetBaseCur,
                                                              MaskColour,
-                                                             hwRatioCompl,
+                                                             hwRatio,
                                                              nbVecElts);
                 pTargetBaseCur += 8;
                 vX += 8.0f16;
@@ -322,7 +323,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
                                                                         iOrigStride,
                                                                         pTargetBaseCur,
                                                                         MaskColour,
-                                                                        hwRatioCompl,
+                                                                        hwRatio,
                                                                         nbVecElts);
                 pTargetBaseCur += 8;
                 vX += 8.0f16;
@@ -505,14 +506,12 @@ void __ARM_2D_FUNC(transform_with_opacity)(   __arm_2d_param_copy_orig_t *ptPara
         ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
     arm_2d_location_t *pCenter = &(ptInfo->tCenter);
 
-    uint16_t        hwRatioCompl;
     q31_t           invIWidth = iWidth > 1 ? 0x7fffffff / (iWidth - 1) : 0x7fffffff;
     arm_2d_rot_linear_regr_t regrCoefs[2];
     arm_2d_location_t SrcPt = ptInfo->tDummySourceOffset;
 #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
     hwRatio += (hwRatio == 255);
 #endif
-    hwRatioCompl = 256 - hwRatio;
 
     /* get regression parameters over 1st and last column */
 #if __API_INT_TYPE_BIT_NUM == 16
@@ -577,7 +576,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(   __arm_2d_param_copy_orig_t *ptPara
                                                              &ptParam->tOrigin.tValidRegion,
                                                              pOrigin, iOrigStride,
                                                              pTargetBaseCur,
-                                                             MaskColour, hwRatioCompl,
+                                                             MaskColour, hwRatio,
                                                              nbVecElts);
                 pTargetBaseCur += 8;
                 vX += SET_Q6INT(8);
@@ -626,7 +625,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(   __arm_2d_param_copy_orig_t *ptPara
 
                 __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated
                     (&tPointV, &ptParam->tOrigin.tValidRegion, pOrigin, iOrigStride,
-                     pTargetBaseCur, MaskColour, hwRatioCompl, nbVecElts);
+                     pTargetBaseCur, MaskColour, hwRatio, nbVecElts);
 
                 pTargetBaseCur += 8;
                 vX += SET_Q6INT(8);
@@ -641,6 +640,26 @@ void __ARM_2D_FUNC(transform_with_opacity)(   __arm_2d_param_copy_orig_t *ptPara
 
 #endif /* __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__ */
 
+
+#if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
+#   define __API_MTWM_COLOUR                        __API_COLOUR
+#   define __API_MTWM_INT_TYPE                      __API_INT_TYPE
+#   define __API_MTWM_PIXEL_BLENDING                __API_PIXEL_BLENDING
+#   define __API_MTWM_PIXEL_AVERAGE                 __API_PIXEL_AVERAGE
+#   define __API_MTWM_PIXEL_AVERAGE_RESULT          __API_PIXEL_AVERAGE_RESULT
+#   define __API_MTWM_PIXEL_AVERAGE_INIT            __API_PIXEL_AVERAGE_INIT
+
+#   define __API_MTWM_INT_TYPE_BIT_NUM  __API_INT_TYPE_BIT_NUM
+
+#   define __API_MTWM_CFG_SUPPORT_SOURCE_MASK       1
+#   define __API_MTWM_CFG_SUPPORT_OPATICY           1
+#   define __API_MTWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE  1
+#   define get_pixel_colour_mask                    get_pixel_colour_src_chn_mask_opa
+#   define transform_with_mask                      transform_with_src_chn_mask_and_opacity
+#   define get_pixel_colour_mask_offs_compensated   get_pixel_colour_src_chn_mask_opa_offs_compensated
+
+#   include "__arm_2d_meta_trans_with_masks_helium.inc"
+#endif
 
 #undef ____ARM_2D_FUNC
 #undef ___ARM_2D_FUNC

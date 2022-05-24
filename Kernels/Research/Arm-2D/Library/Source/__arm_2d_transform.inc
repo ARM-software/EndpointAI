@@ -22,8 +22,8 @@
  * Title:        __arm_2d_fill_colour.inc
  * Description:  c code template for drawing pattern
  *
- * $Date:        26. April 2022
- * $Revision:    V.1.1.0
+ * $Date:        20. May 2022
+ * $Revision:    V.1.1.1
  *
  * -------------------------------------------------------------------- */
 
@@ -33,6 +33,9 @@
 #endif
 #ifndef __API_INT_TYPE
 #   error You have to define the __API_INT_TYPE before using this c template
+#endif
+#ifndef __API_INT_TYPE_BIT_NUM
+#   error You have to define the __API_INT_TYPE_BIT_NUM before using this c template
 #endif
 #ifndef __API_PIXEL_BLENDING
 #   error You have to define __API_PIXEL_BLENDING before using this c template
@@ -54,6 +57,7 @@
 #define ___ARM_2D_FUNC(__NAME, __COLOUR)   ____ARM_2D_FUNC(__NAME, __COLOUR)
 #define __ARM_2D_FUNC(__NAME)   ___ARM_2D_FUNC(__NAME, __API_COLOUR)
 
+#define MASK_COLOR(sz)  (sz == 8) ? ptInfo->Mask.chColour : ((sz == 16) ?  ptInfo->Mask.hwColour :  ptInfo->Mask.wColour)
 
 static
 arm_2d_point_float_t *__arm_2d_transform_point(
@@ -73,10 +77,10 @@ void __arm_2d_transform_regression( arm_2d_size_t * __RESTRICT ptCopySize,
                                     arm_2d_rot_linear_regr_t regrCoefs[]);
 
 
-/*! \note Please only set this to zero for function correctness verification of 
+/*! \note Please only set this to zero for function correctness verification of
  *!       __arm_2d_meta_trans_with_masks.inc
  */
-#if 1   
+#if 1
 
 extern
 void __ARM_2D_FUNC(transform)(  __arm_2d_param_copy_orig_t *ptParam,
@@ -118,7 +122,7 @@ void __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_float_t *ptPoint,
 
     for (int_fast8_t n = 0; n < 4; n++) {
         uint16_t hwAlpha = tAdjacentArray.tMatrix[n].chAlpha;
-        
+
         arm_2d_location_t tTemp = {
             .iX = tOriginLocation.iX + tAdjacentArray.tMatrix[n].tOffset.iX,
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
@@ -148,7 +152,6 @@ void __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_float_t *ptPoint,
 
     tOriginLocation.iX = ptPoint->fX;
     tOriginLocation.iY = ptPoint->fY;
-    __API_INT_TYPE Pixel = *pTarget;
 
     if (arm_2d_is_point_inside_region(ptOrigValidRegion, &tOriginLocation)) {
         __API_INT_TYPE Temp = pOrigin[   tOriginLocation.iY * iOrigStride
@@ -170,7 +173,7 @@ void __ARM_2D_FUNC(transform)( __arm_2d_param_copy_orig_t *ptParam,
     int_fast16_t iTargetStride = ptParam->use_as____arm_2d_param_copy_t.tTarget.iStride;
     __API_INT_TYPE *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
     int_fast16_t iOrigStride = ptParam->tOrigin.iStride;
-    __API_INT_TYPE MaskColour = ptInfo->Mask.hwColour;
+    __API_INT_TYPE      MaskColour = MASK_COLOR(__API_INT_TYPE_BIT_NUM);
 
     float fAngle = -ptInfo->fAngle;
     arm_2d_location_t tOffset = ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
@@ -181,11 +184,11 @@ void __ARM_2D_FUNC(transform)( __arm_2d_param_copy_orig_t *ptParam,
     /* get regression parameters over 1st and last column */
     __arm_2d_transform_regression(
         &ptParam->use_as____arm_2d_param_copy_t.tCopySize,
-        &SrcPt, 
-        fAngle, 
+        &SrcPt,
+        fAngle,
         ptInfo->fScale,
-        &tOffset, 
-        &(ptInfo->tCenter), 
+        &tOffset,
+        &(ptInfo->tCenter),
         regrCoefs);
 
     /* slopes between 1st and last cols */
@@ -265,7 +268,7 @@ void __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_fx_t  *ptFxPoint,
 
     for (int_fast8_t n = 0; n < 4; n++) {
         uint16_t hwAlpha = tAdjacentArray.tMatrix[n].chAlpha;
-        
+
         arm_2d_location_t tTemp = {
             .iX = tOriginLocation.iX + tAdjacentArray.tMatrix[n].tOffset.iX,
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
@@ -288,9 +291,8 @@ void __ARM_2D_FUNC(get_pixel_colour)(   arm_2d_point_fx_t  *ptFxPoint,
 
     if (bIsInside) {
         *pTarget = __API_PIXEL_AVERAGE_RESULT();
-    } 
+    }
 #else
-    __API_INT_TYPE Pixel = *pTarget;
     arm_2d_location_t  tPoint = {
         .iX = ptFxPoint->X >> 16,
         .iY = ptFxPoint->Y >> 16,
@@ -316,7 +318,7 @@ void __ARM_2D_FUNC(transform)(   __arm_2d_param_copy_orig_t *ptParam,
     __API_INT_TYPE *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
     __API_INT_TYPE *pOrigin = ptParam->tOrigin.pBuffer;
     int_fast16_t iOrigStride = ptParam->tOrigin.iStride;
-    __API_INT_TYPE MaskColour = ptInfo->Mask.hwColour;
+    __API_INT_TYPE      MaskColour = MASK_COLOR(__API_INT_TYPE_BIT_NUM);
     float fAngle = -ptInfo->fAngle;
     arm_2d_location_t tOffset = ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
     q31_t             invIWidth = iWidth > 1 ? 0x7fffffff / (iWidth - 1) : 0x7fffffff;
@@ -326,11 +328,11 @@ void __ARM_2D_FUNC(transform)(   __arm_2d_param_copy_orig_t *ptParam,
     /* get regression parameters over 1st and last column */
     __arm_2d_transform_regression(
         &ptParam->use_as____arm_2d_param_copy_t.tCopySize,
-        &SrcPt, 
-        fAngle, 
+        &SrcPt,
+        fAngle,
         ptInfo->fScale,
-        &tOffset, 
-        &(ptInfo->tCenter), 
+        &tOffset,
+        &(ptInfo->tCenter),
         regrCoefs);
 
     /* slopes between 1st and last cols */
@@ -443,8 +445,8 @@ void __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
         __API_INT_TYPE tSourcPixel = __API_PIXEL_AVERAGE_RESULT();
 
         __API_PIXEL_BLENDING( &tSourcPixel, pTarget, hwOpacity);
-    } 
-    
+    }
+
 #else
     arm_2d_location_t tOriginLocation;
 
@@ -491,7 +493,7 @@ void __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
 
     for (int_fast8_t n = 0; n < 4; n++) {
         uint16_t hwAlpha = tAdjacentArray.tMatrix[n].chAlpha;
-        
+
         arm_2d_location_t tTemp = {
             .iX = tOriginLocation.iX + tAdjacentArray.tMatrix[n].tOffset.iX,
             .iY = tOriginLocation.iY + tAdjacentArray.tMatrix[n].tOffset.iY,
@@ -516,8 +518,8 @@ void __ARM_2D_FUNC(get_pixel_colour_with_alpha)(
         __API_INT_TYPE tSourcPixel = __API_PIXEL_AVERAGE_RESULT();
 
         __API_PIXEL_BLENDING( &tSourcPixel, pTarget, hwOpacity);
-    } 
-    
+    }
+
 #else
 
     arm_2d_location_t  tPoint = {
@@ -551,15 +553,15 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
     __API_INT_TYPE     *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
     __API_INT_TYPE     *pOrigin = ptParam->tOrigin.pBuffer;
     int_fast16_t        iOrigStride = ptParam->tOrigin.iStride;
-    __API_INT_TYPE      MaskColour = ptInfo->Mask.hwColour;
+    __API_INT_TYPE      MaskColour = MASK_COLOR(__API_INT_TYPE_BIT_NUM);
     float               fAngle = -ptInfo->fAngle;
     arm_2d_location_t   tOffset =
         ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
-        
+
 #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
     hwRatio += (hwRatio == 255);
 #endif
-    
+
     float               invIWidth = iWidth > 1 ? 1.0f / (float) (iWidth - 1) : __LARGEINVF32;
     arm_2d_rot_linear_regr_t regrCoefs[2];
     arm_2d_location_t   SrcPt = ptInfo->tDummySourceOffset;
@@ -567,11 +569,11 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
     /* get regression parameters over 1st and last column */
     __arm_2d_transform_regression(
         &ptParam->use_as____arm_2d_param_copy_t.tCopySize,
-        &SrcPt, 
-        fAngle, 
+        &SrcPt,
+        fAngle,
         ptInfo->fScale,
-        &tOffset, 
-        &(ptInfo->tCenter), 
+        &tOffset,
+        &(ptInfo->tCenter),
         regrCoefs);
 
     /* slopes between 1st and last cols */
@@ -636,7 +638,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
     __API_INT_TYPE     *pTargetBase = ptParam->use_as____arm_2d_param_copy_t.tTarget.pBuffer;
     __API_INT_TYPE     *pOrigin = ptParam->tOrigin.pBuffer;
     int_fast16_t        iOrigStride = ptParam->tOrigin.iStride;
-    __API_INT_TYPE      MaskColour = ptInfo->Mask.hwColour;
+    __API_INT_TYPE      MaskColour = MASK_COLOR(__API_INT_TYPE_BIT_NUM);
     float               fAngle = -ptInfo->fAngle;
     arm_2d_location_t   tOffset =
         ptParam->use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;
@@ -644,7 +646,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__)
     hwRatio += (hwRatio == 255);
 #endif
-    
+
     q31_t               invIWidth = iWidth > 1 ? 0x7fffffff / (iWidth - 1) : 0x7fffffff;
     arm_2d_rot_linear_regr_t regrCoefs[2];
     arm_2d_location_t   SrcPt = ptInfo->tDummySourceOffset;
@@ -652,11 +654,11 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
     /* get regression parameters over 1st and last column */
     __arm_2d_transform_regression(
         &ptParam->use_as____arm_2d_param_copy_t.tCopySize,
-        &SrcPt, 
+        &SrcPt,
         fAngle,
         ptInfo->fScale,
-        &tOffset, 
-        &(ptInfo->tCenter), 
+        &tOffset,
+        &(ptInfo->tCenter),
         regrCoefs);
 
     /* slopes between 1st and last cols */
@@ -717,6 +719,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 
 #   define __API_MTWM_COLOUR                       __API_COLOUR
 #   define __API_MTWM_INT_TYPE                     __API_INT_TYPE
+#   define __API_MTWM_INT_TYPE_BIT_NUM             __API_INT_TYPE_BIT_NUM
 #   define __API_MTWM_PIXEL_BLENDING               __API_PIXEL_BLENDING
 #   define __API_MTWM_PIXEL_AVERAGE                __API_PIXEL_AVERAGE
 #   define __API_MTWM_PIXEL_AVERAGE_RESULT         __API_PIXEL_AVERAGE_RESULT
@@ -729,6 +732,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 
 #   define __API_MTWM_COLOUR                       __API_COLOUR
 #   define __API_MTWM_INT_TYPE                     __API_INT_TYPE
+#   define __API_MTWM_INT_TYPE_BIT_NUM             __API_INT_TYPE_BIT_NUM
 #   define __API_MTWM_PIXEL_BLENDING               __API_PIXEL_BLENDING
 #   define __API_MTWM_PIXEL_AVERAGE                __API_PIXEL_AVERAGE
 #   define __API_MTWM_PIXEL_AVERAGE_RESULT         __API_PIXEL_AVERAGE_RESULT
@@ -743,6 +747,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 
 #define __API_MTWM_COLOUR                       __API_COLOUR
 #define __API_MTWM_INT_TYPE                     __API_INT_TYPE
+#define __API_MTWM_INT_TYPE_BIT_NUM             __API_INT_TYPE_BIT_NUM
 #define __API_MTWM_PIXEL_BLENDING               __API_PIXEL_BLENDING
 #define __API_MTWM_PIXEL_AVERAGE                __API_PIXEL_AVERAGE
 #define __API_MTWM_PIXEL_AVERAGE_RESULT         __API_PIXEL_AVERAGE_RESULT
@@ -757,6 +762,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
 #   define __API_MTWM_COLOUR                        __API_COLOUR
 #   define __API_MTWM_INT_TYPE                      __API_INT_TYPE
+#   define __API_MTWM_INT_TYPE_BIT_NUM              __API_INT_TYPE_BIT_NUM
 #   define __API_MTWM_PIXEL_BLENDING                __API_PIXEL_BLENDING
 #   define __API_MTWM_PIXEL_AVERAGE                 __API_PIXEL_AVERAGE
 #   define __API_MTWM_PIXEL_AVERAGE_RESULT          __API_PIXEL_AVERAGE_RESULT
@@ -771,6 +777,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 
 #define __API_MTWM_COLOUR                       __API_COLOUR
 #define __API_MTWM_INT_TYPE                     __API_INT_TYPE
+#define __API_MTWM_INT_TYPE_BIT_NUM             __API_INT_TYPE_BIT_NUM
 #define __API_MTWM_PIXEL_BLENDING               __API_PIXEL_BLENDING
 #define __API_MTWM_PIXEL_AVERAGE                __API_PIXEL_AVERAGE
 #define __API_MTWM_PIXEL_AVERAGE_RESULT         __API_PIXEL_AVERAGE_RESULT
@@ -786,6 +793,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
 #   define __API_MTWM_COLOUR                        __API_COLOUR
 #   define __API_MTWM_INT_TYPE                      __API_INT_TYPE
+#   define __API_MTWM_INT_TYPE_BIT_NUM              __API_INT_TYPE_BIT_NUM
 #   define __API_MTWM_PIXEL_BLENDING                __API_PIXEL_BLENDING
 #   define __API_MTWM_PIXEL_AVERAGE                 __API_PIXEL_AVERAGE
 #   define __API_MTWM_PIXEL_AVERAGE_RESULT          __API_PIXEL_AVERAGE_RESULT
@@ -805,6 +813,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 #undef __ARM_2D_FUNC
 #undef __API_COLOUR
 #undef __API_INT_TYPE
+#undef __API_INT_TYPE_BIT_NUM
 #undef __API_PIXEL_BLENDING
 #undef __API_PIXEL_AVERAGE
 #undef __API_PIXEL_AVERAGE_RESULT
