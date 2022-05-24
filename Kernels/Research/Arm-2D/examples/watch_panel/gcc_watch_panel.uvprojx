@@ -713,7 +713,7 @@
         <TargetCommonOption>
           <Device>CMSDK_CM0plus</Device>
           <Vendor>ARM</Vendor>
-          <PackID>Keil.V2M-MPS2_CMx_BSP.1.7.0</PackID>
+          <PackID>Keil.V2M-MPS2_CMx_BSP.1.7.1</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00400000) IROM(0x00000000,0x00400000) CPUTYPE("Cortex-M0+") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -1652,7 +1652,7 @@
       <file attr="config" category="header" name="CMSIS\Config\RTE_Device.h" version="1.0.0">
         <instance index="0">RTE\Device\CMSDK_CM0plus\RTE_Device.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="CMSDK_CM0plus CMSIS"/>
-        <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.7.0"/>
+        <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.7.1"/>
         <targetInfos>
           <targetInfo name="V2M-MPS2-CM0+"/>
         </targetInfos>
@@ -1660,7 +1660,7 @@
       <file attr="config" category="source" name="Device\CMSDK_CM0plus\Source\system_CMSDK_CM0plus.c" version="1.0.0">
         <instance index="0">RTE\Device\CMSDK_CM0plus\system_CMSDK_CM0plus.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="CMSDK_CM0plus CMSIS"/>
-        <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.7.0"/>
+        <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.7.1"/>
         <targetInfos>
           <targetInfo name="V2M-MPS2-CM0+"/>
         </targetInfos>

@@ -689,6 +689,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\template\arm_2d_cfg.h</FilePath>
             </File>
+            <File>
+              <FileName>arm_2d_transform_helium.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform_helium.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_transform_helium.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_transform_helium.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1754,6 +1764,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\template\arm_2d_cfg.h</FilePath>
             </File>
+            <File>
+              <FileName>arm_2d_transform_helium.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform_helium.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_transform_helium.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_transform_helium.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2209,7 +2229,7 @@
       <TargetName>FastModel</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
+      <pCCUsed>6170000::V6.17::.\Arm Compiler 6.17</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -2886,6 +2906,16 @@
               <FileName>arm_2d_cfg.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\template\arm_2d_cfg.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform_helium.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform_helium.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_transform_helium.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_transform_helium.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -4021,6 +4051,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\template\arm_2d_cfg.h</FilePath>
             </File>
+            <File>
+              <FileName>arm_2d_transform_helium.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform_helium.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_transform_helium.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_transform_helium.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -5085,6 +5125,16 @@
               <FileName>arm_2d_cfg.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\template\arm_2d_cfg.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform_helium.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform_helium.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_transform_helium.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_transform_helium.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -6220,6 +6270,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\template\arm_2d_cfg.h</FilePath>
             </File>
+            <File>
+              <FileName>arm_2d_transform_helium.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform_helium.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_transform_helium.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_transform_helium.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -7353,6 +7413,16 @@
               <FileName>arm_2d_cfg.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\template\arm_2d_cfg.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform_helium.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform_helium.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_transform_helium.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_transform_helium.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -8488,6 +8558,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\template\arm_2d_cfg.h</FilePath>
             </File>
+            <File>
+              <FileName>arm_2d_transform_helium.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform_helium.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_transform_helium.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_transform_helium.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -9622,6 +9702,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\template\arm_2d_cfg.h</FilePath>
             </File>
+            <File>
+              <FileName>arm_2d_transform_helium.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform_helium.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_transform_helium.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_transform_helium.inc</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -10686,6 +10776,16 @@
               <FileName>arm_2d_cfg.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Library\Include\template\arm_2d_cfg.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_transform_helium.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Library\Source\arm_2d_transform_helium.c</FilePath>
+            </File>
+            <File>
+              <FileName>__arm_2d_transform_helium.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\Library\Source\__arm_2d_transform_helium.inc</FilePath>
             </File>
           </Files>
         </Group>
