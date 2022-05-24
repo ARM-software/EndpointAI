@@ -76,11 +76,12 @@ typedef arm_2d_op_src_t arm_2d_op_cl_convt_t;
  *!        autovectorizer friendly format
  */
 typedef union {
-    uint16_t        RGB[3];
+    uint16_t            RGBA[4];
     struct {
         uint16_t        R;
         uint16_t        G;
         uint16_t        B;
+        uint16_t        A;
     };
 } __arm_2d_color_fast_rgb_t;
 
@@ -102,6 +103,7 @@ __STATIC_INLINE void __arm_2d_rgb565_unpack(uint16_t hwColor,
     ptRGB->R = (uint16_t) ((hwColor & maskRunpk) << 3);
     ptRGB->B = (uint16_t) ((hwColor >> 11) << 3);
     ptRGB->G = (uint16_t) (((hwColor >> 5) & maskGunpk) << 2);
+    ptRGB->A = 0xFF;
 }
 
 __STATIC_INLINE uint16_t __arm_2d_rgb565_pack(__arm_2d_color_fast_rgb_t * ptRGB)
@@ -124,7 +126,7 @@ __STATIC_INLINE uint32_t __arm_2d_cccn888_pack(__arm_2d_color_fast_rgb_t * ptRGB
         .u8R = (uint16_t) ptRGB->R,
         .u8G = (uint16_t) ptRGB->G,
         .u8B = (uint16_t) ptRGB->B,
-        .u8A = 0xFF,
+        .u8A = (uint16_t) ptRGB->A,
     };
     return tOutput.tValue;
 }

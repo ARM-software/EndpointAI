@@ -21,8 +21,8 @@
  * Title:        __arm_2d_impl.h
  * Description:  header files for internal users or professional developers
  *
- * $Date:        17. May 2022
- * $Revision:    V.1.2.0
+ * $Date:        24. May 2022
+ * $Revision:    V.1.2.1
  *
  * Target Processor:  Cortex-M cores
  *
@@ -111,9 +111,9 @@ extern "C" {
                                                                                 \
                 for (int i = 0; i < 3; i++) {                                   \
                     uint16_t        hwTemp =                                    \
-                        (uint16_t) (tSrcPix.RGB[i] * hwOPA) +                   \
-                        (tTargetPix.RGB[i] * (__TRANS));                        \
-                    tTargetPix.RGB[i] = (uint16_t) (hwTemp >> 8);               \
+                        (uint16_t) (tSrcPix.RGBA[i] * hwOPA) +                  \
+                        (tTargetPix.RGBA[i] * (__TRANS));                       \
+                    tTargetPix.RGBA[i] = (uint16_t) (hwTemp >> 8);              \
                 }                                                               \
                                                                                 \
                 /* pack merged stream */                                        \
@@ -159,9 +159,9 @@ extern "C" {
                                                                                 \
                 for (int i = 0; i < 3; i++) {                                   \
                     uint16_t        hwTemp =                                    \
-                        (uint16_t) (tSrcPix.RGB[i] * (__OPA)) +                 \
-                        (tTargetPix.RGB[i] * hwTrans);                          \
-                    tTargetPix.RGB[i] = (uint16_t) (hwTemp >> 8);               \
+                        (uint16_t) (tSrcPix.RGBA[i] * (__OPA)) +                \
+                        (tTargetPix.RGBA[i] * hwTrans);                         \
+                    tTargetPix.RGBA[i] = (uint16_t) (hwTemp >> 8);              \
                 }                                                               \
                                                                                 \
                 /* pack merged stream */                                        \

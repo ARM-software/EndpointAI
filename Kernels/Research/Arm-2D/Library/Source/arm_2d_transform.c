@@ -99,10 +99,11 @@ extern "C" {
         tPixel.B >>= 8,                                         \
         __arm_2d_rgb565_pack(&tPixel))
 
-#define __API_PIXEL_AVERAGE_RESULT_RGB888()                     \
+#define __API_PIXEL_AVERAGE_RESULT_CCCN888()                    \
     (   tPixel.R >>= 8,                                         \
         tPixel.G >>= 8,                                         \
         tPixel.B >>= 8,                                         \
+        tPixel.A = *((uint8_t *)pTarget + 3),                   \
         __arm_2d_cccn888_pack(&tPixel))
 
 
@@ -128,7 +129,7 @@ extern "C" {
 #define __API_INT_TYPE_BIT_NUM      32
 #define __API_PIXEL_BLENDING        __ARM_2D_PIXEL_BLENDING_OPA_CCCN888
 #define __API_PIXEL_AVERAGE         __ARM_2D_PIXEL_AVERAGE_CCCN888
-#define __API_PIXEL_AVERAGE_RESULT  __API_PIXEL_AVERAGE_RESULT_RGB888
+#define __API_PIXEL_AVERAGE_RESULT  __API_PIXEL_AVERAGE_RESULT_CCCN888
 
 #include "__arm_2d_transform.inc"
 
