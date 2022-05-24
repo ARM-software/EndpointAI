@@ -145,7 +145,7 @@ extern "C" {
  *!       related APIs, please set this macro to 1 in your project.
  */
 #ifndef __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
-#   define __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__ 0
+#   define __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__  1
 #endif
 
 /*----------------------------------------------------------------------------*
