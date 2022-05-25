@@ -21,8 +21,8 @@
  * Title:        arm-2d.c
  * Description:  APIs for various alpha related operations
  *
- * $Date:        29. April 2022
- * $Revision:    V.1.0.2
+ * $Date:        25. May 2022
+ * $Revision:    V.1.0.3
  *
  * Target Processor:  Cortex-M cores
  *
@@ -1716,9 +1716,9 @@ void __arm_2d_impl_rgb565_alpha_blending(   uint16_t *__RESTRICT phwSourceBase,
 
             for (int i = 0; i < 3; i++) {
                 uint16_t        tmp =
-                    (uint16_t) (srcPix.RGB[i] * hwRatio) +
-                    (targetPix.RGB[i] * ratioCompl);
-                targetPix.RGB[i] = (uint16_t) (tmp >> 8);
+                    (uint16_t) (srcPix.RGBA[i] * hwRatio) +
+                    (targetPix.RGBA[i] * ratioCompl);
+                targetPix.RGBA[i] = (uint16_t) (tmp >> 8);
             }
             /* pack merged stream */
             *phwTargetBase++ = __arm_2d_rgb565_pack(&targetPix);
