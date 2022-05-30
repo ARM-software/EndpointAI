@@ -376,18 +376,18 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
         uint32x4_t      ptVal = vldrwq_gather_shifted_offset_z_u32(pOrigin, ptOffs, predTailLow & p);      \
                                                                                                            \
         vst1q(scratch32, ptVal);                                                                           \
-\
-        uint32x4_t     maskOffs = 4 * tPointLo.X + tPointLo.Y * MaskStr;           \
-        uint32x4_t      maskVal =                                                                               \
-            vldrbq_gather_offset_z_u32(pMaskArr, maskOffs, predTailLow & p);                     \
-                                                                                                    \
-                vst1q(scratch32+8, maskVal);   \
+                                                                                                           \
+        uint32x4_t     maskOffs = 4 * tPointLo.X + tPointLo.Y * MaskStr;                                   \
+        uint32x4_t      maskVal =                                                                          \
+            vldrbq_gather_offset_z_u32(pMaskArr, maskOffs, predTailLow & p);                               \
+                                                                                                           \
+        vst1q(scratch32+8, maskVal);                                                                       \
                                                                                                            \
         /* 2nd half */                                                                                     \
                                                                                                            \
         /* set vector predicate if point is inside the region */                                           \
         p = arm_2d_is_point_vec_inside_region_s32(ptOrigValidRegion, &tPointHi);                           \
-        pGlbHi |= p;   \
+        pGlbHi |= p;                                                                                       \
         /* prepare vector of point offsets */                                                              \
         ptOffs = tPointHi.X + tPointHi.Y * iOrigStride;                                                    \
                                                                                                            \
@@ -395,20 +395,20 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
         ptVal = vldrwq_gather_shifted_offset_z_u32(pOrigin, ptOffs, predTailHigh & p);                     \
                                                                                                            \
         vst1q(scratch32 + 4, ptVal);                                                                       \
-        \
-            maskOffs = 4 * tPointHi.X + tPointHi.Y * MaskStr;           \
-             maskVal =                                                                               \
-            vldrbq_gather_offset_z_u32(pMaskArr, maskOffs, predTailHigh & p);                     \
-                                                                                                    \
-                vst1q(scratch32+12, maskVal);   \
-                                                                                                            \
+                                                                                                           \
+        maskOffs = 4 * tPointHi.X + tPointHi.Y * MaskStr;                                                  \
+         maskVal =                                                                                         \
+        vldrbq_gather_offset_z_u32(pMaskArr, maskOffs, predTailHigh & p);                                  \
+                                                                                                           \
+        vst1q(scratch32+12, maskVal);                                                                      \
+                                                                                                           \
         /* expand channels */                                                                              \
-        __arm_2d_unpack_rgb888_from_mem((uint8_t *) scratch32, &R, &G, &B); \
-                                                                                                    \
-        vPixelAlpha = vldrbq_gather_offset_u16((uint8_t *) &scratch32[8], vidupq_n_u16(0, 4)); \
-                                                                                                    \
-        vPixelAlpha = (vPixelAlpha * hwOpacity) >> 8;                                               \
-                                                                                                    \
+        __arm_2d_unpack_rgb888_from_mem((uint8_t *) scratch32, &R, &G, &B);                                \
+                                                                                                           \
+        vPixelAlpha = vldrbq_gather_offset_u16((uint8_t *) &scratch32[8], vidupq_n_u16(0, 4));             \
+                                                                                                           \
+        vPixelAlpha = (vPixelAlpha * hwOpacity) >> 8;                                                      \
+                                                                                                           \
         ALPHA_255_COMP_VEC16(vPixelAlpha, 255);
 
 
@@ -425,13 +425,13 @@ __arm_2d_rgb565_unpack_single_vec(vTarget, &vTargetR, &vTargetG, &vTargetB);    
                                                                                                        \
 uint16_t        transp = 256 - hwOpacity;                                                              \
 /* merge */                                                                                            \
-vAvgR = vAvgR * hwOpacity + vTargetR * transp;                                                 \
+vAvgR = vAvgR * hwOpacity + vTargetR * transp;                                                         \
 vAvgR = vAvgR >> 8;                                                                                    \
                                                                                                        \
-vAvgG = vAvgG * hwOpacity + vTargetG * transp;                                                 \
+vAvgG = vAvgG * hwOpacity + vTargetG * transp;                                                         \
 vAvgG = vAvgG >> 8;                                                                                    \
                                                                                                        \
-vAvgB = vAvgB * hwOpacity + vTargetB * transp;                                                 \
+vAvgB = vAvgB * hwOpacity + vTargetB * transp;                                                         \
 vAvgB = vAvgB >> 8;                                                                                    \
                                                                                                        \
 vBlended = __arm_2d_rgb565_pack_single_vec(vAvgR, vAvgG, vAvgB);
@@ -447,56 +447,58 @@ vBlended = __arm_2d_rgb565_pack_single_vec(vAvgR, vAvgG, vAvgB);
   Scale Gray8 channel
  */
 #define __ARM_2D_SCALE_GRAY8VEC(vAvgPix, vPtVal, vAreaScal)                           \
-        vAvgPix = vAreaScal * vcvtq_f16_s16(vPtVal);
+        vAvgPix = vAreaScal * vcvtq_f16_u16(vPtVal);
 
 #define __ARM_2D_SCALE_MASK_GRAY8VEC(vAvgPix, vTransp, vPtVal, vAreaScal, vAlphaSc)   \
-        float16x8_t vAlpha = vAreaScal * vcvtq_f16_s16(vAlphaSc) ;                    \
+        float16x8_t vAlpha = vAreaScal * vcvtq_f16_u16(vAlphaSc) ;                    \
         vTransp = 256.0f16 * vAreaScal - vAlpha;                                      \
-        vAvgPix = vAlpha * vcvtq_f16_s16(vPtVal);
+        vAvgPix = vAlpha * vcvtq_f16_u16(vPtVal);
 
 /**
   Scale Gray8 channel with accumulation
  */
-#define __ARM_2D_SCALE_GRAY8VEC_ACC(vAvgPix, vPtVal, vAreaScal)                       \
-        vAvgPix += vAreaScal * vcvtq_f16_s16(vPtVal);
+#define __ARM_2D_SCALE_GRAY8VEC_ACC(vAvgPix, vPtVal, vAreaScal)                         \
+        vAvgPix += vAreaScal * vcvtq_f16_u16(vPtVal);
 
 #define __ARM_2D_SCALE_MASK_GRAY8VEC_ACC(vAvgPix, vTransp, vPtVal, vAreaScal, vAlphaSc) \
-        float16x8_t vAlpha = vAreaScal * vcvtq_f16_s16(vAlphaSc);                       \
+        float16x8_t vAlpha = vAreaScal * vcvtq_f16_u16(vAlphaSc);                       \
         vTransp += 256.0f16 * vAreaScal - vAlpha;                                       \
-        vAvgPix += vAlpha * vcvtq_f16_s16(vPtVal);
+        vAvgPix += vAlpha * vcvtq_f16_u16(vPtVal);
 
 
 /**
   Scale R, G & B channels
  */
-#define __ARM_2D_SCALE_RGBVEC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)                           \
-        vAvgPixelR = vScal * vcvtq_f16_s16(R);                                                              \
-        vAvgPixelG = vScal * vcvtq_f16_s16(G);                                                              \
-        vAvgPixelB = vScal * vcvtq_f16_s16(B);
+#define __ARM_2D_SCALE_RGBVEC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)       \
+        vAvgPixelR = vScal * vcvtq_f16_u16(R);                                          \
+        vAvgPixelG = vScal * vcvtq_f16_u16(G);                                          \
+        vAvgPixelB = vScal * vcvtq_f16_u16(B);
 
 
-#define __ARM_2D_SCALE_MASK_RGBVEC(vAvgPixelR, vAvgPixelG, vAvgPixelB, vhwTransparency, R, G, B, vScal, vAlphaSc)                       \
-        float16x8_t vAlpha = vScal * vcvtq_f16_s16(vAlphaSc) ;               \
-        vhwTransparency = 256.0f16 * vScal - vAlpha;                       \
-        vAvgPixelR = vAlpha * vcvtq_f16_s16(R);                                                             \
-        vAvgPixelG = vAlpha * vcvtq_f16_s16(G);                                                             \
-        vAvgPixelB = vAlpha * vcvtq_f16_s16(B);
+#define __ARM_2D_SCALE_MASK_RGBVEC(vAvgPixelR, vAvgPixelG, vAvgPixelB, vhwTransparency,    \
+                                                                R, G, B, vScal, vAlphaSc)  \
+        float16x8_t vAlpha = vScal * vcvtq_f16_u16(vAlphaSc) ;                             \
+        vhwTransparency = 256.0f16 * vScal - vAlpha;                                       \
+        vAvgPixelR = vAlpha * vcvtq_f16_u16(R);                                            \
+        vAvgPixelG = vAlpha * vcvtq_f16_u16(G);                                            \
+        vAvgPixelB = vAlpha * vcvtq_f16_u16(B);
 
 /**
   Scale R, G & B channels with accumulation
  */
 
-#define __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)                       \
-        vAvgPixelR += vScal * vcvtq_f16_s16(R);                                                             \
-        vAvgPixelG += vScal * vcvtq_f16_s16(G);                                                             \
-        vAvgPixelB += vScal * vcvtq_f16_s16(B);
+#define __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)      \
+        vAvgPixelR += vScal * vcvtq_f16_u16(R);                                            \
+        vAvgPixelG += vScal * vcvtq_f16_u16(G);                                            \
+        vAvgPixelB += vScal * vcvtq_f16_u16(B);
 
-#define __ARM_2D_SCALE_MASK_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, vhwTransparency, R, G, B, vScal, vAlphaSc)                       \
-        float16x8_t vAlpha = vScal * vcvtq_f16_s16(vAlphaSc) ;               \
-        vhwTransparency += 256.0f16 * vScal - vAlpha;                       \
-        vAvgPixelR += vAlpha * vcvtq_f16_s16(R);                                                             \
-        vAvgPixelG += vAlpha * vcvtq_f16_s16(G);                                                             \
-        vAvgPixelB += vAlpha * vcvtq_f16_s16(B);
+#define __ARM_2D_SCALE_MASK_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, vhwTransparency,\
+                                                                 R, G, B,  vScal, vAlphaSc)\
+        float16x8_t vAlpha = vScal * vcvtq_f16_u16(vAlphaSc) ;                             \
+        vhwTransparency += 256.0f16 * vScal - vAlpha;                                      \
+        vAvgPixelR += vAlpha * vcvtq_f16_u16(R);                                           \
+        vAvgPixelG += vAlpha * vcvtq_f16_u16(G);                                           \
+        vAvgPixelB += vAlpha * vcvtq_f16_u16(B);
 
 
 
@@ -668,7 +670,7 @@ void __arm_2d_impl_gray8_get_pixel_colour(arm_2d_point_f16x8_t
         __ARM_2D_SCALE_GRAY8VEC_ACC(vAvgPixelF, ptVal8, vAreaTR);
     }
 
-    vAvgPixel8 = vcvtq_s16_f16(vAvgPixelF);
+    vAvgPixel8 = vcvtq_u16_f16(vAvgPixelF);
 
 #else
     {
@@ -764,7 +766,7 @@ void __arm_2d_impl_gray8_get_pixel_colour_with_alpha(arm_2d_point_f16x8_t * ptPo
         __ARM_2D_SCALE_GRAY8VEC_ACC(vAvgPixelF, ptVal8, vAreaTR);
     }
 
-    vAvgPixel8 = vcvtq_s16_f16(vAvgPixelF);
+    vAvgPixel8 = vcvtq_u16_f16(vAvgPixelF);
 #else
     {
         __ARM_2D_GRAY8_GET_PIXVEC_FROM_POINT_MASK_CLR_FAR(vXi, vYi, ptVal8, iOrigStride, MaskColour, predGlb);
@@ -892,9 +894,9 @@ void __arm_2d_impl_gray8_get_pixel_colour_src_chn_mask_opa(arm_2d_point_f16x8_t 
 #endif
 
     /* blending */
-    uint16x8_t      vAvg = vcvtq_s16_f16(vAvgPixel);
-    uint16x8_t      vTrans = vcvtq_s16_f16(vhwTransparency);
-    uint16x8_t      vBlended = (vAvg + vTarget * vTrans) >> 8;
+    uint16x8_t      vAvg = vcvtq_u16_f16(vAvgPixel);
+    uint16x8_t      vTrans = vcvtq_u16_f16(vhwTransparency);
+    uint16x8_t      vBlended = vqaddq(vAvg, vTarget * vTrans) >> 8;
 
     /* select between target pixel, averaged pixed */
     vTarget = vpselq_u16(vBlended, vTarget, predGlb);
@@ -980,9 +982,9 @@ void __arm_2d_impl_rgb565_get_pixel_colour(arm_2d_point_f16x8_t * ptPoint,
 
 
     /* pack */
-    uint16x8_t      TempPixel = __arm_2d_rgb565_pack_single_vec(vcvtq_s16_f16(vAvgPixelR),
-                                                                vcvtq_s16_f16(vAvgPixelG),
-                                                                vcvtq_s16_f16(vAvgPixelB));
+    uint16x8_t      TempPixel = __arm_2d_rgb565_pack_single_vec(vcvtq_u16_f16(vAvgPixelR),
+                                                                vcvtq_u16_f16(vAvgPixelG),
+                                                                vcvtq_u16_f16(vAvgPixelB));
 
     /* select between target pixel, averaged pixed */
     vTarget = vpselq_u16(TempPixel, vTarget, predGlb);
@@ -1091,9 +1093,9 @@ void __arm_2d_impl_rgb565_get_pixel_colour_offs_compensated(arm_2d_point_f16x8_t
 
 
     /* pack */
-    uint16x8_t      TempPixel = __arm_2d_rgb565_pack_single_vec(vcvtq_s16_f16(vAvgPixelR),
-                                                                vcvtq_s16_f16(vAvgPixelG),
-                                                                vcvtq_s16_f16(vAvgPixelB));
+    uint16x8_t      TempPixel = __arm_2d_rgb565_pack_single_vec(vcvtq_u16_f16(vAvgPixelR),
+                                                                vcvtq_u16_f16(vAvgPixelG),
+                                                                vcvtq_u16_f16(vAvgPixelB));
 
     /* select between target pixel, averaged pixed */
     vTarget = vpselq_u16(TempPixel, vTarget, predGlb);
@@ -1205,9 +1207,9 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(
     /* blending */
     uint16x8_t      vAvgR, vAvgG, vAvgB;
 
-    vAvgR = vcvtq_s16_f16(vAvgPixelR);
-    vAvgG = vcvtq_s16_f16(vAvgPixelG);
-    vAvgB = vcvtq_s16_f16(vAvgPixelB);
+    vAvgR = vcvtq_u16_f16(vAvgPixelR);
+    vAvgG = vcvtq_u16_f16(vAvgPixelG);
+    vAvgB = vcvtq_u16_f16(vAvgPixelB);
 
     uint16x8_t      vBlended;
 
@@ -1321,9 +1323,9 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(
     /* blending */
     uint16x8_t      vAvgR, vAvgG, vAvgB;
 
-    vAvgR = vcvtq_s16_f16(vAvgPixelR);
-    vAvgG = vcvtq_s16_f16(vAvgPixelG);
-    vAvgB = vcvtq_s16_f16(vAvgPixelB);
+    vAvgR = vcvtq_u16_f16(vAvgPixelR);
+    vAvgG = vcvtq_u16_f16(vAvgPixelG);
+    vAvgB = vcvtq_u16_f16(vAvgPixelB);
 
     uint16x8_t      vBlended;
 
@@ -1478,12 +1480,12 @@ void __arm_2d_impl_rgb565_get_pixel_colour_src_chn_mask_opa(arm_2d_point_f16x8_t
 
     /* blending */
     uint16x8_t      vAvgR, vAvgG, vAvgB;
-    uint16x8_t      vTrans = vcvtq_s16_f16(vhwTransparency);
+    uint16x8_t      vTrans = vcvtq_u16_f16(vhwTransparency);
     uint16x8_t      vBlended;
 
-    vAvgR = vcvtq_s16_f16(vAvgPixelR);
-    vAvgG = vcvtq_s16_f16(vAvgPixelG);
-    vAvgB = vcvtq_s16_f16(vAvgPixelB);
+    vAvgR = vcvtq_u16_f16(vAvgPixelR);
+    vAvgG = vcvtq_u16_f16(vAvgPixelG);
+    vAvgB = vcvtq_u16_f16(vAvgPixelB);
 
 
     uint16x8_t      vTargetR, vTargetG, vTargetB;
@@ -1491,13 +1493,13 @@ void __arm_2d_impl_rgb565_get_pixel_colour_src_chn_mask_opa(arm_2d_point_f16x8_t
     __arm_2d_rgb565_unpack_single_vec(vTarget, &vTargetR, &vTargetG, &vTargetB);
 
     /* merge */
-    vAvgR = vAvgR + vTargetR * vTrans;
+    vAvgR = vqaddq(vAvgR,  vTargetR * vTrans);
     vAvgR = vAvgR >> 8;
 
-    vAvgG = vAvgG + vTargetG * vTrans;
+    vAvgG = vqaddq(vAvgG, vTargetG * vTrans);
     vAvgG = vAvgG >> 8;
 
-    vAvgB = vAvgB + vTargetB * vTrans;
+    vAvgB = vqaddq(vAvgB, vTargetB * vTrans);
     vAvgB = vAvgB >> 8;
 
     vBlended = __arm_2d_rgb565_pack_single_vec(vAvgR, vAvgG, vAvgB);
@@ -1592,8 +1594,8 @@ void __arm_2d_impl_cccn888_get_pixel_colour(   arm_2d_point_f16x8_t *ptPoint,
     }
 
     /* pack */
-    __arm_2d_pack_rgb888_to_mem((uint8_t *) scratch32, vcvtq_s16_f16(vAvgPixelR),
-                                vcvtq_s16_f16(vAvgPixelG), vcvtq_s16_f16(vAvgPixelB));
+    __arm_2d_pack_rgb888_to_mem((uint8_t *) scratch32, vcvtq_u16_f16(vAvgPixelR),
+                                vcvtq_u16_f16(vAvgPixelG), vcvtq_u16_f16(vAvgPixelB));
 
     uint32x4_t      TempPixel = vld1q(scratch32);
 
@@ -1741,9 +1743,9 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
         __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vAreaTR);
     }
 
-    vAvgR = vcvtq_s16_f16(vAvgPixelR);
-    vAvgG = vcvtq_s16_f16(vAvgPixelG);
-    vAvgB = vcvtq_s16_f16(vAvgPixelB);
+    vAvgR = vcvtq_u16_f16(vAvgPixelR);
+    vAvgG = vcvtq_u16_f16(vAvgPixelG);
+    vAvgB = vcvtq_u16_f16(vAvgPixelB);
 
 #else
     {
@@ -1908,25 +1910,25 @@ void __arm_2d_impl_cccn888_get_pixel_colour_src_chn_mask_opa(arm_2d_point_f16x8_
 
     /* alpha blending */
     uint16x8_t      vTargetR, vTargetG, vTargetB;
-    uint16x8_t      vTrans = vcvtq_s16_f16(vhwTransparency);;
+    uint16x8_t      vTrans = vcvtq_u16_f16(vhwTransparency);;
     uint16x8_t      vAvgR, vAvgG, vAvgB;
 
     __arm_2d_unpack_rgb888_from_mem((const uint8_t *) pTarget, &vTargetR, &vTargetG,
                                     &vTargetB);
 
-    vAvgR = vcvtq_s16_f16(vAvgPixelR);
-    vAvgG = vcvtq_s16_f16(vAvgPixelG);
-    vAvgB = vcvtq_s16_f16(vAvgPixelB);
+    vAvgR = vcvtq_u16_f16(vAvgPixelR);
+    vAvgG = vcvtq_u16_f16(vAvgPixelG);
+    vAvgB = vcvtq_u16_f16(vAvgPixelB);
 
 
     /* merge */
-    vAvgR = vAvgR + vTargetR * vTrans;
+    vAvgR = vqaddq(vAvgR, vTargetR * vTrans);
     vAvgR = vAvgR >> 8;
 
-    vAvgG = vAvgG + vTargetG * vTrans;
+    vAvgG = vqaddq(vAvgG, vTargetG * vTrans);
     vAvgG = vAvgG >> 8;
 
-    vAvgB = vAvgB + vTargetB * vTrans;
+    vAvgB = vqaddq(vAvgB, vTargetB * vTrans);
     vAvgB = vAvgB >> 8;
 
     /* pack */
@@ -1963,56 +1965,58 @@ void __arm_2d_impl_cccn888_get_pixel_colour_src_chn_mask_opa(arm_2d_point_f16x8_
 /**
   Scale Gray8 channel
  */
-#define __ARM_2D_SCALE_GRAY8VEC(vAvgPix, vPtVal, vAreaScal)                                \
+#define __ARM_2D_SCALE_GRAY8VEC(vAvgPix, vPtVal, vAreaScal)                             \
         vAvgPix = vmulhq_u16(vAreaScal, vPtVal);
 
 
-#define __ARM_2D_SCALE_MASK_GRAY8VEC(vAvgPix, vTransp, vPtVal, vAreaScal, vAlphaSc)   \
-        uint16x8_t vAlpha = vmulq_u16((vAreaScal >> 8),  vAlphaSc);                    \
-        vTransp = vAreaScal - vAlpha;                                      \
+#define __ARM_2D_SCALE_MASK_GRAY8VEC(vAvgPix, vTransp, vPtVal, vAreaScal, vAlphaSc)     \
+        uint16x8_t vAlpha = vmulq_u16((vAreaScal >> 8),  vAlphaSc);                     \
+        vTransp = vAreaScal - vAlpha;                                                   \
         vAvgPix = vmulhq(vAlpha, vPtVal << 8);
 
 
 /**
   Scale Gray8 channel with accumulation
  */
-#define __ARM_2D_SCALE_GRAY8VEC_ACC(vAvgPixel, ptVal8, vScal)                            \
+#define __ARM_2D_SCALE_GRAY8VEC_ACC(vAvgPixel, ptVal8, vScal)                           \
         vAvgPixel += vmulhq_u16(vScal, ptVal8);
 
-#define __ARM_2D_SCALE_MASK_GRAY8VEC_ACC(vAvgPix, vTransp, vPtVal, vAreaScal, vAlphaSc)   \
-        uint16x8_t vAlpha = vmulq_u16((vAreaScal >> 8), vAlphaSc);                    \
-        vTransp += vAreaScal - vAlpha;                                      \
+#define __ARM_2D_SCALE_MASK_GRAY8VEC_ACC(vAvgPix, vTransp, vPtVal, vAreaScal, vAlphaSc) \
+        uint16x8_t vAlpha = vmulq_u16((vAreaScal >> 8), vAlphaSc);                      \
+        vTransp += vAreaScal - vAlpha;                                                  \
         vAvgPix += vmulhq(vAlpha,  vPtVal << 8);
 
 /**
   Scale R, G & B channels
  */
-#define __ARM_2D_SCALE_RGBVEC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)        \
-        vAvgPixelR = vmulhq_u16(vScal, R);                                               \
-        vAvgPixelG = vmulhq_u16(vScal, G);                                               \
+#define __ARM_2D_SCALE_RGBVEC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)       \
+        vAvgPixelR = vmulhq_u16(vScal, R);                                              \
+        vAvgPixelG = vmulhq_u16(vScal, G);                                              \
         vAvgPixelB = vmulhq_u16(vScal, B);
 
-#define __ARM_2D_SCALE_MASK_RGBVEC(vAvgPixR, vAvgPixG, vAvgPixB, vTransp, R, G, B, vAreaScal, vAlphaSc)        \
-        uint16x8_t vAlpha = vmulq_u16((vAreaScal >> 8), vAlphaSc);                    \
-        vTransp = vAreaScal - vAlpha;                                      \
-        vAvgPixelR = vmulhq_u16(vAlpha, R << 8);                                               \
-        vAvgPixelG = vmulhq_u16(vAlpha, G << 8);                                               \
+#define __ARM_2D_SCALE_MASK_RGBVEC(vAvgPixR, vAvgPixG, vAvgPixB, vTransp, R, G, B,      \
+                                                            vAreaScal, vAlphaSc)        \
+        uint16x8_t vAlpha = vmulq_u16((vAreaScal >> 8), vAlphaSc);                      \
+        vTransp = vAreaScal - vAlpha;                                                   \
+        vAvgPixelR = vmulhq_u16(vAlpha, R << 8);                                        \
+        vAvgPixelG = vmulhq_u16(vAlpha, G << 8);                                        \
         vAvgPixelB = vmulhq_u16(vAlpha, B << 8);
 
 /**
   Scale R, G & B channels with accumulation
  */
-#define __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)    \
-        vAvgPixelR += vmulhq_u16(vScal, R);                                              \
-        vAvgPixelG += vmulhq_u16(vScal, G);                                              \
+#define __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)  \
+        vAvgPixelR += vmulhq_u16(vScal, R);                                            \
+        vAvgPixelG += vmulhq_u16(vScal, G);                                            \
         vAvgPixelB += vmulhq_u16(vScal, B);
 
 
-#define __ARM_2D_SCALE_MASK_RGBVEC_ACC(vAvgPixR, vAvgPixG, vAvgPixB, vTransp, R, G, B, vAreaScal, vAlphaSc)        \
-        uint16x8_t vAlpha = vmulq_u16((vAreaScal >> 8), vAlphaSc);                    \
-        vTransp += vAreaScal - vAlpha;                                      \
-        vAvgPixelR += vmulhq_u16(vAlpha, R << 8);                                               \
-        vAvgPixelG += vmulhq_u16(vAlpha, G << 8);                                               \
+#define __ARM_2D_SCALE_MASK_RGBVEC_ACC(vAvgPixR, vAvgPixG, vAvgPixB, vTransp, R, G, B,  \
+                                                             vAreaScal, vAlphaSc)       \
+        uint16x8_t vAlpha = vmulq_u16((vAreaScal >> 8), vAlphaSc);                      \
+        vTransp += vAreaScal - vAlpha;                                                  \
+        vAvgPixelR += vmulhq_u16(vAlpha, R << 8);                                       \
+        vAvgPixelG += vmulhq_u16(vAlpha, G << 8);                                       \
         vAvgPixelB += vmulhq_u16(vAlpha, B << 8);
 
 static
@@ -2472,7 +2476,7 @@ void __arm_2d_impl_gray8_get_pixel_colour_src_chn_mask_opa(arm_2d_point_s16x8_t 
 
     /* blending */
 
-    uint16x8_t      vBlended = (vAvgPixel + vmulhq(vTarget << 8, vhwTransparency)) >> 8;
+    uint16x8_t      vBlended = vqaddq(vAvgPixel, vmulhq(vTarget << 8, vhwTransparency)) >> 8;
 
     /* select between target pixel, averaged pixed */
     vTarget = vpselq_u16(vBlended, vTarget, predGlb);
@@ -3076,13 +3080,13 @@ void __arm_2d_impl_rgb565_get_pixel_colour_src_chn_mask_opa(arm_2d_point_s16x8_t
     __arm_2d_rgb565_unpack_single_vec(vTarget, &vTargetR, &vTargetG, &vTargetB);
 
     /* merge */
-    vAvgPixelR = vAvgPixelR + vmulhq(vTargetR << 8, vhwTransparency);
+    vAvgPixelR = vqaddq(vAvgPixelR, vmulhq(vTargetR << 8, vhwTransparency));
     vAvgPixelR = vAvgPixelR >> 8;
 
-    vAvgPixelG = vAvgPixelG + vmulhq(vTargetG << 8, vhwTransparency);
+    vAvgPixelG = vqaddq(vAvgPixelG, vmulhq(vTargetG << 8, vhwTransparency));
     vAvgPixelG = vAvgPixelG >> 8;
 
-    vAvgPixelB = vAvgPixelB + vmulhq(vTargetB << 8, vhwTransparency);
+    vAvgPixelB = vqaddq(vAvgPixelB, vmulhq(vTargetB << 8, vhwTransparency));
     vAvgPixelB = vAvgPixelB >> 8;
 
     vBlended = __arm_2d_rgb565_pack_single_vec(vAvgPixelR, vAvgPixelG, vAvgPixelB);
@@ -3513,13 +3517,13 @@ void __arm_2d_impl_cccn888_get_pixel_colour_src_chn_mask_opa(arm_2d_point_s16x8_
 
 
     /* merge */
-    vAvgPixelR = vAvgPixelR + vmulhq(vTargetR << 8, vhwTransparency);
+    vAvgPixelR = vqaddq(vAvgPixelR, vmulhq(vTargetR << 8, vhwTransparency));
     vAvgPixelR = vAvgPixelR >> 8;
 
-    vAvgPixelG = vAvgPixelG + vmulhq(vTargetG << 8, vhwTransparency);
+    vAvgPixelG = vqaddq(vAvgPixelG, vmulhq(vTargetG << 8, vhwTransparency));
     vAvgPixelG = vAvgPixelG >> 8;
 
-    vAvgPixelB = vAvgPixelB + vmulhq(vTargetB << 8, vhwTransparency);
+    vAvgPixelB = vqaddq(vAvgPixelB, vmulhq(vTargetB << 8, vhwTransparency));
     vAvgPixelB = vAvgPixelB >> 8;
 
     /* pack */
