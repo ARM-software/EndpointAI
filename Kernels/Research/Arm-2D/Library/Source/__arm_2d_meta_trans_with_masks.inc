@@ -78,8 +78,8 @@
 //#   define __API_MTWM_CFG_SUPPORT_TARGET_MASK                   0
 //#endif
 
-#ifndef __API_MTWM_CFG_SUPPORT_OPATICY
-#   define __API_MTWM_CFG_SUPPORT_OPATICY                       0
+#ifndef __API_MTWM_CFG_SUPPORT_OPACITY
+#   define __API_MTWM_CFG_SUPPORT_OPACITY                       0
 #endif
 
 #undef ____MTWM_FUNC
@@ -135,7 +135,7 @@ void __MTWM_FUNC(transform_with_mask)(
                                         __arm_2d_param_copy_orig_t *ptParam,
                                     #endif
                                         __arm_2d_transform_info_t *ptInfo
-                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                    #if __API_MTWM_CFG_SUPPORT_OPACITY
                                        ,uint_fast16_t hwOpacity
                                     #endif
                                         );
@@ -156,7 +156,7 @@ void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_float_t *ptPoint,
                                         __API_INT_TYPE MaskColour,
                                     #endif
 
-                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                    #if __API_MTWM_CFG_SUPPORT_OPACITY
                                         uint16_t hwOpacity,
                                     #endif
                                         __API_INT_TYPE *pTarget)
@@ -206,7 +206,7 @@ void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_float_t *ptPoint,
                                             +   tTemp.iX];
         #endif
 
-        #if __API_MTWM_CFG_SUPPORT_OPATICY
+        #if __API_MTWM_CFG_SUPPORT_OPACITY
             hwPixelAlpha = hwPixelAlpha * hwOpacity >> 8;
             assert(hwOpacity != 255);
         #endif
@@ -236,7 +236,7 @@ void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_float_t *ptPoint,
     if (bIsInside) {
         __API_MTWM_PIXEL_AVERAGE(*pTarget, hwTransparency);
 
-    #if __API_MTWM_CFG_SUPPORT_OPATICY && !__API_MTWM_CFG_SUPPORT_SOURCE_MASK
+    #if __API_MTWM_CFG_SUPPORT_OPACITY && !__API_MTWM_CFG_SUPPORT_SOURCE_MASK
         __API_INT_TYPE tSourcPixel = __API_PIXEL_AVERAGE_RESULT();
         __API_MTWM_PIXEL_BLENDING( &tSourcPixel, pTarget, hwOpacity);
     #else
@@ -264,7 +264,7 @@ void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_float_t *ptPoint,
                                             +   tTemp.iX];
         #endif
 
-        #if __API_MTWM_CFG_SUPPORT_OPATICY
+        #if __API_MTWM_CFG_SUPPORT_OPACITY
         hwPixelAlpha = hwPixelAlpha * hwOpacity >> 8;
         assert(hwOpacity != 255);
         #endif
@@ -277,7 +277,7 @@ void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_float_t *ptPoint,
     #else
 
         if (Temp != MaskColour) {
-        #if __API_MTWM_CFG_SUPPORT_OPATICY
+        #if __API_MTWM_CFG_SUPPORT_OPACITY
             __API_MTWM_PIXEL_BLENDING( &Temp, pTarget, hwOpacity);
         #else
             *pTarget = Temp;
@@ -298,7 +298,7 @@ void __MTWM_FUNC(transform_with_mask)(
                                         __arm_2d_param_copy_orig_t *ptParam,
                                     #endif
                                         __arm_2d_transform_info_t *ptInfo
-                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                    #if __API_MTWM_CFG_SUPPORT_OPACITY
                                        ,uint_fast16_t hwOpacity
                                     #endif
                                         )
@@ -324,7 +324,7 @@ void __MTWM_FUNC(transform_with_mask)(
     __API_INT_TYPE      MaskColour = MASK_COLOR(__API_MTWM_INT_TYPE_BIT_NUM);
 #endif
 
-#if __API_MTWM_CFG_SUPPORT_OPATICY
+#if __API_MTWM_CFG_SUPPORT_OPACITY
     hwOpacity += (hwOpacity == 255);
 #endif
 
@@ -386,7 +386,7 @@ void __MTWM_FUNC(transform_with_mask)(
                             #else
                                 MaskColour,
                             #endif
-                            #if __API_MTWM_CFG_SUPPORT_OPATICY
+                            #if __API_MTWM_CFG_SUPPORT_OPACITY
                                 hwOpacity,
                             #endif
                                 pTargetBase
@@ -411,7 +411,7 @@ void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_fx_t  *ptFxPoint,
                                     #else
                                         __API_INT_TYPE MaskColour,
                                     #endif
-                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                    #if __API_MTWM_CFG_SUPPORT_OPACITY
                                         uint16_t hwOpacity,
                                     #endif
                                         __API_INT_TYPE *pTarget
@@ -462,7 +462,7 @@ void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_fx_t  *ptFxPoint,
                                             +   tTemp.iX];
         #endif
 
-        #if __API_MTWM_CFG_SUPPORT_OPATICY
+        #if __API_MTWM_CFG_SUPPORT_OPACITY
             hwPixelAlpha = hwPixelAlpha * hwOpacity >> 8;
             assert(hwOpacity != 255);
         #endif
@@ -491,7 +491,7 @@ void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_fx_t  *ptFxPoint,
     if (bIsInside) {
         __API_MTWM_PIXEL_AVERAGE(*pTarget, hwTransparency);
 
-    #if __API_MTWM_CFG_SUPPORT_OPATICY && !__API_MTWM_CFG_SUPPORT_SOURCE_MASK
+    #if __API_MTWM_CFG_SUPPORT_OPACITY && !__API_MTWM_CFG_SUPPORT_SOURCE_MASK
         __API_INT_TYPE tSourcPixel = __API_PIXEL_AVERAGE_RESULT();
         __API_MTWM_PIXEL_BLENDING( &tSourcPixel, pTarget, hwOpacity);
     #else
@@ -519,7 +519,7 @@ void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_fx_t  *ptFxPoint,
                                             +   tTemp.iX];
         #endif
 
-        #if __API_MTWM_CFG_SUPPORT_OPATICY
+        #if __API_MTWM_CFG_SUPPORT_OPACITY
         hwPixelAlpha = hwPixelAlpha * hwOpacity >> 8;
         assert(hwOpacity != 255);
         #endif
@@ -532,7 +532,7 @@ void __MTWM_FUNC(get_pixel_colour_mask)(arm_2d_point_fx_t  *ptFxPoint,
     #else
 
         if (Temp != MaskColour) {
-        #if __API_MTWM_CFG_SUPPORT_OPATICY
+        #if __API_MTWM_CFG_SUPPORT_OPACITY
             __API_MTWM_PIXEL_BLENDING( &Temp, pTarget, hwOpacity);
         #else
             *pTarget = Temp;
@@ -553,7 +553,7 @@ void __MTWM_FUNC(transform_with_mask)(
                                         __arm_2d_param_copy_orig_t *ptParam,
                                     #endif
                                         __arm_2d_transform_info_t *ptInfo
-                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                    #if __API_MTWM_CFG_SUPPORT_OPACITY
                                        ,uint_fast16_t hwOpacity
                                     #endif
                                         )
@@ -579,7 +579,7 @@ void __MTWM_FUNC(transform_with_mask)(
     __API_INT_TYPE      MaskColour = MASK_COLOR(__API_MTWM_INT_TYPE_BIT_NUM);
 #endif
 
-#if __API_MTWM_CFG_SUPPORT_OPATICY
+#if __API_MTWM_CFG_SUPPORT_OPACITY
     hwOpacity += (hwOpacity == 255);
 #endif
 
@@ -646,7 +646,7 @@ void __MTWM_FUNC(transform_with_mask)(
                                     #else
                                         MaskColour,
                                     #endif
-                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                    #if __API_MTWM_CFG_SUPPORT_OPACITY
                                         hwOpacity,
                                     #endif
                                         pTargetBase
@@ -689,4 +689,4 @@ void __MTWM_FUNC(transform_with_mask)(
 #undef __API_MTWM_PIXEL_AVERAGE_INIT
 #undef __API_MTWM_CFG_SUPPORT_SOURCE_MASK
 #undef __API_MTWM_CFG_SUPPORT_TARGET_MASK
-#undef __API_MTWM_CFG_SUPPORT_OPATICY
+#undef __API_MTWM_CFG_SUPPORT_OPACITY

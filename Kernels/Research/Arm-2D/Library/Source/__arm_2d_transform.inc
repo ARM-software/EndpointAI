@@ -737,7 +737,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 #   define __API_MTWM_PIXEL_AVERAGE                __API_PIXEL_AVERAGE
 #   define __API_MTWM_PIXEL_AVERAGE_RESULT         __API_PIXEL_AVERAGE_RESULT
 #   define __API_MTWM_PIXEL_AVERAGE_INIT           __API_PIXEL_AVERAGE_INIT
-#   define __API_MTWM_CFG_SUPPORT_OPATICY          1
+#   define __API_MTWM_CFG_SUPPORT_OPACITY          1
 
 #   define get_pixel_colour_mask                   get_pixel_colour_with_opacity
 #   define transform_with_mask                     transform_with_opacity
@@ -783,7 +783,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 #define __API_MTWM_PIXEL_AVERAGE_RESULT         __API_PIXEL_AVERAGE_RESULT
 #define __API_MTWM_PIXEL_AVERAGE_INIT           __API_PIXEL_AVERAGE_INIT
 #define __API_MTWM_CFG_SUPPORT_SOURCE_MASK      1
-#define __API_MTWM_CFG_SUPPORT_OPATICY          1
+#define __API_MTWM_CFG_SUPPORT_OPACITY          1
 
 #define get_pixel_colour_mask                   get_pixel_colour_src_mask_opa
 #define transform_with_mask                     transform_with_src_mask_and_opacity
@@ -799,7 +799,7 @@ void __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,
 #   define __API_MTWM_PIXEL_AVERAGE_RESULT          __API_PIXEL_AVERAGE_RESULT
 #   define __API_MTWM_PIXEL_AVERAGE_INIT            __API_PIXEL_AVERAGE_INIT
 #   define __API_MTWM_CFG_SUPPORT_SOURCE_MASK       1
-#   define __API_MTWM_CFG_SUPPORT_OPATICY           1
+#   define __API_MTWM_CFG_SUPPORT_OPACITY           1
 #   define __API_MTWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE  1
 #   define get_pixel_colour_mask                    get_pixel_colour_src_chn_mask_opa
 #   define transform_with_mask                      transform_with_src_chn_mask_and_opacity

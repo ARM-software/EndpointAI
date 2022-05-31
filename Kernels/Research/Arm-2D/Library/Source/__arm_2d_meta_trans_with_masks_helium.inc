@@ -70,8 +70,8 @@
 //#   define __API_MTWM_CFG_SUPPORT_TARGET_MASK                   0
 //#endif
 
-#ifndef __API_MTWM_CFG_SUPPORT_OPATICY
-#   define __API_MTWM_CFG_SUPPORT_OPATICY                       0
+#ifndef __API_MTWM_CFG_SUPPORT_OPACITY
+#   define __API_MTWM_CFG_SUPPORT_OPACITY                       0
 #endif
 
 #undef ____MTWM_FUNC
@@ -85,7 +85,7 @@
     #define MASK_STRIDE_SCALE 1
 #endif
 
-#if __API_MTWM_CFG_SUPPORT_OPATICY
+#if __API_MTWM_CFG_SUPPORT_OPACITY
     #define SCALE_BY_OPACITY(pixelAlpha, opa)   vPixelAlpha = (vPixelAlpha * opa) >> 8;
 #else
     #define SCALE_BY_OPACITY(pixelAlpha, opa)
@@ -137,7 +137,7 @@ void __MTWM_FUNC(transform_with_mask)(
                                         __arm_2d_param_copy_orig_t *ptParam,
                                     #endif
                                         __arm_2d_transform_info_t *ptInfo
-                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                    #if __API_MTWM_CFG_SUPPORT_OPACITY
                                        ,uint_fast16_t hwOpacity
                                     #endif
                                         );
@@ -316,7 +316,7 @@ void ARM_CONNECT2(__arm_2d_impl_gray8_, get_pixel_colour_mask)(arm_2d_point_f16x
                                                     #else
                                                         __API_INT_TYPE MaskColour,
                                                     #endif
-                                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                                    #if __API_MTWM_CFG_SUPPORT_OPACITY
                                                            uint16_t hwOpacity,
                                                     #endif
                                                            uint32_t elts)
@@ -439,7 +439,7 @@ void ARM_CONNECT2(__arm_2d_impl_rgb565_, get_pixel_colour_mask)(arm_2d_point_f16
                                                     #else
                                                         __API_INT_TYPE MaskColour,
                                                     #endif
-                                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                                    #if __API_MTWM_CFG_SUPPORT_OPACITY
                                                            uint16_t hwOpacity,
                                                     #endif
                                                             uint32_t elts)
@@ -589,7 +589,7 @@ void ARM_CONNECT2(__arm_2d_impl_cccn888_, get_pixel_colour_mask)(arm_2d_point_f1
                                         #else
                                             __API_INT_TYPE MaskColour,
                                         #endif
-                                        #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                        #if __API_MTWM_CFG_SUPPORT_OPACITY
                                                uint16_t hwOpacity,
                                         #endif
                                         uint32_t elts
@@ -751,7 +751,7 @@ void __MTWM_FUNC(transform_with_mask)(
                                         __arm_2d_param_copy_orig_t *ptParam,
                                     #endif
                                         __arm_2d_transform_info_t *ptInfo
-                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                    #if __API_MTWM_CFG_SUPPORT_OPACITY
                                        ,uint_fast16_t hwOpacity
                                     #endif
                                         )
@@ -778,7 +778,7 @@ void __MTWM_FUNC(transform_with_mask)(
     __API_INT_TYPE MaskColour = ptInfo->Mask.hwColour;
 #endif
 
-#if __API_MTWM_CFG_SUPPORT_OPATICY
+#if __API_MTWM_CFG_SUPPORT_OPACITY
     hwOpacity += (hwOpacity == 255);
 #endif
 
@@ -843,7 +843,7 @@ void __MTWM_FUNC(transform_with_mask)(
                             #else
                                 MaskColour,
                             #endif
-                            #if __API_MTWM_CFG_SUPPORT_OPATICY
+                            #if __API_MTWM_CFG_SUPPORT_OPACITY
                                 hwOpacity,
                             #endif
                                 nbVecElts
@@ -906,7 +906,7 @@ void ARM_CONNECT2(__arm_2d_impl_gray8_, get_pixel_colour_mask)(arm_2d_point_s16x
                                                     #else
                                                         __API_INT_TYPE MaskColour,
                                                     #endif
-                                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                                    #if __API_MTWM_CFG_SUPPORT_OPACITY
                                                            uint16_t hwOpacity,
                                                     #endif
                                                            uint32_t elts)
@@ -1046,7 +1046,7 @@ void ARM_CONNECT2(__arm_2d_impl_rgb565_, get_pixel_colour_mask)(arm_2d_point_s16
                                                     #else
                                                         __API_INT_TYPE MaskColour,
                                                     #endif
-                                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                                    #if __API_MTWM_CFG_SUPPORT_OPACITY
                                                            uint16_t hwOpacity,
                                                     #endif
                                                             uint32_t elts)
@@ -1198,7 +1198,7 @@ void ARM_CONNECT2(__arm_2d_impl_cccn888_, get_pixel_colour_mask)(arm_2d_point_s1
                                         #else
                                             __API_INT_TYPE MaskColour,
                                         #endif
-                                        #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                        #if __API_MTWM_CFG_SUPPORT_OPACITY
                                                uint16_t hwOpacity,
                                         #endif
                                         uint32_t elts
@@ -1364,7 +1364,7 @@ void __MTWM_FUNC(transform_with_mask)(
                                         __arm_2d_param_copy_orig_t *ptParam,
                                     #endif
                                         __arm_2d_transform_info_t *ptInfo
-                                    #if __API_MTWM_CFG_SUPPORT_OPATICY
+                                    #if __API_MTWM_CFG_SUPPORT_OPACITY
                                        ,uint_fast16_t hwOpacity
                                     #endif
                                         )
@@ -1389,7 +1389,7 @@ void __MTWM_FUNC(transform_with_mask)(
     __API_INT_TYPE MaskColour = ptInfo->Mask.hwColour;
 #endif
 
-#if __API_MTWM_CFG_SUPPORT_OPATICY
+#if __API_MTWM_CFG_SUPPORT_OPACITY
     hwOpacity += (hwOpacity == 255);
 #endif
 
@@ -1467,7 +1467,7 @@ void __MTWM_FUNC(transform_with_mask)(
                             #else
                                 MaskColour,
                             #endif
-                            #if __API_MTWM_CFG_SUPPORT_OPATICY
+                            #if __API_MTWM_CFG_SUPPORT_OPACITY
                                 hwOpacity,
                             #endif
                                 nbVecElts
@@ -1519,4 +1519,4 @@ void __MTWM_FUNC(transform_with_mask)(
 #undef __API_MTWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE
 #undef __API_MTWM_CFG_SUPPORT_SOURCE_MASK
 #undef __API_MTWM_CFG_SUPPORT_TARGET_MASK
-#undef __API_MTWM_CFG_SUPPORT_OPATICY
+#undef __API_MTWM_CFG_SUPPORT_OPACITY
