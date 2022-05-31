@@ -154,7 +154,7 @@ extern "C" {
  *----------------------------------------------------------------------------*/
 
 #ifndef ARM_2D_UNUSED
-#   define ARM_2D_UNUSED(__VAR)     (__VAR) = (__VAR)
+#   define ARM_2D_UNUSED(__VAR)     (void)(__VAR)
 #endif
 
 #ifndef ARM_TEST_BITS
