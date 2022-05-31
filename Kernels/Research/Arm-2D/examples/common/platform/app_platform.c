@@ -25,6 +25,11 @@
 #include "platform.h"
 #include "app_cfg.h"
 
+#include "RTE_Components.h"
+#ifdef RTE_Compiler_IO_STDOUT_EVR
+#include "EventRecorder.h"
+#endif
+
 #if defined(__clang__)
 #   pragma clang diagnostic push
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
@@ -124,6 +129,10 @@ bool device_specific_init(void)
 __attribute__((used, constructor(101)))
 void app_platform_init(void)
 {
+#ifdef RTE_Compiler_IO_STDOUT_EVR
+    EventRecorderInitialize(0, 1);
+#endif
+
     init_cycle_counter(device_specific_init());
 }
 

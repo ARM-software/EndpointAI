@@ -179,12 +179,12 @@ int _write (int fd, char *ptr, int len)
 
 int stderr_putchar(char txchar)
 {
-	return stdout_putchar(txchar);
+    return stdout_putchar(txchar);
 }
 
 void ttywrch (int ch)
 {
-	stdout_putchar((char)ch);
+    stdout_putchar((char)ch);
 }
 
 #if 0
