@@ -17,7 +17,7 @@ The library name, i.e. Arm-2D, is a temporary term and it is subject to change i
   <repository type="git">https://github.com/ARM-software/EndpointAI.git</repository>
   
   <releases>
-    <release date="2022-05-24" version="1.0.0-preview-alpha9" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/Arm.Arm-2D.1.0.0-preview-alpha9.pack">
+    <release date="2022-05-24" version="1.0.0-preview-alpha10" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/Arm.Arm-2D.1.0.0-preview-alpha10.pack">
       - Add CMSIS-Pack
       - Arm-2D v1.0.0 preview
       - Add support for transform (rotation and scaling)
@@ -29,6 +29,7 @@ The library name, i.e. Arm-2D, is a temporary term and it is subject to change i
       - Introduce entries for copy-only, copy-with-x-mirror/y-mirror/xy-mirror
       - Introduce entries for fill-only, fill-with-x-mirror/y-mirror/xy-mirror
       - Fix cccn888 alpha-channel over-written issue
+      - Add Doxygen
     </release>
     
   </releases>
@@ -176,8 +177,8 @@ The library name, i.e. Arm-2D, is a temporary term and it is subject to change i
             <file category="sourceC"     name="Library/Source/arm_2d_draw.c" />
             <file category="sourceC"     name="Library/Source/arm_2d_conversion.c" />
             <file category="sourceC"     name="Library/Source/arm_2d_helium.c"                  condition="Helium" />
-            <file category="doc"         name="README.md"/>
-            <file category="preIncludeGlobal"    name="Library/Include/template/arm_2d_cfg.h"   attr="config" version="1.0.2" />
+            <file category="doc"         name="documents/doxygen/html/index.html"/>
+            <file category="preIncludeGlobal"    name="Library/Include/template/arm_2d_cfg.h"   attr="config" version="1.0.3" />
           </files>
           
           <RTE_Components_h>
