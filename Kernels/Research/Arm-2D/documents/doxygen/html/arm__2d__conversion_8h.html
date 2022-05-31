@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/arm_2d_conversion.h File Reference</title>
+<title>arm-2d: arm_2d_conversion.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -83,10 +85,8 @@ $(document).ready(function(){initNavTree('arm__2d__conversion_8h.html',''); init
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">arm_2d_conversion.h File Reference</div></div>
 </div><!--header-->
@@ -95,12 +95,6 @@ $(document).ready(function(){initNavTree('arm__2d__conversion_8h.html',''); init
 </div>
 <p><a href="arm__2d__conversion_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union____arm__2d__color__fast__rgb__t.html">__arm_2d_color_fast_rgb_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">3x16-bit packed RGB color ! autovectorizer friendly format  <a href="union____arm__2d__color__fast__rgb__t.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a4a4ad54453368c831a4eb4ca5d34dc16"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__conversion_8h.html#a4a4ad54453368c831a4eb4ca5d34dc16">arm_2d_convert_colour_to_rgb888</a>(__SRC_ADDR,  __DES_ADDR)</td></tr>
@@ -112,15 +106,6 @@ Macros</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:a188510a195fbaa9f8f29b2c90a2b7bfc"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structarm__2d__op__src__t.html">arm_2d_op_src_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__conversion_8h.html#a188510a195fbaa9f8f29b2c90a2b7bfc">arm_2d_op_cl_convt_t</a></td></tr>
 <tr class="separator:a188510a195fbaa9f8f29b2c90a2b7bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a0dac4bd927c28a54130bfe279542065c"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__conversion_8h.html#a0dac4bd927c28a54130bfe279542065c">__arm_2d_rgb565_unpack</a> (uint16_t hwColor, <a class="el" href="union____arm__2d__color__fast__rgb__t.html">__arm_2d_color_fast_rgb_t</a> *ptRGB)</td></tr>
-<tr class="separator:a0dac4bd927c28a54130bfe279542065c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad741f60e362467e251ef35febec37c28"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__conversion_8h.html#ad741f60e362467e251ef35febec37c28">__arm_2d_rgb565_pack</a> (<a class="el" href="union____arm__2d__color__fast__rgb__t.html">__arm_2d_color_fast_rgb_t</a> *ptRGB)</td></tr>
-<tr class="separator:ad741f60e362467e251ef35febec37c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50cef518f8e1fe3aa7b6870ac797c66e"><td class="memItemLeft" align="right" valign="top">__STATIC_INLINE uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__conversion_8h.html#a50cef518f8e1fe3aa7b6870ac797c66e">__arm_2d_cccn888_pack</a> (<a class="el" href="union____arm__2d__color__fast__rgb__t.html">__arm_2d_color_fast_rgb_t</a> *ptRGB)</td></tr>
-<tr class="separator:a50cef518f8e1fe3aa7b6870ac797c66e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -210,91 +195,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__conversion_8h_source.html#l00077">77</a> of file <a class="el" href="arm__2d__conversion_8h_source.html">arm_2d_conversion.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a50cef518f8e1fe3aa7b6870ac797c66e" name="a50cef518f8e1fe3aa7b6870ac797c66e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50cef518f8e1fe3aa7b6870ac797c66e">&#9670;&nbsp;</a></span>__arm_2d_cccn888_pack()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__STATIC_INLINE uint32_t __arm_2d_cccn888_pack </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="union____arm__2d__color__fast__rgb__t.html">__arm_2d_color_fast_rgb_t</a> *&#160;</td>
-          <td class="paramname"><em>ptRGB</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__conversion_8h_source.html#l00127">127</a> of file <a class="el" href="arm__2d__conversion_8h_source.html">arm_2d_conversion.h</a>.</p>
-
-</div>
-</div>
-<a id="ad741f60e362467e251ef35febec37c28" name="ad741f60e362467e251ef35febec37c28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad741f60e362467e251ef35febec37c28">&#9670;&nbsp;</a></span>__arm_2d_rgb565_pack()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__STATIC_INLINE uint16_t __arm_2d_rgb565_pack </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="union____arm__2d__color__fast__rgb__t.html">__arm_2d_color_fast_rgb_t</a> *&#160;</td>
-          <td class="paramname"><em>ptRGB</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__conversion_8h_source.html#l00115">115</a> of file <a class="el" href="arm__2d__conversion_8h_source.html">arm_2d_conversion.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  122</span>{</div>
-<div class="line"><span class="lineno">  123</span>    assert(NULL != ptRGB);</div>
-<div class="line"><span class="lineno">  124</span>    </div>
-<div class="line"><span class="lineno">  125</span>    <a class="code hl_union" href="unionarm__2d__color__rgba8888__t.html">arm_2d_color_rgba8888_t</a> tOutput = {</div>
-<div class="ttc" id="aunionarm__2d__color__rgba8888__t_html"><div class="ttname"><a href="unionarm__2d__color__rgba8888__t.html">arm_2d_color_rgba8888_t</a></div><div class="ttdoc">In most cases four equal-sized pieces of adjacent memory are used, ! one for each channel,...</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00134">arm_2d_types.h:134</a></div></div>
-</div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="arm__2d__conversion_8c.html#a63648c25d72eb5ef1bd7202e72886ba7">__arm_2d_impl_cccn888_to_rgb565()</a>, and <a class="el" href="arm__2d__alpha__blending_8c.html#a84dfc9fc248a23cce0ea9b1153469cff">__arm_2d_impl_rgb565_alpha_blending()</a>.</p>
-
-</div>
-</div>
-<a id="a0dac4bd927c28a54130bfe279542065c" name="a0dac4bd927c28a54130bfe279542065c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0dac4bd927c28a54130bfe279542065c">&#9670;&nbsp;</a></span>__arm_2d_rgb565_unpack()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__STATIC_INLINE void __arm_2d_rgb565_unpack </td>
-          <td>(</td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>hwColor</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="union____arm__2d__color__fast__rgb__t.html">__arm_2d_color_fast_rgb_t</a> *&#160;</td>
-          <td class="paramname"><em>ptRGB</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__conversion_8h_source.html#l00101">101</a> of file <a class="el" href="arm__2d__conversion_8h_source.html">arm_2d_conversion.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  110</span>{</div>
-<div class="line"><span class="lineno">  111</span>    assert(NULL != ptRGB);</div>
-<div class="line"><span class="lineno">  112</span>    </div>
-<div class="line"><span class="lineno">  113</span>    <a class="code hl_union" href="unionarm__2d__color__rgb565__t.html">arm_2d_color_rgb565_t</a> tOutput = {</div>
-<div class="ttc" id="aunionarm__2d__color__rgb565__t_html"><div class="ttname"><a href="unionarm__2d__color__rgb565__t.html">arm_2d_color_rgb565_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00117">arm_2d_types.h:117</a></div></div>
-</div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="arm__2d__alpha__blending_8c.html#a84dfc9fc248a23cce0ea9b1153469cff">__arm_2d_impl_rgb565_alpha_blending()</a>, and <a class="el" href="arm__2d__conversion_8c.html#a3fb61dbe3298a99b65f995b1e7db5be1">__arm_2d_impl_rgb565_to_cccn888()</a>.</p>
 
 </div>
 </div>

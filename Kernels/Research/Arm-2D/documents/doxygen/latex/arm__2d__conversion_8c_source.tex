@@ -1,5 +1,5 @@
 \hypertarget{arm__2d__conversion_8c_source}{}\doxysection{arm\+\_\+2d\+\_\+conversion.\+c}
-\label{arm__2d__conversion_8c_source}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Source/arm\_2d\_conversion.c@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Source/arm\_2d\_conversion.c}}
+\label{arm__2d__conversion_8c_source}\index{arm\_2d\_conversion.c@{arm\_2d\_conversion.c}}
 \mbox{\hyperlink{arm__2d__conversion_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00001}00001 \textcolor{comment}{/*}}
@@ -34,7 +34,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00030}00030 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00031}00031 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00032}00032 \textcolor{comment}{/*============================ INCLUDES ======================================*/}}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00033}\mbox{\hyperlink{arm__2d__conversion_8c_aa391cb8cbcf1b1a4ab83847b83d8b8de}{00033}} \textcolor{preprocessor}{\#define \_\_ARM\_2D\_IMPL\_\_}}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00033}00033 \textcolor{preprocessor}{\#define \_\_ARM\_2D\_IMPL\_\_}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00034}00034 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00035}00035 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__2d_8h}{arm\_2d.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00036}00036 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{____arm__2d__impl_8h}{\_\_arm\_2d\_impl.h}}"{}}}
@@ -75,17 +75,17 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00071}00071 \textcolor{comment}{/*============================ GLOBAL VARIABLES ==============================*/}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00072}00072 \textcolor{comment}{/*============================ PROTOTYPES ====================================*/}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00073}00073 }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00074}00074 \textcolor{keywordtype}{void} \mbox{\hyperlink{arm__2d__conversion_8c_a63648c25d72eb5ef1bd7202e72886ba7}{\_\_arm\_2d\_impl\_cccn888\_to\_rgb565}}(uint32\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pwSource,}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00074}00074 \textcolor{keywordtype}{void} \_\_arm\_2d\_impl\_cccn888\_to\_rgb565(uint32\_t *\_\_RESTRICT pwSource,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00075}00075                                     int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00076}00076                                     uint16\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} phwTarget,}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00076}00076                                     uint16\_t *\_\_RESTRICT phwTarget,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00077}00077                                     int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00078}00078                                     \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize);}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00078}00078                                     \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize);}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00079}00079 }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00080}00080 \textcolor{keywordtype}{void} \mbox{\hyperlink{arm__2d__conversion_8c_a3fb61dbe3298a99b65f995b1e7db5be1}{\_\_arm\_2d\_impl\_rgb565\_to\_cccn888}}(uint16\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} phwSourceBase,}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00080}00080 \textcolor{keywordtype}{void} \_\_arm\_2d\_impl\_rgb565\_to\_cccn888(uint16\_t *\_\_RESTRICT phwSourceBase,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00081}00081                                     int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00082}00082                                     uint32\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pwTargetBase,}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00082}00082                                     uint32\_t *\_\_RESTRICT pwTargetBase,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00083}00083                                     int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00084}00084                                     \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize);}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00084}00084                                     \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize);}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00085}00085 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00086}00086 \textcolor{comment}{/*============================ LOCAL VARIABLES ===============================*/}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00087}00087 \textcolor{comment}{/*============================ IMPLEMENTATION ================================*/}}
@@ -97,15 +97,15 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00093}00093 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00094}00094 ARM\_NONNULL(2,3)}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00095}00095 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} arm\_2dp\_convert\_colour\_to\_rgb888(  \mbox{\hyperlink{structarm__2d__op__src__t}{arm\_2d\_op\_cl\_convt\_t}} *ptOP,}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00096}00096                                                 \textcolor{keyword}{const} \mbox{\hyperlink{structarm__2d__tile__t}{arm\_2d\_tile\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00097}00097                                                 \textcolor{keyword}{const} \mbox{\hyperlink{structarm__2d__tile__t}{arm\_2d\_tile\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}})}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00096}00096                                                 const \mbox{\hyperlink{structarm__2d__tile__t}{arm\_2d\_tile\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00097}00097                                                 const \mbox{\hyperlink{structarm__2d__tile__t}{arm\_2d\_tile\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}})}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00098}00098 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00099}00099     assert(NULL != \mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00100}00100     assert(NULL != \mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00101}00101 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00102}00102     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__src__t}{arm\_2d\_op\_cl\_convt\_t}}, ptOP);}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00103}00103     }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00104}00104     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{____arm__2d__impl_8h_a584514fb179257990ece85a1ed5dff5e}{\_\_arm\_2d\_op\_acquire}}((\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *)ptThis)) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00104}00104     \textcolor{keywordflow}{if} (!\_\_arm\_2d\_op\_acquire((\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *)ptThis)) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00105}00105         \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcadcf044fad5c682cf87809bd71d556d84}{arm\_fsm\_rt\_on\_going}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00106}00106     \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00107}00107     }
@@ -117,21 +117,21 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00113}00113     this.Target.ptRegion = NULL;}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00114}00114     this.Source.ptTile = \mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00115}00115 }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00116}00116     \textcolor{keywordflow}{return} \mbox{\hyperlink{____arm__2d__impl_8h_a1ab9791a85d5e64c19eb03854014afeb}{\_\_arm\_2d\_op\_invoke}}((\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *)ptThis);}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00116}00116     \textcolor{keywordflow}{return} \_\_arm\_2d\_op\_invoke((\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *)ptThis);}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00117}00117 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00118}00118 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00119}00119 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00120}00120 ARM\_NONNULL(2,3)}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00121}00121 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} arm\_2dp\_convert\_colour\_to\_rgb565(  \mbox{\hyperlink{structarm__2d__op__src__t}{arm\_2d\_op\_cl\_convt\_t}} *ptOP,}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00122}00122                                                 \textcolor{keyword}{const} \mbox{\hyperlink{structarm__2d__tile__t}{arm\_2d\_tile\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00123}00123                                                 \textcolor{keyword}{const} \mbox{\hyperlink{structarm__2d__tile__t}{arm\_2d\_tile\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}})}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00122}00122                                                 const \mbox{\hyperlink{structarm__2d__tile__t}{arm\_2d\_tile\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00123}00123                                                 const \mbox{\hyperlink{structarm__2d__tile__t}{arm\_2d\_tile\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}})}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00124}00124 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00125}00125     assert(NULL != \mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00126}00126     assert(NULL != \mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00127}00127 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00128}00128     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__src__t}{arm\_2d\_op\_cl\_convt\_t}}, ptOP);}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00129}00129     }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00130}00130     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{____arm__2d__impl_8h_a584514fb179257990ece85a1ed5dff5e}{\_\_arm\_2d\_op\_acquire}}((\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *)ptThis)) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00130}00130     \textcolor{keywordflow}{if} (!\_\_arm\_2d\_op\_acquire((\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *)ptThis)) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00131}00131         \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcadcf044fad5c682cf87809bd71d556d84}{arm\_fsm\_rt\_on\_going}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00132}00132     \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00133}00133     }
@@ -143,13 +143,13 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00139}00139     this.Target.ptRegion = NULL;}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00140}00140     this.Source.ptTile = \mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00141}00141 }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00142}00142     \textcolor{keywordflow}{return} \mbox{\hyperlink{____arm__2d__impl_8h_a1ab9791a85d5e64c19eb03854014afeb}{\_\_arm\_2d\_op\_invoke}}((\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *)ptThis);}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00142}00142     \textcolor{keywordflow}{return} \_\_arm\_2d\_op\_invoke((\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *)ptThis);}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00143}00143 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00144}00144 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00145}00145 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00146}00146 }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00147}\mbox{\hyperlink{____arm__2d__impl_8h_afd44fefb481769848bdbb9f1704d672e}{00147}} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \mbox{\hyperlink{arm__2d__conversion_8c_afd44fefb481769848bdbb9f1704d672e}{\_\_arm\_2d\_sw\_convert\_colour\_to\_rgb565}}(}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00148}00148                                     \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask)}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00147}00147 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_sw\_convert\_colour\_to\_rgb565(}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00148}00148                                     \_\_arm\_2d\_sub\_task\_t *ptTask)}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00149}00149 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00150}00150     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__src__t}{arm\_2d\_op\_cl\_convt\_t}}, ptTask-\/>ptOP);}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00151}00151 }
@@ -163,7 +163,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00159}00159             \textcolor{comment}{/* no need to convert, return cpl directly */}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00160}00160             \textcolor{keywordflow}{break};}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00161}00161         \textcolor{keywordflow}{case} \mbox{\hyperlink{arm__2d__types_8h_af715e26dfffd1f8de1c18449e2770cffab73d9139521893b7600e21c84c091614}{ARM\_2D\_COLOUR\_SZ\_32BIT}}:}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00162}00162             \mbox{\hyperlink{arm__2d__conversion_8c_a63648c25d72eb5ef1bd7202e72886ba7}{\_\_arm\_2d\_impl\_cccn888\_to\_rgb565}}( ptTask-\/>Param.tCopy.tSource.pBuffer,}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00162}00162             \_\_arm\_2d\_impl\_cccn888\_to\_rgb565( ptTask-\/>Param.tCopy.tSource.pBuffer,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00163}00163                                             ptTask-\/>Param.tCopy.tSource.iStride,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00164}00164                                             ptTask-\/>Param.tCopy.tTarget.pBuffer,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00165}00165                                             ptTask-\/>Param.tCopy.tTarget.iStride,}
@@ -176,8 +176,8 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00172}00172     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00173}00173 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00174}00174 }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00175}\mbox{\hyperlink{____arm__2d__impl_8h_a5a3b9c0f5f55808699f28f5c3dc07cc2}{00175}} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \mbox{\hyperlink{arm__2d__conversion_8c_a5a3b9c0f5f55808699f28f5c3dc07cc2}{\_\_arm\_2d\_sw\_convert\_colour\_to\_rgb888}}(}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00176}00176                                     \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask)}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00175}00175 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_sw\_convert\_colour\_to\_rgb888(}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00176}00176                                     \_\_arm\_2d\_sub\_task\_t *ptTask)}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00177}00177 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00178}00178     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__src__t}{arm\_2d\_op\_cl\_convt\_t}}, ptTask-\/>ptOP);}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00179}00179 }
@@ -188,7 +188,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00184}00184 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00185}00185     \textcolor{keywordflow}{switch} ( this.Source.ptTile-\/>tInfo.tColourInfo.u3ColourSZ) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00186}00186         \textcolor{keywordflow}{case} \mbox{\hyperlink{arm__2d__types_8h_af715e26dfffd1f8de1c18449e2770cffaa581a9deb872893773fe7c5f615f1771}{ARM\_2D\_COLOUR\_SZ\_16BIT}}:}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00187}00187             \mbox{\hyperlink{arm__2d__conversion_8c_a3fb61dbe3298a99b65f995b1e7db5be1}{\_\_arm\_2d\_impl\_rgb565\_to\_cccn888}}( ptTask-\/>Param.tCopy.tSource.pBuffer,}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00187}00187             \_\_arm\_2d\_impl\_rgb565\_to\_cccn888( ptTask-\/>Param.tCopy.tSource.pBuffer,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00188}00188                                             ptTask-\/>Param.tCopy.tSource.iStride,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00189}00189                                             ptTask-\/>Param.tCopy.tTarget.pBuffer,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00190}00190                                             ptTask-\/>Param.tCopy.tTarget.iStride,}
@@ -209,27 +209,27 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00205}00205 \textcolor{comment}{ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00206}00206 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00207}00207 \_\_WEAK}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00208}\mbox{\hyperlink{arm__2d__conversion_8c_a63648c25d72eb5ef1bd7202e72886ba7}{00208}} \textcolor{keywordtype}{void} \mbox{\hyperlink{arm__2d__conversion_8c_a63648c25d72eb5ef1bd7202e72886ba7}{\_\_arm\_2d\_impl\_cccn888\_to\_rgb565}}(uint32\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pwSourceBase,}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00208}00208 \textcolor{keywordtype}{void} \_\_arm\_2d\_impl\_cccn888\_to\_rgb565(uint32\_t *\_\_RESTRICT pwSourceBase,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00209}00209                                     int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00210}00210                                     uint16\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} phwTargetBase,}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00210}00210                                     uint16\_t *\_\_RESTRICT phwTargetBase,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00211}00211                                     int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00212}00212                                     \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize)}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00212}00212                                     \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize)}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00213}00213 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00214}00214     \textcolor{keywordflow}{for} (int\_fast16\_t y = 0; y < ptCopySize-\/>iHeight; y++) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00215}00215 }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00216}00216         \textcolor{keyword}{const} uint32\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pwSource = pwSourceBase;}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00217}00217         uint16\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} phwTarget = phwTargetBase;}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00216}00216         \textcolor{keyword}{const} uint32\_t *\_\_RESTRICT pwSource = pwSourceBase;}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00217}00217         uint16\_t *\_\_RESTRICT phwTarget = phwTargetBase;}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00218}00218 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00219}00219         \textcolor{keywordflow}{for} (int\_fast16\_t x = 0; x < ptCopySize-\/>iWidth; x++) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00220}00220             \mbox{\hyperlink{unionarm__2d__color__rgba8888__t}{arm\_2d\_color\_rgba8888\_t}} wSrcPixel;}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00221}00221             \mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\_\_arm\_2d\_color\_fast\_rgb\_t}}      hwTargetPixel;}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00221}00221             \_\_arm\_2d\_color\_fast\_rgb\_t      hwTargetPixel;}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00222}00222 }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00223}00223             wSrcPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_a61b910d38393e9a13f2949b92faf35e5}{tValue}} = *pwSource++;}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00224}00224             hwTargetPixel.\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t_a588189ccf0d87c74b0e2a1d5972fe63c}{R}} = wSrcPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_a6ee7ee00848042bc839faaa7ef3440b5}{u8R}};}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00225}00225             hwTargetPixel.\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t_a876a5f8a01d13e2f0a427afae34875cc}{G}} = wSrcPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_a0a9a06a6b79bda1a91c477d9093e57a2}{u8G}};}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00226}00226             hwTargetPixel.\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t_ae783bd90764c8455228772c025c064e4}{B}} = wSrcPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_a344c43489df488e9a5cea735bf9e90bc}{u8B}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00223}00223             wSrcPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_abea4585ab4e8935795b94f6304e443f4}{tValue}} = *pwSource++;}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00224}00224             hwTargetPixel.R = wSrcPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_a02ab32c619169a4adcc0abd364297087}{u8R}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00225}00225             hwTargetPixel.G = wSrcPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_aa8a6f9f73a6be939c196d62bc4c04e20}{u8G}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00226}00226             hwTargetPixel.B = wSrcPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_a02e9f20da2a432b14668de85ba4d577b}{u8B}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00227}00227 }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00228}00228             *phwTarget++ = \mbox{\hyperlink{arm__2d__conversion_8h_ad741f60e362467e251ef35febec37c28}{\_\_arm\_2d\_rgb565\_pack}}(\&hwTargetPixel);}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00228}00228             *phwTarget++ = \_\_arm\_2d\_rgb565\_pack(\&hwTargetPixel);}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00229}00229         \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00230}00230 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00231}00231         pwSourceBase += iSourceStride;}
@@ -238,27 +238,27 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00234}00234 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00235}00235 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00236}00236 \_\_WEAK}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00237}\mbox{\hyperlink{arm__2d__conversion_8c_a3fb61dbe3298a99b65f995b1e7db5be1}{00237}} \textcolor{keywordtype}{void} \mbox{\hyperlink{arm__2d__conversion_8c_a3fb61dbe3298a99b65f995b1e7db5be1}{\_\_arm\_2d\_impl\_rgb565\_to\_cccn888}}(uint16\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} phwSourceBase,}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00237}00237 \textcolor{keywordtype}{void} \_\_arm\_2d\_impl\_rgb565\_to\_cccn888(uint16\_t *\_\_RESTRICT phwSourceBase,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00238}00238                                     int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00239}00239                                     uint32\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pwTargetBase,}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00239}00239                                     uint32\_t *\_\_RESTRICT pwTargetBase,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00240}00240                                     int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00241}00241                                     \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize)}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00241}00241                                     \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize)}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00242}00242 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00243}00243     \textcolor{keywordflow}{for} (int\_fast16\_t y = 0; y < ptCopySize-\/>iHeight; y++) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00244}00244 }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00245}00245         \textcolor{keyword}{const} uint16\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} phwSource = phwSourceBase;}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00246}00246         uint32\_t       *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pwTarget = pwTargetBase;}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00245}00245         \textcolor{keyword}{const} uint16\_t *\_\_RESTRICT phwSource = phwSourceBase;}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00246}00246         uint32\_t       *\_\_RESTRICT pwTarget = pwTargetBase;}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00247}00247 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00248}00248         \textcolor{keywordflow}{for} (int\_fast16\_t x = 0; x < ptCopySize-\/>iWidth; x++) \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00249}00249             \mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\_\_arm\_2d\_color\_fast\_rgb\_t}}      hwSrcPixel;}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00249}00249             \_\_arm\_2d\_color\_fast\_rgb\_t      hwSrcPixel;}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00250}00250             \mbox{\hyperlink{unionarm__2d__color__rgba8888__t}{arm\_2d\_color\_rgba8888\_t}} wTargetPixel;}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00251}00251 }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00252}00252             \mbox{\hyperlink{arm__2d__conversion_8h_a0dac4bd927c28a54130bfe279542065c}{\_\_arm\_2d\_rgb565\_unpack}}(*phwSource++, \&hwSrcPixel);}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00253}00253             wTargetPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_a6ee7ee00848042bc839faaa7ef3440b5}{u8R}} = hwSrcPixel.\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t_a588189ccf0d87c74b0e2a1d5972fe63c}{R}};}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00254}00254             wTargetPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_a0a9a06a6b79bda1a91c477d9093e57a2}{u8G}} = hwSrcPixel.\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t_a876a5f8a01d13e2f0a427afae34875cc}{G}};}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00255}00255             wTargetPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_a344c43489df488e9a5cea735bf9e90bc}{u8B}} = hwSrcPixel.\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t_ae783bd90764c8455228772c025c064e4}{B}};}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00256}00256             wTargetPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_a67dfb62d58d59baac570aca6a64db51f}{u8A}} = 0xFF;}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00257}00257             *pwTarget++ = wTargetPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_a61b910d38393e9a13f2949b92faf35e5}{tValue}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00252}00252             \_\_arm\_2d\_rgb565\_unpack(*phwSource++, \&hwSrcPixel);}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00253}00253             wTargetPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_a02ab32c619169a4adcc0abd364297087}{u8R}} = hwSrcPixel.R;}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00254}00254             wTargetPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_aa8a6f9f73a6be939c196d62bc4c04e20}{u8G}} = hwSrcPixel.G;}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00255}00255             wTargetPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_a02e9f20da2a432b14668de85ba4d577b}{u8B}} = hwSrcPixel.B;}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00256}00256             wTargetPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_abf716ea760145003e1846f85e1bfd55f}{u8A}} = 0xFF;}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00257}00257             *pwTarget++ = wTargetPixel.\mbox{\hyperlink{unionarm__2d__color__rgba8888__t_abea4585ab4e8935795b94f6304e443f4}{tValue}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00258}00258         \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00259}00259 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00260}00260         phwSourceBase += iSourceStride;}
@@ -273,23 +273,23 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00269}00269 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00270}00270 \_\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00271}00271 def\_low\_lv\_io(\_\_ARM\_2D\_IO\_COLOUR\_CONVERT\_TO\_RGB565, }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00272}00272                 \mbox{\hyperlink{arm__2d__conversion_8c_afd44fefb481769848bdbb9f1704d672e}{\_\_arm\_2d\_sw\_convert\_colour\_to\_rgb565}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00272}00272                 \_\_arm\_2d\_sw\_convert\_colour\_to\_rgb565);}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00273}00273 \_\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00274}00274 def\_low\_lv\_io(\_\_ARM\_2D\_IO\_COLOUR\_CONVERT\_TO\_RGB888, }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00275}00275                 \mbox{\hyperlink{arm__2d__conversion_8c_a5a3b9c0f5f55808699f28f5c3dc07cc2}{\_\_arm\_2d\_sw\_convert\_colour\_to\_rgb888}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00275}00275                 \_\_arm\_2d\_sw\_convert\_colour\_to\_rgb888);}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00276}00276 }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00277}00277 }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00278}\mbox{\hyperlink{arm__2d__op_8h_a62087d26931aac811fbfe7dfb5937f8a}{00278}} \textcolor{keyword}{const} \mbox{\hyperlink{union____arm__2d__op__info__t}{\_\_arm\_2d\_op\_info\_t}} \mbox{\hyperlink{arm__2d__conversion_8c_a62087d26931aac811fbfe7dfb5937f8a}{ARM\_2D\_OP\_CONVERT\_TO\_RGB565}} = \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00279}00279     .\mbox{\hyperlink{union____arm__2d__op__info__t_a3bf2940c881d5853d3e964a28285ef55}{Info}} = \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00280}00280         .\mbox{\hyperlink{union____arm__2d__op__info__t_a39ef7abf9db2b1da80284c97d69a0a4c}{Colour}} = \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00281}00281             .\mbox{\hyperlink{unionarm__2d__color__info__t_aa236eb54ebd5cbf803d5ed68bff0a666}{chScheme}}   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38}{ARM\_2D\_COLOUR\_RGB565}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00278}\mbox{\hyperlink{arm__2d__op_8h_a62087d26931aac811fbfe7dfb5937f8a}{00278}} \textcolor{keyword}{const} \_\_arm\_2d\_op\_info\_t \mbox{\hyperlink{arm__2d__conversion_8c_a62087d26931aac811fbfe7dfb5937f8a}{ARM\_2D\_OP\_CONVERT\_TO\_RGB565}} = \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00279}00279     .Info = \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00280}00280         .Colour = \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00281}00281             .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38}{ARM\_2D\_COLOUR\_RGB565}},}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00282}00282         \},}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00283}00283         .Param = \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00284}00284             .bHasSource             = \textcolor{keyword}{true},}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00285}00285             .bHasTarget             = \textcolor{keyword}{true},}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00286}00286             .bAllowEnforcedColour   = \textcolor{keyword}{true},}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00287}00287         \},}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00288}00288         .chOpIndex      = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55ba66e92e29efe0f42084f1319de574f7d9}{\_\_ARM\_2D\_OP\_IDX\_COLOUR\_FORMAT\_CONVERSION}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00288}00288         .chOpIndex      = \_\_ARM\_2D\_OP\_IDX\_COLOUR\_FORMAT\_CONVERSION,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00289}00289         }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00290}00290         .LowLevelIO = \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00291}00291             .ptCopyLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_COLOUR\_CONVERT\_TO\_RGB565),}
@@ -299,17 +299,17 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00295}00295 \};}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00296}00296     }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00297}00297     }
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00298}\mbox{\hyperlink{arm__2d__op_8h_a4c16312160e01e7e0a2a6654db820e88}{00298}} \textcolor{keyword}{const} \mbox{\hyperlink{union____arm__2d__op__info__t}{\_\_arm\_2d\_op\_info\_t}} \mbox{\hyperlink{arm__2d__conversion_8c_a4c16312160e01e7e0a2a6654db820e88}{ARM\_2D\_OP\_CONVERT\_TO\_RGB888}} = \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00299}00299     .\mbox{\hyperlink{union____arm__2d__op__info__t_a3bf2940c881d5853d3e964a28285ef55}{Info}} = \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00300}00300         .\mbox{\hyperlink{union____arm__2d__op__info__t_a39ef7abf9db2b1da80284c97d69a0a4c}{Colour}} = \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00301}00301             .\mbox{\hyperlink{unionarm__2d__color__info__t_aa236eb54ebd5cbf803d5ed68bff0a666}{chScheme}}   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a6507e9aa44de854d820857e988096852}{ARM\_2D\_COLOUR\_CCCN888}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00298}\mbox{\hyperlink{arm__2d__op_8h_a4c16312160e01e7e0a2a6654db820e88}{00298}} \textcolor{keyword}{const} \_\_arm\_2d\_op\_info\_t \mbox{\hyperlink{arm__2d__conversion_8c_a4c16312160e01e7e0a2a6654db820e88}{ARM\_2D\_OP\_CONVERT\_TO\_RGB888}} = \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00299}00299     .Info = \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00300}00300         .Colour = \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00301}00301             .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a6507e9aa44de854d820857e988096852}{ARM\_2D\_COLOUR\_CCCN888}},}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00302}00302         \},}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00303}00303         .Param = \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00304}00304             .bHasSource             = \textcolor{keyword}{true},}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00305}00305             .bHasTarget             = \textcolor{keyword}{true},}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00306}00306             .bAllowEnforcedColour   = \textcolor{keyword}{true},}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00307}00307         \},}
-\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00308}00308         .chOpIndex      = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55ba66e92e29efe0f42084f1319de574f7d9}{\_\_ARM\_2D\_OP\_IDX\_COLOUR\_FORMAT\_CONVERSION}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00308}00308         .chOpIndex      = \_\_ARM\_2D\_OP\_IDX\_COLOUR\_FORMAT\_CONVERSION,}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00309}00309         }
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00310}00310         .LowLevelIO = \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__conversion_8c_source_l00311}00311             .ptCopyLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_COLOUR\_CONVERT\_TO\_RGB888),}

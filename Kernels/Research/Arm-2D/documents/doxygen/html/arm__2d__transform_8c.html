@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Source/arm_2d_transform.c File Reference</title>
+<title>arm-2d: arm_2d_transform.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -84,7 +86,6 @@ $(document).ready(function(){initNavTree('arm__2d__transform_8c.html',''); initR
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">arm_2d_transform.c File Reference</div></div>
 </div><!--header-->
@@ -99,543 +100,41 @@ $(document).ready(function(){initNavTree('arm__2d__transform_8c.html',''); initR
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:aa391cb8cbcf1b1a4ab83847b83d8b8de"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#aa391cb8cbcf1b1a4ab83847b83d8b8de">__ARM_2D_IMPL__</a></td></tr>
-<tr class="separator:aa391cb8cbcf1b1a4ab83847b83d8b8de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0970494ab17b4e6cf0189c329d89ded0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a0970494ab17b4e6cf0189c329d89ded0">__PI</a>&#160;&#160;&#160;3.1415926f</td></tr>
-<tr class="separator:a0970494ab17b4e6cf0189c329d89ded0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29e4ea6d26ca19e8db3073efd2292cb4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>&#160;&#160;&#160;0.009f</td></tr>
-<tr class="separator:a29e4ea6d26ca19e8db3073efd2292cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac41f1aec57abc106e2ddbd4f5d75a0f4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ac41f1aec57abc106e2ddbd4f5d75a0f4">FAST_ATAN_F32_1</a>(x,  xabs)&#160;&#160;&#160;                            (x * (PI / 4.0f) + 0.273f * x * (1.0f - xabs))</td></tr>
 <tr class="separator:ac41f1aec57abc106e2ddbd4f5d75a0f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac45b3b5e459e7f42272921180e72d037"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ac45b3b5e459e7f42272921180e72d037">EPS_ATAN2</a>&#160;&#160;&#160;1e-5f</td></tr>
 <tr class="separator:ac45b3b5e459e7f42272921180e72d037"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4d6b00f640338228c69e4978ca10167"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a>(x)&#160;&#160;&#160;((int32_t)(x) &lt;&lt; 16)</td></tr>
 <tr class="separator:ae4d6b00f640338228c69e4978ca10167"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8287bff112f04877923dbce47641b831"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a8287bff112f04877923dbce47641b831">__API_PIXEL_AVERAGE_RESULT_GRAY8</a>()&#160;&#160;&#160;    (   tPixel &gt;&gt; 8)</td></tr>
-<tr class="separator:a8287bff112f04877923dbce47641b831"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e99bc874b79b14f10b839ba93c7cd6c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a2e99bc874b79b14f10b839ba93c7cd6c">__API_PIXEL_AVERAGE_RESULT_RGB565</a>()</td></tr>
-<tr class="separator:a2e99bc874b79b14f10b839ba93c7cd6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecc9109d91f976b9ed166d0ba53c62f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#aecc9109d91f976b9ed166d0ba53c62f1">__API_PIXEL_AVERAGE_RESULT_CCCN888</a>()</td></tr>
-<tr class="separator:aecc9109d91f976b9ed166d0ba53c62f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5149ac0ed15b2de1eccb9ecf1a02f64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ae5149ac0ed15b2de1eccb9ecf1a02f64">__API_COLOUR</a>&#160;&#160;&#160;gray8</td></tr>
-<tr class="separator:ae5149ac0ed15b2de1eccb9ecf1a02f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71ef659837d31a3da6b902b7c50fce6f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>&#160;&#160;&#160;uint8_t</td></tr>
-<tr class="separator:a71ef659837d31a3da6b902b7c50fce6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace29e49156529f94695cada845142f1d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ace29e49156529f94695cada845142f1d">__API_INT_TYPE_BIT_NUM</a>&#160;&#160;&#160;16</td></tr>
-<tr class="separator:ace29e49156529f94695cada845142f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade53620dddd942ecc042a37029e4ccdb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ade53620dddd942ecc042a37029e4ccdb">__API_PIXEL_AVERAGE_INIT</a>()&#160;&#160;&#160;uint16_t tPixel = 0;</td></tr>
-<tr class="separator:ade53620dddd942ecc042a37029e4ccdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95dfb0261d9afed55f49e0c74c8e5d7b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a95dfb0261d9afed55f49e0c74c8e5d7b">__API_PIXEL_BLENDING</a>&#160;&#160;&#160;<a class="el" href="____arm__2d__impl_8h.html#a9c5e7dad99684b081524928f1201498a">__ARM_2D_PIXEL_BLENDING_OPA_GRAY8</a></td></tr>
-<tr class="separator:a95dfb0261d9afed55f49e0c74c8e5d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae12cd186a80f710b73f3463adede27cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ae12cd186a80f710b73f3463adede27cf">__API_PIXEL_AVERAGE</a>&#160;&#160;&#160;<a class="el" href="____arm__2d__impl_8h.html#ad0b7ead17a3dfe8d13925e08b27afda1">__ARM_2D_PIXEL_AVERAGE_GRAY8</a></td></tr>
-<tr class="separator:ae12cd186a80f710b73f3463adede27cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4087a83e3446b268a3618804532a5004"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a4087a83e3446b268a3618804532a5004">__API_PIXEL_AVERAGE_RESULT</a>&#160;&#160;&#160;<a class="el" href="arm__2d__transform_8c.html#a8287bff112f04877923dbce47641b831">__API_PIXEL_AVERAGE_RESULT_GRAY8</a></td></tr>
-<tr class="separator:a4087a83e3446b268a3618804532a5004"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5149ac0ed15b2de1eccb9ecf1a02f64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ae5149ac0ed15b2de1eccb9ecf1a02f64">__API_COLOUR</a>&#160;&#160;&#160;rgb565</td></tr>
-<tr class="separator:ae5149ac0ed15b2de1eccb9ecf1a02f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71ef659837d31a3da6b902b7c50fce6f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>&#160;&#160;&#160;uint16_t</td></tr>
-<tr class="separator:a71ef659837d31a3da6b902b7c50fce6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace29e49156529f94695cada845142f1d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ace29e49156529f94695cada845142f1d">__API_INT_TYPE_BIT_NUM</a>&#160;&#160;&#160;16</td></tr>
-<tr class="separator:ace29e49156529f94695cada845142f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95dfb0261d9afed55f49e0c74c8e5d7b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a95dfb0261d9afed55f49e0c74c8e5d7b">__API_PIXEL_BLENDING</a>&#160;&#160;&#160;<a class="el" href="____arm__2d__impl_8h.html#a3612ad8bfc70d8e5813ffda9f7d80f64">__ARM_2D_PIXEL_BLENDING_OPA_RGB565</a></td></tr>
-<tr class="separator:a95dfb0261d9afed55f49e0c74c8e5d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae12cd186a80f710b73f3463adede27cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ae12cd186a80f710b73f3463adede27cf">__API_PIXEL_AVERAGE</a>&#160;&#160;&#160;<a class="el" href="____arm__2d__impl_8h.html#ab03429d557b53d5cb0d3b02b1ecc52b4">__ARM_2D_PIXEL_AVERAGE_RGB565</a></td></tr>
-<tr class="separator:ae12cd186a80f710b73f3463adede27cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4087a83e3446b268a3618804532a5004"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a4087a83e3446b268a3618804532a5004">__API_PIXEL_AVERAGE_RESULT</a>&#160;&#160;&#160;<a class="el" href="arm__2d__transform_8c.html#a2e99bc874b79b14f10b839ba93c7cd6c">__API_PIXEL_AVERAGE_RESULT_RGB565</a></td></tr>
-<tr class="separator:a4087a83e3446b268a3618804532a5004"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5149ac0ed15b2de1eccb9ecf1a02f64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ae5149ac0ed15b2de1eccb9ecf1a02f64">__API_COLOUR</a>&#160;&#160;&#160;cccn888</td></tr>
-<tr class="separator:ae5149ac0ed15b2de1eccb9ecf1a02f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71ef659837d31a3da6b902b7c50fce6f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>&#160;&#160;&#160;uint32_t</td></tr>
-<tr class="separator:a71ef659837d31a3da6b902b7c50fce6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace29e49156529f94695cada845142f1d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ace29e49156529f94695cada845142f1d">__API_INT_TYPE_BIT_NUM</a>&#160;&#160;&#160;32</td></tr>
-<tr class="separator:ace29e49156529f94695cada845142f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95dfb0261d9afed55f49e0c74c8e5d7b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a95dfb0261d9afed55f49e0c74c8e5d7b">__API_PIXEL_BLENDING</a>&#160;&#160;&#160;<a class="el" href="____arm__2d__impl_8h.html#a1546454f0797806d1d9874ad2512c57c">__ARM_2D_PIXEL_BLENDING_OPA_CCCN888</a></td></tr>
-<tr class="separator:a95dfb0261d9afed55f49e0c74c8e5d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae12cd186a80f710b73f3463adede27cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ae12cd186a80f710b73f3463adede27cf">__API_PIXEL_AVERAGE</a>&#160;&#160;&#160;<a class="el" href="____arm__2d__impl_8h.html#acb6bc2cb543e736eacc929964c9368dc">__ARM_2D_PIXEL_AVERAGE_CCCN888</a></td></tr>
-<tr class="separator:ae12cd186a80f710b73f3463adede27cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4087a83e3446b268a3618804532a5004"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a4087a83e3446b268a3618804532a5004">__API_PIXEL_AVERAGE_RESULT</a>&#160;&#160;&#160;<a class="el" href="arm__2d__transform_8c.html#aecc9109d91f976b9ed166d0ba53c62f1">__API_PIXEL_AVERAGE_RESULT_CCCN888</a></td></tr>
-<tr class="separator:a4087a83e3446b268a3618804532a5004"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a21310a511b9be9658b9f242e7626f7e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct____arm__2d__point__adj__alpha__t.html">__arm_2d_point_adj_alpha_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a21310a511b9be9658b9f242e7626f7e7">__arm_2d_point_get_adjacent_alpha_fp</a> (<a class="el" href="structarm__2d__point__float__t.html">arm_2d_point_float_t</a> *<a class="el" href="arm__2d__tile_8h.html#a3b6b3df8fa64632f584b6ebb21852f3a">ptPoint</a>)</td></tr>
-<tr class="separator:a21310a511b9be9658b9f242e7626f7e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc34261c4d0d2d2de2025032307e3dd2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct____arm__2d__point__adj__alpha__t.html">__arm_2d_point_adj_alpha_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#acc34261c4d0d2d2de2025032307e3dd2">__arm_2d_point_get_adjacent_alpha_q16</a> (<a class="el" href="structarm__2d__point__fx__t.html">arm_2d_point_fx_t</a> *<a class="el" href="arm__2d__tile_8h.html#a3b6b3df8fa64632f584b6ebb21852f3a">ptPoint</a>)</td></tr>
-<tr class="separator:acc34261c4d0d2d2de2025032307e3dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7ac5fdeb6fe8af6c0dfbe9b877e4804"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#af7ac5fdeb6fe8af6c0dfbe9b877e4804">__arm_2d_gray8_sw_transform</a> (<a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</td></tr>
-<tr class="separator:af7ac5fdeb6fe8af6c0dfbe9b877e4804"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67bf14fa36736467364cecd802a490e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a67bf14fa36736467364cecd802a490e7">__arm_2d_rgb565_sw_transform</a> (<a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</td></tr>
-<tr class="separator:a67bf14fa36736467364cecd802a490e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa06f55e0f308cb6bee60b9e999451d2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#aa06f55e0f308cb6bee60b9e999451d2e">__arm_2d_cccn888_sw_transform</a> (<a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</td></tr>
-<tr class="separator:aa06f55e0f308cb6bee60b9e999451d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a687db04d1a562c7895a86e4edddfcd16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a687db04d1a562c7895a86e4edddfcd16">__arm_2d_gray8_sw_transform_with_alpha</a> (<a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</td></tr>
-<tr class="separator:a687db04d1a562c7895a86e4edddfcd16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3e9d41d01b06becc5caa36a5b22320a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#af3e9d41d01b06becc5caa36a5b22320a">__arm_2d_rgb565_sw_transform_with_alpha</a> (<a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</td></tr>
-<tr class="separator:af3e9d41d01b06becc5caa36a5b22320a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9238b200c78f565224d2f292adb67057"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a9238b200c78f565224d2f292adb67057">__arm_2d_cccn888_sw_transform_with_alpha</a> (<a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</td></tr>
-<tr class="separator:a9238b200c78f565224d2f292adb67057"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f95f3a4a573b83135ae3cfba0ecda28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a7f95f3a4a573b83135ae3cfba0ecda28">__arm_2d_gray8_sw_transform_with_src_mask</a> (<a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</td></tr>
-<tr class="separator:a7f95f3a4a573b83135ae3cfba0ecda28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae516d7ce00b915012e8ae1b6df572ae9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#ae516d7ce00b915012e8ae1b6df572ae9">__arm_2d_rgb565_sw_transform_with_src_mask</a> (<a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</td></tr>
-<tr class="separator:ae516d7ce00b915012e8ae1b6df572ae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09018ab58e160d9e4df36e7f6aaafdd0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a09018ab58e160d9e4df36e7f6aaafdd0">__arm_2d_cccn888_sw_transform_with_src_mask</a> (<a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</td></tr>
-<tr class="separator:a09018ab58e160d9e4df36e7f6aaafdd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79a37f0c5c4cae547211073661db40d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a79a37f0c5c4cae547211073661db40d2">__arm_2d_gray8_sw_transform_with_src_mask_and_opacity</a> (<a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</td></tr>
-<tr class="separator:a79a37f0c5c4cae547211073661db40d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbdbdd2fe932cf3cd860a0c718bed057"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#abbdbdd2fe932cf3cd860a0c718bed057">__arm_2d_rgb565_sw_transform_with_src_mask_and_opacity</a> (<a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</td></tr>
-<tr class="separator:abbdbdd2fe932cf3cd860a0c718bed057"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a85d260670bb8ad3b17b4379d9721ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a2a85d260670bb8ad3b17b4379d9721ba">__arm_2d_cccn888_sw_transform_with_src_mask_and_opacity</a> (<a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</td></tr>
-<tr class="separator:a2a85d260670bb8ad3b17b4379d9721ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a8c119784229c6faad9232d53421e9cc2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a8c119784229c6faad9232d53421e9cc2">ARM_2D_OP_TRANSFORM_GRAY8</a></td></tr>
+<tr class="memitem:a8c119784229c6faad9232d53421e9cc2"><td class="memItemLeft" align="right" valign="top">const __arm_2d_op_info_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a8c119784229c6faad9232d53421e9cc2">ARM_2D_OP_TRANSFORM_GRAY8</a></td></tr>
 <tr class="separator:a8c119784229c6faad9232d53421e9cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ad78854bb79598f853c7f75783cf6e1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a2ad78854bb79598f853c7f75783cf6e1">ARM_2D_OP_TRANSFORM_RGB565</a></td></tr>
+<tr class="memitem:a2ad78854bb79598f853c7f75783cf6e1"><td class="memItemLeft" align="right" valign="top">const __arm_2d_op_info_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a2ad78854bb79598f853c7f75783cf6e1">ARM_2D_OP_TRANSFORM_RGB565</a></td></tr>
 <tr class="separator:a2ad78854bb79598f853c7f75783cf6e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfe25527c148bf09da32f1a3136dd135"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#abfe25527c148bf09da32f1a3136dd135">ARM_2D_OP_TRANSFORM_CCCN888</a></td></tr>
+<tr class="memitem:abfe25527c148bf09da32f1a3136dd135"><td class="memItemLeft" align="right" valign="top">const __arm_2d_op_info_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#abfe25527c148bf09da32f1a3136dd135">ARM_2D_OP_TRANSFORM_CCCN888</a></td></tr>
 <tr class="separator:abfe25527c148bf09da32f1a3136dd135"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13769e17e1ca190770e16f23ac320360"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a13769e17e1ca190770e16f23ac320360">ARM_2D_OP_TRANSFORM_WITH_OPACITY_GRAY8</a></td></tr>
+<tr class="memitem:a13769e17e1ca190770e16f23ac320360"><td class="memItemLeft" align="right" valign="top">const __arm_2d_op_info_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a13769e17e1ca190770e16f23ac320360">ARM_2D_OP_TRANSFORM_WITH_OPACITY_GRAY8</a></td></tr>
 <tr class="separator:a13769e17e1ca190770e16f23ac320360"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a294ced4bc5ad4c50d64d1633900882fb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a294ced4bc5ad4c50d64d1633900882fb">ARM_2D_OP_TRANSFORM_WITH_OPACITY_RGB565</a></td></tr>
+<tr class="memitem:a294ced4bc5ad4c50d64d1633900882fb"><td class="memItemLeft" align="right" valign="top">const __arm_2d_op_info_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a294ced4bc5ad4c50d64d1633900882fb">ARM_2D_OP_TRANSFORM_WITH_OPACITY_RGB565</a></td></tr>
 <tr class="separator:a294ced4bc5ad4c50d64d1633900882fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba0d623307f37cc43f1d11b7560c1664"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#aba0d623307f37cc43f1d11b7560c1664">ARM_2D_OP_TRANSFORM_WITH_OPACITY_CCCN888</a></td></tr>
+<tr class="memitem:aba0d623307f37cc43f1d11b7560c1664"><td class="memItemLeft" align="right" valign="top">const __arm_2d_op_info_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#aba0d623307f37cc43f1d11b7560c1664">ARM_2D_OP_TRANSFORM_WITH_OPACITY_CCCN888</a></td></tr>
 <tr class="separator:aba0d623307f37cc43f1d11b7560c1664"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c45e316e2d4030ea633cbd527d7baad"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a0c45e316e2d4030ea633cbd527d7baad">ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_GRAY8</a></td></tr>
+<tr class="memitem:a0c45e316e2d4030ea633cbd527d7baad"><td class="memItemLeft" align="right" valign="top">const __arm_2d_op_info_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a0c45e316e2d4030ea633cbd527d7baad">ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_GRAY8</a></td></tr>
 <tr class="separator:a0c45e316e2d4030ea633cbd527d7baad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acaca737de98172486cc771b74ea20fdd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#acaca737de98172486cc771b74ea20fdd">ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_RGB565</a></td></tr>
+<tr class="memitem:acaca737de98172486cc771b74ea20fdd"><td class="memItemLeft" align="right" valign="top">const __arm_2d_op_info_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#acaca737de98172486cc771b74ea20fdd">ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_RGB565</a></td></tr>
 <tr class="separator:acaca737de98172486cc771b74ea20fdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a342bb795c009b87eb3badb04d3d47828"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a342bb795c009b87eb3badb04d3d47828">ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_CCCN888</a></td></tr>
+<tr class="memitem:a342bb795c009b87eb3badb04d3d47828"><td class="memItemLeft" align="right" valign="top">const __arm_2d_op_info_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a342bb795c009b87eb3badb04d3d47828">ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_CCCN888</a></td></tr>
 <tr class="separator:a342bb795c009b87eb3badb04d3d47828"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f0e8df2479833d6be5e4b4a16906133"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a2f0e8df2479833d6be5e4b4a16906133">ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_GRAY8</a></td></tr>
+<tr class="memitem:a2f0e8df2479833d6be5e4b4a16906133"><td class="memItemLeft" align="right" valign="top">const __arm_2d_op_info_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a2f0e8df2479833d6be5e4b4a16906133">ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_GRAY8</a></td></tr>
 <tr class="separator:a2f0e8df2479833d6be5e4b4a16906133"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a335dc2ab781da2964094255cade2c6a0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a335dc2ab781da2964094255cade2c6a0">ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_RGB565</a></td></tr>
+<tr class="memitem:a335dc2ab781da2964094255cade2c6a0"><td class="memItemLeft" align="right" valign="top">const __arm_2d_op_info_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a335dc2ab781da2964094255cade2c6a0">ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_RGB565</a></td></tr>
 <tr class="separator:a335dc2ab781da2964094255cade2c6a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a2272d482bf6c3784930975bc99a349"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a4a2272d482bf6c3784930975bc99a349">ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_CCCN888</a></td></tr>
+<tr class="memitem:a4a2272d482bf6c3784930975bc99a349"><td class="memItemLeft" align="right" valign="top">const __arm_2d_op_info_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__transform_8c.html#a4a2272d482bf6c3784930975bc99a349">ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_CCCN888</a></td></tr>
 <tr class="separator:a4a2272d482bf6c3784930975bc99a349"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="ae5149ac0ed15b2de1eccb9ecf1a02f64" name="ae5149ac0ed15b2de1eccb9ecf1a02f64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5149ac0ed15b2de1eccb9ecf1a02f64">&#9670;&nbsp;</a></span>__API_COLOUR <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_COLOUR&#160;&#160;&#160;gray8</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00127">127</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="ae5149ac0ed15b2de1eccb9ecf1a02f64" name="ae5149ac0ed15b2de1eccb9ecf1a02f64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5149ac0ed15b2de1eccb9ecf1a02f64">&#9670;&nbsp;</a></span>__API_COLOUR <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_COLOUR&#160;&#160;&#160;rgb565</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00127">127</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="ae5149ac0ed15b2de1eccb9ecf1a02f64" name="ae5149ac0ed15b2de1eccb9ecf1a02f64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5149ac0ed15b2de1eccb9ecf1a02f64">&#9670;&nbsp;</a></span>__API_COLOUR <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_COLOUR&#160;&#160;&#160;cccn888</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00127">127</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="a71ef659837d31a3da6b902b7c50fce6f" name="a71ef659837d31a3da6b902b7c50fce6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71ef659837d31a3da6b902b7c50fce6f">&#9670;&nbsp;</a></span>__API_INT_TYPE <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_INT_TYPE&#160;&#160;&#160;uint8_t</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00128">128</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="a71ef659837d31a3da6b902b7c50fce6f" name="a71ef659837d31a3da6b902b7c50fce6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71ef659837d31a3da6b902b7c50fce6f">&#9670;&nbsp;</a></span>__API_INT_TYPE <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_INT_TYPE&#160;&#160;&#160;uint16_t</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00128">128</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="a71ef659837d31a3da6b902b7c50fce6f" name="a71ef659837d31a3da6b902b7c50fce6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71ef659837d31a3da6b902b7c50fce6f">&#9670;&nbsp;</a></span>__API_INT_TYPE <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_INT_TYPE&#160;&#160;&#160;uint32_t</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00128">128</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="ace29e49156529f94695cada845142f1d" name="ace29e49156529f94695cada845142f1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace29e49156529f94695cada845142f1d">&#9670;&nbsp;</a></span>__API_INT_TYPE_BIT_NUM <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_INT_TYPE_BIT_NUM&#160;&#160;&#160;16</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00129">129</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="ace29e49156529f94695cada845142f1d" name="ace29e49156529f94695cada845142f1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace29e49156529f94695cada845142f1d">&#9670;&nbsp;</a></span>__API_INT_TYPE_BIT_NUM <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_INT_TYPE_BIT_NUM&#160;&#160;&#160;16</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00129">129</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="ace29e49156529f94695cada845142f1d" name="ace29e49156529f94695cada845142f1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace29e49156529f94695cada845142f1d">&#9670;&nbsp;</a></span>__API_INT_TYPE_BIT_NUM <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_INT_TYPE_BIT_NUM&#160;&#160;&#160;32</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00129">129</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="ae12cd186a80f710b73f3463adede27cf" name="ae12cd186a80f710b73f3463adede27cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae12cd186a80f710b73f3463adede27cf">&#9670;&nbsp;</a></span>__API_PIXEL_AVERAGE <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_PIXEL_AVERAGE&#160;&#160;&#160;<a class="el" href="____arm__2d__impl_8h.html#ad0b7ead17a3dfe8d13925e08b27afda1">__ARM_2D_PIXEL_AVERAGE_GRAY8</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00131">131</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="ae12cd186a80f710b73f3463adede27cf" name="ae12cd186a80f710b73f3463adede27cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae12cd186a80f710b73f3463adede27cf">&#9670;&nbsp;</a></span>__API_PIXEL_AVERAGE <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_PIXEL_AVERAGE&#160;&#160;&#160;<a class="el" href="____arm__2d__impl_8h.html#ab03429d557b53d5cb0d3b02b1ecc52b4">__ARM_2D_PIXEL_AVERAGE_RGB565</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00131">131</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="ae12cd186a80f710b73f3463adede27cf" name="ae12cd186a80f710b73f3463adede27cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae12cd186a80f710b73f3463adede27cf">&#9670;&nbsp;</a></span>__API_PIXEL_AVERAGE <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_PIXEL_AVERAGE&#160;&#160;&#160;<a class="el" href="____arm__2d__impl_8h.html#acb6bc2cb543e736eacc929964c9368dc">__ARM_2D_PIXEL_AVERAGE_CCCN888</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00131">131</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="ade53620dddd942ecc042a37029e4ccdb" name="ade53620dddd942ecc042a37029e4ccdb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade53620dddd942ecc042a37029e4ccdb">&#9670;&nbsp;</a></span>__API_PIXEL_AVERAGE_INIT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_PIXEL_AVERAGE_INIT</td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td>&#160;&#160;&#160;uint16_t tPixel = 0;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00113">113</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="a4087a83e3446b268a3618804532a5004" name="a4087a83e3446b268a3618804532a5004"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4087a83e3446b268a3618804532a5004">&#9670;&nbsp;</a></span>__API_PIXEL_AVERAGE_RESULT <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_PIXEL_AVERAGE_RESULT&#160;&#160;&#160;<a class="el" href="arm__2d__transform_8c.html#a8287bff112f04877923dbce47641b831">__API_PIXEL_AVERAGE_RESULT_GRAY8</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00132">132</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="a4087a83e3446b268a3618804532a5004" name="a4087a83e3446b268a3618804532a5004"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4087a83e3446b268a3618804532a5004">&#9670;&nbsp;</a></span>__API_PIXEL_AVERAGE_RESULT <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_PIXEL_AVERAGE_RESULT&#160;&#160;&#160;<a class="el" href="arm__2d__transform_8c.html#a2e99bc874b79b14f10b839ba93c7cd6c">__API_PIXEL_AVERAGE_RESULT_RGB565</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00132">132</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="a4087a83e3446b268a3618804532a5004" name="a4087a83e3446b268a3618804532a5004"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4087a83e3446b268a3618804532a5004">&#9670;&nbsp;</a></span>__API_PIXEL_AVERAGE_RESULT <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_PIXEL_AVERAGE_RESULT&#160;&#160;&#160;<a class="el" href="arm__2d__transform_8c.html#aecc9109d91f976b9ed166d0ba53c62f1">__API_PIXEL_AVERAGE_RESULT_CCCN888</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00132">132</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="aecc9109d91f976b9ed166d0ba53c62f1" name="aecc9109d91f976b9ed166d0ba53c62f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecc9109d91f976b9ed166d0ba53c62f1">&#9670;&nbsp;</a></span>__API_PIXEL_AVERAGE_RESULT_CCCN888</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_PIXEL_AVERAGE_RESULT_CCCN888</td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    (   tPixel.R &gt;&gt;= 8,                                         \</div>
-<div class="line">        tPixel.G &gt;&gt;= 8,                                         \</div>
-<div class="line">        tPixel.B &gt;&gt;= 8,                                         \</div>
-<div class="line">        tPixel.A = *((uint8_t *)pTarget + 3),                   \</div>
-<div class="line">        __arm_2d_cccn888_pack(&amp;tPixel))</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00102">102</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="a8287bff112f04877923dbce47641b831" name="a8287bff112f04877923dbce47641b831"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8287bff112f04877923dbce47641b831">&#9670;&nbsp;</a></span>__API_PIXEL_AVERAGE_RESULT_GRAY8</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_PIXEL_AVERAGE_RESULT_GRAY8</td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td>&#160;&#160;&#160;    (   tPixel &gt;&gt; 8)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00093">93</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="a2e99bc874b79b14f10b839ba93c7cd6c" name="a2e99bc874b79b14f10b839ba93c7cd6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e99bc874b79b14f10b839ba93c7cd6c">&#9670;&nbsp;</a></span>__API_PIXEL_AVERAGE_RESULT_RGB565</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_PIXEL_AVERAGE_RESULT_RGB565</td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    (   tPixel.R &gt;&gt;= 8,                                         \</div>
-<div class="line">        tPixel.G &gt;&gt;= 8,                                         \</div>
-<div class="line">        tPixel.B &gt;&gt;= 8,                                         \</div>
-<div class="line">        __arm_2d_rgb565_pack(&amp;tPixel))</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00096">96</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="a95dfb0261d9afed55f49e0c74c8e5d7b" name="a95dfb0261d9afed55f49e0c74c8e5d7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95dfb0261d9afed55f49e0c74c8e5d7b">&#9670;&nbsp;</a></span>__API_PIXEL_BLENDING <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_PIXEL_BLENDING&#160;&#160;&#160;<a class="el" href="____arm__2d__impl_8h.html#a9c5e7dad99684b081524928f1201498a">__ARM_2D_PIXEL_BLENDING_OPA_GRAY8</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00130">130</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="a95dfb0261d9afed55f49e0c74c8e5d7b" name="a95dfb0261d9afed55f49e0c74c8e5d7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95dfb0261d9afed55f49e0c74c8e5d7b">&#9670;&nbsp;</a></span>__API_PIXEL_BLENDING <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_PIXEL_BLENDING&#160;&#160;&#160;<a class="el" href="____arm__2d__impl_8h.html#a3612ad8bfc70d8e5813ffda9f7d80f64">__ARM_2D_PIXEL_BLENDING_OPA_RGB565</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00130">130</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="a95dfb0261d9afed55f49e0c74c8e5d7b" name="a95dfb0261d9afed55f49e0c74c8e5d7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95dfb0261d9afed55f49e0c74c8e5d7b">&#9670;&nbsp;</a></span>__API_PIXEL_BLENDING <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __API_PIXEL_BLENDING&#160;&#160;&#160;<a class="el" href="____arm__2d__impl_8h.html#a1546454f0797806d1d9874ad2512c57c">__ARM_2D_PIXEL_BLENDING_OPA_CCCN888</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00130">130</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="aa391cb8cbcf1b1a4ab83847b83d8b8de" name="aa391cb8cbcf1b1a4ab83847b83d8b8de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa391cb8cbcf1b1a4ab83847b83d8b8de">&#9670;&nbsp;</a></span>__ARM_2D_IMPL__</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __ARM_2D_IMPL__</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00033">33</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="a29e4ea6d26ca19e8db3073efd2292cb4" name="a29e4ea6d26ca19e8db3073efd2292cb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29e4ea6d26ca19e8db3073efd2292cb4">&#9670;&nbsp;</a></span>__CALIB</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __CALIB&#160;&#160;&#160;0.009f</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00080">80</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
-<a id="a0970494ab17b4e6cf0189c329d89ded0" name="a0970494ab17b4e6cf0189c329d89ded0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0970494ab17b4e6cf0189c329d89ded0">&#9670;&nbsp;</a></span>__PI</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __PI&#160;&#160;&#160;3.1415926f</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00078">78</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-
-</div>
-</div>
 <a id="ac45b3b5e459e7f42272921180e72d037" name="ac45b3b5e459e7f42272921180e72d037"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac45b3b5e459e7f42272921180e72d037">&#9670;&nbsp;</a></span>EPS_ATAN2</h2>
 
@@ -702,760 +201,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="aa06f55e0f308cb6bee60b9e999451d2e" name="aa06f55e0f308cb6bee60b9e999451d2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa06f55e0f308cb6bee60b9e999451d2e">&#9670;&nbsp;</a></span>__arm_2d_cccn888_sw_transform()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_cccn888_sw_transform </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *&#160;</td>
-          <td class="paramname"><em>ptTask</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00817">817</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  818</span>{</div>
-<div class="line"><span class="lineno">  819</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__trans__t.html">arm_2d_op_trans_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><span class="lineno">  820</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#af715e26dfffd1f8de1c18449e2770cffab73d9139521893b7600e21c84c091614">ARM_2D_COLOUR_SZ_32BIT</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
-<div class="line"><span class="lineno">  821</span> </div>
-<div class="line"><span class="lineno">  822</span> </div>
-<div class="line"><span class="lineno">  823</span>    <a class="code hl_function" href="____arm__2d__direct_8h.html#a9000e7b19db15919c5c684500a16033d">__arm_2d_impl_cccn888_transform</a>(&amp;(ptTask-&gt;Param.tCopyOrig),</div>
-<div class="line"><span class="lineno">  824</span>                                    &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno">  825</span> </div>
-<div class="line"><span class="lineno">  826</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
-<div class="line"><span class="lineno">  827</span>}</div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a9000e7b19db15919c5c684500a16033d"><div class="ttname"><a href="____arm__2d__direct_8h.html#a9000e7b19db15919c5c684500a16033d">__arm_2d_impl_cccn888_transform</a></div><div class="ttdeci">void __arm_2d_impl_cccn888_transform(__arm_2d_param_copy_orig_t *ptParam, __arm_2d_transform_info_t *ptInfo)</div></div>
-<div class="ttc" id="a____arm__2d__impl_8h_html_a451aeef94e8d5bf76519f63cbca43493"><div class="ttname"><a href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a></div><div class="ttdeci">#define ARM_2D_IMPL(__TYPE,...)</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00065">__arm_2d_impl.h:65</a></div></div>
-<div class="ttc" id="a____arm__2d__impl_8h_html_a9f9d937dc5a6d79e26e25ebf55bbf679"><div class="ttname"><a href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a></div><div class="ttdeci">#define OP_CORE</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00063">__arm_2d_impl.h:63</a></div></div>
-<div class="ttc" id="aarm__2d__types_8h_html_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1"><div class="ttname"><a href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a></div><div class="ttdeci">@ arm_fsm_rt_cpl</div><div class="ttdoc">fsm complete</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00077">arm_2d_types.h:77</a></div></div>
-<div class="ttc" id="aarm__2d__types_8h_html_af715e26dfffd1f8de1c18449e2770cffab73d9139521893b7600e21c84c091614"><div class="ttname"><a href="arm__2d__types_8h.html#af715e26dfffd1f8de1c18449e2770cffab73d9139521893b7600e21c84c091614">ARM_2D_COLOUR_SZ_32BIT</a></div><div class="ttdeci">@ ARM_2D_COLOUR_SZ_32BIT</div><div class="ttdoc">true colour</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00196">arm_2d_types.h:196</a></div></div>
-<div class="ttc" id="astructarm__2d__op__trans__t_html"><div class="ttname"><a href="structarm__2d__op__trans__t.html">arm_2d_op_trans_t</a></div><div class="ttdoc">arm_2d_op_trans_t is inherit from arm_2d_op_src_orig_t</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8h_source.html#l03370">arm_2d_transform.h:3370</a></div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>.</p>
-
-</div>
-</div>
-<a id="a9238b200c78f565224d2f292adb67057" name="a9238b200c78f565224d2f292adb67057"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9238b200c78f565224d2f292adb67057">&#9670;&nbsp;</a></span>__arm_2d_cccn888_sw_transform_with_alpha()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_cccn888_sw_transform_with_alpha </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *&#160;</td>
-          <td class="paramname"><em>ptTask</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00963">963</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  964</span>{</div>
-<div class="line"><span class="lineno">  965</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__trans__opa__t.html">arm_2d_op_trans_opa_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><span class="lineno">  966</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#af715e26dfffd1f8de1c18449e2770cffab73d9139521893b7600e21c84c091614">ARM_2D_COLOUR_SZ_32BIT</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
-<div class="line"><span class="lineno">  967</span> </div>
-<div class="line"><span class="lineno">  968</span>    <span class="keywordflow">if</span> (255 == this.<a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#ab025c7acb6920ba4cf780b0bc2a715d2">chOpacity</a>) {</div>
-<div class="line"><span class="lineno">  969</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a9000e7b19db15919c5c684500a16033d">__arm_2d_impl_cccn888_transform</a>(&amp;(ptTask-&gt;Param.tCopyOrig),</div>
-<div class="line"><span class="lineno">  970</span>                                        &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno">  971</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  972</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a9bc203cf96805af92466763164dbd0d3">__arm_2d_impl_cccn888_transform_with_opacity</a>(  &amp;(ptTask-&gt;Param.tCopyOrig),</div>
-<div class="line"><span class="lineno">  973</span>                                                &amp;<span class="keyword">this</span>.tTransform,</div>
-<div class="line"><span class="lineno">  974</span>                                                <span class="keyword">this</span>.chOpacity);</div>
-<div class="line"><span class="lineno">  975</span>    }</div>
-<div class="line"><span class="lineno">  976</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
-<div class="line"><span class="lineno">  977</span>}</div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a9bc203cf96805af92466763164dbd0d3"><div class="ttname"><a href="____arm__2d__direct_8h.html#a9bc203cf96805af92466763164dbd0d3">__arm_2d_impl_cccn888_transform_with_opacity</a></div><div class="ttdeci">void __arm_2d_impl_cccn888_transform_with_opacity(__arm_2d_param_copy_orig_t *ptParam, __arm_2d_transform_info_t *ptInfo, uint_fast16_t hwRatio)</div></div>
-<div class="ttc" id="aarm__2d__alpha__blending_8h_html_ab025c7acb6920ba4cf780b0bc2a715d2"><div class="ttname"><a href="arm__2d__alpha__blending_8h.html#ab025c7acb6920ba4cf780b0bc2a715d2">chOpacity</a></div><div class="ttdeci">const arm_2d_tile_t const arm_2d_region_t const arm_2d_tile_t uint8_t uint8_t chOpacity</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__alpha__blending_8h_source.html#l00955">arm_2d_alpha_blending.h:955</a></div></div>
-<div class="ttc" id="astructarm__2d__op__trans__opa__t_html"><div class="ttname"><a href="structarm__2d__op__trans__opa__t.html">arm_2d_op_trans_opa_t</a></div><div class="ttdoc">arm_2d_op_trans_opa_t is inherit from arm_2d_op_trans_t</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8h_source.html#l03393">arm_2d_transform.h:3393</a></div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>.</p>
-
-</div>
-</div>
-<a id="a09018ab58e160d9e4df36e7f6aaafdd0" name="a09018ab58e160d9e4df36e7f6aaafdd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09018ab58e160d9e4df36e7f6aaafdd0">&#9670;&nbsp;</a></span>__arm_2d_cccn888_sw_transform_with_src_mask()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_cccn888_sw_transform_with_src_mask </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *&#160;</td>
-          <td class="paramname"><em>ptTask</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l01208">1208</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1209</span>{</div>
-<div class="line"><span class="lineno"> 1210</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__trans__msk__t.html">arm_2d_op_trans_msk_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><span class="lineno"> 1211</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#af715e26dfffd1f8de1c18449e2770cffab73d9139521893b7600e21c84c091614">ARM_2D_COLOUR_SZ_32BIT</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
-<div class="line"><span class="lineno"> 1212</span> </div>
-<div class="line"><span class="lineno"> 1213</span><span class="preprocessor">#if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__</span></div>
-<div class="line"><span class="lineno"> 1214</span>    <span class="keywordtype">bool</span> bIsMaskChannel8In32 = (<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58">ARM_2D_CHANNEL_8in32</a></div>
-<div class="line"><span class="lineno"> 1215</span>            ==  ptTask-&gt;Param.tCopyOrigMask.tOrigMask.tColour.chScheme);</div>
-<div class="line"><span class="lineno"> 1216</span> </div>
-<div class="line"><span class="lineno"> 1217</span>    <span class="keywordflow">if</span> (bIsMaskChannel8In32) {</div>
-<div class="line"><span class="lineno"> 1218</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a9e398f78d44f79a0a772907bf4d9b1fd">__arm_2d_impl_cccn888_transform_with_src_chn_mask</a>(</div>
-<div class="line"><span class="lineno"> 1219</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1220</span>                                                &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno"> 1221</span>    } <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1222</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno"> 1223</span>    {</div>
-<div class="line"><span class="lineno"> 1224</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a64c4c3ca14817bcbd38524d8c3e4f75c">__arm_2d_impl_cccn888_transform_with_src_mask</a>(</div>
-<div class="line"><span class="lineno"> 1225</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1226</span>                                                &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno"> 1227</span>    }</div>
-<div class="line"><span class="lineno"> 1228</span> </div>
-<div class="line"><span class="lineno"> 1229</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
-<div class="line"><span class="lineno"> 1230</span>}</div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a64c4c3ca14817bcbd38524d8c3e4f75c"><div class="ttname"><a href="____arm__2d__direct_8h.html#a64c4c3ca14817bcbd38524d8c3e4f75c">__arm_2d_impl_cccn888_transform_with_src_mask</a></div><div class="ttdeci">void __arm_2d_impl_cccn888_transform_with_src_mask(__arm_2d_param_copy_orig_msk_t *ptParam, __arm_2d_transform_info_t *ptInfo)</div></div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a9e398f78d44f79a0a772907bf4d9b1fd"><div class="ttname"><a href="____arm__2d__direct_8h.html#a9e398f78d44f79a0a772907bf4d9b1fd">__arm_2d_impl_cccn888_transform_with_src_chn_mask</a></div><div class="ttdeci">void __arm_2d_impl_cccn888_transform_with_src_chn_mask(__arm_2d_param_copy_orig_msk_t *ptParam, __arm_2d_transform_info_t *ptInfo)</div></div>
-<div class="ttc" id="aarm__2d__types_8h_html_afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58"><div class="ttname"><a href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58">ARM_2D_CHANNEL_8in32</a></div><div class="ttdeci">@ ARM_2D_CHANNEL_8in32</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00260">arm_2d_types.h:258</a></div></div>
-<div class="ttc" id="astructarm__2d__op__trans__msk__t_html"><div class="ttname"><a href="structarm__2d__op__trans__msk__t.html">arm_2d_op_trans_msk_t</a></div><div class="ttdoc">arm_2d_op_trans_msk_t is inherit from arm_2d_op_src_orig_msk_t</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8h_source.html#l03417">arm_2d_transform.h:3417</a></div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>.</p>
-
-</div>
-</div>
-<a id="a2a85d260670bb8ad3b17b4379d9721ba" name="a2a85d260670bb8ad3b17b4379d9721ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a85d260670bb8ad3b17b4379d9721ba">&#9670;&nbsp;</a></span>__arm_2d_cccn888_sw_transform_with_src_mask_and_opacity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_cccn888_sw_transform_with_src_mask_and_opacity </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *&#160;</td>
-          <td class="paramname"><em>ptTask</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l01453">1453</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1454</span>{</div>
-<div class="line"><span class="lineno"> 1455</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__trans__msk__opa__t.html">arm_2d_op_trans_msk_opa_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><span class="lineno"> 1456</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#af715e26dfffd1f8de1c18449e2770cffab73d9139521893b7600e21c84c091614">ARM_2D_COLOUR_SZ_32BIT</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
-<div class="line"><span class="lineno"> 1457</span> </div>
-<div class="line"><span class="lineno"> 1458</span><span class="preprocessor">#if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__</span></div>
-<div class="line"><span class="lineno"> 1459</span>    <span class="keywordtype">bool</span> bIsMaskChannel8In32 = (<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58">ARM_2D_CHANNEL_8in32</a></div>
-<div class="line"><span class="lineno"> 1460</span>            ==  ptTask-&gt;Param.tCopyOrigMask.tOrigMask.tColour.chScheme);</div>
-<div class="line"><span class="lineno"> 1461</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno"> 1462</span> </div>
-<div class="line"><span class="lineno"> 1463</span>    <span class="keywordflow">if</span> (255 == this.<a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#ab025c7acb6920ba4cf780b0bc2a715d2">chOpacity</a>) {</div>
-<div class="line"><span class="lineno"> 1464</span><span class="preprocessor">    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__</span></div>
-<div class="line"><span class="lineno"> 1465</span>        <span class="keywordflow">if</span> (bIsMaskChannel8In32) {</div>
-<div class="line"><span class="lineno"> 1466</span>            <a class="code hl_function" href="____arm__2d__direct_8h.html#a9e398f78d44f79a0a772907bf4d9b1fd">__arm_2d_impl_cccn888_transform_with_src_chn_mask</a>(</div>
-<div class="line"><span class="lineno"> 1467</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1468</span>                                                &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno"> 1469</span>        } <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1470</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno"> 1471</span>        {</div>
-<div class="line"><span class="lineno"> 1472</span>            <a class="code hl_function" href="____arm__2d__direct_8h.html#a64c4c3ca14817bcbd38524d8c3e4f75c">__arm_2d_impl_cccn888_transform_with_src_mask</a>(</div>
-<div class="line"><span class="lineno"> 1473</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1474</span>                                                &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno"> 1475</span>        }</div>
-<div class="line"><span class="lineno"> 1476</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno"> 1477</span><span class="preprocessor">    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__</span></div>
-<div class="line"><span class="lineno"> 1478</span>        <span class="keywordflow">if</span> (bIsMaskChannel8In32) {</div>
-<div class="line"><span class="lineno"> 1479</span>            <a class="code hl_function" href="____arm__2d__direct_8h.html#a48448e6a418b9a0eb574e8555c7af375">__arm_2d_impl_cccn888_transform_with_src_chn_mask_and_opacity</a>(</div>
-<div class="line"><span class="lineno"> 1480</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1481</span>                                                &amp;<span class="keyword">this</span>.tTransform,</div>
-<div class="line"><span class="lineno"> 1482</span>                                                <span class="keyword">this</span>.chOpacity);</div>
-<div class="line"><span class="lineno"> 1483</span>        } <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1484</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno"> 1485</span>        {</div>
-<div class="line"><span class="lineno"> 1486</span>            <a class="code hl_function" href="____arm__2d__direct_8h.html#a3fdc0917f1116e02b0de595aa48f338d">__arm_2d_impl_cccn888_transform_with_src_mask_and_opacity</a>(</div>
-<div class="line"><span class="lineno"> 1487</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1488</span>                                                &amp;<span class="keyword">this</span>.tTransform,</div>
-<div class="line"><span class="lineno"> 1489</span>                                                <span class="keyword">this</span>.chOpacity);</div>
-<div class="line"><span class="lineno"> 1490</span>        }</div>
-<div class="line"><span class="lineno"> 1491</span>    }</div>
-<div class="line"><span class="lineno"> 1492</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
-<div class="line"><span class="lineno"> 1493</span>}</div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a3fdc0917f1116e02b0de595aa48f338d"><div class="ttname"><a href="____arm__2d__direct_8h.html#a3fdc0917f1116e02b0de595aa48f338d">__arm_2d_impl_cccn888_transform_with_src_mask_and_opacity</a></div><div class="ttdeci">void __arm_2d_impl_cccn888_transform_with_src_mask_and_opacity(__arm_2d_param_copy_orig_msk_t *ptParam, __arm_2d_transform_info_t *ptInfo, uint_fast16_t hwRatio)</div></div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a48448e6a418b9a0eb574e8555c7af375"><div class="ttname"><a href="____arm__2d__direct_8h.html#a48448e6a418b9a0eb574e8555c7af375">__arm_2d_impl_cccn888_transform_with_src_chn_mask_and_opacity</a></div><div class="ttdeci">void __arm_2d_impl_cccn888_transform_with_src_chn_mask_and_opacity(__arm_2d_param_copy_orig_msk_t *ptParam, __arm_2d_transform_info_t *ptInfo, uint_fast16_t hwRatio)</div></div>
-<div class="ttc" id="astructarm__2d__op__trans__msk__opa__t_html"><div class="ttname"><a href="structarm__2d__op__trans__msk__opa__t.html">arm_2d_op_trans_msk_opa_t</a></div><div class="ttdoc">arm_2d_op_trans_msk_t is inherit from arm_2d_op_trans_msk_t</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8h_source.html#l03444">arm_2d_transform.h:3444</a></div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>.</p>
-
-</div>
-</div>
-<a id="af7ac5fdeb6fe8af6c0dfbe9b877e4804" name="af7ac5fdeb6fe8af6c0dfbe9b877e4804"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7ac5fdeb6fe8af6c0dfbe9b877e4804">&#9670;&nbsp;</a></span>__arm_2d_gray8_sw_transform()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_gray8_sw_transform </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *&#160;</td>
-          <td class="paramname"><em>ptTask</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00794">794</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  795</span>{</div>
-<div class="line"><span class="lineno">  796</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__trans__t.html">arm_2d_op_trans_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><span class="lineno">  797</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185">ARM_2D_COLOUR_8BIT</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.chScheme);</div>
-<div class="line"><span class="lineno">  798</span> </div>
-<div class="line"><span class="lineno">  799</span>    <a class="code hl_function" href="____arm__2d__direct_8h.html#a4ffd250fa481c2e8e66ecc5bbcfa6118">__arm_2d_impl_gray8_transform</a>(  &amp;(ptTask-&gt;Param.tCopyOrig),</div>
-<div class="line"><span class="lineno">  800</span>                                    &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno">  801</span> </div>
-<div class="line"><span class="lineno">  802</span> </div>
-<div class="line"><span class="lineno">  803</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
-<div class="line"><span class="lineno">  804</span>}</div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a4ffd250fa481c2e8e66ecc5bbcfa6118"><div class="ttname"><a href="____arm__2d__direct_8h.html#a4ffd250fa481c2e8e66ecc5bbcfa6118">__arm_2d_impl_gray8_transform</a></div><div class="ttdeci">void __arm_2d_impl_gray8_transform(__arm_2d_param_copy_orig_t *ptParam, __arm_2d_transform_info_t *ptInfo)</div></div>
-<div class="ttc" id="aarm__2d__types_8h_html_afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185"><div class="ttname"><a href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185">ARM_2D_COLOUR_8BIT</a></div><div class="ttdeci">@ ARM_2D_COLOUR_8BIT</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00229">arm_2d_types.h:229</a></div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>.</p>
-
-</div>
-</div>
-<a id="a687db04d1a562c7895a86e4edddfcd16" name="a687db04d1a562c7895a86e4edddfcd16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a687db04d1a562c7895a86e4edddfcd16">&#9670;&nbsp;</a></span>__arm_2d_gray8_sw_transform_with_alpha()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_gray8_sw_transform_with_alpha </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *&#160;</td>
-          <td class="paramname"><em>ptTask</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00929">929</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  930</span>{</div>
-<div class="line"><span class="lineno">  931</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__trans__opa__t.html">arm_2d_op_trans_opa_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><span class="lineno">  932</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ae30b45e21340e05f42d705d24c0958dd">ARM_2D_COLOUR_GRAY8</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.chScheme);</div>
-<div class="line"><span class="lineno">  933</span> </div>
-<div class="line"><span class="lineno">  934</span>    <span class="keywordflow">if</span> (255 == this.<a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#ab025c7acb6920ba4cf780b0bc2a715d2">chOpacity</a>) {</div>
-<div class="line"><span class="lineno">  935</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a4ffd250fa481c2e8e66ecc5bbcfa6118">__arm_2d_impl_gray8_transform</a>(  &amp;(ptTask-&gt;Param.tCopyOrig),</div>
-<div class="line"><span class="lineno">  936</span>                                        &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno">  937</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  938</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a50a28ee5db07e4eb4fd92a1d394e6d93">__arm_2d_impl_gray8_transform_with_opacity</a>(  &amp;(ptTask-&gt;Param.tCopyOrig),</div>
-<div class="line"><span class="lineno">  939</span>                                            &amp;<span class="keyword">this</span>.tTransform,</div>
-<div class="line"><span class="lineno">  940</span>                                            <span class="keyword">this</span>.chOpacity);</div>
-<div class="line"><span class="lineno">  941</span>    }</div>
-<div class="line"><span class="lineno">  942</span> </div>
-<div class="line"><span class="lineno">  943</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
-<div class="line"><span class="lineno">  944</span>}</div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a50a28ee5db07e4eb4fd92a1d394e6d93"><div class="ttname"><a href="____arm__2d__direct_8h.html#a50a28ee5db07e4eb4fd92a1d394e6d93">__arm_2d_impl_gray8_transform_with_opacity</a></div><div class="ttdeci">void __arm_2d_impl_gray8_transform_with_opacity(__arm_2d_param_copy_orig_t *ptParam, __arm_2d_transform_info_t *ptInfo, uint_fast16_t hwRatio)</div></div>
-<div class="ttc" id="aarm__2d__types_8h_html_afb730582952b7ceec73d7dc9bf7bef39ae30b45e21340e05f42d705d24c0958dd"><div class="ttname"><a href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ae30b45e21340e05f42d705d24c0958dd">ARM_2D_COLOUR_GRAY8</a></div><div class="ttdeci">@ ARM_2D_COLOUR_GRAY8</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00230">arm_2d_types.h:230</a></div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>.</p>
-
-</div>
-</div>
-<a id="a7f95f3a4a573b83135ae3cfba0ecda28" name="a7f95f3a4a573b83135ae3cfba0ecda28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f95f3a4a573b83135ae3cfba0ecda28">&#9670;&nbsp;</a></span>__arm_2d_gray8_sw_transform_with_src_mask()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_gray8_sw_transform_with_src_mask </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *&#160;</td>
-          <td class="paramname"><em>ptTask</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l01158">1158</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1159</span>{</div>
-<div class="line"><span class="lineno"> 1160</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__trans__msk__t.html">arm_2d_op_trans_msk_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><span class="lineno"> 1161</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185">ARM_2D_COLOUR_8BIT</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.chScheme);</div>
-<div class="line"><span class="lineno"> 1162</span> </div>
-<div class="line"><span class="lineno"> 1163</span><span class="preprocessor">#if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__</span></div>
-<div class="line"><span class="lineno"> 1164</span>    <span class="keywordtype">bool</span> bIsMaskChannel8In32 = (<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58">ARM_2D_CHANNEL_8in32</a></div>
-<div class="line"><span class="lineno"> 1165</span>            ==  ptTask-&gt;Param.tCopyOrigMask.tOrigMask.tColour.chScheme);</div>
-<div class="line"><span class="lineno"> 1166</span> </div>
-<div class="line"><span class="lineno"> 1167</span>    <span class="keywordflow">if</span> (bIsMaskChannel8In32) {</div>
-<div class="line"><span class="lineno"> 1168</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a8ce1aad44e6a463252b5e7c2c2a0fb2e">__arm_2d_impl_gray8_transform_with_src_chn_mask</a>(</div>
-<div class="line"><span class="lineno"> 1169</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1170</span>                                                &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno"> 1171</span>    } <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1172</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno"> 1173</span>    {</div>
-<div class="line"><span class="lineno"> 1174</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a3f2190cd3548ac16fe5cb61c05a37e1c">__arm_2d_impl_gray8_transform_with_src_mask</a>(</div>
-<div class="line"><span class="lineno"> 1175</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1176</span>                                                &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno"> 1177</span>    }</div>
-<div class="line"><span class="lineno"> 1178</span> </div>
-<div class="line"><span class="lineno"> 1179</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
-<div class="line"><span class="lineno"> 1180</span>}</div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a3f2190cd3548ac16fe5cb61c05a37e1c"><div class="ttname"><a href="____arm__2d__direct_8h.html#a3f2190cd3548ac16fe5cb61c05a37e1c">__arm_2d_impl_gray8_transform_with_src_mask</a></div><div class="ttdeci">void __arm_2d_impl_gray8_transform_with_src_mask(__arm_2d_param_copy_orig_msk_t *ptParam, __arm_2d_transform_info_t *ptInfo)</div></div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a8ce1aad44e6a463252b5e7c2c2a0fb2e"><div class="ttname"><a href="____arm__2d__direct_8h.html#a8ce1aad44e6a463252b5e7c2c2a0fb2e">__arm_2d_impl_gray8_transform_with_src_chn_mask</a></div><div class="ttdeci">void __arm_2d_impl_gray8_transform_with_src_chn_mask(__arm_2d_param_copy_orig_msk_t *ptParam, __arm_2d_transform_info_t *ptInfo)</div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>.</p>
-
-</div>
-</div>
-<a id="a79a37f0c5c4cae547211073661db40d2" name="a79a37f0c5c4cae547211073661db40d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79a37f0c5c4cae547211073661db40d2">&#9670;&nbsp;</a></span>__arm_2d_gray8_sw_transform_with_src_mask_and_opacity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_gray8_sw_transform_with_src_mask_and_opacity </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *&#160;</td>
-          <td class="paramname"><em>ptTask</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l01364">1364</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1365</span>{</div>
-<div class="line"><span class="lineno"> 1366</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__trans__msk__opa__t.html">arm_2d_op_trans_msk_opa_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><span class="lineno"> 1367</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185">ARM_2D_COLOUR_8BIT</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.chScheme);</div>
-<div class="line"><span class="lineno"> 1368</span> </div>
-<div class="line"><span class="lineno"> 1369</span><span class="preprocessor">#if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__</span></div>
-<div class="line"><span class="lineno"> 1370</span>    <span class="keywordtype">bool</span> bIsMaskChannel8In32 = (<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58">ARM_2D_CHANNEL_8in32</a></div>
-<div class="line"><span class="lineno"> 1371</span>            ==  ptTask-&gt;Param.tCopyOrigMask.tOrigMask.tColour.chScheme);</div>
-<div class="line"><span class="lineno"> 1372</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno"> 1373</span> </div>
-<div class="line"><span class="lineno"> 1374</span>    <span class="keywordflow">if</span> (255 == this.<a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#ab025c7acb6920ba4cf780b0bc2a715d2">chOpacity</a>) {</div>
-<div class="line"><span class="lineno"> 1375</span><span class="preprocessor">    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__</span></div>
-<div class="line"><span class="lineno"> 1376</span>        <span class="keywordflow">if</span> (bIsMaskChannel8In32) {</div>
-<div class="line"><span class="lineno"> 1377</span>            <a class="code hl_function" href="____arm__2d__direct_8h.html#a8ce1aad44e6a463252b5e7c2c2a0fb2e">__arm_2d_impl_gray8_transform_with_src_chn_mask</a>(</div>
-<div class="line"><span class="lineno"> 1378</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1379</span>                                                &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno"> 1380</span>        } <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1381</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno"> 1382</span>        {</div>
-<div class="line"><span class="lineno"> 1383</span>            <a class="code hl_function" href="____arm__2d__direct_8h.html#a3f2190cd3548ac16fe5cb61c05a37e1c">__arm_2d_impl_gray8_transform_with_src_mask</a>(</div>
-<div class="line"><span class="lineno"> 1384</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1385</span>                                                &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno"> 1386</span>        }</div>
-<div class="line"><span class="lineno"> 1387</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno"> 1388</span><span class="preprocessor">    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__</span></div>
-<div class="line"><span class="lineno"> 1389</span>        <span class="keywordflow">if</span> (bIsMaskChannel8In32) {</div>
-<div class="line"><span class="lineno"> 1390</span>            <a class="code hl_function" href="____arm__2d__direct_8h.html#a7379ef903379bc57024a7e3d45419926">__arm_2d_impl_gray8_transform_with_src_chn_mask_and_opacity</a>(</div>
-<div class="line"><span class="lineno"> 1391</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1392</span>                                                &amp;<span class="keyword">this</span>.tTransform,</div>
-<div class="line"><span class="lineno"> 1393</span>                                                <span class="keyword">this</span>.chOpacity);</div>
-<div class="line"><span class="lineno"> 1394</span>        } <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1395</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno"> 1396</span>        {</div>
-<div class="line"><span class="lineno"> 1397</span>            <a class="code hl_function" href="____arm__2d__direct_8h.html#a3e2fd921306c701723aed431163409df">__arm_2d_impl_gray8_transform_with_src_mask_and_opacity</a>(</div>
-<div class="line"><span class="lineno"> 1398</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1399</span>                                                &amp;<span class="keyword">this</span>.tTransform,</div>
-<div class="line"><span class="lineno"> 1400</span>                                                <span class="keyword">this</span>.chOpacity);</div>
-<div class="line"><span class="lineno"> 1401</span>        }</div>
-<div class="line"><span class="lineno"> 1402</span>    }</div>
-<div class="line"><span class="lineno"> 1403</span> </div>
-<div class="line"><span class="lineno"> 1404</span> </div>
-<div class="line"><span class="lineno"> 1405</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
-<div class="line"><span class="lineno"> 1406</span>}</div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a3e2fd921306c701723aed431163409df"><div class="ttname"><a href="____arm__2d__direct_8h.html#a3e2fd921306c701723aed431163409df">__arm_2d_impl_gray8_transform_with_src_mask_and_opacity</a></div><div class="ttdeci">void __arm_2d_impl_gray8_transform_with_src_mask_and_opacity(__arm_2d_param_copy_orig_msk_t *ptParam, __arm_2d_transform_info_t *ptInfo, uint_fast16_t hwRatio)</div></div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a7379ef903379bc57024a7e3d45419926"><div class="ttname"><a href="____arm__2d__direct_8h.html#a7379ef903379bc57024a7e3d45419926">__arm_2d_impl_gray8_transform_with_src_chn_mask_and_opacity</a></div><div class="ttdeci">void __arm_2d_impl_gray8_transform_with_src_chn_mask_and_opacity(__arm_2d_param_copy_orig_msk_t *ptParam, __arm_2d_transform_info_t *ptInfo, uint_fast16_t hwRatio)</div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>.</p>
-
-</div>
-</div>
-<a id="a21310a511b9be9658b9f242e7626f7e7" name="a21310a511b9be9658b9f242e7626f7e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21310a511b9be9658b9f242e7626f7e7">&#9670;&nbsp;</a></span>__arm_2d_point_get_adjacent_alpha_fp()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct____arm__2d__point__adj__alpha__t.html">__arm_2d_point_adj_alpha_t</a> __arm_2d_point_get_adjacent_alpha_fp </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structarm__2d__point__float__t.html">arm_2d_point_float_t</a> *&#160;</td>
-          <td class="paramname"><em>ptPoint</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >&lt; x</p>
-<p >&lt; y</p>
-<p >&lt; x</p>
-<p >&lt; y</p>
-<p >&lt; x</p>
-<p >&lt; y</p>
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00147">147</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  148</span>{</div>
-<div class="line"><span class="lineno">  149</span>    assert(NULL != <a class="code hl_variable" href="arm__2d__tile_8h.html#a3b6b3df8fa64632f584b6ebb21852f3a">ptPoint</a>);</div>
-<div class="line"><span class="lineno">  150</span>    <span class="keywordtype">float</span> x = <a class="code hl_variable" href="arm__2d__tile_8h.html#a3b6b3df8fa64632f584b6ebb21852f3a">ptPoint</a>-&gt;fX - (int32_t)<a class="code hl_variable" href="arm__2d__tile_8h.html#a3b6b3df8fa64632f584b6ebb21852f3a">ptPoint</a>-&gt;fX;</div>
-<div class="line"><span class="lineno">  151</span>    <span class="keywordtype">float</span> y = <a class="code hl_variable" href="arm__2d__tile_8h.html#a3b6b3df8fa64632f584b6ebb21852f3a">ptPoint</a>-&gt;fY - (int32_t)<a class="code hl_variable" href="arm__2d__tile_8h.html#a3b6b3df8fa64632f584b6ebb21852f3a">ptPoint</a>-&gt;fY;</div>
-<div class="line"><span class="lineno">  152</span> </div>
-<div class="line"><span class="lineno">  153</span>    int16_t iXSign = x &lt; 0 ;</div>
-<div class="line"><span class="lineno">  154</span>    int16_t iYSign = y &lt; 0 ;</div>
-<div class="line"><span class="lineno">  155</span> </div>
-<div class="line"><span class="lineno">  156</span>    <a class="code hl_struct" href="struct____arm__2d__point__adj__alpha__t.html">__arm_2d_point_adj_alpha_t</a> tResult = {</div>
-<div class="line"><span class="lineno">  157</span>        .<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#aaa4cec909daf7fe98601288d2b3f890f">tMatrix</a> = {</div>
-<div class="line"><span class="lineno">  158</span>            [0] = {</div>
-<div class="line"><span class="lineno">  159</span>                .<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#adeabbb3cca2d507003a2cb0ff40b3841">tOffset</a> = {</div>
-<div class="line"><span class="lineno">  160</span>                    .<a class="code hl_variable" href="structarm__2d__location__t.html#a7c7434482f3a34f7e8340c56bf42f8b4">iX</a> = -iXSign,</div>
-<div class="line"><span class="lineno">  161</span>                    .iY = -iYSign,</div>
-<div class="line"><span class="lineno">  162</span>                },</div>
-<div class="line"><span class="lineno">  163</span><span class="preprocessor">            #if 0</span></div>
-<div class="line"><span class="lineno">  164</span>                .chAlpha = (uint8_t)(</div>
-<div class="line"><span class="lineno">  165</span>                                ((<span class="keywordtype">float</span>)(1-iXSign)  - (<span class="keywordtype">float</span>)x)     </div>
-<div class="line"><span class="lineno">  166</span>                            *   ((<span class="keywordtype">float</span>)(1-iYSign)  - (<span class="keywordtype">float</span>)y)     </div>
-<div class="line"><span class="lineno">  167</span>                            *   256.0f</div>
-<div class="line"><span class="lineno">  168</span>                            ),</div>
-<div class="line"><span class="lineno">  169</span><span class="preprocessor">            #endif</span></div>
-<div class="line"><span class="lineno">  170</span>            },</div>
-<div class="line"><span class="lineno">  171</span>            [1] = {</div>
-<div class="line"><span class="lineno">  172</span>                .tOffset = {</div>
-<div class="line"><span class="lineno">  173</span>                    .iX = -iXSign + 1,</div>
-<div class="line"><span class="lineno">  174</span>                    .iY = -iYSign,</div>
-<div class="line"><span class="lineno">  175</span>                },</div>
-<div class="line"><span class="lineno">  176</span>                .chAlpha = (uint8_t)(</div>
-<div class="line"><span class="lineno">  177</span>                                ((<span class="keywordtype">float</span>)iXSign      + (float)x)     </div>
-<div class="line"><span class="lineno">  178</span>                            *   ((float)(1-iYSign)  - (float)y)     </div>
-<div class="line"><span class="lineno">  179</span>                            *   256.0f</div>
-<div class="line"><span class="lineno">  180</span>                            ),</div>
-<div class="line"><span class="lineno">  181</span>            },</div>
-<div class="line"><span class="lineno">  182</span>            [2] = {</div>
-<div class="line"><span class="lineno">  183</span>                .tOffset = {</div>
-<div class="line"><span class="lineno">  184</span>                    .iX = -iXSign,</div>
-<div class="line"><span class="lineno">  185</span>                    .iY = -iYSign + 1,</div>
-<div class="line"><span class="lineno">  186</span>                },</div>
-<div class="line"><span class="lineno">  187</span>                .chAlpha = (uint8_t)(</div>
-<div class="line"><span class="lineno">  188</span>                                ((<span class="keywordtype">float</span>)(1-iXSign)  - (<span class="keywordtype">float</span>)x)     </div>
-<div class="line"><span class="lineno">  189</span>                            *   ((<span class="keywordtype">float</span>)iYSign      + (float)y)     </div>
-<div class="line"><span class="lineno">  190</span>                            *   256.0f</div>
-<div class="line"><span class="lineno">  191</span>                            ),</div>
-<div class="line"><span class="lineno">  192</span>            },</div>
-<div class="line"><span class="lineno">  193</span>            [3] = {</div>
-<div class="line"><span class="lineno">  194</span>                .tOffset = {</div>
-<div class="line"><span class="lineno">  195</span>                    .iX = -iXSign + 1,</div>
-<div class="line"><span class="lineno">  196</span>                    .iY = -iYSign +1,</div>
-<div class="line"><span class="lineno">  197</span>                },</div>
-<div class="line"><span class="lineno">  198</span>                .chAlpha = (uint8_t)(</div>
-<div class="line"><span class="lineno">  199</span>                                ((<span class="keywordtype">float</span>)iXSign      + (float)x)     </div>
-<div class="line"><span class="lineno">  200</span>                            *   ((float)iYSign      + (<span class="keywordtype">float</span>)y)     </div>
-<div class="line"><span class="lineno">  201</span>                            *   256.0f</div>
-<div class="line"><span class="lineno">  202</span>                            ),</div>
-<div class="line"><span class="lineno">  203</span>            },</div>
-<div class="line"><span class="lineno">  204</span>        },</div>
-<div class="line"><span class="lineno">  205</span>    };</div>
-<div class="line"><span class="lineno">  206</span><span class="preprocessor">#if 1</span></div>
-<div class="line"><span class="lineno">  207</span>    tResult.<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#aaa4cec909daf7fe98601288d2b3f890f">tMatrix</a>[0].<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#a960060ab209df0f9be7bd76bcf8a5c39">chAlpha</a>  = 256</div>
-<div class="line"><span class="lineno">  208</span>                                - tResult.<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#aaa4cec909daf7fe98601288d2b3f890f">tMatrix</a>[1].<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#a960060ab209df0f9be7bd76bcf8a5c39">chAlpha</a></div>
-<div class="line"><span class="lineno">  209</span>                                - tResult.<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#aaa4cec909daf7fe98601288d2b3f890f">tMatrix</a>[2].<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#a960060ab209df0f9be7bd76bcf8a5c39">chAlpha</a></div>
-<div class="line"><span class="lineno">  210</span>                                - tResult.<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#aaa4cec909daf7fe98601288d2b3f890f">tMatrix</a>[3].<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#a960060ab209df0f9be7bd76bcf8a5c39">chAlpha</a>;</div>
-<div class="line"><span class="lineno">  211</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  212</span>    <span class="keywordflow">return</span> tResult;</div>
-<div class="line"><span class="lineno">  213</span>}</div>
-<div class="ttc" id="aarm__2d__tile_8h_html_a3b6b3df8fa64632f584b6ebb21852f3a"><div class="ttname"><a href="arm__2d__tile_8h.html#a3b6b3df8fa64632f584b6ebb21852f3a">ptPoint</a></div><div class="ttdeci">const arm_2d_location_t * ptPoint</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__tile_8h_source.html#l00565">arm_2d_tile.h:565</a></div></div>
-<div class="ttc" id="astruct____arm__2d__point__adj__alpha__t_html"><div class="ttname"><a href="struct____arm__2d__point__adj__alpha__t.html">__arm_2d_point_adj_alpha_t</a></div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00212">__arm_2d_impl.h:212</a></div></div>
-<div class="ttc" id="astruct____arm__2d__point__adj__alpha__t_html_a960060ab209df0f9be7bd76bcf8a5c39"><div class="ttname"><a href="struct____arm__2d__point__adj__alpha__t.html#a960060ab209df0f9be7bd76bcf8a5c39">__arm_2d_point_adj_alpha_t::chAlpha</a></div><div class="ttdeci">uint_fast8_t chAlpha</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00215">__arm_2d_impl.h:215</a></div></div>
-<div class="ttc" id="astruct____arm__2d__point__adj__alpha__t_html_aaa4cec909daf7fe98601288d2b3f890f"><div class="ttname"><a href="struct____arm__2d__point__adj__alpha__t.html#aaa4cec909daf7fe98601288d2b3f890f">__arm_2d_point_adj_alpha_t::tMatrix</a></div><div class="ttdeci">struct __arm_2d_point_adj_alpha_t::@1 tMatrix[4]</div></div>
-<div class="ttc" id="astruct____arm__2d__point__adj__alpha__t_html_adeabbb3cca2d507003a2cb0ff40b3841"><div class="ttname"><a href="struct____arm__2d__point__adj__alpha__t.html#adeabbb3cca2d507003a2cb0ff40b3841">__arm_2d_point_adj_alpha_t::tOffset</a></div><div class="ttdeci">arm_2d_location_t tOffset</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00214">__arm_2d_impl.h:214</a></div></div>
-<div class="ttc" id="astructarm__2d__location__t_html_a7c7434482f3a34f7e8340c56bf42f8b4"><div class="ttname"><a href="structarm__2d__location__t.html#a7c7434482f3a34f7e8340c56bf42f8b4">arm_2d_location_t::iX</a></div><div class="ttdeci">int16_t iX</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00282">arm_2d_types.h:282</a></div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="acc34261c4d0d2d2de2025032307e3dd2" name="acc34261c4d0d2d2de2025032307e3dd2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc34261c4d0d2d2de2025032307e3dd2">&#9670;&nbsp;</a></span>__arm_2d_point_get_adjacent_alpha_q16()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct____arm__2d__point__adj__alpha__t.html">__arm_2d_point_adj_alpha_t</a> __arm_2d_point_get_adjacent_alpha_q16 </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structarm__2d__point__fx__t.html">arm_2d_point_fx_t</a> *&#160;</td>
-          <td class="paramname"><em>ptPoint</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >&lt; x</p>
-<p >&lt; y</p>
-<p >&lt; x</p>
-<p >&lt; y</p>
-<p >&lt; x</p>
-<p >&lt; y</p>
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00216">216</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  217</span>{</div>
-<div class="line"><span class="lineno">  218</span>    assert(NULL != <a class="code hl_variable" href="arm__2d__tile_8h.html#a3b6b3df8fa64632f584b6ebb21852f3a">ptPoint</a>);</div>
-<div class="line"><span class="lineno">  219</span>    int32_t x = <a class="code hl_variable" href="arm__2d__tile_8h.html#a3b6b3df8fa64632f584b6ebb21852f3a">ptPoint</a>-&gt;X  &amp; 0xFFFF;</div>
-<div class="line"><span class="lineno">  220</span>    int32_t y = <a class="code hl_variable" href="arm__2d__tile_8h.html#a3b6b3df8fa64632f584b6ebb21852f3a">ptPoint</a>-&gt;Y  &amp; 0xFFFF;</div>
-<div class="line"><span class="lineno">  221</span> </div>
-<div class="line"><span class="lineno">  222</span>    x |= ((<a class="code hl_variable" href="arm__2d__tile_8h.html#a3b6b3df8fa64632f584b6ebb21852f3a">ptPoint</a>-&gt;X &lt; 0) * 0xFFFF0000);</div>
-<div class="line"><span class="lineno">  223</span>    y |= ((<a class="code hl_variable" href="arm__2d__tile_8h.html#a3b6b3df8fa64632f584b6ebb21852f3a">ptPoint</a>-&gt;Y &lt; 0) * 0xFFFF0000);</div>
-<div class="line"><span class="lineno">  224</span> </div>
-<div class="line"><span class="lineno">  225</span>    int_fast16_t iXSign = x &lt; 0;<span class="comment">// ? 1 : 0;</span></div>
-<div class="line"><span class="lineno">  226</span>    int_fast16_t iYSign = y &lt; 0;<span class="comment">// ? 1 : 0;</span></div>
-<div class="line"><span class="lineno">  227</span> </div>
-<div class="line"><span class="lineno">  228</span>    <a class="code hl_struct" href="struct____arm__2d__point__adj__alpha__t.html">__arm_2d_point_adj_alpha_t</a> tResult = {</div>
-<div class="line"><span class="lineno">  229</span>        .<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#aaa4cec909daf7fe98601288d2b3f890f">tMatrix</a> = {</div>
-<div class="line"><span class="lineno">  230</span>            [0] = {</div>
-<div class="line"><span class="lineno">  231</span>                .<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#adeabbb3cca2d507003a2cb0ff40b3841">tOffset</a> = {</div>
-<div class="line"><span class="lineno">  232</span>                    .<a class="code hl_variable" href="structarm__2d__location__t.html#a7c7434482f3a34f7e8340c56bf42f8b4">iX</a> = -iXSign,</div>
-<div class="line"><span class="lineno">  233</span>                    .iY = -iYSign,</div>
-<div class="line"><span class="lineno">  234</span>                },</div>
-<div class="line"><span class="lineno">  235</span><span class="preprocessor">            #if 0</span></div>
-<div class="line"><span class="lineno">  236</span>                .chAlpha = (uint8_t)__USAT(</div>
-<div class="line"><span class="lineno">  237</span>             <a class="code hl_define" href="____arm__2d__math_8h.html#a4ef0ba639a9c54743e098669d658998c">MUL_Q16</a>(<a class="code hl_define" href="____arm__2d__math_8h.html#a4ef0ba639a9c54743e098669d658998c">MUL_Q16</a>(   (<a class="code hl_define" href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a>(1-iXSign)   - x)        </div>
-<div class="line"><span class="lineno">  238</span>                            ,   (<a class="code hl_define" href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a>(1-iYSign)   - y))       </div>
-<div class="line"><span class="lineno">  239</span>                            ,   <a class="code hl_define" href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a>(256)</div>
-<div class="line"><span class="lineno">  240</span>                            ) &gt;&gt; 16, 8),</div>
-<div class="line"><span class="lineno">  241</span><span class="preprocessor">            #endif</span></div>
-<div class="line"><span class="lineno">  242</span>            },</div>
-<div class="line"><span class="lineno">  243</span>            [1] = {</div>
-<div class="line"><span class="lineno">  244</span>                .tOffset = {</div>
-<div class="line"><span class="lineno">  245</span>                    .iX = -iXSign + 1,</div>
-<div class="line"><span class="lineno">  246</span>                    .iY = -iYSign,</div>
-<div class="line"><span class="lineno">  247</span>                },</div>
-<div class="line"><span class="lineno">  248</span>                .chAlpha = (uint8_t)__USAT(</div>
-<div class="line"><span class="lineno">  249</span>             <a class="code hl_define" href="____arm__2d__math_8h.html#a4ef0ba639a9c54743e098669d658998c">MUL_Q16</a>(<a class="code hl_define" href="____arm__2d__math_8h.html#a4ef0ba639a9c54743e098669d658998c">MUL_Q16</a>(   (<a class="code hl_define" href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a>(iXSign)     + x)        </div>
-<div class="line"><span class="lineno">  250</span>                            ,   (<a class="code hl_define" href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a>(1-iYSign)   - y))       </div>
-<div class="line"><span class="lineno">  251</span>                            ,   <a class="code hl_define" href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a>(256)</div>
-<div class="line"><span class="lineno">  252</span>                            ) &gt;&gt; 16, 8),</div>
-<div class="line"><span class="lineno">  253</span>            },</div>
-<div class="line"><span class="lineno">  254</span>            [2] = {</div>
-<div class="line"><span class="lineno">  255</span>                .tOffset = {</div>
-<div class="line"><span class="lineno">  256</span>                    .iX = -iXSign,</div>
-<div class="line"><span class="lineno">  257</span>                    .iY = -iYSign + 1,</div>
-<div class="line"><span class="lineno">  258</span>                },</div>
-<div class="line"><span class="lineno">  259</span>                .chAlpha = (uint8_t)__USAT(</div>
-<div class="line"><span class="lineno">  260</span>             <a class="code hl_define" href="____arm__2d__math_8h.html#a4ef0ba639a9c54743e098669d658998c">MUL_Q16</a>(<a class="code hl_define" href="____arm__2d__math_8h.html#a4ef0ba639a9c54743e098669d658998c">MUL_Q16</a>(   (<a class="code hl_define" href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a>(1-iXSign)   - x)        </div>
-<div class="line"><span class="lineno">  261</span>                            ,   (<a class="code hl_define" href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a>(iYSign)     + y))       </div>
-<div class="line"><span class="lineno">  262</span>                            ,   <a class="code hl_define" href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a>(256)</div>
-<div class="line"><span class="lineno">  263</span>                            ) &gt;&gt; 16, 8),</div>
-<div class="line"><span class="lineno">  264</span>            },</div>
-<div class="line"><span class="lineno">  265</span>            [3] = {</div>
-<div class="line"><span class="lineno">  266</span>                .tOffset = {</div>
-<div class="line"><span class="lineno">  267</span>                    .iX = -iXSign + 1,</div>
-<div class="line"><span class="lineno">  268</span>                    .iY = -iYSign +1,</div>
-<div class="line"><span class="lineno">  269</span>                },</div>
-<div class="line"><span class="lineno">  270</span>                .chAlpha = (uint8_t)__USAT(</div>
-<div class="line"><span class="lineno">  271</span>             <a class="code hl_define" href="____arm__2d__math_8h.html#a4ef0ba639a9c54743e098669d658998c">MUL_Q16</a>(<a class="code hl_define" href="____arm__2d__math_8h.html#a4ef0ba639a9c54743e098669d658998c">MUL_Q16</a>(   (<a class="code hl_define" href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a>(iXSign)     + x)        </div>
-<div class="line"><span class="lineno">  272</span>                            ,   (<a class="code hl_define" href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a>(iYSign)     + y))       </div>
-<div class="line"><span class="lineno">  273</span>                            ,   <a class="code hl_define" href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a>(256)</div>
-<div class="line"><span class="lineno">  274</span>                            ) &gt;&gt; 16, 8),</div>
-<div class="line"><span class="lineno">  275</span>            },</div>
-<div class="line"><span class="lineno">  276</span>        },</div>
-<div class="line"><span class="lineno">  277</span>    };</div>
-<div class="line"><span class="lineno">  278</span><span class="preprocessor">#if 1</span></div>
-<div class="line"><span class="lineno">  279</span>    tResult.<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#aaa4cec909daf7fe98601288d2b3f890f">tMatrix</a>[0].<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#a960060ab209df0f9be7bd76bcf8a5c39">chAlpha</a>  = 256</div>
-<div class="line"><span class="lineno">  280</span>                                - tResult.<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#aaa4cec909daf7fe98601288d2b3f890f">tMatrix</a>[1].<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#a960060ab209df0f9be7bd76bcf8a5c39">chAlpha</a></div>
-<div class="line"><span class="lineno">  281</span>                                - tResult.<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#aaa4cec909daf7fe98601288d2b3f890f">tMatrix</a>[2].<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#a960060ab209df0f9be7bd76bcf8a5c39">chAlpha</a></div>
-<div class="line"><span class="lineno">  282</span>                                - tResult.<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#aaa4cec909daf7fe98601288d2b3f890f">tMatrix</a>[3].<a class="code hl_variable" href="struct____arm__2d__point__adj__alpha__t.html#a960060ab209df0f9be7bd76bcf8a5c39">chAlpha</a>;</div>
-<div class="line"><span class="lineno">  283</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  284</span> </div>
-<div class="line"><span class="lineno">  285</span>    <span class="keywordflow">return</span> tResult;</div>
-<div class="line"><span class="lineno">  286</span>}</div>
-<div class="ttc" id="a____arm__2d__math_8h_html_a4ef0ba639a9c54743e098669d658998c"><div class="ttname"><a href="____arm__2d__math_8h.html#a4ef0ba639a9c54743e098669d658998c">MUL_Q16</a></div><div class="ttdeci">#define MUL_Q16(x, y)</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__math_8h_source.html#l00112">__arm_2d_math.h:112</a></div></div>
-<div class="ttc" id="aarm__2d__transform_8c_html_ae4d6b00f640338228c69e4978ca10167"><div class="ttname"><a href="arm__2d__transform_8c.html#ae4d6b00f640338228c69e4978ca10167">TO_Q16</a></div><div class="ttdeci">#define TO_Q16(x)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8c_source.html#l00087">arm_2d_transform.c:87</a></div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a67bf14fa36736467364cecd802a490e7" name="a67bf14fa36736467364cecd802a490e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67bf14fa36736467364cecd802a490e7">&#9670;&nbsp;</a></span>__arm_2d_rgb565_sw_transform()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_rgb565_sw_transform </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *&#160;</td>
-          <td class="paramname"><em>ptTask</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00806">806</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  807</span>{</div>
-<div class="line"><span class="lineno">  808</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__trans__t.html">arm_2d_op_trans_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><span class="lineno">  809</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38">ARM_2D_COLOUR_RGB565</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.chScheme);</div>
-<div class="line"><span class="lineno">  810</span> </div>
-<div class="line"><span class="lineno">  811</span>    <a class="code hl_function" href="____arm__2d__direct_8h.html#a49ff0fb10c9950859ba9945a5c256dda">__arm_2d_impl_rgb565_transform</a>( &amp;(ptTask-&gt;Param.tCopyOrig),</div>
-<div class="line"><span class="lineno">  812</span>                                    &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno">  813</span> </div>
-<div class="line"><span class="lineno">  814</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
-<div class="line"><span class="lineno">  815</span>}</div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a49ff0fb10c9950859ba9945a5c256dda"><div class="ttname"><a href="____arm__2d__direct_8h.html#a49ff0fb10c9950859ba9945a5c256dda">__arm_2d_impl_rgb565_transform</a></div><div class="ttdeci">void __arm_2d_impl_rgb565_transform(__arm_2d_param_copy_orig_t *ptParam, __arm_2d_transform_info_t *ptInfo)</div></div>
-<div class="ttc" id="aarm__2d__types_8h_html_afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38"><div class="ttname"><a href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38">ARM_2D_COLOUR_RGB565</a></div><div class="ttdeci">@ ARM_2D_COLOUR_RGB565</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00234">arm_2d_types.h:234</a></div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>.</p>
-
-</div>
-</div>
-<a id="af3e9d41d01b06becc5caa36a5b22320a" name="af3e9d41d01b06becc5caa36a5b22320a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3e9d41d01b06becc5caa36a5b22320a">&#9670;&nbsp;</a></span>__arm_2d_rgb565_sw_transform_with_alpha()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_rgb565_sw_transform_with_alpha </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *&#160;</td>
-          <td class="paramname"><em>ptTask</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l00946">946</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  947</span>{</div>
-<div class="line"><span class="lineno">  948</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__trans__opa__t.html">arm_2d_op_trans_opa_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><span class="lineno">  949</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38">ARM_2D_COLOUR_RGB565</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.chScheme);</div>
-<div class="line"><span class="lineno">  950</span> </div>
-<div class="line"><span class="lineno">  951</span>    <span class="keywordflow">if</span> (255 == this.<a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#ab025c7acb6920ba4cf780b0bc2a715d2">chOpacity</a>) {</div>
-<div class="line"><span class="lineno">  952</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a49ff0fb10c9950859ba9945a5c256dda">__arm_2d_impl_rgb565_transform</a>( &amp;(ptTask-&gt;Param.tCopyOrig),</div>
-<div class="line"><span class="lineno">  953</span>                                        &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno">  954</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  955</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a8c24e04670a931498ef4c65034265f25">__arm_2d_impl_rgb565_transform_with_opacity</a>(   &amp;(ptTask-&gt;Param.tCopyOrig),</div>
-<div class="line"><span class="lineno">  956</span>                                                &amp;<span class="keyword">this</span>.tTransform,</div>
-<div class="line"><span class="lineno">  957</span>                                                <span class="keyword">this</span>.chOpacity);</div>
-<div class="line"><span class="lineno">  958</span>    }</div>
-<div class="line"><span class="lineno">  959</span> </div>
-<div class="line"><span class="lineno">  960</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
-<div class="line"><span class="lineno">  961</span>}</div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a8c24e04670a931498ef4c65034265f25"><div class="ttname"><a href="____arm__2d__direct_8h.html#a8c24e04670a931498ef4c65034265f25">__arm_2d_impl_rgb565_transform_with_opacity</a></div><div class="ttdeci">void __arm_2d_impl_rgb565_transform_with_opacity(__arm_2d_param_copy_orig_t *ptParam, __arm_2d_transform_info_t *ptInfo, uint_fast16_t hwRatio)</div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>.</p>
-
-</div>
-</div>
-<a id="ae516d7ce00b915012e8ae1b6df572ae9" name="ae516d7ce00b915012e8ae1b6df572ae9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae516d7ce00b915012e8ae1b6df572ae9">&#9670;&nbsp;</a></span>__arm_2d_rgb565_sw_transform_with_src_mask()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_rgb565_sw_transform_with_src_mask </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *&#160;</td>
-          <td class="paramname"><em>ptTask</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l01183">1183</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1184</span>{</div>
-<div class="line"><span class="lineno"> 1185</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__trans__msk__t.html">arm_2d_op_trans_msk_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><span class="lineno"> 1186</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38">ARM_2D_COLOUR_RGB565</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.chScheme);</div>
-<div class="line"><span class="lineno"> 1187</span> </div>
-<div class="line"><span class="lineno"> 1188</span><span class="preprocessor">#if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__</span></div>
-<div class="line"><span class="lineno"> 1189</span>    <span class="keywordtype">bool</span> bIsMaskChannel8In32 = (<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58">ARM_2D_CHANNEL_8in32</a></div>
-<div class="line"><span class="lineno"> 1190</span>            ==  ptTask-&gt;Param.tCopyOrigMask.tOrigMask.tColour.chScheme);</div>
-<div class="line"><span class="lineno"> 1191</span> </div>
-<div class="line"><span class="lineno"> 1192</span>    <span class="keywordflow">if</span> (bIsMaskChannel8In32) {</div>
-<div class="line"><span class="lineno"> 1193</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a89972504c9aefa2f2ad3b7d83f41c482">__arm_2d_impl_rgb565_transform_with_src_chn_mask</a>(</div>
-<div class="line"><span class="lineno"> 1194</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1195</span>                                                &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno"> 1196</span>    } <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1197</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno"> 1198</span>    {</div>
-<div class="line"><span class="lineno"> 1199</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a0ba9897b44467b218b92bd8164c5cba1">__arm_2d_impl_rgb565_transform_with_src_mask</a>(</div>
-<div class="line"><span class="lineno"> 1200</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1201</span>                                                &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno"> 1202</span>    }</div>
-<div class="line"><span class="lineno"> 1203</span> </div>
-<div class="line"><span class="lineno"> 1204</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
-<div class="line"><span class="lineno"> 1205</span>}</div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a0ba9897b44467b218b92bd8164c5cba1"><div class="ttname"><a href="____arm__2d__direct_8h.html#a0ba9897b44467b218b92bd8164c5cba1">__arm_2d_impl_rgb565_transform_with_src_mask</a></div><div class="ttdeci">void __arm_2d_impl_rgb565_transform_with_src_mask(__arm_2d_param_copy_orig_msk_t *ptParam, __arm_2d_transform_info_t *ptInfo)</div></div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a89972504c9aefa2f2ad3b7d83f41c482"><div class="ttname"><a href="____arm__2d__direct_8h.html#a89972504c9aefa2f2ad3b7d83f41c482">__arm_2d_impl_rgb565_transform_with_src_chn_mask</a></div><div class="ttdeci">void __arm_2d_impl_rgb565_transform_with_src_chn_mask(__arm_2d_param_copy_orig_msk_t *ptParam, __arm_2d_transform_info_t *ptInfo)</div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>.</p>
-
-</div>
-</div>
-<a id="abbdbdd2fe932cf3cd860a0c718bed057" name="abbdbdd2fe932cf3cd860a0c718bed057"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbdbdd2fe932cf3cd860a0c718bed057">&#9670;&nbsp;</a></span>__arm_2d_rgb565_sw_transform_with_src_mask_and_opacity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_rgb565_sw_transform_with_src_mask_and_opacity </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *&#160;</td>
-          <td class="paramname"><em>ptTask</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l01409">1409</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno"> 1410</span>{</div>
-<div class="line"><span class="lineno"> 1411</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__trans__msk__opa__t.html">arm_2d_op_trans_msk_opa_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><span class="lineno"> 1412</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38">ARM_2D_COLOUR_RGB565</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.chScheme);</div>
-<div class="line"><span class="lineno"> 1413</span> </div>
-<div class="line"><span class="lineno"> 1414</span><span class="preprocessor">#if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__</span></div>
-<div class="line"><span class="lineno"> 1415</span>    <span class="keywordtype">bool</span> bIsMaskChannel8In32 = (<a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58">ARM_2D_CHANNEL_8in32</a></div>
-<div class="line"><span class="lineno"> 1416</span>            ==  ptTask-&gt;Param.tCopyOrigMask.tOrigMask.tColour.chScheme);</div>
-<div class="line"><span class="lineno"> 1417</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno"> 1418</span> </div>
-<div class="line"><span class="lineno"> 1419</span>    <span class="keywordflow">if</span> (255 == this.<a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#ab025c7acb6920ba4cf780b0bc2a715d2">chOpacity</a>) {</div>
-<div class="line"><span class="lineno"> 1420</span><span class="preprocessor">    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__</span></div>
-<div class="line"><span class="lineno"> 1421</span>        <span class="keywordflow">if</span> (bIsMaskChannel8In32) {</div>
-<div class="line"><span class="lineno"> 1422</span>            <a class="code hl_function" href="____arm__2d__direct_8h.html#a89972504c9aefa2f2ad3b7d83f41c482">__arm_2d_impl_rgb565_transform_with_src_chn_mask</a>(</div>
-<div class="line"><span class="lineno"> 1423</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1424</span>                                                &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno"> 1425</span>        } <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1426</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno"> 1427</span>        {</div>
-<div class="line"><span class="lineno"> 1428</span>            <a class="code hl_function" href="____arm__2d__direct_8h.html#a0ba9897b44467b218b92bd8164c5cba1">__arm_2d_impl_rgb565_transform_with_src_mask</a>(</div>
-<div class="line"><span class="lineno"> 1429</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1430</span>                                                &amp;<span class="keyword">this</span>.tTransform);</div>
-<div class="line"><span class="lineno"> 1431</span>        }</div>
-<div class="line"><span class="lineno"> 1432</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno"> 1433</span><span class="preprocessor">    #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__</span></div>
-<div class="line"><span class="lineno"> 1434</span>        <span class="keywordflow">if</span> (bIsMaskChannel8In32) {</div>
-<div class="line"><span class="lineno"> 1435</span>            <a class="code hl_function" href="____arm__2d__direct_8h.html#a96daad6ad919eb0a5ef2fc4986aaec94">__arm_2d_impl_rgb565_transform_with_src_chn_mask_and_opacity</a>(</div>
-<div class="line"><span class="lineno"> 1436</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1437</span>                                                &amp;<span class="keyword">this</span>.tTransform,</div>
-<div class="line"><span class="lineno"> 1438</span>                                                <span class="keyword">this</span>.chOpacity);</div>
-<div class="line"><span class="lineno"> 1439</span>        } <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno"> 1440</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><span class="lineno"> 1441</span>        {</div>
-<div class="line"><span class="lineno"> 1442</span>            <a class="code hl_function" href="____arm__2d__direct_8h.html#a11914d9fab308f6eee39cb652d5ca975">__arm_2d_impl_rgb565_transform_with_src_mask_and_opacity</a>(</div>
-<div class="line"><span class="lineno"> 1443</span>                                                &amp;(ptTask-&gt;Param.tCopyOrigMask),</div>
-<div class="line"><span class="lineno"> 1444</span>                                                &amp;<span class="keyword">this</span>.tTransform,</div>
-<div class="line"><span class="lineno"> 1445</span>                                                <span class="keyword">this</span>.chOpacity);</div>
-<div class="line"><span class="lineno"> 1446</span>        }</div>
-<div class="line"><span class="lineno"> 1447</span>    }</div>
-<div class="line"><span class="lineno"> 1448</span> </div>
-<div class="line"><span class="lineno"> 1449</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
-<div class="line"><span class="lineno"> 1450</span>}</div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a11914d9fab308f6eee39cb652d5ca975"><div class="ttname"><a href="____arm__2d__direct_8h.html#a11914d9fab308f6eee39cb652d5ca975">__arm_2d_impl_rgb565_transform_with_src_mask_and_opacity</a></div><div class="ttdeci">void __arm_2d_impl_rgb565_transform_with_src_mask_and_opacity(__arm_2d_param_copy_orig_msk_t *ptParam, __arm_2d_transform_info_t *ptInfo, uint_fast16_t hwRatio)</div></div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a96daad6ad919eb0a5ef2fc4986aaec94"><div class="ttname"><a href="____arm__2d__direct_8h.html#a96daad6ad919eb0a5ef2fc4986aaec94">__arm_2d_impl_rgb565_transform_with_src_chn_mask_and_opacity</a></div><div class="ttdeci">void __arm_2d_impl_rgb565_transform_with_src_chn_mask_and_opacity(__arm_2d_param_copy_orig_msk_t *ptParam, __arm_2d_transform_info_t *ptInfo, uint_fast16_t hwRatio)</div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>.</p>
-
-</div>
-</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="abfe25527c148bf09da32f1a3136dd135" name="abfe25527c148bf09da32f1a3136dd135"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abfe25527c148bf09da32f1a3136dd135">&#9670;&nbsp;</a></span>ARM_2D_OP_TRANSFORM_CCCN888</h2>
@@ -1464,7 +209,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> ARM_2D_OP_TRANSFORM_CCCN888</td>
+          <td class="memname">const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_CCCN888</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1478,7 +223,7 @@ Variables</h2></td></tr>
 <div class="line">            .bHasOrigin             = <span class="keyword">true</span>,</div>
 <div class="line">            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line">        },</div>
-<div class="line">        .chOpIndex          = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba0b70a3b52f2749d53d871b9c3ef10ecf">__ARM_2D_OP_IDX_TRANSFORM</a>,</div>
+<div class="line">        .chOpIndex          = __ARM_2D_OP_IDX_TRANSFORM,</div>
 <div class="line">        .chInClassOffset    = <a class="code hl_define" href="arm__2d__utils_8h.html#a8a4dba3eaaa8e7d90abb2eff93092042">offsetof</a>(<a class="code hl_struct" href="structarm__2d__op__trans__t.html">arm_2d_op_trans_t</a>, tTransform),</div>
 <div class="line"> </div>
 <div class="line">        .LowLevelIO = {</div>
@@ -1487,10 +232,10 @@ Variables</h2></td></tr>
 <div class="line">        },</div>
 <div class="line">    },</div>
 <div class="line">}</div>
-<div class="ttc" id="a____arm__2d__impl_8h_html_a06fc87d81c62e9abb8790b6e5713c55ba0b70a3b52f2749d53d871b9c3ef10ecf"><div class="ttname"><a href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba0b70a3b52f2749d53d871b9c3ef10ecf">__ARM_2D_OP_IDX_TRANSFORM</a></div><div class="ttdeci">@ __ARM_2D_OP_IDX_TRANSFORM</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00259">__arm_2d_impl.h:259</a></div></div>
 <div class="ttc" id="aarm__2d__types_8h_html_afb730582952b7ceec73d7dc9bf7bef39a6507e9aa44de854d820857e988096852"><div class="ttname"><a href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39a6507e9aa44de854d820857e988096852">ARM_2D_COLOUR_CCCN888</a></div><div class="ttdeci">@ ARM_2D_COLOUR_CCCN888</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00244">arm_2d_types.h:244</a></div></div>
 <div class="ttc" id="aarm__2d__utils_8h_html_a8a4dba3eaaa8e7d90abb2eff93092042"><div class="ttname"><a href="arm__2d__utils_8h.html#a8a4dba3eaaa8e7d90abb2eff93092042">offsetof</a></div><div class="ttdeci">#define offsetof(__type, __member)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00169">arm_2d_utils.h:169</a></div></div>
 <div class="ttc" id="aarm__2d__utils_8h_html_ae3cfa68806c0c6c9fa7bb2a36453eef5"><div class="ttname"><a href="arm__2d__utils_8h.html#ae3cfa68806c0c6c9fa7bb2a36453eef5">ref_low_lv_io</a></div><div class="ttdeci">#define ref_low_lv_io(__NAME)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00444">arm_2d_utils.h:444</a></div></div>
+<div class="ttc" id="astructarm__2d__op__trans__t_html"><div class="ttname"><a href="structarm__2d__op__trans__t.html">arm_2d_op_trans_t</a></div><div class="ttdoc">arm_2d_op_trans_t is inherit from arm_2d_op_src_orig_t</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8h_source.html#l03370">arm_2d_transform.h:3370</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l01633">1633</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
 
@@ -1503,7 +248,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> ARM_2D_OP_TRANSFORM_GRAY8</td>
+          <td class="memname">const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_GRAY8</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1517,7 +262,7 @@ Variables</h2></td></tr>
 <div class="line">            .bHasOrigin             = <span class="keyword">true</span>,</div>
 <div class="line">            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line">        },</div>
-<div class="line">        .chOpIndex          = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba0b70a3b52f2749d53d871b9c3ef10ecf">__ARM_2D_OP_IDX_TRANSFORM</a>,</div>
+<div class="line">        .chOpIndex          = __ARM_2D_OP_IDX_TRANSFORM,</div>
 <div class="line">        .chInClassOffset    = <a class="code hl_define" href="arm__2d__utils_8h.html#a8a4dba3eaaa8e7d90abb2eff93092042">offsetof</a>(<a class="code hl_struct" href="structarm__2d__op__trans__t.html">arm_2d_op_trans_t</a>, tTransform),</div>
 <div class="line"> </div>
 <div class="line">        .LowLevelIO = {</div>
@@ -1526,6 +271,7 @@ Variables</h2></td></tr>
 <div class="line">        },</div>
 <div class="line">    },</div>
 <div class="line">}</div>
+<div class="ttc" id="aarm__2d__types_8h_html_afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185"><div class="ttname"><a href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185">ARM_2D_COLOUR_8BIT</a></div><div class="ttdeci">@ ARM_2D_COLOUR_8BIT</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00229">arm_2d_types.h:229</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l01592">1592</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
 
@@ -1538,7 +284,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> ARM_2D_OP_TRANSFORM_RGB565</td>
+          <td class="memname">const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_RGB565</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1552,7 +298,7 @@ Variables</h2></td></tr>
 <div class="line">            .bHasOrigin             = <span class="keyword">true</span>,</div>
 <div class="line">            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line">        },</div>
-<div class="line">        .chOpIndex          = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba0b70a3b52f2749d53d871b9c3ef10ecf">__ARM_2D_OP_IDX_TRANSFORM</a>,</div>
+<div class="line">        .chOpIndex          = __ARM_2D_OP_IDX_TRANSFORM,</div>
 <div class="line">        .chInClassOffset    = <a class="code hl_define" href="arm__2d__utils_8h.html#a8a4dba3eaaa8e7d90abb2eff93092042">offsetof</a>(<a class="code hl_struct" href="structarm__2d__op__trans__t.html">arm_2d_op_trans_t</a>, tTransform),</div>
 <div class="line"> </div>
 <div class="line">        .LowLevelIO = {</div>
@@ -1561,6 +307,7 @@ Variables</h2></td></tr>
 <div class="line">        },</div>
 <div class="line">    },</div>
 <div class="line">}</div>
+<div class="ttc" id="aarm__2d__types_8h_html_afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38"><div class="ttname"><a href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38">ARM_2D_COLOUR_RGB565</a></div><div class="ttdeci">@ ARM_2D_COLOUR_RGB565</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00234">arm_2d_types.h:234</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l01612">1612</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
 
@@ -1573,7 +320,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> ARM_2D_OP_TRANSFORM_WITH_OPACITY_CCCN888</td>
+          <td class="memname">const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_OPACITY_CCCN888</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1587,7 +334,7 @@ Variables</h2></td></tr>
 <div class="line">            .bHasOrigin             = <span class="keyword">true</span>,</div>
 <div class="line">            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line">        },</div>
-<div class="line">        .chOpIndex          = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55baf269137c1408bd8ef4793a3fa63cd9e7">__ARM_2D_OP_IDX_TRANSFORM_WITH_OPACITY</a>,</div>
+<div class="line">        .chOpIndex          = __ARM_2D_OP_IDX_TRANSFORM_WITH_OPACITY,</div>
 <div class="line">        .chInClassOffset    = <a class="code hl_define" href="arm__2d__utils_8h.html#a8a4dba3eaaa8e7d90abb2eff93092042">offsetof</a>(<a class="code hl_struct" href="structarm__2d__op__trans__opa__t.html">arm_2d_op_trans_opa_t</a>, tTransform),</div>
 <div class="line"> </div>
 <div class="line">        .LowLevelIO = {</div>
@@ -1596,7 +343,7 @@ Variables</h2></td></tr>
 <div class="line">        },</div>
 <div class="line">    },</div>
 <div class="line">}</div>
-<div class="ttc" id="a____arm__2d__impl_8h_html_a06fc87d81c62e9abb8790b6e5713c55baf269137c1408bd8ef4793a3fa63cd9e7"><div class="ttname"><a href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55baf269137c1408bd8ef4793a3fa63cd9e7">__ARM_2D_OP_IDX_TRANSFORM_WITH_OPACITY</a></div><div class="ttdeci">@ __ARM_2D_OP_IDX_TRANSFORM_WITH_OPACITY</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00264">__arm_2d_impl.h:264</a></div></div>
+<div class="ttc" id="astructarm__2d__op__trans__opa__t_html"><div class="ttname"><a href="structarm__2d__op__trans__opa__t.html">arm_2d_op_trans_opa_t</a></div><div class="ttdoc">arm_2d_op_trans_opa_t is inherit from arm_2d_op_trans_t</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8h_source.html#l03393">arm_2d_transform.h:3393</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l01695">1695</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
 
@@ -1609,7 +356,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> ARM_2D_OP_TRANSFORM_WITH_OPACITY_GRAY8</td>
+          <td class="memname">const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_OPACITY_GRAY8</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1623,7 +370,7 @@ Variables</h2></td></tr>
 <div class="line">            .bHasOrigin             = <span class="keyword">true</span>,</div>
 <div class="line">            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line">        },</div>
-<div class="line">        .chOpIndex          = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55baf269137c1408bd8ef4793a3fa63cd9e7">__ARM_2D_OP_IDX_TRANSFORM_WITH_OPACITY</a>,</div>
+<div class="line">        .chOpIndex          = __ARM_2D_OP_IDX_TRANSFORM_WITH_OPACITY,</div>
 <div class="line">        .chInClassOffset    = <a class="code hl_define" href="arm__2d__utils_8h.html#a8a4dba3eaaa8e7d90abb2eff93092042">offsetof</a>(<a class="code hl_struct" href="structarm__2d__op__trans__opa__t.html">arm_2d_op_trans_opa_t</a>, tTransform),</div>
 <div class="line"> </div>
 <div class="line">        .LowLevelIO = {</div>
@@ -1632,6 +379,7 @@ Variables</h2></td></tr>
 <div class="line">        },</div>
 <div class="line">    },</div>
 <div class="line">}</div>
+<div class="ttc" id="aarm__2d__types_8h_html_afb730582952b7ceec73d7dc9bf7bef39ae30b45e21340e05f42d705d24c0958dd"><div class="ttname"><a href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ae30b45e21340e05f42d705d24c0958dd">ARM_2D_COLOUR_GRAY8</a></div><div class="ttdeci">@ ARM_2D_COLOUR_GRAY8</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00230">arm_2d_types.h:230</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l01653">1653</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
 
@@ -1644,7 +392,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> ARM_2D_OP_TRANSFORM_WITH_OPACITY_RGB565</td>
+          <td class="memname">const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_OPACITY_RGB565</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1658,7 +406,7 @@ Variables</h2></td></tr>
 <div class="line">            .bHasOrigin             = <span class="keyword">true</span>,</div>
 <div class="line">            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line">        },</div>
-<div class="line">        .chOpIndex          = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55baf269137c1408bd8ef4793a3fa63cd9e7">__ARM_2D_OP_IDX_TRANSFORM_WITH_OPACITY</a>,</div>
+<div class="line">        .chOpIndex          = __ARM_2D_OP_IDX_TRANSFORM_WITH_OPACITY,</div>
 <div class="line">        .chInClassOffset    = <a class="code hl_define" href="arm__2d__utils_8h.html#a8a4dba3eaaa8e7d90abb2eff93092042">offsetof</a>(<a class="code hl_struct" href="structarm__2d__op__trans__opa__t.html">arm_2d_op_trans_opa_t</a>, tTransform),</div>
 <div class="line"> </div>
 <div class="line">        .LowLevelIO = {</div>
@@ -1679,7 +427,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_CCCN888</td>
+          <td class="memname">const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_CCCN888</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1694,7 +442,7 @@ Variables</h2></td></tr>
 <div class="line">            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line">            .bHasSrcMask            = <span class="keyword">true</span>,</div>
 <div class="line">        },</div>
-<div class="line">        .chOpIndex          = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba5f3754670465054db6f721053d537871">__ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK_AND_OPACITY</a>,</div>
+<div class="line">        .chOpIndex          = __ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK_AND_OPACITY,</div>
 <div class="line">        .chInClassOffset    = <a class="code hl_define" href="arm__2d__utils_8h.html#a8a4dba3eaaa8e7d90abb2eff93092042">offsetof</a>(<a class="code hl_struct" href="structarm__2d__op__trans__msk__opa__t.html">arm_2d_op_trans_msk_opa_t</a>, tTransform),</div>
 <div class="line"> </div>
 <div class="line">        .LowLevelIO = {</div>
@@ -1703,7 +451,7 @@ Variables</h2></td></tr>
 <div class="line">        },</div>
 <div class="line">    },</div>
 <div class="line">}</div>
-<div class="ttc" id="a____arm__2d__impl_8h_html_a06fc87d81c62e9abb8790b6e5713c55ba5f3754670465054db6f721053d537871"><div class="ttname"><a href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba5f3754670465054db6f721053d537871">__ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK_AND_OPACITY</a></div><div class="ttdeci">@ __ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK_AND_OPACITY</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00266">__arm_2d_impl.h:266</a></div></div>
+<div class="ttc" id="astructarm__2d__op__trans__msk__opa__t_html"><div class="ttname"><a href="structarm__2d__op__trans__msk__opa__t.html">arm_2d_op_trans_msk_opa_t</a></div><div class="ttdoc">arm_2d_op_trans_msk_t is inherit from arm_2d_op_trans_msk_t</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8h_source.html#l03444">arm_2d_transform.h:3444</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l01823">1823</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
 
@@ -1716,7 +464,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_GRAY8</td>
+          <td class="memname">const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_GRAY8</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1731,7 +479,7 @@ Variables</h2></td></tr>
 <div class="line">            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line">            .bHasSrcMask            = <span class="keyword">true</span>,</div>
 <div class="line">        },</div>
-<div class="line">        .chOpIndex          = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba5f3754670465054db6f721053d537871">__ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK_AND_OPACITY</a>,</div>
+<div class="line">        .chOpIndex          = __ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK_AND_OPACITY,</div>
 <div class="line">        .chInClassOffset    = <a class="code hl_define" href="arm__2d__utils_8h.html#a8a4dba3eaaa8e7d90abb2eff93092042">offsetof</a>(<a class="code hl_struct" href="structarm__2d__op__trans__msk__opa__t.html">arm_2d_op_trans_msk_opa_t</a>, tTransform),</div>
 <div class="line"> </div>
 <div class="line">        .LowLevelIO = {</div>
@@ -1752,7 +500,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_RGB565</td>
+          <td class="memname">const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_AND_OPACITY_RGB565</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1767,7 +515,7 @@ Variables</h2></td></tr>
 <div class="line">            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line">            .bHasSrcMask            = <span class="keyword">true</span>,</div>
 <div class="line">        },</div>
-<div class="line">        .chOpIndex          = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba5f3754670465054db6f721053d537871">__ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK_AND_OPACITY</a>,</div>
+<div class="line">        .chOpIndex          = __ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK_AND_OPACITY,</div>
 <div class="line">        .chInClassOffset    = <a class="code hl_define" href="arm__2d__utils_8h.html#a8a4dba3eaaa8e7d90abb2eff93092042">offsetof</a>(<a class="code hl_struct" href="structarm__2d__op__trans__msk__opa__t.html">arm_2d_op_trans_msk_opa_t</a>, tTransform),</div>
 <div class="line"> </div>
 <div class="line">        .LowLevelIO = {</div>
@@ -1788,7 +536,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_CCCN888</td>
+          <td class="memname">const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_CCCN888</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1803,7 +551,7 @@ Variables</h2></td></tr>
 <div class="line">            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line">            .bHasSrcMask            = <span class="keyword">true</span>,</div>
 <div class="line">        },</div>
-<div class="line">        .chOpIndex          = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55bad140bc34bc207c68b16c87cbcb34906b">__ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK</a>,</div>
+<div class="line">        .chOpIndex          = __ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK,</div>
 <div class="line">        .chInClassOffset    = <a class="code hl_define" href="arm__2d__utils_8h.html#a8a4dba3eaaa8e7d90abb2eff93092042">offsetof</a>(<a class="code hl_struct" href="structarm__2d__op__trans__msk__t.html">arm_2d_op_trans_msk_t</a>, tTransform),</div>
 <div class="line"> </div>
 <div class="line">        .LowLevelIO = {</div>
@@ -1812,7 +560,7 @@ Variables</h2></td></tr>
 <div class="line">        },</div>
 <div class="line">    },</div>
 <div class="line">}</div>
-<div class="ttc" id="a____arm__2d__impl_8h_html_a06fc87d81c62e9abb8790b6e5713c55bad140bc34bc207c68b16c87cbcb34906b"><div class="ttname"><a href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55bad140bc34bc207c68b16c87cbcb34906b">__ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK</a></div><div class="ttdeci">@ __ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00261">__arm_2d_impl.h:261</a></div></div>
+<div class="ttc" id="astructarm__2d__op__trans__msk__t_html"><div class="ttname"><a href="structarm__2d__op__trans__msk__t.html">arm_2d_op_trans_msk_t</a></div><div class="ttdoc">arm_2d_op_trans_msk_t is inherit from arm_2d_op_src_orig_msk_t</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8h_source.html#l03417">arm_2d_transform.h:3417</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="arm__2d__transform_8c_source.html#l01758">1758</a> of file <a class="el" href="arm__2d__transform_8c_source.html">arm_2d_transform.c</a>.</p>
 
@@ -1825,7 +573,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_GRAY8</td>
+          <td class="memname">const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_GRAY8</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1840,7 +588,7 @@ Variables</h2></td></tr>
 <div class="line">            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line">            .bHasSrcMask            = <span class="keyword">true</span>,</div>
 <div class="line">        },</div>
-<div class="line">        .chOpIndex          = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55bad140bc34bc207c68b16c87cbcb34906b">__ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK</a>,</div>
+<div class="line">        .chOpIndex          = __ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK,</div>
 <div class="line">        .chInClassOffset    = <a class="code hl_define" href="arm__2d__utils_8h.html#a8a4dba3eaaa8e7d90abb2eff93092042">offsetof</a>(<a class="code hl_struct" href="structarm__2d__op__trans__msk__t.html">arm_2d_op_trans_msk_t</a>, tTransform),</div>
 <div class="line"> </div>
 <div class="line">        .LowLevelIO = {</div>
@@ -1861,7 +609,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_RGB565</td>
+          <td class="memname">const __arm_2d_op_info_t ARM_2D_OP_TRANSFORM_WITH_SRC_MSK_RGB565</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1876,7 +624,7 @@ Variables</h2></td></tr>
 <div class="line">            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line">            .bHasSrcMask            = <span class="keyword">true</span>,</div>
 <div class="line">        },</div>
-<div class="line">        .chOpIndex          = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55bad140bc34bc207c68b16c87cbcb34906b">__ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK</a>,</div>
+<div class="line">        .chOpIndex          = __ARM_2D_OP_IDX_TRANSFORM_WITH_SOURCE_MASK,</div>
 <div class="line">        .chInClassOffset    = <a class="code hl_define" href="arm__2d__utils_8h.html#a8a4dba3eaaa8e7d90abb2eff93092042">offsetof</a>(<a class="code hl_struct" href="structarm__2d__op__trans__msk__t.html">arm_2d_op_trans_msk_t</a>, tTransform),</div>
 <div class="line"> </div>
 <div class="line">        .LowLevelIO = {</div>

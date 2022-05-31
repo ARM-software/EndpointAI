@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -95,102 +97,97 @@ $(document).ready(function(){initNavTree('structarm__2d__op__src__t.html',''); i
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:aeee29fc44b864400610e9637266e78fa"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:aa41387d05ba40b11feb3466fede554b9"><td class="memItemLeft" >&#160;&#160;&#160;const <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a> *&#160;&#160;&#160;<a class="el" href="structarm__2d__op__src__t.html#aa41387d05ba40b11feb3466fede554b9">ptTile</a></td></tr>
-<tr class="memdesc:aa41387d05ba40b11feb3466fede554b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">target tile  <a href="structarm__2d__op__src__t.html#aa41387d05ba40b11feb3466fede554b9">More...</a><br /></td></tr>
-<tr class="separator:aa41387d05ba40b11feb3466fede554b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82c16810860a7a9d6e69d24bb3fccaa5"><td class="memItemLeft" >&#160;&#160;&#160;const <a class="el" href="structarm__2d__region__t.html">arm_2d_region_t</a> *&#160;&#160;&#160;<a class="el" href="structarm__2d__op__src__t.html#a82c16810860a7a9d6e69d24bb3fccaa5">ptRegion</a></td></tr>
-<tr class="memdesc:a82c16810860a7a9d6e69d24bb3fccaa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">target region  <a href="structarm__2d__op__src__t.html#a82c16810860a7a9d6e69d24bb3fccaa5">More...</a><br /></td></tr>
-<tr class="separator:a82c16810860a7a9d6e69d24bb3fccaa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeee29fc44b864400610e9637266e78fa"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__op__src__t.html#aeee29fc44b864400610e9637266e78fa">Target</a></td></tr>
-<tr class="separator:aeee29fc44b864400610e9637266e78fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3f000cb262522dd5c3e089575915f08"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:aa41387d05ba40b11feb3466fede554b9"><td class="memItemLeft" >&#160;&#160;&#160;const <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a> *&#160;&#160;&#160;<a class="el" href="structarm__2d__op__src__t.html#aa41387d05ba40b11feb3466fede554b9">ptTile</a></td></tr>
-<tr class="memdesc:aa41387d05ba40b11feb3466fede554b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">source tile  <a href="structarm__2d__op__src__t.html#aa41387d05ba40b11feb3466fede554b9">More...</a><br /></td></tr>
-<tr class="separator:aa41387d05ba40b11feb3466fede554b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3f000cb262522dd5c3e089575915f08"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__op__src__t.html#aa3f000cb262522dd5c3e089575915f08">Source</a></td></tr>
-<tr class="separator:aa3f000cb262522dd5c3e089575915f08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92f31b7d7248207c28fb4009a944a919"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__op__src__t.html#a92f31b7d7248207c28fb4009a944a919">wMode</a></td></tr>
-<tr class="separator:a92f31b7d7248207c28fb4009a944a919"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31870be9f89cbacc4f2c52bff985bb2b"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a0db672f30462b868b1a3505f30136151"><td class="memItemLeft" >&#160;&#160;&#160;const <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a> *&#160;&#160;&#160;<a class="el" href="structarm__2d__op__src__t.html#a3f085854a3e47c03748a2a075651b947">ptTile</a></td></tr>
+<tr class="memdesc:a0db672f30462b868b1a3505f30136151"><td class="mdescLeft">&#160;</td><td class="mdescRight">target tile  <a href="structarm__2d__op__src__t.html#a3f085854a3e47c03748a2a075651b947">More...</a><br /></td></tr>
+<tr class="separator:a0db672f30462b868b1a3505f30136151"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a31eacbe050dd01c888ecdfb8d5c2de"><td class="memItemLeft" >&#160;&#160;&#160;const <a class="el" href="structarm__2d__region__t.html">arm_2d_region_t</a> *&#160;&#160;&#160;<a class="el" href="structarm__2d__op__src__t.html#adc33ae8e37a2291d82fec05b75a9c354">ptRegion</a></td></tr>
+<tr class="memdesc:a4a31eacbe050dd01c888ecdfb8d5c2de"><td class="mdescLeft">&#160;</td><td class="mdescRight">target region  <a href="structarm__2d__op__src__t.html#adc33ae8e37a2291d82fec05b75a9c354">More...</a><br /></td></tr>
+<tr class="separator:a4a31eacbe050dd01c888ecdfb8d5c2de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31870be9f89cbacc4f2c52bff985bb2b"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__op__src__t.html#a31870be9f89cbacc4f2c52bff985bb2b">Target</a></td></tr>
+<tr class="separator:a31870be9f89cbacc4f2c52bff985bb2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00c711b504b38be334653d791a9ba899"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:ae7977cb5b566a3bef42c412345af77c7"><td class="memItemLeft" >&#160;&#160;&#160;const <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a> *&#160;&#160;&#160;<a class="el" href="structarm__2d__op__src__t.html#a3f085854a3e47c03748a2a075651b947">ptTile</a></td></tr>
+<tr class="memdesc:ae7977cb5b566a3bef42c412345af77c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">source tile  <a href="structarm__2d__op__src__t.html#a3f085854a3e47c03748a2a075651b947">More...</a><br /></td></tr>
+<tr class="separator:ae7977cb5b566a3bef42c412345af77c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00c711b504b38be334653d791a9ba899"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__op__src__t.html#a00c711b504b38be334653d791a9ba899">Source</a></td></tr>
+<tr class="separator:a00c711b504b38be334653d791a9ba899"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8a2efb7eaffd7bfff37e88b38bc2ec6"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__op__src__t.html#ad8a2efb7eaffd7bfff37e88b38bc2ec6">wMode</a></td></tr>
+<tr class="separator:ad8a2efb7eaffd7bfff37e88b38bc2ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p ><a class="el" href="structarm__2d__op__src__t.html" title="arm_2d_op_src_t is inherit from arm_2d_op_t">arm_2d_op_src_t</a> is inherit from <a class="el" href="structarm__2d__op__t.html">arm_2d_op_t</a> </p>
-
+<div class="textblock">
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00508">508</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="a82c16810860a7a9d6e69d24bb3fccaa5" name="a82c16810860a7a9d6e69d24bb3fccaa5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82c16810860a7a9d6e69d24bb3fccaa5">&#9670;&nbsp;</a></span>ptRegion</h2>
+<a id="adc33ae8e37a2291d82fec05b75a9c354" name="adc33ae8e37a2291d82fec05b75a9c354"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc33ae8e37a2291d82fec05b75a9c354">&#9670;&nbsp;</a></span>ptRegion</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structarm__2d__region__t.html">arm_2d_region_t</a>* ptRegion</td>
+          <td class="memname">const <a class="el" href="structarm__2d__region__t.html">arm_2d_region_t</a>* arm_2d_op_src_t::ptRegion</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>target region </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00512">512</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="aa41387d05ba40b11feb3466fede554b9" name="aa41387d05ba40b11feb3466fede554b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa41387d05ba40b11feb3466fede554b9">&#9670;&nbsp;</a></span>ptTile</h2>
+<a id="a3f085854a3e47c03748a2a075651b947" name="a3f085854a3e47c03748a2a075651b947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f085854a3e47c03748a2a075651b947">&#9670;&nbsp;</a></span>ptTile</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a>* ptTile</td>
+          <td class="memname">const <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a>* arm_2d_op_src_t::ptTile</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>target tile </p>
 <p >source tile </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00511">511</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="aa3f000cb262522dd5c3e089575915f08" name="aa3f000cb262522dd5c3e089575915f08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3f000cb262522dd5c3e089575915f08">&#9670;&nbsp;</a></span></h2>
+<a id="a00c711b504b38be334653d791a9ba899" name="a00c711b504b38be334653d791a9ba899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00c711b504b38be334653d791a9ba899">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct  { ... }  Source</td>
+          <td class="memname">struct  { ... }  arm_2d_op_src_t::Source</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aeee29fc44b864400610e9637266e78fa" name="aeee29fc44b864400610e9637266e78fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeee29fc44b864400610e9637266e78fa">&#9670;&nbsp;</a></span></h2>
+<a id="a31870be9f89cbacc4f2c52bff985bb2b" name="a31870be9f89cbacc4f2c52bff985bb2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31870be9f89cbacc4f2c52bff985bb2b">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct  { ... }  Target</td>
+          <td class="memname">struct  { ... }  arm_2d_op_src_t::Target</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a92f31b7d7248207c28fb4009a944a919" name="a92f31b7d7248207c28fb4009a944a919"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92f31b7d7248207c28fb4009a944a919">&#9670;&nbsp;</a></span>wMode</h2>
+<a id="ad8a2efb7eaffd7bfff37e88b38bc2ec6" name="ad8a2efb7eaffd7bfff37e88b38bc2ec6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8a2efb7eaffd7bfff37e88b38bc2ec6">&#9670;&nbsp;</a></span>wMode</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t wMode</td>
+          <td class="memname">uint32_t arm_2d_op_src_t::wMode</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -199,9 +196,6 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/<a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

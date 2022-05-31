@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -92,64 +94,60 @@ $(document).ready(function(){initNavTree('structarm__2d__helper__pfb__dependency
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:ad56d8030e4718650c03967af46322410"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structarm__2d__helper__render__evt__t.html">arm_2d_helper_render_evt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__helper__pfb__dependency__t.html#ad56d8030e4718650c03967af46322410">evtOnLowLevelRendering</a></td></tr>
-<tr class="memdesc:ad56d8030e4718650c03967af46322410"><td class="mdescLeft">&#160;</td><td class="mdescRight">event handler for low level rendering  <a href="structarm__2d__helper__pfb__dependency__t.html#ad56d8030e4718650c03967af46322410">More...</a><br /></td></tr>
-<tr class="separator:ad56d8030e4718650c03967af46322410"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50e791f78e44e70b3b361b2cce610de3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structarm__2d__helper__draw__evt__t.html">arm_2d_helper_draw_evt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__helper__pfb__dependency__t.html#a50e791f78e44e70b3b361b2cce610de3">evtOnDrawing</a></td></tr>
-<tr class="memdesc:a50e791f78e44e70b3b361b2cce610de3"><td class="mdescLeft">&#160;</td><td class="mdescRight">low level rendering handler wants to sync-up (return arm_fsm_rt_wait_for_obj)  <a href="structarm__2d__helper__pfb__dependency__t.html#a50e791f78e44e70b3b361b2cce610de3">More...</a><br /></td></tr>
-<tr class="separator:a50e791f78e44e70b3b361b2cce610de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa52352d8e07628b81a5b94a25687d8b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structarm__2d__evt__t.html">arm_2d_evt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__helper__pfb__dependency__t.html#aa52352d8e07628b81a5b94a25687d8b4">evtOnLowLevelSyncUp</a></td></tr>
-<tr class="separator:aa52352d8e07628b81a5b94a25687d8b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85bd7ad0d6a3c150a6ef8ac6ee9aaeed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structarm__2d__helper__render__evt__t.html">arm_2d_helper_render_evt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__helper__pfb__dependency__t.html#a85bd7ad0d6a3c150a6ef8ac6ee9aaeed">evtOnLowLevelRendering</a></td></tr>
+<tr class="memdesc:a85bd7ad0d6a3c150a6ef8ac6ee9aaeed"><td class="mdescLeft">&#160;</td><td class="mdescRight">event handler for low level rendering  <a href="structarm__2d__helper__pfb__dependency__t.html#a85bd7ad0d6a3c150a6ef8ac6ee9aaeed">More...</a><br /></td></tr>
+<tr class="separator:a85bd7ad0d6a3c150a6ef8ac6ee9aaeed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75436e9711701c092b4bafcc1c868d25"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structarm__2d__helper__draw__evt__t.html">arm_2d_helper_draw_evt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__helper__pfb__dependency__t.html#a75436e9711701c092b4bafcc1c868d25">evtOnDrawing</a></td></tr>
+<tr class="memdesc:a75436e9711701c092b4bafcc1c868d25"><td class="mdescLeft">&#160;</td><td class="mdescRight">low level rendering handler wants to sync-up (return arm_fsm_rt_wait_for_obj)  <a href="structarm__2d__helper__pfb__dependency__t.html#a75436e9711701c092b4bafcc1c868d25">More...</a><br /></td></tr>
+<tr class="separator:a75436e9711701c092b4bafcc1c868d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ed423f1f6490f8cc89abd55f886f4cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structarm__2d__evt__t.html">arm_2d_evt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__helper__pfb__dependency__t.html#a0ed423f1f6490f8cc89abd55f886f4cd">evtOnLowLevelSyncUp</a></td></tr>
+<tr class="separator:a0ed423f1f6490f8cc89abd55f886f4cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="arm__2d__helper__pfb_8h_source.html#l00229">229</a> of file <a class="el" href="arm__2d__helper__pfb_8h_source.html">arm_2d_helper_pfb.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="a50e791f78e44e70b3b361b2cce610de3" name="a50e791f78e44e70b3b361b2cce610de3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50e791f78e44e70b3b361b2cce610de3">&#9670;&nbsp;</a></span>evtOnDrawing</h2>
+<a id="a75436e9711701c092b4bafcc1c868d25" name="a75436e9711701c092b4bafcc1c868d25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75436e9711701c092b4bafcc1c868d25">&#9670;&nbsp;</a></span>evtOnDrawing</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structarm__2d__helper__draw__evt__t.html">arm_2d_helper_draw_evt_t</a> evtOnDrawing</td>
+          <td class="memname"><a class="el" href="structarm__2d__helper__draw__evt__t.html">arm_2d_helper_draw_evt_t</a> arm_2d_helper_pfb_dependency_t::evtOnDrawing</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>low level rendering handler wants to sync-up (return arm_fsm_rt_wait_for_obj) </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__helper__pfb_8h_source.html#l00234">234</a> of file <a class="el" href="arm__2d__helper__pfb_8h_source.html">arm_2d_helper_pfb.h</a>.</p>
 
 </div>
 </div>
-<a id="ad56d8030e4718650c03967af46322410" name="ad56d8030e4718650c03967af46322410"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad56d8030e4718650c03967af46322410">&#9670;&nbsp;</a></span>evtOnLowLevelRendering</h2>
+<a id="a85bd7ad0d6a3c150a6ef8ac6ee9aaeed" name="a85bd7ad0d6a3c150a6ef8ac6ee9aaeed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85bd7ad0d6a3c150a6ef8ac6ee9aaeed">&#9670;&nbsp;</a></span>evtOnLowLevelRendering</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structarm__2d__helper__render__evt__t.html">arm_2d_helper_render_evt_t</a> evtOnLowLevelRendering</td>
+          <td class="memname"><a class="el" href="structarm__2d__helper__render__evt__t.html">arm_2d_helper_render_evt_t</a> arm_2d_helper_pfb_dependency_t::evtOnLowLevelRendering</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>event handler for low level rendering </p>
 <p >event handler for drawing GUI </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__helper__pfb_8h_source.html#l00231">231</a> of file <a class="el" href="arm__2d__helper__pfb_8h_source.html">arm_2d_helper_pfb.h</a>.</p>
 
 </div>
 </div>
-<a id="aa52352d8e07628b81a5b94a25687d8b4" name="aa52352d8e07628b81a5b94a25687d8b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa52352d8e07628b81a5b94a25687d8b4">&#9670;&nbsp;</a></span>evtOnLowLevelSyncUp</h2>
+<a id="a0ed423f1f6490f8cc89abd55f886f4cd" name="a0ed423f1f6490f8cc89abd55f886f4cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ed423f1f6490f8cc89abd55f886f4cd">&#9670;&nbsp;</a></span>evtOnLowLevelSyncUp</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structarm__2d__evt__t.html">arm_2d_evt_t</a> evtOnLowLevelSyncUp</td>
+          <td class="memname"><a class="el" href="structarm__2d__evt__t.html">arm_2d_evt_t</a> arm_2d_helper_pfb_dependency_t::evtOnLowLevelSyncUp</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -158,9 +156,6 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Helper/Include/<a class="el" href="arm__2d__helper__pfb_8h_source.html">arm_2d_helper_pfb.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

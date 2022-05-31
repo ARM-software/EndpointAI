@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -92,25 +94,25 @@ $(document).ready(function(){initNavTree('structarm__2d__pfb__t.html',''); initR
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a19b23ecbb59aa691499bfcb6e9805015"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structarm__2d__pfb__t.html">arm_2d_pfb_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__pfb__t.html#a19b23ecbb59aa691499bfcb6e9805015">ptNext</a></td></tr>
-<tr class="separator:a19b23ecbb59aa691499bfcb6e9805015"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aece17065343453f76b005a96a517c96b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__pfb__t.html#aece17065343453f76b005a96a517c96b">tTile</a></td></tr>
-<tr class="separator:aece17065343453f76b005a96a517c96b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa27150feeb52b10582b43758423056f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__pfb__t.html#aa27150feeb52b10582b43758423056f7">bIsNewFrame</a></td></tr>
-<tr class="separator:aa27150feeb52b10582b43758423056f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a2190986a8d5be647ea2fae4c3e1caf"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structarm__2d__pfb__t.html">arm_2d_pfb_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__pfb__t.html#a7a2190986a8d5be647ea2fae4c3e1caf">ptNext</a></td></tr>
+<tr class="separator:a7a2190986a8d5be647ea2fae4c3e1caf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c06645aaf74ac1f648bc144d614c7aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__pfb__t.html#a5c06645aaf74ac1f648bc144d614c7aa">tTile</a></td></tr>
+<tr class="separator:a5c06645aaf74ac1f648bc144d614c7aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b9c82f196be65325800ed8a5d1fd0d3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__pfb__t.html#a4b9c82f196be65325800ed8a5d1fd0d3">bIsNewFrame</a></td></tr>
+<tr class="separator:a4b9c82f196be65325800ed8a5d1fd0d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="arm__2d__helper__pfb_8h_source.html#l00186">186</a> of file <a class="el" href="arm__2d__helper__pfb_8h_source.html">arm_2d_helper_pfb.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="aa27150feeb52b10582b43758423056f7" name="aa27150feeb52b10582b43758423056f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa27150feeb52b10582b43758423056f7">&#9670;&nbsp;</a></span>bIsNewFrame</h2>
+<a id="a4b9c82f196be65325800ed8a5d1fd0d3" name="a4b9c82f196be65325800ed8a5d1fd0d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b9c82f196be65325800ed8a5d1fd0d3">&#9670;&nbsp;</a></span>bIsNewFrame</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool bIsNewFrame</td>
+          <td class="memname">bool arm_2d_pfb_t::bIsNewFrame</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -119,14 +121,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a19b23ecbb59aa691499bfcb6e9805015" name="a19b23ecbb59aa691499bfcb6e9805015"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19b23ecbb59aa691499bfcb6e9805015">&#9670;&nbsp;</a></span>ptNext</h2>
+<a id="a7a2190986a8d5be647ea2fae4c3e1caf" name="a7a2190986a8d5be647ea2fae4c3e1caf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a2190986a8d5be647ea2fae4c3e1caf">&#9670;&nbsp;</a></span>ptNext</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structarm__2d__pfb__t.html">arm_2d_pfb_t</a>* ptNext</td>
+          <td class="memname">struct <a class="el" href="structarm__2d__pfb__t.html">arm_2d_pfb_t</a>* arm_2d_pfb_t::ptNext</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -135,14 +137,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="aece17065343453f76b005a96a517c96b" name="aece17065343453f76b005a96a517c96b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aece17065343453f76b005a96a517c96b">&#9670;&nbsp;</a></span>tTile</h2>
+<a id="a5c06645aaf74ac1f648bc144d614c7aa" name="a5c06645aaf74ac1f648bc144d614c7aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c06645aaf74ac1f648bc144d614c7aa">&#9670;&nbsp;</a></span>tTile</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a> tTile</td>
+          <td class="memname"><a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a> arm_2d_pfb_t::tTile</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -151,9 +153,6 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Helper/Include/<a class="el" href="arm__2d__helper__pfb_8h_source.html">arm_2d_helper_pfb.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

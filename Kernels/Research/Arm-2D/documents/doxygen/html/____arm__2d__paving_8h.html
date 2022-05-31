@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/__arm_2d_paving.h File Reference</title>
+<title>arm-2d: __arm_2d_paving.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -176,16 +178,6 @@ Macros</h2></td></tr>
 <tr class="separator:ac56c194b9206bd46f1a826d0d0a1c2d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70d0f2bc990213b0866903582c27702b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a70d0f2bc990213b0866903582c27702b">PAVING_XY_MIRROR_LOAD_PATTERN</a>(sz)&#160;&#160;&#160;<a class="el" href="____arm__2d__paving_8h.html#a58f7f32acfbab8e1fd038df713925372">PAVING_X_MIRROR_LOAD_PATTERN</a>(sz)</td></tr>
 <tr class="separator:a70d0f2bc990213b0866903582c27702b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a148b40acce4ca3d73c5e000a13984c2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a148b40acce4ca3d73c5e000a13984c2b">__ARM_2D_MEM_FILL_GENERIC</a>( pSourceBase,  iSourceStride,  ptSourceSize,  pTargetBase,  iTargetStride,  ptTargetSize,  pPavFct,  ...)</td></tr>
-<tr class="separator:a148b40acce4ca3d73c5e000a13984c2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3aa30fafe93c0eb6cab64dcfd994d7b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a3aa30fafe93c0eb6cab64dcfd994d7b5">__ARM_2D_PAVING_2x2</a>(sz,  SRC_OFFSET,  DIR,  SETUP_MIRROR,  LOAD, ...)</td></tr>
-<tr class="separator:a3aa30fafe93c0eb6cab64dcfd994d7b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc4fc569cdee0f81173f17febf28c30"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a6dc4fc569cdee0f81173f17febf28c30">__ARM_2D_PAVING_1x2</a>(sz,  SRC_OFFSET,  DIR,  SETUP_MIRROR,  LOAD, ...)</td></tr>
-<tr class="separator:a6dc4fc569cdee0f81173f17febf28c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae74eb5406343fe0d1bab9d1298e38375"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#ae74eb5406343fe0d1bab9d1298e38375">__ARM_2D_PAVING_2x1</a>(sz,  SRC_OFFSET,  DIR,  SETUP_MIRROR,  LOAD, ...)</td></tr>
-<tr class="separator:ae74eb5406343fe0d1bab9d1298e38375"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0cba1ca90a8d21180e50e45cc0dd873"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#ae0cba1ca90a8d21180e50e45cc0dd873">__ARM_2D_PAVING_1x1</a>(sz,  SRC_OFFSET,  DIR,  SETUP_MIRROR,  LOAD, ...)</td></tr>
-<tr class="separator:ae0cba1ca90a8d21180e50e45cc0dd873"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -197,8 +189,6 @@ Typedefs</h2></td></tr>
 <tr class="separator:aa888dadd4683eb8c6a00aae23508e4d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bf0f0c05e8e54b6ee73ade50c9df2e3"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a1bf0f0c05e8e54b6ee73ade50c9df2e3">arm_2d_c8bit_paving_1x1</a>(const uint8_t *, int16_t, uint8_t *, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *)</td></tr>
 <tr class="separator:a1bf0f0c05e8e54b6ee73ade50c9df2e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa17c7c43bf89689ff3c101376cd9b59d"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__c8bit__paving__fct__t.html">arm_2d_c8bit_paving_fct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#aa17c7c43bf89689ff3c101376cd9b59d">arm_2d_c8bit_paving_fct_t</a></td></tr>
-<tr class="separator:aa17c7c43bf89689ff3c101376cd9b59d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a424a48c75fb19bbe5a3d8d62339ceb46"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a424a48c75fb19bbe5a3d8d62339ceb46">arm_2d_rgb16_paving_2x2</a>(const uint16_t *, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *, uint16_t *, int16_t, uint16_t, uint16_t)</td></tr>
 <tr class="separator:a424a48c75fb19bbe5a3d8d62339ceb46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23ee1e003a05a04844cd20be03f55d0b"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a23ee1e003a05a04844cd20be03f55d0b">arm_2d_rgb16_paving_1x2</a>(const uint16_t *, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *, uint16_t *, int16_t, uint32_t, uint16_t)</td></tr>
@@ -207,8 +197,6 @@ Typedefs</h2></td></tr>
 <tr class="separator:a96527a124674600cd2c6317e1ed476ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e8847150bb67e398d195b6086e09d95"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a1e8847150bb67e398d195b6086e09d95">arm_2d_rgb16_paving_1x1</a>(const uint16_t *, int16_t, uint16_t *, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *)</td></tr>
 <tr class="separator:a1e8847150bb67e398d195b6086e09d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f6b40641ad1a52bedf51459dcd46696"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__rgb16__paving__fct__t.html">arm_2d_rgb16_paving_fct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a1f6b40641ad1a52bedf51459dcd46696">arm_2d_rgb16_paving_fct_t</a></td></tr>
-<tr class="separator:a1f6b40641ad1a52bedf51459dcd46696"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe1a7936fe788f34a3fbebb5146d73be"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#abe1a7936fe788f34a3fbebb5146d73be">arm_2d_rgb32_paving_2x2</a>(const uint32_t *, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *, uint32_t *, int16_t, uint16_t, uint16_t)</td></tr>
 <tr class="separator:abe1a7936fe788f34a3fbebb5146d73be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fc2b44173abbf24de4d4b178b27ce8d"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a2fc2b44173abbf24de4d4b178b27ce8d">arm_2d_rgb32_paving_1x2</a>(const uint32_t *, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *, uint32_t *, int16_t, uint32_t, uint16_t)</td></tr>
@@ -217,353 +205,32 @@ Typedefs</h2></td></tr>
 <tr class="separator:adb84bd4bfa5c8c2e0340510cf53d2b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fa5503e39d2f7eaae85a4d8e9931b7f"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a2fa5503e39d2f7eaae85a4d8e9931b7f">arm_2d_rgb32_paving_1x1</a>(const uint32_t *, int16_t, uint32_t *, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *)</td></tr>
 <tr class="separator:a2fa5503e39d2f7eaae85a4d8e9931b7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39c3ce95b9602c3ebe193400689e323e"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__rgb32__paving__fct__t.html">arm_2d_rgb32_paving_fct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a39c3ce95b9602c3ebe193400689e323e">arm_2d_rgb32_paving_fct_t</a></td></tr>
-<tr class="separator:a39c3ce95b9602c3ebe193400689e323e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa654722c884a7935459d34cdd0aa1d58"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#aa654722c884a7935459d34cdd0aa1d58">arm_2d_c8bit_cl_key_paving_2x2</a>(const uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t, uint16_t, uint8_t)</td></tr>
+<tr class="memitem:aa654722c884a7935459d34cdd0aa1d58"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#aa654722c884a7935459d34cdd0aa1d58">arm_2d_c8bit_cl_key_paving_2x2</a>(const uint8_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint8_t *__RESTRICT, int16_t, uint16_t, uint16_t, uint8_t)</td></tr>
 <tr class="separator:aa654722c884a7935459d34cdd0aa1d58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af723043f5d2bda991ce2a7a8acceb013"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#af723043f5d2bda991ce2a7a8acceb013">arm_2d_c8bit_cl_key_paving_1x2</a>(const uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint32_t, uint16_t, uint8_t)</td></tr>
+<tr class="memitem:af723043f5d2bda991ce2a7a8acceb013"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#af723043f5d2bda991ce2a7a8acceb013">arm_2d_c8bit_cl_key_paving_1x2</a>(const uint8_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint8_t *__RESTRICT, int16_t, uint32_t, uint16_t, uint8_t)</td></tr>
 <tr class="separator:af723043f5d2bda991ce2a7a8acceb013"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a10cafb7c5328f481c3a63ebbab9e72"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a5a10cafb7c5328f481c3a63ebbab9e72">arm_2d_c8bit_cl_key_paving_2x1</a>(const uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t, uint16_t, uint8_t)</td></tr>
+<tr class="memitem:a5a10cafb7c5328f481c3a63ebbab9e72"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a5a10cafb7c5328f481c3a63ebbab9e72">arm_2d_c8bit_cl_key_paving_2x1</a>(const uint8_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint8_t *__RESTRICT, int16_t, uint16_t, uint16_t, uint8_t)</td></tr>
 <tr class="separator:a5a10cafb7c5328f481c3a63ebbab9e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56062b43443887f85b722c7742e00296"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a56062b43443887f85b722c7742e00296">arm_2d_c8bit_cl_key_paving_1x1</a>(const uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint8_t)</td></tr>
+<tr class="memitem:a56062b43443887f85b722c7742e00296"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a56062b43443887f85b722c7742e00296">arm_2d_c8bit_cl_key_paving_1x1</a>(const uint8_t *__RESTRICT, int16_t, uint8_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint8_t)</td></tr>
 <tr class="separator:a56062b43443887f85b722c7742e00296"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8dbadc638048466a77badf8be224d7d"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__c8bit__cl__key__paving__fct__t.html">arm_2d_c8bit_cl_key_paving_fct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#ab8dbadc638048466a77badf8be224d7d">arm_2d_c8bit_cl_key_paving_fct_t</a></td></tr>
-<tr class="separator:ab8dbadc638048466a77badf8be224d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf0fe5758e6490646d2908da7441dc2a"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#acf0fe5758e6490646d2908da7441dc2a">arm_2d_rgb16_cl_key_paving_2x2</a>(const uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t, uint16_t, uint16_t)</td></tr>
+<tr class="memitem:acf0fe5758e6490646d2908da7441dc2a"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#acf0fe5758e6490646d2908da7441dc2a">arm_2d_rgb16_cl_key_paving_2x2</a>(const uint16_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint16_t *__RESTRICT, int16_t, uint16_t, uint16_t, uint16_t)</td></tr>
 <tr class="separator:acf0fe5758e6490646d2908da7441dc2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a7ccf3ce4f831b59178739d0532f076"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a2a7ccf3ce4f831b59178739d0532f076">arm_2d_rgb16_cl_key_paving_1x2</a>(const uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint32_t, uint16_t, uint16_t)</td></tr>
+<tr class="memitem:a2a7ccf3ce4f831b59178739d0532f076"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a2a7ccf3ce4f831b59178739d0532f076">arm_2d_rgb16_cl_key_paving_1x2</a>(const uint16_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint16_t *__RESTRICT, int16_t, uint32_t, uint16_t, uint16_t)</td></tr>
 <tr class="separator:a2a7ccf3ce4f831b59178739d0532f076"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17278ebcc30c03a316b8ded470718251"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a17278ebcc30c03a316b8ded470718251">arm_2d_rgb16_cl_key_paving_2x1</a>(const uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t, uint16_t, uint16_t)</td></tr>
+<tr class="memitem:a17278ebcc30c03a316b8ded470718251"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a17278ebcc30c03a316b8ded470718251">arm_2d_rgb16_cl_key_paving_2x1</a>(const uint16_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint16_t *__RESTRICT, int16_t, uint16_t, uint16_t, uint16_t)</td></tr>
 <tr class="separator:a17278ebcc30c03a316b8ded470718251"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa559e477063e175a82bcff1c35f64ee4"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#aa559e477063e175a82bcff1c35f64ee4">arm_2d_rgb16_cl_key_paving_1x1</a>(const uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint16_t)</td></tr>
+<tr class="memitem:aa559e477063e175a82bcff1c35f64ee4"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#aa559e477063e175a82bcff1c35f64ee4">arm_2d_rgb16_cl_key_paving_1x1</a>(const uint16_t *__RESTRICT, int16_t, uint16_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint16_t)</td></tr>
 <tr class="separator:aa559e477063e175a82bcff1c35f64ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0e54b603e8891657c087261658d3859"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__rgb16__cl__key__paving__fct__t.html">arm_2d_rgb16_cl_key_paving_fct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#ab0e54b603e8891657c087261658d3859">arm_2d_rgb16_cl_key_paving_fct_t</a></td></tr>
-<tr class="separator:ab0e54b603e8891657c087261658d3859"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaffdb50efb8ae4eb27e8e6bf57233df8"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#aaffdb50efb8ae4eb27e8e6bf57233df8">arm_2d_rgb32_cl_key_paving_2x2</a>(const uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t, uint16_t, uint32_t)</td></tr>
+<tr class="memitem:aaffdb50efb8ae4eb27e8e6bf57233df8"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#aaffdb50efb8ae4eb27e8e6bf57233df8">arm_2d_rgb32_cl_key_paving_2x2</a>(const uint32_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint32_t *__RESTRICT, int16_t, uint16_t, uint16_t, uint32_t)</td></tr>
 <tr class="separator:aaffdb50efb8ae4eb27e8e6bf57233df8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa17579f9d38df70c898fd4eb5e058f2c"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#aa17579f9d38df70c898fd4eb5e058f2c">arm_2d_rgb32_cl_key_paving_1x2</a>(const uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint32_t, uint16_t, uint32_t)</td></tr>
+<tr class="memitem:aa17579f9d38df70c898fd4eb5e058f2c"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#aa17579f9d38df70c898fd4eb5e058f2c">arm_2d_rgb32_cl_key_paving_1x2</a>(const uint32_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint32_t *__RESTRICT, int16_t, uint32_t, uint16_t, uint32_t)</td></tr>
 <tr class="separator:aa17579f9d38df70c898fd4eb5e058f2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16eb11d20a2b34dbeeaffb41b8d30c83"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a16eb11d20a2b34dbeeaffb41b8d30c83">arm_2d_rgb32_cl_key_paving_2x1</a>(const uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t, uint16_t, uint32_t)</td></tr>
+<tr class="memitem:a16eb11d20a2b34dbeeaffb41b8d30c83"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a16eb11d20a2b34dbeeaffb41b8d30c83">arm_2d_rgb32_cl_key_paving_2x1</a>(const uint32_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint32_t *__RESTRICT, int16_t, uint16_t, uint16_t, uint32_t)</td></tr>
 <tr class="separator:a16eb11d20a2b34dbeeaffb41b8d30c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab88353f0e4afe72fd0659449a7dc086"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#aab88353f0e4afe72fd0659449a7dc086">arm_2d_rgb32_cl_key_paving_1x1</a>(const uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint32_t)</td></tr>
+<tr class="memitem:aab88353f0e4afe72fd0659449a7dc086"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#aab88353f0e4afe72fd0659449a7dc086">arm_2d_rgb32_cl_key_paving_1x1</a>(const uint32_t *__RESTRICT, int16_t, uint32_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint32_t)</td></tr>
 <tr class="separator:aab88353f0e4afe72fd0659449a7dc086"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ba14265402c57c3c611d856ae9943d0"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__rgb32__cl__key__paving__fct__t.html">arm_2d_rgb32_cl_key_paving_fct_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__paving_8h.html#a9ba14265402c57c3c611d856ae9943d0">arm_2d_rgb32_cl_key_paving_fct_t</a></td></tr>
-<tr class="separator:a9ba14265402c57c3c611d856ae9943d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a148b40acce4ca3d73c5e000a13984c2b" name="a148b40acce4ca3d73c5e000a13984c2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a148b40acce4ca3d73c5e000a13984c2b">&#9670;&nbsp;</a></span>__ARM_2D_MEM_FILL_GENERIC</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __ARM_2D_MEM_FILL_GENERIC</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">pSourceBase, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">iSourceStride, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">ptSourceSize, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">pTargetBase, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">iTargetStride, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">ptTargetSize, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">pPavFct, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="____arm__2d__paving_8h_source.html#l00109">109</a> of file <a class="el" href="____arm__2d__paving_8h_source.html">__arm_2d_paving.h</a>.</p>
-
-</div>
-</div>
-<a id="ae0cba1ca90a8d21180e50e45cc0dd873" name="ae0cba1ca90a8d21180e50e45cc0dd873"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0cba1ca90a8d21180e50e45cc0dd873">&#9670;&nbsp;</a></span>__ARM_2D_PAVING_1x1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __ARM_2D_PAVING_1x1</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">sz, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">SRC_OFFSET, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">DIR, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">SETUP_MIRROR, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">LOAD, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{                                                                               \</div>
-<div class="line">    pSource += SRC_OFFSET;                                                      \</div>
-<div class="line">                                                                                \</div>
-<div class="line">    for (int_fast16_t y = 0; y &lt; ptDstCopySize-&gt;iHeight; y++) {                 \</div>
-<div class="line">        ARM_PIX_SCLTYP(sz)  *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> pDst = pTarget;                         \</div>
-<div class="line">        ARM_PIX_SCLTYP(sz)  *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> pSrc = (<a class="code hl_define" href="____arm__2d__math_8h.html#a5d272632a22e0803ab5b423328db9d46">ARM_PIX_SCLTYP</a>(sz)  *)pSource;  \</div>
-<div class="line">        uint32_t             srcWidth = ptSrcCopySize-&gt;iWidth;                  \</div>
-<div class="line">        uint32_t             dstWidth = ptDstCopySize-&gt;iWidth;                  \</div>
-<div class="line">                                                                                \</div>
-<div class="line">        SETUP_MIRROR(srcWidth);                                                 \</div>
-<div class="line">                                                                                \</div>
-<div class="line">        do {                                                                    \</div>
-<div class="line">            ARM_PIX_SCLTYP(sz)  in;                                             \</div>
-<div class="line">                                                                                \</div>
-<div class="line">            in = LOAD(pSrc, offset);                                            \</div>
-<div class="line">            if (<span class="keyword">true</span>,##__VA_ARGS__) {                                           \</div>
-<div class="line">                PAVING_OP(pDst++,in);                                           \</div>
-<div class="line">            } <span class="keywordflow">else</span> {                                                            \</div>
-<div class="line">                pDst++;                                                         \</div>
-<div class="line">            }                                                                   \</div>
-<div class="line">                                                                                \</div>
-<div class="line">            dstWidth -= 1;                                                      \</div>
-<div class="line">        }                                                                       \</div>
-<div class="line">        while ((int32_t) dstWidth &gt; 0);                                         \</div>
-<div class="line">                                                                                \</div>
-<div class="line">        pSource += (iSourceStride * DIR);                                       \</div>
-<div class="line">        pTarget += iTargetStride;                                               \</div>
-<div class="line">    }                                                                           \</div>
-<div class="line">}</div>
-<div class="ttc" id="a____arm__2d__math_8h_html_a5d272632a22e0803ab5b423328db9d46"><div class="ttname"><a href="____arm__2d__math_8h.html#a5d272632a22e0803ab5b423328db9d46">ARM_PIX_SCLTYP</a></div><div class="ttdeci">#define ARM_PIX_SCLTYP(sz)</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__math_8h_source.html#l00115">__arm_2d_math.h:115</a></div></div>
-<div class="ttc" id="aarm__2d__utils_8h_html_a378ac21329d33f561f90265eef89f564"><div class="ttname"><a href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a></div><div class="ttdeci">#define __RESTRICT</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00319">arm_2d_utils.h:319</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="____arm__2d__paving_8h_source.html#l00486">486</a> of file <a class="el" href="____arm__2d__paving_8h_source.html">__arm_2d_paving.h</a>.</p>
-
-</div>
-</div>
-<a id="a6dc4fc569cdee0f81173f17febf28c30" name="a6dc4fc569cdee0f81173f17febf28c30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6dc4fc569cdee0f81173f17febf28c30">&#9670;&nbsp;</a></span>__ARM_2D_PAVING_1x2</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __ARM_2D_PAVING_1x2</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">sz, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">SRC_OFFSET, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">DIR, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">SETUP_MIRROR, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">LOAD, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="____arm__2d__paving_8h_source.html#l00372">372</a> of file <a class="el" href="____arm__2d__paving_8h_source.html">__arm_2d_paving.h</a>.</p>
-
-</div>
-</div>
-<a id="ae74eb5406343fe0d1bab9d1298e38375" name="ae74eb5406343fe0d1bab9d1298e38375"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae74eb5406343fe0d1bab9d1298e38375">&#9670;&nbsp;</a></span>__ARM_2D_PAVING_2x1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __ARM_2D_PAVING_2x1</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">sz, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">SRC_OFFSET, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">DIR, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">SETUP_MIRROR, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">LOAD, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="____arm__2d__paving_8h_source.html#l00429">429</a> of file <a class="el" href="____arm__2d__paving_8h_source.html">__arm_2d_paving.h</a>.</p>
-
-</div>
-</div>
-<a id="a3aa30fafe93c0eb6cab64dcfd994d7b5" name="a3aa30fafe93c0eb6cab64dcfd994d7b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3aa30fafe93c0eb6cab64dcfd994d7b5">&#9670;&nbsp;</a></span>__ARM_2D_PAVING_2x2</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __ARM_2D_PAVING_2x2</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">sz, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">SRC_OFFSET, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">DIR, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">SETUP_MIRROR, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">LOAD, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="____arm__2d__paving_8h_source.html#l00305">305</a> of file <a class="el" href="____arm__2d__paving_8h_source.html">__arm_2d_paving.h</a>.</p>
-
-</div>
-</div>
 <a id="a4f13024d3542bbe924c301dae7898441" name="a4f13024d3542bbe924c301dae7898441"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4f13024d3542bbe924c301dae7898441">&#9670;&nbsp;</a></span>BOTTOM_TO_TOP</h2>
 
@@ -1313,7 +980,7 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void() arm_2d_c8bit_cl_key_paving_1x1(const uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint8_t)</td>
+          <td class="memname">typedef void() arm_2d_c8bit_cl_key_paving_1x1(const uint8_t *__RESTRICT, int16_t, uint8_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint8_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1329,7 +996,7 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void() arm_2d_c8bit_cl_key_paving_1x2(const uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint32_t, uint16_t, uint8_t)</td>
+          <td class="memname">typedef void() arm_2d_c8bit_cl_key_paving_1x2(const uint8_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint8_t *__RESTRICT, int16_t, uint32_t, uint16_t, uint8_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1345,7 +1012,7 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void() arm_2d_c8bit_cl_key_paving_2x1(const uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t, uint16_t, uint8_t)</td>
+          <td class="memname">typedef void() arm_2d_c8bit_cl_key_paving_2x1(const uint8_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint8_t *__RESTRICT, int16_t, uint16_t, uint16_t, uint8_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1361,26 +1028,12 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void() arm_2d_c8bit_cl_key_paving_2x2(const uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint8_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t, uint16_t, uint8_t)</td>
+          <td class="memname">typedef void() arm_2d_c8bit_cl_key_paving_2x2(const uint8_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint8_t *__RESTRICT, int16_t, uint16_t, uint16_t, uint8_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="____arm__2d__paving_8h_source.html#l00583">583</a> of file <a class="el" href="____arm__2d__paving_8h_source.html">__arm_2d_paving.h</a>.</p>
-
-</div>
-</div>
-<a id="ab8dbadc638048466a77badf8be224d7d" name="ab8dbadc638048466a77badf8be224d7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8dbadc638048466a77badf8be224d7d">&#9670;&nbsp;</a></span>arm_2d_c8bit_cl_key_paving_fct_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__c8bit__cl__key__paving__fct__t.html">arm_2d_c8bit_cl_key_paving_fct_t</a> <a class="el" href="structarm__2d__c8bit__cl__key__paving__fct__t.html">arm_2d_c8bit_cl_key_paving_fct_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -1448,20 +1101,6 @@ Typedefs</h2></td></tr>
 
 </div>
 </div>
-<a id="aa17c7c43bf89689ff3c101376cd9b59d" name="aa17c7c43bf89689ff3c101376cd9b59d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa17c7c43bf89689ff3c101376cd9b59d">&#9670;&nbsp;</a></span>arm_2d_c8bit_paving_fct_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__c8bit__paving__fct__t.html">arm_2d_c8bit_paving_fct_t</a> <a class="el" href="structarm__2d__c8bit__paving__fct__t.html">arm_2d_c8bit_paving_fct_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="aa559e477063e175a82bcff1c35f64ee4" name="aa559e477063e175a82bcff1c35f64ee4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa559e477063e175a82bcff1c35f64ee4">&#9670;&nbsp;</a></span>arm_2d_rgb16_cl_key_paving_1x1</h2>
 
@@ -1469,7 +1108,7 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void() arm_2d_rgb16_cl_key_paving_1x1(const uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint16_t)</td>
+          <td class="memname">typedef void() arm_2d_rgb16_cl_key_paving_1x1(const uint16_t *__RESTRICT, int16_t, uint16_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint16_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1485,7 +1124,7 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void() arm_2d_rgb16_cl_key_paving_1x2(const uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint32_t, uint16_t, uint16_t)</td>
+          <td class="memname">typedef void() arm_2d_rgb16_cl_key_paving_1x2(const uint16_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint16_t *__RESTRICT, int16_t, uint32_t, uint16_t, uint16_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1501,7 +1140,7 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void() arm_2d_rgb16_cl_key_paving_2x1(const uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t, uint16_t, uint16_t)</td>
+          <td class="memname">typedef void() arm_2d_rgb16_cl_key_paving_2x1(const uint16_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint16_t *__RESTRICT, int16_t, uint16_t, uint16_t, uint16_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1517,26 +1156,12 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void() arm_2d_rgb16_cl_key_paving_2x2(const uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint16_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t, uint16_t, uint16_t)</td>
+          <td class="memname">typedef void() arm_2d_rgb16_cl_key_paving_2x2(const uint16_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint16_t *__RESTRICT, int16_t, uint16_t, uint16_t, uint16_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="____arm__2d__paving_8h_source.html#l00627">627</a> of file <a class="el" href="____arm__2d__paving_8h_source.html">__arm_2d_paving.h</a>.</p>
-
-</div>
-</div>
-<a id="ab0e54b603e8891657c087261658d3859" name="ab0e54b603e8891657c087261658d3859"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0e54b603e8891657c087261658d3859">&#9670;&nbsp;</a></span>arm_2d_rgb16_cl_key_paving_fct_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__rgb16__cl__key__paving__fct__t.html">arm_2d_rgb16_cl_key_paving_fct_t</a> <a class="el" href="structarm__2d__rgb16__cl__key__paving__fct__t.html">arm_2d_rgb16_cl_key_paving_fct_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -1604,20 +1229,6 @@ Typedefs</h2></td></tr>
 
 </div>
 </div>
-<a id="a1f6b40641ad1a52bedf51459dcd46696" name="a1f6b40641ad1a52bedf51459dcd46696"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f6b40641ad1a52bedf51459dcd46696">&#9670;&nbsp;</a></span>arm_2d_rgb16_paving_fct_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__rgb16__paving__fct__t.html">arm_2d_rgb16_paving_fct_t</a> <a class="el" href="structarm__2d__rgb16__paving__fct__t.html">arm_2d_rgb16_paving_fct_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="aab88353f0e4afe72fd0659449a7dc086" name="aab88353f0e4afe72fd0659449a7dc086"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aab88353f0e4afe72fd0659449a7dc086">&#9670;&nbsp;</a></span>arm_2d_rgb32_cl_key_paving_1x1</h2>
 
@@ -1625,7 +1236,7 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void() arm_2d_rgb32_cl_key_paving_1x1(const uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint32_t)</td>
+          <td class="memname">typedef void() arm_2d_rgb32_cl_key_paving_1x1(const uint32_t *__RESTRICT, int16_t, uint32_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint32_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1641,7 +1252,7 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void() arm_2d_rgb32_cl_key_paving_1x2(const uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint32_t, uint16_t, uint32_t)</td>
+          <td class="memname">typedef void() arm_2d_rgb32_cl_key_paving_1x2(const uint32_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint32_t *__RESTRICT, int16_t, uint32_t, uint16_t, uint32_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1657,7 +1268,7 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void() arm_2d_rgb32_cl_key_paving_2x1(const uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t, uint16_t, uint32_t)</td>
+          <td class="memname">typedef void() arm_2d_rgb32_cl_key_paving_2x1(const uint32_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint32_t *__RESTRICT, int16_t, uint16_t, uint16_t, uint32_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1673,26 +1284,12 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void() arm_2d_rgb32_cl_key_paving_2x2(const uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, uint32_t *<a class="el" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a>, int16_t, uint16_t, uint16_t, uint32_t)</td>
+          <td class="memname">typedef void() arm_2d_rgb32_cl_key_paving_2x2(const uint32_t *__RESTRICT, int16_t, const <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT, uint32_t *__RESTRICT, int16_t, uint16_t, uint16_t, uint32_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="____arm__2d__paving_8h_source.html#l00672">672</a> of file <a class="el" href="____arm__2d__paving_8h_source.html">__arm_2d_paving.h</a>.</p>
-
-</div>
-</div>
-<a id="a9ba14265402c57c3c611d856ae9943d0" name="a9ba14265402c57c3c611d856ae9943d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ba14265402c57c3c611d856ae9943d0">&#9670;&nbsp;</a></span>arm_2d_rgb32_cl_key_paving_fct_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__rgb32__cl__key__paving__fct__t.html">arm_2d_rgb32_cl_key_paving_fct_t</a> <a class="el" href="structarm__2d__rgb32__cl__key__paving__fct__t.html">arm_2d_rgb32_cl_key_paving_fct_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -1757,20 +1354,6 @@ Typedefs</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="____arm__2d__paving_8h_source.html#l00561">561</a> of file <a class="el" href="____arm__2d__paving_8h_source.html">__arm_2d_paving.h</a>.</p>
-
-</div>
-</div>
-<a id="a39c3ce95b9602c3ebe193400689e323e" name="a39c3ce95b9602c3ebe193400689e323e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39c3ce95b9602c3ebe193400689e323e">&#9670;&nbsp;</a></span>arm_2d_rgb32_paving_fct_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__rgb32__paving__fct__t.html">arm_2d_rgb32_paving_fct_t</a> <a class="el" href="structarm__2d__rgb32__paving__fct__t.html">arm_2d_rgb32_paving_fct_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>

@@ -1,6 +1,5 @@
 var arm__2d__transform_8h =
 [
-    [ "__arm_2d_transform_info_t", "struct____arm__2d__transform__info__t.html", "struct____arm__2d__transform__info__t" ],
     [ "arm_2d_op_trans_t", "structarm__2d__op__trans__t.html", "structarm__2d__op__trans__t" ],
     [ "arm_2d_op_trans_opa_t", "structarm__2d__op__trans__opa__t.html", "structarm__2d__op__trans__opa__t" ],
     [ "arm_2d_op_trans_msk_t", "structarm__2d__op__trans__msk__t.html", "structarm__2d__op__trans__msk__t" ],
@@ -170,11 +169,6 @@ var arm__2d__transform_8h =
     [ "arm_2dp_rgb888_tile_transform_with_alpha", "arm__2d__transform_8h.html#a2614ef0c378d160c9d67ac1303a73f11", null ],
     [ "arm_2dp_rgb888_tile_transform_with_opacity", "arm__2d__transform_8h.html#aa65015d8910d219bd88c520ad5afbc02", null ],
     [ "arm_2dp_tile_rotate", "arm__2d__transform_8h.html#a062af165bda9aa1e07555abb831afa48", null ],
-    [ "__arm_2d_transform_info_t", "arm__2d__transform_8h.html#af56a12b07aaefec0ff0f526bffc6da3f", null ],
-    [ "arm_2d_op_trans_msk_opa_t", "arm__2d__transform_8h.html#a432369db6b1f5e7b0df76f98215b0e45", null ],
-    [ "arm_2d_op_trans_msk_t", "arm__2d__transform_8h.html#ab6ecce3e82048bc65c7c546c65004319", null ],
-    [ "arm_2d_op_trans_opa_t", "arm__2d__transform_8h.html#a3cb26fee83664c650245ee59699b9a90", null ],
-    [ "arm_2d_op_trans_t", "arm__2d__transform_8h.html#a350da7f17a2947ec97f42ee3e98782a7", null ],
     [ "chFillColour", "arm__2d__transform_8h.html#aee2e0e07266fce3a713cbbb9fcbdca10", null ],
     [ "chOpacity", "arm__2d__transform_8h.html#ab025c7acb6920ba4cf780b0bc2a715d2", null ],
     [ "chRatio", "arm__2d__transform_8h.html#a3b6c1f4bc2dffba78739ca1206b108dd", null ],

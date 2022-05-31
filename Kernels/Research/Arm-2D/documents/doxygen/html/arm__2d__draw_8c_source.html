@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Source/arm_2d_draw.c Source File</title>
+<title>arm-2d: arm_2d_draw.c Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -117,7 +119,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/*============================ INCLUDES ======================================*/</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="arm__2d__draw_8c.html#aa391cb8cbcf1b1a4ab83847b83d8b8de">   33</a></span><span class="preprocessor">#define __ARM_2D_IMPL__</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#define __ARM_2D_IMPL__</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &quot;<a class="code" href="arm__2d_8h.html">arm_2d.h</a>&quot;</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &quot;<a class="code" href="____arm__2d__impl_8h.html">__arm_2d_impl.h</a>&quot;</span></div>
@@ -190,8 +192,8 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="preprocessor">#include &quot;<a class="code" href="____arm__2d__draw__pattern_8inc.html">__arm_2d_draw_pattern.inc</a>&quot;</span></div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="arm__2d__draw_8c.html#ae5149ac0ed15b2de1eccb9ecf1a02f64">  109</a></span><span class="preprocessor">#define __API_COLOUR        rgb32</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="arm__2d__draw_8c.html#a71ef659837d31a3da6b902b7c50fce6f">  110</a></span><span class="preprocessor">#define __API_INT_TYPE      uint32_t</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="preprocessor">#define __API_COLOUR        rgb32</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="preprocessor">#define __API_INT_TYPE      uint32_t</span></div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">#include &quot;<a class="code" href="____arm__2d__draw__pattern_8inc.html">__arm_2d_draw_pattern.inc</a>&quot;</span></div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
@@ -209,7 +211,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__fill__cl__t.html">arm_2d_op_drw_pt_t</a>, ptOP);</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="____arm__2d__impl_8h.html#a584514fb179257990ece85a1ed5dff5e">__arm_2d_op_acquire</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordflow">if</span> (!__arm_2d_op_acquire((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcadcf044fad5c682cf87809bd71d556d84">arm_fsm_rt_on_going</a>;</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    }</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
@@ -227,7 +229,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    this.Target.ptRegion = &amp;tPointRegion;</div>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    this.chColour = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3dfdff9257dda1432d9fbefa251473c3">chColour</a>;</div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="____arm__2d__impl_8h.html#a1ab9791a85d5e64c19eb03854014afeb">__arm_2d_op_invoke</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">return</span> __arm_2d_op_invoke((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>}</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>ARM_NONNULL(2)</div>
@@ -240,7 +242,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__fill__cl__t.html">arm_2d_op_drw_pt_t</a>, ptOP);</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="____arm__2d__impl_8h.html#a584514fb179257990ece85a1ed5dff5e">__arm_2d_op_acquire</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keywordflow">if</span> (!__arm_2d_op_acquire((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcadcf044fad5c682cf87809bd71d556d84">arm_fsm_rt_on_going</a>;</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    }</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
@@ -258,7 +260,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    this.Target.ptRegion = &amp;tPointRegion;</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    this.hwColour = <a class="code hl_variable" href="arm__2d__draw_8h.html#ad889ecad4b4b237b36815d51803d1c4d">hwColour</a>;</div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="____arm__2d__impl_8h.html#a1ab9791a85d5e64c19eb03854014afeb">__arm_2d_op_invoke</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="keywordflow">return</span> __arm_2d_op_invoke((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>}</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
@@ -272,7 +274,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__fill__cl__t.html">arm_2d_op_drw_pt_t</a>, ptOP);</div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="____arm__2d__impl_8h.html#a584514fb179257990ece85a1ed5dff5e">__arm_2d_op_acquire</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordflow">if</span> (!__arm_2d_op_acquire((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcadcf044fad5c682cf87809bd71d556d84">arm_fsm_rt_on_going</a>;</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    }</div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
@@ -290,14 +292,14 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    this.Target.ptRegion = &amp;tPointRegion;</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    this.wColour = <a class="code hl_variable" href="arm__2d__draw_8h.html#af35304b0d61aea1a6a2190479ad3ed7f">wColour</a>;</div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="____arm__2d__impl_8h.html#a1ab9791a85d5e64c19eb03854014afeb">__arm_2d_op_invoke</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordflow">return</span> __arm_2d_op_invoke((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>}</div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="____arm__2d__impl_8h.html#adbed80f4f16e90ec1411829cd26c2820">  212</a></span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> <a class="code hl_function" href="arm__2d__draw_8c.html#adbed80f4f16e90ec1411829cd26c2820">__arm_2d_sw_draw_point</a>(<a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_sw_draw_point(__arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>{</div>
 <div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__fill__cl__t.html">arm_2d_op_drw_pt_t</a>, ptTask-&gt;ptOP)</div>
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keywordflow">switch</span> (<a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ) {</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    switch (<a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ) {</div>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#af715e26dfffd1f8de1c18449e2770cffa96378d24be8aabb704be24a9c06fad2b">ARM_2D_COLOUR_SZ_8BIT</a>:</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            (*(uint8_t *)ptTask-&gt;Param.tTileProcess.pBuffer) = this.<a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3dfdff9257dda1432d9fbefa251473c3">chColour</a>;</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            <span class="keywordflow">break</span>;</div>
@@ -329,7 +331,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__fill__cl__t.html">arm_2d_op_fill_cl_t</a>, ptOP);</div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="____arm__2d__impl_8h.html#a584514fb179257990ece85a1ed5dff5e">__arm_2d_op_acquire</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordflow">if</span> (!__arm_2d_op_acquire((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcadcf044fad5c682cf87809bd71d556d84">arm_fsm_rt_on_going</a>;</div>
 <div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    }</div>
 <div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
@@ -341,7 +343,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    this.Target.ptRegion = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a25b1be65ad65273d0a8df4d7822bb37c">ptRegion</a>;</div>
 <div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    this.chColour = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3dfdff9257dda1432d9fbefa251473c3">chColour</a>;</div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="____arm__2d__impl_8h.html#a1ab9791a85d5e64c19eb03854014afeb">__arm_2d_op_invoke</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="keywordflow">return</span> __arm_2d_op_invoke((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>}</div>
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
 <div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>ARM_NONNULL(2)</div>
@@ -354,7 +356,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__fill__cl__t.html">arm_2d_op_fill_cl_t</a>, ptOP);</div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="____arm__2d__impl_8h.html#a584514fb179257990ece85a1ed5dff5e">__arm_2d_op_acquire</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordflow">if</span> (!__arm_2d_op_acquire((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcadcf044fad5c682cf87809bd71d556d84">arm_fsm_rt_on_going</a>;</div>
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    }</div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
@@ -366,7 +368,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    this.Target.ptRegion = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a25b1be65ad65273d0a8df4d7822bb37c">ptRegion</a>;</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    this.hwColour = <a class="code hl_variable" href="arm__2d__draw_8h.html#ad889ecad4b4b237b36815d51803d1c4d">hwColour</a>;</div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="____arm__2d__impl_8h.html#a1ab9791a85d5e64c19eb03854014afeb">__arm_2d_op_invoke</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    <span class="keywordflow">return</span> __arm_2d_op_invoke((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>}</div>
 <div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
 <div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>ARM_NONNULL(2)</div>
@@ -379,7 +381,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__fill__cl__t.html">arm_2d_op_fill_cl_t</a>, ptOP);</div>
 <div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="____arm__2d__impl_8h.html#a584514fb179257990ece85a1ed5dff5e">__arm_2d_op_acquire</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keywordflow">if</span> (!__arm_2d_op_acquire((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
 <div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcadcf044fad5c682cf87809bd71d556d84">arm_fsm_rt_on_going</a>;</div>
 <div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    }</div>
 <div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
@@ -391,49 +393,49 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    this.Target.ptRegion = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a25b1be65ad65273d0a8df4d7822bb37c">ptRegion</a>;</div>
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    this.wColour = <a class="code hl_variable" href="arm__2d__draw_8h.html#af35304b0d61aea1a6a2190479ad3ed7f">wColour</a>;</div>
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="____arm__2d__impl_8h.html#a1ab9791a85d5e64c19eb03854014afeb">__arm_2d_op_invoke</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="keywordflow">return</span> __arm_2d_op_invoke((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>}</div>
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno"><a class="line" href="____arm__2d__impl_8h.html#a7dde36e3dd63ad5e4f76d12a9800c33f">  313</a></span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> <a class="code hl_function" href="arm__2d__draw_8c.html#a7dde36e3dd63ad5e4f76d12a9800c33f">__arm_2d_c8bit_sw_colour_filling</a>(<a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_c8bit_sw_colour_filling(__arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>{</div>
 <div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__fill__cl__t.html">arm_2d_op_fill_cl_t</a>, ptTask-&gt;ptOP)</div>
 <div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#af715e26dfffd1f8de1c18449e2770cffa96378d24be8aabb704be24a9c06fad2b">ARM_2D_COLOUR_SZ_8BIT</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
 <div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <a class="code hl_function" href="____arm__2d__direct_8h.html#ad84a3e14eb40e0cb808c576ec8d2717e">__arm_2d_impl_c8bit_colour_filling</a>(</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    __arm_2d_impl_c8bit_colour_filling(</div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>                    ptTask-&gt;Param.tTileProcess.pBuffer,</div>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>                    ptTask-&gt;Param.tTileProcess.iStride,</div>
 <div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>                    &amp;(ptTask-&gt;Param.tTileProcess.tValidRegion.tSize),</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>                    <span class="keyword">this</span>.chColour);</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>                    <a class="code hl_define" href="____arm__2d__impl_8h.html#a50383951d2a9d4f1a855b2cec5e03274">this</a>.<a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3dfdff9257dda1432d9fbefa251473c3">chColour</a>);</div>
 <div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    return <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
 <div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>}</div>
 <div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno"><a class="line" href="____arm__2d__impl_8h.html#a350f276e850fdc2dfbb2292674685785">  327</a></span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> <a class="code hl_function" href="arm__2d__draw_8c.html#a350f276e850fdc2dfbb2292674685785">__arm_2d_rgb16_sw_colour_filling</a>(<a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_rgb16_sw_colour_filling(__arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>{</div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__fill__cl__t.html">arm_2d_op_fill_cl_t</a>, ptTask-&gt;ptOP)</div>
 <div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#af715e26dfffd1f8de1c18449e2770cffaa581a9deb872893773fe7c5f615f1771">ARM_2D_COLOUR_SZ_16BIT</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
 <div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <a class="code hl_function" href="____arm__2d__direct_8h.html#a82766d84b43c46256ad0a681402fe6d5">__arm_2d_impl_rgb16_colour_filling</a>(</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    __arm_2d_impl_rgb16_colour_filling(</div>
 <div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>                    ptTask-&gt;Param.tTileProcess.pBuffer,</div>
 <div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>                    ptTask-&gt;Param.tTileProcess.iStride,</div>
 <div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>                    &amp;(ptTask-&gt;Param.tTileProcess.tValidRegion.tSize),</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>                    <span class="keyword">this</span>.hwColour);</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>                    <a class="code hl_define" href="____arm__2d__impl_8h.html#a50383951d2a9d4f1a855b2cec5e03274">this</a>.<a class="code hl_variable" href="arm__2d__draw_8h.html#ad889ecad4b4b237b36815d51803d1c4d">hwColour</a>);</div>
 <div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    return <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>}</div>
 <div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span> </div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno"><a class="line" href="____arm__2d__impl_8h.html#a937aa0cb3353794eaccdd93166273260">  341</a></span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> <a class="code hl_function" href="arm__2d__draw_8c.html#a937aa0cb3353794eaccdd93166273260">__arm_2d_rgb32_sw_colour_filling</a>(<a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_rgb32_sw_colour_filling(__arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>{</div>
 <div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__fill__cl__t.html">arm_2d_op_fill_cl_t</a>, ptTask-&gt;ptOP)</div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#af715e26dfffd1f8de1c18449e2770cffab73d9139521893b7600e21c84c091614">ARM_2D_COLOUR_SZ_32BIT</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    <a class="code hl_function" href="____arm__2d__direct_8h.html#a47a0dbb32d207a4a59950662b47681dc">__arm_2d_impl_rgb32_colour_filling</a>(</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    __arm_2d_impl_rgb32_colour_filling(</div>
 <div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>                    ptTask-&gt;Param.tTileProcess.pBuffer,</div>
 <div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>                    ptTask-&gt;Param.tTileProcess.iStride,</div>
 <div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>                    &amp;(ptTask-&gt;Param.tTileProcess.tValidRegion.tSize),</div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>                    <span class="keyword">this</span>.wColour);</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>                    <a class="code hl_define" href="____arm__2d__impl_8h.html#a50383951d2a9d4f1a855b2cec5e03274">this</a>.<a class="code hl_variable" href="arm__2d__draw_8h.html#af35304b0d61aea1a6a2190479ad3ed7f">wColour</a>);</div>
 <div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    return <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>}</div>
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
@@ -464,7 +466,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
 <div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    }</div>
 <div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span> </div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="____arm__2d__impl_8h.html#a584514fb179257990ece85a1ed5dff5e">__arm_2d_op_acquire</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>    <span class="keywordflow">if</span> (!__arm_2d_op_acquire((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcadcf044fad5c682cf87809bd71d556d84">arm_fsm_rt_on_going</a>;</div>
 <div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    }</div>
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span> </div>
@@ -479,7 +481,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>    this.Foreground.chColour = <a class="code hl_variable" href="arm__2d__draw_8h.html#ad2f0916a15bcd847b04295e700ee8009">chForeColour</a>;</div>
 <div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>    this.Background.chColour = <a class="code hl_variable" href="arm__2d__draw_8h.html#a61dae179e5ccef09f554810617102bde">chBackColour</a>;</div>
 <div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span> </div>
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="____arm__2d__impl_8h.html#a1ab9791a85d5e64c19eb03854014afeb">__arm_2d_op_invoke</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>    <span class="keywordflow">return</span> __arm_2d_op_invoke((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
 <div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>}</div>
 <div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span> </div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>ARM_NONNULL(2,3)</div>
@@ -504,7 +506,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
 <div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>    }</div>
 <div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span> </div>
-<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="____arm__2d__impl_8h.html#a584514fb179257990ece85a1ed5dff5e">__arm_2d_op_acquire</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>    <span class="keywordflow">if</span> (!__arm_2d_op_acquire((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
 <div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcadcf044fad5c682cf87809bd71d556d84">arm_fsm_rt_on_going</a>;</div>
 <div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>    }</div>
 <div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span> </div>
@@ -519,7 +521,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>    this.Foreground.hwColour = <a class="code hl_variable" href="arm__2d__draw_8h.html#a54672d95c859c757795d775352173728">hwForeColour</a>;</div>
 <div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>    this.Background.hwColour = <a class="code hl_variable" href="arm__2d__draw_8h.html#a4cafe2ef15d3d61f7e44b284aed642a4">hwBackColour</a>;</div>
 <div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span> </div>
-<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="____arm__2d__impl_8h.html#a1ab9791a85d5e64c19eb03854014afeb">__arm_2d_op_invoke</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>    <span class="keywordflow">return</span> __arm_2d_op_invoke((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
 <div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>}</div>
 <div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span> </div>
 <div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span> </div>
@@ -547,7 +549,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
 <div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>    }</div>
 <div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span> </div>
-<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="____arm__2d__impl_8h.html#a584514fb179257990ece85a1ed5dff5e">__arm_2d_op_acquire</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
+<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>    <span class="keywordflow">if</span> (!__arm_2d_op_acquire((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis)) {</div>
 <div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcadcf044fad5c682cf87809bd71d556d84">arm_fsm_rt_on_going</a>;</div>
 <div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span>    }</div>
 <div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span> </div>
@@ -563,11 +565,11 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00482" name="l00482"></a><span class="lineno">  482</span>    this.Foreground.wColour = <a class="code hl_variable" href="arm__2d__draw_8h.html#a4033a5327f3b1469e66785be261d622a">wForeColour</a>;</div>
 <div class="line"><a id="l00483" name="l00483"></a><span class="lineno">  483</span>    this.Background.wColour = <a class="code hl_variable" href="arm__2d__draw_8h.html#a1ded4eb313434962672a8e6d7d7152e0">wBackColour</a>;</div>
 <div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span> </div>
-<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="____arm__2d__impl_8h.html#a1ab9791a85d5e64c19eb03854014afeb">__arm_2d_op_invoke</a>((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
+<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span>    <span class="keywordflow">return</span> __arm_2d_op_invoke((<a class="code hl_struct" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *)ptThis);</div>
 <div class="line"><a id="l00486" name="l00486"></a><span class="lineno">  486</span>}</div>
 <div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span> </div>
 <div class="line"><a id="l00488" name="l00488"></a><span class="lineno">  488</span> </div>
-<div class="line"><a id="l00489" name="l00489"></a><span class="lineno"><a class="line" href="____arm__2d__impl_8h.html#af0848466b509db41ad803ab3f3fc59fd">  489</a></span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> <a class="code hl_function" href="arm__2d__draw_8c.html#af0848466b509db41ad803ab3f3fc59fd">__arm_2d_c8bit_sw_draw_pattern</a>( <a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_c8bit_sw_draw_pattern( __arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span>{</div>
 <div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__drw__patn__t.html">arm_2d_op_drw_patn_t</a>, ptTask-&gt;ptOP);</div>
 <div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#af715e26dfffd1f8de1c18449e2770cffa96378d24be8aabb704be24a9c06fad2b">ARM_2D_COLOUR_SZ_8BIT</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
@@ -597,7 +599,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>        <span class="keywordflow">return</span> (<a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>)<a class="code hl_enumvalue" href="arm__2d__types_8h.html#a27a24a896295488772e6d847c790fd1ca89517072bb819b8b1c13d31d60afe1de">ARM_2D_ERR_NOT_SUPPORT</a>;</div>
 <div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a08fc2f45ab4eac71bb36adfe574eb2e1">__arm_2d_impl_c8bit_draw_pattern</a>(</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>        __arm_2d_impl_c8bit_draw_pattern(</div>
 <div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>                                ptTask-&gt;Param.tCopy.tSource.pBuffer,</div>
 <div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>                                ptTask-&gt;Param.tCopy.tSource.nOffset,</div>
 <div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>                                ptTask-&gt;Param.tCopy.tSource.iStride,</div>
@@ -612,7 +614,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
 <div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>}</div>
 <div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span> </div>
-<div class="line"><a id="l00536" name="l00536"></a><span class="lineno"><a class="line" href="____arm__2d__impl_8h.html#a620be895f1fea79e1f85448a0e97b2f0">  536</a></span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> <a class="code hl_function" href="arm__2d__draw_8c.html#a620be895f1fea79e1f85448a0e97b2f0">__arm_2d_rgb16_sw_draw_pattern</a>( <a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_rgb16_sw_draw_pattern( __arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>{</div>
 <div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__drw__patn__t.html">arm_2d_op_drw_patn_t</a>, ptTask-&gt;ptOP);</div>
 <div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#af715e26dfffd1f8de1c18449e2770cffaa581a9deb872893773fe7c5f615f1771">ARM_2D_COLOUR_SZ_16BIT</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
@@ -642,7 +644,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>        <span class="keywordflow">return</span> (<a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>)<a class="code hl_enumvalue" href="arm__2d__types_8h.html#a27a24a896295488772e6d847c790fd1ca89517072bb819b8b1c13d31d60afe1de">ARM_2D_ERR_NOT_SUPPORT</a>;</div>
 <div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a708c8d3fc34e00f1c6fa3e54a33b5904">__arm_2d_impl_rgb16_draw_pattern</a>(</div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>        __arm_2d_impl_rgb16_draw_pattern(</div>
 <div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>                                ptTask-&gt;Param.tCopy.tSource.pBuffer,</div>
 <div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>                                ptTask-&gt;Param.tCopy.tSource.nOffset,</div>
 <div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>                                ptTask-&gt;Param.tCopy.tSource.iStride,</div>
@@ -657,7 +659,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
 <div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>}</div>
 <div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span> </div>
-<div class="line"><a id="l00583" name="l00583"></a><span class="lineno"><a class="line" href="____arm__2d__impl_8h.html#ae09fc35f134dad45216058e1b7d59c4d">  583</a></span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> <a class="code hl_function" href="arm__2d__draw_8c.html#ae09fc35f134dad45216058e1b7d59c4d">__arm_2d_rgb32_sw_draw_pattern</a>( <a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __arm_2d_rgb32_sw_draw_pattern( __arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>{</div>
 <div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__drw__patn__t.html">arm_2d_op_drw_patn_t</a>, ptTask-&gt;ptOP);</div>
 <div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>    assert(<a class="code hl_enumvalue" href="arm__2d__types_8h.html#af715e26dfffd1f8de1c18449e2770cffab73d9139521893b7600e21c84c091614">ARM_2D_COLOUR_SZ_32BIT</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
@@ -686,7 +688,7 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>        <span class="keywordflow">return</span> (<a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>)<a class="code hl_enumvalue" href="arm__2d__types_8h.html#a27a24a896295488772e6d847c790fd1ca89517072bb819b8b1c13d31d60afe1de">ARM_2D_ERR_NOT_SUPPORT</a>;</div>
 <div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>        <a class="code hl_function" href="____arm__2d__direct_8h.html#a0f62bbd5ce3f283735b74bd03354a518">__arm_2d_impl_rgb32_draw_pattern</a>(</div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>        __arm_2d_impl_rgb32_draw_pattern(</div>
 <div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>                                ptTask-&gt;Param.tCopy.tSource.pBuffer,</div>
 <div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>                                ptTask-&gt;Param.tCopy.tSource.nOffset,</div>
 <div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>                                ptTask-&gt;Param.tCopy.tSource.iStride,</div>
@@ -708,33 +710,33 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span><span class="comment"> *----------------------------------------------------------------------------*/</span></div>
 <div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span> </div>
 <div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>__WEAK</div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>def_low_lv_io(__ARM_2D_IO_DRAW_POINT, <a class="code hl_function" href="arm__2d__draw_8c.html#adbed80f4f16e90ec1411829cd26c2820">__arm_2d_sw_draw_point</a>);</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>def_low_lv_io(__ARM_2D_IO_DRAW_POINT, __arm_2d_sw_draw_point);</div>
 <div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span> </div>
 <div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>__WEAK</div>
-<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>def_low_lv_io(__ARM_2D_IO_DRAW_PATTERN_C8BIT, <a class="code hl_function" href="arm__2d__draw_8c.html#af0848466b509db41ad803ab3f3fc59fd">__arm_2d_c8bit_sw_draw_pattern</a>);</div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>def_low_lv_io(__ARM_2D_IO_DRAW_PATTERN_C8BIT, __arm_2d_c8bit_sw_draw_pattern);</div>
 <div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>__WEAK</div>
-<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>def_low_lv_io(__ARM_2D_IO_DRAW_PATTERN_RGB16, <a class="code hl_function" href="arm__2d__draw_8c.html#a620be895f1fea79e1f85448a0e97b2f0">__arm_2d_rgb16_sw_draw_pattern</a>);</div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>def_low_lv_io(__ARM_2D_IO_DRAW_PATTERN_RGB16, __arm_2d_rgb16_sw_draw_pattern);</div>
 <div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>__WEAK</div>
-<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>def_low_lv_io(__ARM_2D_IO_DRAW_PATTERN_RGB32, <a class="code hl_function" href="arm__2d__draw_8c.html#ae09fc35f134dad45216058e1b7d59c4d">__arm_2d_rgb32_sw_draw_pattern</a>);</div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>def_low_lv_io(__ARM_2D_IO_DRAW_PATTERN_RGB32, __arm_2d_rgb32_sw_draw_pattern);</div>
 <div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>    </div>
 <div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>__WEAK</div>
-<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_C8BIT, <a class="code hl_function" href="arm__2d__draw_8c.html#a7dde36e3dd63ad5e4f76d12a9800c33f">__arm_2d_c8bit_sw_colour_filling</a>);    </div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_C8BIT, __arm_2d_c8bit_sw_colour_filling);    </div>
 <div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>__WEAK</div>
-<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_RGB16, <a class="code hl_function" href="arm__2d__draw_8c.html#a350f276e850fdc2dfbb2292674685785">__arm_2d_rgb16_sw_colour_filling</a>);</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_RGB16, __arm_2d_rgb16_sw_colour_filling);</div>
 <div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>__WEAK</div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_RGB32, <a class="code hl_function" href="arm__2d__draw_8c.html#a937aa0cb3353794eaccdd93166273260">__arm_2d_rgb32_sw_colour_filling</a>);</div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>def_low_lv_io(__ARM_2D_IO_FILL_COLOUR_RGB32, __arm_2d_rgb32_sw_colour_filling);</div>
 <div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span> </div>
 <div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span> </div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a593fadbebb0233be184574b13dfebdd1">  652</a></span><span class="keyword">const</span> <a class="code hl_union" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> <a class="code hl_variable" href="arm__2d__draw_8c.html#a593fadbebb0233be184574b13dfebdd1">ARM_2D_OP_DRAW_POINT_C8BIT</a> = {</div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a3bf2940c881d5853d3e964a28285ef55">Info</a> = {</div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>        .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a39ef7abf9db2b1da80284c97d69a0a4c">Colour</a> = {</div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>            .<a class="code hl_variable" href="unionarm__2d__color__info__t.html#aa236eb54ebd5cbf803d5ed68bff0a666">chScheme</a>   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185">ARM_2D_COLOUR_8BIT</a>,</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a593fadbebb0233be184574b13dfebdd1">  652</a></span><span class="keyword">const</span> __arm_2d_op_info_t <a class="code hl_variable" href="arm__2d__draw_8c.html#a593fadbebb0233be184574b13dfebdd1">ARM_2D_OP_DRAW_POINT_C8BIT</a> = {</div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    .Info = {</div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>        .Colour = {</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>            .chScheme   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185">ARM_2D_COLOUR_8BIT</a>,</div>
 <div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>        },</div>
 <div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>        .Param = {</div>
 <div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>            .bHasSource     = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>            .bHasTarget     = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>        },</div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>        .chOpIndex      = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba76bc93f97632385e3f8acef92d8fcb4d">__ARM_2D_OP_IDX_DRAW_POINT</a>,</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>        .chOpIndex      = __ARM_2D_OP_IDX_DRAW_POINT,</div>
 <div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>        </div>
 <div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>        .LowLevelIO = {</div>
 <div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>            .ptTileProcessLike = <a class="code hl_define" href="arm__2d__utils_8h.html#ae3cfa68806c0c6c9fa7bb2a36453eef5">ref_low_lv_io</a>(__ARM_2D_IO_DRAW_POINT),</div>
@@ -742,16 +744,16 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>    },</div>
 <div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>};</div>
 <div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>    </div>
-<div class="line"><a id="l00669" name="l00669"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#abf4c815c546769451bec088c1dbca221">  669</a></span><span class="keyword">const</span> <a class="code hl_union" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> <a class="code hl_variable" href="arm__2d__draw_8c.html#abf4c815c546769451bec088c1dbca221">ARM_2D_OP_DRAW_POINT_RGB16</a> = {</div>
-<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>    .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a3bf2940c881d5853d3e964a28285ef55">Info</a> = {</div>
-<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>        .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a39ef7abf9db2b1da80284c97d69a0a4c">Colour</a> = {</div>
-<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>            .<a class="code hl_variable" href="unionarm__2d__color__info__t.html#aa236eb54ebd5cbf803d5ed68bff0a666">chScheme</a>   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ab0849cd342b9d2c01f1c478314d1be1b">ARM_2D_COLOUR_RGB16</a>,</div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#abf4c815c546769451bec088c1dbca221">  669</a></span><span class="keyword">const</span> __arm_2d_op_info_t <a class="code hl_variable" href="arm__2d__draw_8c.html#abf4c815c546769451bec088c1dbca221">ARM_2D_OP_DRAW_POINT_RGB16</a> = {</div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>    .Info = {</div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>        .Colour = {</div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>            .chScheme   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ab0849cd342b9d2c01f1c478314d1be1b">ARM_2D_COLOUR_RGB16</a>,</div>
 <div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>        },</div>
 <div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>        .Param = {</div>
 <div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>            .bHasSource     = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>            .bHasTarget     = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>        },</div>
-<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>        .chOpIndex      = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba76bc93f97632385e3f8acef92d8fcb4d">__ARM_2D_OP_IDX_DRAW_POINT</a>,</div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>        .chOpIndex      = __ARM_2D_OP_IDX_DRAW_POINT,</div>
 <div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>        </div>
 <div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>        .LowLevelIO = {</div>
 <div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>            .ptTileProcessLike = <a class="code hl_define" href="arm__2d__utils_8h.html#ae3cfa68806c0c6c9fa7bb2a36453eef5">ref_low_lv_io</a>(__ARM_2D_IO_DRAW_POINT),</div>
@@ -759,16 +761,16 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>    },</div>
 <div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>};</div>
 <div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>    </div>
-<div class="line"><a id="l00686" name="l00686"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a1db08c7c135dc98874902dea37217a29">  686</a></span><span class="keyword">const</span> <a class="code hl_union" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> <a class="code hl_variable" href="arm__2d__draw_8c.html#a1db08c7c135dc98874902dea37217a29">ARM_2D_OP_DRAW_POINT_RGB32</a> = {</div>
-<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>    .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a3bf2940c881d5853d3e964a28285ef55">Info</a> = {</div>
-<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>        .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a39ef7abf9db2b1da80284c97d69a0a4c">Colour</a> = {</div>
-<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>            .<a class="code hl_variable" href="unionarm__2d__color__info__t.html#aa236eb54ebd5cbf803d5ed68bff0a666">chScheme</a>   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39a33d112062167265439d63ec46ffcab8c">ARM_2D_COLOUR_RGB32</a>,</div>
+<div class="line"><a id="l00686" name="l00686"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a1db08c7c135dc98874902dea37217a29">  686</a></span><span class="keyword">const</span> __arm_2d_op_info_t <a class="code hl_variable" href="arm__2d__draw_8c.html#a1db08c7c135dc98874902dea37217a29">ARM_2D_OP_DRAW_POINT_RGB32</a> = {</div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>    .Info = {</div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>        .Colour = {</div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>            .chScheme   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39a33d112062167265439d63ec46ffcab8c">ARM_2D_COLOUR_RGB32</a>,</div>
 <div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>        },</div>
 <div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>        .Param = {</div>
 <div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>            .bHasSource     = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>            .bHasTarget     = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>        },</div>
-<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>        .chOpIndex      = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba76bc93f97632385e3f8acef92d8fcb4d">__ARM_2D_OP_IDX_DRAW_POINT</a>,</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>        .chOpIndex      = __ARM_2D_OP_IDX_DRAW_POINT,</div>
 <div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>        </div>
 <div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>        .LowLevelIO = {</div>
 <div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>            .ptTileProcessLike = <a class="code hl_define" href="arm__2d__utils_8h.html#ae3cfa68806c0c6c9fa7bb2a36453eef5">ref_low_lv_io</a>(__ARM_2D_IO_DRAW_POINT),</div>
@@ -776,17 +778,17 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>    },</div>
 <div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>};</div>
 <div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>    </div>
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a9d2450c4ee3c0f3e5c20f6df17950937">  703</a></span><span class="keyword">const</span> <a class="code hl_union" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> <a class="code hl_variable" href="arm__2d__draw_8c.html#a9d2450c4ee3c0f3e5c20f6df17950937">ARM_2D_OP_DRAW_PATTERN_C8BIT</a> = {</div>
-<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>    .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a3bf2940c881d5853d3e964a28285ef55">Info</a> = {</div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>        .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a39ef7abf9db2b1da80284c97d69a0a4c">Colour</a> = {</div>
-<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>            .<a class="code hl_variable" href="unionarm__2d__color__info__t.html#aa236eb54ebd5cbf803d5ed68bff0a666">chScheme</a>   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185">ARM_2D_COLOUR_8BIT</a>,</div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a9d2450c4ee3c0f3e5c20f6df17950937">  703</a></span><span class="keyword">const</span> __arm_2d_op_info_t <a class="code hl_variable" href="arm__2d__draw_8c.html#a9d2450c4ee3c0f3e5c20f6df17950937">ARM_2D_OP_DRAW_PATTERN_C8BIT</a> = {</div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>    .Info = {</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>        .Colour = {</div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>            .chScheme   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185">ARM_2D_COLOUR_8BIT</a>,</div>
 <div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>        },</div>
 <div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>        .Param = {</div>
 <div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>            .bHasSource             = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>            .bAllowEnforcedColour   = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>        },</div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>        .chOpIndex      = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba5d44e3218f3cc06f1a5451ee58d936de">__ARM_2D_OP_IDX_DRAW_PATTERN</a>,</div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>        .chOpIndex      = __ARM_2D_OP_IDX_DRAW_PATTERN,</div>
 <div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>        </div>
 <div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>        .LowLevelIO = {</div>
 <div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>            .ptCopyLike = <a class="code hl_define" href="arm__2d__utils_8h.html#ae3cfa68806c0c6c9fa7bb2a36453eef5">ref_low_lv_io</a>(__ARM_2D_IO_DRAW_PATTERN_C8BIT),</div>
@@ -795,17 +797,17 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>    },</div>
 <div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>};</div>
 <div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>    </div>
-<div class="line"><a id="l00722" name="l00722"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a6b32c1cb09c23332524172b7749cf32c">  722</a></span><span class="keyword">const</span> <a class="code hl_union" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> <a class="code hl_variable" href="arm__2d__draw_8c.html#a6b32c1cb09c23332524172b7749cf32c">ARM_2D_OP_DRAW_PATTERN_RGB16</a> = {</div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>    .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a3bf2940c881d5853d3e964a28285ef55">Info</a> = {</div>
-<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>        .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a39ef7abf9db2b1da80284c97d69a0a4c">Colour</a> = {</div>
-<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>            .<a class="code hl_variable" href="unionarm__2d__color__info__t.html#aa236eb54ebd5cbf803d5ed68bff0a666">chScheme</a>   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ab0849cd342b9d2c01f1c478314d1be1b">ARM_2D_COLOUR_RGB16</a>,</div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a6b32c1cb09c23332524172b7749cf32c">  722</a></span><span class="keyword">const</span> __arm_2d_op_info_t <a class="code hl_variable" href="arm__2d__draw_8c.html#a6b32c1cb09c23332524172b7749cf32c">ARM_2D_OP_DRAW_PATTERN_RGB16</a> = {</div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>    .Info = {</div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>        .Colour = {</div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>            .chScheme   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ab0849cd342b9d2c01f1c478314d1be1b">ARM_2D_COLOUR_RGB16</a>,</div>
 <div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>        },</div>
 <div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>        .Param = {</div>
 <div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>            .bHasSource             = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>            .bAllowEnforcedColour   = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>        },</div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>        .chOpIndex      = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba5d44e3218f3cc06f1a5451ee58d936de">__ARM_2D_OP_IDX_DRAW_PATTERN</a>,</div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>        .chOpIndex      = __ARM_2D_OP_IDX_DRAW_PATTERN,</div>
 <div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>        </div>
 <div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>        .LowLevelIO = {</div>
 <div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>            .ptCopyLike = <a class="code hl_define" href="arm__2d__utils_8h.html#ae3cfa68806c0c6c9fa7bb2a36453eef5">ref_low_lv_io</a>(__ARM_2D_IO_DRAW_PATTERN_RGB16),</div>
@@ -814,17 +816,17 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>    },</div>
 <div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>};</div>
 <div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>    </div>
-<div class="line"><a id="l00741" name="l00741"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a31a5c19322c2e0e43a55bd2671b0f1f1">  741</a></span><span class="keyword">const</span> <a class="code hl_union" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> <a class="code hl_variable" href="arm__2d__draw_8c.html#a31a5c19322c2e0e43a55bd2671b0f1f1">ARM_2D_OP_DRAW_PATTERN_RGB32</a> = {</div>
-<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>    .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a3bf2940c881d5853d3e964a28285ef55">Info</a> = {</div>
-<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>        .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a39ef7abf9db2b1da80284c97d69a0a4c">Colour</a> = {</div>
-<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>            .<a class="code hl_variable" href="unionarm__2d__color__info__t.html#aa236eb54ebd5cbf803d5ed68bff0a666">chScheme</a>   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39a33d112062167265439d63ec46ffcab8c">ARM_2D_COLOUR_RGB32</a>,</div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a31a5c19322c2e0e43a55bd2671b0f1f1">  741</a></span><span class="keyword">const</span> __arm_2d_op_info_t <a class="code hl_variable" href="arm__2d__draw_8c.html#a31a5c19322c2e0e43a55bd2671b0f1f1">ARM_2D_OP_DRAW_PATTERN_RGB32</a> = {</div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>    .Info = {</div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>        .Colour = {</div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>            .chScheme   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39a33d112062167265439d63ec46ffcab8c">ARM_2D_COLOUR_RGB32</a>,</div>
 <div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>        },</div>
 <div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>        .Param = {</div>
 <div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>            .bHasSource             = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>            .bHasTarget             = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>            .bAllowEnforcedColour   = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>        },</div>
-<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>        .chOpIndex      = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba5d44e3218f3cc06f1a5451ee58d936de">__ARM_2D_OP_IDX_DRAW_PATTERN</a>,</div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>        .chOpIndex      = __ARM_2D_OP_IDX_DRAW_PATTERN,</div>
 <div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>        </div>
 <div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>        .LowLevelIO = {</div>
 <div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>            .ptCopyLike = <a class="code hl_define" href="arm__2d__utils_8h.html#ae3cfa68806c0c6c9fa7bb2a36453eef5">ref_low_lv_io</a>(__ARM_2D_IO_DRAW_PATTERN_RGB32),</div>
@@ -833,16 +835,16 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>    },</div>
 <div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>};</div>
 <div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span> </div>
-<div class="line"><a id="l00760" name="l00760"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a9a1bc4145892aeaf90961fd3d4bb3ea1">  760</a></span><span class="keyword">const</span> <a class="code hl_union" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> <a class="code hl_variable" href="arm__2d__draw_8c.html#a9a1bc4145892aeaf90961fd3d4bb3ea1">ARM_2D_OP_FILL_COLOUR_C8BIT</a> = {</div>
-<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>    .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a3bf2940c881d5853d3e964a28285ef55">Info</a> = {</div>
-<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>        .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a39ef7abf9db2b1da80284c97d69a0a4c">Colour</a> = {</div>
-<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>            .<a class="code hl_variable" href="unionarm__2d__color__info__t.html#aa236eb54ebd5cbf803d5ed68bff0a666">chScheme</a>   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185">ARM_2D_COLOUR_8BIT</a>,</div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a9a1bc4145892aeaf90961fd3d4bb3ea1">  760</a></span><span class="keyword">const</span> __arm_2d_op_info_t <a class="code hl_variable" href="arm__2d__draw_8c.html#a9a1bc4145892aeaf90961fd3d4bb3ea1">ARM_2D_OP_FILL_COLOUR_C8BIT</a> = {</div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>    .Info = {</div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>        .Colour = {</div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>            .chScheme   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185">ARM_2D_COLOUR_8BIT</a>,</div>
 <div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>        },</div>
 <div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>        .Param = {</div>
 <div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>            .bHasSource     = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>            .bHasTarget     = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>        },</div>
-<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>        .chOpIndex      = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55babd053f5d68bd027957b2669fddce916b">__ARM_2D_OP_IDX_FILL_COLOUR</a>,</div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>        .chOpIndex      = __ARM_2D_OP_IDX_FILL_COLOUR,</div>
 <div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>        </div>
 <div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>        .LowLevelIO = {</div>
 <div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>            .ptTileProcessLike = <a class="code hl_define" href="arm__2d__utils_8h.html#ae3cfa68806c0c6c9fa7bb2a36453eef5">ref_low_lv_io</a>(__ARM_2D_IO_FILL_COLOUR_C8BIT),</div>
@@ -850,16 +852,16 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>    },</div>
 <div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>};    </div>
 <div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span> </div>
-<div class="line"><a id="l00777" name="l00777"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#af923ff8b6c24e9cfd0b51854491158d1">  777</a></span><span class="keyword">const</span> <a class="code hl_union" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> <a class="code hl_variable" href="arm__2d__draw_8c.html#af923ff8b6c24e9cfd0b51854491158d1">ARM_2D_OP_FILL_COLOUR_RGB16</a> = {</div>
-<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>    .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a3bf2940c881d5853d3e964a28285ef55">Info</a> = {</div>
-<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>        .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a39ef7abf9db2b1da80284c97d69a0a4c">Colour</a> = {</div>
-<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>            .<a class="code hl_variable" href="unionarm__2d__color__info__t.html#aa236eb54ebd5cbf803d5ed68bff0a666">chScheme</a>   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ab0849cd342b9d2c01f1c478314d1be1b">ARM_2D_COLOUR_RGB16</a>,</div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#af923ff8b6c24e9cfd0b51854491158d1">  777</a></span><span class="keyword">const</span> __arm_2d_op_info_t <a class="code hl_variable" href="arm__2d__draw_8c.html#af923ff8b6c24e9cfd0b51854491158d1">ARM_2D_OP_FILL_COLOUR_RGB16</a> = {</div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>    .Info = {</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>        .Colour = {</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>            .chScheme   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ab0849cd342b9d2c01f1c478314d1be1b">ARM_2D_COLOUR_RGB16</a>,</div>
 <div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>        },</div>
 <div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>        .Param = {</div>
 <div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>            .bHasSource     = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>            .bHasTarget     = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>        },</div>
-<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>        .chOpIndex      = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55babd053f5d68bd027957b2669fddce916b">__ARM_2D_OP_IDX_FILL_COLOUR</a>,</div>
+<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>        .chOpIndex      = __ARM_2D_OP_IDX_FILL_COLOUR,</div>
 <div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>        </div>
 <div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>        .LowLevelIO = {</div>
 <div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>            .ptTileProcessLike = <a class="code hl_define" href="arm__2d__utils_8h.html#ae3cfa68806c0c6c9fa7bb2a36453eef5">ref_low_lv_io</a>(__ARM_2D_IO_FILL_COLOUR_RGB16),</div>
@@ -867,16 +869,16 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>    },</div>
 <div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>};</div>
 <div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>    </div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a302b17d77de09ccd3da2f91fa2d1801a">  794</a></span><span class="keyword">const</span> <a class="code hl_union" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> <a class="code hl_variable" href="arm__2d__draw_8c.html#a302b17d77de09ccd3da2f91fa2d1801a">ARM_2D_OP_FILL_COLOUR_RGB32</a> = {</div>
-<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>    .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a3bf2940c881d5853d3e964a28285ef55">Info</a> = {</div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>        .<a class="code hl_variable" href="union____arm__2d__op__info__t.html#a39ef7abf9db2b1da80284c97d69a0a4c">Colour</a> = {</div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>            .<a class="code hl_variable" href="unionarm__2d__color__info__t.html#aa236eb54ebd5cbf803d5ed68bff0a666">chScheme</a>   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39a33d112062167265439d63ec46ffcab8c">ARM_2D_COLOUR_RGB32</a>,</div>
+<div class="line"><a id="l00794" name="l00794"></a><span class="lineno"><a class="line" href="arm__2d__op_8h.html#a302b17d77de09ccd3da2f91fa2d1801a">  794</a></span><span class="keyword">const</span> __arm_2d_op_info_t <a class="code hl_variable" href="arm__2d__draw_8c.html#a302b17d77de09ccd3da2f91fa2d1801a">ARM_2D_OP_FILL_COLOUR_RGB32</a> = {</div>
+<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>    .Info = {</div>
+<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>        .Colour = {</div>
+<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>            .chScheme   = <a class="code hl_enumvalue" href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39a33d112062167265439d63ec46ffcab8c">ARM_2D_COLOUR_RGB32</a>,</div>
 <div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>        },</div>
 <div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>        .Param = {</div>
 <div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>            .bHasSource     = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>            .bHasTarget     = <span class="keyword">true</span>,</div>
 <div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>        },</div>
-<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>        .chOpIndex      = <a class="code hl_enumvalue" href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55babd053f5d68bd027957b2669fddce916b">__ARM_2D_OP_IDX_FILL_COLOUR</a>,</div>
+<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>        .chOpIndex      = __ARM_2D_OP_IDX_FILL_COLOUR,</div>
 <div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>        </div>
 <div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>        .LowLevelIO = {</div>
 <div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>            .ptTileProcessLike = <a class="code hl_define" href="arm__2d__utils_8h.html#ae3cfa68806c0c6c9fa7bb2a36453eef5">ref_low_lv_io</a>(__ARM_2D_IO_FILL_COLOUR_RGB32),</div>
@@ -887,21 +889,11 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span><span class="preprocessor">#ifdef   __cplusplus</span></div>
 <div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>}</div>
 <div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a08fc2f45ab4eac71bb36adfe574eb2e1"><div class="ttname"><a href="____arm__2d__direct_8h.html#a08fc2f45ab4eac71bb36adfe574eb2e1">__arm_2d_impl_c8bit_draw_pattern</a></div><div class="ttdeci">void __arm_2d_impl_c8bit_draw_pattern(uint8_t *__restrict pchSourceBase, int32_t iOffset, int16_t iSourceStride, uint8_t *__restrict pTargetBase, int16_t iTargetStride, arm_2d_size_t *__restrict ptCopySize, uint8_t chMode, uint8_t ForeColour, uint8_t BackColour)</div></div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a0f62bbd5ce3f283735b74bd03354a518"><div class="ttname"><a href="____arm__2d__direct_8h.html#a0f62bbd5ce3f283735b74bd03354a518">__arm_2d_impl_rgb32_draw_pattern</a></div><div class="ttdeci">void __arm_2d_impl_rgb32_draw_pattern(uint8_t *__restrict pchSourceBase, int32_t iOffset, int16_t iSourceStride, uint32_t *__restrict pTargetBase, int16_t iTargetStride, arm_2d_size_t *__restrict ptCopySize, uint8_t chMode, uint32_t ForeColour, uint32_t BackColour)</div></div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a47a0dbb32d207a4a59950662b47681dc"><div class="ttname"><a href="____arm__2d__direct_8h.html#a47a0dbb32d207a4a59950662b47681dc">__arm_2d_impl_rgb32_colour_filling</a></div><div class="ttdeci">void __arm_2d_impl_rgb32_colour_filling(uint32_t *__restrict pTarget, int16_t iTargetStride, arm_2d_size_t *__restrict ptCopySize, uint32_t Colour)</div></div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a708c8d3fc34e00f1c6fa3e54a33b5904"><div class="ttname"><a href="____arm__2d__direct_8h.html#a708c8d3fc34e00f1c6fa3e54a33b5904">__arm_2d_impl_rgb16_draw_pattern</a></div><div class="ttdeci">void __arm_2d_impl_rgb16_draw_pattern(uint8_t *__restrict pchSourceBase, int32_t iOffset, int16_t iSourceStride, uint16_t *__restrict pTargetBase, int16_t iTargetStride, arm_2d_size_t *__restrict ptCopySize, uint8_t chMode, uint16_t ForeColour, uint16_t BackColour)</div></div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_a82766d84b43c46256ad0a681402fe6d5"><div class="ttname"><a href="____arm__2d__direct_8h.html#a82766d84b43c46256ad0a681402fe6d5">__arm_2d_impl_rgb16_colour_filling</a></div><div class="ttdeci">void __arm_2d_impl_rgb16_colour_filling(uint16_t *__restrict pTarget, int16_t iTargetStride, arm_2d_size_t *__restrict ptCopySize, uint16_t Colour)</div></div>
-<div class="ttc" id="a____arm__2d__direct_8h_html_ad84a3e14eb40e0cb808c576ec8d2717e"><div class="ttname"><a href="____arm__2d__direct_8h.html#ad84a3e14eb40e0cb808c576ec8d2717e">__arm_2d_impl_c8bit_colour_filling</a></div><div class="ttdeci">void __arm_2d_impl_c8bit_colour_filling(uint8_t *__restrict pTarget, int16_t iTargetStride, arm_2d_size_t *__restrict ptCopySize, uint8_t Colour)</div></div>
 <div class="ttc" id="a____arm__2d__draw__pattern_8inc_html"><div class="ttname"><a href="____arm__2d__draw__pattern_8inc.html">__arm_2d_draw_pattern.inc</a></div></div>
 <div class="ttc" id="a____arm__2d__fill__colour_8inc_html"><div class="ttname"><a href="____arm__2d__fill__colour_8inc.html">__arm_2d_fill_colour.inc</a></div></div>
 <div class="ttc" id="a____arm__2d__impl_8h_html"><div class="ttname"><a href="____arm__2d__impl_8h.html">__arm_2d_impl.h</a></div></div>
-<div class="ttc" id="a____arm__2d__impl_8h_html_a06fc87d81c62e9abb8790b6e5713c55ba5d44e3218f3cc06f1a5451ee58d936de"><div class="ttname"><a href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba5d44e3218f3cc06f1a5451ee58d936de">__ARM_2D_OP_IDX_DRAW_PATTERN</a></div><div class="ttdeci">@ __ARM_2D_OP_IDX_DRAW_PATTERN</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00255">__arm_2d_impl.h:255</a></div></div>
-<div class="ttc" id="a____arm__2d__impl_8h_html_a06fc87d81c62e9abb8790b6e5713c55ba76bc93f97632385e3f8acef92d8fcb4d"><div class="ttname"><a href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba76bc93f97632385e3f8acef92d8fcb4d">__ARM_2D_OP_IDX_DRAW_POINT</a></div><div class="ttdeci">@ __ARM_2D_OP_IDX_DRAW_POINT</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00254">__arm_2d_impl.h:254</a></div></div>
-<div class="ttc" id="a____arm__2d__impl_8h_html_a06fc87d81c62e9abb8790b6e5713c55babd053f5d68bd027957b2669fddce916b"><div class="ttname"><a href="____arm__2d__impl_8h.html#a06fc87d81c62e9abb8790b6e5713c55babd053f5d68bd027957b2669fddce916b">__ARM_2D_OP_IDX_FILL_COLOUR</a></div><div class="ttdeci">@ __ARM_2D_OP_IDX_FILL_COLOUR</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00244">__arm_2d_impl.h:244</a></div></div>
-<div class="ttc" id="a____arm__2d__impl_8h_html_a1ab9791a85d5e64c19eb03854014afeb"><div class="ttname"><a href="____arm__2d__impl_8h.html#a1ab9791a85d5e64c19eb03854014afeb">__arm_2d_op_invoke</a></div><div class="ttdeci">arm_fsm_rt_t __arm_2d_op_invoke(arm_2d_op_core_t *ptOP)</div></div>
 <div class="ttc" id="a____arm__2d__impl_8h_html_a451aeef94e8d5bf76519f63cbca43493"><div class="ttname"><a href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a></div><div class="ttdeci">#define ARM_2D_IMPL(__TYPE,...)</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00065">__arm_2d_impl.h:65</a></div></div>
-<div class="ttc" id="a____arm__2d__impl_8h_html_a584514fb179257990ece85a1ed5dff5e"><div class="ttname"><a href="____arm__2d__impl_8h.html#a584514fb179257990ece85a1ed5dff5e">__arm_2d_op_acquire</a></div><div class="ttdeci">bool __arm_2d_op_acquire(arm_2d_op_core_t *ptOP)</div><div class="ttdoc">sync up with operation !</div></div>
+<div class="ttc" id="a____arm__2d__impl_8h_html_a50383951d2a9d4f1a855b2cec5e03274"><div class="ttname"><a href="____arm__2d__impl_8h.html#a50383951d2a9d4f1a855b2cec5e03274">this</a></div><div class="ttdeci">#define this</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00060">__arm_2d_impl.h:60</a></div></div>
 <div class="ttc" id="a____arm__2d__impl_8h_html_a9f9d937dc5a6d79e26e25ebf55bbf679"><div class="ttname"><a href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a></div><div class="ttdeci">#define OP_CORE</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00063">__arm_2d_impl.h:63</a></div></div>
 <div class="ttc" id="aarm__2d_8h_html"><div class="ttname"><a href="arm__2d_8h.html">arm_2d.h</a></div></div>
 <div class="ttc" id="aarm__2d__alpha__blending_8h_html_a25b1be65ad65273d0a8df4d7822bb37c"><div class="ttname"><a href="arm__2d__alpha__blending_8h.html#a25b1be65ad65273d0a8df4d7822bb37c">ptRegion</a></div><div class="ttdeci">const arm_2d_tile_t const arm_2d_tile_t const arm_2d_region_t * ptRegion</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__alpha__blending_8h_source.html#l00860">arm_2d_alpha_blending.h:860</a></div></div>
@@ -911,18 +903,11 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="ttc" id="aarm__2d__draw_8c_html_a1db08c7c135dc98874902dea37217a29"><div class="ttname"><a href="arm__2d__draw_8c.html#a1db08c7c135dc98874902dea37217a29">ARM_2D_OP_DRAW_POINT_RGB32</a></div><div class="ttdeci">const __arm_2d_op_info_t ARM_2D_OP_DRAW_POINT_RGB32</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00686">arm_2d_draw.c:686</a></div></div>
 <div class="ttc" id="aarm__2d__draw_8c_html_a302b17d77de09ccd3da2f91fa2d1801a"><div class="ttname"><a href="arm__2d__draw_8c.html#a302b17d77de09ccd3da2f91fa2d1801a">ARM_2D_OP_FILL_COLOUR_RGB32</a></div><div class="ttdeci">const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_RGB32</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00794">arm_2d_draw.c:794</a></div></div>
 <div class="ttc" id="aarm__2d__draw_8c_html_a31a5c19322c2e0e43a55bd2671b0f1f1"><div class="ttname"><a href="arm__2d__draw_8c.html#a31a5c19322c2e0e43a55bd2671b0f1f1">ARM_2D_OP_DRAW_PATTERN_RGB32</a></div><div class="ttdeci">const __arm_2d_op_info_t ARM_2D_OP_DRAW_PATTERN_RGB32</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00741">arm_2d_draw.c:741</a></div></div>
-<div class="ttc" id="aarm__2d__draw_8c_html_a350f276e850fdc2dfbb2292674685785"><div class="ttname"><a href="arm__2d__draw_8c.html#a350f276e850fdc2dfbb2292674685785">__arm_2d_rgb16_sw_colour_filling</a></div><div class="ttdeci">arm_fsm_rt_t __arm_2d_rgb16_sw_colour_filling(__arm_2d_sub_task_t *ptTask)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00327">arm_2d_draw.c:327</a></div></div>
 <div class="ttc" id="aarm__2d__draw_8c_html_a593fadbebb0233be184574b13dfebdd1"><div class="ttname"><a href="arm__2d__draw_8c.html#a593fadbebb0233be184574b13dfebdd1">ARM_2D_OP_DRAW_POINT_C8BIT</a></div><div class="ttdeci">const __arm_2d_op_info_t ARM_2D_OP_DRAW_POINT_C8BIT</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00652">arm_2d_draw.c:652</a></div></div>
-<div class="ttc" id="aarm__2d__draw_8c_html_a620be895f1fea79e1f85448a0e97b2f0"><div class="ttname"><a href="arm__2d__draw_8c.html#a620be895f1fea79e1f85448a0e97b2f0">__arm_2d_rgb16_sw_draw_pattern</a></div><div class="ttdeci">arm_fsm_rt_t __arm_2d_rgb16_sw_draw_pattern(__arm_2d_sub_task_t *ptTask)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00536">arm_2d_draw.c:536</a></div></div>
 <div class="ttc" id="aarm__2d__draw_8c_html_a6b32c1cb09c23332524172b7749cf32c"><div class="ttname"><a href="arm__2d__draw_8c.html#a6b32c1cb09c23332524172b7749cf32c">ARM_2D_OP_DRAW_PATTERN_RGB16</a></div><div class="ttdeci">const __arm_2d_op_info_t ARM_2D_OP_DRAW_PATTERN_RGB16</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00722">arm_2d_draw.c:722</a></div></div>
-<div class="ttc" id="aarm__2d__draw_8c_html_a7dde36e3dd63ad5e4f76d12a9800c33f"><div class="ttname"><a href="arm__2d__draw_8c.html#a7dde36e3dd63ad5e4f76d12a9800c33f">__arm_2d_c8bit_sw_colour_filling</a></div><div class="ttdeci">arm_fsm_rt_t __arm_2d_c8bit_sw_colour_filling(__arm_2d_sub_task_t *ptTask)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00313">arm_2d_draw.c:313</a></div></div>
-<div class="ttc" id="aarm__2d__draw_8c_html_a937aa0cb3353794eaccdd93166273260"><div class="ttname"><a href="arm__2d__draw_8c.html#a937aa0cb3353794eaccdd93166273260">__arm_2d_rgb32_sw_colour_filling</a></div><div class="ttdeci">arm_fsm_rt_t __arm_2d_rgb32_sw_colour_filling(__arm_2d_sub_task_t *ptTask)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00341">arm_2d_draw.c:341</a></div></div>
 <div class="ttc" id="aarm__2d__draw_8c_html_a9a1bc4145892aeaf90961fd3d4bb3ea1"><div class="ttname"><a href="arm__2d__draw_8c.html#a9a1bc4145892aeaf90961fd3d4bb3ea1">ARM_2D_OP_FILL_COLOUR_C8BIT</a></div><div class="ttdeci">const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_C8BIT</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00760">arm_2d_draw.c:760</a></div></div>
 <div class="ttc" id="aarm__2d__draw_8c_html_a9d2450c4ee3c0f3e5c20f6df17950937"><div class="ttname"><a href="arm__2d__draw_8c.html#a9d2450c4ee3c0f3e5c20f6df17950937">ARM_2D_OP_DRAW_PATTERN_C8BIT</a></div><div class="ttdeci">const __arm_2d_op_info_t ARM_2D_OP_DRAW_PATTERN_C8BIT</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00703">arm_2d_draw.c:703</a></div></div>
 <div class="ttc" id="aarm__2d__draw_8c_html_abf4c815c546769451bec088c1dbca221"><div class="ttname"><a href="arm__2d__draw_8c.html#abf4c815c546769451bec088c1dbca221">ARM_2D_OP_DRAW_POINT_RGB16</a></div><div class="ttdeci">const __arm_2d_op_info_t ARM_2D_OP_DRAW_POINT_RGB16</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00669">arm_2d_draw.c:669</a></div></div>
-<div class="ttc" id="aarm__2d__draw_8c_html_adbed80f4f16e90ec1411829cd26c2820"><div class="ttname"><a href="arm__2d__draw_8c.html#adbed80f4f16e90ec1411829cd26c2820">__arm_2d_sw_draw_point</a></div><div class="ttdeci">arm_fsm_rt_t __arm_2d_sw_draw_point(__arm_2d_sub_task_t *ptTask)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00212">arm_2d_draw.c:212</a></div></div>
-<div class="ttc" id="aarm__2d__draw_8c_html_ae09fc35f134dad45216058e1b7d59c4d"><div class="ttname"><a href="arm__2d__draw_8c.html#ae09fc35f134dad45216058e1b7d59c4d">__arm_2d_rgb32_sw_draw_pattern</a></div><div class="ttdeci">arm_fsm_rt_t __arm_2d_rgb32_sw_draw_pattern(__arm_2d_sub_task_t *ptTask)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00583">arm_2d_draw.c:583</a></div></div>
-<div class="ttc" id="aarm__2d__draw_8c_html_af0848466b509db41ad803ab3f3fc59fd"><div class="ttname"><a href="arm__2d__draw_8c.html#af0848466b509db41ad803ab3f3fc59fd">__arm_2d_c8bit_sw_draw_pattern</a></div><div class="ttdeci">arm_fsm_rt_t __arm_2d_c8bit_sw_draw_pattern(__arm_2d_sub_task_t *ptTask)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00489">arm_2d_draw.c:489</a></div></div>
 <div class="ttc" id="aarm__2d__draw_8c_html_af923ff8b6c24e9cfd0b51854491158d1"><div class="ttname"><a href="arm__2d__draw_8c.html#af923ff8b6c24e9cfd0b51854491158d1">ARM_2D_OP_FILL_COLOUR_RGB16</a></div><div class="ttdeci">const __arm_2d_op_info_t ARM_2D_OP_FILL_COLOUR_RGB16</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8c_source.html#l00777">arm_2d_draw.c:777</a></div></div>
 <div class="ttc" id="aarm__2d__draw_8h_html_a0d5ab306c8bd3747801fa52cca16f95d"><div class="ttname"><a href="arm__2d__draw_8h.html#a0d5ab306c8bd3747801fa52cca16f95d">ptPattern</a></div><div class="ttdeci">const arm_2d_tile_t * ptPattern</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8h_source.html#l00318">arm_2d_draw.h:318</a></div></div>
 <div class="ttc" id="aarm__2d__draw_8h_html_a1ded4eb313434962672a8e6d7d7152e0"><div class="ttname"><a href="arm__2d__draw_8h.html#a1ded4eb313434962672a8e6d7d7152e0">wBackColour</a></div><div class="ttdeci">const arm_2d_tile_t const arm_2d_tile_t const arm_2d_region_t uint32_t uint32_t uint32_t wBackColour</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8h_source.html#l00343">arm_2d_draw.h:343</a></div></div>
@@ -952,17 +937,12 @@ $(document).ready(function(){initNavTree('arm__2d__draw_8c_source.html',''); ini
 <div class="ttc" id="aarm__2d__types_8h_html_afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185"><div class="ttname"><a href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185">ARM_2D_COLOUR_8BIT</a></div><div class="ttdeci">@ ARM_2D_COLOUR_8BIT</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00229">arm_2d_types.h:229</a></div></div>
 <div class="ttc" id="aarm__2d__types_8h_html_afccd240f973cf154952fb917c9209719a7073e7b41d758c515548cb3d9a97076b"><div class="ttname"><a href="arm__2d__types_8h.html#afccd240f973cf154952fb917c9209719a7073e7b41d758c515548cb3d9a97076b">ARM_2D_PREF_ACC_SW_ONLY</a></div><div class="ttdeci">@ ARM_2D_PREF_ACC_SW_ONLY</div><div class="ttdoc">Only use software algorithm.</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00441">arm_2d_types.h:439</a></div></div>
 <div class="ttc" id="aarm__2d__utils_8h_html_ae3cfa68806c0c6c9fa7bb2a36453eef5"><div class="ttname"><a href="arm__2d__utils_8h.html#ae3cfa68806c0c6c9fa7bb2a36453eef5">ref_low_lv_io</a></div><div class="ttdeci">#define ref_low_lv_io(__NAME)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00444">arm_2d_utils.h:444</a></div></div>
-<div class="ttc" id="astruct____arm__2d__sub__task__t_html"><div class="ttname"><a href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a></div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00344">__arm_2d_impl.h:344</a></div></div>
 <div class="ttc" id="astructarm__2d__location__t_html"><div class="ttname"><a href="structarm__2d__location__t.html">arm_2d_location_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00281">arm_2d_types.h:281</a></div></div>
 <div class="ttc" id="astructarm__2d__op__core__t_html"><div class="ttname"><a href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00463">arm_2d_types.h:463</a></div></div>
 <div class="ttc" id="astructarm__2d__op__drw__patn__t_html"><div class="ttname"><a href="structarm__2d__op__drw__patn__t.html">arm_2d_op_drw_patn_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8h_source.html#l00175">arm_2d_draw.h:175</a></div></div>
 <div class="ttc" id="astructarm__2d__op__fill__cl__t_html"><div class="ttname"><a href="structarm__2d__op__fill__cl__t.html">arm_2d_op_fill_cl_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8h_source.html#l00156">arm_2d_draw.h:156</a></div></div>
 <div class="ttc" id="astructarm__2d__region__t_html"><div class="ttname"><a href="structarm__2d__region__t.html">arm_2d_region_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00301">arm_2d_types.h:301</a></div></div>
 <div class="ttc" id="astructarm__2d__tile__t_html"><div class="ttname"><a href="structarm__2d__tile__t.html">arm_2d_tile_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00307">arm_2d_types.h:307</a></div></div>
-<div class="ttc" id="aunion____arm__2d__op__info__t_html"><div class="ttname"><a href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00376">arm_2d_types.h:376</a></div></div>
-<div class="ttc" id="aunion____arm__2d__op__info__t_html_a39ef7abf9db2b1da80284c97d69a0a4c"><div class="ttname"><a href="union____arm__2d__op__info__t.html#a39ef7abf9db2b1da80284c97d69a0a4c">__arm_2d_op_info_t::Colour</a></div><div class="ttdeci">arm_2d_color_info_t Colour</div><div class="ttdoc">the colour used in thie operation</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00378">arm_2d_types.h:378</a></div></div>
-<div class="ttc" id="aunion____arm__2d__op__info__t_html_a3bf2940c881d5853d3e964a28285ef55"><div class="ttname"><a href="union____arm__2d__op__info__t.html#a3bf2940c881d5853d3e964a28285ef55">__arm_2d_op_info_t::Info</a></div><div class="ttdeci">struct __arm_2d_op_info_t::@70 Info</div></div>
-<div class="ttc" id="aunionarm__2d__color__info__t_html_aa236eb54ebd5cbf803d5ed68bff0a666"><div class="ttname"><a href="unionarm__2d__color__info__t.html#aa236eb54ebd5cbf803d5ed68bff0a666">arm_2d_color_info_t::chScheme</a></div><div class="ttdeci">uint8_t chScheme</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00272">arm_2d_types.h:272</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

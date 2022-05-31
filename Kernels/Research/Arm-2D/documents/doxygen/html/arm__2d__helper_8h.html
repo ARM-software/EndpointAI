@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Helper/Include/arm_2d_helper.h File Reference</title>
+<title>arm-2d: arm_2d_helper.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -94,201 +96,18 @@ $(document).ready(function(){initNavTree('arm__2d__helper_8h.html',''); initResi
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:abd2fb6ea496de4693d7157023254e471"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper_8h.html#abd2fb6ea496de4693d7157023254e471">__declare_tile</a>(__NAME)&#160;&#160;&#160;            extern const <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a> __NAME;</td></tr>
-<tr class="separator:abd2fb6ea496de4693d7157023254e471"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ff1a2d6d72b77d9af31174201f62949"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper_8h.html#a8ff1a2d6d72b77d9af31174201f62949">declare_tile</a>(__NAME)&#160;&#160;&#160;<a class="el" href="arm__2d__helper_8h.html#abd2fb6ea496de4693d7157023254e471">__declare_tile</a>(__NAME)</td></tr>
+<tr class="memitem:a8ff1a2d6d72b77d9af31174201f62949"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper_8h.html#a8ff1a2d6d72b77d9af31174201f62949">declare_tile</a>(__NAME)&#160;&#160;&#160;__declare_tile(__NAME)</td></tr>
 <tr class="separator:a8ff1a2d6d72b77d9af31174201f62949"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac56ea3b2253030bccf6826ff80c73c94"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper_8h.html#ac56ea3b2253030bccf6826ff80c73c94">__implement_tile</a>(__NAME,  __WIDTH,  __HEIGHT,  __TYPE, ...)</td></tr>
-<tr class="separator:ac56ea3b2253030bccf6826ff80c73c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7719d32fd484c295076b9f3e8593aab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper_8h.html#ae7719d32fd484c295076b9f3e8593aab">implement_tile</a>(__NAME,  __WIDTH,  __HEIGHT,  __TYPE, ...)&#160;&#160;&#160;            <a class="el" href="arm__2d__helper_8h.html#ac56ea3b2253030bccf6826ff80c73c94">__implement_tile</a>(__NAME, __WIDTH, __HEIGHT, __TYPE, ##__VA_ARGS__)</td></tr>
+<tr class="memitem:ae7719d32fd484c295076b9f3e8593aab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper_8h.html#ae7719d32fd484c295076b9f3e8593aab">implement_tile</a>(__NAME,  __WIDTH,  __HEIGHT,  __TYPE, ...)&#160;&#160;&#160;            __implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE, ##__VA_ARGS__)</td></tr>
 <tr class="separator:ae7719d32fd484c295076b9f3e8593aab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f6932c29834326e8499ecad35dd034c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper_8h.html#a0f6932c29834326e8499ecad35dd034c">get_tile_buffer_pixel_count</a>(__NAME)</td></tr>
 <tr class="separator:a0f6932c29834326e8499ecad35dd034c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75ac3fb5f86d86d11e972f47d109bfcd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper_8h.html#a75ac3fb5f86d86d11e972f47d109bfcd">get_tile_buffer_size</a>(__NAME,  __TYPE)&#160;&#160;&#160;            (get_2d_layer_buffer_pixel_count(__NAME) * sizeof(TYPE))</td></tr>
 <tr class="separator:a75ac3fb5f86d86d11e972f47d109bfcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe887edb3b7ce6eeec2b309bbf32c383"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper_8h.html#abe887edb3b7ce6eeec2b309bbf32c383">__arm_2d_align_centre2</a>(__region,  __size)</td></tr>
-<tr class="separator:abe887edb3b7ce6eeec2b309bbf32c383"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68f37bbc40dcb5d4c8286cebf2303a7a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper_8h.html#a68f37bbc40dcb5d4c8286cebf2303a7a">__arm_2d_align_centre3</a>(__region,  __width,  __height)</td></tr>
-<tr class="separator:a68f37bbc40dcb5d4c8286cebf2303a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaad43aef0ad2472379061137f374b72c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper_8h.html#aaad43aef0ad2472379061137f374b72c">arm_2d_align_centre</a>(...)</td></tr>
 <tr class="separator:aaad43aef0ad2472379061137f374b72c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="abe887edb3b7ce6eeec2b309bbf32c383" name="abe887edb3b7ce6eeec2b309bbf32c383"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe887edb3b7ce6eeec2b309bbf32c383">&#9670;&nbsp;</a></span>__arm_2d_align_centre2</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __arm_2d_align_centre2</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__region, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__size&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">for</span> (<a class="code hl_struct" href="structarm__2d__region__t.html">arm_2d_region_t</a> __centre_region = {                                    \</div>
-<div class="line">            .tSize = (__size),                                                  \</div>
-<div class="line">            .<a class="code hl_variable" href="arm__2d__draw_8h.html#afdf8b383cd3052c58e58718a55ea1f61">tLocation</a> = {                                                      \</div>
-<div class="line">                .<a class="code hl_variable" href="structarm__2d__location__t.html#a7c7434482f3a34f7e8340c56bf42f8b4">iX</a> = ((__region).tRegion.tSize.iWidth - (__size).iWidth)  &gt;&gt; 1,\</div>
-<div class="line">                .iY = ((__region).tRegion.tSize.iHeight - (__size).iHeight)&gt;&gt; 1,\</div>
-<div class="line">            },                                                                  \</div>
-<div class="line">        },                                                                      \</div>
-<div class="line">        *<a class="code hl_define" href="arm__2d__utils_8h.html#aa612e8299f2fa71ff5829e61c4735fd1">ARM_CONNECT3</a>(__ARM_USING_, __LINE__,_ptr) = NULL;                      \</div>
-<div class="line">         ARM_CONNECT3(__ARM_USING_, __LINE__,_ptr)++ == NULL;                   \</div>
-<div class="line">        )</div>
-<div class="ttc" id="aarm__2d__draw_8h_html_afdf8b383cd3052c58e58718a55ea1f61"><div class="ttname"><a href="arm__2d__draw_8h.html#afdf8b383cd3052c58e58718a55ea1f61">tLocation</a></div><div class="ttdeci">const arm_2d_location_t tLocation</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__draw_8h_source.html#l00225">arm_2d_draw.h:225</a></div></div>
-<div class="ttc" id="aarm__2d__utils_8h_html_aa612e8299f2fa71ff5829e61c4735fd1"><div class="ttname"><a href="arm__2d__utils_8h.html#aa612e8299f2fa71ff5829e61c4735fd1">ARM_CONNECT3</a></div><div class="ttdeci">#define ARM_CONNECT3(__A, __B, __C)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00205">arm_2d_utils.h:205</a></div></div>
-<div class="ttc" id="astructarm__2d__location__t_html_a7c7434482f3a34f7e8340c56bf42f8b4"><div class="ttname"><a href="structarm__2d__location__t.html#a7c7434482f3a34f7e8340c56bf42f8b4">arm_2d_location_t::iX</a></div><div class="ttdeci">int16_t iX</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00282">arm_2d_types.h:282</a></div></div>
-<div class="ttc" id="astructarm__2d__region__t_html"><div class="ttname"><a href="structarm__2d__region__t.html">arm_2d_region_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00301">arm_2d_types.h:301</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="arm__2d__helper_8h_source.html#l00066">66</a> of file <a class="el" href="arm__2d__helper_8h_source.html">arm_2d_helper.h</a>.</p>
-
-</div>
-</div>
-<a id="a68f37bbc40dcb5d4c8286cebf2303a7a" name="a68f37bbc40dcb5d4c8286cebf2303a7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68f37bbc40dcb5d4c8286cebf2303a7a">&#9670;&nbsp;</a></span>__arm_2d_align_centre3</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __arm_2d_align_centre3</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__region, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__width, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__height&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">for</span> (<a class="code hl_struct" href="structarm__2d__region__t.html">arm_2d_region_t</a> __centre_region = {                                    \</div>
-<div class="line">            .tSize = {                                                          \</div>
-<div class="line">                .iWidth = (__width),                                            \</div>
-<div class="line">                .iHeight = (__height),                                          \</div>
-<div class="line">            },                                                                  \</div>
-<div class="line">            .tLocation = {                                                      \</div>
-<div class="line">                .iX = ((__region).tRegion.tSize.iWidth - (__width))  &gt;&gt; 1,      \</div>
-<div class="line">                .iY = ((__region).tRegion.tSize.iHeight - (__height))&gt;&gt; 1,      \</div>
-<div class="line">            },                                                                  \</div>
-<div class="line">        },                                                                      \</div>
-<div class="line">        *<a class="code hl_define" href="arm__2d__utils_8h.html#aa612e8299f2fa71ff5829e61c4735fd1">ARM_CONNECT3</a>(__ARM_USING_, __LINE__,_ptr) = NULL;                      \</div>
-<div class="line">         ARM_CONNECT3(__ARM_USING_, __LINE__,_ptr)++ == NULL;                   \</div>
-<div class="line">         arm_2d_op_wait_async(NULL)                                             \</div>
-<div class="line">        )</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="arm__2d__helper_8h_source.html#l00078">78</a> of file <a class="el" href="arm__2d__helper_8h_source.html">arm_2d_helper.h</a>.</p>
-
-</div>
-</div>
-<a id="abd2fb6ea496de4693d7157023254e471" name="abd2fb6ea496de4693d7157023254e471"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd2fb6ea496de4693d7157023254e471">&#9670;&nbsp;</a></span>__declare_tile</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __declare_tile</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__NAME</td><td>)</td>
-          <td>&#160;&#160;&#160;            extern const <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a> __NAME;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__helper_8h_source.html#l00038">38</a> of file <a class="el" href="arm__2d__helper_8h_source.html">arm_2d_helper.h</a>.</p>
-
-</div>
-</div>
-<a id="ac56ea3b2253030bccf6826ff80c73c94" name="ac56ea3b2253030bccf6826ff80c73c94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac56ea3b2253030bccf6826ff80c73c94">&#9670;&nbsp;</a></span>__implement_tile</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __implement_tile</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__NAME, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__WIDTH, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__HEIGHT, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__TYPE, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">            <a class="code hl_define" href="arm__2d__utils_8h.html#a467717c9835f6c6a75f3d6d8c3aee8c8">ARM_NOINIT</a> <span class="keyword">static</span> __TYPE                                            \</div>
-<div class="line">                __NAME##Buffer[(__WIDTH) * (__HEIGHT)];                         \</div>
-<div class="line">            const <a class="code hl_struct" href="structarm__2d__tile__t.html">arm_2d_tile_t</a> __NAME = {                                      \</div>
-<div class="line">                .tRegion = {                                                    \</div>
-<div class="line">                    .tSize = {(__WIDTH), (__HEIGHT)},                           \</div>
-<div class="line">                },                                                              \</div>
-<div class="line">                .tInfo.bIsRoot = <span class="keyword">true</span>,                                          \</div>
-<div class="line">                .<a class="code hl_variable" href="structarm__2d__tile__t.html#a0ff30163f2a3a97c6af854655666aea0">pchBuffer</a> = (uint8_t *)__NAME##Buffer,                         \</div>
-<div class="line">                __VA_ARGS__                                                     \</div>
-<div class="line">            };</div>
-<div class="ttc" id="aarm__2d__utils_8h_html_a467717c9835f6c6a75f3d6d8c3aee8c8"><div class="ttname"><a href="arm__2d__utils_8h.html#a467717c9835f6c6a75f3d6d8c3aee8c8">ARM_NOINIT</a></div><div class="ttdeci">#define ARM_NOINIT</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00307">arm_2d_utils.h:307</a></div></div>
-<div class="ttc" id="astructarm__2d__tile__t_html"><div class="ttname"><a href="structarm__2d__tile__t.html">arm_2d_tile_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00307">arm_2d_types.h:307</a></div></div>
-<div class="ttc" id="astructarm__2d__tile__t_html_a0ff30163f2a3a97c6af854655666aea0"><div class="ttname"><a href="structarm__2d__tile__t.html#a0ff30163f2a3a97c6af854655666aea0">arm_2d_tile_t::pchBuffer</a></div><div class="ttdeci">uint8_t * pchBuffer</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00327">arm_2d_types.h:327</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="arm__2d__helper_8h_source.html#l00042">42</a> of file <a class="el" href="arm__2d__helper_8h_source.html">arm_2d_helper.h</a>.</p>
-
-</div>
-</div>
 <a id="aaad43aef0ad2472379061137f374b72c" name="aaad43aef0ad2472379061137f374b72c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaad43aef0ad2472379061137f374b72c">&#9670;&nbsp;</a></span>arm_2d_align_centre</h2>
 
@@ -305,8 +124,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">            <a class="code hl_define" href="arm__2d__utils_8h.html#ad6a67ffa29074439ce99988dac033e42">ARM_CONNECT2</a>(   __arm_2d_align_centre,                              \</div>
-<div class="line">                            <a class="code hl_define" href="arm__2d__utils_8h.html#aca9883ddfc8f4f3382d9d0e4a93a5890">__ARM_VA_NUM_ARGS</a>(__VA_ARGS__))(__VA_ARGS__)</div>
-<div class="ttc" id="aarm__2d__utils_8h_html_aca9883ddfc8f4f3382d9d0e4a93a5890"><div class="ttname"><a href="arm__2d__utils_8h.html#aca9883ddfc8f4f3382d9d0e4a93a5890">__ARM_VA_NUM_ARGS</a></div><div class="ttdeci">#define __ARM_VA_NUM_ARGS(...)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00178">arm_2d_utils.h:178</a></div></div>
+<div class="line">                            __ARM_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)</div>
 <div class="ttc" id="aarm__2d__utils_8h_html_ad6a67ffa29074439ce99988dac033e42"><div class="ttname"><a href="arm__2d__utils_8h.html#ad6a67ffa29074439ce99988dac033e42">ARM_CONNECT2</a></div><div class="ttdeci">#define ARM_CONNECT2(__A, __B)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00203">arm_2d_utils.h:203</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="arm__2d__helper_8h_source.html#l00094">94</a> of file <a class="el" href="arm__2d__helper_8h_source.html">arm_2d_helper.h</a>.</p>
@@ -324,7 +142,7 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">__NAME</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="arm__2d__helper_8h.html#abd2fb6ea496de4693d7157023254e471">__declare_tile</a>(__NAME)</td>
+          <td>&#160;&#160;&#160;__declare_tile(__NAME)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -424,7 +242,7 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;            <a class="el" href="arm__2d__helper_8h.html#ac56ea3b2253030bccf6826ff80c73c94">__implement_tile</a>(__NAME, __WIDTH, __HEIGHT, __TYPE, ##__VA_ARGS__)</td>
+          <td></td><td>&#160;&#160;&#160;            __implement_tile(__NAME, __WIDTH, __HEIGHT, __TYPE, ##__VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">

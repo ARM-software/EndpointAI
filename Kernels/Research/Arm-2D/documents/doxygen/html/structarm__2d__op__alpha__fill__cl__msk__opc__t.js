@@ -1,12 +1,12 @@
 var structarm__2d__op__alpha__fill__cl__msk__opc__t =
 [
-    [ "chColour", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#ada2b6afd5320a240e55e1d8c36b69346", null ],
-    [ "chRatio", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a2a0675fe73a84f9fe6520f5551c27268", null ],
-    [ "hwColour", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a0db207f31bef16456b27a97ae4e23214", null ],
-    [ "Mask", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a2c12071e5de482e3177c6bc512eb9807", null ],
-    [ "ptRegion", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a82c16810860a7a9d6e69d24bb3fccaa5", null ],
-    [ "ptTile", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#aa41387d05ba40b11feb3466fede554b9", null ],
-    [ "Target", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a0fec27de6f0426d08a02c312e734dee5", null ],
-    [ "wColour", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a4e21766d4f743ed96bb2487b359beb65", null ],
-    [ "wMode", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a92f31b7d7248207c28fb4009a944a919", null ]
+    [ "chColour", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#ac248259c1b210a5b2c26bb5790769add", null ],
+    [ "chRatio", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#ab174115721349ee9085e84d168767ff2", null ],
+    [ "hwColour", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a4a43f9fc8469595f41f77d009c591749", null ],
+    [ "Mask", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a04b4ee5160bb45ee43db2b017d8832e5", null ],
+    [ "ptRegion", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a534db3ccc683a7ccc11e496a9abdd9e2", null ],
+    [ "ptTile", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a74ed84c31dfecf1b2eae4ee03e0c1c7d", null ],
+    [ "Target", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a1e8044a71f6395cd7efa9ebd2311e0b1", null ],
+    [ "wColour", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a6b31e969e6a96dee80feebabc87ec260", null ],
+    [ "wMode", "structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a0fb2cf794cf1facf05f9324db413dd7d", null ]
 ];

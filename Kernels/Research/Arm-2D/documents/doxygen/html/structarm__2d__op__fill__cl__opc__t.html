@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -92,55 +94,55 @@ $(document).ready(function(){initNavTree('structarm__2d__op__fill__cl__opc__t.ht
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a9fce132500f7a38bde60d425c7700f6d"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:aa41387d05ba40b11feb3466fede554b9"><td class="memItemLeft" >&#160;&#160;&#160;const <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a> *&#160;&#160;&#160;<a class="el" href="structarm__2d__op__fill__cl__opc__t.html#aa41387d05ba40b11feb3466fede554b9">ptTile</a></td></tr>
-<tr class="memdesc:aa41387d05ba40b11feb3466fede554b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">target tile  <a href="structarm__2d__op__fill__cl__opc__t.html#aa41387d05ba40b11feb3466fede554b9">More...</a><br /></td></tr>
-<tr class="separator:aa41387d05ba40b11feb3466fede554b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82c16810860a7a9d6e69d24bb3fccaa5"><td class="memItemLeft" >&#160;&#160;&#160;const <a class="el" href="structarm__2d__region__t.html">arm_2d_region_t</a> *&#160;&#160;&#160;<a class="el" href="structarm__2d__op__fill__cl__opc__t.html#a82c16810860a7a9d6e69d24bb3fccaa5">ptRegion</a></td></tr>
-<tr class="memdesc:a82c16810860a7a9d6e69d24bb3fccaa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">target region  <a href="structarm__2d__op__fill__cl__opc__t.html#a82c16810860a7a9d6e69d24bb3fccaa5">More...</a><br /></td></tr>
-<tr class="separator:a82c16810860a7a9d6e69d24bb3fccaa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fce132500f7a38bde60d425c7700f6d"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__op__fill__cl__opc__t.html#a9fce132500f7a38bde60d425c7700f6d">Target</a></td></tr>
-<tr class="separator:a9fce132500f7a38bde60d425c7700f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad51b6b1ff8eb87af4e567492c98935a8"><td class="memItemLeft" >union {</td></tr>
-<tr class="memitem:ada2b6afd5320a240e55e1d8c36b69346"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="structarm__2d__op__fill__cl__opc__t.html#ada2b6afd5320a240e55e1d8c36b69346">chColour</a></td></tr>
-<tr class="separator:ada2b6afd5320a240e55e1d8c36b69346"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0db207f31bef16456b27a97ae4e23214"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="structarm__2d__op__fill__cl__opc__t.html#a0db207f31bef16456b27a97ae4e23214">hwColour</a></td></tr>
-<tr class="separator:a0db207f31bef16456b27a97ae4e23214"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e21766d4f743ed96bb2487b359beb65"><td class="memItemLeft" >&#160;&#160;&#160;uint32_t&#160;&#160;&#160;<a class="el" href="structarm__2d__op__fill__cl__opc__t.html#a4e21766d4f743ed96bb2487b359beb65">wColour</a></td></tr>
-<tr class="separator:a4e21766d4f743ed96bb2487b359beb65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad51b6b1ff8eb87af4e567492c98935a8"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:ad51b6b1ff8eb87af4e567492c98935a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a0675fe73a84f9fe6520f5551c27268"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__op__fill__cl__opc__t.html#a2a0675fe73a84f9fe6520f5551c27268">chRatio</a></td></tr>
-<tr class="memdesc:a2a0675fe73a84f9fe6520f5551c27268"><td class="mdescLeft">&#160;</td><td class="mdescRight">transparency ratio  <a href="structarm__2d__op__fill__cl__opc__t.html#a2a0675fe73a84f9fe6520f5551c27268">More...</a><br /></td></tr>
-<tr class="separator:a2a0675fe73a84f9fe6520f5551c27268"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2615e8e2c708d2e3ab6955e15b6fed1a"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:afbb7082849df4cb960685a50b3bc0e0b"><td class="memItemLeft" >&#160;&#160;&#160;const <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a> *&#160;&#160;&#160;<a class="el" href="structarm__2d__op__fill__cl__opc__t.html#ac698c2b47aa1c65c7cf76815ff1ce636">ptTile</a></td></tr>
+<tr class="memdesc:afbb7082849df4cb960685a50b3bc0e0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">target tile  <a href="structarm__2d__op__fill__cl__opc__t.html#ac698c2b47aa1c65c7cf76815ff1ce636">More...</a><br /></td></tr>
+<tr class="separator:afbb7082849df4cb960685a50b3bc0e0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4854a133a59deac80ae9b3e80a57bbc4"><td class="memItemLeft" >&#160;&#160;&#160;const <a class="el" href="structarm__2d__region__t.html">arm_2d_region_t</a> *&#160;&#160;&#160;<a class="el" href="structarm__2d__op__fill__cl__opc__t.html#ac04814ed989a81645fb25ee3178f7374">ptRegion</a></td></tr>
+<tr class="memdesc:a4854a133a59deac80ae9b3e80a57bbc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">target region  <a href="structarm__2d__op__fill__cl__opc__t.html#ac04814ed989a81645fb25ee3178f7374">More...</a><br /></td></tr>
+<tr class="separator:a4854a133a59deac80ae9b3e80a57bbc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2615e8e2c708d2e3ab6955e15b6fed1a"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__op__fill__cl__opc__t.html#a2615e8e2c708d2e3ab6955e15b6fed1a">Target</a></td></tr>
+<tr class="separator:a2615e8e2c708d2e3ab6955e15b6fed1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a1f7e2df4da6eeaaf5737a384075ce1"><td class="memItemLeft" >union {</td></tr>
+<tr class="memitem:a7d2c97b89b38349265b8a1408d637c84"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="structarm__2d__op__fill__cl__opc__t.html#a894181a96158cca5fe35ddfab5109693">chColour</a></td></tr>
+<tr class="separator:a7d2c97b89b38349265b8a1408d637c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81702a65931d7edbc7c7ecec8fa767dd"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="structarm__2d__op__fill__cl__opc__t.html#a56266b27bccac4adfdaa67dea166b85c">hwColour</a></td></tr>
+<tr class="separator:a81702a65931d7edbc7c7ecec8fa767dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd0488059e6a9e30a1dee7f24814bddc"><td class="memItemLeft" >&#160;&#160;&#160;uint32_t&#160;&#160;&#160;<a class="el" href="structarm__2d__op__fill__cl__opc__t.html#a58893e2f2575cc3751a822c75994b73d">wColour</a></td></tr>
+<tr class="separator:afd0488059e6a9e30a1dee7f24814bddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a1f7e2df4da6eeaaf5737a384075ce1"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a0a1f7e2df4da6eeaaf5737a384075ce1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08ddfde2b216f45914bf76fe86b63cae"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__op__fill__cl__opc__t.html#a08ddfde2b216f45914bf76fe86b63cae">chRatio</a></td></tr>
+<tr class="memdesc:a08ddfde2b216f45914bf76fe86b63cae"><td class="mdescLeft">&#160;</td><td class="mdescRight">transparency ratio  <a href="structarm__2d__op__fill__cl__opc__t.html#a08ddfde2b216f45914bf76fe86b63cae">More...</a><br /></td></tr>
+<tr class="separator:a08ddfde2b216f45914bf76fe86b63cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section note"><dt>Note</dt><dd><a class="el" href="structarm__2d__op__fill__cl__t.html">arm_2d_op_fill_cl_t</a> inherits from <a class="el" href="structarm__2d__op__t.html">arm_2d_op_t</a> explicitly </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__alpha__blending_8h_source.html#l00831">831</a> of file <a class="el" href="arm__2d__alpha__blending_8h_source.html">arm_2d_alpha_blending.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="ad51b6b1ff8eb87af4e567492c98935a8" name="ad51b6b1ff8eb87af4e567492c98935a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad51b6b1ff8eb87af4e567492c98935a8">&#9670;&nbsp;</a></span></h2>
+<a id="a0a1f7e2df4da6eeaaf5737a384075ce1" name="a0a1f7e2df4da6eeaaf5737a384075ce1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a1f7e2df4da6eeaaf5737a384075ce1">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">union  { ... }  @18</td>
+          <td class="memname">union  { ... }  arm_2d_op_fill_cl_opc_t::@18</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ada2b6afd5320a240e55e1d8c36b69346" name="ada2b6afd5320a240e55e1d8c36b69346"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada2b6afd5320a240e55e1d8c36b69346">&#9670;&nbsp;</a></span>chColour</h2>
+<a id="a894181a96158cca5fe35ddfab5109693" name="a894181a96158cca5fe35ddfab5109693"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a894181a96158cca5fe35ddfab5109693">&#9670;&nbsp;</a></span>chColour</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t chColour</td>
+          <td class="memname">uint8_t arm_2d_op_fill_cl_opc_t::chColour</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -149,32 +151,30 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a2a0675fe73a84f9fe6520f5551c27268" name="a2a0675fe73a84f9fe6520f5551c27268"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a0675fe73a84f9fe6520f5551c27268">&#9670;&nbsp;</a></span>chRatio</h2>
+<a id="a08ddfde2b216f45914bf76fe86b63cae" name="a08ddfde2b216f45914bf76fe86b63cae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08ddfde2b216f45914bf76fe86b63cae">&#9670;&nbsp;</a></span>chRatio</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t chRatio</td>
+          <td class="memname">uint8_t arm_2d_op_fill_cl_opc_t::chRatio</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>transparency ratio </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__alpha__blending_8h_source.html#l00842">842</a> of file <a class="el" href="arm__2d__alpha__blending_8h_source.html">arm_2d_alpha_blending.h</a>.</p>
 
 </div>
 </div>
-<a id="a0db207f31bef16456b27a97ae4e23214" name="a0db207f31bef16456b27a97ae4e23214"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0db207f31bef16456b27a97ae4e23214">&#9670;&nbsp;</a></span>hwColour</h2>
+<a id="a56266b27bccac4adfdaa67dea166b85c" name="a56266b27bccac4adfdaa67dea166b85c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56266b27bccac4adfdaa67dea166b85c">&#9670;&nbsp;</a></span>hwColour</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t hwColour</td>
+          <td class="memname">uint16_t arm_2d_op_fill_cl_opc_t::hwColour</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -183,64 +183,60 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a82c16810860a7a9d6e69d24bb3fccaa5" name="a82c16810860a7a9d6e69d24bb3fccaa5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82c16810860a7a9d6e69d24bb3fccaa5">&#9670;&nbsp;</a></span>ptRegion</h2>
+<a id="ac04814ed989a81645fb25ee3178f7374" name="ac04814ed989a81645fb25ee3178f7374"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac04814ed989a81645fb25ee3178f7374">&#9670;&nbsp;</a></span>ptRegion</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structarm__2d__region__t.html">arm_2d_region_t</a>* ptRegion</td>
+          <td class="memname">const <a class="el" href="structarm__2d__region__t.html">arm_2d_region_t</a>* arm_2d_op_fill_cl_opc_t::ptRegion</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>target region </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__alpha__blending_8h_source.html#l00835">835</a> of file <a class="el" href="arm__2d__alpha__blending_8h_source.html">arm_2d_alpha_blending.h</a>.</p>
 
 </div>
 </div>
-<a id="aa41387d05ba40b11feb3466fede554b9" name="aa41387d05ba40b11feb3466fede554b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa41387d05ba40b11feb3466fede554b9">&#9670;&nbsp;</a></span>ptTile</h2>
+<a id="ac698c2b47aa1c65c7cf76815ff1ce636" name="ac698c2b47aa1c65c7cf76815ff1ce636"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac698c2b47aa1c65c7cf76815ff1ce636">&#9670;&nbsp;</a></span>ptTile</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a>* ptTile</td>
+          <td class="memname">const <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a>* arm_2d_op_fill_cl_opc_t::ptTile</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>target tile </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__alpha__blending_8h_source.html#l00834">834</a> of file <a class="el" href="arm__2d__alpha__blending_8h_source.html">arm_2d_alpha_blending.h</a>.</p>
 
 </div>
 </div>
-<a id="a9fce132500f7a38bde60d425c7700f6d" name="a9fce132500f7a38bde60d425c7700f6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fce132500f7a38bde60d425c7700f6d">&#9670;&nbsp;</a></span></h2>
+<a id="a2615e8e2c708d2e3ab6955e15b6fed1a" name="a2615e8e2c708d2e3ab6955e15b6fed1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2615e8e2c708d2e3ab6955e15b6fed1a">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct  { ... }  Target</td>
+          <td class="memname">struct  { ... }  arm_2d_op_fill_cl_opc_t::Target</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a4e21766d4f743ed96bb2487b359beb65" name="a4e21766d4f743ed96bb2487b359beb65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e21766d4f743ed96bb2487b359beb65">&#9670;&nbsp;</a></span>wColour</h2>
+<a id="a58893e2f2575cc3751a822c75994b73d" name="a58893e2f2575cc3751a822c75994b73d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58893e2f2575cc3751a822c75994b73d">&#9670;&nbsp;</a></span>wColour</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t wColour</td>
+          <td class="memname">uint32_t arm_2d_op_fill_cl_opc_t::wColour</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -249,9 +245,6 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/<a class="el" href="arm__2d__alpha__blending_8h_source.html">arm_2d_alpha_blending.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

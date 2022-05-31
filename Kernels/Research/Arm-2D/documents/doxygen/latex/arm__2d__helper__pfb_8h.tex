@@ -1,5 +1,5 @@
-\hypertarget{arm__2d__helper__pfb_8h}{}\doxysection{/\+Users/gabwan01/\+Documents/\+Work/\+CPMK/\+Git/\+Endpoint\+AI/\+Kernels/\+Research/\+Arm-\/2\+D/\+Helper/\+Include/arm\+\_\+2d\+\_\+helper\+\_\+pfb.h File Reference}
-\label{arm__2d__helper__pfb_8h}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Helper/Include/arm\_2d\_helper\_pfb.h@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Helper/Include/arm\_2d\_helper\_pfb.h}}
+\hypertarget{arm__2d__helper__pfb_8h}{}\doxysection{arm\+\_\+2d\+\_\+helper\+\_\+pfb.\+h File Reference}
+\label{arm__2d__helper__pfb_8h}\index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
 {\ttfamily \#include \char`\"{}arm\+\_\+2d.\+h\char`\"{}}\newline
 \doxysubsection*{Data Structures}
 \begin{DoxyCompactItemize}
@@ -25,19 +25,13 @@ struct \mbox{\hyperlink{structarm__2d__helper__pfb__t}{arm\+\_\+2d\+\_\+helper\+
 \item 
 \#define \mbox{\hyperlink{arm__2d__helper__pfb_8h_a432fd371b045e6ae90f816466f76fa38}{ARM\+\_\+2\+D\+\_\+\+HELPER\+\_\+\+PFB\+\_\+\+UPDATE\+\_\+\+ON\+\_\+\+DRAW\+\_\+\+HANDLER}}( \+\_\+\+\_\+\+CB\+\_\+\+ADDR,  \+\_\+\+\_\+\+HANDLER, ...)
 \item 
-\#define \mbox{\hyperlink{arm__2d__helper__pfb_8h_a658259a0f5629114232eefb75bdbca7d}{\+\_\+\+\_\+\+IMPL\+\_\+\+ARM\+\_\+2\+D\+\_\+\+REGION\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME, ...)
-\item 
-\#define \mbox{\hyperlink{arm__2d__helper__pfb_8h_ab6ff127404905e75ff0bd689867c0dea}{IMPL\+\_\+\+ARM\+\_\+2\+D\+\_\+\+REGION\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME, ...)~            \mbox{\hyperlink{arm__2d__helper__pfb_8h_a658259a0f5629114232eefb75bdbca7d}{\+\_\+\+\_\+\+IMPL\+\_\+\+ARM\+\_\+2\+D\+\_\+\+REGION\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME,\#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\#define \mbox{\hyperlink{arm__2d__helper__pfb_8h_ab6ff127404905e75ff0bd689867c0dea}{IMPL\+\_\+\+ARM\+\_\+2\+D\+\_\+\+REGION\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME, ...)~            \+\_\+\+\_\+\+IMPL\+\_\+\+ARM\+\_\+2\+D\+\_\+\+REGION\+\_\+\+LIST(\+\_\+\+\_\+\+NAME,\#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
 \item 
 \#define \mbox{\hyperlink{arm__2d__helper__pfb_8h_a271c7a8c0b58952156ae432a62d9891e}{END\+\_\+\+IMPL\+\_\+\+ARM\+\_\+2\+D\+\_\+\+REGION\+\_\+\+LIST}}(...)~            \};
 \item 
-\#define \mbox{\hyperlink{arm__2d__helper__pfb_8h_a76d2c9d765e0f4d7725611b3ef535552}{\+\_\+\+\_\+\+ADD\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME, ...)
+\#define \mbox{\hyperlink{arm__2d__helper__pfb_8h_a3277875bd812290ff5b2d0d42ebddcb0}{ADD\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME, ...)~            \+\_\+\+\_\+\+ADD\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST(\+\_\+\+\_\+\+NAME, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
 \item 
-\#define \mbox{\hyperlink{arm__2d__helper__pfb_8h_a3277875bd812290ff5b2d0d42ebddcb0}{ADD\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME, ...)~            \mbox{\hyperlink{arm__2d__helper__pfb_8h_a76d2c9d765e0f4d7725611b3ef535552}{\+\_\+\+\_\+\+ADD\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
-\item 
-\#define \mbox{\hyperlink{arm__2d__helper__pfb_8h_a4628cef339c9cd0483fdb0b1ea43200f}{\+\_\+\+\_\+\+ADD\+\_\+\+LAST\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME, ...)
-\item 
-\#define \mbox{\hyperlink{arm__2d__helper__pfb_8h_a2ffb450f1633c62e7b035008b27ad0c7}{ADD\+\_\+\+LAST\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME, ...)~            \mbox{\hyperlink{arm__2d__helper__pfb_8h_a4628cef339c9cd0483fdb0b1ea43200f}{\+\_\+\+\_\+\+ADD\+\_\+\+LAST\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\#define \mbox{\hyperlink{arm__2d__helper__pfb_8h_a2ffb450f1633c62e7b035008b27ad0c7}{ADD\+\_\+\+LAST\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME, ...)~            \+\_\+\+\_\+\+ADD\+\_\+\+LAST\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST(\+\_\+\+\_\+\+NAME, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
 \item 
 \#define \mbox{\hyperlink{arm__2d__helper__pfb_8h_a8230ff39e97b9600c8388ef2396cda44}{IMPL\+\_\+\+PFB\+\_\+\+ON\+\_\+\+DRAW}}(\+\_\+\+\_\+\+NAME)
 \item 
@@ -62,23 +56,9 @@ struct \mbox{\hyperlink{structarm__2d__helper__pfb__t}{arm\+\_\+2d\+\_\+helper\+
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef struct \mbox{\hyperlink{structarm__2d__pfb__t}{arm\+\_\+2d\+\_\+pfb\+\_\+t}} \mbox{\hyperlink{arm__2d__helper__pfb_8h_a473a7dca4fe7cca1538870e2bb123e70}{arm\+\_\+2d\+\_\+pfb\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__region__list__item__t}{arm\+\_\+2d\+\_\+region\+\_\+list\+\_\+item\+\_\+t}} \mbox{\hyperlink{arm__2d__helper__pfb_8h_a14e0d84fbb315073b30a291c24fae599}{arm\+\_\+2d\+\_\+region\+\_\+list\+\_\+item\+\_\+t}}
-\item 
 typedef \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \mbox{\hyperlink{arm__2d__helper__pfb_8h_a895cc320ceab0ca0bd10b999787b2d6c}{arm\+\_\+2d\+\_\+helper\+\_\+draw\+\_\+handler\+\_\+t}}(void $\ast$p\+Target, const \mbox{\hyperlink{structarm__2d__tile__t}{arm\+\_\+2d\+\_\+tile\+\_\+t}} $\ast$pt\+Tile, bool b\+Is\+New\+Frame)
 \item 
 typedef void \mbox{\hyperlink{arm__2d__helper__pfb_8h_a03c2991d31bd58c8a1d5303fb9460f39}{arm\+\_\+2d\+\_\+helper\+\_\+render\+\_\+handler\+\_\+t}}(void $\ast$p\+Target, const \mbox{\hyperlink{structarm__2d__pfb__t}{arm\+\_\+2d\+\_\+pfb\+\_\+t}} $\ast$\mbox{\hyperlink{arm__2d__helper__pfb_8h_a27c784582e3f58d59c48e4f9e57b0291}{pt\+PFB}}, bool b\+Is\+New\+Frame)
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__helper__render__evt__t}{arm\+\_\+2d\+\_\+helper\+\_\+render\+\_\+evt\+\_\+t}} \mbox{\hyperlink{arm__2d__helper__pfb_8h_a3f78826b710027f5f9745ecf23ac2ebb}{arm\+\_\+2d\+\_\+helper\+\_\+render\+\_\+evt\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__helper__draw__evt__t}{arm\+\_\+2d\+\_\+helper\+\_\+draw\+\_\+evt\+\_\+t}} \mbox{\hyperlink{arm__2d__helper__pfb_8h_a16c493170e986c727f483baed997a816}{arm\+\_\+2d\+\_\+helper\+\_\+draw\+\_\+evt\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__helper__pfb__dependency__t}{arm\+\_\+2d\+\_\+helper\+\_\+pfb\+\_\+dependency\+\_\+t}} \mbox{\hyperlink{arm__2d__helper__pfb_8h_abd1af5301a54f23216c9035874e256e3}{arm\+\_\+2d\+\_\+helper\+\_\+pfb\+\_\+dependency\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__helper__pfb__cfg__t}{arm\+\_\+2d\+\_\+helper\+\_\+pfb\+\_\+cfg\+\_\+t}} \mbox{\hyperlink{arm__2d__helper__pfb_8h_a97a1c0cc62b3fe373e34c8e73a840c20}{arm\+\_\+2d\+\_\+helper\+\_\+pfb\+\_\+cfg\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__helper__pfb__t}{arm\+\_\+2d\+\_\+helper\+\_\+pfb\+\_\+t}} \mbox{\hyperlink{arm__2d__helper__pfb_8h_a5e01262adc2779a4dfa77de86bf24a4a}{arm\+\_\+2d\+\_\+helper\+\_\+pfb\+\_\+t}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
@@ -105,71 +85,11 @@ uint\+\_\+fast8\+\_\+t const \mbox{\hyperlink{structarm__2d__helper__pfb__depend
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{arm__2d__helper__pfb_8h_a4628cef339c9cd0483fdb0b1ea43200f}\label{arm__2d__helper__pfb_8h_a4628cef339c9cd0483fdb0b1ea43200f}} 
-\index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!\_\_ADD\_LAST\_REGION\_TO\_LIST@{\_\_ADD\_LAST\_REGION\_TO\_LIST}}
-\index{\_\_ADD\_LAST\_REGION\_TO\_LIST@{\_\_ADD\_LAST\_REGION\_TO\_LIST}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
-\doxysubsubsection{\texorpdfstring{\_\_ADD\_LAST\_REGION\_TO\_LIST}{\_\_ADD\_LAST\_REGION\_TO\_LIST}}
-{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ADD\+\_\+\+LAST\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+NAME,  }\item[{}]{... }\end{DoxyParamCaption})}
-
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{            \{                                                                   \(\backslash\)}
-\DoxyCodeLine{                .ptNext = NULL,                                                 \(\backslash\)}
-\DoxyCodeLine{                .tRegion = \{                                                    \(\backslash\)}
-\DoxyCodeLine{                \_\_VA\_ARGS\_\_                                                     \(\backslash\)}
-\DoxyCodeLine{                \},                                                              \(\backslash\)}
-\DoxyCodeLine{            \}}
-
-\end{DoxyCode}
-
-
-Definition at line \mbox{\hyperlink{arm__2d__helper__pfb_8h_source_l00119}{119}} of file \mbox{\hyperlink{arm__2d__helper__pfb_8h_source}{arm\+\_\+2d\+\_\+helper\+\_\+pfb.\+h}}.
-
-\mbox{\Hypertarget{arm__2d__helper__pfb_8h_a76d2c9d765e0f4d7725611b3ef535552}\label{arm__2d__helper__pfb_8h_a76d2c9d765e0f4d7725611b3ef535552}} 
-\index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!\_\_ADD\_REGION\_TO\_LIST@{\_\_ADD\_REGION\_TO\_LIST}}
-\index{\_\_ADD\_REGION\_TO\_LIST@{\_\_ADD\_REGION\_TO\_LIST}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
-\doxysubsubsection{\texorpdfstring{\_\_ADD\_REGION\_TO\_LIST}{\_\_ADD\_REGION\_TO\_LIST}}
-{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ADD\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+NAME,  }\item[{}]{... }\end{DoxyParamCaption})}
-
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{            \{                                                                   \(\backslash\)}
-\DoxyCodeLine{                .ptNext = (\mbox{\hyperlink{structarm__2d__region__list__item__t}{arm\_2d\_region\_list\_item\_t}} *)                         \(\backslash\)}
-\DoxyCodeLine{                            \&(\_\_NAME[\_\_COUNTER\_\_ -\/ \_\_NAME\#\#\_offset]),           \(\backslash\)}
-\DoxyCodeLine{                .tRegion = \{                                                    \(\backslash\)}
-\DoxyCodeLine{                \_\_VA\_ARGS\_\_                                                     \(\backslash\)}
-\DoxyCodeLine{                \},                                                              \(\backslash\)}
-\DoxyCodeLine{            \}}
-
-\end{DoxyCode}
-
-
-Definition at line \mbox{\hyperlink{arm__2d__helper__pfb_8h_source_l00106}{106}} of file \mbox{\hyperlink{arm__2d__helper__pfb_8h_source}{arm\+\_\+2d\+\_\+helper\+\_\+pfb.\+h}}.
-
-\mbox{\Hypertarget{arm__2d__helper__pfb_8h_a658259a0f5629114232eefb75bdbca7d}\label{arm__2d__helper__pfb_8h_a658259a0f5629114232eefb75bdbca7d}} 
-\index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!\_\_IMPL\_ARM\_2D\_REGION\_LIST@{\_\_IMPL\_ARM\_2D\_REGION\_LIST}}
-\index{\_\_IMPL\_ARM\_2D\_REGION\_LIST@{\_\_IMPL\_ARM\_2D\_REGION\_LIST}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
-\doxysubsubsection{\texorpdfstring{\_\_IMPL\_ARM\_2D\_REGION\_LIST}{\_\_IMPL\_ARM\_2D\_REGION\_LIST}}
-{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+IMPL\+\_\+\+ARM\+\_\+2\+D\+\_\+\+REGION\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+NAME,  }\item[{}]{... }\end{DoxyParamCaption})}
-
-{\bfseries Value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{            \textcolor{keyword}{enum} \{                                                              \(\backslash\)}
-\DoxyCodeLine{                \_\_NAME\#\#\_offset = \_\_COUNTER\_\_,                                  \(\backslash\)}
-\DoxyCodeLine{            \};                                                                  \(\backslash\)}
-\DoxyCodeLine{            \_\_VA\_ARGS\_\_                                                         \(\backslash\)}
-\DoxyCodeLine{            arm\_2d\_region\_list\_item\_t \_\_NAME[] = \{}
-
-\end{DoxyCode}
-
-
-Definition at line \mbox{\hyperlink{arm__2d__helper__pfb_8h_source_l00091}{91}} of file \mbox{\hyperlink{arm__2d__helper__pfb_8h_source}{arm\+\_\+2d\+\_\+helper\+\_\+pfb.\+h}}.
-
 \mbox{\Hypertarget{arm__2d__helper__pfb_8h_a2ffb450f1633c62e7b035008b27ad0c7}\label{arm__2d__helper__pfb_8h_a2ffb450f1633c62e7b035008b27ad0c7}} 
 \index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!ADD\_LAST\_REGION\_TO\_LIST@{ADD\_LAST\_REGION\_TO\_LIST}}
 \index{ADD\_LAST\_REGION\_TO\_LIST@{ADD\_LAST\_REGION\_TO\_LIST}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
 \doxysubsubsection{\texorpdfstring{ADD\_LAST\_REGION\_TO\_LIST}{ADD\_LAST\_REGION\_TO\_LIST}}
-{\footnotesize\ttfamily \#define ADD\+\_\+\+LAST\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+NAME,  }\item[{}]{... }\end{DoxyParamCaption})~            \mbox{\hyperlink{arm__2d__helper__pfb_8h_a4628cef339c9cd0483fdb0b1ea43200f}{\+\_\+\+\_\+\+ADD\+\_\+\+LAST\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+LAST\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+NAME,  }\item[{}]{... }\end{DoxyParamCaption})~            \+\_\+\+\_\+\+ADD\+\_\+\+LAST\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST(\+\_\+\+\_\+\+NAME, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
 
 
 
@@ -189,7 +109,7 @@ Definition at line \mbox{\hyperlink{arm__2d__helper__pfb_8h_source_l00174}{174}}
 \index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!ADD\_REGION\_TO\_LIST@{ADD\_REGION\_TO\_LIST}}
 \index{ADD\_REGION\_TO\_LIST@{ADD\_REGION\_TO\_LIST}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
 \doxysubsubsection{\texorpdfstring{ADD\_REGION\_TO\_LIST}{ADD\_REGION\_TO\_LIST}}
-{\footnotesize\ttfamily \#define ADD\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+NAME,  }\item[{}]{... }\end{DoxyParamCaption})~            \mbox{\hyperlink{arm__2d__helper__pfb_8h_a76d2c9d765e0f4d7725611b3ef535552}{\+\_\+\+\_\+\+ADD\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+NAME,  }\item[{}]{... }\end{DoxyParamCaption})~            \+\_\+\+\_\+\+ADD\+\_\+\+REGION\+\_\+\+TO\+\_\+\+LIST(\+\_\+\+\_\+\+NAME, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
 
 
 
@@ -293,7 +213,7 @@ Definition at line \mbox{\hyperlink{arm__2d__helper__pfb_8h_source_l00176}{176}}
 \index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!IMPL\_ARM\_2D\_REGION\_LIST@{IMPL\_ARM\_2D\_REGION\_LIST}}
 \index{IMPL\_ARM\_2D\_REGION\_LIST@{IMPL\_ARM\_2D\_REGION\_LIST}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
 \doxysubsubsection{\texorpdfstring{IMPL\_ARM\_2D\_REGION\_LIST}{IMPL\_ARM\_2D\_REGION\_LIST}}
-{\footnotesize\ttfamily \#define IMPL\+\_\+\+ARM\+\_\+2\+D\+\_\+\+REGION\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+NAME,  }\item[{}]{... }\end{DoxyParamCaption})~            \mbox{\hyperlink{arm__2d__helper__pfb_8h_a658259a0f5629114232eefb75bdbca7d}{\+\_\+\+\_\+\+IMPL\+\_\+\+ARM\+\_\+2\+D\+\_\+\+REGION\+\_\+\+LIST}}(\+\_\+\+\_\+\+NAME,\#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+{\footnotesize\ttfamily \#define IMPL\+\_\+\+ARM\+\_\+2\+D\+\_\+\+REGION\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+NAME,  }\item[{}]{... }\end{DoxyParamCaption})~            \+\_\+\+\_\+\+IMPL\+\_\+\+ARM\+\_\+2\+D\+\_\+\+REGION\+\_\+\+LIST(\+\_\+\+\_\+\+NAME,\#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
 
 
 
@@ -403,12 +323,6 @@ Definition at line \mbox{\hyperlink{arm__2d__helper__pfb_8h_source_l00149}{149}}
 
 
 \doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{arm__2d__helper__pfb_8h_a16c493170e986c727f483baed997a816}\label{arm__2d__helper__pfb_8h_a16c493170e986c727f483baed997a816}} 
-\index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!arm\_2d\_helper\_draw\_evt\_t@{arm\_2d\_helper\_draw\_evt\_t}}
-\index{arm\_2d\_helper\_draw\_evt\_t@{arm\_2d\_helper\_draw\_evt\_t}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_helper\_draw\_evt\_t}{arm\_2d\_helper\_draw\_evt\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__helper__draw__evt__t}{arm\+\_\+2d\+\_\+helper\+\_\+draw\+\_\+evt\+\_\+t}} \mbox{\hyperlink{structarm__2d__helper__draw__evt__t}{arm\+\_\+2d\+\_\+helper\+\_\+draw\+\_\+evt\+\_\+t}}}
-
 \mbox{\Hypertarget{arm__2d__helper__pfb_8h_a895cc320ceab0ca0bd10b999787b2d6c}\label{arm__2d__helper__pfb_8h_a895cc320ceab0ca0bd10b999787b2d6c}} 
 \index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!arm\_2d\_helper\_draw\_handler\_t@{arm\_2d\_helper\_draw\_handler\_t}}
 \index{arm\_2d\_helper\_draw\_handler\_t@{arm\_2d\_helper\_draw\_handler\_t}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
@@ -419,30 +333,6 @@ Definition at line \mbox{\hyperlink{arm__2d__helper__pfb_8h_source_l00149}{149}}
 
 Definition at line \mbox{\hyperlink{arm__2d__helper__pfb_8h_source_l00201}{201}} of file \mbox{\hyperlink{arm__2d__helper__pfb_8h_source}{arm\+\_\+2d\+\_\+helper\+\_\+pfb.\+h}}.
 
-\mbox{\Hypertarget{arm__2d__helper__pfb_8h_a97a1c0cc62b3fe373e34c8e73a840c20}\label{arm__2d__helper__pfb_8h_a97a1c0cc62b3fe373e34c8e73a840c20}} 
-\index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!arm\_2d\_helper\_pfb\_cfg\_t@{arm\_2d\_helper\_pfb\_cfg\_t}}
-\index{arm\_2d\_helper\_pfb\_cfg\_t@{arm\_2d\_helper\_pfb\_cfg\_t}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_helper\_pfb\_cfg\_t}{arm\_2d\_helper\_pfb\_cfg\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__helper__pfb__cfg__t}{arm\+\_\+2d\+\_\+helper\+\_\+pfb\+\_\+cfg\+\_\+t}} \mbox{\hyperlink{structarm__2d__helper__pfb__cfg__t}{arm\+\_\+2d\+\_\+helper\+\_\+pfb\+\_\+cfg\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__helper__pfb_8h_abd1af5301a54f23216c9035874e256e3}\label{arm__2d__helper__pfb_8h_abd1af5301a54f23216c9035874e256e3}} 
-\index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!arm\_2d\_helper\_pfb\_dependency\_t@{arm\_2d\_helper\_pfb\_dependency\_t}}
-\index{arm\_2d\_helper\_pfb\_dependency\_t@{arm\_2d\_helper\_pfb\_dependency\_t}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_helper\_pfb\_dependency\_t}{arm\_2d\_helper\_pfb\_dependency\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__helper__pfb__dependency__t}{arm\+\_\+2d\+\_\+helper\+\_\+pfb\+\_\+dependency\+\_\+t}} \mbox{\hyperlink{structarm__2d__helper__pfb__dependency__t}{arm\+\_\+2d\+\_\+helper\+\_\+pfb\+\_\+dependency\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__helper__pfb_8h_a5e01262adc2779a4dfa77de86bf24a4a}\label{arm__2d__helper__pfb_8h_a5e01262adc2779a4dfa77de86bf24a4a}} 
-\index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!arm\_2d\_helper\_pfb\_t@{arm\_2d\_helper\_pfb\_t}}
-\index{arm\_2d\_helper\_pfb\_t@{arm\_2d\_helper\_pfb\_t}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_helper\_pfb\_t}{arm\_2d\_helper\_pfb\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__helper__pfb__t}{arm\+\_\+2d\+\_\+helper\+\_\+pfb\+\_\+t}} \mbox{\hyperlink{structarm__2d__helper__pfb__t}{arm\+\_\+2d\+\_\+helper\+\_\+pfb\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__helper__pfb_8h_a3f78826b710027f5f9745ecf23ac2ebb}\label{arm__2d__helper__pfb_8h_a3f78826b710027f5f9745ecf23ac2ebb}} 
-\index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!arm\_2d\_helper\_render\_evt\_t@{arm\_2d\_helper\_render\_evt\_t}}
-\index{arm\_2d\_helper\_render\_evt\_t@{arm\_2d\_helper\_render\_evt\_t}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_helper\_render\_evt\_t}{arm\_2d\_helper\_render\_evt\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__helper__render__evt__t}{arm\+\_\+2d\+\_\+helper\+\_\+render\+\_\+evt\+\_\+t}} \mbox{\hyperlink{structarm__2d__helper__render__evt__t}{arm\+\_\+2d\+\_\+helper\+\_\+render\+\_\+evt\+\_\+t}}}
-
 \mbox{\Hypertarget{arm__2d__helper__pfb_8h_a03c2991d31bd58c8a1d5303fb9460f39}\label{arm__2d__helper__pfb_8h_a03c2991d31bd58c8a1d5303fb9460f39}} 
 \index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!arm\_2d\_helper\_render\_handler\_t@{arm\_2d\_helper\_render\_handler\_t}}
 \index{arm\_2d\_helper\_render\_handler\_t@{arm\_2d\_helper\_render\_handler\_t}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
@@ -452,18 +342,6 @@ Definition at line \mbox{\hyperlink{arm__2d__helper__pfb_8h_source_l00201}{201}}
 
 
 Definition at line \mbox{\hyperlink{arm__2d__helper__pfb_8h_source_l00206}{206}} of file \mbox{\hyperlink{arm__2d__helper__pfb_8h_source}{arm\+\_\+2d\+\_\+helper\+\_\+pfb.\+h}}.
-
-\mbox{\Hypertarget{arm__2d__helper__pfb_8h_a473a7dca4fe7cca1538870e2bb123e70}\label{arm__2d__helper__pfb_8h_a473a7dca4fe7cca1538870e2bb123e70}} 
-\index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!arm\_2d\_pfb\_t@{arm\_2d\_pfb\_t}}
-\index{arm\_2d\_pfb\_t@{arm\_2d\_pfb\_t}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_pfb\_t}{arm\_2d\_pfb\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__pfb__t}{arm\+\_\+2d\+\_\+pfb\+\_\+t}} \mbox{\hyperlink{structarm__2d__pfb__t}{arm\+\_\+2d\+\_\+pfb\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__helper__pfb_8h_a14e0d84fbb315073b30a291c24fae599}\label{arm__2d__helper__pfb_8h_a14e0d84fbb315073b30a291c24fae599}} 
-\index{arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}!arm\_2d\_region\_list\_item\_t@{arm\_2d\_region\_list\_item\_t}}
-\index{arm\_2d\_region\_list\_item\_t@{arm\_2d\_region\_list\_item\_t}!arm\_2d\_helper\_pfb.h@{arm\_2d\_helper\_pfb.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_region\_list\_item\_t}{arm\_2d\_region\_list\_item\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__region__list__item__t}{arm\+\_\+2d\+\_\+region\+\_\+list\+\_\+item\+\_\+t}} \mbox{\hyperlink{structarm__2d__region__list__item__t}{arm\+\_\+2d\+\_\+region\+\_\+list\+\_\+item\+\_\+t}}}
 
 
 

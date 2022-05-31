@@ -1,5 +1,5 @@
 \hypertarget{arm__2d__helper__pfb_8c_source}{}\doxysection{arm\+\_\+2d\+\_\+helper\+\_\+pfb.\+c}
-\label{arm__2d__helper__pfb_8c_source}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Helper/Source/arm\_2d\_helper\_pfb.c@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Helper/Source/arm\_2d\_helper\_pfb.c}}
+\label{arm__2d__helper__pfb_8c_source}\index{arm\_2d\_helper\_pfb.c@{arm\_2d\_helper\_pfb.c}}
 \mbox{\hyperlink{arm__2d__helper__pfb_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00001}00001 \textcolor{comment}{/*}}
@@ -21,7 +21,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00017}00017 \textcolor{comment}{ */}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00018}00018 }
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00019}00019 \textcolor{comment}{/*============================ INCLUDES ======================================*/}}
-\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00020}\mbox{\hyperlink{arm__2d__helper__pfb_8c_aa391cb8cbcf1b1a4ab83847b83d8b8de}{00020}} \textcolor{preprocessor}{\#define \_\_ARM\_2D\_IMPL\_\_}}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00020}00020 \textcolor{preprocessor}{\#define \_\_ARM\_2D\_IMPL\_\_}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00021}00021 }
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00022}00022 \textcolor{preprocessor}{\#include <stdbool.h>}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00023}00023 \textcolor{preprocessor}{\#include <stdint.h>}}
@@ -167,18 +167,18 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00165}00165         \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00166}00166         }
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00168}00168         \textcolor{keywordflow}{do} \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00169}00169             ptItem-\/>\mbox{\hyperlink{structarm__2d__pfb__t_aece17065343453f76b005a96a517c96b}{tTile}} = (\mbox{\hyperlink{arm__2d__types_8h_a79cd23de9e091278cb041dc39d142189}{arm\_2d\_tile\_t}}) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00169}00169             ptItem-\/>\mbox{\hyperlink{structarm__2d__pfb__t_a5c06645aaf74ac1f648bc144d614c7aa}{tTile}} = (\mbox{\hyperlink{structarm__2d__tile__t}{arm\_2d\_tile\_t}}) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00170}00170                 .tRegion = \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00171}00171                     .tSize = this.tCFG.FrameBuffer.tFrameSize,}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00172}00172                 \},}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00173}00173                 .tInfo.bIsRoot = \textcolor{keyword}{true},}
-\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00174}00174                 .\mbox{\hyperlink{structarm__2d__tile__t_a0ff30163f2a3a97c6af854655666aea0}{pchBuffer}} = (uint8\_t *)((uintptr\_t)ptItem + \textcolor{keyword}{sizeof}(\mbox{\hyperlink{arm__2d__helper__pfb_8h_a473a7dca4fe7cca1538870e2bb123e70}{arm\_2d\_pfb\_t}})),}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00174}00174                 .\mbox{\hyperlink{structarm__2d__tile__t_af47a55de416f04b12c3bd558abf8dd2d}{pchBuffer}} = (uint8\_t *)((uintptr\_t)ptItem + \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structarm__2d__pfb__t}{arm\_2d\_pfb\_t}})),}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00175}00175             \};}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00176}00176             \mbox{\hyperlink{arm__2d__utils_8h_ae740539ae448da882095e3473c72cb15}{ARM\_LIST\_STACK\_PUSH}}(this.Adapter.ptFreeList, ptItem);}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00177}00177             }
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00179}00179             ptItem = (\mbox{\hyperlink{structarm__2d__pfb__t}{arm\_2d\_pfb\_t}} *)(  (uintptr\_t)ptItem }
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00180}00180                                      +  wBufferSize}
-\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00181}00181                                      +  \textcolor{keyword}{sizeof}(\mbox{\hyperlink{arm__2d__helper__pfb_8h_a473a7dca4fe7cca1538870e2bb123e70}{arm\_2d\_pfb\_t}}));}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00181}00181                                      +  \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structarm__2d__pfb__t}{arm\_2d\_pfb\_t}}));}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00182}00182         \} \textcolor{keywordflow}{while}(-\/-\/n);}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00183}00183     }
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00184}00184     \} \textcolor{keywordflow}{while}(0);}
@@ -234,7 +234,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00236}00236         (*this.tCFG.Dependency.evtOnLowLevelRendering.fnHandler)(}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00237}00237                         this.tCFG.Dependency.evtOnLowLevelRendering.pTarget,}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00238}00238                         \mbox{\hyperlink{arm__2d__helper__pfb_8h_a27c784582e3f58d59c48e4f9e57b0291}{ptPFB}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00239}00239                         \mbox{\hyperlink{arm__2d__helper__pfb_8h_a27c784582e3f58d59c48e4f9e57b0291}{ptPFB}}-\/>\mbox{\hyperlink{structarm__2d__pfb__t_aa27150feeb52b10582b43758423056f7}{bIsNewFrame}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00239}00239                         \mbox{\hyperlink{arm__2d__helper__pfb_8h_a27c784582e3f58d59c48e4f9e57b0291}{ptPFB}}-\/>\mbox{\hyperlink{structarm__2d__pfb__t_a4b9c82f196be65325800ed8a5d1fd0d3}{bIsNewFrame}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00240}00240     \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00241}00241 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00242}00242 }
@@ -265,7 +265,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00267}00267     assert(NULL != this.tCFG.Dependency.evtOnLowLevelRendering.fnHandler);}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00268}00268     assert(NULL != this.Adapter.ptCurrent);}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00269}00269     }
-\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00271}00271     this.Adapter.ptCurrent-\/>tTile.tRegion.tLocation = (\mbox{\hyperlink{arm__2d__types_8h_a8b306d4b070a537600d438468f438f4c}{arm\_2d\_location\_t}}) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00271}00271     this.Adapter.ptCurrent-\/>tTile.tRegion.tLocation = (\mbox{\hyperlink{structarm__2d__location__t}{arm\_2d\_location\_t}}) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00272}00272         .iX = this.Adapter.tDrawRegion.tLocation.iX}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00273}00273             + this.Adapter.tTargetRegion.tLocation.iX,}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00274}00274         .iY = this.Adapter.tDrawRegion.tLocation.iY}
@@ -471,7 +471,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00503}00503     assert(NULL != ptThis);}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00504}00504     assert(NULL != \mbox{\hyperlink{arm__2d__helper__pfb_8h_a27c784582e3f58d59c48e4f9e57b0291}{ptPFB}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00505}00505     }
-\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00506}00506     \mbox{\hyperlink{arm__2d__helper__pfb_8h_a27c784582e3f58d59c48e4f9e57b0291}{ptPFB}}-\/>\mbox{\hyperlink{structarm__2d__pfb__t_aece17065343453f76b005a96a517c96b}{tTile}}.tRegion.tLocation = (\mbox{\hyperlink{arm__2d__types_8h_a8b306d4b070a537600d438468f438f4c}{arm\_2d\_location\_t}}) \{0,0\};}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00506}00506     \mbox{\hyperlink{arm__2d__helper__pfb_8h_a27c784582e3f58d59c48e4f9e57b0291}{ptPFB}}-\/>\mbox{\hyperlink{structarm__2d__pfb__t_a5c06645aaf74ac1f648bc144d614c7aa}{tTile}}.tRegion.tLocation = (\mbox{\hyperlink{structarm__2d__location__t}{arm\_2d\_location\_t}}) \{0,0\};}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00507}00507     }
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00508}00508     \mbox{\hyperlink{arm__2d__utils_8h_aee644f33c5b07d65d292017b21fb3f39}{arm\_irq\_safe}} \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00509}00509         \mbox{\hyperlink{arm__2d__utils_8h_ae740539ae448da882095e3473c72cb15}{ARM\_LIST\_STACK\_PUSH}}(this.Adapter.ptFreeList, \mbox{\hyperlink{arm__2d__helper__pfb_8h_a27c784582e3f58d59c48e4f9e57b0291}{ptPFB}});}
@@ -493,17 +493,17 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00525}00525     \mbox{\hyperlink{arm__2d__utils_8h_aee644f33c5b07d65d292017b21fb3f39}{arm\_irq\_safe}} \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00526}00526         \textcolor{keywordflow}{if} (\mbox{\hyperlink{arm__2d__helper__pfb_8h_ac787d0724068071e9afbd1f4b4bace01}{chMask}} \& \mbox{\hyperlink{arm__2d__helper__pfb_8h_a1f3b6c692395e5007ff47ce5d9304c1cad07b975cfa54daf24ef1ecff43df374b}{ARM\_2D\_PFB\_DEPEND\_ON\_LOW\_LEVEL\_RENDERING}}) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00527}00527             this.tCFG.Dependency.evtOnLowLevelRendering }
-\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00528}00528                 = \mbox{\hyperlink{arm__2d__helper__pfb_8h_a79fff4a323c5c545d791821194008467}{ptDependency}}-\/>\mbox{\hyperlink{structarm__2d__helper__pfb__dependency__t_ad56d8030e4718650c03967af46322410}{evtOnLowLevelRendering}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00528}00528                 = \mbox{\hyperlink{arm__2d__helper__pfb_8h_a79fff4a323c5c545d791821194008467}{ptDependency}}-\/>\mbox{\hyperlink{structarm__2d__helper__pfb__dependency__t_a85bd7ad0d6a3c150a6ef8ac6ee9aaeed}{evtOnLowLevelRendering}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00529}00529         \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00530}00530         }
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00531}00531         \textcolor{keywordflow}{if} (\mbox{\hyperlink{arm__2d__helper__pfb_8h_ac787d0724068071e9afbd1f4b4bace01}{chMask}} \& \mbox{\hyperlink{arm__2d__helper__pfb_8h_a1f3b6c692395e5007ff47ce5d9304c1cade6d8cce78f88aedc433f3550699e9bd}{ARM\_2D\_PFB\_DEPEND\_ON\_DRAWING}}) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00532}00532             this.tCFG.Dependency.evtOnDrawing }
-\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00533}00533                 = \mbox{\hyperlink{arm__2d__helper__pfb_8h_a79fff4a323c5c545d791821194008467}{ptDependency}}-\/>\mbox{\hyperlink{structarm__2d__helper__pfb__dependency__t_a50e791f78e44e70b3b361b2cce610de3}{evtOnDrawing}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00533}00533                 = \mbox{\hyperlink{arm__2d__helper__pfb_8h_a79fff4a323c5c545d791821194008467}{ptDependency}}-\/>\mbox{\hyperlink{structarm__2d__helper__pfb__dependency__t_a75436e9711701c092b4bafcc1c868d25}{evtOnDrawing}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00534}00534         \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00535}00535         }
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00536}00536         \textcolor{keywordflow}{if} (\mbox{\hyperlink{arm__2d__helper__pfb_8h_ac787d0724068071e9afbd1f4b4bace01}{chMask}} \& \mbox{\hyperlink{arm__2d__helper__pfb_8h_a1f3b6c692395e5007ff47ce5d9304c1cad7df2fe2d2065398cf935e34b6afedeb}{ARM\_2D\_PFB\_DEPEND\_ON\_LOW\_LEVEL\_SYNC\_UP}}) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00537}00537             this.tCFG.Dependency.evtOnLowLevelSyncUp }
-\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00538}00538                 = \mbox{\hyperlink{arm__2d__helper__pfb_8h_a79fff4a323c5c545d791821194008467}{ptDependency}}-\/>\mbox{\hyperlink{structarm__2d__helper__pfb__dependency__t_aa52352d8e07628b81a5b94a25687d8b4}{evtOnLowLevelSyncUp}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00538}00538                 = \mbox{\hyperlink{arm__2d__helper__pfb_8h_a79fff4a323c5c545d791821194008467}{ptDependency}}-\/>\mbox{\hyperlink{structarm__2d__helper__pfb__dependency__t_a0ed423f1f6490f8cc89abd55f886f4cd}{evtOnLowLevelSyncUp}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00539}00539         \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00540}00540     \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper__pfb_8c_source_l00541}00541     }

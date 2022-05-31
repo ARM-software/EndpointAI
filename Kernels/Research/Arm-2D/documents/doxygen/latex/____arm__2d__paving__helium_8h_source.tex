@@ -1,5 +1,5 @@
 \hypertarget{____arm__2d__paving__helium_8h_source}{}\doxysection{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}
-\label{____arm__2d__paving__helium_8h_source}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/\_\_arm\_2d\_paving\_helium.h@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/\_\_arm\_2d\_paving\_helium.h}}
+\label{____arm__2d__paving__helium_8h_source}\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
 \mbox{\hyperlink{____arm__2d__paving__helium_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00001}00001 \textcolor{comment}{/*}}
@@ -123,7 +123,7 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00119}00119 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00120}00120 \textcolor{comment}{/* handle c8bit X or XY 2x2 mirroring when tile width > 256 */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00121}00121 \textcolor{comment}{/* uses 8-\/bit widened load allowing width up to 65K */}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00122}\mbox{\hyperlink{____arm__2d__paving__helium_8h_af56215d7de39d26f144d84d408a56dcf}{00122}} \textcolor{preprocessor}{\#define \_\_ARM\_2D\_PAVING\_2x2\_8BIT\_X\_MIRROR\_FIXUP(SRC\_OFFSET, DIR,                \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00122}00122 \textcolor{preprocessor}{\#define \_\_ARM\_2D\_PAVING\_2x2\_8BIT\_X\_MIRROR\_FIXUP(SRC\_OFFSET, DIR,                \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00123}00123 \textcolor{preprocessor}{                                                      SETUP\_MIRROR, LOAD, ...)  \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00124}00124 \textcolor{preprocessor}{\{                                                                               \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00125}00125 \textcolor{preprocessor}{    }\textcolor{comment}{/* row iteration */}\textcolor{preprocessor}{                                                         \(\backslash\)}}
@@ -197,7 +197,7 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00193}00193 \textcolor{preprocessor}{                                                                                \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00194}00194 \textcolor{preprocessor}{                pDst += 2 * srcWidth;                                           \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00195}00195 \textcolor{preprocessor}{                tilePairColsCnt-\/-\/;                                              \(\backslash\)}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00196}\mbox{\hyperlink{____arm__2d__paving__helium_8h_a3aa30fafe93c0eb6cab64dcfd994d7b5}{00196}} \textcolor{preprocessor}{            \}                                                                   \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00196}00196 \textcolor{preprocessor}{            \}                                                                   \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00197}00197 \textcolor{preprocessor}{            while (tilePairColsCnt != 0);                                       \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00198}00198 \textcolor{preprocessor}{                                                                                \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00199}00199 \textcolor{preprocessor}{            rowCnt ++;                                                          \(\backslash\)}}
@@ -282,7 +282,7 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00278}00278 \textcolor{preprocessor}{                    in = LOAD(pSource, offset);                                 \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00279}00279 \textcolor{preprocessor}{                    }\textcolor{comment}{/* placeholder for color masking */}\textcolor{preprocessor}{                         \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00280}00280 \textcolor{preprocessor}{                    \_\_VA\_ARGS\_\_;                                                \(\backslash\)}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00281}\mbox{\hyperlink{____arm__2d__paving__helium_8h_abe933a5da48ec1a2ed7a200d9a27d8bd}{00281}} \textcolor{preprocessor}{                                                                                \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00281}00281 \textcolor{preprocessor}{                                                                                \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00282}00282 \textcolor{preprocessor}{                    vst1q\_p(pDst00, in, p);                                     \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00283}00283 \textcolor{preprocessor}{                    vst1q\_p(pDst01, in, p);                                     \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00284}00284 \textcolor{preprocessor}{                    vst1q\_p(pDst10, in, p);                                     \(\backslash\)}}
@@ -340,7 +340,7 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00336}00336 \textcolor{preprocessor}{            }\textcolor{comment}{/* destination columns */}\textcolor{preprocessor}{                                           \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00337}00337 \textcolor{preprocessor}{            }\textcolor{comment}{/*                                                                  \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00338}00338 \textcolor{comment}{             *  +-\/-\/-\/-\/-\/-\/-\/+                                                       \(\backslash\)}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00339}\mbox{\hyperlink{____arm__2d__paving__helium_8h_a6dc4fc569cdee0f81173f17febf28c30}{00339}} \textcolor{comment}{             *  |xxxxxxx|                                                       \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00339}00339 \textcolor{comment}{             *  |xxxxxxx|                                                       \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00340}00340 \textcolor{comment}{             *  |  src  |                                                       \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00341}00341 \textcolor{comment}{             *  +-\/-\/-\/-\/-\/-\/-\/+                                                       \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00342}00342 \textcolor{comment}{             *                                                                  \(\backslash\)}}
@@ -409,7 +409,7 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00405}00405 \textcolor{preprocessor}{    do \{                                                                        \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00406}00406 \textcolor{preprocessor}{        uint32\_t        rowCnt = 0;                                             \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00407}00407 \textcolor{preprocessor}{                                                                                \(\backslash\)}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00408}\mbox{\hyperlink{____arm__2d__paving__helium_8h_a06368f7ffa6f2f062498db1a90e881dd}{00408}} \textcolor{preprocessor}{        pSourceBaseCur = pSourceBase;                                           \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00408}00408 \textcolor{preprocessor}{        pSourceBaseCur = pSourceBase;                                           \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00409}00409 \textcolor{preprocessor}{                                                                                \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00410}00410 \textcolor{preprocessor}{        }\textcolor{comment}{/* single source row loop */}\textcolor{preprocessor}{                                            \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00411}00411 \textcolor{preprocessor}{        do \{                                                                    \(\backslash\)}}
@@ -465,7 +465,7 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00461}00461 \textcolor{preprocessor}{        \}                                                                       \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00462}00462 \textcolor{preprocessor}{        while (rowCnt < ptSourceSize-\/>iHeight);                                 \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00463}00463 \textcolor{preprocessor}{                                                                                \(\backslash\)}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00464}\mbox{\hyperlink{____arm__2d__paving__helium_8h_ae74eb5406343fe0d1bab9d1298e38375}{00464}} \textcolor{preprocessor}{        pTargetBaseCur += srcHeight * iTargetStride;                            \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00464}00464 \textcolor{preprocessor}{        pTargetBaseCur += srcHeight * iTargetStride;                            \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00465}00465 \textcolor{preprocessor}{        tilePairRows-\/-\/;                                                         \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00466}00466 \textcolor{preprocessor}{    \}                                                                           \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00467}00467 \textcolor{preprocessor}{    while (tilePairRows != 0);                                                  \(\backslash\)}}
@@ -534,7 +534,7 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00530}00530 \textcolor{preprocessor}{        while (tilePairColsCnt != 0);                                           \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00531}00531 \textcolor{preprocessor}{                                                                                \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00532}00532 \textcolor{preprocessor}{        rowCnt++;                                                               \(\backslash\)}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00533}\mbox{\hyperlink{____arm__2d__paving__helium_8h_af7efd7f6879a9fa73b15e55c83b767a8}{00533}} \textcolor{preprocessor}{        pTargetBaseCur += iTargetStride;                                        \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00533}00533 \textcolor{preprocessor}{        pTargetBaseCur += iTargetStride;                                        \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00534}00534 \textcolor{preprocessor}{        pSourceBaseCur += (iSourceStride * DIR);                                \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00535}00535 \textcolor{preprocessor}{    \}                                                                           \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00536}00536 \textcolor{preprocessor}{    while (rowCnt < destHeight);                                                \(\backslash\)}}
@@ -567,7 +567,7 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00563}00563 \textcolor{comment}{     *                  <-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/........>                      \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00564}00564 \textcolor{comment}{     *                                                                          \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00565}00565 \textcolor{comment}{     *                  +=======+=======++=======+=======++......               \(\backslash\)}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00566}\mbox{\hyperlink{____arm__2d__paving__helium_8h_ae0cba1ca90a8d21180e50e45cc0dd873}{00566}} \textcolor{comment}{     *                  ||      |       ||       |       ||                     \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00566}00566 \textcolor{comment}{     *                  ||      |       ||       |       ||                     \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00567}00567 \textcolor{comment}{     *                  +=======+=======++=======+=======++                     \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00568}00568 \textcolor{comment}{     *                  ........                                                \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__paving__helium_8h_source_l00569}00569 \textcolor{comment}{     */}\textcolor{preprocessor}{                                                                         \(\backslash\)}}

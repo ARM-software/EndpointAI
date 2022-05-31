@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Source/__arm_2d_fill_colour.inc Source File</title>
+<title>arm-2d: __arm_2d_fill_colour.inc Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -131,10 +133,10 @@ $(document).ready(function(){initNavTree('____arm__2d__fill__colour_8inc_source.
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>__WEAK</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keywordtype">void</span> __ARM_2D_FUNC(colour_filling)( <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> pTarget,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keywordtype">void</span> __ARM_2D_FUNC(colour_filling)( __API_INT_TYPE *__RESTRICT pTarget,</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                                    int16_t iTargetStride,</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                                    <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptCopySize,</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                                    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a> Colour)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                                    <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptCopySize,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                                    __API_INT_TYPE Colour)</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>{</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">for</span> (int_fast16_t y = 0; y &lt; ptCopySize-&gt;iHeight; y++) {</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">for</span> (int_fast16_t x = 0; x &lt; ptCopySize-&gt;iWidth; x++){</div>
@@ -149,8 +151,6 @@ $(document).ready(function(){initNavTree('____arm__2d__fill__colour_8inc_source.
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#undef __ARM_2D_FUNC</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#undef __API_COLOUR</span></div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#undef __API_INT_TYPE</span></div>
-<div class="ttc" id="aarm__2d__alpha__blending_8c_html_a71ef659837d31a3da6b902b7c50fce6f"><div class="ttname"><a href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a></div><div class="ttdeci">#define __API_INT_TYPE</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__alpha__blending_8c_source.html#l00101">arm_2d_alpha_blending.c:101</a></div></div>
-<div class="ttc" id="aarm__2d__utils_8h_html_a378ac21329d33f561f90265eef89f564"><div class="ttname"><a href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a></div><div class="ttdeci">#define __RESTRICT</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00319">arm_2d_utils.h:319</a></div></div>
 <div class="ttc" id="astructarm__2d__size__t_html"><div class="ttname"><a href="structarm__2d__size__t.html">arm_2d_size_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00296">arm_2d_types.h:296</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,12 +1,12 @@
 var structarm__2d__op__trans__opa__t =
 [
-    [ "chOpacity", "structarm__2d__op__trans__opa__t.html#a5571781821002ce43a866bbb24281280", null ],
-    [ "Origin", "structarm__2d__op__trans__opa__t.html#aa87efdddaf917d9eccdff545b76d2717", null ],
-    [ "ptRegion", "structarm__2d__op__trans__opa__t.html#a82c16810860a7a9d6e69d24bb3fccaa5", null ],
-    [ "ptTile", "structarm__2d__op__trans__opa__t.html#aa41387d05ba40b11feb3466fede554b9", null ],
-    [ "Source", "structarm__2d__op__trans__opa__t.html#a0554f54ee192c9b4035470bba82f2778", null ],
-    [ "Target", "structarm__2d__op__trans__opa__t.html#acd932098af3a34f4d9fb78a3f70963b9", null ],
-    [ "tDummySource", "structarm__2d__op__trans__opa__t.html#a6afbc35785ecb82fd6b2956a36a2ad6d", null ],
-    [ "tTransform", "structarm__2d__op__trans__opa__t.html#a8d5de563e9e766ad2708c81b9308ef3a", null ],
-    [ "wMode", "structarm__2d__op__trans__opa__t.html#a92f31b7d7248207c28fb4009a944a919", null ]
+    [ "chOpacity", "structarm__2d__op__trans__opa__t.html#a6df59c6a29a1887386f1d27b8e9ea2c2", null ],
+    [ "Origin", "structarm__2d__op__trans__opa__t.html#a98ce33736f0a173d67ea9e8b17495682", null ],
+    [ "ptRegion", "structarm__2d__op__trans__opa__t.html#a5398abc8864d2757d2c7a610b5f54a4a", null ],
+    [ "ptTile", "structarm__2d__op__trans__opa__t.html#a3163d5fe4a2cb0989bbbdad7d10157a6", null ],
+    [ "Source", "structarm__2d__op__trans__opa__t.html#a204971b6b2386d10d978b0122b767934", null ],
+    [ "Target", "structarm__2d__op__trans__opa__t.html#ac714202136ff1e14ed91fba78da4ea4f", null ],
+    [ "tDummySource", "structarm__2d__op__trans__opa__t.html#a91d20c586b3c1f5c1cfd027d0734fa8c", null ],
+    [ "tTransform", "structarm__2d__op__trans__opa__t.html#a1ee6a99fcab954c06cfdd8e6949c1399", null ],
+    [ "wMode", "structarm__2d__op__trans__opa__t.html#a024d819788cd6b997ae6e145652b2d78", null ]
 ];

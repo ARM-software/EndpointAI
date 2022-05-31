@@ -1,5 +1,5 @@
 \hypertarget{arm__2d__helper_8h_source}{}\doxysection{arm\+\_\+2d\+\_\+helper.\+h}
-\label{arm__2d__helper_8h_source}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Helper/Include/arm\_2d\_helper.h@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Helper/Include/arm\_2d\_helper.h}}
+\label{arm__2d__helper_8h_source}\index{arm\_2d\_helper.h@{arm\_2d\_helper.h}}
 \mbox{\hyperlink{arm__2d__helper_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00001}00001 \textcolor{comment}{/*}}
@@ -39,11 +39,11 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00035}00035 \textcolor{comment}{/*============================ MACROS ========================================*/}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00036}00036 \textcolor{comment}{/*============================ MACROFIED FUNCTIONS ===========================*/}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00037}00037 }
-\DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00038}\mbox{\hyperlink{arm__2d__helper_8h_abd2fb6ea496de4693d7157023254e471}{00038}} \textcolor{preprocessor}{\#define \_\_declare\_tile(\_\_NAME)                                                  \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00038}00038 \textcolor{preprocessor}{\#define \_\_declare\_tile(\_\_NAME)                                                  \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00039}00039 \textcolor{preprocessor}{            extern const arm\_2d\_tile\_t \_\_NAME;}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00040}\mbox{\hyperlink{arm__2d__helper_8h_a8ff1a2d6d72b77d9af31174201f62949}{00040}} \textcolor{preprocessor}{\#define declare\_tile(\_\_NAME)            \_\_declare\_tile(\_\_NAME)}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00041}00041 }
-\DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00042}\mbox{\hyperlink{arm__2d__helper_8h_ac56ea3b2253030bccf6826ff80c73c94}{00042}} \textcolor{preprocessor}{\#define \_\_implement\_tile(\_\_NAME, \_\_WIDTH, \_\_HEIGHT, \_\_TYPE, ...)                \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00042}00042 \textcolor{preprocessor}{\#define \_\_implement\_tile(\_\_NAME, \_\_WIDTH, \_\_HEIGHT, \_\_TYPE, ...)                \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00043}00043 \textcolor{preprocessor}{            ARM\_NOINIT static \_\_TYPE                                            \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00044}00044 \textcolor{preprocessor}{                \_\_NAME\#\#Buffer[(\_\_WIDTH) * (\_\_HEIGHT)];                         \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00045}00045 \textcolor{preprocessor}{            const arm\_2d\_tile\_t \_\_NAME = \{                                      \(\backslash\)}}
@@ -67,7 +67,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00063}00063 }
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00064}00064 }
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00065}00065 }
-\DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00066}\mbox{\hyperlink{arm__2d__helper_8h_abe887edb3b7ce6eeec2b309bbf32c383}{00066}} \textcolor{preprocessor}{\#define \_\_arm\_2d\_align\_centre2(\_\_region, \_\_size)                                \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00066}00066 \textcolor{preprocessor}{\#define \_\_arm\_2d\_align\_centre2(\_\_region, \_\_size)                                \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00067}00067 \textcolor{preprocessor}{    for (arm\_2d\_region\_t \_\_centre\_region = \{                                    \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00068}00068 \textcolor{preprocessor}{            .tSize = (\_\_size),                                                  \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00069}00069 \textcolor{preprocessor}{            .tLocation = \{                                                      \(\backslash\)}}
@@ -79,7 +79,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00075}00075 \textcolor{preprocessor}{         ARM\_CONNECT3(\_\_ARM\_USING\_, \_\_LINE\_\_,\_ptr)++ == NULL;                   \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00076}00076 \textcolor{preprocessor}{        )}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00077}00077                 }
-\DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00078}\mbox{\hyperlink{arm__2d__helper_8h_a68f37bbc40dcb5d4c8286cebf2303a7a}{00078}} \textcolor{preprocessor}{\#define \_\_arm\_2d\_align\_centre3(\_\_region, \_\_width, \_\_height)                     \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00078}00078 \textcolor{preprocessor}{\#define \_\_arm\_2d\_align\_centre3(\_\_region, \_\_width, \_\_height)                     \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00079}00079 \textcolor{preprocessor}{    for (arm\_2d\_region\_t \_\_centre\_region = \{                                    \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00080}00080 \textcolor{preprocessor}{            .tSize = \{                                                          \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{arm__2d__helper_8h_source_l00081}00081 \textcolor{preprocessor}{                .iWidth = (\_\_width),                                            \(\backslash\)}}

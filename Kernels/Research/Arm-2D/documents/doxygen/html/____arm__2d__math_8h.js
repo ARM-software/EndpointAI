@@ -8,7 +8,5 @@ var ____arm__2d__math_8h =
     [ "MIN", "____arm__2d__math_8h.html#a3acffbd305ee72dcd4593c0d8af64a4f", null ],
     [ "MUL_Q16", "____arm__2d__math_8h.html#a4ef0ba639a9c54743e098669d658998c", null ],
     [ "MULTFX", "____arm__2d__math_8h.html#a8229f0714afc303702b719820a158087", null ],
-    [ "float16_t", "____arm__2d__math_8h.html#a49736383ceddf92e73a0620e13185b2f", null ],
-    [ "__QDADD", "____arm__2d__math_8h.html#a496c7de78c2242b9de0ea62ff19b3187", null ],
-    [ "__QDSUB", "____arm__2d__math_8h.html#aea80dcc47395b0f568160398c70d1b7c", null ]
+    [ "float16_t", "____arm__2d__math_8h.html#a49736383ceddf92e73a0620e13185b2f", null ]
 ];

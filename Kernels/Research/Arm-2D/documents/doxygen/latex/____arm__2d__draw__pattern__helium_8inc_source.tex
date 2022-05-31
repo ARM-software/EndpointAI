@@ -1,5 +1,5 @@
 \hypertarget{____arm__2d__draw__pattern__helium_8inc_source}{}\doxysection{\+\_\+\+\_\+arm\+\_\+2d\+\_\+draw\+\_\+pattern\+\_\+helium.\+inc}
-\label{____arm__2d__draw__pattern__helium_8inc_source}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Source/\_\_arm\_2d\_draw\_pattern\_helium.inc@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Source/\_\_arm\_2d\_draw\_pattern\_helium.inc}}
+\label{____arm__2d__draw__pattern__helium_8inc_source}\index{\_\_arm\_2d\_draw\_pattern\_helium.inc@{\_\_arm\_2d\_draw\_pattern\_helium.inc}}
 \mbox{\hyperlink{____arm__2d__draw__pattern__helium_8inc}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00001}00001 }
@@ -50,13 +50,13 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00046}00046 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00047}00047 \textcolor{preprocessor}{\#if \_\_API\_ELT\_SZ != 32}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00048}00048 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00049}00049 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00050}00050 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(draw\_pattern\_fg\_only)(uint8\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pchSourceBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00049}00049 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00050}00050 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(draw\_pattern\_fg\_only)(uint8\_t *\_\_RESTRICT pchSourceBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00051}00051                                          int32\_t  iOffset,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00052}00052                                          int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00053}00053                                          \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pTargetBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00053}00053                                          \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) *\_\_RESTRICT pTargetBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00054}00054                                          int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00055}00055                                          \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00055}00055                                          \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00056}00056                                          \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) ForeColour)}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00057}00057 \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00059}00059     iOffset \&= 0x07;}
@@ -64,10 +64,10 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00061}00061 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00062}00062     \textcolor{comment}{/* deduces offset vector from iOffset for gather loading */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00063}00063     ARM\_PIX\_VECTYP(\_\_API\_ELT\_SZ)      offS =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00064}00064             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_incr\_, \mbox{\hyperlink{arm__2d__alpha__blending_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}{\_\_API\_COLOUR}}) + iOffset);}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00064}00064             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_incr\_, \_\_API\_COLOUR) + iOffset);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00065}00065     \textcolor{comment}{/* deduces bitmask vector with wrap from iOffset */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00066}00066     ARM\_PIX\_VECTYP(\_\_API\_ELT\_SZ)      vBitMask =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00067}00067             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_bitmask\_, \mbox{\hyperlink{arm__2d__alpha__blending_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}{\_\_API\_COLOUR}}) + iOffset);}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00067}00067             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_bitmask\_, \_\_API\_COLOUR) + iOffset);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00068}00068 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00069}00069 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00070}00070     \textcolor{keywordflow}{if} (ptCopySize-\/>iWidth <= ARM\_PIX\_VECELT(\_\_API\_ELT\_SZ)) \{}
@@ -185,24 +185,24 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00182}00182 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00183}00183 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00184}00184 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00185}00185 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00185}00185 \_\_OVERRIDE\_WEAK}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00186}00186 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(draw\_pattern\_no\_bg\_comp)(}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00187}00187                                             uint8\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pchSourceBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00187}00187                                             uint8\_t *\_\_RESTRICT pchSourceBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00188}00188                                             int32\_t  iOffset,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00189}00189                                             int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00190}00190                                             \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pTargetBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00190}00190                                             \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) *\_\_RESTRICT pTargetBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00191}00191                                             int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00192}00192                                             \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize)}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00192}00192                                             \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize)}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00193}00193 \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00195}00195     iOffset \&= 0x07;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00196}00196     iSourceStride = (iSourceStride + 7) \& \string~0x07;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00197}00197 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00198}00198     \textcolor{comment}{/* deduces offset vector from iOffset for gather loading */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00199}00199     ARM\_PIX\_VECTYP(\_\_API\_ELT\_SZ)      offS =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00200}00200             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_incr\_, \mbox{\hyperlink{arm__2d__alpha__blending_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}{\_\_API\_COLOUR}}) + iOffset);}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00200}00200             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_incr\_, \_\_API\_COLOUR) + iOffset);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00201}00201     \textcolor{comment}{/* deduces bitmask vector with wrap from iOffset */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00202}00202     ARM\_PIX\_VECTYP(\_\_API\_ELT\_SZ)      vBitMask =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00203}00203             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_bitmask\_, \mbox{\hyperlink{arm__2d__alpha__blending_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}{\_\_API\_COLOUR}}) + iOffset);}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00203}00203             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_bitmask\_, \_\_API\_COLOUR) + iOffset);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00204}00204 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00205}00205     \textcolor{keywordflow}{if} (ptCopySize-\/>iWidth <= ARM\_PIX\_VECELT(\_\_API\_ELT\_SZ)) \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00206}00206         \textcolor{comment}{/* small width specialization */}}
@@ -327,13 +327,13 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00325}00325 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00326}00326 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00327}00327 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00328}00328 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00329}00329 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(draw\_pattern\_bg\_only)(   uint8\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pchSourceBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00328}00328 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00329}00329 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(draw\_pattern\_bg\_only)(   uint8\_t *\_\_RESTRICT pchSourceBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00330}00330                                             int32\_t  iOffset,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00331}00331                                             int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00332}00332                                             \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pTargetBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00332}00332                                             \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) *\_\_RESTRICT pTargetBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00333}00333                                             int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00334}00334                                             \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00334}00334                                             \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00335}00335                                             \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) BackColour)}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00336}00336 \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00338}00338     iOffset \&= 0x07;}
@@ -341,10 +341,10 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00340}00340 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00341}00341     \textcolor{comment}{/* deduces offset vector from iOffset for gather loading */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00342}00342     ARM\_PIX\_VECTYP(\_\_API\_ELT\_SZ)      offS =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00343}00343             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_incr\_, \mbox{\hyperlink{arm__2d__alpha__blending_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}{\_\_API\_COLOUR}}) + iOffset);}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00343}00343             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_incr\_, \_\_API\_COLOUR) + iOffset);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00344}00344     \textcolor{comment}{/* deduces bitmask vector with wrap from iOffset */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00345}00345     ARM\_PIX\_VECTYP(\_\_API\_ELT\_SZ)      vBitMask =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00346}00346             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_bitmask\_, \mbox{\hyperlink{arm__2d__alpha__blending_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}{\_\_API\_COLOUR}}) + iOffset);}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00346}00346             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_bitmask\_, \_\_API\_COLOUR) + iOffset);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00347}00347 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00348}00348     \textcolor{keywordflow}{if} (ptCopySize-\/>iWidth <= ARM\_PIX\_VECELT(\_\_API\_ELT\_SZ)) \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00349}00349         \textcolor{comment}{/* small width specialization */}}
@@ -465,13 +465,13 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00464}00464 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00465}00465 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00466}00466 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00467}00467 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00468}00468 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(draw\_pattern\_bg\_fg)( uint8\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pchSourceBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00467}00467 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00468}00468 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(draw\_pattern\_bg\_fg)( uint8\_t *\_\_RESTRICT pchSourceBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00469}00469                                         int32\_t  iOffset,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00470}00470                                         int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00471}00471                                         \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pTargetBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00471}00471                                         \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) *\_\_RESTRICT pTargetBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00472}00472                                         int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00473}00473                                         \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00473}00473                                         \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00474}00474                                         \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) ForeColour,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00475}00475                                         \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) BackColour)}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00476}00476 \{}
@@ -480,10 +480,10 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00480}00480 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00481}00481     \textcolor{comment}{/* deduces offset vector from iOffset for gather loading */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00482}00482     ARM\_PIX\_VECTYP(\_\_API\_ELT\_SZ)      offS =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00483}00483             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_incr\_, \mbox{\hyperlink{arm__2d__alpha__blending_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}{\_\_API\_COLOUR}}) + iOffset);}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00483}00483             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_incr\_, \_\_API\_COLOUR) + iOffset);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00484}00484     \textcolor{comment}{/* deduces bitmask vector with wrap from iOffset */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00485}00485     ARM\_PIX\_VECTYP(\_\_API\_ELT\_SZ)      vBitMask =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00486}00486             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_bitmask\_, \mbox{\hyperlink{arm__2d__alpha__blending_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}{\_\_API\_COLOUR}}) + iOffset);}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00486}00486             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_bitmask\_, \_\_API\_COLOUR) + iOffset);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00487}00487     ARM\_PIX\_VECTYP(\_\_API\_ELT\_SZ)      vFgColor =}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00488}00488                 \mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(vdupq\_n\_u, \_\_API\_ELT\_SZ)(ForeColour);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00489}00489     ARM\_PIX\_VECTYP(\_\_API\_ELT\_SZ)      vBgColor =}
@@ -605,13 +605,13 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00605}00605 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00606}00606 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00607}00607 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00608}00608 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00609}00609 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(draw\_pattern\_bg\_comp)(   uint8\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pchSourceBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00608}00608 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00609}00609 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(draw\_pattern\_bg\_comp)(   uint8\_t *\_\_RESTRICT pchSourceBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00610}00610                                             int32\_t  iOffset,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00611}00611                                             int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00612}00612                                             \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pTargetBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00612}00612                                             \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) *\_\_RESTRICT pTargetBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00613}00613                                             int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00614}00614                                             \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00614}00614                                             \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00615}00615                                             \mbox{\hyperlink{____arm__2d__math_8h_a5d272632a22e0803ab5b423328db9d46}{ARM\_PIX\_SCLTYP}}(\_\_API\_ELT\_SZ) BackColour)}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00616}00616 \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00618}00618     iOffset \&= 0x07;}
@@ -619,10 +619,10 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00620}00620 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00621}00621     \textcolor{comment}{/* deduces offset vector from iOffset for gather loading */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00622}00622     ARM\_PIX\_VECTYP(\_\_API\_ELT\_SZ)      offS =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00623}00623             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_incr\_, \mbox{\hyperlink{arm__2d__alpha__blending_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}{\_\_API\_COLOUR}}) + iOffset);}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00623}00623             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_incr\_, \_\_API\_COLOUR) + iOffset);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00624}00624     \textcolor{comment}{/* deduces bitmask vector with wrap from iOffset */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00625}00625     ARM\_PIX\_VECTYP(\_\_API\_ELT\_SZ)      vBitMask =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00626}00626             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_bitmask\_, \mbox{\hyperlink{arm__2d__alpha__blending_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}{\_\_API\_COLOUR}}) + iOffset);}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00626}00626             vld1q(\mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(\_\_draw\_pattern\_src\_bitmask\_, \_\_API\_COLOUR) + iOffset);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00627}00627     ARM\_PIX\_VECTYP(\_\_API\_ELT\_SZ)      vBgColor =}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00628}00628             \mbox{\hyperlink{arm__2d__utils_8h_ad6a67ffa29074439ce99988dac033e42}{ARM\_CONNECT2}}(vdupq\_n\_u, \_\_API\_ELT\_SZ)(BackColour);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00629}00629 }
@@ -860,13 +860,13 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00861}00861 \textcolor{preprocessor}{        \}                                                                               \(\backslash\)}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00862}00862 \textcolor{preprocessor}{    \}}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00863}00863 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00864}00864 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00865}00865 \textcolor{keywordtype}{void} \mbox{\hyperlink{____arm__2d__direct_8h_ab6003c17827f95a8a1c800160e99bcaa}{\_\_arm\_2d\_impl\_rgb32\_draw\_pattern\_fg\_only}}(uint8\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pchSourceBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00864}00864 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00865}00865 \textcolor{keywordtype}{void} \_\_arm\_2d\_impl\_rgb32\_draw\_pattern\_fg\_only(uint8\_t *\_\_RESTRICT pchSourceBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00866}00866                                          int32\_t  iOffset,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00867}00867                                          int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00868}00868                                          uint32\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pTargetBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00868}00868                                          uint32\_t *\_\_RESTRICT pTargetBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00869}00869                                          int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00870}00870                                          \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00870}00870                                          \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00871}00871                                          uint32\_t \mbox{\hyperlink{arm__2d__draw_8h_a54672d95c859c757795d775352173728}{hwForeColour}})}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00872}00872 \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00874}00874     iOffset \&= 0x07;}
@@ -888,13 +888,13 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00890}00890 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00891}00891 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00892}00892 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00893}00893 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00894}00894 \textcolor{keywordtype}{void} \mbox{\hyperlink{____arm__2d__direct_8h_a78a5b8041b2a483ca9effe113f8e53ef}{\_\_arm\_2d\_impl\_rgb32\_draw\_pattern\_no\_bg\_comp}}(uint8\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pchSourceBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00893}00893 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00894}00894 \textcolor{keywordtype}{void} \_\_arm\_2d\_impl\_rgb32\_draw\_pattern\_no\_bg\_comp(uint8\_t *\_\_RESTRICT pchSourceBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00895}00895                                          int32\_t  iOffset,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00896}00896                                          int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00897}00897                                          uint32\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pTargetBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00897}00897                                          uint32\_t *\_\_RESTRICT pTargetBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00898}00898                                          int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00899}00899                                          \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize)}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00899}00899                                          \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize)}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00900}00900 \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00902}00902     iOffset \&= 0x07;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00903}00903     iSourceStride = (iSourceStride + 7) \& \string~0x07;}
@@ -918,13 +918,13 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00921}00921 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00922}00922 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00923}00923 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00924}00924 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00925}00925 \textcolor{keywordtype}{void} \mbox{\hyperlink{____arm__2d__direct_8h_aa8995ef6728accebe571353f5a5aebd6}{\_\_arm\_2d\_impl\_rgb32\_draw\_pattern\_bg\_only}}(uint8\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pchSourceBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00924}00924 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00925}00925 \textcolor{keywordtype}{void} \_\_arm\_2d\_impl\_rgb32\_draw\_pattern\_bg\_only(uint8\_t *\_\_RESTRICT pchSourceBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00926}00926                                          int32\_t  iOffset,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00927}00927                                          int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00928}00928                                          uint32\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pTargetBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00928}00928                                          uint32\_t *\_\_RESTRICT pTargetBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00929}00929                                          int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00930}00930                                          \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00930}00930                                          \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00931}00931                                          uint32\_t \mbox{\hyperlink{arm__2d__draw_8h_a4cafe2ef15d3d61f7e44b284aed642a4}{hwBackColour}})}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00932}00932 \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00934}00934     iOffset \&= 0x07;}
@@ -948,13 +948,13 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00952}00952 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00953}00953 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00954}00954 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00955}00955 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00956}00956 \textcolor{keywordtype}{void} \mbox{\hyperlink{____arm__2d__direct_8h_a9b6ca21ef98adac057e84cd324d0c9aa}{\_\_arm\_2d\_impl\_rgb32\_draw\_pattern\_bg\_fg}}(uint8\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pchSourceBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00955}00955 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00956}00956 \textcolor{keywordtype}{void} \_\_arm\_2d\_impl\_rgb32\_draw\_pattern\_bg\_fg(uint8\_t *\_\_RESTRICT pchSourceBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00957}00957                                          int32\_t  iOffset,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00958}00958                                          int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00959}00959                                          uint32\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pTargetBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00959}00959                                          uint32\_t *\_\_RESTRICT pTargetBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00960}00960                                          int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00961}00961                                          \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00961}00961                                          \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00962}00962                                          uint32\_t \mbox{\hyperlink{arm__2d__draw_8h_a54672d95c859c757795d775352173728}{hwForeColour}},}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00963}00963                                          uint32\_t \mbox{\hyperlink{arm__2d__draw_8h_a4cafe2ef15d3d61f7e44b284aed642a4}{hwBackColour}})}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00964}00964 \{}
@@ -981,13 +981,13 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00986}00986 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00987}00987 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00988}00988 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00989}00989 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00990}00990 \textcolor{keywordtype}{void} \mbox{\hyperlink{____arm__2d__direct_8h_ad7aaa8c0d3f9063428665eabd2baad1e}{\_\_arm\_2d\_impl\_rgb32\_draw\_pattern\_bg\_comp}}(uint8\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pchSourceBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00989}00989 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00990}00990 \textcolor{keywordtype}{void} \_\_arm\_2d\_impl\_rgb32\_draw\_pattern\_bg\_comp(uint8\_t *\_\_RESTRICT pchSourceBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00991}00991                                          int32\_t  iOffset,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00992}00992                                          int16\_t iSourceStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00993}00993                                          uint32\_t *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} pTargetBase,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00993}00993                                          uint32\_t *\_\_RESTRICT pTargetBase,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00994}00994                                          int16\_t iTargetStride,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00995}00995                                          \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00995}00995                                          \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} *\_\_RESTRICT ptCopySize,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00996}00996                                          uint32\_t \mbox{\hyperlink{arm__2d__draw_8h_a4cafe2ef15d3d61f7e44b284aed642a4}{hwBackColour}})}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00997}00997 \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__draw__pattern__helium_8inc_source_l00999}00999     iOffset \&= 0x07;}

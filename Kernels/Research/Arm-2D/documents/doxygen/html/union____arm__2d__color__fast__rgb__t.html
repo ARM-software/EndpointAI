@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version {projectNumber}</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -95,47 +97,46 @@ $(document).ready(function(){initNavTree('union____arm__2d__color__fast__rgb__t.
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a77de072b77e46257cfeb6ec5c32b5a88"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union____arm__2d__color__fast__rgb__t.html#a77de072b77e46257cfeb6ec5c32b5a88">RGBA</a> [4]</td></tr>
-<tr class="separator:a77de072b77e46257cfeb6ec5c32b5a88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd9c5a18bd28b9d30bd074ffafaeffed"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:a588189ccf0d87c74b0e2a1d5972fe63c"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__color__fast__rgb__t.html#a588189ccf0d87c74b0e2a1d5972fe63c">R</a></td></tr>
-<tr class="separator:a588189ccf0d87c74b0e2a1d5972fe63c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a876a5f8a01d13e2f0a427afae34875cc"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__color__fast__rgb__t.html#a876a5f8a01d13e2f0a427afae34875cc">G</a></td></tr>
-<tr class="separator:a876a5f8a01d13e2f0a427afae34875cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae783bd90764c8455228772c025c064e4"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__color__fast__rgb__t.html#ae783bd90764c8455228772c025c064e4">B</a></td></tr>
-<tr class="separator:ae783bd90764c8455228772c025c064e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48f5a6b346491762f3f7a32882f31bed"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__color__fast__rgb__t.html#a48f5a6b346491762f3f7a32882f31bed">A</a></td></tr>
-<tr class="separator:a48f5a6b346491762f3f7a32882f31bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd9c5a18bd28b9d30bd074ffafaeffed"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:abd9c5a18bd28b9d30bd074ffafaeffed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceeaca37fdd9e7dc5c5dca3afdf0475c"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union____arm__2d__color__fast__rgb__t.html#aceeaca37fdd9e7dc5c5dca3afdf0475c">RGBA</a> [4]</td></tr>
+<tr class="separator:aceeaca37fdd9e7dc5c5dca3afdf0475c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d760a0e9278a8896459e457c9798242"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a475d1b33bca0b0ed046f5ea6d3123207"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__color__fast__rgb__t.html#a58a01333bc4aab8c05dbb10254250354">R</a></td></tr>
+<tr class="separator:a475d1b33bca0b0ed046f5ea6d3123207"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23c80138aecf760020158b352c0e7343"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__color__fast__rgb__t.html#a63928b2aaff6b6c92928a5efa1fb166b">G</a></td></tr>
+<tr class="separator:a23c80138aecf760020158b352c0e7343"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a616fc33142afc490112570a333e30362"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__color__fast__rgb__t.html#a7589904d1d3b7ed2b3d80196523f8080">B</a></td></tr>
+<tr class="separator:a616fc33142afc490112570a333e30362"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bb1551476b793f421ea922af7daf03d"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__color__fast__rgb__t.html#ac77f5dbb999d1e35b6f54fe3ef8e11d4">A</a></td></tr>
+<tr class="separator:a0bb1551476b793f421ea922af7daf03d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d760a0e9278a8896459e457c9798242"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a6d760a0e9278a8896459e457c9798242"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >3x16-bit packed RGB color ! autovectorizer friendly format </p>
-
+<div class="textblock">
 <p class="definition">Definition at line <a class="el" href="arm__2d__conversion_8h_source.html#l00084">84</a> of file <a class="el" href="arm__2d__conversion_8h_source.html">arm_2d_conversion.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="abd9c5a18bd28b9d30bd074ffafaeffed" name="abd9c5a18bd28b9d30bd074ffafaeffed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd9c5a18bd28b9d30bd074ffafaeffed">&#9670;&nbsp;</a></span></h2>
+<a id="a6d760a0e9278a8896459e457c9798242" name="a6d760a0e9278a8896459e457c9798242"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d760a0e9278a8896459e457c9798242">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct  { ... }  @20</td>
+          <td class="memname">struct  { ... }  __arm_2d_color_fast_rgb_t::@18</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a48f5a6b346491762f3f7a32882f31bed" name="a48f5a6b346491762f3f7a32882f31bed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48f5a6b346491762f3f7a32882f31bed">&#9670;&nbsp;</a></span>A</h2>
+<a id="ac77f5dbb999d1e35b6f54fe3ef8e11d4" name="ac77f5dbb999d1e35b6f54fe3ef8e11d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac77f5dbb999d1e35b6f54fe3ef8e11d4">&#9670;&nbsp;</a></span>A</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t A</td>
+          <td class="memname">uint16_t __arm_2d_color_fast_rgb_t::A</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -144,14 +145,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="ae783bd90764c8455228772c025c064e4" name="ae783bd90764c8455228772c025c064e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae783bd90764c8455228772c025c064e4">&#9670;&nbsp;</a></span>B</h2>
+<a id="a7589904d1d3b7ed2b3d80196523f8080" name="a7589904d1d3b7ed2b3d80196523f8080"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7589904d1d3b7ed2b3d80196523f8080">&#9670;&nbsp;</a></span>B</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t B</td>
+          <td class="memname">uint16_t __arm_2d_color_fast_rgb_t::B</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -162,14 +163,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a876a5f8a01d13e2f0a427afae34875cc" name="a876a5f8a01d13e2f0a427afae34875cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a876a5f8a01d13e2f0a427afae34875cc">&#9670;&nbsp;</a></span>G</h2>
+<a id="a63928b2aaff6b6c92928a5efa1fb166b" name="a63928b2aaff6b6c92928a5efa1fb166b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63928b2aaff6b6c92928a5efa1fb166b">&#9670;&nbsp;</a></span>G</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t G</td>
+          <td class="memname">uint16_t __arm_2d_color_fast_rgb_t::G</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -180,14 +181,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a588189ccf0d87c74b0e2a1d5972fe63c" name="a588189ccf0d87c74b0e2a1d5972fe63c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a588189ccf0d87c74b0e2a1d5972fe63c">&#9670;&nbsp;</a></span>R</h2>
+<a id="a58a01333bc4aab8c05dbb10254250354" name="a58a01333bc4aab8c05dbb10254250354"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58a01333bc4aab8c05dbb10254250354">&#9670;&nbsp;</a></span>R</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t R</td>
+          <td class="memname">uint16_t __arm_2d_color_fast_rgb_t::R</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -198,14 +199,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a77de072b77e46257cfeb6ec5c32b5a88" name="a77de072b77e46257cfeb6ec5c32b5a88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77de072b77e46257cfeb6ec5c32b5a88">&#9670;&nbsp;</a></span>RGBA</h2>
+<a id="aceeaca37fdd9e7dc5c5dca3afdf0475c" name="aceeaca37fdd9e7dc5c5dca3afdf0475c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceeaca37fdd9e7dc5c5dca3afdf0475c">&#9670;&nbsp;</a></span>RGBA</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t RGBA[4]</td>
+          <td class="memname">uint16_t __arm_2d_color_fast_rgb_t::RGBA[4]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -216,9 +217,6 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this union was generated from the following file:<ul>
-<li>/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/<a class="el" href="arm__2d__conversion_8h_source.html">arm_2d_conversion.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

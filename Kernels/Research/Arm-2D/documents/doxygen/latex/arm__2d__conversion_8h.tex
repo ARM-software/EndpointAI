@@ -1,11 +1,6 @@
-\hypertarget{arm__2d__conversion_8h}{}\doxysection{/\+Users/gabwan01/\+Documents/\+Work/\+CPMK/\+Git/\+Endpoint\+AI/\+Kernels/\+Research/\+Arm-\/2\+D/\+Library/\+Include/arm\+\_\+2d\+\_\+conversion.h File Reference}
-\label{arm__2d__conversion_8h}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/arm\_2d\_conversion.h@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/arm\_2d\_conversion.h}}
+\hypertarget{arm__2d__conversion_8h}{}\doxysection{arm\+\_\+2d\+\_\+conversion.\+h File Reference}
+\label{arm__2d__conversion_8h}\index{arm\_2d\_conversion.h@{arm\_2d\_conversion.h}}
 {\ttfamily \#include \char`\"{}arm\+\_\+2d\+\_\+types.\+h\char`\"{}}\newline
-\doxysubsection*{Data Structures}
-\begin{DoxyCompactItemize}
-\item 
-union \mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em 3x16-\/bit packed RGB color ! autovectorizer friendly format \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
@@ -17,15 +12,6 @@ union \mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\
 \begin{DoxyCompactItemize}
 \item 
 typedef \mbox{\hyperlink{structarm__2d__op__src__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+t}} \mbox{\hyperlink{arm__2d__conversion_8h_a188510a195fbaa9f8f29b2c90a2b7bfc}{arm\+\_\+2d\+\_\+op\+\_\+cl\+\_\+convt\+\_\+t}}
-\end{DoxyCompactItemize}
-\doxysubsection*{Functions}
-\begin{DoxyCompactItemize}
-\item 
-\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE void \mbox{\hyperlink{arm__2d__conversion_8h_a0dac4bd927c28a54130bfe279542065c}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+unpack}} (uint16\+\_\+t hw\+Color, \mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}} $\ast$pt\+RGB)
-\item 
-\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE uint16\+\_\+t \mbox{\hyperlink{arm__2d__conversion_8h_ad741f60e362467e251ef35febec37c28}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+pack}} (\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}} $\ast$pt\+RGB)
-\item 
-\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE uint32\+\_\+t \mbox{\hyperlink{arm__2d__conversion_8h_a50cef518f8e1fe3aa7b6870ac797c66e}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+cccn888\+\_\+pack}} (\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}} $\ast$pt\+RGB)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -81,63 +67,6 @@ Definition at line \mbox{\hyperlink{arm__2d__conversion_8h_source_l00069}{69}} o
 
 
 Definition at line \mbox{\hyperlink{arm__2d__conversion_8h_source_l00077}{77}} of file \mbox{\hyperlink{arm__2d__conversion_8h_source}{arm\+\_\+2d\+\_\+conversion.\+h}}.
-
-
-
-\doxysubsection{Function Documentation}
-\mbox{\Hypertarget{arm__2d__conversion_8h_a50cef518f8e1fe3aa7b6870ac797c66e}\label{arm__2d__conversion_8h_a50cef518f8e1fe3aa7b6870ac797c66e}} 
-\index{arm\_2d\_conversion.h@{arm\_2d\_conversion.h}!\_\_arm\_2d\_cccn888\_pack@{\_\_arm\_2d\_cccn888\_pack}}
-\index{\_\_arm\_2d\_cccn888\_pack@{\_\_arm\_2d\_cccn888\_pack}!arm\_2d\_conversion.h@{arm\_2d\_conversion.h}}
-\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_cccn888\_pack()}{\_\_arm\_2d\_cccn888\_pack()}}
-{\footnotesize\ttfamily \+\_\+\+\_\+\+STATIC\+\_\+\+INLINE uint32\+\_\+t \+\_\+\+\_\+arm\+\_\+2d\+\_\+cccn888\+\_\+pack (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}} $\ast$}]{pt\+RGB }\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{arm__2d__conversion_8h_source_l00127}{127}} of file \mbox{\hyperlink{arm__2d__conversion_8h_source}{arm\+\_\+2d\+\_\+conversion.\+h}}.
-
-\mbox{\Hypertarget{arm__2d__conversion_8h_ad741f60e362467e251ef35febec37c28}\label{arm__2d__conversion_8h_ad741f60e362467e251ef35febec37c28}} 
-\index{arm\_2d\_conversion.h@{arm\_2d\_conversion.h}!\_\_arm\_2d\_rgb565\_pack@{\_\_arm\_2d\_rgb565\_pack}}
-\index{\_\_arm\_2d\_rgb565\_pack@{\_\_arm\_2d\_rgb565\_pack}!arm\_2d\_conversion.h@{arm\_2d\_conversion.h}}
-\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_rgb565\_pack()}{\_\_arm\_2d\_rgb565\_pack()}}
-{\footnotesize\ttfamily \+\_\+\+\_\+\+STATIC\+\_\+\+INLINE uint16\+\_\+t \+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+pack (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}} $\ast$}]{pt\+RGB }\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{arm__2d__conversion_8h_source_l00115}{115}} of file \mbox{\hyperlink{arm__2d__conversion_8h_source}{arm\+\_\+2d\+\_\+conversion.\+h}}.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{00122 \{}
-\DoxyCodeLine{00123     assert(NULL != ptRGB);}
-\DoxyCodeLine{00124     }
-\DoxyCodeLine{00125     \mbox{\hyperlink{unionarm__2d__color__rgba8888__t}{arm\_2d\_color\_rgba8888\_t}} tOutput = \{}
-
-\end{DoxyCode}
-
-
-Referenced by \mbox{\hyperlink{arm__2d__conversion_8c_a63648c25d72eb5ef1bd7202e72886ba7}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+impl\+\_\+cccn888\+\_\+to\+\_\+rgb565()}}, and \mbox{\hyperlink{arm__2d__alpha__blending_8c_a84dfc9fc248a23cce0ea9b1153469cff}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+impl\+\_\+rgb565\+\_\+alpha\+\_\+blending()}}.
-
-\mbox{\Hypertarget{arm__2d__conversion_8h_a0dac4bd927c28a54130bfe279542065c}\label{arm__2d__conversion_8h_a0dac4bd927c28a54130bfe279542065c}} 
-\index{arm\_2d\_conversion.h@{arm\_2d\_conversion.h}!\_\_arm\_2d\_rgb565\_unpack@{\_\_arm\_2d\_rgb565\_unpack}}
-\index{\_\_arm\_2d\_rgb565\_unpack@{\_\_arm\_2d\_rgb565\_unpack}!arm\_2d\_conversion.h@{arm\_2d\_conversion.h}}
-\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_rgb565\_unpack()}{\_\_arm\_2d\_rgb565\_unpack()}}
-{\footnotesize\ttfamily \+\_\+\+\_\+\+STATIC\+\_\+\+INLINE void \+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+unpack (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{hw\+Color,  }\item[{\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}} $\ast$}]{pt\+RGB }\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{arm__2d__conversion_8h_source_l00101}{101}} of file \mbox{\hyperlink{arm__2d__conversion_8h_source}{arm\+\_\+2d\+\_\+conversion.\+h}}.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{00110 \{}
-\DoxyCodeLine{00111     assert(NULL != ptRGB);}
-\DoxyCodeLine{00112     }
-\DoxyCodeLine{00113     \mbox{\hyperlink{unionarm__2d__color__rgb565__t}{arm\_2d\_color\_rgb565\_t}} tOutput = \{}
-
-\end{DoxyCode}
-
-
-Referenced by \mbox{\hyperlink{arm__2d__alpha__blending_8c_a84dfc9fc248a23cce0ea9b1153469cff}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+impl\+\_\+rgb565\+\_\+alpha\+\_\+blending()}}, and \mbox{\hyperlink{arm__2d__conversion_8c_a3fb61dbe3298a99b65f995b1e7db5be1}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+impl\+\_\+rgb565\+\_\+to\+\_\+cccn888()}}.
 
 
 

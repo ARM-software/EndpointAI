@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Source/__arm_2d_meta_trans_with_masks_helium.inc Source File</title>
+<title>arm-2d: __arm_2d_meta_trans_with_masks_helium.inc Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -214,11 +216,11 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__trans__with__masks_
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="keywordtype">void</span> __MTWM_FUNC(transform_with_mask)(</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">                                    #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK      \</span></div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="preprocessor">                                     || __API_MTWM_CFG_SUPPORT_TARGET_MASK</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                                        <a class="code hl_struct" href="struct____arm__2d__param__copy__orig__msk__t.html">__arm_2d_param_copy_orig_msk_t</a> *ptThis,</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                                        __arm_2d_param_copy_orig_msk_t *ptThis,</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="preprocessor">                                    #else</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                                        <a class="code hl_struct" href="struct____arm__2d__param__copy__orig__t.html">__arm_2d_param_copy_orig_t</a> *ptParam,</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                                        __arm_2d_param_copy_orig_t *ptParam,</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="preprocessor">                                    #endif</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                                        <a class="code hl_struct" href="struct____arm__2d__transform__info__t.html">__arm_2d_transform_info_t</a> *ptInfo</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                                        __arm_2d_transform_info_t *ptInfo</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="preprocessor">                                    #if __API_MTWM_CFG_SUPPORT_OPATICY</span></div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                                       ,uint_fast16_t hwOpacity</div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="preprocessor">                                    #endif</span></div>
@@ -231,15 +233,15 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__trans__with__masks_
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>__OVERRIDE_WEAK</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="keywordtype">void</span> __MTWM_FUNC(transform_with_mask)(</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="preprocessor">                                    #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK      \</span></div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="preprocessor">                                     || __API_MTWM_CFG_SUPPORT_TARGET_MASK</span></div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                                        <a class="code hl_struct" href="struct____arm__2d__param__copy__orig__msk__t.html">__arm_2d_param_copy_orig_msk_t</a> *ptThis,</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                                        __arm_2d_param_copy_orig_msk_t *ptThis,</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="preprocessor">                                    #else</span></div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                                        <a class="code hl_struct" href="struct____arm__2d__param__copy__orig__t.html">__arm_2d_param_copy_orig_t</a> *ptParam,</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                                        __arm_2d_param_copy_orig_t *ptParam,</div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="preprocessor">                                    #endif</span></div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                                        <a class="code hl_struct" href="struct____arm__2d__transform__info__t.html">__arm_2d_transform_info_t</a> *ptInfo</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                                        __arm_2d_transform_info_t *ptInfo</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="preprocessor">                                    #if __API_MTWM_CFG_SUPPORT_OPATICY</span></div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                                       ,uint_fast16_t hwOpacity</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="preprocessor">                                    #endif</span></div>
@@ -248,7 +250,7 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__trans__with__masks_
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="preprocessor">#if __API_MTWM_CFG_SUPPORT_SOURCE_MASK                                          \</span></div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="preprocessor"> || __API_MTWM_CFG_SUPPORT_TARGET_MASK</span></div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <a class="code hl_struct" href="struct____arm__2d__param__copy__orig__t.html">__arm_2d_param_copy_orig_t</a> *ptParam =</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    __arm_2d_param_copy_orig_t *ptParam =</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        &amp;(ptThis-&gt;use_as____arm_2d_param_copy_orig_t);</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
@@ -256,15 +258,15 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__trans__with__masks_
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    int_fast16_t iWidth = ptParam-&gt;use_as____arm_2d_param_copy_t.tCopySize.iWidth;</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    int_fast16_t iTargetStride = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.iStride;</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a> *pTargetBase = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.pBuffer;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    __API_INT_TYPE *pTargetBase = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.pBuffer;</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    int_fast16_t iOrigStride = ptParam-&gt;<a class="code hl_variable" href="struct____arm__2d__param__copy__orig__t.html#ac05eb06477396be5ee1857adcc14a18f">tOrigin</a>.<a class="code hl_variable" href="struct____arm__2d__tile__param__t.html#a6c708a173c41021f38cdf3aa9177d916">iStride</a>;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    int_fast16_t iOrigStride = ptParam-&gt;tOrigin.iStride;</div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="preprocessor">#if __API_MTWM_CFG_SUPPORT_SOURCE_MASK</span></div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    uint8_t *pOriginMask = this.tOrigMask.pBuffer;</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    int_fast16_t iOrigMaskStride = this.tOrigMask.iStride;</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a> MaskColour = ptInfo-&gt;Mask.hwColour;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    __API_INT_TYPE MaskColour = ptInfo-&gt;Mask.hwColour;</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="preprocessor">#if __API_MTWM_CFG_SUPPORT_OPATICY</span></div>
@@ -291,17 +293,17 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__trans__with__masks_
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="comment">/* slopes between 1st and last cols */</span></div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordtype">float</span>           slopeY, slopeX;</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    slopeY = (regrCoefs[1].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#ac82c431a2a792ddefa57e5f6d7ec6f69">interceptY</a> - regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#ac82c431a2a792ddefa57e5f6d7ec6f69">interceptY</a>) * invIWidth;</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    slopeX = (regrCoefs[1].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a7d7e52aa8a6d7d69bab27d4b9cc54a48">interceptX</a> - regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a7d7e52aa8a6d7d69bab27d4b9cc54a48">interceptX</a>) * invIWidth;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    slopeY = (regrCoefs[1].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a1f252268a2adcd9c62e1d49b18885dfb">interceptY</a> - regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a1f252268a2adcd9c62e1d49b18885dfb">interceptY</a>) * invIWidth;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    slopeX = (regrCoefs[1].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a126853e5f6563921236b57b6719e7a5e">interceptX</a> - regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a126853e5f6563921236b57b6719e7a5e">interceptX</a>) * invIWidth;</div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keywordflow">for</span> (int_fast16_t y = 0; y &lt; iHeight; y++) {</div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <span class="comment">/* 1st column estimates (intercepts for regression in X direction */</span></div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        <span class="keywordtype">float</span>           colFirstY = regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a88e1b3d00b31e177f59f735940fa7a48">slopeY</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#ac82c431a2a792ddefa57e5f6d7ec6f69">interceptY</a>;</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        <span class="keywordtype">float</span>           colFirstX = regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#aada149bd9bbcd35a58e58c6743b0b1b6">slopeX</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a7d7e52aa8a6d7d69bab27d4b9cc54a48">interceptX</a>;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        <span class="keywordtype">float</span>           colFirstY = regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a66b4406bbebc1a7b64122ed504bc599e">slopeY</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a1f252268a2adcd9c62e1d49b18885dfb">interceptY</a>;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        <span class="keywordtype">float</span>           colFirstX = regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a42cfa36a835027172ec23a336f421839">slopeX</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a126853e5f6563921236b57b6719e7a5e">interceptX</a>;</div>
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
 <div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        int32_t         nbVecElts = iWidth;</div>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        float16x8_t     vX = vcvtq_f16_s16((int16x8_t) vidupq_n_u16(0, 1));</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>       *pTargetBaseCur = pTargetBase;</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        __API_INT_TYPE       *pTargetBaseCur = pTargetBase;</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <span class="keywordflow">while</span> (nbVecElts &gt; 0) {</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>            arm_2d_point_f16x8_t tPointV;</div>
@@ -313,17 +315,17 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__trans__with__masks_
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                vfmaq_n_f16(vdupq_n_f16(colFirstY), vX, slopeY);</div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="preprocessor">#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__)</span></div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            tPointV.X = vaddq_m_n_f16(tPointV.X, tPointV.X, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpgtq(tPointV.X, 0));</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            tPointV.X = vsubq_m_n_f16(tPointV.X, tPointV.X, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpleq(tPointV.X, 0));</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            tPointV.X = vaddq_m_n_f16(tPointV.X, tPointV.X, __CALIB, vcmpgtq(tPointV.X, 0));</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            tPointV.X = vsubq_m_n_f16(tPointV.X, tPointV.X, __CALIB, vcmpleq(tPointV.X, 0));</div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>            tPointV.Y = vaddq_m_n_f16(tPointV.Y, tPointV.Y, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpgtq(tPointV.Y, 0));</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            tPointV.Y = vsubq_m_n_f16(tPointV.Y, tPointV.Y, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpleq(tPointV.Y, 0));</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>            tPointV.Y = vaddq_m_n_f16(tPointV.Y, tPointV.Y, __CALIB, vcmpgtq(tPointV.Y, 0));</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            tPointV.Y = vsubq_m_n_f16(tPointV.Y, tPointV.Y, __CALIB, vcmpleq(tPointV.Y, 0));</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
 <div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>            __ARM_2D_FUNC(get_pixel_colour_mask)(</div>
 <div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                                &amp;tPointV,</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                                &amp;ptParam-&gt;<a class="code hl_variable" href="struct____arm__2d__param__copy__orig__t.html#ac05eb06477396be5ee1857adcc14a18f">tOrigin</a>.<a class="code hl_variable" href="struct____arm__2d__tile__param__t.html#a682b748bce4d2c338c31603b4a53fd6a">tValidRegion</a>,</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                                ptParam-&gt;<a class="code hl_variable" href="struct____arm__2d__param__copy__orig__t.html#ac05eb06477396be5ee1857adcc14a18f">tOrigin</a>.<a class="code hl_variable" href="struct____arm__2d__tile__param__t.html#ab48e189d395e833f208732a779e526c0">pBuffer</a>,</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                                &amp;ptParam-&gt;tOrigin.tValidRegion,</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                                ptParam-&gt;tOrigin.pBuffer,</div>
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                                iOrigStride,</div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                                pTargetBaseCur,</div>
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="preprocessor">                            #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK</span></div>
@@ -351,15 +353,15 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__trans__with__masks_
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
 <div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>__OVERRIDE_WEAK</div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="keywordtype">void</span> __MTWM_FUNC(transform_with_mask)(</div>
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="preprocessor">                                    #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK      \</span></div>
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="preprocessor">                                     || __API_MTWM_CFG_SUPPORT_TARGET_MASK</span></div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>                                        <a class="code hl_struct" href="struct____arm__2d__param__copy__orig__msk__t.html">__arm_2d_param_copy_orig_msk_t</a> *ptThis,</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>                                        __arm_2d_param_copy_orig_msk_t *ptThis,</div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="preprocessor">                                    #else</span></div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>                                        <a class="code hl_struct" href="struct____arm__2d__param__copy__orig__t.html">__arm_2d_param_copy_orig_t</a> *ptParam,</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>                                        __arm_2d_param_copy_orig_t *ptParam,</div>
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="preprocessor">                                    #endif</span></div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>                                        <a class="code hl_struct" href="struct____arm__2d__transform__info__t.html">__arm_2d_transform_info_t</a> *ptInfo</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>                                        __arm_2d_transform_info_t *ptInfo</div>
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="preprocessor">                                    #if __API_MTWM_CFG_SUPPORT_OPATICY</span></div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>                                       ,uint_fast16_t hwOpacity</div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="preprocessor">                                    #endif</span></div>
@@ -367,7 +369,7 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__trans__with__masks_
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>{</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="preprocessor">#if __API_MTWM_CFG_SUPPORT_SOURCE_MASK                                          \</span></div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span><span class="preprocessor"> || __API_MTWM_CFG_SUPPORT_TARGET_MASK</span></div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    <a class="code hl_struct" href="struct____arm__2d__param__copy__orig__t.html">__arm_2d_param_copy_orig_t</a> *ptParam =</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    __arm_2d_param_copy_orig_t *ptParam =</div>
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        &amp;(ptThis-&gt;use_as____arm_2d_param_copy_orig_t);</div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
@@ -375,14 +377,14 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__trans__with__masks_
 <div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    int_fast16_t iWidth = ptParam-&gt;use_as____arm_2d_param_copy_t.tCopySize.iWidth;</div>
 <div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    int_fast16_t iTargetStride = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.iStride;</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a> *pTargetBase = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.pBuffer;</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    int_fast16_t iOrigStride = ptParam-&gt;<a class="code hl_variable" href="struct____arm__2d__param__copy__orig__t.html#ac05eb06477396be5ee1857adcc14a18f">tOrigin</a>.<a class="code hl_variable" href="struct____arm__2d__tile__param__t.html#a6c708a173c41021f38cdf3aa9177d916">iStride</a>;</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    __API_INT_TYPE *pTargetBase = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.pBuffer;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    int_fast16_t iOrigStride = ptParam-&gt;tOrigin.iStride;</div>
 <div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
 <div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="preprocessor">#if __API_MTWM_CFG_SUPPORT_SOURCE_MASK</span></div>
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    uint8_t *pOriginMask = this.tOrigMask.pBuffer;</div>
 <div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    int_fast16_t iOrigMaskStride = this.tOrigMask.iStride;</div>
 <div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a> MaskColour = ptInfo-&gt;Mask.hwColour;</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    __API_INT_TYPE MaskColour = ptInfo-&gt;Mask.hwColour;</div>
 <div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
 <div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="preprocessor">#if __API_MTWM_CFG_SUPPORT_OPATICY</span></div>
@@ -435,7 +437,7 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__trans__with__masks_
 <div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
 <div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        int32_t         nbVecElts = iWidth;</div>
 <div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        int16x8_t       vX = (int16x8_t) vidupq_n_u16(0, 1);</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>       *pTargetBaseCur = pTargetBase;</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        __API_INT_TYPE       *pTargetBaseCur = pTargetBase;</div>
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span> </div>
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        <span class="comment">/* Q9.6 coversion */</span></div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>        vX = SET_Q6INT(vX);</div>
@@ -453,8 +455,8 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__trans__with__masks_
 <div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span> </div>
 <div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>            __ARM_2D_FUNC(get_pixel_colour_mask)(</div>
 <div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>                                &amp;tPointV,</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>                                &amp;ptParam-&gt;<a class="code hl_variable" href="struct____arm__2d__param__copy__orig__t.html#ac05eb06477396be5ee1857adcc14a18f">tOrigin</a>.<a class="code hl_variable" href="struct____arm__2d__tile__param__t.html#a682b748bce4d2c338c31603b4a53fd6a">tValidRegion</a>,</div>
-<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>                                ptParam-&gt;<a class="code hl_variable" href="struct____arm__2d__param__copy__orig__t.html#ac05eb06477396be5ee1857adcc14a18f">tOrigin</a>.<a class="code hl_variable" href="struct____arm__2d__tile__param__t.html#ab48e189d395e833f208732a779e526c0">pBuffer</a>,</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>                                &amp;ptParam-&gt;tOrigin.tValidRegion,</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>                                ptParam-&gt;tOrigin.pBuffer,</div>
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>                                iOrigStride,</div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>                                pTargetBaseCur,</div>
 <div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span><span class="preprocessor">                            #if __API_MTWM_CFG_SUPPORT_SOURCE_MASK</span></div>
@@ -511,23 +513,13 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__trans__with__masks_
 <div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span><span class="preprocessor">#undef __API_MTWM_CFG_SUPPORT_OPATICY</span></div>
 <div class="ttc" id="a____arm__2d__math_8h_html_a8229f0714afc303702b719820a158087"><div class="ttname"><a href="____arm__2d__math_8h.html#a8229f0714afc303702b719820a158087">MULTFX</a></div><div class="ttdeci">#define MULTFX(x, y)</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__math_8h_source.html#l00108">__arm_2d_math.h:108</a></div></div>
 <div class="ttc" id="a____arm__2d__math_8h_html_a996f7be338ccb40d1a2a5abc1ad61759"><div class="ttname"><a href="____arm__2d__math_8h.html#a996f7be338ccb40d1a2a5abc1ad61759">ABS</a></div><div class="ttdeci">#define ABS(x)</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__math_8h_source.html#l00103">__arm_2d_math.h:103</a></div></div>
-<div class="ttc" id="aarm__2d__alpha__blending_8c_html_a71ef659837d31a3da6b902b7c50fce6f"><div class="ttname"><a href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a></div><div class="ttdeci">#define __API_INT_TYPE</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__alpha__blending_8c_source.html#l00101">arm_2d_alpha_blending.c:101</a></div></div>
-<div class="ttc" id="aarm__2d__transform_8c_html_a29e4ea6d26ca19e8db3073efd2292cb4"><div class="ttname"><a href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a></div><div class="ttdeci">#define __CALIB</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8c_source.html#l00080">arm_2d_transform.c:80</a></div></div>
 <div class="ttc" id="aarm__2d__transform_8h_html_ac12bfe6bda01afa26c0f226b8c14f129"><div class="ttname"><a href="arm__2d__transform_8h.html#ac12bfe6bda01afa26c0f226b8c14f129">fAngle</a></div><div class="ttdeci">const arm_2d_tile_t const arm_2d_location_t float fAngle</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8h_source.html#l03478">arm_2d_transform.h:3478</a></div></div>
-<div class="ttc" id="aarm__2d__utils_8h_html_af675320d8afdd3d72e951d1a5eb9fcd1"><div class="ttname"><a href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div><div class="ttdeci">#define __OVERRIDE_WEAK</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00323">arm_2d_utils.h:323</a></div></div>
-<div class="ttc" id="astruct____arm__2d__param__copy__orig__msk__t_html"><div class="ttname"><a href="struct____arm__2d__param__copy__orig__msk__t.html">__arm_2d_param_copy_orig_msk_t</a></div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00317">__arm_2d_impl.h:317</a></div></div>
-<div class="ttc" id="astruct____arm__2d__param__copy__orig__t_html"><div class="ttname"><a href="struct____arm__2d__param__copy__orig__t.html">__arm_2d_param_copy_orig_t</a></div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00310">__arm_2d_impl.h:310</a></div></div>
-<div class="ttc" id="astruct____arm__2d__param__copy__orig__t_html_ac05eb06477396be5ee1857adcc14a18f"><div class="ttname"><a href="struct____arm__2d__param__copy__orig__t.html#ac05eb06477396be5ee1857adcc14a18f">__arm_2d_param_copy_orig_t::tOrigin</a></div><div class="ttdeci">__arm_2d_tile_param_t tOrigin</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00313">__arm_2d_impl.h:313</a></div></div>
-<div class="ttc" id="astruct____arm__2d__tile__param__t_html_a682b748bce4d2c338c31603b4a53fd6a"><div class="ttname"><a href="struct____arm__2d__tile__param__t.html#a682b748bce4d2c338c31603b4a53fd6a">__arm_2d_tile_param_t::tValidRegion</a></div><div class="ttdeci">arm_2d_region_t tValidRegion</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00294">__arm_2d_impl.h:294</a></div></div>
-<div class="ttc" id="astruct____arm__2d__tile__param__t_html_a6c708a173c41021f38cdf3aa9177d916"><div class="ttname"><a href="struct____arm__2d__tile__param__t.html#a6c708a173c41021f38cdf3aa9177d916">__arm_2d_tile_param_t::iStride</a></div><div class="ttdeci">int16_t iStride</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00287">__arm_2d_impl.h:287</a></div></div>
-<div class="ttc" id="astruct____arm__2d__tile__param__t_html_ab48e189d395e833f208732a779e526c0"><div class="ttname"><a href="struct____arm__2d__tile__param__t.html#ab48e189d395e833f208732a779e526c0">__arm_2d_tile_param_t::pBuffer</a></div><div class="ttdeci">void * pBuffer</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00285">__arm_2d_impl.h:285</a></div></div>
-<div class="ttc" id="astruct____arm__2d__transform__info__t_html"><div class="ttname"><a href="struct____arm__2d__transform__info__t.html">__arm_2d_transform_info_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8h_source.html#l03349">arm_2d_transform.h:3349</a></div></div>
 <div class="ttc" id="astructarm__2d__location__t_html"><div class="ttname"><a href="structarm__2d__location__t.html">arm_2d_location_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00281">arm_2d_types.h:281</a></div></div>
 <div class="ttc" id="astructarm__2d__rot__linear__regr__t_html"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html">arm_2d_rot_linear_regr_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00603">arm_2d_types.h:603</a></div></div>
-<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_a7d7e52aa8a6d7d69bab27d4b9cc54a48"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#a7d7e52aa8a6d7d69bab27d4b9cc54a48">arm_2d_rot_linear_regr_t::interceptX</a></div><div class="ttdeci">int32_t interceptX</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00607">arm_2d_types.h:607</a></div></div>
-<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_a88e1b3d00b31e177f59f735940fa7a48"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#a88e1b3d00b31e177f59f735940fa7a48">arm_2d_rot_linear_regr_t::slopeY</a></div><div class="ttdeci">int32_t slopeY</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00604">arm_2d_types.h:604</a></div></div>
-<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_aada149bd9bbcd35a58e58c6743b0b1b6"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#aada149bd9bbcd35a58e58c6743b0b1b6">arm_2d_rot_linear_regr_t::slopeX</a></div><div class="ttdeci">int32_t slopeX</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00606">arm_2d_types.h:606</a></div></div>
-<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_ac82c431a2a792ddefa57e5f6d7ec6f69"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#ac82c431a2a792ddefa57e5f6d7ec6f69">arm_2d_rot_linear_regr_t::interceptY</a></div><div class="ttdeci">int32_t interceptY</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00605">arm_2d_types.h:605</a></div></div>
+<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_a126853e5f6563921236b57b6719e7a5e"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#a126853e5f6563921236b57b6719e7a5e">arm_2d_rot_linear_regr_t::interceptX</a></div><div class="ttdeci">int32_t interceptX</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00607">arm_2d_types.h:607</a></div></div>
+<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_a1f252268a2adcd9c62e1d49b18885dfb"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#a1f252268a2adcd9c62e1d49b18885dfb">arm_2d_rot_linear_regr_t::interceptY</a></div><div class="ttdeci">int32_t interceptY</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00605">arm_2d_types.h:605</a></div></div>
+<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_a42cfa36a835027172ec23a336f421839"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#a42cfa36a835027172ec23a336f421839">arm_2d_rot_linear_regr_t::slopeX</a></div><div class="ttdeci">int32_t slopeX</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00606">arm_2d_types.h:606</a></div></div>
+<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_a66b4406bbebc1a7b64122ed504bc599e"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#a66b4406bbebc1a7b64122ed504bc599e">arm_2d_rot_linear_regr_t::slopeY</a></div><div class="ttdeci">int32_t slopeY</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00604">arm_2d_types.h:604</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -1,6 +1,5 @@
 var arm__2d__helper__pfb_8c =
 [
-    [ "__ARM_2D_IMPL__", "arm__2d__helper__pfb_8c.html#aa391cb8cbcf1b1a4ab83847b83d8b8de", null ],
     [ "ARM_PT_BEGIN", "arm__2d__helper__pfb_8c.html#abe3c1382ff4755d987d4860565dbd0a9", null ],
     [ "ARM_PT_END", "arm__2d__helper__pfb_8c.html#af0e6244f8344c453ec028a86a7320517", null ],
     [ "ARM_PT_ENTRY", "arm__2d__helper__pfb_8c.html#a9fb14079b32f2b76879d845c76fd4633", null ],

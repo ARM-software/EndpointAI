@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/arm_2d.h Source File</title>
+<title>arm-2d: arm_2d.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -154,15 +156,15 @@ $(document).ready(function(){initNavTree('arm__2d_8h_source.html',''); initResiz
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">/*============================ TYPES =========================================*/</span></div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="structarm__2d__runtime__feature__t.html">   74</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="structarm__2d__runtime__feature__t.html#a510cca0f6a20f0e447eb160dd8300537">   75</a></span>    uint8_t     <a class="code hl_variable" href="structarm__2d__runtime__feature__t.html#a510cca0f6a20f0e447eb160dd8300537">TREAT_OUT_OF_RANGE_AS_COMPLETE</a>          : 1;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="structarm__2d__runtime__feature__t.html#a62caaa202914ebc92812c32d41607836">   76</a></span>    uint8_t     <a class="code hl_variable" href="structarm__2d__runtime__feature__t.html#a62caaa202914ebc92812c32d41607836">HAS_DEDICATED_THREAD_FOR_2D_TASK</a>        : 1;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="structarm__2d__runtime__feature__t.html#ae03a394dafc3dbbc3bca364bc21c902c">   75</a></span>    uint8_t     <a class="code hl_variable" href="structarm__2d__runtime__feature__t.html#ae03a394dafc3dbbc3bca364bc21c902c">TREAT_OUT_OF_RANGE_AS_COMPLETE</a>          : 1;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="structarm__2d__runtime__feature__t.html#a43ace7cfacc269488ec92483ab3beaca">   76</a></span>    uint8_t     <a class="code hl_variable" href="structarm__2d__runtime__feature__t.html#a43ace7cfacc269488ec92483ab3beaca">HAS_DEDICATED_THREAD_FOR_2D_TASK</a>        : 1;</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    uint8_t                                             : 6;</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>} <a class="code hl_struct" href="structarm__2d__runtime__feature__t.html">arm_2d_runtime_feature_t</a>;</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="structarm__2d__version__t.html">   80</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="structarm__2d__version__t.html#a9c6cb78b2f0ce027b8eb427523270d1d">   81</a></span>    uint8_t     <a class="code hl_variable" href="structarm__2d__version__t.html#a9c6cb78b2f0ce027b8eb427523270d1d">Major</a>;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="structarm__2d__version__t.html#aba0f33dbb06e5b8a8b629a10d16a6df6">   82</a></span>    uint8_t     <a class="code hl_variable" href="structarm__2d__version__t.html#aba0f33dbb06e5b8a8b629a10d16a6df6">Minor</a>;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structarm__2d__version__t.html#ad5df3c490a1234f69129ffd9ac3e1881">   83</a></span>    uint8_t     <a class="code hl_variable" href="structarm__2d__version__t.html#ad5df3c490a1234f69129ffd9ac3e1881">Patch</a>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="structarm__2d__version__t.html#a8055fbd7e6d6d450d2856f8b30379a5a">   81</a></span>    uint8_t     <a class="code hl_variable" href="structarm__2d__version__t.html#a8055fbd7e6d6d450d2856f8b30379a5a">Major</a>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="structarm__2d__version__t.html#ae2058b1efa649f0c544c7317e3e01886">   82</a></span>    uint8_t     <a class="code hl_variable" href="structarm__2d__version__t.html#ae2058b1efa649f0c544c7317e3e01886">Minor</a>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structarm__2d__version__t.html#a334b7db0f3d20eaba3dcd21b25b54060">   83</a></span>    uint8_t     <a class="code hl_variable" href="structarm__2d__version__t.html#a334b7db0f3d20eaba3dcd21b25b54060">Patch</a>;</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    uint8_t                 : 8;</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>} <a class="code hl_struct" href="structarm__2d__version__t.html">arm_2d_version_t</a>;</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
@@ -240,14 +242,14 @@ $(document).ready(function(){initNavTree('arm__2d_8h_source.html',''); initResiz
 <div class="ttc" id="aarm__2d__types_8h_html_a373f79d09c0d15653ca46ea08e0377fc"><div class="ttname"><a href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a></div><div class="ttdeci">arm_fsm_rt_t</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00075">arm_2d_types.h:75</a></div></div>
 <div class="ttc" id="astructarm__2d__op__core__t_html"><div class="ttname"><a href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00463">arm_2d_types.h:463</a></div></div>
 <div class="ttc" id="astructarm__2d__runtime__feature__t_html"><div class="ttname"><a href="structarm__2d__runtime__feature__t.html">arm_2d_runtime_feature_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d_8h_source.html#l00074">arm_2d.h:74</a></div></div>
-<div class="ttc" id="astructarm__2d__runtime__feature__t_html_a510cca0f6a20f0e447eb160dd8300537"><div class="ttname"><a href="structarm__2d__runtime__feature__t.html#a510cca0f6a20f0e447eb160dd8300537">arm_2d_runtime_feature_t::TREAT_OUT_OF_RANGE_AS_COMPLETE</a></div><div class="ttdeci">uint8_t TREAT_OUT_OF_RANGE_AS_COMPLETE</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d_8h_source.html#l00075">arm_2d.h:75</a></div></div>
-<div class="ttc" id="astructarm__2d__runtime__feature__t_html_a62caaa202914ebc92812c32d41607836"><div class="ttname"><a href="structarm__2d__runtime__feature__t.html#a62caaa202914ebc92812c32d41607836">arm_2d_runtime_feature_t::HAS_DEDICATED_THREAD_FOR_2D_TASK</a></div><div class="ttdeci">uint8_t HAS_DEDICATED_THREAD_FOR_2D_TASK</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d_8h_source.html#l00076">arm_2d.h:76</a></div></div>
+<div class="ttc" id="astructarm__2d__runtime__feature__t_html_a43ace7cfacc269488ec92483ab3beaca"><div class="ttname"><a href="structarm__2d__runtime__feature__t.html#a43ace7cfacc269488ec92483ab3beaca">arm_2d_runtime_feature_t::HAS_DEDICATED_THREAD_FOR_2D_TASK</a></div><div class="ttdeci">uint8_t HAS_DEDICATED_THREAD_FOR_2D_TASK</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d_8h_source.html#l00076">arm_2d.h:76</a></div></div>
+<div class="ttc" id="astructarm__2d__runtime__feature__t_html_ae03a394dafc3dbbc3bca364bc21c902c"><div class="ttname"><a href="structarm__2d__runtime__feature__t.html#ae03a394dafc3dbbc3bca364bc21c902c">arm_2d_runtime_feature_t::TREAT_OUT_OF_RANGE_AS_COMPLETE</a></div><div class="ttdeci">uint8_t TREAT_OUT_OF_RANGE_AS_COMPLETE</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d_8h_source.html#l00075">arm_2d.h:75</a></div></div>
 <div class="ttc" id="astructarm__2d__task__t_html"><div class="ttname"><a href="structarm__2d__task__t.html">arm_2d_task_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00335">arm_2d_types.h:335</a></div></div>
 <div class="ttc" id="astructarm__2d__tile__t_html"><div class="ttname"><a href="structarm__2d__tile__t.html">arm_2d_tile_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00307">arm_2d_types.h:307</a></div></div>
 <div class="ttc" id="astructarm__2d__version__t_html"><div class="ttname"><a href="structarm__2d__version__t.html">arm_2d_version_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d_8h_source.html#l00080">arm_2d.h:80</a></div></div>
-<div class="ttc" id="astructarm__2d__version__t_html_a9c6cb78b2f0ce027b8eb427523270d1d"><div class="ttname"><a href="structarm__2d__version__t.html#a9c6cb78b2f0ce027b8eb427523270d1d">arm_2d_version_t::Major</a></div><div class="ttdeci">uint8_t Major</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d_8h_source.html#l00081">arm_2d.h:81</a></div></div>
-<div class="ttc" id="astructarm__2d__version__t_html_aba0f33dbb06e5b8a8b629a10d16a6df6"><div class="ttname"><a href="structarm__2d__version__t.html#aba0f33dbb06e5b8a8b629a10d16a6df6">arm_2d_version_t::Minor</a></div><div class="ttdeci">uint8_t Minor</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d_8h_source.html#l00082">arm_2d.h:82</a></div></div>
-<div class="ttc" id="astructarm__2d__version__t_html_ad5df3c490a1234f69129ffd9ac3e1881"><div class="ttname"><a href="structarm__2d__version__t.html#ad5df3c490a1234f69129ffd9ac3e1881">arm_2d_version_t::Patch</a></div><div class="ttdeci">uint8_t Patch</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d_8h_source.html#l00083">arm_2d.h:83</a></div></div>
+<div class="ttc" id="astructarm__2d__version__t_html_a334b7db0f3d20eaba3dcd21b25b54060"><div class="ttname"><a href="structarm__2d__version__t.html#a334b7db0f3d20eaba3dcd21b25b54060">arm_2d_version_t::Patch</a></div><div class="ttdeci">uint8_t Patch</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d_8h_source.html#l00083">arm_2d.h:83</a></div></div>
+<div class="ttc" id="astructarm__2d__version__t_html_a8055fbd7e6d6d450d2856f8b30379a5a"><div class="ttname"><a href="structarm__2d__version__t.html#a8055fbd7e6d6d450d2856f8b30379a5a">arm_2d_version_t::Major</a></div><div class="ttdeci">uint8_t Major</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d_8h_source.html#l00081">arm_2d.h:81</a></div></div>
+<div class="ttc" id="astructarm__2d__version__t_html_ae2058b1efa649f0c544c7317e3e01886"><div class="ttname"><a href="structarm__2d__version__t.html#ae2058b1efa649f0c544c7317e3e01886">arm_2d_version_t::Minor</a></div><div class="ttdeci">uint8_t Minor</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d_8h_source.html#l00082">arm_2d.h:82</a></div></div>
 <div class="ttc" id="aunionarm__2d__op__status__t_html"><div class="ttname"><a href="unionarm__2d__op__status__t.html">arm_2d_op_status_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00452">arm_2d_types.h:452</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

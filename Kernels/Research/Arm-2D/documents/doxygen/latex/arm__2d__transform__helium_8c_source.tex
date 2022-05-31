@@ -1,5 +1,5 @@
 \hypertarget{arm__2d__transform__helium_8c_source}{}\doxysection{arm\+\_\+2d\+\_\+transform\+\_\+helium.\+c}
-\label{arm__2d__transform__helium_8c_source}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Source/arm\_2d\_transform\_helium.c@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Source/arm\_2d\_transform\_helium.c}}
+\label{arm__2d__transform__helium_8c_source}\index{arm\_2d\_transform\_helium.c@{arm\_2d\_transform\_helium.c}}
 \mbox{\hyperlink{arm__2d__transform__helium_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00001}00001 \textcolor{comment}{/*}}
@@ -32,7 +32,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00028}00028 \textcolor{comment}{ *}}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00029}00029 \textcolor{comment}{ * -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ */}}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00030}00030 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00031}\mbox{\hyperlink{arm__2d__transform__helium_8c_aa391cb8cbcf1b1a4ab83847b83d8b8de}{00031}} \textcolor{preprocessor}{\#define \_\_ARM\_2D\_IMPL\_\_}}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00031}00031 \textcolor{preprocessor}{\#define \_\_ARM\_2D\_IMPL\_\_}}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00032}00032 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00033}00033 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__2d_8h}{arm\_2d.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00034}00034 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{____arm__2d__impl_8h}{\_\_arm\_2d\_impl.h}}"{}}}
@@ -441,7 +441,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00504}00504 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00505}00505 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00506}00506 \textcolor{keyword}{static}}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00507}00507 \textcolor{keywordtype}{bool} \_\_arm\_2d\_transform\_regression(\mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} * \mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize,}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00507}00507 \textcolor{keywordtype}{bool} \_\_arm\_2d\_transform\_regression(\mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} * \_\_RESTRICT ptCopySize,}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00508}00508                                     \mbox{\hyperlink{structarm__2d__location__t}{arm\_2d\_location\_t}} * pSrcPoint,}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00509}00509                                     \textcolor{keywordtype}{float} \mbox{\hyperlink{arm__2d__transform_8h_ac12bfe6bda01afa26c0f226b8c14f129}{fAngle}},}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00510}00510                                     \textcolor{keywordtype}{float} \mbox{\hyperlink{arm__2d__transform_8h_a8677513c1a274102fd21625189bb9491}{fScale}},}
@@ -464,13 +464,13 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00527}00527     \textcolor{keywordtype}{bool}            gatherLoadIdxOverflow = 0;}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00528}00528 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00529}00529 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00530}00530     centerf.\mbox{\hyperlink{structarm__2d__point__float__t_a449c99263651dc7fda0b3ef4a1d78e4c}{fX}} = (float) center-\/>\mbox{\hyperlink{structarm__2d__location__t_a7c7434482f3a34f7e8340c56bf42f8b4}{iX}};}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00531}00531     centerf.\mbox{\hyperlink{structarm__2d__point__float__t_a7a1caadff8d9fc195e91bc9312cd199f}{fY}} = (\textcolor{keywordtype}{float}) center-\/>\mbox{\hyperlink{structarm__2d__location__t_a1ac336a26f2eba53bd46e98f0d025088}{iY}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00530}00530     centerf.\mbox{\hyperlink{structarm__2d__point__float__t_ad1c4e04b3b22f47fdc69c1fc92ecb905}{fX}} = (float) center-\/>\mbox{\hyperlink{structarm__2d__location__t_afcfe4e9ad6eb4f402d0001a14d888e5f}{iX}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00531}00531     centerf.\mbox{\hyperlink{structarm__2d__point__float__t_a912063b5c4243a0ed4e1a655e3cb3082}{fY}} = (\textcolor{keywordtype}{float}) center-\/>\mbox{\hyperlink{structarm__2d__location__t_ab6746d623416d076c3339cc9b44289b6}{iY}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00532}00532 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00533}00533     vPointCornerI.X = vdupq\_n\_s32(pSrcPoint-\/>\mbox{\hyperlink{structarm__2d__location__t_a7c7434482f3a34f7e8340c56bf42f8b4}{iX}} + tOffset-\/>\mbox{\hyperlink{structarm__2d__location__t_a7c7434482f3a34f7e8340c56bf42f8b4}{iX}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00533}00533     vPointCornerI.X = vdupq\_n\_s32(pSrcPoint-\/>\mbox{\hyperlink{structarm__2d__location__t_afcfe4e9ad6eb4f402d0001a14d888e5f}{iX}} + tOffset-\/>\mbox{\hyperlink{structarm__2d__location__t_afcfe4e9ad6eb4f402d0001a14d888e5f}{iX}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00534}00534     vPointCornerI.X = vPointCornerI.X + vmulq\_n\_s32(vCornerX, (iWidth -\/ 1));}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00535}00535 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00536}00536     vPointCornerI.Y = vdupq\_n\_s32(pSrcPoint-\/>\mbox{\hyperlink{structarm__2d__location__t_a1ac336a26f2eba53bd46e98f0d025088}{iY}} + tOffset-\/>\mbox{\hyperlink{structarm__2d__location__t_a1ac336a26f2eba53bd46e98f0d025088}{iY}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00536}00536     vPointCornerI.Y = vdupq\_n\_s32(pSrcPoint-\/>\mbox{\hyperlink{structarm__2d__location__t_ab6746d623416d076c3339cc9b44289b6}{iY}} + tOffset-\/>\mbox{\hyperlink{structarm__2d__location__t_ab6746d623416d076c3339cc9b44289b6}{iY}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00537}00537     vPointCornerI.Y = vPointCornerI.Y + vmulq\_n\_s32(vCornerY, (iHeight -\/ 1));}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00538}00538 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00539}00539     \textcolor{comment}{/*}}
@@ -488,14 +488,14 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00551}00551 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00552}00552     arm\_2d\_point\_f32x4\_t vTmp, vPointCornerF;}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00553}00553 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00554}00554     vTmp.X = vsubq\_n\_f32(vcvtq\_f32\_s32(vPointCornerI.X), centerf.\mbox{\hyperlink{structarm__2d__point__float__t_a449c99263651dc7fda0b3ef4a1d78e4c}{fX}});}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00555}00555     vTmp.Y = vsubq\_n\_f32(vcvtq\_f32\_s32(vPointCornerI.Y), centerf.\mbox{\hyperlink{structarm__2d__point__float__t_a7a1caadff8d9fc195e91bc9312cd199f}{fY}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00554}00554     vTmp.X = vsubq\_n\_f32(vcvtq\_f32\_s32(vPointCornerI.X), centerf.\mbox{\hyperlink{structarm__2d__point__float__t_ad1c4e04b3b22f47fdc69c1fc92ecb905}{fX}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00555}00555     vTmp.Y = vsubq\_n\_f32(vcvtq\_f32\_s32(vPointCornerI.Y), centerf.\mbox{\hyperlink{structarm__2d__point__float__t_a912063b5c4243a0ed4e1a655e3cb3082}{fY}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00556}00556 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00557}00557     vPointCornerF.X = vmulq\_n\_f32(vTmp.X, cosAngle) -\/ vmulq\_n\_f32(vTmp.Y, sinAngle);}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00558}00558     vPointCornerF.X = vaddq\_n\_f32(vPointCornerF.X, centerf.\mbox{\hyperlink{structarm__2d__point__float__t_a449c99263651dc7fda0b3ef4a1d78e4c}{fX}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00558}00558     vPointCornerF.X = vaddq\_n\_f32(vPointCornerF.X, centerf.\mbox{\hyperlink{structarm__2d__point__float__t_ad1c4e04b3b22f47fdc69c1fc92ecb905}{fX}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00559}00559 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00560}00560     vPointCornerF.Y = vmulq\_n\_f32(vTmp.X, sinAngle) + vmulq\_n\_f32(vTmp.Y, cosAngle);}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00561}00561     vPointCornerF.Y = vaddq\_n\_f32(vPointCornerF.Y, centerf.\mbox{\hyperlink{structarm__2d__point__float__t_a7a1caadff8d9fc195e91bc9312cd199f}{fY}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00561}00561     vPointCornerF.Y = vaddq\_n\_f32(vPointCornerF.Y, centerf.\mbox{\hyperlink{structarm__2d__point__float__t_a912063b5c4243a0ed4e1a655e3cb3082}{fY}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00562}00562 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00563}00563     \textcolor{comment}{/*}}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00564}00564 \textcolor{comment}{       Check whether rotated index offsets could exceed 16-\/bit limits}}
@@ -514,20 +514,20 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00577}00577     slopeX = (vPointCornerF.X[2] -\/ vPointCornerF.X[0]) * invHeight;}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00578}00578     slopeY = (vPointCornerF.Y[2] -\/ vPointCornerF.Y[0]) * invHeight;}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00579}00579 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00580}00580     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a88e1b3d00b31e177f59f735940fa7a48}{slopeY}} = slopeY;}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00581}00581     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_aada149bd9bbcd35a58e58c6743b0b1b6}{slopeX}} = slopeX;}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00582}00582     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_ac82c431a2a792ddefa57e5f6d7ec6f69}{interceptY}} = vPointCornerF.Y[0];}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00583}00583     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a7d7e52aa8a6d7d69bab27d4b9cc54a48}{interceptX}} = vPointCornerF.X[0];}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00580}00580     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a66b4406bbebc1a7b64122ed504bc599e}{slopeY}} = slopeY;}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00581}00581     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a42cfa36a835027172ec23a336f421839}{slopeX}} = slopeX;}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00582}00582     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a1f252268a2adcd9c62e1d49b18885dfb}{interceptY}} = vPointCornerF.Y[0];}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00583}00583     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a126853e5f6563921236b57b6719e7a5e}{interceptX}} = vPointCornerF.X[0];}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00584}00584 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00585}00585 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00586}00586     \textcolor{comment}{/* interpolation in Y direction for the last elements column */}}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00587}00587     slopeX = (vPointCornerF.X[3] -\/ vPointCornerF.X[1]) * invHeight;}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00588}00588     slopeY = (vPointCornerF.Y[3] -\/ vPointCornerF.Y[1]) * invHeight;}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00589}00589 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00590}00590     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a88e1b3d00b31e177f59f735940fa7a48}{slopeY}} = slopeY;}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00591}00591     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_aada149bd9bbcd35a58e58c6743b0b1b6}{slopeX}} = slopeX;}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00592}00592     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_ac82c431a2a792ddefa57e5f6d7ec6f69}{interceptY}} = vPointCornerF.Y[1];}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00593}00593     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a7d7e52aa8a6d7d69bab27d4b9cc54a48}{interceptX}} = vPointCornerF.X[1];}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00590}00590     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a66b4406bbebc1a7b64122ed504bc599e}{slopeY}} = slopeY;}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00591}00591     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a42cfa36a835027172ec23a336f421839}{slopeX}} = slopeX;}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00592}00592     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a1f252268a2adcd9c62e1d49b18885dfb}{interceptY}} = vPointCornerF.Y[1];}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00593}00593     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a126853e5f6563921236b57b6719e7a5e}{interceptX}} = vPointCornerF.X[1];}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00594}00594 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00595}00595     \textcolor{keywordflow}{return} gatherLoadIdxOverflow;}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l00596}00596 \}}
@@ -1578,7 +1578,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l01641}01641     vst1q\_p(pTarget, vPixel, vctp32q(elts));}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l01642}01642 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l01643}01643     elts -\/= 4;}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l01644}01644     \textcolor{keywordflow}{if} (elts > 0) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l01644}01644     if (elts > 0) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l01645}01645 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l01646}01646         \textcolor{comment}{/* second half */}}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l01647}01647         p = arm\_2d\_is\_point\_vec\_inside\_region\_s32(ptOrigValidRegion, \&tPointHi);}
@@ -1945,7 +1945,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02020}02020 \textcolor{preprocessor}{        vAvgPixelB += vmulhq\_u16(vAlpha, B << 8);}}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02021}02021 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02022}02022 \textcolor{keyword}{static}}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02023}02023 \textcolor{keywordtype}{bool} \_\_arm\_2d\_transform\_regression(\mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} * \mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize,}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02023}02023 \textcolor{keywordtype}{bool} \_\_arm\_2d\_transform\_regression(\mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} * \_\_RESTRICT ptCopySize,}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02024}02024                                             \mbox{\hyperlink{structarm__2d__location__t}{arm\_2d\_location\_t}} * pSrcPoint,}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02025}02025                                             \textcolor{keywordtype}{float} \mbox{\hyperlink{arm__2d__transform_8h_ac12bfe6bda01afa26c0f226b8c14f129}{fAngle}},}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02026}02026                                             \textcolor{keywordtype}{float} \mbox{\hyperlink{arm__2d__transform_8h_a8677513c1a274102fd21625189bb9491}{fScale}},}
@@ -1971,64 +1971,64 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02046}02046     \textcolor{keywordtype}{bool}                gatherLoadIdxOverflow = 0;}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02047}02047 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02048}02048     \textcolor{comment}{/* Q16 conversion */}}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02049}02049     centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} = \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(center-\/>\mbox{\hyperlink{structarm__2d__location__t_a7c7434482f3a34f7e8340c56bf42f8b4}{iX}});}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02050}02050     centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} = \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(center-\/>\mbox{\hyperlink{structarm__2d__location__t_a1ac336a26f2eba53bd46e98f0d025088}{iY}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02049}02049     centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} = \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(center-\/>\mbox{\hyperlink{structarm__2d__location__t_afcfe4e9ad6eb4f402d0001a14d888e5f}{iX}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02050}02050     centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} = \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(center-\/>\mbox{\hyperlink{structarm__2d__location__t_ab6746d623416d076c3339cc9b44289b6}{iY}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02051}02051 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02052}02052     srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} = \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(pSrcPoint-\/>\mbox{\hyperlink{structarm__2d__location__t_a7c7434482f3a34f7e8340c56bf42f8b4}{iX}});}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02053}02053     srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} = \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(pSrcPoint-\/>\mbox{\hyperlink{structarm__2d__location__t_a1ac336a26f2eba53bd46e98f0d025088}{iY}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02052}02052     srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} = \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(pSrcPoint-\/>\mbox{\hyperlink{structarm__2d__location__t_afcfe4e9ad6eb4f402d0001a14d888e5f}{iX}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02053}02053     srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} = \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(pSrcPoint-\/>\mbox{\hyperlink{structarm__2d__location__t_ab6746d623416d076c3339cc9b44289b6}{iY}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02054}02054 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02055}02055     tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} = \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(tOffset-\/>\mbox{\hyperlink{structarm__2d__location__t_a7c7434482f3a34f7e8340c56bf42f8b4}{iX}});}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02056}02056     tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} = \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(tOffset-\/>\mbox{\hyperlink{structarm__2d__location__t_a1ac336a26f2eba53bd46e98f0d025088}{iY}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02055}02055     tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} = \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(tOffset-\/>\mbox{\hyperlink{structarm__2d__location__t_afcfe4e9ad6eb4f402d0001a14d888e5f}{iX}});}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02056}02056     tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} = \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(tOffset-\/>\mbox{\hyperlink{structarm__2d__location__t_ab6746d623416d076c3339cc9b44289b6}{iY}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02057}02057 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02058}02058 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02059}02059     \textcolor{comment}{/* (0,0) corner */}}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02060}02060     tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} = srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} + 0 + tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}};}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02061}02061     tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} = srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} + 0 + tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02060}02060     tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} = srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} + 0 + tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02061}02061     tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} = srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} + 0 + tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02062}02062 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02063}02063     iXQ16 = tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} -\/ centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}};}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02064}02064     iYQ16 = tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} -\/ centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02063}02063     iXQ16 = tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} -\/ centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02064}02064     iYQ16 = tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} -\/ centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02065}02065 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02066}02066     tPointCornerFx[0][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} =}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02067}02067         \mbox{\hyperlink{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}{\_\_QDADD}}(\mbox{\hyperlink{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}{\_\_QDADD}}(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iYQ16, cosAngleFx)),}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02066}02066     tPointCornerFx[0][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} =}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02067}02067         \_\_QDADD(\_\_QDADD(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iYQ16, cosAngleFx)),}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02068}02068                 \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iXQ16, sinAngleFx));}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02069}02069     tPointCornerFx[0][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} =}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02070}02070         \mbox{\hyperlink{____arm__2d__math_8h_aea80dcc47395b0f568160398c70d1b7c}{\_\_QDSUB}}(\mbox{\hyperlink{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}{\_\_QDADD}}(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iXQ16, cosAngleFx)),}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02069}02069     tPointCornerFx[0][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} =}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02070}02070         \_\_QDSUB(\_\_QDADD(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iXQ16, cosAngleFx)),}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02071}02071                 \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iYQ16, sinAngleFx));}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02072}02072 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02073}02073 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02074}02074     \textcolor{comment}{/* ((iWidth -\/ 1),0) corner */}}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02075}02075     tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} = srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} + 0 + tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} + \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(iWidth -\/ 1);}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02076}02076     iXQ16 = tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} -\/ centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02075}02075     tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} = srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} + 0 + tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} + \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(iWidth -\/ 1);}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02076}02076     iXQ16 = tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} -\/ centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02077}02077 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02078}02078     tPointCornerFx[1][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} =}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02079}02079         \mbox{\hyperlink{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}{\_\_QDADD}}(\mbox{\hyperlink{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}{\_\_QDADD}}(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iYQ16, cosAngleFx)),}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02078}02078     tPointCornerFx[1][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} =}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02079}02079         \_\_QDADD(\_\_QDADD(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iYQ16, cosAngleFx)),}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02080}02080                 \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iXQ16, sinAngleFx));}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02081}02081     tPointCornerFx[1][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} =}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02082}02082         \mbox{\hyperlink{____arm__2d__math_8h_aea80dcc47395b0f568160398c70d1b7c}{\_\_QDSUB}}(\mbox{\hyperlink{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}{\_\_QDADD}}(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iXQ16, cosAngleFx)),}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02081}02081     tPointCornerFx[1][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} =}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02082}02082         \_\_QDSUB(\_\_QDADD(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iXQ16, cosAngleFx)),}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02083}02083                 \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iYQ16, sinAngleFx));}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02084}02084 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02085}02085 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02086}02086     \textcolor{comment}{/* ((iWidth -\/ 1),(iHeight -\/ 1)) corner */}}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02087}02087     tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} = srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} + tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} + \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(iHeight -\/ 1);}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02088}02088     iYQ16 = tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} -\/ centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02087}02087     tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} = srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} + tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} + \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(iHeight -\/ 1);}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02088}02088     iYQ16 = tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} -\/ centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02089}02089 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02090}02090     tPointCornerFx[1][1].\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} =}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02091}02091         \mbox{\hyperlink{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}{\_\_QDADD}}(\mbox{\hyperlink{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}{\_\_QDADD}}(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iYQ16, cosAngleFx)),}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02090}02090     tPointCornerFx[1][1].\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} =}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02091}02091         \_\_QDADD(\_\_QDADD(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iYQ16, cosAngleFx)),}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02092}02092                 \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iXQ16, sinAngleFx));}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02093}02093     tPointCornerFx[1][1].\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} =}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02094}02094         \mbox{\hyperlink{____arm__2d__math_8h_aea80dcc47395b0f568160398c70d1b7c}{\_\_QDSUB}}(\mbox{\hyperlink{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}{\_\_QDADD}}(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iXQ16, cosAngleFx)),}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02093}02093     tPointCornerFx[1][1].\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} =}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02094}02094         \_\_QDSUB(\_\_QDADD(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iXQ16, cosAngleFx)),}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02095}02095                 \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iYQ16, sinAngleFx));}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02096}02096 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02097}02097 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02098}02098     \textcolor{comment}{/* (0,(iHeight -\/ 1)) corner */}}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02099}02099     tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} = srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} + 0 + tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}};}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02100}02100     iXQ16 = tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} -\/ centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02099}02099     tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} = srcPointQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} + 0 + tOffsetQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02100}02100     iXQ16 = tmp.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} -\/ centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02101}02101 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02102}02102     tPointCornerFx[0][1].\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}} =}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02103}02103         \mbox{\hyperlink{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}{\_\_QDADD}}(\mbox{\hyperlink{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}{\_\_QDADD}}(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iYQ16, cosAngleFx)),}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02102}02102     tPointCornerFx[0][1].\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}} =}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02103}02103         \_\_QDADD(\_\_QDADD(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iYQ16, cosAngleFx)),}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02104}02104                 \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iXQ16, sinAngleFx));}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02105}02105     tPointCornerFx[0][1].\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}} =}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02106}02106         \mbox{\hyperlink{____arm__2d__math_8h_aea80dcc47395b0f568160398c70d1b7c}{\_\_QDSUB}}(\mbox{\hyperlink{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}{\_\_QDADD}}(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iXQ16, cosAngleFx)),}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02105}02105     tPointCornerFx[0][1].\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}} =}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02106}02106         \_\_QDSUB(\_\_QDADD(centerQ16.\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}}, \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iXQ16, cosAngleFx)),}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02107}02107                 \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(iYQ16, sinAngleFx));}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02108}02108 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02109}02109     \textcolor{comment}{/*}}
@@ -2054,20 +2054,20 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02129}02129     slopeXFx = \mbox{\hyperlink{____arm__2d__math_8h_a8229f0714afc303702b719820a158087}{MULTFX}}((tPointCornerFx[0][1].X -\/ tPointCornerFx[0][0].X), invHeightFx);}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02130}02130     slopeYFx = \mbox{\hyperlink{____arm__2d__math_8h_a8229f0714afc303702b719820a158087}{MULTFX}}((tPointCornerFx[0][1].Y -\/ tPointCornerFx[0][0].Y), invHeightFx);}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02131}02131 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02132}02132     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a88e1b3d00b31e177f59f735940fa7a48}{slopeY}} = slopeYFx * 2;}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02133}02133     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_aada149bd9bbcd35a58e58c6743b0b1b6}{slopeX}} = slopeXFx * 2;}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02134}02134     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_ac82c431a2a792ddefa57e5f6d7ec6f69}{interceptY}} = tPointCornerFx[0][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}};}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02135}02135     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a7d7e52aa8a6d7d69bab27d4b9cc54a48}{interceptX}} = tPointCornerFx[0][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02132}02132     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a66b4406bbebc1a7b64122ed504bc599e}{slopeY}} = slopeYFx * 2;}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02133}02133     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a42cfa36a835027172ec23a336f421839}{slopeX}} = slopeXFx * 2;}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02134}02134     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a1f252268a2adcd9c62e1d49b18885dfb}{interceptY}} = tPointCornerFx[0][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02135}02135     regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a126853e5f6563921236b57b6719e7a5e}{interceptX}} = tPointCornerFx[0][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02136}02136 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02137}02137 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02138}02138     \textcolor{comment}{/* interpolation in Y direction for the last elements column */}}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02139}02139     slopeXFx = \mbox{\hyperlink{____arm__2d__math_8h_a8229f0714afc303702b719820a158087}{MULTFX}}((tPointCornerFx[1][1].X -\/ tPointCornerFx[1][0].X), invHeightFx);}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02140}02140     slopeYFx = \mbox{\hyperlink{____arm__2d__math_8h_a8229f0714afc303702b719820a158087}{MULTFX}}((tPointCornerFx[1][1].Y -\/ tPointCornerFx[1][0].Y), invHeightFx);}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02141}02141 }
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02142}02142     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a88e1b3d00b31e177f59f735940fa7a48}{slopeY}} = slopeYFx* 2;}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02143}02143     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_aada149bd9bbcd35a58e58c6743b0b1b6}{slopeX}} = slopeXFx* 2;}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02144}02144     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_ac82c431a2a792ddefa57e5f6d7ec6f69}{interceptY}} = tPointCornerFx[1][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a98de3e2097facbbea557f864201e435d}{Y}};}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02145}02145     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a7d7e52aa8a6d7d69bab27d4b9cc54a48}{interceptX}} = tPointCornerFx[1][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a15a78e2c6057c34f33a3e3ba9d4a2655}{X}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02142}02142     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a66b4406bbebc1a7b64122ed504bc599e}{slopeY}} = slopeYFx* 2;}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02143}02143     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a42cfa36a835027172ec23a336f421839}{slopeX}} = slopeXFx* 2;}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02144}02144     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a1f252268a2adcd9c62e1d49b18885dfb}{interceptY}} = tPointCornerFx[1][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a347842c59620c9a5f4fe767745f2b18e}{Y}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02145}02145     regrCoefs[1].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a126853e5f6563921236b57b6719e7a5e}{interceptX}} = tPointCornerFx[1][0].\mbox{\hyperlink{structarm__2d__point__fx__t_a01a873c716d7a02a838a7eb1384aae3e}{X}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02146}02146 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02147}02147     \textcolor{keywordflow}{return} gatherLoadIdxOverflow;}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l02148}02148 \}}
@@ -3160,7 +3160,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l03235}03235     vst1q\_p(pTarget, vPixel, vctp32q(elts));}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l03236}03236 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l03237}03237     elts -\/= 4;}
-\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l03238}03238     \textcolor{keywordflow}{if} (elts > 0) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l03238}03238     if (elts > 0) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l03239}03239 }
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l03240}03240         \textcolor{comment}{/* second half */}}
 \DoxyCodeLine{\Hypertarget{arm__2d__transform__helium_8c_source_l03241}03241         p = arm\_2d\_is\_point\_vec\_inside\_region\_s32(ptOrigValidRegion, \&tPointHi);}

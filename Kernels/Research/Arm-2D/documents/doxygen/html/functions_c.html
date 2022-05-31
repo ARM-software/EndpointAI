@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -85,17 +87,10 @@ $(document).ready(function(){initNavTree('functions_c.html',''); initResizable()
 <div class="textblock">Here is a list of all struct and union fields with links to the structures/unions they belong to:</div>
 
 <h3><a id="index_c" name="index_c"></a>- c -</h3><ul>
-<li>chAlpha&#160;:&#160;<a class="el" href="struct____arm__2d__point__adj__alpha__t.html#a960060ab209df0f9be7bd76bcf8a5c39">__arm_2d_point_adj_alpha_t</a></li>
-<li>chColour&#160;:&#160;<a class="el" href="struct____arm__2d__transform__info__t.html#ada2b6afd5320a240e55e1d8c36b69346">__arm_2d_transform_info_t</a>, <a class="el" href="structarm__2d__op__alpha__cl__key__t.html#ada2b6afd5320a240e55e1d8c36b69346">arm_2d_op_alpha_cl_key_t</a>, <a class="el" href="structarm__2d__op__alpha__fill__cl__msk__opc__t.html#ada2b6afd5320a240e55e1d8c36b69346">arm_2d_op_alpha_fill_cl_msk_opc_t</a>, <a class="el" href="structarm__2d__op__cp__cl__key__t.html#ada2b6afd5320a240e55e1d8c36b69346">arm_2d_op_cp_cl_key_t</a>, <a class="el" href="structarm__2d__op__drw__patn__t.html#ada2b6afd5320a240e55e1d8c36b69346">arm_2d_op_drw_patn_t</a>, <a class="el" href="structarm__2d__op__fill__cl__msk__t.html#ada2b6afd5320a240e55e1d8c36b69346">arm_2d_op_fill_cl_msk_t</a>, <a class="el" href="structarm__2d__op__fill__cl__opc__t.html#ada2b6afd5320a240e55e1d8c36b69346">arm_2d_op_fill_cl_opc_t</a>, <a class="el" href="structarm__2d__op__fill__cl__t.html#ada2b6afd5320a240e55e1d8c36b69346">arm_2d_op_fill_cl_t</a></li>
-<li>chInClassOffset&#160;:&#160;<a class="el" href="union____arm__2d__op__info__t.html#adc1d60a0049e8a4b19b9e2bd7c9f7b23">__arm_2d_op_info_t</a></li>
-<li>chOpacity&#160;:&#160;<a class="el" href="structarm__2d__op__trans__msk__opa__t.html#a5571781821002ce43a866bbb24281280">arm_2d_op_trans_msk_opa_t</a>, <a class="el" href="structarm__2d__op__trans__opa__t.html#a5571781821002ce43a866bbb24281280">arm_2d_op_trans_opa_t</a></li>
-<li>chOpIndex&#160;:&#160;<a class="el" href="union____arm__2d__op__info__t.html#aac1d17c9145bbbefca153f16de89bab5">__arm_2d_op_info_t</a></li>
-<li>chRatio&#160;:&#160;<a class="el" href="structarm__2d__op__alpha__cl__key__t.html#a2a0675fe73a84f9fe6520f5551c27268">arm_2d_op_alpha_cl_key_t</a>, <a class="el" href="structarm__2d__op__alpha__fill__cl__msk__opc__t.html#a2a0675fe73a84f9fe6520f5551c27268">arm_2d_op_alpha_fill_cl_msk_opc_t</a>, <a class="el" href="structarm__2d__op__alpha__t.html#a2a0675fe73a84f9fe6520f5551c27268">arm_2d_op_alpha_t</a>, <a class="el" href="structarm__2d__op__fill__cl__opc__t.html#a2a0675fe73a84f9fe6520f5551c27268">arm_2d_op_fill_cl_opc_t</a></li>
-<li>chScheme&#160;:&#160;<a class="el" href="unionarm__2d__color__info__t.html#aa236eb54ebd5cbf803d5ed68bff0a666">arm_2d_color_info_t</a></li>
-<li>chValue&#160;:&#160;<a class="el" href="union____arm__2d__op__info__t.html#adf5e0400a20421dbc7c2bd2f8afdec54">__arm_2d_op_info_t</a></li>
-<li>Colour&#160;:&#160;<a class="el" href="union____arm__2d__op__info__t.html#a39ef7abf9db2b1da80284c97d69a0a4c">__arm_2d_op_info_t</a></li>
-<li>CopyLike&#160;:&#160;<a class="el" href="union____arm__2d__op__info__t.html#a618c0345549881f71a563e7079be313b">__arm_2d_op_info_t</a></li>
-<li>CopyOrigLike&#160;:&#160;<a class="el" href="union____arm__2d__op__info__t.html#a0f8272faf49a848e7b425e2600202064">__arm_2d_op_info_t</a></li>
+<li>chColour&#160;:&#160;<a class="el" href="structarm__2d__op__alpha__cl__key__t.html#a123663866f75f1592c6a2a2a43b2742e">arm_2d_op_alpha_cl_key_t</a>, <a class="el" href="structarm__2d__op__alpha__fill__cl__msk__opc__t.html#ac248259c1b210a5b2c26bb5790769add">arm_2d_op_alpha_fill_cl_msk_opc_t</a>, <a class="el" href="structarm__2d__op__cp__cl__key__t.html#af1bb5f940163a5e637922513876f05d9">arm_2d_op_cp_cl_key_t</a>, <a class="el" href="structarm__2d__op__drw__patn__t.html#a6b45ea193486329328bb4e3f85f4db10">arm_2d_op_drw_patn_t</a>, <a class="el" href="structarm__2d__op__fill__cl__msk__t.html#ad0ff1259281912bc69931cdfcb8c046f">arm_2d_op_fill_cl_msk_t</a>, <a class="el" href="structarm__2d__op__fill__cl__opc__t.html#a894181a96158cca5fe35ddfab5109693">arm_2d_op_fill_cl_opc_t</a>, <a class="el" href="structarm__2d__op__fill__cl__t.html#a71d97fda90c9a7b3792e3dba017c81fe">arm_2d_op_fill_cl_t</a></li>
+<li>chOpacity&#160;:&#160;<a class="el" href="structarm__2d__op__trans__msk__opa__t.html#ae05fa59574b1ed1cc0d1d94c76f00623">arm_2d_op_trans_msk_opa_t</a>, <a class="el" href="structarm__2d__op__trans__opa__t.html#a6df59c6a29a1887386f1d27b8e9ea2c2">arm_2d_op_trans_opa_t</a></li>
+<li>chRatio&#160;:&#160;<a class="el" href="structarm__2d__op__alpha__cl__key__t.html#a847ada916032c171108dd3c81e465d32">arm_2d_op_alpha_cl_key_t</a>, <a class="el" href="structarm__2d__op__alpha__fill__cl__msk__opc__t.html#ab174115721349ee9085e84d168767ff2">arm_2d_op_alpha_fill_cl_msk_opc_t</a>, <a class="el" href="structarm__2d__op__alpha__t.html#ad388497db0e4fd29a1dcffa9a8124d5b">arm_2d_op_alpha_t</a>, <a class="el" href="structarm__2d__op__fill__cl__opc__t.html#a08ddfde2b216f45914bf76fe86b63cae">arm_2d_op_fill_cl_opc_t</a></li>
+<li>chScheme&#160;:&#160;<a class="el" href="unionarm__2d__color__info__t.html#a8ae530807a4e1f2e08fd4cd3cda269e7">arm_2d_color_info_t</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Helper/Include/arm_2d_helper_pfb.h File Reference</title>
+<title>arm-2d: arm_2d_helper_pfb.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -118,19 +120,13 @@ Macros</h2></td></tr>
 <tr class="separator:a457a16ef9330255578354fcd291a9bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a432fd371b045e6ae90f816466f76fa38"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a432fd371b045e6ae90f816466f76fa38">ARM_2D_HELPER_PFB_UPDATE_ON_DRAW_HANDLER</a>( __CB_ADDR,  __HANDLER, ...)</td></tr>
 <tr class="separator:a432fd371b045e6ae90f816466f76fa38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a658259a0f5629114232eefb75bdbca7d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a658259a0f5629114232eefb75bdbca7d">__IMPL_ARM_2D_REGION_LIST</a>(__NAME, ...)</td></tr>
-<tr class="separator:a658259a0f5629114232eefb75bdbca7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6ff127404905e75ff0bd689867c0dea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#ab6ff127404905e75ff0bd689867c0dea">IMPL_ARM_2D_REGION_LIST</a>(__NAME, ...)&#160;&#160;&#160;            <a class="el" href="arm__2d__helper__pfb_8h.html#a658259a0f5629114232eefb75bdbca7d">__IMPL_ARM_2D_REGION_LIST</a>(__NAME,##__VA_ARGS__)</td></tr>
+<tr class="memitem:ab6ff127404905e75ff0bd689867c0dea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#ab6ff127404905e75ff0bd689867c0dea">IMPL_ARM_2D_REGION_LIST</a>(__NAME, ...)&#160;&#160;&#160;            __IMPL_ARM_2D_REGION_LIST(__NAME,##__VA_ARGS__)</td></tr>
 <tr class="separator:ab6ff127404905e75ff0bd689867c0dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a271c7a8c0b58952156ae432a62d9891e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a271c7a8c0b58952156ae432a62d9891e">END_IMPL_ARM_2D_REGION_LIST</a>(...)&#160;&#160;&#160;            };</td></tr>
 <tr class="separator:a271c7a8c0b58952156ae432a62d9891e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76d2c9d765e0f4d7725611b3ef535552"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a76d2c9d765e0f4d7725611b3ef535552">__ADD_REGION_TO_LIST</a>(__NAME, ...)</td></tr>
-<tr class="separator:a76d2c9d765e0f4d7725611b3ef535552"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3277875bd812290ff5b2d0d42ebddcb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a3277875bd812290ff5b2d0d42ebddcb0">ADD_REGION_TO_LIST</a>(__NAME, ...)&#160;&#160;&#160;            <a class="el" href="arm__2d__helper__pfb_8h.html#a76d2c9d765e0f4d7725611b3ef535552">__ADD_REGION_TO_LIST</a>(__NAME, ##__VA_ARGS__)</td></tr>
+<tr class="memitem:a3277875bd812290ff5b2d0d42ebddcb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a3277875bd812290ff5b2d0d42ebddcb0">ADD_REGION_TO_LIST</a>(__NAME, ...)&#160;&#160;&#160;            __ADD_REGION_TO_LIST(__NAME, ##__VA_ARGS__)</td></tr>
 <tr class="separator:a3277875bd812290ff5b2d0d42ebddcb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4628cef339c9cd0483fdb0b1ea43200f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a4628cef339c9cd0483fdb0b1ea43200f">__ADD_LAST_REGION_TO_LIST</a>(__NAME, ...)</td></tr>
-<tr class="separator:a4628cef339c9cd0483fdb0b1ea43200f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ffb450f1633c62e7b035008b27ad0c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a2ffb450f1633c62e7b035008b27ad0c7">ADD_LAST_REGION_TO_LIST</a>(__NAME, ...)&#160;&#160;&#160;            <a class="el" href="arm__2d__helper__pfb_8h.html#a4628cef339c9cd0483fdb0b1ea43200f">__ADD_LAST_REGION_TO_LIST</a>(__NAME, ##__VA_ARGS__)</td></tr>
+<tr class="memitem:a2ffb450f1633c62e7b035008b27ad0c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a2ffb450f1633c62e7b035008b27ad0c7">ADD_LAST_REGION_TO_LIST</a>(__NAME, ...)&#160;&#160;&#160;            __ADD_LAST_REGION_TO_LIST(__NAME, ##__VA_ARGS__)</td></tr>
 <tr class="separator:a2ffb450f1633c62e7b035008b27ad0c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8230ff39e97b9600c8388ef2396cda44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a8230ff39e97b9600c8388ef2396cda44">IMPL_PFB_ON_DRAW</a>(__NAME)</td></tr>
 <tr class="separator:a8230ff39e97b9600c8388ef2396cda44"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,24 +151,10 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a473a7dca4fe7cca1538870e2bb123e70"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__pfb__t.html">arm_2d_pfb_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a473a7dca4fe7cca1538870e2bb123e70">arm_2d_pfb_t</a></td></tr>
-<tr class="separator:a473a7dca4fe7cca1538870e2bb123e70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14e0d84fbb315073b30a291c24fae599"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__region__list__item__t.html">arm_2d_region_list_item_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a14e0d84fbb315073b30a291c24fae599">arm_2d_region_list_item_t</a></td></tr>
-<tr class="separator:a14e0d84fbb315073b30a291c24fae599"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a895cc320ceab0ca0bd10b999787b2d6c"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a895cc320ceab0ca0bd10b999787b2d6c">arm_2d_helper_draw_handler_t</a>(void *pTarget, const <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a> *ptTile, bool bIsNewFrame)</td></tr>
 <tr class="separator:a895cc320ceab0ca0bd10b999787b2d6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03c2991d31bd58c8a1d5303fb9460f39"><td class="memItemLeft" align="right" valign="top">typedef void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a03c2991d31bd58c8a1d5303fb9460f39">arm_2d_helper_render_handler_t</a>(void *pTarget, const <a class="el" href="structarm__2d__pfb__t.html">arm_2d_pfb_t</a> *<a class="el" href="arm__2d__helper__pfb_8h.html#a27c784582e3f58d59c48e4f9e57b0291">ptPFB</a>, bool bIsNewFrame)</td></tr>
 <tr class="separator:a03c2991d31bd58c8a1d5303fb9460f39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f78826b710027f5f9745ecf23ac2ebb"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__helper__render__evt__t.html">arm_2d_helper_render_evt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a3f78826b710027f5f9745ecf23ac2ebb">arm_2d_helper_render_evt_t</a></td></tr>
-<tr class="separator:a3f78826b710027f5f9745ecf23ac2ebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16c493170e986c727f483baed997a816"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__helper__draw__evt__t.html">arm_2d_helper_draw_evt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a16c493170e986c727f483baed997a816">arm_2d_helper_draw_evt_t</a></td></tr>
-<tr class="separator:a16c493170e986c727f483baed997a816"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd1af5301a54f23216c9035874e256e3"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__helper__pfb__dependency__t.html">arm_2d_helper_pfb_dependency_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#abd1af5301a54f23216c9035874e256e3">arm_2d_helper_pfb_dependency_t</a></td></tr>
-<tr class="separator:abd1af5301a54f23216c9035874e256e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97a1c0cc62b3fe373e34c8e73a840c20"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__helper__pfb__cfg__t.html">arm_2d_helper_pfb_cfg_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a97a1c0cc62b3fe373e34c8e73a840c20">arm_2d_helper_pfb_cfg_t</a></td></tr>
-<tr class="separator:a97a1c0cc62b3fe373e34c8e73a840c20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e01262adc2779a4dfa77de86bf24a4a"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__helper__pfb__t.html">arm_2d_helper_pfb_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__helper__pfb_8h.html#a5e01262adc2779a4dfa77de86bf24a4a">arm_2d_helper_pfb_t</a></td></tr>
-<tr class="separator:a5e01262adc2779a4dfa77de86bf24a4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -197,115 +179,6 @@ Variables</h2></td></tr>
 <tr class="separator:a27c784582e3f58d59c48e4f9e57b0291"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a4628cef339c9cd0483fdb0b1ea43200f" name="a4628cef339c9cd0483fdb0b1ea43200f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4628cef339c9cd0483fdb0b1ea43200f">&#9670;&nbsp;</a></span>__ADD_LAST_REGION_TO_LIST</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __ADD_LAST_REGION_TO_LIST</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__NAME, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">            {                                                                   \</div>
-<div class="line">                .ptNext = NULL,                                                 \</div>
-<div class="line">                .tRegion = {                                                    \</div>
-<div class="line">                __VA_ARGS__                                                     \</div>
-<div class="line">                },                                                              \</div>
-<div class="line">            }</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="arm__2d__helper__pfb_8h_source.html#l00119">119</a> of file <a class="el" href="arm__2d__helper__pfb_8h_source.html">arm_2d_helper_pfb.h</a>.</p>
-
-</div>
-</div>
-<a id="a76d2c9d765e0f4d7725611b3ef535552" name="a76d2c9d765e0f4d7725611b3ef535552"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76d2c9d765e0f4d7725611b3ef535552">&#9670;&nbsp;</a></span>__ADD_REGION_TO_LIST</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __ADD_REGION_TO_LIST</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__NAME, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">            {                                                                   \</div>
-<div class="line">                .ptNext = (<a class="code hl_struct" href="structarm__2d__region__list__item__t.html">arm_2d_region_list_item_t</a> *)                         \</div>
-<div class="line">                            &amp;(__NAME[__COUNTER__ - __NAME##_offset]),           \</div>
-<div class="line">                .tRegion = {                                                    \</div>
-<div class="line">                __VA_ARGS__                                                     \</div>
-<div class="line">                },                                                              \</div>
-<div class="line">            }</div>
-<div class="ttc" id="astructarm__2d__region__list__item__t_html"><div class="ttname"><a href="structarm__2d__region__list__item__t.html">arm_2d_region_list_item_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__helper__pfb_8h_source.html#l00192">arm_2d_helper_pfb.h:192</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="arm__2d__helper__pfb_8h_source.html#l00106">106</a> of file <a class="el" href="arm__2d__helper__pfb_8h_source.html">arm_2d_helper_pfb.h</a>.</p>
-
-</div>
-</div>
-<a id="a658259a0f5629114232eefb75bdbca7d" name="a658259a0f5629114232eefb75bdbca7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a658259a0f5629114232eefb75bdbca7d">&#9670;&nbsp;</a></span>__IMPL_ARM_2D_REGION_LIST</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __IMPL_ARM_2D_REGION_LIST</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__NAME, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">            <span class="keyword">enum</span> {                                                              \</div>
-<div class="line">                __NAME##_offset = __COUNTER__,                                  \</div>
-<div class="line">            };                                                                  \</div>
-<div class="line">            __VA_ARGS__                                                         \</div>
-<div class="line">            arm_2d_region_list_item_t __NAME[] = {</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="arm__2d__helper__pfb_8h_source.html#l00091">91</a> of file <a class="el" href="arm__2d__helper__pfb_8h_source.html">arm_2d_helper_pfb.h</a>.</p>
-
-</div>
-</div>
 <a id="a2ffb450f1633c62e7b035008b27ad0c7" name="a2ffb450f1633c62e7b035008b27ad0c7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ffb450f1633c62e7b035008b27ad0c7">&#9670;&nbsp;</a></span>ADD_LAST_REGION_TO_LIST</h2>
 
@@ -327,7 +200,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;            <a class="el" href="arm__2d__helper__pfb_8h.html#a4628cef339c9cd0483fdb0b1ea43200f">__ADD_LAST_REGION_TO_LIST</a>(__NAME, ##__VA_ARGS__)</td>
+          <td></td><td>&#160;&#160;&#160;            __ADD_LAST_REGION_TO_LIST(__NAME, ##__VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -387,7 +260,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;            <a class="el" href="arm__2d__helper__pfb_8h.html#a76d2c9d765e0f4d7725611b3ef535552">__ADD_REGION_TO_LIST</a>(__NAME, ##__VA_ARGS__)</td>
+          <td></td><td>&#160;&#160;&#160;            __ADD_REGION_TO_LIST(__NAME, ##__VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -629,7 +502,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;            <a class="el" href="arm__2d__helper__pfb_8h.html#a658259a0f5629114232eefb75bdbca7d">__IMPL_ARM_2D_REGION_LIST</a>(__NAME,##__VA_ARGS__)</td>
+          <td></td><td>&#160;&#160;&#160;            __IMPL_ARM_2D_REGION_LIST(__NAME,##__VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -856,20 +729,6 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="a16c493170e986c727f483baed997a816" name="a16c493170e986c727f483baed997a816"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16c493170e986c727f483baed997a816">&#9670;&nbsp;</a></span>arm_2d_helper_draw_evt_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__helper__draw__evt__t.html">arm_2d_helper_draw_evt_t</a> <a class="el" href="structarm__2d__helper__draw__evt__t.html">arm_2d_helper_draw_evt_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a895cc320ceab0ca0bd10b999787b2d6c" name="a895cc320ceab0ca0bd10b999787b2d6c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a895cc320ceab0ca0bd10b999787b2d6c">&#9670;&nbsp;</a></span>arm_2d_helper_draw_handler_t</h2>
 
@@ -886,62 +745,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a97a1c0cc62b3fe373e34c8e73a840c20" name="a97a1c0cc62b3fe373e34c8e73a840c20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97a1c0cc62b3fe373e34c8e73a840c20">&#9670;&nbsp;</a></span>arm_2d_helper_pfb_cfg_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__helper__pfb__cfg__t.html">arm_2d_helper_pfb_cfg_t</a> <a class="el" href="structarm__2d__helper__pfb__cfg__t.html">arm_2d_helper_pfb_cfg_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abd1af5301a54f23216c9035874e256e3" name="abd1af5301a54f23216c9035874e256e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd1af5301a54f23216c9035874e256e3">&#9670;&nbsp;</a></span>arm_2d_helper_pfb_dependency_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__helper__pfb__dependency__t.html">arm_2d_helper_pfb_dependency_t</a> <a class="el" href="structarm__2d__helper__pfb__dependency__t.html">arm_2d_helper_pfb_dependency_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5e01262adc2779a4dfa77de86bf24a4a" name="a5e01262adc2779a4dfa77de86bf24a4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e01262adc2779a4dfa77de86bf24a4a">&#9670;&nbsp;</a></span>arm_2d_helper_pfb_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__helper__pfb__t.html">arm_2d_helper_pfb_t</a> <a class="el" href="structarm__2d__helper__pfb__t.html">arm_2d_helper_pfb_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3f78826b710027f5f9745ecf23ac2ebb" name="a3f78826b710027f5f9745ecf23ac2ebb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f78826b710027f5f9745ecf23ac2ebb">&#9670;&nbsp;</a></span>arm_2d_helper_render_evt_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__helper__render__evt__t.html">arm_2d_helper_render_evt_t</a> <a class="el" href="structarm__2d__helper__render__evt__t.html">arm_2d_helper_render_evt_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a03c2991d31bd58c8a1d5303fb9460f39" name="a03c2991d31bd58c8a1d5303fb9460f39"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a03c2991d31bd58c8a1d5303fb9460f39">&#9670;&nbsp;</a></span>arm_2d_helper_render_handler_t</h2>
 
@@ -955,34 +758,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__helper__pfb_8h_source.html#l00206">206</a> of file <a class="el" href="arm__2d__helper__pfb_8h_source.html">arm_2d_helper_pfb.h</a>.</p>
-
-</div>
-</div>
-<a id="a473a7dca4fe7cca1538870e2bb123e70" name="a473a7dca4fe7cca1538870e2bb123e70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a473a7dca4fe7cca1538870e2bb123e70">&#9670;&nbsp;</a></span>arm_2d_pfb_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__pfb__t.html">arm_2d_pfb_t</a> <a class="el" href="structarm__2d__pfb__t.html">arm_2d_pfb_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a14e0d84fbb315073b30a291c24fae599" name="a14e0d84fbb315073b30a291c24fae599"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14e0d84fbb315073b30a291c24fae599">&#9670;&nbsp;</a></span>arm_2d_region_list_item_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__region__list__item__t.html">arm_2d_region_list_item_t</a> <a class="el" href="structarm__2d__region__list__item__t.html">arm_2d_region_list_item_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>

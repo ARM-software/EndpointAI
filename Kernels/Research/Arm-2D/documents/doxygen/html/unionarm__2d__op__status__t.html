@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -92,104 +94,98 @@ $(document).ready(function(){initNavTree('unionarm__2d__op__status__t.html','');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a289c39d2a5b6501e742b132d8864c645"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:ac110d0c705fb03e65ede8aefdd4b7189"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__op__status__t.html#ac110d0c705fb03e65ede8aefdd4b7189">u4SubTaskCount</a>: 4</td></tr>
-<tr class="memdesc:ac110d0c705fb03e65ede8aefdd4b7189"><td class="mdescLeft">&#160;</td><td class="mdescRight">sub task count  <a href="unionarm__2d__op__status__t.html#ac110d0c705fb03e65ede8aefdd4b7189">More...</a><br /></td></tr>
-<tr class="separator:ac110d0c705fb03e65ede8aefdd4b7189"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9289e62d3026cc4ec7dd051c900b085f"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__op__status__t.html#a9289e62d3026cc4ec7dd051c900b085f">bIsBusy</a>: 1</td></tr>
-<tr class="memdesc:a9289e62d3026cc4ec7dd051c900b085f"><td class="mdescLeft">&#160;</td><td class="mdescRight">busy flag  <a href="unionarm__2d__op__status__t.html#a9289e62d3026cc4ec7dd051c900b085f">More...</a><br /></td></tr>
-<tr class="separator:a9289e62d3026cc4ec7dd051c900b085f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9486a3c21a4f04ce2fda7c48807cd5ff"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__op__status__t.html#a9486a3c21a4f04ce2fda7c48807cd5ff">bIOError</a>: 1</td></tr>
-<tr class="memdesc:a9486a3c21a4f04ce2fda7c48807cd5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">HW IO Error.  <a href="unionarm__2d__op__status__t.html#a9486a3c21a4f04ce2fda7c48807cd5ff">More...</a><br /></td></tr>
-<tr class="separator:a9486a3c21a4f04ce2fda7c48807cd5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14d3a8ec257eff02c2805a9225d1fb8f"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__op__status__t.html#a14d3a8ec257eff02c2805a9225d1fb8f">bOpCpl</a>: 1</td></tr>
-<tr class="memdesc:a14d3a8ec257eff02c2805a9225d1fb8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">the whole operation complete  <a href="unionarm__2d__op__status__t.html#a14d3a8ec257eff02c2805a9225d1fb8f">More...</a><br /></td></tr>
-<tr class="separator:a14d3a8ec257eff02c2805a9225d1fb8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a289c39d2a5b6501e742b132d8864c645"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a289c39d2a5b6501e742b132d8864c645"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1f76f0fc627647bf4b9ced693334263"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionarm__2d__op__status__t.html#ab1f76f0fc627647bf4b9ced693334263">tValue</a></td></tr>
-<tr class="separator:ab1f76f0fc627647bf4b9ced693334263"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a354fa99f7e526cbda58fdd96cc3d8714"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a0f6b30b52050cc083d1b716be8efff92"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__op__status__t.html#ac84b47cad2d95d7c26d62a2a7d08f5a7">u4SubTaskCount</a>: 4</td></tr>
+<tr class="memdesc:a0f6b30b52050cc083d1b716be8efff92"><td class="mdescLeft">&#160;</td><td class="mdescRight">sub task count  <a href="unionarm__2d__op__status__t.html#ac84b47cad2d95d7c26d62a2a7d08f5a7">More...</a><br /></td></tr>
+<tr class="separator:a0f6b30b52050cc083d1b716be8efff92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a448c522d165fc1ec22f4166f82a37d8f"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__op__status__t.html#a3ae8d10f4e4edc70da8ce05be5e3aa58">bIsBusy</a>: 1</td></tr>
+<tr class="memdesc:a448c522d165fc1ec22f4166f82a37d8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">busy flag  <a href="unionarm__2d__op__status__t.html#a3ae8d10f4e4edc70da8ce05be5e3aa58">More...</a><br /></td></tr>
+<tr class="separator:a448c522d165fc1ec22f4166f82a37d8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab426d2c1a87bcd84d4ef0eedc83b9bec"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__op__status__t.html#a05d54ffa9a11994ea45ef47cc0748157">bIOError</a>: 1</td></tr>
+<tr class="memdesc:ab426d2c1a87bcd84d4ef0eedc83b9bec"><td class="mdescLeft">&#160;</td><td class="mdescRight">HW IO Error.  <a href="unionarm__2d__op__status__t.html#a05d54ffa9a11994ea45ef47cc0748157">More...</a><br /></td></tr>
+<tr class="separator:ab426d2c1a87bcd84d4ef0eedc83b9bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d2d866b39dd0604060b6f2c4312d2a6"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__op__status__t.html#ad557aa1a994625b051f6a27aa0bd5a2a">bOpCpl</a>: 1</td></tr>
+<tr class="memdesc:a4d2d866b39dd0604060b6f2c4312d2a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">the whole operation complete  <a href="unionarm__2d__op__status__t.html#ad557aa1a994625b051f6a27aa0bd5a2a">More...</a><br /></td></tr>
+<tr class="separator:a4d2d866b39dd0604060b6f2c4312d2a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a354fa99f7e526cbda58fdd96cc3d8714"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a354fa99f7e526cbda58fdd96cc3d8714"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ca4c52fadfcbc94c68db2f5452531d3"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionarm__2d__op__status__t.html#a8ca4c52fadfcbc94c68db2f5452531d3">tValue</a></td></tr>
+<tr class="separator:a8ca4c52fadfcbc94c68db2f5452531d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00452">452</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="a289c39d2a5b6501e742b132d8864c645" name="a289c39d2a5b6501e742b132d8864c645"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a289c39d2a5b6501e742b132d8864c645">&#9670;&nbsp;</a></span></h2>
+<a id="a354fa99f7e526cbda58fdd96cc3d8714" name="a354fa99f7e526cbda58fdd96cc3d8714"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a354fa99f7e526cbda58fdd96cc3d8714">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct  { ... }  @89</td>
+          <td class="memname">struct  { ... }  arm_2d_op_status_t::@89</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a9486a3c21a4f04ce2fda7c48807cd5ff" name="a9486a3c21a4f04ce2fda7c48807cd5ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9486a3c21a4f04ce2fda7c48807cd5ff">&#9670;&nbsp;</a></span>bIOError</h2>
+<a id="a05d54ffa9a11994ea45ef47cc0748157" name="a05d54ffa9a11994ea45ef47cc0748157"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05d54ffa9a11994ea45ef47cc0748157">&#9670;&nbsp;</a></span>bIOError</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t bIOError</td>
+          <td class="memname">uint16_t arm_2d_op_status_t::bIOError</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>HW IO Error. </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00456">456</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="a9289e62d3026cc4ec7dd051c900b085f" name="a9289e62d3026cc4ec7dd051c900b085f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9289e62d3026cc4ec7dd051c900b085f">&#9670;&nbsp;</a></span>bIsBusy</h2>
+<a id="a3ae8d10f4e4edc70da8ce05be5e3aa58" name="a3ae8d10f4e4edc70da8ce05be5e3aa58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ae8d10f4e4edc70da8ce05be5e3aa58">&#9670;&nbsp;</a></span>bIsBusy</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t bIsBusy</td>
+          <td class="memname">uint16_t arm_2d_op_status_t::bIsBusy</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>busy flag </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00455">455</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="a14d3a8ec257eff02c2805a9225d1fb8f" name="a14d3a8ec257eff02c2805a9225d1fb8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14d3a8ec257eff02c2805a9225d1fb8f">&#9670;&nbsp;</a></span>bOpCpl</h2>
+<a id="ad557aa1a994625b051f6a27aa0bd5a2a" name="ad557aa1a994625b051f6a27aa0bd5a2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad557aa1a994625b051f6a27aa0bd5a2a">&#9670;&nbsp;</a></span>bOpCpl</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t bOpCpl</td>
+          <td class="memname">uint16_t arm_2d_op_status_t::bOpCpl</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>the whole operation complete </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00457">457</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="ab1f76f0fc627647bf4b9ced693334263" name="ab1f76f0fc627647bf4b9ced693334263"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1f76f0fc627647bf4b9ced693334263">&#9670;&nbsp;</a></span>tValue</h2>
+<a id="a8ca4c52fadfcbc94c68db2f5452531d3" name="a8ca4c52fadfcbc94c68db2f5452531d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ca4c52fadfcbc94c68db2f5452531d3">&#9670;&nbsp;</a></span>tValue</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t tValue</td>
+          <td class="memname">uint16_t arm_2d_op_status_t::tValue</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -198,27 +194,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="ac110d0c705fb03e65ede8aefdd4b7189" name="ac110d0c705fb03e65ede8aefdd4b7189"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac110d0c705fb03e65ede8aefdd4b7189">&#9670;&nbsp;</a></span>u4SubTaskCount</h2>
+<a id="ac84b47cad2d95d7c26d62a2a7d08f5a7" name="ac84b47cad2d95d7c26d62a2a7d08f5a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac84b47cad2d95d7c26d62a2a7d08f5a7">&#9670;&nbsp;</a></span>u4SubTaskCount</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t u4SubTaskCount</td>
+          <td class="memname">uint16_t arm_2d_op_status_t::u4SubTaskCount</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>sub task count </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00454">454</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this union was generated from the following file:<ul>
-<li>/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/<a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

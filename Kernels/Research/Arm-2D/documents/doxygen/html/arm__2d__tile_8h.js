@@ -1,8 +1,6 @@
 var arm__2d__tile_8h =
 [
     [ "arm_2d_op_cp_cl_key_t", "structarm__2d__op__cp__cl__key__t.html", "structarm__2d__op__cp__cl__key__t" ],
-    [ "__arm_2d_get_address_and_region_from_tile", "arm__2d__tile_8h.html#a346dada2017ab3f792a70c836c6e04d7", null ],
-    [ "__arm_2d_get_address_and_region_from_tile_with_mirroring", "arm__2d__tile_8h.html#a3e15ef5ed466c38997228a74ea539be3", null ],
     [ "arm_2d_c8bit_tile_copy", "arm__2d__tile_8h.html#afb2e3507690d5f733555a47c50d534e5", null ],
     [ "arm_2d_c8bit_tile_copy_only", "arm__2d__tile_8h.html#a03e06a299149712aff1fb7570c19a220", null ],
     [ "arm_2d_c8bit_tile_copy_with_colour_keying", "arm__2d__tile_8h.html#aa22f6930146e3f00e9d57131e1dc75cc", null ],
@@ -38,7 +36,6 @@ var arm__2d__tile_8h =
     [ "arm_2d_rgb32_tile_fill_with_x_mirror", "arm__2d__tile_8h.html#a072aec879530f4460920b710f1a67591", null ],
     [ "arm_2d_rgb32_tile_fill_with_xy_mirror", "arm__2d__tile_8h.html#aab65ed7e4300dc7d2167ea75517acb84", null ],
     [ "arm_2d_rgb32_tile_fill_with_y_mirror", "arm__2d__tile_8h.html#a760e83f398cf1275ce6127ad7b8c6638", null ],
-    [ "arm_2d_op_cp_cl_key_t", "arm__2d__tile_8h.html#ac4fc5dbc8786ec8652293c5bd12211ab", null ],
     [ "arm_2d_op_cp_t", "arm__2d__tile_8h.html#a7a8963fd261ac942f11c9d9cd03f7b34", null ],
     [ "bClipRegion", "arm__2d__tile_8h.html#a7dc372aa5fc05c99cc23552860121efc", null ],
     [ "chMaskColour", "arm__2d__tile_8h.html#aec98dc3b0a602189b3c556de571e3962", null ],

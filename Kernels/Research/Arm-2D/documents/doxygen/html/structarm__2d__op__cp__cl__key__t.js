@@ -1,11 +1,11 @@
 var structarm__2d__op__cp__cl__key__t =
 [
-    [ "chColour", "structarm__2d__op__cp__cl__key__t.html#ada2b6afd5320a240e55e1d8c36b69346", null ],
-    [ "hwColour", "structarm__2d__op__cp__cl__key__t.html#a0db207f31bef16456b27a97ae4e23214", null ],
-    [ "ptRegion", "structarm__2d__op__cp__cl__key__t.html#a82c16810860a7a9d6e69d24bb3fccaa5", null ],
-    [ "ptTile", "structarm__2d__op__cp__cl__key__t.html#aa41387d05ba40b11feb3466fede554b9", null ],
-    [ "Source", "structarm__2d__op__cp__cl__key__t.html#aa059dd4f0ad8c69075835b70b95251bb", null ],
-    [ "Target", "structarm__2d__op__cp__cl__key__t.html#af2a57a244a8bcce3f705922b687a7b8f", null ],
-    [ "wColour", "structarm__2d__op__cp__cl__key__t.html#a4e21766d4f743ed96bb2487b359beb65", null ],
-    [ "wMode", "structarm__2d__op__cp__cl__key__t.html#a92f31b7d7248207c28fb4009a944a919", null ]
+    [ "chColour", "structarm__2d__op__cp__cl__key__t.html#af1bb5f940163a5e637922513876f05d9", null ],
+    [ "hwColour", "structarm__2d__op__cp__cl__key__t.html#a3175ae6863b1ea64fedfe631f2e678b7", null ],
+    [ "ptRegion", "structarm__2d__op__cp__cl__key__t.html#a6c47796cf198e82e1eec5bbd1a9ea61e", null ],
+    [ "ptTile", "structarm__2d__op__cp__cl__key__t.html#a6d956c8cb2f96a1346aa4e4c99dabb42", null ],
+    [ "Source", "structarm__2d__op__cp__cl__key__t.html#a3bc33fafd8ffb489b9de542aab2eb592", null ],
+    [ "Target", "structarm__2d__op__cp__cl__key__t.html#a1ceba8c8eb2d1917584618a39b5c3f27", null ],
+    [ "wColour", "structarm__2d__op__cp__cl__key__t.html#ad710498a1f49e56b9179f299202e6aa5", null ],
+    [ "wMode", "structarm__2d__op__cp__cl__key__t.html#a8241efa365f71d741f7fd98bbfabf1ae", null ]
 ];

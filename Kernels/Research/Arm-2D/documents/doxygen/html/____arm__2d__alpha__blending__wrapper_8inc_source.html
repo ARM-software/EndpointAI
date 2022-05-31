@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Source/__arm_2d_alpha_blending_wrapper.inc Source File</title>
+<title>arm-2d: __arm_2d_alpha_blending_wrapper.inc Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -193,10 +195,10 @@ $(document).ready(function(){initNavTree('____arm__2d__alpha__blending__wrapper_
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_copy_with_src_mask)( <a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_copy_with_src_mask)( __arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>{</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__src__msk__t.html">arm_2d_op_cp_msk_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    assert(<a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a61f2b93cca008aea96543c9a8b0f432e">__API_ABW_COLOUR_SZ</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    assert(__API_ABW_COLOUR_SZ == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    assert(NULL != this.Mask.ptSourceSide);</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            </div>
@@ -294,10 +296,10 @@ $(document).ready(function(){initNavTree('____arm__2d__alpha__blending__wrapper_
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>}</div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_copy_with_des_mask)( <a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_copy_with_des_mask)( __arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>{</div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__src__msk__t.html">arm_2d_op_cp_msk_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    assert(<a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a61f2b93cca008aea96543c9a8b0f432e">__API_ABW_COLOUR_SZ</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    assert(__API_ABW_COLOUR_SZ == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    assert(NULL != this.Mask.ptTargetSide);</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            </div>
@@ -448,10 +450,10 @@ $(document).ready(function(){initNavTree('____arm__2d__alpha__blending__wrapper_
 <div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>}</div>
 <div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span> </div>
 <div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span> </div>
-<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_copy_with_masks)( <a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_copy_with_masks)( __arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>{</div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__src__msk__t.html">arm_2d_op_cp_msk_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    assert(<a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a61f2b93cca008aea96543c9a8b0f432e">__API_ABW_COLOUR_SZ</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    assert(__API_ABW_COLOUR_SZ == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
 <div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span> </div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    assert(!(   (NULL == this.Mask.ptSourceSide) </div>
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>            &amp;&amp;  (NULL == <span class="keyword">this</span>.Mask.ptTargetSide)));</div>
@@ -789,10 +791,10 @@ $(document).ready(function(){initNavTree('____arm__2d__alpha__blending__wrapper_
 <div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>}</div>
 <div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span> </div>
 <div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span><span class="preprocessor">#if 0   </span></div>
-<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_copy_with_mask)( <a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_copy_with_mask)( __arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>{</div>
 <div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__src__msk__t.html">arm_2d_op_cp_msk_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>    assert(<a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a61f2b93cca008aea96543c9a8b0f432e">__API_ABW_COLOUR_SZ</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
+<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>    assert(__API_ABW_COLOUR_SZ == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
 <div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    </div>
 <div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    assert(!(   (NULL == this.Mask.ptSourceSide) </div>
 <div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>            &amp;&amp;  (NULL == <span class="keyword">this</span>.Mask.ptTargetSide)));</div>
@@ -815,10 +817,10 @@ $(document).ready(function(){initNavTree('____arm__2d__alpha__blending__wrapper_
 <div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span> </div>
 <div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span> </div>
-<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_fill_with_src_mask)( <a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_fill_with_src_mask)( __arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>{</div>
 <div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__src__msk__t.html">arm_2d_op_cp_msk_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>    assert(<a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a61f2b93cca008aea96543c9a8b0f432e">__API_ABW_COLOUR_SZ</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>    assert(__API_ABW_COLOUR_SZ == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
 <div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span> </div>
 <div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>    assert(NULL != this.Mask.ptSourceSide);</div>
 <div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>    </div>
@@ -934,10 +936,10 @@ $(document).ready(function(){initNavTree('____arm__2d__alpha__blending__wrapper_
 <div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
 <div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span>}</div>
 <div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span> </div>
-<div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_fill_with_des_mask)( <a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_fill_with_des_mask)( __arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>{</div>
 <div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__src__msk__t.html">arm_2d_op_cp_msk_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>    assert(<a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a61f2b93cca008aea96543c9a8b0f432e">__API_ABW_COLOUR_SZ</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
+<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>    assert(__API_ABW_COLOUR_SZ == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
 <div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span> </div>
 <div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span>    assert(NULL != this.Mask.ptTargetSide);</div>
 <div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>    </div>
@@ -1105,10 +1107,10 @@ $(document).ready(function(){initNavTree('____arm__2d__alpha__blending__wrapper_
 <div class="line"><a id="l01053" name="l01053"></a><span class="lineno"> 1053</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a>;</div>
 <div class="line"><a id="l01054" name="l01054"></a><span class="lineno"> 1054</span>}</div>
 <div class="line"><a id="l01055" name="l01055"></a><span class="lineno"> 1055</span> </div>
-<div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_fill_with_masks)( <a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_fill_with_masks)( __arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l01057" name="l01057"></a><span class="lineno"> 1057</span>{</div>
 <div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__src__msk__t.html">arm_2d_op_cp_msk_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span>    assert(<a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a61f2b93cca008aea96543c9a8b0f432e">__API_ABW_COLOUR_SZ</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
+<div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span>    assert(__API_ABW_COLOUR_SZ == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
 <div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span> </div>
 <div class="line"><a id="l01062" name="l01062"></a><span class="lineno"> 1062</span>    assert(!(   (NULL == this.Mask.ptSourceSide) </div>
 <div class="line"><a id="l01063" name="l01063"></a><span class="lineno"> 1063</span>            &amp;&amp;  (NULL == <span class="keyword">this</span>.Mask.ptTargetSide)));</div>
@@ -1481,10 +1483,10 @@ $(document).ready(function(){initNavTree('____arm__2d__alpha__blending__wrapper_
 <div class="line"><a id="l01453" name="l01453"></a><span class="lineno"> 1453</span>}</div>
 <div class="line"><a id="l01454" name="l01454"></a><span class="lineno"> 1454</span> </div>
 <div class="line"><a id="l01455" name="l01455"></a><span class="lineno"> 1455</span><span class="preprocessor">#if 0  </span></div>
-<div class="line"><a id="l01456" name="l01456"></a><span class="lineno"> 1456</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_fill_with_mask)( <a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> *ptTask)</div>
+<div class="line"><a id="l01456" name="l01456"></a><span class="lineno"> 1456</span><a class="code hl_enumeration" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> __ABW_FUNC(tile_fill_with_mask)( __arm_2d_sub_task_t *ptTask)</div>
 <div class="line"><a id="l01457" name="l01457"></a><span class="lineno"> 1457</span>{</div>
 <div class="line"><a id="l01458" name="l01458"></a><span class="lineno"> 1458</span>    <a class="code hl_define" href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a>(<a class="code hl_struct" href="structarm__2d__op__src__msk__t.html">arm_2d_op_cp_msk_t</a>, ptTask-&gt;ptOP);</div>
-<div class="line"><a id="l01459" name="l01459"></a><span class="lineno"> 1459</span>    assert(<a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a61f2b93cca008aea96543c9a8b0f432e">__API_ABW_COLOUR_SZ</a> == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
+<div class="line"><a id="l01459" name="l01459"></a><span class="lineno"> 1459</span>    assert(__API_ABW_COLOUR_SZ == <a class="code hl_define" href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a>.ptOp-&gt;Info.Colour.u3ColourSZ);</div>
 <div class="line"><a id="l01460" name="l01460"></a><span class="lineno"> 1460</span> </div>
 <div class="line"><a id="l01462" name="l01462"></a><span class="lineno"> 1462</span>    assert(!(   (NULL == this.Mask.ptSourceSide) </div>
 <div class="line"><a id="l01463" name="l01463"></a><span class="lineno"> 1463</span>            &amp;&amp;  (NULL == <span class="keyword">this</span>.Mask.ptTargetSide)));</div>
@@ -1529,7 +1531,6 @@ $(document).ready(function(){initNavTree('____arm__2d__alpha__blending__wrapper_
 <div class="line"><a id="l01506" name="l01506"></a><span class="lineno"> 1506</span><span class="preprocessor">#undef __ABW_TYPE</span></div>
 <div class="ttc" id="a____arm__2d__impl_8h_html_a451aeef94e8d5bf76519f63cbca43493"><div class="ttname"><a href="____arm__2d__impl_8h.html#a451aeef94e8d5bf76519f63cbca43493">ARM_2D_IMPL</a></div><div class="ttdeci">#define ARM_2D_IMPL(__TYPE,...)</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00065">__arm_2d_impl.h:65</a></div></div>
 <div class="ttc" id="a____arm__2d__impl_8h_html_a9f9d937dc5a6d79e26e25ebf55bbf679"><div class="ttname"><a href="____arm__2d__impl_8h.html#a9f9d937dc5a6d79e26e25ebf55bbf679">OP_CORE</a></div><div class="ttdeci">#define OP_CORE</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00063">__arm_2d_impl.h:63</a></div></div>
-<div class="ttc" id="aarm__2d__alpha__blending_8c_html_a61f2b93cca008aea96543c9a8b0f432e"><div class="ttname"><a href="arm__2d__alpha__blending_8c.html#a61f2b93cca008aea96543c9a8b0f432e">__API_ABW_COLOUR_SZ</a></div><div class="ttdeci">#define __API_ABW_COLOUR_SZ</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__alpha__blending_8c_source.html#l00199">arm_2d_alpha_blending.c:199</a></div></div>
 <div class="ttc" id="aarm__2d__alpha__blending_8h_html_a2e5a85ec501d28af73a7b6d43828b7f0"><div class="ttname"><a href="arm__2d__alpha__blending_8h.html#a2e5a85ec501d28af73a7b6d43828b7f0">wMode</a></div><div class="ttdeci">const arm_2d_tile_t const arm_2d_tile_t const arm_2d_tile_t const arm_2d_tile_t const arm_2d_region_t uint32_t wMode</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__alpha__blending_8h_source.html#l01025">arm_2d_alpha_blending.h:1025</a></div></div>
 <div class="ttc" id="aarm__2d__tile_8h_html_aac34dfe6c6b73b43a4656c9dce041034a69116a74f0ddd40fad4d810dd8191cf1"><div class="ttname"><a href="arm__2d__tile_8h.html#aac34dfe6c6b73b43a4656c9dce041034a69116a74f0ddd40fad4d810dd8191cf1">ARM_2D_CP_MODE_X_MIRROR</a></div><div class="ttdeci">@ ARM_2D_CP_MODE_X_MIRROR</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__tile_8h_source.html#l00654">arm_2d_tile.h:654</a></div></div>
 <div class="ttc" id="aarm__2d__tile_8h_html_aac34dfe6c6b73b43a4656c9dce041034ac561823141d2a0cb61b1d79970d88a60"><div class="ttname"><a href="arm__2d__tile_8h.html#aac34dfe6c6b73b43a4656c9dce041034ac561823141d2a0cb61b1d79970d88a60">ARM_2D_CP_MODE_Y_MIRROR</a></div><div class="ttdeci">@ ARM_2D_CP_MODE_Y_MIRROR</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__tile_8h_source.html#l00653">arm_2d_tile.h:653</a></div></div>
@@ -1539,7 +1540,6 @@ $(document).ready(function(){initNavTree('____arm__2d__alpha__blending__wrapper_
 <div class="ttc" id="aarm__2d__types_8h_html_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1"><div class="ttname"><a href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1">arm_fsm_rt_cpl</a></div><div class="ttdeci">@ arm_fsm_rt_cpl</div><div class="ttdoc">fsm complete</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00077">arm_2d_types.h:77</a></div></div>
 <div class="ttc" id="aarm__2d__types_8h_html_afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58"><div class="ttname"><a href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58">ARM_2D_CHANNEL_8in32</a></div><div class="ttdeci">@ ARM_2D_CHANNEL_8in32</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00260">arm_2d_types.h:258</a></div></div>
 <div class="ttc" id="aarm__2d__types_8h_html_afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185"><div class="ttname"><a href="arm__2d__types_8h.html#afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185">ARM_2D_COLOUR_8BIT</a></div><div class="ttdeci">@ ARM_2D_COLOUR_8BIT</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00229">arm_2d_types.h:229</a></div></div>
-<div class="ttc" id="astruct____arm__2d__sub__task__t_html"><div class="ttname"><a href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a></div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00344">__arm_2d_impl.h:344</a></div></div>
 <div class="ttc" id="astructarm__2d__op__src__msk__t_html"><div class="ttname"><a href="structarm__2d__op__src__msk__t.html">arm_2d_op_src_msk_t</a></div><div class="ttdoc">arm_2d_op_src_msk_t is inherit from arm_2d_op_src_t</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00524">arm_2d_types.h:524</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

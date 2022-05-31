@@ -7,6 +7,5 @@ var searchData=
   ['load_5fsrc_5fx_5fmirror_5f32_4',['LOAD_SRC_X_MIRROR_32',['../____arm__2d__paving_8h.html#a9d5d767528d31c10704c5ed631cdb95f',1,'LOAD_SRC_X_MIRROR_32():&#160;__arm_2d_paving.h'],['../____arm__2d__paving__helium_8h.html#a9d5d767528d31c10704c5ed631cdb95f',1,'LOAD_SRC_X_MIRROR_32():&#160;__arm_2d_paving_helium.h']]],
   ['load_5fsrc_5fx_5fmirror_5f8_5',['LOAD_SRC_X_MIRROR_8',['../____arm__2d__paving_8h.html#a847e58844c5cf18614a1ced92c5efc0d',1,'LOAD_SRC_X_MIRROR_8():&#160;__arm_2d_paving.h'],['../____arm__2d__paving__helium_8h.html#a847e58844c5cf18614a1ced92c5efc0d',1,'LOAD_SRC_X_MIRROR_8():&#160;__arm_2d_paving_helium.h']]],
   ['low_5flevel_5fio_5f_5farm_5f2d_5fio_5fnone_6',['LOW_LEVEL_IO__ARM_2D_IO_NONE',['../arm__2d__op_8h.html#a5f2d0662fb18c5edcf0d504b00b0b7a4',1,'arm_2d_op.h']]],
-  ['lowlevelinterfaceindex_7',['LowLevelInterfaceIndex',['../union____arm__2d__op__info__t.html#ad29a59d2cdb283efbbaeab8ca1b9d5f1',1,'__arm_2d_op_info_t']]],
-  ['lowlevelio_8',['LowLevelIO',['../union____arm__2d__op__info__t.html#a5143178dc22fb48a4df78b5a0752fb16',1,'__arm_2d_op_info_t']]]
+  ['readme_2emd_7',['README.md',['../Library_2Include_2README_8md.html',1,'']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Source/__arm_2d_transform_helium.inc Source File</title>
+<title>arm-2d: __arm_2d_transform_helium.inc Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -142,19 +144,19 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#if !__ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__</span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">void</span> __ARM_2D_FUNC(transform)( <a class="code hl_struct" href="struct____arm__2d__param__copy__orig__t.html">__arm_2d_param_copy_orig_t</a> *ptParam,</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                            <a class="code hl_struct" href="struct____arm__2d__transform__info__t.html">__arm_2d_transform_info_t</a> *ptInfo)</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>__OVERRIDE_WEAK</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">void</span> __ARM_2D_FUNC(transform)( __arm_2d_param_copy_orig_t *ptParam,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                            __arm_2d_transform_info_t *ptInfo)</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>{</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    int32_t    iHeight = ptParam-&gt;use_as____arm_2d_param_copy_t.tCopySize.iHeight;</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    int32_t    iWidth = ptParam-&gt;use_as____arm_2d_param_copy_t.tCopySize.iWidth;</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    int32_t    iTargetStride =</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.iStride;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>     *pTargetBase = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.pBuffer;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>     *pOrigin = ptParam-&gt;tOrigin.pBuffer;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    __API_INT_TYPE     *pTargetBase = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.pBuffer;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    __API_INT_TYPE     *pOrigin = ptParam-&gt;tOrigin.pBuffer;</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    int32_t             iOrigStride = ptParam-&gt;tOrigin.iStride;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>      MaskColour = MASK_COLOR(<a class="code hl_define" href="arm__2d__transform_8c.html#ace29e49156529f94695cada845142f1d">__API_INT_TYPE_BIT_NUM</a>);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    __API_INT_TYPE      MaskColour = MASK_COLOR(__API_INT_TYPE_BIT_NUM);</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    float32_t           <a class="code hl_variable" href="arm__2d__transform_8h.html#ac12bfe6bda01afa26c0f226b8c14f129">fAngle</a> = -ptInfo-&gt;fAngle;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_struct" href="structarm__2d__location__t.html">arm_2d_location_t</a>   tOffset =</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        ptParam-&gt;use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;</div>
@@ -192,12 +194,12 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">for</span> (int32_t y = 0; y &lt; iHeight; y++) {</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            <span class="comment">/* 1st column estimates (intercepts for regression in X direction */</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            float32_t       colFirstY = regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a88e1b3d00b31e177f59f735940fa7a48">slopeY</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#ac82c431a2a792ddefa57e5f6d7ec6f69">interceptY</a>;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            float32_t       colFirstX = regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#aada149bd9bbcd35a58e58c6743b0b1b6">slopeX</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a7d7e52aa8a6d7d69bab27d4b9cc54a48">interceptX</a>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            float32_t       colFirstY = regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a66b4406bbebc1a7b64122ed504bc599e">slopeY</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a1f252268a2adcd9c62e1d49b18885dfb">interceptY</a>;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            float32_t       colFirstX = regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a42cfa36a835027172ec23a336f421839">slopeX</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a126853e5f6563921236b57b6719e7a5e">interceptX</a>;</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            int32_t         nbVecElts = iWidth;</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            float16x8_t     vX = vcvtq_f16_s16((int16x8_t) vidupq_n_u16(0, 1));</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>       *pTargetBaseCur = pTargetBase;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            __API_INT_TYPE       *pTargetBaseCur = pTargetBase;</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="keywordflow">while</span> (nbVecElts &gt; 0) {</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                arm_2d_point_f16x8_t tPointV;</div>
@@ -208,11 +210,11 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                        vfmaq_n_f16(vdupq_n_f16(colFirstY), vX, slopeY);</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">        #if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__)</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>                    tPointV.X = vaddq_m_n_f16(tPointV.X, tPointV.X, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpgtq(tPointV.X, 0));</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                    tPointV.X = vsubq_m_n_f16(tPointV.X, tPointV.X, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpleq(tPointV.X, 0));</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>                    tPointV.X = vaddq_m_n_f16(tPointV.X, tPointV.X, __CALIB, vcmpgtq(tPointV.X, 0));</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                    tPointV.X = vsubq_m_n_f16(tPointV.X, tPointV.X, __CALIB, vcmpleq(tPointV.X, 0));</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                    tPointV.Y = vaddq_m_n_f16(tPointV.Y, tPointV.Y, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpgtq(tPointV.Y, 0));</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                    tPointV.Y = vsubq_m_n_f16(tPointV.Y, tPointV.Y, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpleq(tPointV.Y, 0));</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                    tPointV.Y = vaddq_m_n_f16(tPointV.Y, tPointV.Y, __CALIB, vcmpgtq(tPointV.Y, 0));</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                    tPointV.Y = vsubq_m_n_f16(tPointV.Y, tPointV.Y, __CALIB, vcmpleq(tPointV.Y, 0));</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">        #endif</span></div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                    __ARM_2D_FUNC(get_pixel_colour)(&amp;tPointV,</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                                                          &amp;ptParam-&gt;tOrigin.tValidRegion,</div>
@@ -232,8 +234,8 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordflow">for</span> (int32_t y = 0; y &lt; iHeight; y++) {</div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <span class="comment">/* 1st column estimates (intercepts for regression in X direction */</span></div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            float32_t       colFirstY = regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a88e1b3d00b31e177f59f735940fa7a48">slopeY</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#ac82c431a2a792ddefa57e5f6d7ec6f69">interceptY</a>;</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            float32_t       colFirstX = regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#aada149bd9bbcd35a58e58c6743b0b1b6">slopeX</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a7d7e52aa8a6d7d69bab27d4b9cc54a48">interceptX</a>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            float32_t       colFirstY = regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a66b4406bbebc1a7b64122ed504bc599e">slopeY</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a1f252268a2adcd9c62e1d49b18885dfb">interceptY</a>;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            float32_t       colFirstX = regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a42cfa36a835027172ec23a336f421839">slopeX</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a126853e5f6563921236b57b6719e7a5e">interceptX</a>;</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            int32_t         nbVecElts = iWidth;</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            float16x8_t     vX = vcvtq_f16_s16((int16x8_t) vidupq_n_u16(0, 1));</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            uint16_t       *pTargetBaseCur = pTargetBase;</div>
@@ -247,11 +249,11 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                    vfmaq_n_f16(vdupq_n_f16(colFirstY), vX, slopeY);</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="preprocessor">#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__)</span></div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                    tPointV.X = vaddq_m_n_f16(tPointV.X, tPointV.X, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpgtq(tPointV.X, 0));</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                    tPointV.X = vsubq_m_n_f16(tPointV.X, tPointV.X, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpleq(tPointV.X, 0));</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                    tPointV.X = vaddq_m_n_f16(tPointV.X, tPointV.X, __CALIB, vcmpgtq(tPointV.X, 0));</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                    tPointV.X = vsubq_m_n_f16(tPointV.X, tPointV.X, __CALIB, vcmpleq(tPointV.X, 0));</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                    tPointV.Y = vaddq_m_n_f16(tPointV.Y, tPointV.Y, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpgtq(tPointV.Y, 0));</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                    tPointV.Y = vsubq_m_n_f16(tPointV.Y, tPointV.Y, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpleq(tPointV.Y, 0));</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                    tPointV.Y = vaddq_m_n_f16(tPointV.Y, tPointV.Y, __CALIB, vcmpgtq(tPointV.Y, 0));</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                    tPointV.Y = vsubq_m_n_f16(tPointV.Y, tPointV.Y, __CALIB, vcmpleq(tPointV.Y, 0));</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                __arm_2d_impl_rgb565_get_pixel_colour_offs_compensated(&amp;tPointV,</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                                                                       &amp;ptParam-&gt;tOrigin.</div>
@@ -273,9 +275,9 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>}</div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="keywordtype">void</span> __ARM_2D_FUNC(transform_with_opacity)(<a class="code hl_struct" href="struct____arm__2d__param__copy__orig__t.html">__arm_2d_param_copy_orig_t</a> *ptParam,</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                                    <a class="code hl_struct" href="struct____arm__2d__transform__info__t.html">__arm_2d_transform_info_t</a> *ptInfo,</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>__OVERRIDE_WEAK</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="keywordtype">void</span> __ARM_2D_FUNC(transform_with_opacity)(__arm_2d_param_copy_orig_t *ptParam,</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                                    __arm_2d_transform_info_t *ptInfo,</div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                                    uint_fast16_t hwRatio)</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>{</div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    int32_t         iHeight = ptParam-&gt;use_as____arm_2d_param_copy_t.tCopySize.iHeight;</div>
@@ -283,10 +285,10 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    int32_t         iTargetStride =</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.iStride;</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>     *pTargetBase = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.pBuffer;</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>     *pOrigin = ptParam-&gt;tOrigin.pBuffer;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    __API_INT_TYPE     *pTargetBase = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.pBuffer;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    __API_INT_TYPE     *pOrigin = ptParam-&gt;tOrigin.pBuffer;</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    int32_t             iOrigStride = ptParam-&gt;tOrigin.iStride;</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>      MaskColour = MASK_COLOR(<a class="code hl_define" href="arm__2d__transform_8c.html#ace29e49156529f94695cada845142f1d">__API_INT_TYPE_BIT_NUM</a>);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    __API_INT_TYPE      MaskColour = MASK_COLOR(__API_INT_TYPE_BIT_NUM);</div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    float32_t           <a class="code hl_variable" href="arm__2d__transform_8h.html#ac12bfe6bda01afa26c0f226b8c14f129">fAngle</a> = -ptInfo-&gt;fAngle;</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <a class="code hl_struct" href="structarm__2d__location__t.html">arm_2d_location_t</a>   tOffset =</div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        ptParam-&gt;use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;</div>
@@ -326,13 +328,13 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        <span class="keywordflow">for</span> (int32_t y = 0; y &lt; iHeight; y++) {</div>
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>            <span class="comment">/* 1st column estimates (intercepts for regression in X direction */</span></div>
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            float32_t       colFirstY =</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                 (regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a88e1b3d00b31e177f59f735940fa7a48">slopeY</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#ac82c431a2a792ddefa57e5f6d7ec6f69">interceptY</a>);</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                 (regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a66b4406bbebc1a7b64122ed504bc599e">slopeY</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a1f252268a2adcd9c62e1d49b18885dfb">interceptY</a>);</div>
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>            float32_t       colFirstX =</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                 (regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#aada149bd9bbcd35a58e58c6743b0b1b6">slopeX</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a7d7e52aa8a6d7d69bab27d4b9cc54a48">interceptX</a>);</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                 (regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a42cfa36a835027172ec23a336f421839">slopeX</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a126853e5f6563921236b57b6719e7a5e">interceptX</a>);</div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            int32_t         nbVecElts = iWidth;</div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>            float16x8_t     vX = vcvtq_f16_s16((int16x8_t) vidupq_n_u16(0, 1));</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>       *pTargetBaseCur = pTargetBase;</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            __API_INT_TYPE       *pTargetBaseCur = pTargetBase;</div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
 <div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>            <span class="keywordflow">while</span> (nbVecElts &gt; 0) {</div>
 <div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                arm_2d_point_f16x8_t tPointV;</div>
@@ -344,11 +346,11 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>                    vfmaq_n_f16(vdupq_n_f16(colFirstY), vX, slopeY);</div>
 <div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="preprocessor">#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__)</span></div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>                tPointV.X = vaddq_m_n_f16(tPointV.X, tPointV.X, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpgtq(tPointV.X, 0));</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>                tPointV.X = vsubq_m_n_f16(tPointV.X, tPointV.X, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpleq(tPointV.X, 0));</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>                tPointV.X = vaddq_m_n_f16(tPointV.X, tPointV.X, __CALIB, vcmpgtq(tPointV.X, 0));</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>                tPointV.X = vsubq_m_n_f16(tPointV.X, tPointV.X, __CALIB, vcmpleq(tPointV.X, 0));</div>
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>                tPointV.Y = vaddq_m_n_f16(tPointV.Y, tPointV.Y, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpgtq(tPointV.Y, 0));</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>                tPointV.Y = vsubq_m_n_f16(tPointV.Y, tPointV.Y, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpleq(tPointV.Y, 0));</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>                tPointV.Y = vaddq_m_n_f16(tPointV.Y, tPointV.Y, __CALIB, vcmpgtq(tPointV.Y, 0));</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>                tPointV.Y = vsubq_m_n_f16(tPointV.Y, tPointV.Y, __CALIB, vcmpleq(tPointV.Y, 0));</div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>                __ARM_2D_FUNC(get_pixel_colour_with_alpha)(&amp;tPointV,</div>
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>                                                             &amp;ptParam-&gt;tOrigin.</div>
@@ -379,9 +381,9 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        <span class="keywordflow">for</span> (int32_t y = 0; y &lt; iHeight; y++) {</div>
 <div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>            <span class="comment">/* 1st column estimates (intercepts for regression in X direction */</span></div>
 <div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>            float32_t       colFirstY =</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>                 (regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a88e1b3d00b31e177f59f735940fa7a48">slopeY</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#ac82c431a2a792ddefa57e5f6d7ec6f69">interceptY</a>);</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>                 (regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a66b4406bbebc1a7b64122ed504bc599e">slopeY</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a1f252268a2adcd9c62e1d49b18885dfb">interceptY</a>);</div>
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>            float32_t       colFirstX =</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>                 (regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#aada149bd9bbcd35a58e58c6743b0b1b6">slopeX</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a7d7e52aa8a6d7d69bab27d4b9cc54a48">interceptX</a>);</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>                 (regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a42cfa36a835027172ec23a336f421839">slopeX</a> * y + regrCoefs[0].<a class="code hl_variable" href="structarm__2d__rot__linear__regr__t.html#a126853e5f6563921236b57b6719e7a5e">interceptX</a>);</div>
 <div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span> </div>
 <div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>            int32_t         nbVecElts = iWidth;</div>
 <div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>            float16x8_t     vX = vcvtq_f16_s16((int16x8_t) vidupq_n_u16(0, 1));</div>
@@ -397,11 +399,11 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>                    vfmaq_n_f16(vdupq_n_f16(colFirstY), vX, slopeY);</div>
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span><span class="preprocessor">#if !defined(__ARM_2D_CFG_UNSAFE_IGNORE_CALIB_IN_ROTATION_FOR_PERFORMANCE__)</span></div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>                tPointV.X = vaddq_m_n_f16(tPointV.X, tPointV.X, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpgtq(tPointV.X, 0));</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>                tPointV.X = vsubq_m_n_f16(tPointV.X, tPointV.X, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpleq(tPointV.X, 0));</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>                tPointV.X = vaddq_m_n_f16(tPointV.X, tPointV.X, __CALIB, vcmpgtq(tPointV.X, 0));</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>                tPointV.X = vsubq_m_n_f16(tPointV.X, tPointV.X, __CALIB, vcmpleq(tPointV.X, 0));</div>
 <div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>                tPointV.Y = vaddq_m_n_f16(tPointV.Y, tPointV.Y, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpgtq(tPointV.Y, 0));</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>                tPointV.Y = vsubq_m_n_f16(tPointV.Y, tPointV.Y, <a class="code hl_define" href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a>, vcmpleq(tPointV.Y, 0));</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>                tPointV.Y = vaddq_m_n_f16(tPointV.Y, tPointV.Y, __CALIB, vcmpgtq(tPointV.Y, 0));</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>                tPointV.Y = vsubq_m_n_f16(tPointV.Y, tPointV.Y, __CALIB, vcmpleq(tPointV.Y, 0));</div>
 <div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>                __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(&amp;tPointV,</div>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>                                                                        &amp;ptParam-&gt;tOrigin.</div>
@@ -425,18 +427,18 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span> </div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="preprocessor">#else </span><span class="comment">/* __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__ */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span> </div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="keywordtype">void</span> __ARM_2D_FUNC(transform)(   <a class="code hl_struct" href="struct____arm__2d__param__copy__orig__t.html">__arm_2d_param_copy_orig_t</a> *ptParam,</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>                                    <a class="code hl_struct" href="struct____arm__2d__transform__info__t.html">__arm_2d_transform_info_t</a> *ptInfo)</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>__OVERRIDE_WEAK</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="keywordtype">void</span> __ARM_2D_FUNC(transform)(   __arm_2d_param_copy_orig_t *ptParam,</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>                                    __arm_2d_transform_info_t *ptInfo)</div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>{</div>
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    int32_t         iHeight = ptParam-&gt;use_as____arm_2d_param_copy_t.tCopySize.iHeight;</div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    int32_t         iWidth = ptParam-&gt;use_as____arm_2d_param_copy_t.tCopySize.iWidth;</div>
 <div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    int32_t         iTargetStride =</div>
 <div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.iStride;</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>  *pTargetBase = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.pBuffer;</div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>  *pOrigin = ptParam-&gt;tOrigin.pBuffer;</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    __API_INT_TYPE  *pTargetBase = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.pBuffer;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    __API_INT_TYPE  *pOrigin = ptParam-&gt;tOrigin.pBuffer;</div>
 <div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    int32_t         iOrigStride = ptParam-&gt;tOrigin.iStride;</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>   MaskColour = MASK_COLOR(<a class="code hl_define" href="arm__2d__transform_8c.html#ace29e49156529f94695cada845142f1d">__API_INT_TYPE_BIT_NUM</a>);</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    __API_INT_TYPE   MaskColour = MASK_COLOR(__API_INT_TYPE_BIT_NUM);</div>
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    float32_t        <a class="code hl_variable" href="arm__2d__transform_8h.html#ac12bfe6bda01afa26c0f226b8c14f129">fAngle</a> = -ptInfo-&gt;fAngle;</div>
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    <a class="code hl_struct" href="structarm__2d__location__t.html">arm_2d_location_t</a> tOffset =</div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>        ptParam-&gt;use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;</div>
@@ -494,7 +496,7 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span> </div>
 <div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>        int32_t         nbVecElts = iWidth;</div>
 <div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>        int16x8_t       vX = (int16x8_t) vidupq_n_u16(0, 1);</div>
-<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>        <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>       *pTargetBaseCur = pTargetBase;</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>        __API_INT_TYPE       *pTargetBaseCur = pTargetBase;</div>
 <div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span> </div>
 <div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>        <span class="comment">/* Q9.6 coversion */</span></div>
 <div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>        vX = SET_Q6INT(vX);</div>
@@ -538,7 +540,7 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span> </div>
 <div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>            int32_t         nbVecElts = iWidth;</div>
 <div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>            int16x8_t       vX = (int16x8_t) vidupq_n_u16(0, 1);</div>
-<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>            <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>     *pTargetBaseCur = pTargetBase;</div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>            __API_INT_TYPE     *pTargetBaseCur = pTargetBase;</div>
 <div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span> </div>
 <div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>            <span class="comment">/* Q9.6 coversion */</span></div>
 <div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span>            vX = SET_Q6INT(vX);</div>
@@ -574,9 +576,9 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span> </div>
 <div class="line"><a id="l00488" name="l00488"></a><span class="lineno">  488</span> </div>
 <div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span> </div>
-<div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
-<div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span><span class="keywordtype">void</span> __ARM_2D_FUNC(transform_with_opacity)(   <a class="code hl_struct" href="struct____arm__2d__param__copy__orig__t.html">__arm_2d_param_copy_orig_t</a> *ptParam,</div>
-<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span>                                    <a class="code hl_struct" href="struct____arm__2d__transform__info__t.html">__arm_2d_transform_info_t</a> *ptInfo,</div>
+<div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span>__OVERRIDE_WEAK</div>
+<div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span><span class="keywordtype">void</span> __ARM_2D_FUNC(transform_with_opacity)(   __arm_2d_param_copy_orig_t *ptParam,</div>
+<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span>                                    __arm_2d_transform_info_t *ptInfo,</div>
 <div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span>                                    uint_fast16_t hwRatio)</div>
 <div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span>{</div>
 <div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span>    int32_t         iHeight = ptParam-&gt;use_as____arm_2d_param_copy_t.tCopySize.iHeight;</div>
@@ -584,10 +586,10 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span> </div>
 <div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>    int32_t         iTargetStride =</div>
 <div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>        ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.iStride;</div>
-<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>       *pTargetBase = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.pBuffer;</div>
-<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>       *pOrigin = ptParam-&gt;tOrigin.pBuffer;</div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>    __API_INT_TYPE       *pTargetBase = ptParam-&gt;use_as____arm_2d_param_copy_t.tTarget.pBuffer;</div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>    __API_INT_TYPE       *pOrigin = ptParam-&gt;tOrigin.pBuffer;</div>
 <div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>    int32_t         iOrigStride = ptParam-&gt;tOrigin.iStride;</div>
-<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>    <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a>        MaskColour = MASK_COLOR(<a class="code hl_define" href="arm__2d__transform_8c.html#ace29e49156529f94695cada845142f1d">__API_INT_TYPE_BIT_NUM</a>);</div>
+<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>    __API_INT_TYPE        MaskColour = MASK_COLOR(__API_INT_TYPE_BIT_NUM);</div>
 <div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>    <span class="keywordtype">float</span>           <a class="code hl_variable" href="arm__2d__transform_8h.html#ac12bfe6bda01afa26c0f226b8c14f129">fAngle</a> = -ptInfo-&gt;fAngle;</div>
 <div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>    <a class="code hl_struct" href="structarm__2d__location__t.html">arm_2d_location_t</a> tOffset =</div>
 <div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>        ptParam-&gt;use_as____arm_2d_param_copy_t.tSource.tValidRegion.tLocation;</div>
@@ -644,7 +646,7 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span> </div>
 <div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>            int32_t         nbVecElts = iWidth;</div>
 <div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>            int16x8_t       vX = (int16x8_t) vidupq_n_u16(0, 1);</div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>            <a class="code hl_define" href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a> *pTargetBaseCur = pTargetBase;</div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>            __API_INT_TYPE *pTargetBaseCur = pTargetBase;</div>
 <div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span> </div>
 <div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>            <span class="comment">/* Q9.6 coversion */</span></div>
 <div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>            vX = SET_Q6INT(vX);</div>
@@ -757,19 +759,13 @@ $(document).ready(function(){initNavTree('____arm__2d__transform__helium_8inc_so
 <div class="ttc" id="a____arm__2d__math_8h_html_a8229f0714afc303702b719820a158087"><div class="ttname"><a href="____arm__2d__math_8h.html#a8229f0714afc303702b719820a158087">MULTFX</a></div><div class="ttdeci">#define MULTFX(x, y)</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__math_8h_source.html#l00108">__arm_2d_math.h:108</a></div></div>
 <div class="ttc" id="a____arm__2d__math_8h_html_a996f7be338ccb40d1a2a5abc1ad61759"><div class="ttname"><a href="____arm__2d__math_8h.html#a996f7be338ccb40d1a2a5abc1ad61759">ABS</a></div><div class="ttdeci">#define ABS(x)</div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__math_8h_source.html#l00103">__arm_2d_math.h:103</a></div></div>
 <div class="ttc" id="a____arm__2d__meta__trans__with__masks__helium_8inc_html"><div class="ttname"><a href="____arm__2d__meta__trans__with__masks__helium_8inc.html">__arm_2d_meta_trans_with_masks_helium.inc</a></div></div>
-<div class="ttc" id="aarm__2d__alpha__blending_8c_html_a71ef659837d31a3da6b902b7c50fce6f"><div class="ttname"><a href="arm__2d__alpha__blending_8c.html#a71ef659837d31a3da6b902b7c50fce6f">__API_INT_TYPE</a></div><div class="ttdeci">#define __API_INT_TYPE</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__alpha__blending_8c_source.html#l00101">arm_2d_alpha_blending.c:101</a></div></div>
-<div class="ttc" id="aarm__2d__transform_8c_html_a29e4ea6d26ca19e8db3073efd2292cb4"><div class="ttname"><a href="arm__2d__transform_8c.html#a29e4ea6d26ca19e8db3073efd2292cb4">__CALIB</a></div><div class="ttdeci">#define __CALIB</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8c_source.html#l00080">arm_2d_transform.c:80</a></div></div>
-<div class="ttc" id="aarm__2d__transform_8c_html_ace29e49156529f94695cada845142f1d"><div class="ttname"><a href="arm__2d__transform_8c.html#ace29e49156529f94695cada845142f1d">__API_INT_TYPE_BIT_NUM</a></div><div class="ttdeci">#define __API_INT_TYPE_BIT_NUM</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8c_source.html#l00129">arm_2d_transform.c:129</a></div></div>
 <div class="ttc" id="aarm__2d__transform_8h_html_ac12bfe6bda01afa26c0f226b8c14f129"><div class="ttname"><a href="arm__2d__transform_8h.html#ac12bfe6bda01afa26c0f226b8c14f129">fAngle</a></div><div class="ttdeci">const arm_2d_tile_t const arm_2d_location_t float fAngle</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8h_source.html#l03478">arm_2d_transform.h:3478</a></div></div>
-<div class="ttc" id="aarm__2d__utils_8h_html_af675320d8afdd3d72e951d1a5eb9fcd1"><div class="ttname"><a href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div><div class="ttdeci">#define __OVERRIDE_WEAK</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00323">arm_2d_utils.h:323</a></div></div>
-<div class="ttc" id="astruct____arm__2d__param__copy__orig__t_html"><div class="ttname"><a href="struct____arm__2d__param__copy__orig__t.html">__arm_2d_param_copy_orig_t</a></div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00310">__arm_2d_impl.h:310</a></div></div>
-<div class="ttc" id="astruct____arm__2d__transform__info__t_html"><div class="ttname"><a href="struct____arm__2d__transform__info__t.html">__arm_2d_transform_info_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8h_source.html#l03349">arm_2d_transform.h:3349</a></div></div>
 <div class="ttc" id="astructarm__2d__location__t_html"><div class="ttname"><a href="structarm__2d__location__t.html">arm_2d_location_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00281">arm_2d_types.h:281</a></div></div>
 <div class="ttc" id="astructarm__2d__rot__linear__regr__t_html"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html">arm_2d_rot_linear_regr_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00603">arm_2d_types.h:603</a></div></div>
-<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_a7d7e52aa8a6d7d69bab27d4b9cc54a48"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#a7d7e52aa8a6d7d69bab27d4b9cc54a48">arm_2d_rot_linear_regr_t::interceptX</a></div><div class="ttdeci">int32_t interceptX</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00607">arm_2d_types.h:607</a></div></div>
-<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_a88e1b3d00b31e177f59f735940fa7a48"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#a88e1b3d00b31e177f59f735940fa7a48">arm_2d_rot_linear_regr_t::slopeY</a></div><div class="ttdeci">int32_t slopeY</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00604">arm_2d_types.h:604</a></div></div>
-<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_aada149bd9bbcd35a58e58c6743b0b1b6"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#aada149bd9bbcd35a58e58c6743b0b1b6">arm_2d_rot_linear_regr_t::slopeX</a></div><div class="ttdeci">int32_t slopeX</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00606">arm_2d_types.h:606</a></div></div>
-<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_ac82c431a2a792ddefa57e5f6d7ec6f69"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#ac82c431a2a792ddefa57e5f6d7ec6f69">arm_2d_rot_linear_regr_t::interceptY</a></div><div class="ttdeci">int32_t interceptY</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00605">arm_2d_types.h:605</a></div></div>
+<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_a126853e5f6563921236b57b6719e7a5e"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#a126853e5f6563921236b57b6719e7a5e">arm_2d_rot_linear_regr_t::interceptX</a></div><div class="ttdeci">int32_t interceptX</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00607">arm_2d_types.h:607</a></div></div>
+<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_a1f252268a2adcd9c62e1d49b18885dfb"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#a1f252268a2adcd9c62e1d49b18885dfb">arm_2d_rot_linear_regr_t::interceptY</a></div><div class="ttdeci">int32_t interceptY</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00605">arm_2d_types.h:605</a></div></div>
+<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_a42cfa36a835027172ec23a336f421839"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#a42cfa36a835027172ec23a336f421839">arm_2d_rot_linear_regr_t::slopeX</a></div><div class="ttdeci">int32_t slopeX</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00606">arm_2d_types.h:606</a></div></div>
+<div class="ttc" id="astructarm__2d__rot__linear__regr__t_html_a66b4406bbebc1a7b64122ed504bc599e"><div class="ttname"><a href="structarm__2d__rot__linear__regr__t.html#a66b4406bbebc1a7b64122ed504bc599e">arm_2d_rot_linear_regr_t::slopeY</a></div><div class="ttdeci">int32_t slopeY</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00604">arm_2d_types.h:604</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

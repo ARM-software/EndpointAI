@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/__arm_2d_math.h File Reference</title>
+<title>arm-2d: __arm_2d_math.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -84,8 +86,7 @@ $(document).ready(function(){initNavTree('____arm__2d__math_8h.html',''); initRe
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle"><div class="title">__arm_2d_math.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -116,13 +117,6 @@ Macros</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:a49736383ceddf92e73a0620e13185b2f"><td class="memItemLeft" align="right" valign="top">typedef float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__math_8h.html#a49736383ceddf92e73a0620e13185b2f">float16_t</a></td></tr>
 <tr class="separator:a49736383ceddf92e73a0620e13185b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a496c7de78c2242b9de0ea62ff19b3187"><td class="memItemLeft" align="right" valign="top">__STATIC_FORCEINLINE int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__math_8h.html#a496c7de78c2242b9de0ea62ff19b3187">__QDADD</a> (int32_t x, int32_t y)</td></tr>
-<tr class="separator:a496c7de78c2242b9de0ea62ff19b3187"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea80dcc47395b0f568160398c70d1b7c"><td class="memItemLeft" align="right" valign="top">__STATIC_FORCEINLINE int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="____arm__2d__math_8h.html#aea80dcc47395b0f568160398c70d1b7c">__QDSUB</a> (int32_t x, int32_t y)</td></tr>
-<tr class="separator:aea80dcc47395b0f568160398c70d1b7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a94026a8222e1438f86fdb8c36b381903" name="a94026a8222e1438f86fdb8c36b381903"></a>
@@ -341,73 +335,6 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="____arm__2d__math_8h_source.html#l00065">65</a> of file <a class="el" href="____arm__2d__math_8h_source.html">__arm_2d_math.h</a>.</p>
 
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a496c7de78c2242b9de0ea62ff19b3187" name="a496c7de78c2242b9de0ea62ff19b3187"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a496c7de78c2242b9de0ea62ff19b3187">&#9670;&nbsp;</a></span>__QDADD()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__STATIC_FORCEINLINE int32_t __QDADD </td>
-          <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="____arm__2d__math_8h_source.html#l00156">156</a> of file <a class="el" href="____arm__2d__math_8h_source.html">__arm_2d_math.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  159</span>{</div>
-<div class="line"><span class="lineno">  160</span>    <span class="keywordflow">return</span> ((int32_t)(clip_q63_to_q31((q63_t)x + (q63_t)y*2)));</div>
-<div class="line"><span class="lineno">  161</span>}</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="aea80dcc47395b0f568160398c70d1b7c" name="aea80dcc47395b0f568160398c70d1b7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea80dcc47395b0f568160398c70d1b7c">&#9670;&nbsp;</a></span>__QDSUB()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">__STATIC_FORCEINLINE int32_t __QDSUB </td>
-          <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="____arm__2d__math_8h_source.html#l00165">165</a> of file <a class="el" href="____arm__2d__math_8h_source.html">__arm_2d_math.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  168</span>{</div>
-<div class="line"><span class="lineno">  169</span>    <span class="keywordflow">return</span> ((int32_t)(clip_q63_to_q31((q63_t)x - (q63_t)2*y)));</div>
-<div class="line"><span class="lineno">  170</span>}</div>
-</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

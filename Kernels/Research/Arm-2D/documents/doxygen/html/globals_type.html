@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -84,108 +86,39 @@ $(document).ready(function(){initNavTree('globals_type.html',''); initResizable(
 <div class="contents">
 &#160;
 
-<h3><a id="index__5F" name="index__5F"></a>- _ -</h3><ul>
-<li>__arm_2d_io_func_t&#160;:&#160;<a class="el" href="____arm__2d__impl_8h.html#a537d0b7df8ec51f645a23dc843b56a4b">__arm_2d_impl.h</a></li>
-<li>__arm_2d_low_level_io_t&#160;:&#160;<a class="el" href="____arm__2d__impl_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_impl.h</a>, <a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">arm_2d_types.h</a></li>
-<li>__arm_2d_op_info_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a955bdd1e3946a72370f5d0c67fcbb717">arm_2d_types.h</a></li>
-<li>__arm_2d_param_copy_msk_t&#160;:&#160;<a class="el" href="____arm__2d__impl_8h.html#a4319e1ef2a10870277fc843022818644">__arm_2d_impl.h</a></li>
-<li>__arm_2d_param_copy_orig_msk_t&#160;:&#160;<a class="el" href="____arm__2d__impl_8h.html#a29ca01a257cc7c178ddbf52aff18e693">__arm_2d_impl.h</a></li>
-<li>__arm_2d_param_copy_orig_t&#160;:&#160;<a class="el" href="____arm__2d__impl_8h.html#abb016ca25557eaab8f24829c2b5bcd4c">__arm_2d_impl.h</a></li>
-<li>__arm_2d_param_copy_t&#160;:&#160;<a class="el" href="____arm__2d__impl_8h.html#a024ff54c32378e0eb9543927ecefdc12">__arm_2d_impl.h</a></li>
-<li>__arm_2d_param_fill_msk_t&#160;:&#160;<a class="el" href="____arm__2d__impl_8h.html#a0bcbc0c397921db92d588dc1e93dd401">__arm_2d_impl.h</a></li>
-<li>__arm_2d_param_fill_orig_t&#160;:&#160;<a class="el" href="____arm__2d__impl_8h.html#a720c69943015d15ca2a3613b9a49449f">__arm_2d_impl.h</a></li>
-<li>__arm_2d_param_fill_t&#160;:&#160;<a class="el" href="____arm__2d__impl_8h.html#ade4018b067fe38430a9f371ca7601dbc">__arm_2d_impl.h</a></li>
-<li>__arm_2d_point_adj_alpha_t&#160;:&#160;<a class="el" href="____arm__2d__impl_8h.html#a9f6565be843d9910a4bb22514613162e">__arm_2d_impl.h</a></li>
-<li>__arm_2d_sub_task_t&#160;:&#160;<a class="el" href="____arm__2d__impl_8h.html#ab73c5561bbb9f10f4c5d0b9ed4fd0557">__arm_2d_impl.h</a></li>
-<li>__arm_2d_tile_param_t&#160;:&#160;<a class="el" href="____arm__2d__impl_8h.html#afed38fdc74c38e9469c51ab48a14b8ce">__arm_2d_impl.h</a></li>
-<li>__arm_2d_transform_info_t&#160;:&#160;<a class="el" href="arm__2d__transform_8h.html#af56a12b07aaefec0ff0f526bffc6da3f">arm_2d_transform.h</a></li>
-<li>__arm_slist_node_t&#160;:&#160;<a class="el" href="arm__2d__utils_8h.html#ab1cfdfd4d793bf2aa9f7862733be694e">arm_2d_utils.h</a></li>
-</ul>
-
-
 <h3><a id="index_a" name="index_a"></a>- a -</h3><ul>
 <li>arm_2d_c8bit_cl_key_paving_1x1&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a56062b43443887f85b722c7742e00296">__arm_2d_paving.h</a></li>
 <li>arm_2d_c8bit_cl_key_paving_1x2&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#af723043f5d2bda991ce2a7a8acceb013">__arm_2d_paving.h</a></li>
 <li>arm_2d_c8bit_cl_key_paving_2x1&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a5a10cafb7c5328f481c3a63ebbab9e72">__arm_2d_paving.h</a></li>
 <li>arm_2d_c8bit_cl_key_paving_2x2&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#aa654722c884a7935459d34cdd0aa1d58">__arm_2d_paving.h</a></li>
-<li>arm_2d_c8bit_cl_key_paving_fct_t&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#ab8dbadc638048466a77badf8be224d7d">__arm_2d_paving.h</a></li>
 <li>arm_2d_c8bit_paving_1x1&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a1bf0f0c05e8e54b6ee73ade50c9df2e3">__arm_2d_paving.h</a></li>
 <li>arm_2d_c8bit_paving_1x2&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#ae09f925d684e7cc0693b69bd088db530">__arm_2d_paving.h</a></li>
 <li>arm_2d_c8bit_paving_2x1&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#aa888dadd4683eb8c6a00aae23508e4d1">__arm_2d_paving.h</a></li>
 <li>arm_2d_c8bit_paving_2x2&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a0f7c03ed50077f924a5c12c1e030595f">__arm_2d_paving.h</a></li>
-<li>arm_2d_c8bit_paving_fct_t&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#aa17c7c43bf89689ff3c101376cd9b59d">__arm_2d_paving.h</a></li>
-<li>arm_2d_color_accc8888_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a82d9076e9d39e2482c05a2e216349509">arm_2d_types.h</a></li>
-<li>arm_2d_color_ccca8888_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a0a073292efe01af1845789f5ccead67a">arm_2d_types.h</a></li>
-<li>arm_2d_color_cccn888_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a5b598ae0bda224338e6c52053b842e77">arm_2d_types.h</a></li>
-<li>arm_2d_color_nccc888_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#acc9dc316cb4c2266226cd9f94afa2e8f">arm_2d_types.h</a></li>
-<li>arm_2d_color_rgb565_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a429053f653557847843b5ddacdc68758">arm_2d_types.h</a></li>
-<li>arm_2d_color_rgb888_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#aa009ffc21a0912bf823f33e8b61aa358">arm_2d_types.h</a></li>
-<li>arm_2d_color_rgba8888_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a7136016c4851c73def591869155da193">arm_2d_types.h</a></li>
 <li>arm_2d_evt_handler_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#aa694e2eb6d25481ef5cc3cc4bbc20eb1">arm_2d_types.h</a></li>
-<li>arm_2d_evt_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a3b8dfc9679796ba365228a103f1f2b2e">arm_2d_types.h</a></li>
-<li>arm_2d_helper_draw_evt_t&#160;:&#160;<a class="el" href="arm__2d__helper__pfb_8h.html#a16c493170e986c727f483baed997a816">arm_2d_helper_pfb.h</a></li>
 <li>arm_2d_helper_draw_handler_t&#160;:&#160;<a class="el" href="arm__2d__helper__pfb_8h.html#a895cc320ceab0ca0bd10b999787b2d6c">arm_2d_helper_pfb.h</a></li>
-<li>arm_2d_helper_pfb_cfg_t&#160;:&#160;<a class="el" href="arm__2d__helper__pfb_8h.html#a97a1c0cc62b3fe373e34c8e73a840c20">arm_2d_helper_pfb.h</a></li>
-<li>arm_2d_helper_pfb_dependency_t&#160;:&#160;<a class="el" href="arm__2d__helper__pfb_8h.html#abd1af5301a54f23216c9035874e256e3">arm_2d_helper_pfb.h</a></li>
-<li>arm_2d_helper_pfb_t&#160;:&#160;<a class="el" href="arm__2d__helper__pfb_8h.html#a5e01262adc2779a4dfa77de86bf24a4a">arm_2d_helper_pfb.h</a></li>
-<li>arm_2d_helper_render_evt_t&#160;:&#160;<a class="el" href="arm__2d__helper__pfb_8h.html#a3f78826b710027f5f9745ecf23ac2ebb">arm_2d_helper_pfb.h</a></li>
 <li>arm_2d_helper_render_handler_t&#160;:&#160;<a class="el" href="arm__2d__helper__pfb_8h.html#a03c2991d31bd58c8a1d5303fb9460f39">arm_2d_helper_pfb.h</a></li>
-<li>arm_2d_location_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a8b306d4b070a537600d438468f438f4c">arm_2d_types.h</a></li>
-<li>arm_2d_op_alpha_cl_key_t&#160;:&#160;<a class="el" href="arm__2d__alpha__blending_8h.html#a63f5be759dabcaef33ae09801e534685">arm_2d_alpha_blending.h</a></li>
-<li>arm_2d_op_alpha_fill_cl_msk_opc_t&#160;:&#160;<a class="el" href="arm__2d__alpha__blending_8h.html#a5ad886151b69b73bfc52230246383927">arm_2d_alpha_blending.h</a></li>
-<li>arm_2d_op_alpha_t&#160;:&#160;<a class="el" href="arm__2d__alpha__blending_8h.html#ae5fdee325a8f76bddc0924b21d006317">arm_2d_alpha_blending.h</a></li>
 <li>arm_2d_op_cl_convt_t&#160;:&#160;<a class="el" href="arm__2d__conversion_8h.html#a188510a195fbaa9f8f29b2c90a2b7bfc">arm_2d_conversion.h</a></li>
-<li>arm_2d_op_core_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a4abd85dfa67927a33fc7eb74f45c1502">arm_2d_types.h</a></li>
-<li>arm_2d_op_cp_cl_key_t&#160;:&#160;<a class="el" href="arm__2d__tile_8h.html#ac4fc5dbc8786ec8652293c5bd12211ab">arm_2d_tile.h</a></li>
 <li>arm_2d_op_cp_msk_t&#160;:&#160;<a class="el" href="arm__2d__alpha__blending_8h.html#a8d81a82d787906c56381e84f8944969f">arm_2d_alpha_blending.h</a></li>
 <li>arm_2d_op_cp_t&#160;:&#160;<a class="el" href="arm__2d__tile_8h.html#a7a8963fd261ac942f11c9d9cd03f7b34">arm_2d_tile.h</a></li>
-<li>arm_2d_op_drw_patn_t&#160;:&#160;<a class="el" href="arm__2d__draw_8h.html#a2379c8e2c0a92a8bab9021fb3242ab8e">arm_2d_draw.h</a></li>
 <li>arm_2d_op_drw_pt_t&#160;:&#160;<a class="el" href="arm__2d__draw_8h.html#af61a63647f542cf8d119608634fd8d72">arm_2d_draw.h</a></li>
 <li>arm_2d_op_evt_handler_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a4e7011e388565d69bc0a1abd1edb636e">arm_2d_types.h</a></li>
-<li>arm_2d_op_evt_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a8334a6547ffc953f1ccab5ddd4eee310">arm_2d_types.h</a></li>
-<li>arm_2d_op_fill_cl_msk_t&#160;:&#160;<a class="el" href="arm__2d__alpha__blending_8h.html#ac630dc7037645aca237f9f04a3dfeeb1">arm_2d_alpha_blending.h</a></li>
-<li>arm_2d_op_fill_cl_opc_t&#160;:&#160;<a class="el" href="arm__2d__alpha__blending_8h.html#a03e5d3a05029af7ef3c87b408562f02f">arm_2d_alpha_blending.h</a></li>
-<li>arm_2d_op_fill_cl_t&#160;:&#160;<a class="el" href="arm__2d__draw_8h.html#ad08bd60fc842432ac62f8e917fb3a697">arm_2d_draw.h</a></li>
-<li>arm_2d_op_msk_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#ac61d97a4b379fc596ec19aefec5afc62">arm_2d_types.h</a></li>
-<li>arm_2d_op_src_msk_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#aab4dfe5b2202ffecae0084f84b360ff0">arm_2d_types.h</a></li>
-<li>arm_2d_op_src_orig_msk_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a2f06d594fe5429db139c7cc2f254c46f">arm_2d_types.h</a></li>
-<li>arm_2d_op_src_orig_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a1fa121898bd6dd0a3f137ada0afa1a58">arm_2d_types.h</a></li>
-<li>arm_2d_op_src_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#ad1012bd19c2fbcda232fb1e86ac22e91">arm_2d_types.h</a></li>
-<li>arm_2d_op_status_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a161719a3d659040158e5e663a29e2f4b">arm_2d_types.h</a></li>
-<li>arm_2d_op_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a34589c022e1fdfe07ad040a3f1b9b1ed">arm_2d_types.h</a></li>
-<li>arm_2d_op_trans_msk_opa_t&#160;:&#160;<a class="el" href="arm__2d__transform_8h.html#a432369db6b1f5e7b0df76f98215b0e45">arm_2d_transform.h</a></li>
-<li>arm_2d_op_trans_msk_t&#160;:&#160;<a class="el" href="arm__2d__transform_8h.html#ab6ecce3e82048bc65c7c546c65004319">arm_2d_transform.h</a></li>
-<li>arm_2d_op_trans_opa_t&#160;:&#160;<a class="el" href="arm__2d__transform_8h.html#a3cb26fee83664c650245ee59699b9a90">arm_2d_transform.h</a></li>
-<li>arm_2d_op_trans_t&#160;:&#160;<a class="el" href="arm__2d__transform_8h.html#a350da7f17a2947ec97f42ee3e98782a7">arm_2d_transform.h</a></li>
-<li>arm_2d_pfb_t&#160;:&#160;<a class="el" href="arm__2d__helper__pfb_8h.html#a473a7dca4fe7cca1538870e2bb123e70">arm_2d_helper_pfb.h</a></li>
-<li>arm_2d_point_float_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#af63b19842ee9e51e2da6363584b8463b">arm_2d_types.h</a></li>
-<li>arm_2d_point_fx_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a97c1aebfd9f9e52f65ebc4fb7d820607">arm_2d_types.h</a></li>
-<li>arm_2d_region_list_item_t&#160;:&#160;<a class="el" href="arm__2d__helper__pfb_8h.html#a14e0d84fbb315073b30a291c24fae599">arm_2d_helper_pfb.h</a></li>
-<li>arm_2d_region_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a5cca30ba8fa201b45e2f9de90930f596">arm_2d_types.h</a></li>
 <li>arm_2d_rgb16_cl_key_paving_1x1&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#aa559e477063e175a82bcff1c35f64ee4">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb16_cl_key_paving_1x2&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a2a7ccf3ce4f831b59178739d0532f076">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb16_cl_key_paving_2x1&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a17278ebcc30c03a316b8ded470718251">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb16_cl_key_paving_2x2&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#acf0fe5758e6490646d2908da7441dc2a">__arm_2d_paving.h</a></li>
-<li>arm_2d_rgb16_cl_key_paving_fct_t&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#ab0e54b603e8891657c087261658d3859">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb16_paving_1x1&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a1e8847150bb67e398d195b6086e09d95">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb16_paving_1x2&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a23ee1e003a05a04844cd20be03f55d0b">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb16_paving_2x1&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a96527a124674600cd2c6317e1ed476ad">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb16_paving_2x2&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a424a48c75fb19bbe5a3d8d62339ceb46">__arm_2d_paving.h</a></li>
-<li>arm_2d_rgb16_paving_fct_t&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a1f6b40641ad1a52bedf51459dcd46696">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb32_cl_key_paving_1x1&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#aab88353f0e4afe72fd0659449a7dc086">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb32_cl_key_paving_1x2&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#aa17579f9d38df70c898fd4eb5e058f2c">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb32_cl_key_paving_2x1&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a16eb11d20a2b34dbeeaffb41b8d30c83">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb32_cl_key_paving_2x2&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#aaffdb50efb8ae4eb27e8e6bf57233df8">__arm_2d_paving.h</a></li>
-<li>arm_2d_rgb32_cl_key_paving_fct_t&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a9ba14265402c57c3c611d856ae9943d0">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb32_paving_1x1&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a2fa5503e39d2f7eaae85a4d8e9931b7f">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb32_paving_1x2&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a2fc2b44173abbf24de4d4b178b27ce8d">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb32_paving_2x1&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#adb84bd4bfa5c8c2e0340510cf53d2b7a">__arm_2d_paving.h</a></li>
 <li>arm_2d_rgb32_paving_2x2&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#abe1a7936fe788f34a3fbebb5146d73be">__arm_2d_paving.h</a></li>
-<li>arm_2d_rgb32_paving_fct_t&#160;:&#160;<a class="el" href="____arm__2d__paving_8h.html#a39c3ce95b9602c3ebe193400689e323e">__arm_2d_paving.h</a></li>
-<li>arm_2d_rot_linear_regr_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#ab66334fbe55ed3e8b911679feddb3a67">arm_2d_types.h</a></li>
-<li>arm_2d_size_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#ad7ce85b93fda2db317cab6c4b2611376">arm_2d_types.h</a></li>
-<li>arm_2d_task_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#ae89e05338277f72370067c20a50543bf">arm_2d_types.h</a></li>
-<li>arm_2d_tile_t&#160;:&#160;<a class="el" href="arm__2d__types_8h.html#a79cd23de9e091278cb041dc39d142189">arm_2d_types.h</a></li>
 </ul>
 
 

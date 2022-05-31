@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Source/__arm_2d_meta_copy_with_masks_helium.inc Source File</title>
+<title>arm-2d: __arm_2d_meta_copy_with_masks_helium.inc Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -224,42 +226,42 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="comment"> *----------------------------------------------------------------------------*/</span></div>
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
 <div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>__OVERRIDE_WEAK</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="keywordtype">void</span> __MCWM_FUNC(masks_fill)(</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                        __API_MCWM_INT_TYPE * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceBase,</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                        __API_MCWM_INT_TYPE * __RESTRICT ptSourceBase,</div>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                        int16_t iSourceStride,</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceSize,</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceSize,</div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="preprocessor">                    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                        uint32_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                        uint32_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="preprocessor">                    #else</span></div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                        uint8_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                        uint8_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="preprocessor">                    #endif</span></div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                        int16_t iSourceMaskStride,</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskSize,</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceMaskSize,</div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                        __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetBase,</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                        __API_MCWM_INT_TYPE *__RESTRICT ptTargetBase,</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                        int16_t iTargetStride,</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetSize,</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetSize,</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="preprocessor">                    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                        uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                        uint32_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="preprocessor">                    #else</span></div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                        uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                        uint8_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="preprocessor">                    #endif</span></div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                        int16_t iTargetMaskStride,</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskSize)</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetMaskSize)</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>{</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    __API_MCWM_PIXEL_VECTYP      v256 = <a class="code hl_define" href="arm__2d__utils_8h.html#ad6a67ffa29074439ce99988dac033e42">ARM_CONNECT2</a>(vdupq_n_u, __API_MCWM_PIXEL_BIT_NUM)(256);</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="preprocessor">#if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskLineBase = ptTargetMaskBase;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskLineBase = ptTargetMaskBase;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">for</span> (int_fast16_t iTargetY = 0; iTargetY &lt; ptTargetSize-&gt;iHeight;) {</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a> = ptSourceBase;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        __API_MCWM_INT_TYPE *__RESTRICT <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a> = ptSourceBase;</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        uint32_t *<a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a> = ptSourceMaskBase;</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="preprocessor">    #else</span></div>
@@ -272,11 +274,11 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <span class="keywordflow">for</span> (int_fast16_t iSourceY = 0; iSourceY &lt; ptSourceSize-&gt;iHeight; iSourceY++) {</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a> = ptTargetBase;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            __API_MCWM_INT_TYPE *__RESTRICT <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a> = ptTargetBase;</div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="preprocessor">        #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMask = ptTargetMaskLineBase;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="preprocessor">        #else</span></div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMask = ptTargetMaskLineBase;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;</div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="preprocessor">        #endif</span></div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            <span class="comment">/*---------------- Height Loop Begin----------------*/</span></div>
@@ -286,8 +288,8 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                uint_fast32_t   wLength = <a class="code hl_define" href="____arm__2d__math_8h.html#a3acffbd305ee72dcd4593c0d8af64a4f">MIN</a>(wLengthLeft, ptSourceSize-&gt;iWidth);</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                <span class="comment">/*---------------- Width Loop Begin----------------*/</span></div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>                __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrc = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a>;</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetCur = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a>;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>                __API_MCWM_INT_TYPE       *__RESTRICT ptSrc = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a>;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                __API_MCWM_INT_TYPE       *__RESTRICT ptTargetCur = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a>;</div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE || \</span></div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="preprocessor">                        __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
@@ -297,14 +299,14 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
 <div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>                uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>                uint32_t       *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="preprocessor">            #else</span></div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>                uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>                uint8_t        *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>                uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>                uint32_t       *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="preprocessor">            #else</span></div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                uint8_t        *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                int32_t         blkCnt = wLength;</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
@@ -412,42 +414,42 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="comment">/* but allows faster processing with vector of 8 elements  */</span></div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="comment">/* slightly faster than version above but deviates from 8 &amp; 16-bit template versions */</span></div>
 <div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span> </div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>__OVERRIDE_WEAK</div>
 <div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span><span class="keywordtype">void</span> __MCWM_FUNC(masks_fill_alt)(</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>                        __API_MCWM_INT_TYPE * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceBase,</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>                        __API_MCWM_INT_TYPE * __RESTRICT ptSourceBase,</div>
 <div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>                        int16_t iSourceStride,</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceSize,</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceSize,</div>
 <div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
 <div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="preprocessor">                    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>                        uint32_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>                        uint32_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="preprocessor">                    #else</span></div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>                        uint8_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>                        uint8_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="preprocessor">                    #endif</span></div>
 <div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>                        int16_t iSourceMaskStride,</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskSize,</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceMaskSize,</div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>                        __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetBase,</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>                        __API_MCWM_INT_TYPE *__RESTRICT ptTargetBase,</div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>                        int16_t iTargetStride,</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetSize,</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetSize,</div>
 <div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span><span class="preprocessor">                    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>                        uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>                        uint32_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="preprocessor">                    #else</span></div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>                        uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>                        uint8_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span><span class="preprocessor">                    #endif</span></div>
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>                        int16_t iTargetMaskStride,</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskSize)</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetMaskSize)</div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>{</div>
 <div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    __API_MCWM_PIXEL_VECTYP      v256 = <a class="code hl_define" href="arm__2d__utils_8h.html#ad6a67ffa29074439ce99988dac033e42">ARM_CONNECT2</a>(vdupq_n_u, __API_MCWM_PIXEL_BIT_NUM)(256);</div>
 <div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span> </div>
 <div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span><span class="preprocessor">#if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskLineBase = ptTargetMaskBase;</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;</div>
 <div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskLineBase = ptTargetMaskBase;</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;</div>
 <div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span> </div>
 <div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    <span class="keywordflow">for</span> (int_fast16_t iTargetY = 0; iTargetY &lt; ptTargetSize-&gt;iHeight;) {</div>
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span> </div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>        __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a> = ptSourceBase;</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>        __API_MCWM_INT_TYPE *__RESTRICT <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a> = ptSourceBase;</div>
 <div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
 <div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        uint32_t *<a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a> = ptSourceMaskBase;</div>
 <div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span><span class="preprocessor">    #else</span></div>
@@ -460,11 +462,11 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span> </div>
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>        <span class="keywordflow">for</span> (int_fast16_t iSourceY = 0; iSourceY &lt; ptSourceSize-&gt;iHeight; iSourceY++) {</div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span> </div>
-<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>            __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a> = ptTargetBase;</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>            __API_MCWM_INT_TYPE *__RESTRICT <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a> = ptTargetBase;</div>
 <div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span><span class="preprocessor">        #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>            uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMask = ptTargetMaskLineBase;</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;</div>
 <div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span><span class="preprocessor">        #else</span></div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>            uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMask = ptTargetMaskLineBase;</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;</div>
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span><span class="preprocessor">        #endif</span></div>
 <div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span> </div>
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>            <span class="comment">/*---------------- Height Loop Begin----------------*/</span></div>
@@ -478,22 +480,22 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>                <span class="comment">/*</span></div>
 <div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span><span class="comment">                 * chan 0 (scat / gath with 8x16 elements )</span></div>
 <div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span><span class="comment">                 */</span></div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>                __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrc = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a>;</div>
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>                __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetCur = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a>;</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>                __API_MCWM_INT_TYPE       *__RESTRICT ptSrc = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a>;</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>                __API_MCWM_INT_TYPE       *__RESTRICT ptTargetCur = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a>;</div>
 <div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span> </div>
 <div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>                uint32_t        curIncStride4Idx = 0;</div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>                __API_MCWM_PIXEL_VECTYP      vIncStride4Offs = <a class="code hl_define" href="arm__2d__utils_8h.html#ad6a67ffa29074439ce99988dac033e42">ARM_CONNECT2</a>(vidupq_wb_u, __API_MCWM_PIXEL_BIT_NUM)(&amp;curIncStride4Idx, 4);</div>
 <div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span> </div>
 <div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span> </div>
 <div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>                uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>                uint32_t       *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span><span class="preprocessor">            #else</span></div>
-<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>                uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>                uint8_t        *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>                uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>                uint32_t       *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span><span class="preprocessor">            #else</span></div>
-<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>                uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>                uint8_t        *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>                int32_t         blkCnt = wLength;</div>
 <div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span> </div>
@@ -732,43 +734,43 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span> </div>
 <div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span> </div>
 <div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span> </div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>__OVERRIDE_WEAK</div>
 <div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span><span class="keywordtype">void</span> __MCWM_FUNC(masks_fill_x_mirror)(</div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>                        __API_MCWM_INT_TYPE * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceBase,</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>                        __API_MCWM_INT_TYPE * __RESTRICT ptSourceBase,</div>
 <div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>                        int16_t iSourceStride,</div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceSize,</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceSize,</div>
 <div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span> </div>
 <div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span><span class="preprocessor">                    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>                        uint32_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>                        uint32_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span><span class="preprocessor">                    #else</span></div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>                        uint8_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>                        uint8_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span><span class="preprocessor">                    #endif</span></div>
 <div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>                        int16_t iSourceMaskStride,</div>
-<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskSize,</div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceMaskSize,</div>
 <div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span> </div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>                        __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetBase,</div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>                        __API_MCWM_INT_TYPE *__RESTRICT ptTargetBase,</div>
 <div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>                        int16_t iTargetStride,</div>
-<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetSize,</div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetSize,</div>
 <div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span> </div>
 <div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span><span class="preprocessor">                    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>                        uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>                        uint32_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span><span class="preprocessor">                    #else</span></div>
-<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>                        uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>                        uint8_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span><span class="preprocessor">                    #endif</span></div>
 <div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>                        int16_t iTargetMaskStride,</div>
-<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskSize)</div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetMaskSize)</div>
 <div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>{</div>
 <div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>    __API_MCWM_PIXEL_VECTYP      v256 = <a class="code hl_define" href="arm__2d__utils_8h.html#ad6a67ffa29074439ce99988dac033e42">ARM_CONNECT2</a>(vdupq_n_u, __API_MCWM_PIXEL_BIT_NUM)(256);</div>
 <div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>    uint16_t        srcWidth = ptSourceSize-&gt;iWidth;</div>
 <div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span><span class="preprocessor">#if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>    uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskLineBase = ptTargetMaskBase;</div>
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;</div>
 <div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>    uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskLineBase = ptTargetMaskBase;</div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;</div>
 <div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span> </div>
 <div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>    <span class="keywordflow">for</span> (int_fast16_t iTargetY = 0; iTargetY &lt; ptTargetSize-&gt;iHeight;) {</div>
 <div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span> </div>
-<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>        __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a> = ptSourceBase;</div>
+<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>        __API_MCWM_INT_TYPE *__RESTRICT <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a> = ptSourceBase;</div>
 <div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
 <div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>        uint32_t *<a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a> = ptSourceMaskBase;</div>
 <div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span><span class="preprocessor">    #else</span></div>
@@ -780,12 +782,12 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span> </div>
 <div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>        <span class="keywordflow">for</span> (int_fast16_t iSourceY = 0; iSourceY &lt; ptSourceSize-&gt;iHeight; iSourceY++) {</div>
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>            __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a> = ptTargetBase;</div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>            __API_MCWM_INT_TYPE *__RESTRICT <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a> = ptTargetBase;</div>
 <div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span> </div>
 <div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span><span class="preprocessor">        #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>            uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMask = ptTargetMaskLineBase;</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;</div>
 <div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span><span class="preprocessor">        #else</span></div>
-<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>            uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMask = ptTargetMaskLineBase;</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;</div>
 <div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span><span class="preprocessor">        #endif</span></div>
 <div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span> </div>
 <div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>            <span class="comment">/*---------------- Height Loop Begin----------------*/</span></div>
@@ -795,8 +797,8 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>                uint_fast32_t   wLength = <a class="code hl_define" href="____arm__2d__math_8h.html#a3acffbd305ee72dcd4593c0d8af64a4f">MIN</a>(wLengthLeft, ptSourceSize-&gt;iWidth);</div>
 <div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>                <span class="comment">/*---------------- Width Loop Begin----------------*/</span></div>
 <div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span> </div>
-<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>                __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrc = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a>;</div>
-<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>                __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetCur = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a>;</div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>                __API_MCWM_INT_TYPE       *__RESTRICT ptSrc = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a>;</div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>                __API_MCWM_INT_TYPE       *__RESTRICT ptTargetCur = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a>;</div>
 <div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span> </div>
 <div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
 <div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>                uint32_t        curIncStride4Idx = 0;</div>
@@ -805,14 +807,14 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span> </div>
 <div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>                uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>                uint32_t       *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span><span class="preprocessor">            #else</span></div>
-<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>                uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>                uint8_t        *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>                uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>                uint32_t       *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span><span class="preprocessor">            #else</span></div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>                uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>                uint8_t        *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span> </div>
 <div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>                uint32_t        curDecrStride1Idx = srcWidth - 1;</div>
@@ -920,31 +922,31 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span> </div>
 <div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span> </div>
 <div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span> </div>
-<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
+<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>__OVERRIDE_WEAK</div>
 <div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span><span class="keywordtype">void</span> __MCWM_FUNC(masks_fill_y_mirror)(</div>
-<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>                        __API_MCWM_INT_TYPE * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceBase,</div>
+<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>                        __API_MCWM_INT_TYPE * __RESTRICT ptSourceBase,</div>
 <div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>                        int16_t iSourceStride,</div>
-<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceSize,</div>
+<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceSize,</div>
 <div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span> </div>
 <div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span><span class="preprocessor">                    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>                        uint32_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>                        uint32_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span><span class="preprocessor">                    #else</span></div>
-<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>                        uint8_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>                        uint8_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span><span class="preprocessor">                    #endif</span></div>
 <div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span>                        int16_t iSourceMaskStride,</div>
-<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskSize,</div>
+<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceMaskSize,</div>
 <div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span> </div>
-<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span>                        __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetBase,</div>
+<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span>                        __API_MCWM_INT_TYPE *__RESTRICT ptTargetBase,</div>
 <div class="line"><a id="l00858" name="l00858"></a><span class="lineno">  858</span>                        int16_t iTargetStride,</div>
-<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetSize,</div>
+<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetSize,</div>
 <div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span> </div>
 <div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span><span class="preprocessor">                    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>                        uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>                        uint32_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span><span class="preprocessor">                    #else</span></div>
-<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>                        uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>                        uint8_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l00865" name="l00865"></a><span class="lineno">  865</span><span class="preprocessor">                    #endif</span></div>
 <div class="line"><a id="l00866" name="l00866"></a><span class="lineno">  866</span>                        int16_t iTargetMaskStride,</div>
-<div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskSize)</div>
+<div class="line"><a id="l00867" name="l00867"></a><span class="lineno">  867</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetMaskSize)</div>
 <div class="line"><a id="l00868" name="l00868"></a><span class="lineno">  868</span>{</div>
 <div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span>    __API_MCWM_PIXEL_VECTYP      v256 = <a class="code hl_define" href="arm__2d__utils_8h.html#ad6a67ffa29074439ce99988dac033e42">ARM_CONNECT2</a>(vdupq_n_u, __API_MCWM_PIXEL_BIT_NUM)(256);</div>
 <div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span> </div>
@@ -952,14 +954,14 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00872" name="l00872"></a><span class="lineno">  872</span>    ptSourceMaskBase += iSourceMaskStride * (ptSourceSize-&gt;iHeight - 1);</div>
 <div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span> </div>
 <div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span><span class="preprocessor">#if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span>    uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskLineBase = ptTargetMaskBase;</div>
+<div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span>    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;</div>
 <div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span>    uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskLineBase = ptTargetMaskBase;</div>
+<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span>    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;</div>
 <div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span> </div>
 <div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>    <span class="keywordflow">for</span> (int_fast16_t iTargetY = 0; iTargetY &lt; ptTargetSize-&gt;iHeight;) {</div>
 <div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span> </div>
-<div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>        __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a></div>
+<div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>        __API_MCWM_INT_TYPE *__RESTRICT <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a></div>
 <div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>            = ptSourceBase + iSourceStride * (ptSourceSize-&gt;iHeight - 1);</div>
 <div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span> </div>
 <div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
@@ -974,11 +976,11 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span> </div>
 <div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>        <span class="keywordflow">for</span> (int_fast16_t iSourceY = 0; iSourceY &lt; ptSourceSize-&gt;iHeight; iSourceY++) {</div>
 <div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span> </div>
-<div class="line"><a id="l00898" name="l00898"></a><span class="lineno">  898</span>            __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a> = ptTargetBase;</div>
+<div class="line"><a id="l00898" name="l00898"></a><span class="lineno">  898</span>            __API_MCWM_INT_TYPE *__RESTRICT <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a> = ptTargetBase;</div>
 <div class="line"><a id="l00899" name="l00899"></a><span class="lineno">  899</span><span class="preprocessor">        #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00900" name="l00900"></a><span class="lineno">  900</span>            uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMask = ptTargetMaskLineBase;</div>
+<div class="line"><a id="l00900" name="l00900"></a><span class="lineno">  900</span>            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;</div>
 <div class="line"><a id="l00901" name="l00901"></a><span class="lineno">  901</span><span class="preprocessor">        #else</span></div>
-<div class="line"><a id="l00902" name="l00902"></a><span class="lineno">  902</span>            uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMask = ptTargetMaskLineBase;</div>
+<div class="line"><a id="l00902" name="l00902"></a><span class="lineno">  902</span>            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;</div>
 <div class="line"><a id="l00903" name="l00903"></a><span class="lineno">  903</span><span class="preprocessor">        #endif</span></div>
 <div class="line"><a id="l00904" name="l00904"></a><span class="lineno">  904</span> </div>
 <div class="line"><a id="l00905" name="l00905"></a><span class="lineno">  905</span>            <span class="comment">/*---------------- Height Loop Begin----------------*/</span></div>
@@ -988,8 +990,8 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00909" name="l00909"></a><span class="lineno">  909</span>                uint_fast32_t   wLength = <a class="code hl_define" href="____arm__2d__math_8h.html#a3acffbd305ee72dcd4593c0d8af64a4f">MIN</a>(wLengthLeft, ptSourceSize-&gt;iWidth);</div>
 <div class="line"><a id="l00910" name="l00910"></a><span class="lineno">  910</span>                <span class="comment">/*---------------- Width Loop Begin----------------*/</span></div>
 <div class="line"><a id="l00911" name="l00911"></a><span class="lineno">  911</span> </div>
-<div class="line"><a id="l00912" name="l00912"></a><span class="lineno">  912</span>                __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrc = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a>;</div>
-<div class="line"><a id="l00913" name="l00913"></a><span class="lineno">  913</span>                __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetCur = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a>;</div>
+<div class="line"><a id="l00912" name="l00912"></a><span class="lineno">  912</span>                __API_MCWM_INT_TYPE       *__RESTRICT ptSrc = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a>;</div>
+<div class="line"><a id="l00913" name="l00913"></a><span class="lineno">  913</span>                __API_MCWM_INT_TYPE       *__RESTRICT ptTargetCur = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a>;</div>
 <div class="line"><a id="l00914" name="l00914"></a><span class="lineno">  914</span> </div>
 <div class="line"><a id="l00915" name="l00915"></a><span class="lineno">  915</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE || \</span></div>
 <div class="line"><a id="l00916" name="l00916"></a><span class="lineno">  916</span><span class="preprocessor">                        __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
@@ -999,14 +1001,14 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span> </div>
 <div class="line"><a id="l00922" name="l00922"></a><span class="lineno">  922</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span>                uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span>                uint32_t       *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span><span class="preprocessor">            #else</span></div>
-<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span>                uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span>                uint8_t        *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l00926" name="l00926"></a><span class="lineno">  926</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l00928" name="l00928"></a><span class="lineno">  928</span>                uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l00928" name="l00928"></a><span class="lineno">  928</span>                uint32_t       *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l00929" name="l00929"></a><span class="lineno">  929</span><span class="preprocessor">            #else</span></div>
-<div class="line"><a id="l00930" name="l00930"></a><span class="lineno">  930</span>                uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l00930" name="l00930"></a><span class="lineno">  930</span>                uint8_t        *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l00931" name="l00931"></a><span class="lineno">  931</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l00932" name="l00932"></a><span class="lineno">  932</span>                int32_t         blkCnt = wLength;</div>
 <div class="line"><a id="l00933" name="l00933"></a><span class="lineno">  933</span> </div>
@@ -1101,31 +1103,31 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01023" name="l01023"></a><span class="lineno"> 1023</span> </div>
 <div class="line"><a id="l01024" name="l01024"></a><span class="lineno"> 1024</span> </div>
 <div class="line"><a id="l01025" name="l01025"></a><span class="lineno"> 1025</span> </div>
-<div class="line"><a id="l01026" name="l01026"></a><span class="lineno"> 1026</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
+<div class="line"><a id="l01026" name="l01026"></a><span class="lineno"> 1026</span>__OVERRIDE_WEAK</div>
 <div class="line"><a id="l01027" name="l01027"></a><span class="lineno"> 1027</span><span class="keywordtype">void</span> __MCWM_FUNC(masks_fill_xy_mirror)(</div>
-<div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span>                        __API_MCWM_INT_TYPE * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceBase,</div>
+<div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span>                        __API_MCWM_INT_TYPE * __RESTRICT ptSourceBase,</div>
 <div class="line"><a id="l01029" name="l01029"></a><span class="lineno"> 1029</span>                        int16_t iSourceStride,</div>
-<div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceSize,</div>
+<div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceSize,</div>
 <div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span> </div>
 <div class="line"><a id="l01032" name="l01032"></a><span class="lineno"> 1032</span><span class="preprocessor">                    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l01033" name="l01033"></a><span class="lineno"> 1033</span>                        uint32_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l01033" name="l01033"></a><span class="lineno"> 1033</span>                        uint32_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l01034" name="l01034"></a><span class="lineno"> 1034</span><span class="preprocessor">                    #else</span></div>
-<div class="line"><a id="l01035" name="l01035"></a><span class="lineno"> 1035</span>                        uint8_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l01035" name="l01035"></a><span class="lineno"> 1035</span>                        uint8_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l01036" name="l01036"></a><span class="lineno"> 1036</span><span class="preprocessor">                    #endif</span></div>
 <div class="line"><a id="l01037" name="l01037"></a><span class="lineno"> 1037</span>                        int16_t iSourceMaskStride,</div>
-<div class="line"><a id="l01038" name="l01038"></a><span class="lineno"> 1038</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskSize,</div>
+<div class="line"><a id="l01038" name="l01038"></a><span class="lineno"> 1038</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceMaskSize,</div>
 <div class="line"><a id="l01039" name="l01039"></a><span class="lineno"> 1039</span> </div>
-<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span>                        __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetBase,</div>
+<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span>                        __API_MCWM_INT_TYPE *__RESTRICT ptTargetBase,</div>
 <div class="line"><a id="l01041" name="l01041"></a><span class="lineno"> 1041</span>                        int16_t iTargetStride,</div>
-<div class="line"><a id="l01042" name="l01042"></a><span class="lineno"> 1042</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetSize,</div>
+<div class="line"><a id="l01042" name="l01042"></a><span class="lineno"> 1042</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetSize,</div>
 <div class="line"><a id="l01043" name="l01043"></a><span class="lineno"> 1043</span> </div>
 <div class="line"><a id="l01044" name="l01044"></a><span class="lineno"> 1044</span><span class="preprocessor">                    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l01045" name="l01045"></a><span class="lineno"> 1045</span>                        uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l01045" name="l01045"></a><span class="lineno"> 1045</span>                        uint32_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l01046" name="l01046"></a><span class="lineno"> 1046</span><span class="preprocessor">                    #else</span></div>
-<div class="line"><a id="l01047" name="l01047"></a><span class="lineno"> 1047</span>                        uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l01047" name="l01047"></a><span class="lineno"> 1047</span>                        uint8_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l01048" name="l01048"></a><span class="lineno"> 1048</span><span class="preprocessor">                    #endif</span></div>
 <div class="line"><a id="l01049" name="l01049"></a><span class="lineno"> 1049</span>                        int16_t iTargetMaskStride,</div>
-<div class="line"><a id="l01050" name="l01050"></a><span class="lineno"> 1050</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskSize)</div>
+<div class="line"><a id="l01050" name="l01050"></a><span class="lineno"> 1050</span>                        <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetMaskSize)</div>
 <div class="line"><a id="l01051" name="l01051"></a><span class="lineno"> 1051</span>{</div>
 <div class="line"><a id="l01052" name="l01052"></a><span class="lineno"> 1052</span>    assert(ptSourceSize-&gt;iHeight &lt;= ptSourceMaskSize-&gt;iHeight);</div>
 <div class="line"><a id="l01053" name="l01053"></a><span class="lineno"> 1053</span>    ptSourceMaskBase += iSourceMaskStride * (ptSourceSize-&gt;iHeight - 1);</div>
@@ -1133,14 +1135,14 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01055" name="l01055"></a><span class="lineno"> 1055</span>    __API_MCWM_PIXEL_VECTYP      v256 = <a class="code hl_define" href="arm__2d__utils_8h.html#ad6a67ffa29074439ce99988dac033e42">ARM_CONNECT2</a>(vdupq_n_u, __API_MCWM_PIXEL_BIT_NUM)(256);</div>
 <div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span>    __API_MCWM_INT_TYPE        srcWidth = ptSourceSize-&gt;iWidth;</div>
 <div class="line"><a id="l01057" name="l01057"></a><span class="lineno"> 1057</span><span class="preprocessor">#if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span>    uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskLineBase = ptTargetMaskBase;</div>
+<div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span>    uint32_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;</div>
 <div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span>    uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskLineBase = ptTargetMaskBase;</div>
+<div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span>    uint8_t *__RESTRICT ptTargetMaskLineBase = ptTargetMaskBase;</div>
 <div class="line"><a id="l01061" name="l01061"></a><span class="lineno"> 1061</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l01062" name="l01062"></a><span class="lineno"> 1062</span> </div>
 <div class="line"><a id="l01063" name="l01063"></a><span class="lineno"> 1063</span>    <span class="keywordflow">for</span> (int_fast16_t iTargetY = 0; iTargetY &lt; ptTargetSize-&gt;iHeight;) {</div>
 <div class="line"><a id="l01064" name="l01064"></a><span class="lineno"> 1064</span> </div>
-<div class="line"><a id="l01066" name="l01066"></a><span class="lineno"> 1066</span>        __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a></div>
+<div class="line"><a id="l01066" name="l01066"></a><span class="lineno"> 1066</span>        __API_MCWM_INT_TYPE *__RESTRICT <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a></div>
 <div class="line"><a id="l01067" name="l01067"></a><span class="lineno"> 1067</span>            = ptSourceBase + iSourceStride * (ptSourceSize-&gt;iHeight - 1);</div>
 <div class="line"><a id="l01068" name="l01068"></a><span class="lineno"> 1068</span> </div>
 <div class="line"><a id="l01069" name="l01069"></a><span class="lineno"> 1069</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
@@ -1154,12 +1156,12 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01077" name="l01077"></a><span class="lineno"> 1077</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l01078" name="l01078"></a><span class="lineno"> 1078</span> </div>
 <div class="line"><a id="l01079" name="l01079"></a><span class="lineno"> 1079</span>        <span class="keywordflow">for</span> (int_fast16_t iSourceY = 0; iSourceY &lt; ptSourceSize-&gt;iHeight; iSourceY++) {</div>
-<div class="line"><a id="l01080" name="l01080"></a><span class="lineno"> 1080</span>            __API_MCWM_INT_TYPE *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a> = ptTargetBase;</div>
+<div class="line"><a id="l01080" name="l01080"></a><span class="lineno"> 1080</span>            __API_MCWM_INT_TYPE *__RESTRICT <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a> = ptTargetBase;</div>
 <div class="line"><a id="l01081" name="l01081"></a><span class="lineno"> 1081</span> </div>
 <div class="line"><a id="l01082" name="l01082"></a><span class="lineno"> 1082</span><span class="preprocessor">        #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l01083" name="l01083"></a><span class="lineno"> 1083</span>            uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMask = ptTargetMaskLineBase;</div>
+<div class="line"><a id="l01083" name="l01083"></a><span class="lineno"> 1083</span>            uint32_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;</div>
 <div class="line"><a id="l01084" name="l01084"></a><span class="lineno"> 1084</span><span class="preprocessor">        #else</span></div>
-<div class="line"><a id="l01085" name="l01085"></a><span class="lineno"> 1085</span>            uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMask = ptTargetMaskLineBase;</div>
+<div class="line"><a id="l01085" name="l01085"></a><span class="lineno"> 1085</span>            uint8_t *__RESTRICT ptTargetMask = ptTargetMaskLineBase;</div>
 <div class="line"><a id="l01086" name="l01086"></a><span class="lineno"> 1086</span><span class="preprocessor">        #endif</span></div>
 <div class="line"><a id="l01087" name="l01087"></a><span class="lineno"> 1087</span> </div>
 <div class="line"><a id="l01088" name="l01088"></a><span class="lineno"> 1088</span>            <span class="comment">/*---------------- Height Loop Begin----------------*/</span></div>
@@ -1169,8 +1171,8 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01092" name="l01092"></a><span class="lineno"> 1092</span>                uint_fast32_t   wLength = <a class="code hl_define" href="____arm__2d__math_8h.html#a3acffbd305ee72dcd4593c0d8af64a4f">MIN</a>(wLengthLeft, ptSourceSize-&gt;iWidth);</div>
 <div class="line"><a id="l01093" name="l01093"></a><span class="lineno"> 1093</span>                <span class="comment">/*---------------- Width Loop Begin----------------*/</span></div>
 <div class="line"><a id="l01094" name="l01094"></a><span class="lineno"> 1094</span> </div>
-<div class="line"><a id="l01095" name="l01095"></a><span class="lineno"> 1095</span>                __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrc = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a>;</div>
-<div class="line"><a id="l01096" name="l01096"></a><span class="lineno"> 1096</span>                __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetCur = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a>;</div>
+<div class="line"><a id="l01095" name="l01095"></a><span class="lineno"> 1095</span>                __API_MCWM_INT_TYPE       *__RESTRICT ptSrc = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a>;</div>
+<div class="line"><a id="l01096" name="l01096"></a><span class="lineno"> 1096</span>                __API_MCWM_INT_TYPE       *__RESTRICT ptTargetCur = <a class="code hl_variable" href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a>;</div>
 <div class="line"><a id="l01097" name="l01097"></a><span class="lineno"> 1097</span> </div>
 <div class="line"><a id="l01098" name="l01098"></a><span class="lineno"> 1098</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
 <div class="line"><a id="l01099" name="l01099"></a><span class="lineno"> 1099</span>                uint32_t        curIncStride4Idx = 0;</div>
@@ -1179,14 +1181,14 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01102" name="l01102"></a><span class="lineno"> 1102</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l01103" name="l01103"></a><span class="lineno"> 1103</span> </div>
 <div class="line"><a id="l01104" name="l01104"></a><span class="lineno"> 1104</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l01105" name="l01105"></a><span class="lineno"> 1105</span>                uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l01105" name="l01105"></a><span class="lineno"> 1105</span>                uint32_t       *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l01106" name="l01106"></a><span class="lineno"> 1106</span><span class="preprocessor">            #else</span></div>
-<div class="line"><a id="l01107" name="l01107"></a><span class="lineno"> 1107</span>                uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l01107" name="l01107"></a><span class="lineno"> 1107</span>                uint8_t        *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l01108" name="l01108"></a><span class="lineno"> 1108</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l01109" name="l01109"></a><span class="lineno"> 1109</span><span class="preprocessor">            #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l01110" name="l01110"></a><span class="lineno"> 1110</span>                uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l01110" name="l01110"></a><span class="lineno"> 1110</span>                uint32_t       *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l01111" name="l01111"></a><span class="lineno"> 1111</span><span class="preprocessor">            #else</span></div>
-<div class="line"><a id="l01112" name="l01112"></a><span class="lineno"> 1112</span>                uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l01112" name="l01112"></a><span class="lineno"> 1112</span>                uint8_t        *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l01113" name="l01113"></a><span class="lineno"> 1113</span><span class="preprocessor">            #endif</span></div>
 <div class="line"><a id="l01114" name="l01114"></a><span class="lineno"> 1114</span> </div>
 <div class="line"><a id="l01115" name="l01115"></a><span class="lineno"> 1115</span>                uint32_t        curDecrStride1Idx = srcWidth - 1;</div>
@@ -1298,31 +1300,31 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01222" name="l01222"></a><span class="lineno"> 1222</span><span class="comment"> *----------------------------------------------------------------------------*/</span></div>
 <div class="line"><a id="l01223" name="l01223"></a><span class="lineno"> 1223</span> </div>
 <div class="line"><a id="l01224" name="l01224"></a><span class="lineno"> 1224</span> </div>
-<div class="line"><a id="l01225" name="l01225"></a><span class="lineno"> 1225</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
+<div class="line"><a id="l01225" name="l01225"></a><span class="lineno"> 1225</span>__OVERRIDE_WEAK</div>
 <div class="line"><a id="l01226" name="l01226"></a><span class="lineno"> 1226</span><span class="keywordtype">void</span> __MCWM_FUNC(masks_copy)(</div>
-<div class="line"><a id="l01227" name="l01227"></a><span class="lineno"> 1227</span>                __API_MCWM_INT_TYPE * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> pSourceBase,</div>
+<div class="line"><a id="l01227" name="l01227"></a><span class="lineno"> 1227</span>                __API_MCWM_INT_TYPE * __RESTRICT pSourceBase,</div>
 <div class="line"><a id="l01228" name="l01228"></a><span class="lineno"> 1228</span>                int16_t iSourceStride,</div>
 <div class="line"><a id="l01229" name="l01229"></a><span class="lineno"> 1229</span> </div>
 <div class="line"><a id="l01230" name="l01230"></a><span class="lineno"> 1230</span><span class="preprocessor">#if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l01231" name="l01231"></a><span class="lineno"> 1231</span>                uint32_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l01231" name="l01231"></a><span class="lineno"> 1231</span>                uint32_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l01232" name="l01232"></a><span class="lineno"> 1232</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l01233" name="l01233"></a><span class="lineno"> 1233</span>                uint8_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l01233" name="l01233"></a><span class="lineno"> 1233</span>                uint8_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l01234" name="l01234"></a><span class="lineno"> 1234</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l01235" name="l01235"></a><span class="lineno"> 1235</span>                int16_t iSourceMaskStride,</div>
-<div class="line"><a id="l01236" name="l01236"></a><span class="lineno"> 1236</span>                <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskSize,</div>
+<div class="line"><a id="l01236" name="l01236"></a><span class="lineno"> 1236</span>                <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceMaskSize,</div>
 <div class="line"><a id="l01237" name="l01237"></a><span class="lineno"> 1237</span> </div>
-<div class="line"><a id="l01238" name="l01238"></a><span class="lineno"> 1238</span>                __API_MCWM_INT_TYPE * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> pTargetBase,</div>
+<div class="line"><a id="l01238" name="l01238"></a><span class="lineno"> 1238</span>                __API_MCWM_INT_TYPE * __RESTRICT pTargetBase,</div>
 <div class="line"><a id="l01239" name="l01239"></a><span class="lineno"> 1239</span>                int16_t iTargetStride,</div>
 <div class="line"><a id="l01240" name="l01240"></a><span class="lineno"> 1240</span> </div>
 <div class="line"><a id="l01241" name="l01241"></a><span class="lineno"> 1241</span><span class="preprocessor">#if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l01242" name="l01242"></a><span class="lineno"> 1242</span>                uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l01242" name="l01242"></a><span class="lineno"> 1242</span>                uint32_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l01243" name="l01243"></a><span class="lineno"> 1243</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l01244" name="l01244"></a><span class="lineno"> 1244</span>                uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l01244" name="l01244"></a><span class="lineno"> 1244</span>                uint8_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l01245" name="l01245"></a><span class="lineno"> 1245</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l01246" name="l01246"></a><span class="lineno"> 1246</span>                int16_t iTargetMaskStride,</div>
-<div class="line"><a id="l01247" name="l01247"></a><span class="lineno"> 1247</span>                <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskSize,</div>
+<div class="line"><a id="l01247" name="l01247"></a><span class="lineno"> 1247</span>                <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetMaskSize,</div>
 <div class="line"><a id="l01248" name="l01248"></a><span class="lineno"> 1248</span> </div>
-<div class="line"><a id="l01249" name="l01249"></a><span class="lineno"> 1249</span>                <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptCopySize)</div>
+<div class="line"><a id="l01249" name="l01249"></a><span class="lineno"> 1249</span>                <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> * __RESTRICT ptCopySize)</div>
 <div class="line"><a id="l01250" name="l01250"></a><span class="lineno"> 1250</span>{</div>
 <div class="line"><a id="l01251" name="l01251"></a><span class="lineno"> 1251</span>    int_fast16_t    iHeight = ptCopySize-&gt;iHeight;</div>
 <div class="line"><a id="l01252" name="l01252"></a><span class="lineno"> 1252</span>    int_fast16_t    iWidth = ptCopySize-&gt;iWidth;</div>
@@ -1346,8 +1348,8 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01270" name="l01270"></a><span class="lineno"> 1270</span>    <span class="keywordflow">for</span> (   int_fast16_t y = 0;</div>
 <div class="line"><a id="l01271" name="l01271"></a><span class="lineno"> 1271</span>            y &lt; iHeight;</div>
 <div class="line"><a id="l01272" name="l01272"></a><span class="lineno"> 1272</span>            y++) {</div>
-<div class="line"><a id="l01273" name="l01273"></a><span class="lineno"> 1273</span>        __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrc = pSourceBase;</div>
-<div class="line"><a id="l01274" name="l01274"></a><span class="lineno"> 1274</span>        __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetCur = pTargetBase;</div>
+<div class="line"><a id="l01273" name="l01273"></a><span class="lineno"> 1273</span>        __API_MCWM_INT_TYPE       *__RESTRICT ptSrc = pSourceBase;</div>
+<div class="line"><a id="l01274" name="l01274"></a><span class="lineno"> 1274</span>        __API_MCWM_INT_TYPE       *__RESTRICT ptTargetCur = pTargetBase;</div>
 <div class="line"><a id="l01275" name="l01275"></a><span class="lineno"> 1275</span> </div>
 <div class="line"><a id="l01276" name="l01276"></a><span class="lineno"> 1276</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE || \</span></div>
 <div class="line"><a id="l01277" name="l01277"></a><span class="lineno"> 1277</span><span class="preprocessor">                __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
@@ -1356,14 +1358,14 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01280" name="l01280"></a><span class="lineno"> 1280</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l01281" name="l01281"></a><span class="lineno"> 1281</span> </div>
 <div class="line"><a id="l01282" name="l01282"></a><span class="lineno"> 1282</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l01283" name="l01283"></a><span class="lineno"> 1283</span>        uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l01283" name="l01283"></a><span class="lineno"> 1283</span>        uint32_t       *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l01284" name="l01284"></a><span class="lineno"> 1284</span><span class="preprocessor">    #else</span></div>
-<div class="line"><a id="l01285" name="l01285"></a><span class="lineno"> 1285</span>        uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l01285" name="l01285"></a><span class="lineno"> 1285</span>        uint8_t        *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l01286" name="l01286"></a><span class="lineno"> 1286</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l01287" name="l01287"></a><span class="lineno"> 1287</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l01288" name="l01288"></a><span class="lineno"> 1288</span>        uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l01288" name="l01288"></a><span class="lineno"> 1288</span>        uint32_t       *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l01289" name="l01289"></a><span class="lineno"> 1289</span><span class="preprocessor">    #else</span></div>
-<div class="line"><a id="l01290" name="l01290"></a><span class="lineno"> 1290</span>        uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l01290" name="l01290"></a><span class="lineno"> 1290</span>        uint8_t        *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l01291" name="l01291"></a><span class="lineno"> 1291</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l01292" name="l01292"></a><span class="lineno"> 1292</span>        int32_t         blkCnt = iWidth;</div>
 <div class="line"><a id="l01293" name="l01293"></a><span class="lineno"> 1293</span> </div>
@@ -1441,31 +1443,31 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01366" name="l01366"></a><span class="lineno"> 1366</span>}</div>
 <div class="line"><a id="l01367" name="l01367"></a><span class="lineno"> 1367</span> </div>
 <div class="line"><a id="l01368" name="l01368"></a><span class="lineno"> 1368</span> </div>
-<div class="line"><a id="l01369" name="l01369"></a><span class="lineno"> 1369</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
+<div class="line"><a id="l01369" name="l01369"></a><span class="lineno"> 1369</span>__OVERRIDE_WEAK</div>
 <div class="line"><a id="l01370" name="l01370"></a><span class="lineno"> 1370</span><span class="keywordtype">void</span> __MCWM_FUNC(masks_copy_x_mirror)(</div>
-<div class="line"><a id="l01371" name="l01371"></a><span class="lineno"> 1371</span>                            __API_MCWM_INT_TYPE * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> pSourceBase,</div>
+<div class="line"><a id="l01371" name="l01371"></a><span class="lineno"> 1371</span>                            __API_MCWM_INT_TYPE * __RESTRICT pSourceBase,</div>
 <div class="line"><a id="l01372" name="l01372"></a><span class="lineno"> 1372</span>                            int16_t iSourceStride,</div>
 <div class="line"><a id="l01373" name="l01373"></a><span class="lineno"> 1373</span> </div>
 <div class="line"><a id="l01374" name="l01374"></a><span class="lineno"> 1374</span><span class="preprocessor">                        #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l01375" name="l01375"></a><span class="lineno"> 1375</span>                            uint32_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l01375" name="l01375"></a><span class="lineno"> 1375</span>                            uint32_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l01376" name="l01376"></a><span class="lineno"> 1376</span><span class="preprocessor">                        #else</span></div>
-<div class="line"><a id="l01377" name="l01377"></a><span class="lineno"> 1377</span>                            uint8_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l01377" name="l01377"></a><span class="lineno"> 1377</span>                            uint8_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l01378" name="l01378"></a><span class="lineno"> 1378</span><span class="preprocessor">                        #endif</span></div>
 <div class="line"><a id="l01379" name="l01379"></a><span class="lineno"> 1379</span>                            int16_t iSourceMaskStride,</div>
-<div class="line"><a id="l01380" name="l01380"></a><span class="lineno"> 1380</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskSize,</div>
+<div class="line"><a id="l01380" name="l01380"></a><span class="lineno"> 1380</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceMaskSize,</div>
 <div class="line"><a id="l01381" name="l01381"></a><span class="lineno"> 1381</span> </div>
-<div class="line"><a id="l01382" name="l01382"></a><span class="lineno"> 1382</span>                            __API_MCWM_INT_TYPE * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> pTargetBase,</div>
+<div class="line"><a id="l01382" name="l01382"></a><span class="lineno"> 1382</span>                            __API_MCWM_INT_TYPE * __RESTRICT pTargetBase,</div>
 <div class="line"><a id="l01383" name="l01383"></a><span class="lineno"> 1383</span>                            int16_t iTargetStride,</div>
 <div class="line"><a id="l01384" name="l01384"></a><span class="lineno"> 1384</span> </div>
 <div class="line"><a id="l01385" name="l01385"></a><span class="lineno"> 1385</span><span class="preprocessor">                    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l01386" name="l01386"></a><span class="lineno"> 1386</span>                        uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l01386" name="l01386"></a><span class="lineno"> 1386</span>                        uint32_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l01387" name="l01387"></a><span class="lineno"> 1387</span><span class="preprocessor">                    #else</span></div>
-<div class="line"><a id="l01388" name="l01388"></a><span class="lineno"> 1388</span>                        uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l01388" name="l01388"></a><span class="lineno"> 1388</span>                        uint8_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l01389" name="l01389"></a><span class="lineno"> 1389</span><span class="preprocessor">                    #endif</span></div>
 <div class="line"><a id="l01390" name="l01390"></a><span class="lineno"> 1390</span>                            int16_t iTargetMaskStride,</div>
-<div class="line"><a id="l01391" name="l01391"></a><span class="lineno"> 1391</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskSize,</div>
+<div class="line"><a id="l01391" name="l01391"></a><span class="lineno"> 1391</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetMaskSize,</div>
 <div class="line"><a id="l01392" name="l01392"></a><span class="lineno"> 1392</span> </div>
-<div class="line"><a id="l01393" name="l01393"></a><span class="lineno"> 1393</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptCopySize)</div>
+<div class="line"><a id="l01393" name="l01393"></a><span class="lineno"> 1393</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> * __RESTRICT ptCopySize)</div>
 <div class="line"><a id="l01394" name="l01394"></a><span class="lineno"> 1394</span>{</div>
 <div class="line"><a id="l01395" name="l01395"></a><span class="lineno"> 1395</span>    int_fast16_t    iHeight = ptCopySize-&gt;iHeight;</div>
 <div class="line"><a id="l01396" name="l01396"></a><span class="lineno"> 1396</span>    int_fast16_t    iWidth = ptCopySize-&gt;iWidth;</div>
@@ -1490,8 +1492,8 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01415" name="l01415"></a><span class="lineno"> 1415</span>            y &lt; iHeight;</div>
 <div class="line"><a id="l01416" name="l01416"></a><span class="lineno"> 1416</span>            y++) {</div>
 <div class="line"><a id="l01417" name="l01417"></a><span class="lineno"> 1417</span> </div>
-<div class="line"><a id="l01418" name="l01418"></a><span class="lineno"> 1418</span>        __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrc = pSourceBase;</div>
-<div class="line"><a id="l01419" name="l01419"></a><span class="lineno"> 1419</span>        __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetCur = pTargetBase;</div>
+<div class="line"><a id="l01418" name="l01418"></a><span class="lineno"> 1418</span>        __API_MCWM_INT_TYPE       *__RESTRICT ptSrc = pSourceBase;</div>
+<div class="line"><a id="l01419" name="l01419"></a><span class="lineno"> 1419</span>        __API_MCWM_INT_TYPE       *__RESTRICT ptTargetCur = pTargetBase;</div>
 <div class="line"><a id="l01420" name="l01420"></a><span class="lineno"> 1420</span> </div>
 <div class="line"><a id="l01421" name="l01421"></a><span class="lineno"> 1421</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
 <div class="line"><a id="l01422" name="l01422"></a><span class="lineno"> 1422</span>        uint32_t        curIncStride4Idx = 0;</div>
@@ -1499,14 +1501,14 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01424" name="l01424"></a><span class="lineno"> 1424</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l01425" name="l01425"></a><span class="lineno"> 1425</span> </div>
 <div class="line"><a id="l01426" name="l01426"></a><span class="lineno"> 1426</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l01427" name="l01427"></a><span class="lineno"> 1427</span>        uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l01427" name="l01427"></a><span class="lineno"> 1427</span>        uint32_t       *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l01428" name="l01428"></a><span class="lineno"> 1428</span><span class="preprocessor">    #else</span></div>
-<div class="line"><a id="l01429" name="l01429"></a><span class="lineno"> 1429</span>        uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l01429" name="l01429"></a><span class="lineno"> 1429</span>        uint8_t        *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l01430" name="l01430"></a><span class="lineno"> 1430</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l01431" name="l01431"></a><span class="lineno"> 1431</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l01432" name="l01432"></a><span class="lineno"> 1432</span>        uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l01432" name="l01432"></a><span class="lineno"> 1432</span>        uint32_t       *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l01433" name="l01433"></a><span class="lineno"> 1433</span><span class="preprocessor">    #else</span></div>
-<div class="line"><a id="l01434" name="l01434"></a><span class="lineno"> 1434</span>        uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l01434" name="l01434"></a><span class="lineno"> 1434</span>        uint8_t        *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l01435" name="l01435"></a><span class="lineno"> 1435</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l01436" name="l01436"></a><span class="lineno"> 1436</span> </div>
 <div class="line"><a id="l01437" name="l01437"></a><span class="lineno"> 1437</span>        uint32_t        curDecrStride1Idx = iWidth - 1;</div>
@@ -1598,31 +1600,31 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01524" name="l01524"></a><span class="lineno"> 1524</span>}</div>
 <div class="line"><a id="l01525" name="l01525"></a><span class="lineno"> 1525</span> </div>
 <div class="line"><a id="l01526" name="l01526"></a><span class="lineno"> 1526</span> </div>
-<div class="line"><a id="l01527" name="l01527"></a><span class="lineno"> 1527</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
+<div class="line"><a id="l01527" name="l01527"></a><span class="lineno"> 1527</span>__OVERRIDE_WEAK</div>
 <div class="line"><a id="l01528" name="l01528"></a><span class="lineno"> 1528</span><span class="keywordtype">void</span> __MCWM_FUNC(masks_copy_y_mirror)(</div>
-<div class="line"><a id="l01529" name="l01529"></a><span class="lineno"> 1529</span>                            __API_MCWM_INT_TYPE * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> pSourceBase,</div>
+<div class="line"><a id="l01529" name="l01529"></a><span class="lineno"> 1529</span>                            __API_MCWM_INT_TYPE * __RESTRICT pSourceBase,</div>
 <div class="line"><a id="l01530" name="l01530"></a><span class="lineno"> 1530</span>                            int16_t iSourceStride,</div>
 <div class="line"><a id="l01531" name="l01531"></a><span class="lineno"> 1531</span> </div>
 <div class="line"><a id="l01532" name="l01532"></a><span class="lineno"> 1532</span><span class="preprocessor">                        #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l01533" name="l01533"></a><span class="lineno"> 1533</span>                            uint32_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l01533" name="l01533"></a><span class="lineno"> 1533</span>                            uint32_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l01534" name="l01534"></a><span class="lineno"> 1534</span><span class="preprocessor">                        #else</span></div>
-<div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span>                            uint8_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span>                            uint8_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l01536" name="l01536"></a><span class="lineno"> 1536</span><span class="preprocessor">                        #endif</span></div>
 <div class="line"><a id="l01537" name="l01537"></a><span class="lineno"> 1537</span>                            int16_t iSourceMaskStride,</div>
-<div class="line"><a id="l01538" name="l01538"></a><span class="lineno"> 1538</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskSize,</div>
+<div class="line"><a id="l01538" name="l01538"></a><span class="lineno"> 1538</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceMaskSize,</div>
 <div class="line"><a id="l01539" name="l01539"></a><span class="lineno"> 1539</span> </div>
-<div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span>                            __API_MCWM_INT_TYPE * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> pTargetBase,</div>
+<div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span>                            __API_MCWM_INT_TYPE * __RESTRICT pTargetBase,</div>
 <div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span>                            int16_t iTargetStride,</div>
 <div class="line"><a id="l01542" name="l01542"></a><span class="lineno"> 1542</span> </div>
 <div class="line"><a id="l01543" name="l01543"></a><span class="lineno"> 1543</span><span class="preprocessor">                        #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l01544" name="l01544"></a><span class="lineno"> 1544</span>                            uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l01544" name="l01544"></a><span class="lineno"> 1544</span>                            uint32_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l01545" name="l01545"></a><span class="lineno"> 1545</span><span class="preprocessor">                        #else</span></div>
-<div class="line"><a id="l01546" name="l01546"></a><span class="lineno"> 1546</span>                            uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l01546" name="l01546"></a><span class="lineno"> 1546</span>                            uint8_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l01547" name="l01547"></a><span class="lineno"> 1547</span><span class="preprocessor">                        #endif</span></div>
 <div class="line"><a id="l01548" name="l01548"></a><span class="lineno"> 1548</span>                            int16_t iTargetMaskStride,</div>
-<div class="line"><a id="l01549" name="l01549"></a><span class="lineno"> 1549</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskSize,</div>
+<div class="line"><a id="l01549" name="l01549"></a><span class="lineno"> 1549</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetMaskSize,</div>
 <div class="line"><a id="l01550" name="l01550"></a><span class="lineno"> 1550</span> </div>
-<div class="line"><a id="l01551" name="l01551"></a><span class="lineno"> 1551</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptCopySize)</div>
+<div class="line"><a id="l01551" name="l01551"></a><span class="lineno"> 1551</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> * __RESTRICT ptCopySize)</div>
 <div class="line"><a id="l01552" name="l01552"></a><span class="lineno"> 1552</span>{</div>
 <div class="line"><a id="l01553" name="l01553"></a><span class="lineno"> 1553</span>    int_fast16_t    iHeight = ptCopySize-&gt;iHeight;</div>
 <div class="line"><a id="l01554" name="l01554"></a><span class="lineno"> 1554</span>    int_fast16_t    iWidth = ptCopySize-&gt;iWidth;</div>
@@ -1651,8 +1653,8 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01577" name="l01577"></a><span class="lineno"> 1577</span>    <span class="keywordflow">for</span> (   int_fast16_t y = 0;</div>
 <div class="line"><a id="l01578" name="l01578"></a><span class="lineno"> 1578</span>            y &lt; iHeight;</div>
 <div class="line"><a id="l01579" name="l01579"></a><span class="lineno"> 1579</span>            y++) {</div>
-<div class="line"><a id="l01580" name="l01580"></a><span class="lineno"> 1580</span>        __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrc = pSourceBase;</div>
-<div class="line"><a id="l01581" name="l01581"></a><span class="lineno"> 1581</span>        __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetCur = pTargetBase;</div>
+<div class="line"><a id="l01580" name="l01580"></a><span class="lineno"> 1580</span>        __API_MCWM_INT_TYPE       *__RESTRICT ptSrc = pSourceBase;</div>
+<div class="line"><a id="l01581" name="l01581"></a><span class="lineno"> 1581</span>        __API_MCWM_INT_TYPE       *__RESTRICT ptTargetCur = pTargetBase;</div>
 <div class="line"><a id="l01582" name="l01582"></a><span class="lineno"> 1582</span> </div>
 <div class="line"><a id="l01583" name="l01583"></a><span class="lineno"> 1583</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE || \</span></div>
 <div class="line"><a id="l01584" name="l01584"></a><span class="lineno"> 1584</span><span class="preprocessor">                __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
@@ -1662,14 +1664,14 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01588" name="l01588"></a><span class="lineno"> 1588</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l01589" name="l01589"></a><span class="lineno"> 1589</span> </div>
 <div class="line"><a id="l01590" name="l01590"></a><span class="lineno"> 1590</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l01591" name="l01591"></a><span class="lineno"> 1591</span>        uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l01591" name="l01591"></a><span class="lineno"> 1591</span>        uint32_t       *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l01592" name="l01592"></a><span class="lineno"> 1592</span><span class="preprocessor">    #else</span></div>
-<div class="line"><a id="l01593" name="l01593"></a><span class="lineno"> 1593</span>        uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l01593" name="l01593"></a><span class="lineno"> 1593</span>        uint8_t        *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l01594" name="l01594"></a><span class="lineno"> 1594</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l01595" name="l01595"></a><span class="lineno"> 1595</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l01596" name="l01596"></a><span class="lineno"> 1596</span>        uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l01596" name="l01596"></a><span class="lineno"> 1596</span>        uint32_t       *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l01597" name="l01597"></a><span class="lineno"> 1597</span><span class="preprocessor">    #else</span></div>
-<div class="line"><a id="l01598" name="l01598"></a><span class="lineno"> 1598</span>        uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l01598" name="l01598"></a><span class="lineno"> 1598</span>        uint8_t        *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l01599" name="l01599"></a><span class="lineno"> 1599</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l01600" name="l01600"></a><span class="lineno"> 1600</span>        int32_t         blkCnt = iWidth;</div>
 <div class="line"><a id="l01601" name="l01601"></a><span class="lineno"> 1601</span> </div>
@@ -1754,31 +1756,31 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01681" name="l01681"></a><span class="lineno"> 1681</span>}</div>
 <div class="line"><a id="l01682" name="l01682"></a><span class="lineno"> 1682</span> </div>
 <div class="line"><a id="l01683" name="l01683"></a><span class="lineno"> 1683</span> </div>
-<div class="line"><a id="l01684" name="l01684"></a><span class="lineno"> 1684</span><a class="code hl_define" href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div>
+<div class="line"><a id="l01684" name="l01684"></a><span class="lineno"> 1684</span>__OVERRIDE_WEAK</div>
 <div class="line"><a id="l01685" name="l01685"></a><span class="lineno"> 1685</span><span class="keywordtype">void</span> __MCWM_FUNC(masks_copy_xy_mirror)(</div>
-<div class="line"><a id="l01686" name="l01686"></a><span class="lineno"> 1686</span>                            __API_MCWM_INT_TYPE * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> pSourceBase,</div>
+<div class="line"><a id="l01686" name="l01686"></a><span class="lineno"> 1686</span>                            __API_MCWM_INT_TYPE * __RESTRICT pSourceBase,</div>
 <div class="line"><a id="l01687" name="l01687"></a><span class="lineno"> 1687</span>                            int16_t iSourceStride,</div>
 <div class="line"><a id="l01688" name="l01688"></a><span class="lineno"> 1688</span> </div>
 <div class="line"><a id="l01689" name="l01689"></a><span class="lineno"> 1689</span><span class="preprocessor">                        #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l01690" name="l01690"></a><span class="lineno"> 1690</span>                            uint32_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l01690" name="l01690"></a><span class="lineno"> 1690</span>                            uint32_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l01691" name="l01691"></a><span class="lineno"> 1691</span><span class="preprocessor">                        #else</span></div>
-<div class="line"><a id="l01692" name="l01692"></a><span class="lineno"> 1692</span>                            uint8_t * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskBase,</div>
+<div class="line"><a id="l01692" name="l01692"></a><span class="lineno"> 1692</span>                            uint8_t * __RESTRICT ptSourceMaskBase,</div>
 <div class="line"><a id="l01693" name="l01693"></a><span class="lineno"> 1693</span><span class="preprocessor">                        #endif</span></div>
 <div class="line"><a id="l01694" name="l01694"></a><span class="lineno"> 1694</span>                            int16_t iSourceMaskStride,</div>
-<div class="line"><a id="l01695" name="l01695"></a><span class="lineno"> 1695</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSourceMaskSize,</div>
+<div class="line"><a id="l01695" name="l01695"></a><span class="lineno"> 1695</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptSourceMaskSize,</div>
 <div class="line"><a id="l01696" name="l01696"></a><span class="lineno"> 1696</span> </div>
-<div class="line"><a id="l01697" name="l01697"></a><span class="lineno"> 1697</span>                            __API_MCWM_INT_TYPE * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> pTargetBase,</div>
+<div class="line"><a id="l01697" name="l01697"></a><span class="lineno"> 1697</span>                            __API_MCWM_INT_TYPE * __RESTRICT pTargetBase,</div>
 <div class="line"><a id="l01698" name="l01698"></a><span class="lineno"> 1698</span>                            int16_t iTargetStride,</div>
 <div class="line"><a id="l01699" name="l01699"></a><span class="lineno"> 1699</span> </div>
 <div class="line"><a id="l01700" name="l01700"></a><span class="lineno"> 1700</span><span class="preprocessor">                        #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l01701" name="l01701"></a><span class="lineno"> 1701</span>                            uint32_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l01701" name="l01701"></a><span class="lineno"> 1701</span>                            uint32_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l01702" name="l01702"></a><span class="lineno"> 1702</span><span class="preprocessor">                        #else</span></div>
-<div class="line"><a id="l01703" name="l01703"></a><span class="lineno"> 1703</span>                            uint8_t *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskBase,</div>
+<div class="line"><a id="l01703" name="l01703"></a><span class="lineno"> 1703</span>                            uint8_t *__RESTRICT ptTargetMaskBase,</div>
 <div class="line"><a id="l01704" name="l01704"></a><span class="lineno"> 1704</span><span class="preprocessor">                        #endif</span></div>
 <div class="line"><a id="l01705" name="l01705"></a><span class="lineno"> 1705</span>                            int16_t iTargetMaskStride,</div>
-<div class="line"><a id="l01706" name="l01706"></a><span class="lineno"> 1706</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskSize,</div>
+<div class="line"><a id="l01706" name="l01706"></a><span class="lineno"> 1706</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> *__RESTRICT ptTargetMaskSize,</div>
 <div class="line"><a id="l01707" name="l01707"></a><span class="lineno"> 1707</span> </div>
-<div class="line"><a id="l01708" name="l01708"></a><span class="lineno"> 1708</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> * <a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptCopySize)</div>
+<div class="line"><a id="l01708" name="l01708"></a><span class="lineno"> 1708</span>                            <a class="code hl_struct" href="structarm__2d__size__t.html">arm_2d_size_t</a> * __RESTRICT ptCopySize)</div>
 <div class="line"><a id="l01709" name="l01709"></a><span class="lineno"> 1709</span>{</div>
 <div class="line"><a id="l01710" name="l01710"></a><span class="lineno"> 1710</span>    int_fast16_t    iHeight = ptCopySize-&gt;iHeight;</div>
 <div class="line"><a id="l01711" name="l01711"></a><span class="lineno"> 1711</span>    int_fast16_t    iWidth = ptCopySize-&gt;iWidth;</div>
@@ -1809,8 +1811,8 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01736" name="l01736"></a><span class="lineno"> 1736</span>    <span class="keywordflow">for</span> (   int_fast16_t y = 0;</div>
 <div class="line"><a id="l01737" name="l01737"></a><span class="lineno"> 1737</span>            y &lt; iHeight;</div>
 <div class="line"><a id="l01738" name="l01738"></a><span class="lineno"> 1738</span>            y++) {</div>
-<div class="line"><a id="l01739" name="l01739"></a><span class="lineno"> 1739</span>        __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrc = pSourceBase;</div>
-<div class="line"><a id="l01740" name="l01740"></a><span class="lineno"> 1740</span>        __API_MCWM_INT_TYPE       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetCur = pTargetBase;</div>
+<div class="line"><a id="l01739" name="l01739"></a><span class="lineno"> 1739</span>        __API_MCWM_INT_TYPE       *__RESTRICT ptSrc = pSourceBase;</div>
+<div class="line"><a id="l01740" name="l01740"></a><span class="lineno"> 1740</span>        __API_MCWM_INT_TYPE       *__RESTRICT ptTargetCur = pTargetBase;</div>
 <div class="line"><a id="l01741" name="l01741"></a><span class="lineno"> 1741</span> </div>
 <div class="line"><a id="l01742" name="l01742"></a><span class="lineno"> 1742</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
 <div class="line"><a id="l01743" name="l01743"></a><span class="lineno"> 1743</span>        uint32_t        curIncStride4Idx = 0;</div>
@@ -1819,14 +1821,14 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="line"><a id="l01746" name="l01746"></a><span class="lineno"> 1746</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l01747" name="l01747"></a><span class="lineno"> 1747</span> </div>
 <div class="line"><a id="l01748" name="l01748"></a><span class="lineno"> 1748</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE</span></div>
-<div class="line"><a id="l01749" name="l01749"></a><span class="lineno"> 1749</span>        uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l01749" name="l01749"></a><span class="lineno"> 1749</span>        uint32_t       *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l01750" name="l01750"></a><span class="lineno"> 1750</span><span class="preprocessor">    #else</span></div>
-<div class="line"><a id="l01751" name="l01751"></a><span class="lineno"> 1751</span>        uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
+<div class="line"><a id="l01751" name="l01751"></a><span class="lineno"> 1751</span>        uint8_t        *__RESTRICT ptSrcMsk = <a class="code hl_variable" href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a>;</div>
 <div class="line"><a id="l01752" name="l01752"></a><span class="lineno"> 1752</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l01753" name="l01753"></a><span class="lineno"> 1753</span><span class="preprocessor">    #if __API_MCWM_CFG_CHANNEL_8in32_SUPPORT_ON_TARGET_SIDE</span></div>
-<div class="line"><a id="l01754" name="l01754"></a><span class="lineno"> 1754</span>        uint32_t       *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l01754" name="l01754"></a><span class="lineno"> 1754</span>        uint32_t       *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l01755" name="l01755"></a><span class="lineno"> 1755</span><span class="preprocessor">    #else</span></div>
-<div class="line"><a id="l01756" name="l01756"></a><span class="lineno"> 1756</span>        uint8_t        *<a class="code hl_define" href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a> ptTargetMaskCur = ptTargetMask;</div>
+<div class="line"><a id="l01756" name="l01756"></a><span class="lineno"> 1756</span>        uint8_t        *__RESTRICT ptTargetMaskCur = ptTargetMask;</div>
 <div class="line"><a id="l01757" name="l01757"></a><span class="lineno"> 1757</span><span class="preprocessor">    #endif</span></div>
 <div class="line"><a id="l01758" name="l01758"></a><span class="lineno"> 1758</span> </div>
 <div class="line"><a id="l01759" name="l01759"></a><span class="lineno"> 1759</span>        uint32_t        curDecrStride1Idx = iWidth - 1;</div>
@@ -1956,10 +1958,8 @@ $(document).ready(function(){initNavTree('____arm__2d__meta__copy__with__masks__
 <div class="ttc" id="aarm__2d__alpha__blending_8h_html_a3993bb94d25fad259236f86ef3034fe4"><div class="ttname"><a href="arm__2d__alpha__blending_8h.html#a3993bb94d25fad259236f86ef3034fe4">ptSource</a></div><div class="ttdeci">const arm_2d_tile_t * ptSource</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__alpha__blending_8h_source.html#l00858">arm_2d_alpha_blending.h:858</a></div></div>
 <div class="ttc" id="aarm__2d__alpha__blending_8h_html_a46ba63bb042a2ef13c3295664d0a8a00"><div class="ttname"><a href="arm__2d__alpha__blending_8h.html#a46ba63bb042a2ef13c3295664d0a8a00">ptTarget</a></div><div class="ttdeci">const arm_2d_tile_t const arm_2d_tile_t * ptTarget</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__alpha__blending_8h_source.html#l00859">arm_2d_alpha_blending.h:859</a></div></div>
 <div class="ttc" id="aarm__2d__transform_8h_html_adfc23443ff45178daff786e8351a8b9d"><div class="ttname"><a href="arm__2d__transform_8h.html#adfc23443ff45178daff786e8351a8b9d">ptSourceMask</a></div><div class="ttdeci">const arm_2d_tile_t const arm_2d_tile_t * ptSourceMask</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__transform_8h_source.html#l03539">arm_2d_transform.h:3539</a></div></div>
-<div class="ttc" id="aarm__2d__utils_8h_html_a378ac21329d33f561f90265eef89f564"><div class="ttname"><a href="arm__2d__utils_8h.html#a378ac21329d33f561f90265eef89f564">__RESTRICT</a></div><div class="ttdeci">#define __RESTRICT</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00319">arm_2d_utils.h:319</a></div></div>
 <div class="ttc" id="aarm__2d__utils_8h_html_aa612e8299f2fa71ff5829e61c4735fd1"><div class="ttname"><a href="arm__2d__utils_8h.html#aa612e8299f2fa71ff5829e61c4735fd1">ARM_CONNECT3</a></div><div class="ttdeci">#define ARM_CONNECT3(__A, __B, __C)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00205">arm_2d_utils.h:205</a></div></div>
 <div class="ttc" id="aarm__2d__utils_8h_html_ad6a67ffa29074439ce99988dac033e42"><div class="ttname"><a href="arm__2d__utils_8h.html#ad6a67ffa29074439ce99988dac033e42">ARM_CONNECT2</a></div><div class="ttdeci">#define ARM_CONNECT2(__A, __B)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00203">arm_2d_utils.h:203</a></div></div>
-<div class="ttc" id="aarm__2d__utils_8h_html_af675320d8afdd3d72e951d1a5eb9fcd1"><div class="ttname"><a href="arm__2d__utils_8h.html#af675320d8afdd3d72e951d1a5eb9fcd1">__OVERRIDE_WEAK</a></div><div class="ttdeci">#define __OVERRIDE_WEAK</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00323">arm_2d_utils.h:323</a></div></div>
 <div class="ttc" id="astructarm__2d__size__t_html"><div class="ttname"><a href="structarm__2d__size__t.html">arm_2d_size_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00296">arm_2d_types.h:296</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

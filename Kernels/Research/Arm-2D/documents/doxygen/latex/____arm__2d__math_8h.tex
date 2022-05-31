@@ -1,5 +1,5 @@
-\hypertarget{____arm__2d__math_8h}{}\doxysection{/\+Users/gabwan01/\+Documents/\+Work/\+CPMK/\+Git/\+Endpoint\+AI/\+Kernels/\+Research/\+Arm-\/2\+D/\+Library/\+Include/\+\_\+\+\_\+arm\+\_\+2d\+\_\+math.h File Reference}
-\label{____arm__2d__math_8h}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/\_\_arm\_2d\_math.h@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/\_\_arm\_2d\_math.h}}
+\hypertarget{____arm__2d__math_8h}{}\doxysection{\+\_\+\+\_\+arm\+\_\+2d\+\_\+math.\+h File Reference}
+\label{____arm__2d__math_8h}\index{\_\_arm\_2d\_math.h@{\_\_arm\_2d\_math.h}}
 {\ttfamily \#include \char`\"{}arm\+\_\+math.\+h\char`\"{}}\newline
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
@@ -24,13 +24,6 @@
 \begin{DoxyCompactItemize}
 \item 
 typedef float \mbox{\hyperlink{____arm__2d__math_8h_a49736383ceddf92e73a0620e13185b2f}{float16\+\_\+t}}
-\end{DoxyCompactItemize}
-\doxysubsection*{Functions}
-\begin{DoxyCompactItemize}
-\item 
-\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE int32\+\_\+t \mbox{\hyperlink{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}{\+\_\+\+\_\+\+QDADD}} (int32\+\_\+t x, int32\+\_\+t y)
-\item 
-\+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE int32\+\_\+t \mbox{\hyperlink{____arm__2d__math_8h_aea80dcc47395b0f568160398c70d1b7c}{\+\_\+\+\_\+\+QDSUB}} (int32\+\_\+t x, int32\+\_\+t y)
 \end{DoxyCompactItemize}
 
 
@@ -131,40 +124,3 @@ this header file is not standalone, and please always use it after ! \#include \
 
 Definition at line \mbox{\hyperlink{____arm__2d__math_8h_source_l00065}{65}} of file \mbox{\hyperlink{____arm__2d__math_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+math.\+h}}.
 
-
-
-\doxysubsection{Function Documentation}
-\mbox{\Hypertarget{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}\label{____arm__2d__math_8h_a496c7de78c2242b9de0ea62ff19b3187}} 
-\index{\_\_arm\_2d\_math.h@{\_\_arm\_2d\_math.h}!\_\_QDADD@{\_\_QDADD}}
-\index{\_\_QDADD@{\_\_QDADD}!\_\_arm\_2d\_math.h@{\_\_arm\_2d\_math.h}}
-\doxysubsubsection{\texorpdfstring{\_\_QDADD()}{\_\_QDADD()}}
-{\footnotesize\ttfamily \+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE int32\+\_\+t \+\_\+\+\_\+\+QDADD (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{x,  }\item[{int32\+\_\+t}]{y }\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{____arm__2d__math_8h_source_l00156}{156}} of file \mbox{\hyperlink{____arm__2d__math_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+math.\+h}}.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{00159 \{}
-\DoxyCodeLine{00160     \textcolor{keywordflow}{return} ((int32\_t)(clip\_q63\_to\_q31((q63\_t)x + (q63\_t)y*2)));}
-\DoxyCodeLine{00161 \}}
-
-\end{DoxyCode}
-\mbox{\Hypertarget{____arm__2d__math_8h_aea80dcc47395b0f568160398c70d1b7c}\label{____arm__2d__math_8h_aea80dcc47395b0f568160398c70d1b7c}} 
-\index{\_\_arm\_2d\_math.h@{\_\_arm\_2d\_math.h}!\_\_QDSUB@{\_\_QDSUB}}
-\index{\_\_QDSUB@{\_\_QDSUB}!\_\_arm\_2d\_math.h@{\_\_arm\_2d\_math.h}}
-\doxysubsubsection{\texorpdfstring{\_\_QDSUB()}{\_\_QDSUB()}}
-{\footnotesize\ttfamily \+\_\+\+\_\+\+STATIC\+\_\+\+FORCEINLINE int32\+\_\+t \+\_\+\+\_\+\+QDSUB (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{x,  }\item[{int32\+\_\+t}]{y }\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{____arm__2d__math_8h_source_l00165}{165}} of file \mbox{\hyperlink{____arm__2d__math_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+math.\+h}}.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{00168 \{}
-\DoxyCodeLine{00169     \textcolor{keywordflow}{return} ((int32\_t)(clip\_q63\_to\_q31((q63\_t)x -\/ (q63\_t)2*y)));}
-\DoxyCodeLine{00170 \}}
-
-\end{DoxyCode}

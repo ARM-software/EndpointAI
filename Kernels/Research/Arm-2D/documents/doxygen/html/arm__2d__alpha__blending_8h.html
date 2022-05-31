@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/arm_2d_alpha_blending.h File Reference</title>
+<title>arm-2d: arm_2d_alpha_blending.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -214,16 +216,6 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ae5fdee325a8f76bddc0924b21d006317"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__alpha__t.html">arm_2d_op_alpha_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__alpha__blending_8h.html#ae5fdee325a8f76bddc0924b21d006317">arm_2d_op_alpha_t</a></td></tr>
-<tr class="separator:ae5fdee325a8f76bddc0924b21d006317"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63f5be759dabcaef33ae09801e534685"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__alpha__cl__key__t.html">arm_2d_op_alpha_cl_key_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__alpha__blending_8h.html#a63f5be759dabcaef33ae09801e534685">arm_2d_op_alpha_cl_key_t</a></td></tr>
-<tr class="separator:a63f5be759dabcaef33ae09801e534685"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac630dc7037645aca237f9f04a3dfeeb1"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__fill__cl__msk__t.html">arm_2d_op_fill_cl_msk_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__alpha__blending_8h.html#ac630dc7037645aca237f9f04a3dfeeb1">arm_2d_op_fill_cl_msk_t</a></td></tr>
-<tr class="separator:ac630dc7037645aca237f9f04a3dfeeb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ad886151b69b73bfc52230246383927"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__alpha__fill__cl__msk__opc__t.html">arm_2d_op_alpha_fill_cl_msk_opc_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__alpha__blending_8h.html#a5ad886151b69b73bfc52230246383927">arm_2d_op_alpha_fill_cl_msk_opc_t</a></td></tr>
-<tr class="separator:a5ad886151b69b73bfc52230246383927"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03e5d3a05029af7ef3c87b408562f02f"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__fill__cl__opc__t.html">arm_2d_op_fill_cl_opc_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__alpha__blending_8h.html#a03e5d3a05029af7ef3c87b408562f02f">arm_2d_op_fill_cl_opc_t</a></td></tr>
-<tr class="separator:a03e5d3a05029af7ef3c87b408562f02f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d81a82d787906c56381e84f8944969f"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structarm__2d__op__src__msk__t.html">arm_2d_op_src_msk_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__alpha__blending_8h.html#a8d81a82d787906c56381e84f8944969f">arm_2d_op_cp_msk_t</a></td></tr>
 <tr class="separator:a8d81a82d787906c56381e84f8944969f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -2918,51 +2910,6 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="a63f5be759dabcaef33ae09801e534685" name="a63f5be759dabcaef33ae09801e534685"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63f5be759dabcaef33ae09801e534685">&#9670;&nbsp;</a></span>arm_2d_op_alpha_cl_key_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__alpha__cl__key__t.html">arm_2d_op_alpha_cl_key_t</a> <a class="el" href="structarm__2d__op__alpha__cl__key__t.html">arm_2d_op_alpha_cl_key_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="structarm__2d__op__alpha__cl__key__t.html">arm_2d_op_alpha_cl_key_t</a> inherits from <a class="el" href="structarm__2d__op__src__t.html" title="arm_2d_op_src_t is inherit from arm_2d_op_t">arm_2d_op_src_t</a> explicitly </dd></dl>
-
-</div>
-</div>
-<a id="a5ad886151b69b73bfc52230246383927" name="a5ad886151b69b73bfc52230246383927"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ad886151b69b73bfc52230246383927">&#9670;&nbsp;</a></span>arm_2d_op_alpha_fill_cl_msk_opc_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__alpha__fill__cl__msk__opc__t.html">arm_2d_op_alpha_fill_cl_msk_opc_t</a> <a class="el" href="structarm__2d__op__alpha__fill__cl__msk__opc__t.html">arm_2d_op_alpha_fill_cl_msk_opc_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="structarm__2d__op__fill__cl__msk__t.html">arm_2d_op_fill_cl_msk_t</a> inherits from <a class="el" href="structarm__2d__op__src__t.html" title="arm_2d_op_src_t is inherit from arm_2d_op_t">arm_2d_op_src_t</a> explicitly </dd></dl>
-
-</div>
-</div>
-<a id="ae5fdee325a8f76bddc0924b21d006317" name="ae5fdee325a8f76bddc0924b21d006317"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5fdee325a8f76bddc0924b21d006317">&#9670;&nbsp;</a></span>arm_2d_op_alpha_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__alpha__t.html">arm_2d_op_alpha_t</a> <a class="el" href="structarm__2d__op__alpha__t.html">arm_2d_op_alpha_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="structarm__2d__op__alpha__t.html">arm_2d_op_alpha_t</a> inherits from <a class="el" href="structarm__2d__op__src__t.html" title="arm_2d_op_src_t is inherit from arm_2d_op_t">arm_2d_op_src_t</a> explicitly </dd></dl>
-
-</div>
-</div>
 <a id="a8d81a82d787906c56381e84f8944969f" name="a8d81a82d787906c56381e84f8944969f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d81a82d787906c56381e84f8944969f">&#9670;&nbsp;</a></span>arm_2d_op_cp_msk_t</h2>
 
@@ -2976,36 +2923,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__alpha__blending_8h_source.html#l00846">846</a> of file <a class="el" href="arm__2d__alpha__blending_8h_source.html">arm_2d_alpha_blending.h</a>.</p>
-
-</div>
-</div>
-<a id="ac630dc7037645aca237f9f04a3dfeeb1" name="ac630dc7037645aca237f9f04a3dfeeb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac630dc7037645aca237f9f04a3dfeeb1">&#9670;&nbsp;</a></span>arm_2d_op_fill_cl_msk_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__fill__cl__msk__t.html">arm_2d_op_fill_cl_msk_t</a> <a class="el" href="structarm__2d__op__fill__cl__msk__t.html">arm_2d_op_fill_cl_msk_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="structarm__2d__op__fill__cl__msk__t.html">arm_2d_op_fill_cl_msk_t</a> inherits from <a class="el" href="structarm__2d__op__src__t.html" title="arm_2d_op_src_t is inherit from arm_2d_op_t">arm_2d_op_src_t</a> explicitly </dd></dl>
-
-</div>
-</div>
-<a id="a03e5d3a05029af7ef3c87b408562f02f" name="a03e5d3a05029af7ef3c87b408562f02f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03e5d3a05029af7ef3c87b408562f02f">&#9670;&nbsp;</a></span>arm_2d_op_fill_cl_opc_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__fill__cl__opc__t.html">arm_2d_op_fill_cl_opc_t</a> <a class="el" href="structarm__2d__op__fill__cl__opc__t.html">arm_2d_op_fill_cl_opc_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="structarm__2d__op__fill__cl__t.html">arm_2d_op_fill_cl_t</a> inherits from <a class="el" href="structarm__2d__op__t.html">arm_2d_op_t</a> explicitly </dd></dl>
 
 </div>
 </div>
@@ -3023,8 +2940,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__alpha__blending_8h_source.html#l00890">890</a> of file <a class="el" href="arm__2d__alpha__blending_8h_source.html">arm_2d_alpha_blending.h</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="____arm__2d__impl_8h.html#adbed80f4f16e90ec1411829cd26c2820">__arm_2d_sw_draw_point()</a>.</p>
 
 </div>
 </div>

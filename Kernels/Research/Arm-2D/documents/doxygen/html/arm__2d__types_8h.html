@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/arm_2d_types.h File Reference</title>
+<title>arm-2d: arm_2d_types.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -136,8 +138,6 @@ Data Structures</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__evt__t.html">arm_2d_evt_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionarm__2d__op__status__t.html">arm_2d_op_status_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a></td></tr>
@@ -174,80 +174,13 @@ Macros</h2></td></tr>
 <tr class="separator:a7c26c656a4dd352e1a9607c9319f1007"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0593a5fcaddee75b1a3ce23c4c94f5df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a0593a5fcaddee75b1a3ce23c4c94f5df">ARM_2D_OP_INFO_PARAM_HAS_ORIGIN</a>&#160;&#160;&#160;<a class="el" href="____arm__2d__math_8h.html#a94026a8222e1438f86fdb8c36b381903">_BV</a>(4)</td></tr>
 <tr class="separator:a0593a5fcaddee75b1a3ce23c4c94f5df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab013a91e0bb930476d0e4ace60db7e8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#aab013a91e0bb930476d0e4ace60db7e8">__ARM_2D_OP_STATUS_BUSY_msk</a>&#160;&#160;&#160;(1 &lt;&lt; 4)</td></tr>
-<tr class="separator:aab013a91e0bb930476d0e4ace60db7e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a63d991855534acc4752ad0c8635201"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a8a63d991855534acc4752ad0c8635201">__ARM_2D_OP_STATUS_IO_ERROR_msk</a>&#160;&#160;&#160;(1 &lt;&lt; 5)</td></tr>
-<tr class="separator:a8a63d991855534acc4752ad0c8635201"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ee4588567408362c3dbfe7ad583b386"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a7ee4588567408362c3dbfe7ad583b386">__ARM_2D_OP_STATUS_CPL_msk</a>&#160;&#160;&#160;(1 &lt;&lt; 6)</td></tr>
-<tr class="separator:a7ee4588567408362c3dbfe7ad583b386"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a429053f653557847843b5ddacdc68758"><td class="memItemLeft" align="right" valign="top">typedef union <a class="el" href="unionarm__2d__color__rgb565__t.html">arm_2d_color_rgb565_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a429053f653557847843b5ddacdc68758">arm_2d_color_rgb565_t</a></td></tr>
-<tr class="separator:a429053f653557847843b5ddacdc68758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7136016c4851c73def591869155da193"><td class="memItemLeft" align="right" valign="top">typedef union <a class="el" href="unionarm__2d__color__rgba8888__t.html">arm_2d_color_rgba8888_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a7136016c4851c73def591869155da193">arm_2d_color_rgba8888_t</a></td></tr>
-<tr class="memdesc:a7136016c4851c73def591869155da193"><td class="mdescLeft">&#160;</td><td class="mdescRight">In most cases four equal-sized pieces of adjacent memory are used, ! one for each channel, and a 0 in a channel indicates black color or ! transparent alpha, while all-1 bits indicates white or fully opaque ! alpha. By far the most common format is to store 8 bits (one byte) ! for each channel, which is 32 bits for each pixel. ! ! (source: <a href="https://en.wikipedia.org/wiki/RGBA_color_model#ARGB32">https://en.wikipedia.org/wiki/RGBA_color_model#ARGB32</a>)  <a href="arm__2d__types_8h.html#a7136016c4851c73def591869155da193">More...</a><br /></td></tr>
-<tr class="separator:a7136016c4851c73def591869155da193"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa009ffc21a0912bf823f33e8b61aa358"><td class="memItemLeft" align="right" valign="top">typedef union <a class="el" href="unionarm__2d__color__rgb888__t.html">arm_2d_color_rgb888_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#aa009ffc21a0912bf823f33e8b61aa358">arm_2d_color_rgb888_t</a></td></tr>
-<tr class="separator:aa009ffc21a0912bf823f33e8b61aa358"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a073292efe01af1845789f5ccead67a"><td class="memItemLeft" align="right" valign="top">typedef union <a class="el" href="unionarm__2d__color__ccca8888__t.html">arm_2d_color_ccca8888_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a0a073292efe01af1845789f5ccead67a">arm_2d_color_ccca8888_t</a></td></tr>
-<tr class="separator:a0a073292efe01af1845789f5ccead67a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82d9076e9d39e2482c05a2e216349509"><td class="memItemLeft" align="right" valign="top">typedef union <a class="el" href="unionarm__2d__color__accc8888__t.html">arm_2d_color_accc8888_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a82d9076e9d39e2482c05a2e216349509">arm_2d_color_accc8888_t</a></td></tr>
-<tr class="separator:a82d9076e9d39e2482c05a2e216349509"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b598ae0bda224338e6c52053b842e77"><td class="memItemLeft" align="right" valign="top">typedef union <a class="el" href="unionarm__2d__color__cccn888__t.html">arm_2d_color_cccn888_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a5b598ae0bda224338e6c52053b842e77">arm_2d_color_cccn888_t</a></td></tr>
-<tr class="separator:a5b598ae0bda224338e6c52053b842e77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc9dc316cb4c2266226cd9f94afa2e8f"><td class="memItemLeft" align="right" valign="top">typedef union <a class="el" href="unionarm__2d__color__nccc888__t.html">arm_2d_color_nccc888_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#acc9dc316cb4c2266226cd9f94afa2e8f">arm_2d_color_nccc888_t</a></td></tr>
-<tr class="separator:acc9dc316cb4c2266226cd9f94afa2e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b306d4b070a537600d438468f438f4c"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__location__t.html">arm_2d_location_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a8b306d4b070a537600d438468f438f4c">arm_2d_location_t</a></td></tr>
-<tr class="separator:a8b306d4b070a537600d438468f438f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af63b19842ee9e51e2da6363584b8463b"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__point__float__t.html">arm_2d_point_float_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#af63b19842ee9e51e2da6363584b8463b">arm_2d_point_float_t</a></td></tr>
-<tr class="separator:af63b19842ee9e51e2da6363584b8463b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97c1aebfd9f9e52f65ebc4fb7d820607"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__point__fx__t.html">arm_2d_point_fx_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a97c1aebfd9f9e52f65ebc4fb7d820607">arm_2d_point_fx_t</a></td></tr>
-<tr class="separator:a97c1aebfd9f9e52f65ebc4fb7d820607"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7ce85b93fda2db317cab6c4b2611376"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#ad7ce85b93fda2db317cab6c4b2611376">arm_2d_size_t</a></td></tr>
-<tr class="separator:ad7ce85b93fda2db317cab6c4b2611376"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cca30ba8fa201b45e2f9de90930f596"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__region__t.html">arm_2d_region_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a5cca30ba8fa201b45e2f9de90930f596">arm_2d_region_t</a></td></tr>
-<tr class="separator:a5cca30ba8fa201b45e2f9de90930f596"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79cd23de9e091278cb041dc39d142189"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a79cd23de9e091278cb041dc39d142189">arm_2d_tile_t</a></td></tr>
-<tr class="separator:a79cd23de9e091278cb041dc39d142189"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae89e05338277f72370067c20a50543bf"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__task__t.html">arm_2d_task_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#ae89e05338277f72370067c20a50543bf">arm_2d_task_t</a></td></tr>
-<tr class="separator:ae89e05338277f72370067c20a50543bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4abd85dfa67927a33fc7eb74f45c1502"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a4abd85dfa67927a33fc7eb74f45c1502">arm_2d_op_core_t</a></td></tr>
-<tr class="separator:a4abd85dfa67927a33fc7eb74f45c1502"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e7011e388565d69bc0a1abd1edb636e"><td class="memItemLeft" align="right" valign="top">typedef bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a4e7011e388565d69bc0a1abd1edb636e">arm_2d_op_evt_handler_t</a>(<a class="el" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> *ptThisOP, <a class="el" href="arm__2d__types_8h.html#a373f79d09c0d15653ca46ea08e0377fc">arm_fsm_rt_t</a> tResult, void *pTarget)</td></tr>
 <tr class="separator:a4e7011e388565d69bc0a1abd1edb636e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8334a6547ffc953f1ccab5ddd4eee310"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__evt__t.html">arm_2d_op_evt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a8334a6547ffc953f1ccab5ddd4eee310">arm_2d_op_evt_t</a></td></tr>
-<tr class="separator:a8334a6547ffc953f1ccab5ddd4eee310"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa694e2eb6d25481ef5cc3cc4bbc20eb1"><td class="memItemLeft" align="right" valign="top">typedef bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#aa694e2eb6d25481ef5cc3cc4bbc20eb1">arm_2d_evt_handler_t</a>(void *pTarget)</td></tr>
 <tr class="separator:aa694e2eb6d25481ef5cc3cc4bbc20eb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b8dfc9679796ba365228a103f1f2b2e"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__evt__t.html">arm_2d_evt_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a3b8dfc9679796ba365228a103f1f2b2e">arm_2d_evt_t</a></td></tr>
-<tr class="separator:a3b8dfc9679796ba365228a103f1f2b2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5794a4d595906803e2c82088b3e29464"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_low_level_io_t</a></td></tr>
-<tr class="memdesc:a5794a4d595906803e2c82088b3e29464"><td class="mdescLeft">&#160;</td><td class="mdescRight">an imcomplete defintion which is only used for defining pointers  <a href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">More...</a><br /></td></tr>
-<tr class="separator:a5794a4d595906803e2c82088b3e29464"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a955bdd1e3946a72370f5d0c67fcbb717"><td class="memItemLeft" align="right" valign="top">typedef union <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a955bdd1e3946a72370f5d0c67fcbb717">__arm_2d_op_info_t</a></td></tr>
-<tr class="separator:a955bdd1e3946a72370f5d0c67fcbb717"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a161719a3d659040158e5e663a29e2f4b"><td class="memItemLeft" align="right" valign="top">typedef union <a class="el" href="unionarm__2d__op__status__t.html">arm_2d_op_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a161719a3d659040158e5e663a29e2f4b">arm_2d_op_status_t</a></td></tr>
-<tr class="separator:a161719a3d659040158e5e663a29e2f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34589c022e1fdfe07ad040a3f1b9b1ed"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__t.html">arm_2d_op_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a34589c022e1fdfe07ad040a3f1b9b1ed">arm_2d_op_t</a></td></tr>
-<tr class="separator:a34589c022e1fdfe07ad040a3f1b9b1ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac61d97a4b379fc596ec19aefec5afc62"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__msk__t.html">arm_2d_op_msk_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#ac61d97a4b379fc596ec19aefec5afc62">arm_2d_op_msk_t</a></td></tr>
-<tr class="memdesc:ac61d97a4b379fc596ec19aefec5afc62"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structarm__2d__op__msk__t.html" title="arm_2d_op_msk_t is inherit from arm_2d_op_t">arm_2d_op_msk_t</a> is inherit from <a class="el" href="structarm__2d__op__t.html">arm_2d_op_t</a>  <a href="arm__2d__types_8h.html#ac61d97a4b379fc596ec19aefec5afc62">More...</a><br /></td></tr>
-<tr class="separator:ac61d97a4b379fc596ec19aefec5afc62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1012bd19c2fbcda232fb1e86ac22e91"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__src__t.html">arm_2d_op_src_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#ad1012bd19c2fbcda232fb1e86ac22e91">arm_2d_op_src_t</a></td></tr>
-<tr class="memdesc:ad1012bd19c2fbcda232fb1e86ac22e91"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structarm__2d__op__src__t.html" title="arm_2d_op_src_t is inherit from arm_2d_op_t">arm_2d_op_src_t</a> is inherit from <a class="el" href="structarm__2d__op__t.html">arm_2d_op_t</a>  <a href="arm__2d__types_8h.html#ad1012bd19c2fbcda232fb1e86ac22e91">More...</a><br /></td></tr>
-<tr class="separator:ad1012bd19c2fbcda232fb1e86ac22e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab4dfe5b2202ffecae0084f84b360ff0"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__src__msk__t.html">arm_2d_op_src_msk_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#aab4dfe5b2202ffecae0084f84b360ff0">arm_2d_op_src_msk_t</a></td></tr>
-<tr class="memdesc:aab4dfe5b2202ffecae0084f84b360ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structarm__2d__op__src__msk__t.html" title="arm_2d_op_src_msk_t is inherit from arm_2d_op_src_t">arm_2d_op_src_msk_t</a> is inherit from <a class="el" href="structarm__2d__op__src__t.html" title="arm_2d_op_src_t is inherit from arm_2d_op_t">arm_2d_op_src_t</a>  <a href="arm__2d__types_8h.html#aab4dfe5b2202ffecae0084f84b360ff0">More...</a><br /></td></tr>
-<tr class="separator:aab4dfe5b2202ffecae0084f84b360ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fa121898bd6dd0a3f137ada0afa1a58"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__src__orig__t.html">arm_2d_op_src_orig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a1fa121898bd6dd0a3f137ada0afa1a58">arm_2d_op_src_orig_t</a></td></tr>
-<tr class="memdesc:a1fa121898bd6dd0a3f137ada0afa1a58"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structarm__2d__op__src__orig__t.html" title="arm_2d_op_src_orig_t is inherit from arm_2d_op_src_t">arm_2d_op_src_orig_t</a> is inherit from <a class="el" href="structarm__2d__op__src__t.html" title="arm_2d_op_src_t is inherit from arm_2d_op_t">arm_2d_op_src_t</a>  <a href="arm__2d__types_8h.html#a1fa121898bd6dd0a3f137ada0afa1a58">More...</a><br /></td></tr>
-<tr class="separator:a1fa121898bd6dd0a3f137ada0afa1a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f06d594fe5429db139c7cc2f254c46f"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__src__orig__msk__t.html">arm_2d_op_src_orig_msk_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#a2f06d594fe5429db139c7cc2f254c46f">arm_2d_op_src_orig_msk_t</a></td></tr>
-<tr class="memdesc:a2f06d594fe5429db139c7cc2f254c46f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structarm__2d__op__src__orig__msk__t.html" title="arm_2d_op_src_orig_msk_t is inherit from arm_2d_op_src_orig_t">arm_2d_op_src_orig_msk_t</a> is inherit from <a class="el" href="structarm__2d__op__src__orig__t.html" title="arm_2d_op_src_orig_t is inherit from arm_2d_op_src_t">arm_2d_op_src_orig_t</a>  <a href="arm__2d__types_8h.html#a2f06d594fe5429db139c7cc2f254c46f">More...</a><br /></td></tr>
-<tr class="separator:a2f06d594fe5429db139c7cc2f254c46f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab66334fbe55ed3e8b911679feddb3a67"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__rot__linear__regr__t.html">arm_2d_rot_linear_regr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__types_8h.html#ab66334fbe55ed3e8b911679feddb3a67">arm_2d_rot_linear_regr_t</a></td></tr>
-<tr class="separator:ab66334fbe55ed3e8b911679feddb3a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -354,54 +287,6 @@ Enumerations</h2></td></tr>
 <tr class="separator:afccd240f973cf154952fb917c9209719"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="aab013a91e0bb930476d0e4ace60db7e8" name="aab013a91e0bb930476d0e4ace60db7e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab013a91e0bb930476d0e4ace60db7e8">&#9670;&nbsp;</a></span>__ARM_2D_OP_STATUS_BUSY_msk</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __ARM_2D_OP_STATUS_BUSY_msk&#160;&#160;&#160;(1 &lt;&lt; 4)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00447">447</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
-
-</div>
-</div>
-<a id="a7ee4588567408362c3dbfe7ad583b386" name="a7ee4588567408362c3dbfe7ad583b386"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ee4588567408362c3dbfe7ad583b386">&#9670;&nbsp;</a></span>__ARM_2D_OP_STATUS_CPL_msk</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __ARM_2D_OP_STATUS_CPL_msk&#160;&#160;&#160;(1 &lt;&lt; 6)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00449">449</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
-
-</div>
-</div>
-<a id="a8a63d991855534acc4752ad0c8635201" name="a8a63d991855534acc4752ad0c8635201"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a63d991855534acc4752ad0c8635201">&#9670;&nbsp;</a></span>__ARM_2D_OP_STATUS_IO_ERROR_msk</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __ARM_2D_OP_STATUS_IO_ERROR_msk&#160;&#160;&#160;(1 &lt;&lt; 5)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00448">448</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
-
-</div>
-</div>
 <a id="a0593a5fcaddee75b1a3ce23c4c94f5df" name="a0593a5fcaddee75b1a3ce23c4c94f5df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0593a5fcaddee75b1a3ce23c4c94f5df">&#9670;&nbsp;</a></span>ARM_2D_OP_INFO_PARAM_HAS_ORIGIN</h2>
 
@@ -483,138 +368,6 @@ Enumerations</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="a5794a4d595906803e2c82088b3e29464" name="a5794a4d595906803e2c82088b3e29464"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5794a4d595906803e2c82088b3e29464">&#9670;&nbsp;</a></span>__arm_2d_low_level_io_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a> <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>an imcomplete defintion which is only used for defining pointers </p>
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00374">374</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
-
-</div>
-</div>
-<a id="a955bdd1e3946a72370f5d0c67fcbb717" name="a955bdd1e3946a72370f5d0c67fcbb717"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a955bdd1e3946a72370f5d0c67fcbb717">&#9670;&nbsp;</a></span>__arm_2d_op_info_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef union <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a> <a class="el" href="union____arm__2d__op__info__t.html">__arm_2d_op_info_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a82d9076e9d39e2482c05a2e216349509" name="a82d9076e9d39e2482c05a2e216349509"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82d9076e9d39e2482c05a2e216349509">&#9670;&nbsp;</a></span>arm_2d_color_accc8888_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef union <a class="el" href="unionarm__2d__color__accc8888__t.html">arm_2d_color_accc8888_t</a> <a class="el" href="unionarm__2d__color__accc8888__t.html">arm_2d_color_accc8888_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0a073292efe01af1845789f5ccead67a" name="a0a073292efe01af1845789f5ccead67a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a073292efe01af1845789f5ccead67a">&#9670;&nbsp;</a></span>arm_2d_color_ccca8888_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef union <a class="el" href="unionarm__2d__color__ccca8888__t.html">arm_2d_color_ccca8888_t</a> <a class="el" href="unionarm__2d__color__ccca8888__t.html">arm_2d_color_ccca8888_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5b598ae0bda224338e6c52053b842e77" name="a5b598ae0bda224338e6c52053b842e77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b598ae0bda224338e6c52053b842e77">&#9670;&nbsp;</a></span>arm_2d_color_cccn888_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef union <a class="el" href="unionarm__2d__color__cccn888__t.html">arm_2d_color_cccn888_t</a> <a class="el" href="unionarm__2d__color__cccn888__t.html">arm_2d_color_cccn888_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="acc9dc316cb4c2266226cd9f94afa2e8f" name="acc9dc316cb4c2266226cd9f94afa2e8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc9dc316cb4c2266226cd9f94afa2e8f">&#9670;&nbsp;</a></span>arm_2d_color_nccc888_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef union <a class="el" href="unionarm__2d__color__nccc888__t.html">arm_2d_color_nccc888_t</a> <a class="el" href="unionarm__2d__color__nccc888__t.html">arm_2d_color_nccc888_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a429053f653557847843b5ddacdc68758" name="a429053f653557847843b5ddacdc68758"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a429053f653557847843b5ddacdc68758">&#9670;&nbsp;</a></span>arm_2d_color_rgb565_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef union <a class="el" href="unionarm__2d__color__rgb565__t.html">arm_2d_color_rgb565_t</a> <a class="el" href="unionarm__2d__color__rgb565__t.html">arm_2d_color_rgb565_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa009ffc21a0912bf823f33e8b61aa358" name="aa009ffc21a0912bf823f33e8b61aa358"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa009ffc21a0912bf823f33e8b61aa358">&#9670;&nbsp;</a></span>arm_2d_color_rgb888_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef union <a class="el" href="unionarm__2d__color__rgb888__t.html">arm_2d_color_rgb888_t</a> <a class="el" href="unionarm__2d__color__rgb888__t.html">arm_2d_color_rgb888_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7136016c4851c73def591869155da193" name="a7136016c4851c73def591869155da193"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7136016c4851c73def591869155da193">&#9670;&nbsp;</a></span>arm_2d_color_rgba8888_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef union <a class="el" href="unionarm__2d__color__rgba8888__t.html">arm_2d_color_rgba8888_t</a> <a class="el" href="unionarm__2d__color__rgba8888__t.html">arm_2d_color_rgba8888_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>In most cases four equal-sized pieces of adjacent memory are used, ! one for each channel, and a 0 in a channel indicates black color or ! transparent alpha, while all-1 bits indicates white or fully opaque ! alpha. By far the most common format is to store 8 bits (one byte) ! for each channel, which is 32 bits for each pixel. ! ! (source: <a href="https://en.wikipedia.org/wiki/RGBA_color_model#ARGB32">https://en.wikipedia.org/wiki/RGBA_color_model#ARGB32</a>) </p>
-
-</div>
-</div>
 <a id="aa694e2eb6d25481ef5cc3cc4bbc20eb1" name="aa694e2eb6d25481ef5cc3cc4bbc20eb1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa694e2eb6d25481ef5cc3cc4bbc20eb1">&#9670;&nbsp;</a></span>arm_2d_evt_handler_t</h2>
 
@@ -631,50 +384,6 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
-<a id="a3b8dfc9679796ba365228a103f1f2b2e" name="a3b8dfc9679796ba365228a103f1f2b2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b8dfc9679796ba365228a103f1f2b2e">&#9670;&nbsp;</a></span>arm_2d_evt_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__evt__t.html">arm_2d_evt_t</a> <a class="el" href="structarm__2d__evt__t.html">arm_2d_evt_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8b306d4b070a537600d438468f438f4c" name="a8b306d4b070a537600d438468f438f4c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b306d4b070a537600d438468f438f4c">&#9670;&nbsp;</a></span>arm_2d_location_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__location__t.html">arm_2d_location_t</a> <a class="el" href="structarm__2d__location__t.html">arm_2d_location_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4abd85dfa67927a33fc7eb74f45c1502" name="a4abd85dfa67927a33fc7eb74f45c1502"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4abd85dfa67927a33fc7eb74f45c1502">&#9670;&nbsp;</a></span>arm_2d_op_core_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a> <a class="el" href="structarm__2d__op__core__t.html">arm_2d_op_core_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00348">348</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
-
-</div>
-</div>
 <a id="a4e7011e388565d69bc0a1abd1edb636e" name="a4e7011e388565d69bc0a1abd1edb636e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4e7011e388565d69bc0a1abd1edb636e">&#9670;&nbsp;</a></span>arm_2d_op_evt_handler_t</h2>
 
@@ -688,228 +397,6 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00350">350</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
-
-</div>
-</div>
-<a id="a8334a6547ffc953f1ccab5ddd4eee310" name="a8334a6547ffc953f1ccab5ddd4eee310"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8334a6547ffc953f1ccab5ddd4eee310">&#9670;&nbsp;</a></span>arm_2d_op_evt_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__evt__t.html">arm_2d_op_evt_t</a> <a class="el" href="structarm__2d__op__evt__t.html">arm_2d_op_evt_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac61d97a4b379fc596ec19aefec5afc62" name="ac61d97a4b379fc596ec19aefec5afc62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac61d97a4b379fc596ec19aefec5afc62">&#9670;&nbsp;</a></span>arm_2d_op_msk_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__msk__t.html">arm_2d_op_msk_t</a> <a class="el" href="structarm__2d__op__msk__t.html">arm_2d_op_msk_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="structarm__2d__op__msk__t.html" title="arm_2d_op_msk_t is inherit from arm_2d_op_t">arm_2d_op_msk_t</a> is inherit from <a class="el" href="structarm__2d__op__t.html">arm_2d_op_t</a> </p>
-
-</div>
-</div>
-<a id="aab4dfe5b2202ffecae0084f84b360ff0" name="aab4dfe5b2202ffecae0084f84b360ff0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab4dfe5b2202ffecae0084f84b360ff0">&#9670;&nbsp;</a></span>arm_2d_op_src_msk_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__src__msk__t.html">arm_2d_op_src_msk_t</a> <a class="el" href="structarm__2d__op__src__msk__t.html">arm_2d_op_src_msk_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="structarm__2d__op__src__msk__t.html" title="arm_2d_op_src_msk_t is inherit from arm_2d_op_src_t">arm_2d_op_src_msk_t</a> is inherit from <a class="el" href="structarm__2d__op__src__t.html" title="arm_2d_op_src_t is inherit from arm_2d_op_t">arm_2d_op_src_t</a> </p>
-
-</div>
-</div>
-<a id="a2f06d594fe5429db139c7cc2f254c46f" name="a2f06d594fe5429db139c7cc2f254c46f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f06d594fe5429db139c7cc2f254c46f">&#9670;&nbsp;</a></span>arm_2d_op_src_orig_msk_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__src__orig__msk__t.html">arm_2d_op_src_orig_msk_t</a> <a class="el" href="structarm__2d__op__src__orig__msk__t.html">arm_2d_op_src_orig_msk_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="structarm__2d__op__src__orig__msk__t.html" title="arm_2d_op_src_orig_msk_t is inherit from arm_2d_op_src_orig_t">arm_2d_op_src_orig_msk_t</a> is inherit from <a class="el" href="structarm__2d__op__src__orig__t.html" title="arm_2d_op_src_orig_t is inherit from arm_2d_op_src_t">arm_2d_op_src_orig_t</a> </p>
-
-</div>
-</div>
-<a id="a1fa121898bd6dd0a3f137ada0afa1a58" name="a1fa121898bd6dd0a3f137ada0afa1a58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fa121898bd6dd0a3f137ada0afa1a58">&#9670;&nbsp;</a></span>arm_2d_op_src_orig_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__src__orig__t.html">arm_2d_op_src_orig_t</a> <a class="el" href="structarm__2d__op__src__orig__t.html">arm_2d_op_src_orig_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="structarm__2d__op__src__orig__t.html" title="arm_2d_op_src_orig_t is inherit from arm_2d_op_src_t">arm_2d_op_src_orig_t</a> is inherit from <a class="el" href="structarm__2d__op__src__t.html" title="arm_2d_op_src_t is inherit from arm_2d_op_t">arm_2d_op_src_t</a> </p>
-
-</div>
-</div>
-<a id="ad1012bd19c2fbcda232fb1e86ac22e91" name="ad1012bd19c2fbcda232fb1e86ac22e91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1012bd19c2fbcda232fb1e86ac22e91">&#9670;&nbsp;</a></span>arm_2d_op_src_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__src__t.html">arm_2d_op_src_t</a> <a class="el" href="structarm__2d__op__src__t.html">arm_2d_op_src_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="structarm__2d__op__src__t.html" title="arm_2d_op_src_t is inherit from arm_2d_op_t">arm_2d_op_src_t</a> is inherit from <a class="el" href="structarm__2d__op__t.html">arm_2d_op_t</a> </p>
-
-</div>
-</div>
-<a id="a161719a3d659040158e5e663a29e2f4b" name="a161719a3d659040158e5e663a29e2f4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a161719a3d659040158e5e663a29e2f4b">&#9670;&nbsp;</a></span>arm_2d_op_status_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef union <a class="el" href="unionarm__2d__op__status__t.html">arm_2d_op_status_t</a> <a class="el" href="unionarm__2d__op__status__t.html">arm_2d_op_status_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a34589c022e1fdfe07ad040a3f1b9b1ed" name="a34589c022e1fdfe07ad040a3f1b9b1ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34589c022e1fdfe07ad040a3f1b9b1ed">&#9670;&nbsp;</a></span>arm_2d_op_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__t.html">arm_2d_op_t</a> <a class="el" href="structarm__2d__op__t.html">arm_2d_op_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af63b19842ee9e51e2da6363584b8463b" name="af63b19842ee9e51e2da6363584b8463b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af63b19842ee9e51e2da6363584b8463b">&#9670;&nbsp;</a></span>arm_2d_point_float_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__point__float__t.html">arm_2d_point_float_t</a> <a class="el" href="structarm__2d__point__float__t.html">arm_2d_point_float_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a97c1aebfd9f9e52f65ebc4fb7d820607" name="a97c1aebfd9f9e52f65ebc4fb7d820607"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97c1aebfd9f9e52f65ebc4fb7d820607">&#9670;&nbsp;</a></span>arm_2d_point_fx_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__point__fx__t.html">arm_2d_point_fx_t</a> <a class="el" href="structarm__2d__point__fx__t.html">arm_2d_point_fx_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5cca30ba8fa201b45e2f9de90930f596" name="a5cca30ba8fa201b45e2f9de90930f596"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cca30ba8fa201b45e2f9de90930f596">&#9670;&nbsp;</a></span>arm_2d_region_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__region__t.html">arm_2d_region_t</a> <a class="el" href="structarm__2d__region__t.html">arm_2d_region_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab66334fbe55ed3e8b911679feddb3a67" name="ab66334fbe55ed3e8b911679feddb3a67"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab66334fbe55ed3e8b911679feddb3a67">&#9670;&nbsp;</a></span>arm_2d_rot_linear_regr_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__rot__linear__regr__t.html">arm_2d_rot_linear_regr_t</a> <a class="el" href="structarm__2d__rot__linear__regr__t.html">arm_2d_rot_linear_regr_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad7ce85b93fda2db317cab6c4b2611376" name="ad7ce85b93fda2db317cab6c4b2611376"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7ce85b93fda2db317cab6c4b2611376">&#9670;&nbsp;</a></span>arm_2d_size_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a> <a class="el" href="structarm__2d__size__t.html">arm_2d_size_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae89e05338277f72370067c20a50543bf" name="ae89e05338277f72370067c20a50543bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae89e05338277f72370067c20a50543bf">&#9670;&nbsp;</a></span>arm_2d_task_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__task__t.html">arm_2d_task_t</a> <a class="el" href="structarm__2d__task__t.html">arm_2d_task_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a79cd23de9e091278cb041dc39d142189" name="a79cd23de9e091278cb041dc39d142189"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79cd23de9e091278cb041dc39d142189">&#9670;&nbsp;</a></span>arm_2d_tile_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a> <a class="el" href="structarm__2d__tile__t.html">arm_2d_tile_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00306">306</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>

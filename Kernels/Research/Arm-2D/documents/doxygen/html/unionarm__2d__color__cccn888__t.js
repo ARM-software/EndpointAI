@@ -1,5 +1,5 @@
 var unionarm__2d__color__cccn888__t =
 [
-    [ "tValue", "unionarm__2d__color__cccn888__t.html#a61b910d38393e9a13f2949b92faf35e5", null ],
-    [ "u8C", "unionarm__2d__color__cccn888__t.html#af34e39bda50b14ddccd843e9673e1e1a", null ]
+    [ "tValue", "unionarm__2d__color__cccn888__t.html#ae8c4dac05697e1d033acd484fd332366", null ],
+    [ "u8C", "unionarm__2d__color__cccn888__t.html#ab7cbd6cca47dcfbf8b27e23030ffefc5", null ]
 ];

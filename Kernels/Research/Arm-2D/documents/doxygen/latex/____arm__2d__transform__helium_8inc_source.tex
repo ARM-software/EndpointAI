@@ -1,5 +1,5 @@
 \hypertarget{____arm__2d__transform__helium_8inc_source}{}\doxysection{\+\_\+\+\_\+arm\+\_\+2d\+\_\+transform\+\_\+helium.\+inc}
-\label{____arm__2d__transform__helium_8inc_source}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Source/\_\_arm\_2d\_transform\_helium.inc@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Source/\_\_arm\_2d\_transform\_helium.inc}}
+\label{____arm__2d__transform__helium_8inc_source}\index{\_\_arm\_2d\_transform\_helium.inc@{\_\_arm\_2d\_transform\_helium.inc}}
 \mbox{\hyperlink{____arm__2d__transform__helium_8inc}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00001}00001 }
@@ -59,19 +59,19 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00055}00055 \textcolor{preprocessor}{\#if !\_\_ARM\_2D\_CFG\_FORCED\_FIXED\_POINT\_TRANSFORM\_\_}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00056}00056 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00057}00057 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00058}00058 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00059}00059 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(transform)( \mbox{\hyperlink{struct____arm__2d__param__copy__orig__t}{\_\_arm\_2d\_param\_copy\_orig\_t}} *ptParam,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00060}00060                             \mbox{\hyperlink{struct____arm__2d__transform__info__t}{\_\_arm\_2d\_transform\_info\_t}} *ptInfo)}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00058}00058 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00059}00059 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(transform)( \_\_arm\_2d\_param\_copy\_orig\_t *ptParam,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00060}00060                             \_\_arm\_2d\_transform\_info\_t *ptInfo)}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00061}00061 \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00062}00062     int32\_t    iHeight = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tCopySize.iHeight;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00063}00063     int32\_t    iWidth = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tCopySize.iWidth;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00064}00064 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00065}00065     int32\_t    iTargetStride =}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00066}00066         ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tTarget.iStride;}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00067}00067     \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}     *pTargetBase = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tTarget.pBuffer;}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00068}00068     \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}     *pOrigin = ptParam-\/>tOrigin.pBuffer;}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00067}00067     \_\_API\_INT\_TYPE     *pTargetBase = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tTarget.pBuffer;}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00068}00068     \_\_API\_INT\_TYPE     *pOrigin = ptParam-\/>tOrigin.pBuffer;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00069}00069     int32\_t             iOrigStride = ptParam-\/>tOrigin.iStride;}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00070}00070     \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}      MaskColour = MASK\_COLOR(\mbox{\hyperlink{arm__2d__transform_8c_ace29e49156529f94695cada845142f1d}{\_\_API\_INT\_TYPE\_BIT\_NUM}});}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00070}00070     \_\_API\_INT\_TYPE      MaskColour = MASK\_COLOR(\_\_API\_INT\_TYPE\_BIT\_NUM);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00071}00071     float32\_t           \mbox{\hyperlink{arm__2d__transform_8h_ac12bfe6bda01afa26c0f226b8c14f129}{fAngle}} = -\/ptInfo-\/>fAngle;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00072}00072     \mbox{\hyperlink{structarm__2d__location__t}{arm\_2d\_location\_t}}   tOffset =}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00073}00073         ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tSource.tValidRegion.tLocation;}
@@ -109,12 +109,12 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00105}00105         \textcolor{keywordflow}{for} (int32\_t y = 0; y < iHeight; y++) \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00106}00106 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00107}00107             \textcolor{comment}{/* 1st column estimates (intercepts for regression in X direction */}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00108}00108             float32\_t       colFirstY = regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a88e1b3d00b31e177f59f735940fa7a48}{slopeY}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_ac82c431a2a792ddefa57e5f6d7ec6f69}{interceptY}};}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00109}00109             float32\_t       colFirstX = regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_aada149bd9bbcd35a58e58c6743b0b1b6}{slopeX}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a7d7e52aa8a6d7d69bab27d4b9cc54a48}{interceptX}};}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00108}00108             float32\_t       colFirstY = regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a66b4406bbebc1a7b64122ed504bc599e}{slopeY}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a1f252268a2adcd9c62e1d49b18885dfb}{interceptY}};}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00109}00109             float32\_t       colFirstX = regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a42cfa36a835027172ec23a336f421839}{slopeX}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a126853e5f6563921236b57b6719e7a5e}{interceptX}};}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00110}00110 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00111}00111             int32\_t         nbVecElts = iWidth;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00112}00112             float16x8\_t     vX = vcvtq\_f16\_s16((int16x8\_t) vidupq\_n\_u16(0, 1));}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00113}00113             \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}       *pTargetBaseCur = pTargetBase;}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00113}00113             \_\_API\_INT\_TYPE       *pTargetBaseCur = pTargetBase;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00114}00114 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00115}00115             \textcolor{keywordflow}{while} (nbVecElts > 0) \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00116}00116                 arm\_2d\_point\_f16x8\_t tPointV;}
@@ -125,11 +125,11 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00121}00121                         vfmaq\_n\_f16(vdupq\_n\_f16(colFirstY), vX, slopeY);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00122}00122 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00123}00123 \textcolor{preprocessor}{        \#if !defined(\_\_ARM\_2D\_CFG\_UNSAFE\_IGNORE\_CALIB\_IN\_ROTATION\_FOR\_PERFORMANCE\_\_)}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00124}00124                     tPointV.X = vaddq\_m\_n\_f16(tPointV.X, tPointV.X, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpgtq(tPointV.X, 0));}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00125}00125                     tPointV.X = vsubq\_m\_n\_f16(tPointV.X, tPointV.X, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpleq(tPointV.X, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00124}00124                     tPointV.X = vaddq\_m\_n\_f16(tPointV.X, tPointV.X, \_\_CALIB, vcmpgtq(tPointV.X, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00125}00125                     tPointV.X = vsubq\_m\_n\_f16(tPointV.X, tPointV.X, \_\_CALIB, vcmpleq(tPointV.X, 0));}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00126}00126 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00127}00127                     tPointV.Y = vaddq\_m\_n\_f16(tPointV.Y, tPointV.Y, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpgtq(tPointV.Y, 0));}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00128}00128                     tPointV.Y = vsubq\_m\_n\_f16(tPointV.Y, tPointV.Y, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpleq(tPointV.Y, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00127}00127                     tPointV.Y = vaddq\_m\_n\_f16(tPointV.Y, tPointV.Y, \_\_CALIB, vcmpgtq(tPointV.Y, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00128}00128                     tPointV.Y = vsubq\_m\_n\_f16(tPointV.Y, tPointV.Y, \_\_CALIB, vcmpleq(tPointV.Y, 0));}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00129}00129 \textcolor{preprocessor}{        \#endif}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00130}00130                     \_\_ARM\_2D\_FUNC(get\_pixel\_colour)(\&tPointV,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00131}00131                                                           \&ptParam-\/>tOrigin.tValidRegion,}
@@ -149,8 +149,8 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00145}00145         \textcolor{keywordflow}{for} (int32\_t y = 0; y < iHeight; y++) \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00146}00146 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00147}00147             \textcolor{comment}{/* 1st column estimates (intercepts for regression in X direction */}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00148}00148             float32\_t       colFirstY = regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a88e1b3d00b31e177f59f735940fa7a48}{slopeY}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_ac82c431a2a792ddefa57e5f6d7ec6f69}{interceptY}};}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00149}00149             float32\_t       colFirstX = regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_aada149bd9bbcd35a58e58c6743b0b1b6}{slopeX}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a7d7e52aa8a6d7d69bab27d4b9cc54a48}{interceptX}};}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00148}00148             float32\_t       colFirstY = regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a66b4406bbebc1a7b64122ed504bc599e}{slopeY}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a1f252268a2adcd9c62e1d49b18885dfb}{interceptY}};}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00149}00149             float32\_t       colFirstX = regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a42cfa36a835027172ec23a336f421839}{slopeX}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a126853e5f6563921236b57b6719e7a5e}{interceptX}};}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00150}00150             int32\_t         nbVecElts = iWidth;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00151}00151             float16x8\_t     vX = vcvtq\_f16\_s16((int16x8\_t) vidupq\_n\_u16(0, 1));}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00152}00152             uint16\_t       *pTargetBaseCur = pTargetBase;}
@@ -164,11 +164,11 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00160}00160                     vfmaq\_n\_f16(vdupq\_n\_f16(colFirstY), vX, slopeY);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00161}00161 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00162}00162 \textcolor{preprocessor}{\#if !defined(\_\_ARM\_2D\_CFG\_UNSAFE\_IGNORE\_CALIB\_IN\_ROTATION\_FOR\_PERFORMANCE\_\_)}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00163}00163                     tPointV.X = vaddq\_m\_n\_f16(tPointV.X, tPointV.X, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpgtq(tPointV.X, 0));}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00164}00164                     tPointV.X = vsubq\_m\_n\_f16(tPointV.X, tPointV.X, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpleq(tPointV.X, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00163}00163                     tPointV.X = vaddq\_m\_n\_f16(tPointV.X, tPointV.X, \_\_CALIB, vcmpgtq(tPointV.X, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00164}00164                     tPointV.X = vsubq\_m\_n\_f16(tPointV.X, tPointV.X, \_\_CALIB, vcmpleq(tPointV.X, 0));}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00165}00165 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00166}00166                     tPointV.Y = vaddq\_m\_n\_f16(tPointV.Y, tPointV.Y, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpgtq(tPointV.Y, 0));}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00167}00167                     tPointV.Y = vsubq\_m\_n\_f16(tPointV.Y, tPointV.Y, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpleq(tPointV.Y, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00166}00166                     tPointV.Y = vaddq\_m\_n\_f16(tPointV.Y, tPointV.Y, \_\_CALIB, vcmpgtq(tPointV.Y, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00167}00167                     tPointV.Y = vsubq\_m\_n\_f16(tPointV.Y, tPointV.Y, \_\_CALIB, vcmpleq(tPointV.Y, 0));}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00168}00168 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00169}00169                 \_\_arm\_2d\_impl\_rgb565\_get\_pixel\_colour\_offs\_compensated(\&tPointV,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00170}00170                                                                        \&ptParam-\/>tOrigin.}
@@ -190,9 +190,9 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00186}00186 \}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00187}00187 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00188}00188 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00189}00189 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00190}00190 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(transform\_with\_opacity)(\mbox{\hyperlink{struct____arm__2d__param__copy__orig__t}{\_\_arm\_2d\_param\_copy\_orig\_t}} *ptParam,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00191}00191                                     \mbox{\hyperlink{struct____arm__2d__transform__info__t}{\_\_arm\_2d\_transform\_info\_t}} *ptInfo,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00189}00189 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00190}00190 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(transform\_with\_opacity)(\_\_arm\_2d\_param\_copy\_orig\_t *ptParam,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00191}00191                                     \_\_arm\_2d\_transform\_info\_t *ptInfo,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00192}00192                                     uint\_fast16\_t hwRatio)}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00193}00193 \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00194}00194     int32\_t         iHeight = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tCopySize.iHeight;}
@@ -200,10 +200,10 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00196}00196 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00197}00197     int32\_t         iTargetStride =}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00198}00198         ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tTarget.iStride;}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00199}00199     \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}     *pTargetBase = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tTarget.pBuffer;}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00200}00200     \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}     *pOrigin = ptParam-\/>tOrigin.pBuffer;}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00199}00199     \_\_API\_INT\_TYPE     *pTargetBase = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tTarget.pBuffer;}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00200}00200     \_\_API\_INT\_TYPE     *pOrigin = ptParam-\/>tOrigin.pBuffer;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00201}00201     int32\_t             iOrigStride = ptParam-\/>tOrigin.iStride;}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00202}00202     \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}      MaskColour = MASK\_COLOR(\mbox{\hyperlink{arm__2d__transform_8c_ace29e49156529f94695cada845142f1d}{\_\_API\_INT\_TYPE\_BIT\_NUM}});}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00202}00202     \_\_API\_INT\_TYPE      MaskColour = MASK\_COLOR(\_\_API\_INT\_TYPE\_BIT\_NUM);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00203}00203     float32\_t           \mbox{\hyperlink{arm__2d__transform_8h_ac12bfe6bda01afa26c0f226b8c14f129}{fAngle}} = -\/ptInfo-\/>fAngle;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00204}00204     \mbox{\hyperlink{structarm__2d__location__t}{arm\_2d\_location\_t}}   tOffset =}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00205}00205         ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tSource.tValidRegion.tLocation;}
@@ -243,13 +243,13 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00239}00239         \textcolor{keywordflow}{for} (int32\_t y = 0; y < iHeight; y++) \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00240}00240             \textcolor{comment}{/* 1st column estimates (intercepts for regression in X direction */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00241}00241             float32\_t       colFirstY =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00242}00242                  (regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a88e1b3d00b31e177f59f735940fa7a48}{slopeY}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_ac82c431a2a792ddefa57e5f6d7ec6f69}{interceptY}});}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00242}00242                  (regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a66b4406bbebc1a7b64122ed504bc599e}{slopeY}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a1f252268a2adcd9c62e1d49b18885dfb}{interceptY}});}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00243}00243             float32\_t       colFirstX =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00244}00244                  (regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_aada149bd9bbcd35a58e58c6743b0b1b6}{slopeX}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a7d7e52aa8a6d7d69bab27d4b9cc54a48}{interceptX}});}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00244}00244                  (regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a42cfa36a835027172ec23a336f421839}{slopeX}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a126853e5f6563921236b57b6719e7a5e}{interceptX}});}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00245}00245 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00246}00246             int32\_t         nbVecElts = iWidth;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00247}00247             float16x8\_t     vX = vcvtq\_f16\_s16((int16x8\_t) vidupq\_n\_u16(0, 1));}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00248}00248             \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}       *pTargetBaseCur = pTargetBase;}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00248}00248             \_\_API\_INT\_TYPE       *pTargetBaseCur = pTargetBase;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00249}00249 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00250}00250             \textcolor{keywordflow}{while} (nbVecElts > 0) \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00251}00251                 arm\_2d\_point\_f16x8\_t tPointV;}
@@ -261,11 +261,11 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00257}00257                     vfmaq\_n\_f16(vdupq\_n\_f16(colFirstY), vX, slopeY);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00258}00258 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00259}00259 \textcolor{preprocessor}{\#if !defined(\_\_ARM\_2D\_CFG\_UNSAFE\_IGNORE\_CALIB\_IN\_ROTATION\_FOR\_PERFORMANCE\_\_)}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00260}00260                 tPointV.X = vaddq\_m\_n\_f16(tPointV.X, tPointV.X, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpgtq(tPointV.X, 0));}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00261}00261                 tPointV.X = vsubq\_m\_n\_f16(tPointV.X, tPointV.X, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpleq(tPointV.X, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00260}00260                 tPointV.X = vaddq\_m\_n\_f16(tPointV.X, tPointV.X, \_\_CALIB, vcmpgtq(tPointV.X, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00261}00261                 tPointV.X = vsubq\_m\_n\_f16(tPointV.X, tPointV.X, \_\_CALIB, vcmpleq(tPointV.X, 0));}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00262}00262 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00263}00263                 tPointV.Y = vaddq\_m\_n\_f16(tPointV.Y, tPointV.Y, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpgtq(tPointV.Y, 0));}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00264}00264                 tPointV.Y = vsubq\_m\_n\_f16(tPointV.Y, tPointV.Y, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpleq(tPointV.Y, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00263}00263                 tPointV.Y = vaddq\_m\_n\_f16(tPointV.Y, tPointV.Y, \_\_CALIB, vcmpgtq(tPointV.Y, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00264}00264                 tPointV.Y = vsubq\_m\_n\_f16(tPointV.Y, tPointV.Y, \_\_CALIB, vcmpleq(tPointV.Y, 0));}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00265}00265 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00266}00266                 \_\_ARM\_2D\_FUNC(get\_pixel\_colour\_with\_alpha)(\&tPointV,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00267}00267                                                              \&ptParam-\/>tOrigin.}
@@ -296,9 +296,9 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00292}00292         \textcolor{keywordflow}{for} (int32\_t y = 0; y < iHeight; y++) \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00293}00293             \textcolor{comment}{/* 1st column estimates (intercepts for regression in X direction */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00294}00294             float32\_t       colFirstY =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00295}00295                  (regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a88e1b3d00b31e177f59f735940fa7a48}{slopeY}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_ac82c431a2a792ddefa57e5f6d7ec6f69}{interceptY}});}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00295}00295                  (regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a66b4406bbebc1a7b64122ed504bc599e}{slopeY}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a1f252268a2adcd9c62e1d49b18885dfb}{interceptY}});}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00296}00296             float32\_t       colFirstX =}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00297}00297                  (regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_aada149bd9bbcd35a58e58c6743b0b1b6}{slopeX}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a7d7e52aa8a6d7d69bab27d4b9cc54a48}{interceptX}});}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00297}00297                  (regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a42cfa36a835027172ec23a336f421839}{slopeX}} * y + regrCoefs[0].\mbox{\hyperlink{structarm__2d__rot__linear__regr__t_a126853e5f6563921236b57b6719e7a5e}{interceptX}});}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00298}00298 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00299}00299             int32\_t         nbVecElts = iWidth;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00300}00300             float16x8\_t     vX = vcvtq\_f16\_s16((int16x8\_t) vidupq\_n\_u16(0, 1));}
@@ -314,11 +314,11 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00310}00310                     vfmaq\_n\_f16(vdupq\_n\_f16(colFirstY), vX, slopeY);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00311}00311 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00312}00312 \textcolor{preprocessor}{\#if !defined(\_\_ARM\_2D\_CFG\_UNSAFE\_IGNORE\_CALIB\_IN\_ROTATION\_FOR\_PERFORMANCE\_\_)}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00313}00313                 tPointV.X = vaddq\_m\_n\_f16(tPointV.X, tPointV.X, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpgtq(tPointV.X, 0));}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00314}00314                 tPointV.X = vsubq\_m\_n\_f16(tPointV.X, tPointV.X, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpleq(tPointV.X, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00313}00313                 tPointV.X = vaddq\_m\_n\_f16(tPointV.X, tPointV.X, \_\_CALIB, vcmpgtq(tPointV.X, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00314}00314                 tPointV.X = vsubq\_m\_n\_f16(tPointV.X, tPointV.X, \_\_CALIB, vcmpleq(tPointV.X, 0));}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00315}00315 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00316}00316                 tPointV.Y = vaddq\_m\_n\_f16(tPointV.Y, tPointV.Y, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpgtq(tPointV.Y, 0));}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00317}00317                 tPointV.Y = vsubq\_m\_n\_f16(tPointV.Y, tPointV.Y, \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\_\_CALIB}}, vcmpleq(tPointV.Y, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00316}00316                 tPointV.Y = vaddq\_m\_n\_f16(tPointV.Y, tPointV.Y, \_\_CALIB, vcmpgtq(tPointV.Y, 0));}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00317}00317                 tPointV.Y = vsubq\_m\_n\_f16(tPointV.Y, tPointV.Y, \_\_CALIB, vcmpleq(tPointV.Y, 0));}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00318}00318 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00319}00319                 \_\_arm\_2d\_impl\_rgb565\_get\_pixel\_colour\_with\_alpha\_offs\_compensated(\&tPointV,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00320}00320                                                                         \&ptParam-\/>tOrigin.}
@@ -342,18 +342,18 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00338}00338 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00339}00339 \textcolor{preprocessor}{\#else }\textcolor{comment}{/* \_\_ARM\_2D\_CFG\_FORCED\_FIXED\_POINT\_TRANSFORM\_\_ */}\textcolor{preprocessor}{}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00340}00340 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00341}00341 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00342}00342 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(transform)(   \mbox{\hyperlink{struct____arm__2d__param__copy__orig__t}{\_\_arm\_2d\_param\_copy\_orig\_t}} *ptParam,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00343}00343                                     \mbox{\hyperlink{struct____arm__2d__transform__info__t}{\_\_arm\_2d\_transform\_info\_t}} *ptInfo)}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00341}00341 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00342}00342 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(transform)(   \_\_arm\_2d\_param\_copy\_orig\_t *ptParam,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00343}00343                                     \_\_arm\_2d\_transform\_info\_t *ptInfo)}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00344}00344 \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00345}00345     int32\_t         iHeight = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tCopySize.iHeight;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00346}00346     int32\_t         iWidth = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tCopySize.iWidth;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00347}00347     int32\_t         iTargetStride =}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00348}00348         ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tTarget.iStride;}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00349}00349     \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}  *pTargetBase = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tTarget.pBuffer;}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00350}00350     \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}  *pOrigin = ptParam-\/>tOrigin.pBuffer;}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00349}00349     \_\_API\_INT\_TYPE  *pTargetBase = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tTarget.pBuffer;}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00350}00350     \_\_API\_INT\_TYPE  *pOrigin = ptParam-\/>tOrigin.pBuffer;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00351}00351     int32\_t         iOrigStride = ptParam-\/>tOrigin.iStride;}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00352}00352     \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}   MaskColour = MASK\_COLOR(\mbox{\hyperlink{arm__2d__transform_8c_ace29e49156529f94695cada845142f1d}{\_\_API\_INT\_TYPE\_BIT\_NUM}});}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00352}00352     \_\_API\_INT\_TYPE   MaskColour = MASK\_COLOR(\_\_API\_INT\_TYPE\_BIT\_NUM);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00353}00353     float32\_t        \mbox{\hyperlink{arm__2d__transform_8h_ac12bfe6bda01afa26c0f226b8c14f129}{fAngle}} = -\/ptInfo-\/>fAngle;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00354}00354     \mbox{\hyperlink{structarm__2d__location__t}{arm\_2d\_location\_t}} tOffset =}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00355}00355         ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tSource.tValidRegion.tLocation;}
@@ -411,7 +411,7 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00407}00407 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00408}00408         int32\_t         nbVecElts = iWidth;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00409}00409         int16x8\_t       vX = (int16x8\_t) vidupq\_n\_u16(0, 1);}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00410}00410         \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}       *pTargetBaseCur = pTargetBase;}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00410}00410         \_\_API\_INT\_TYPE       *pTargetBaseCur = pTargetBase;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00411}00411 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00412}00412         \textcolor{comment}{/* Q9.6 coversion */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00413}00413         vX = SET\_Q6INT(vX);}
@@ -455,7 +455,7 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00451}00451 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00452}00452             int32\_t         nbVecElts = iWidth;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00453}00453             int16x8\_t       vX = (int16x8\_t) vidupq\_n\_u16(0, 1);}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00454}00454             \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}     *pTargetBaseCur = pTargetBase;}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00454}00454             \_\_API\_INT\_TYPE     *pTargetBaseCur = pTargetBase;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00455}00455 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00456}00456             \textcolor{comment}{/* Q9.6 coversion */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00457}00457             vX = SET\_Q6INT(vX);}
@@ -491,9 +491,9 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00487}00487 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00488}00488 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00489}00489 }
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00490}00490 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00491}00491 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(transform\_with\_opacity)(   \mbox{\hyperlink{struct____arm__2d__param__copy__orig__t}{\_\_arm\_2d\_param\_copy\_orig\_t}} *ptParam,}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00492}00492                                     \mbox{\hyperlink{struct____arm__2d__transform__info__t}{\_\_arm\_2d\_transform\_info\_t}} *ptInfo,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00490}00490 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00491}00491 \textcolor{keywordtype}{void} \_\_ARM\_2D\_FUNC(transform\_with\_opacity)(   \_\_arm\_2d\_param\_copy\_orig\_t *ptParam,}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00492}00492                                     \_\_arm\_2d\_transform\_info\_t *ptInfo,}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00493}00493                                     uint\_fast16\_t hwRatio)}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00494}00494 \{}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00495}00495     int32\_t         iHeight = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tCopySize.iHeight;}
@@ -501,10 +501,10 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00497}00497 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00498}00498     int32\_t         iTargetStride =}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00499}00499         ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tTarget.iStride;}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00500}00500     \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}       *pTargetBase = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tTarget.pBuffer;}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00501}00501     \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}       *pOrigin = ptParam-\/>tOrigin.pBuffer;}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00500}00500     \_\_API\_INT\_TYPE       *pTargetBase = ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tTarget.pBuffer;}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00501}00501     \_\_API\_INT\_TYPE       *pOrigin = ptParam-\/>tOrigin.pBuffer;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00502}00502     int32\_t         iOrigStride = ptParam-\/>tOrigin.iStride;}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00503}00503     \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}}        MaskColour = MASK\_COLOR(\mbox{\hyperlink{arm__2d__transform_8c_ace29e49156529f94695cada845142f1d}{\_\_API\_INT\_TYPE\_BIT\_NUM}});}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00503}00503     \_\_API\_INT\_TYPE        MaskColour = MASK\_COLOR(\_\_API\_INT\_TYPE\_BIT\_NUM);}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00504}00504     \textcolor{keywordtype}{float}           \mbox{\hyperlink{arm__2d__transform_8h_ac12bfe6bda01afa26c0f226b8c14f129}{fAngle}} = -\/ptInfo-\/>fAngle;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00505}00505     \mbox{\hyperlink{structarm__2d__location__t}{arm\_2d\_location\_t}} tOffset =}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00506}00506         ptParam-\/>use\_as\_\_\_\_arm\_2d\_param\_copy\_t.tSource.tValidRegion.tLocation;}
@@ -561,7 +561,7 @@
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00557}00557 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00558}00558             int32\_t         nbVecElts = iWidth;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00559}00559             int16x8\_t       vX = (int16x8\_t) vidupq\_n\_u16(0, 1);}
-\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00560}00560             \mbox{\hyperlink{arm__2d__alpha__blending_8c_a71ef659837d31a3da6b902b7c50fce6f}{\_\_API\_INT\_TYPE}} *pTargetBaseCur = pTargetBase;}
+\DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00560}00560             \_\_API\_INT\_TYPE *pTargetBaseCur = pTargetBase;}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00561}00561 }
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00562}00562             \textcolor{comment}{/* Q9.6 coversion */}}
 \DoxyCodeLine{\Hypertarget{____arm__2d__transform__helium_8inc_source_l00563}00563             vX = SET\_Q6INT(vX);}

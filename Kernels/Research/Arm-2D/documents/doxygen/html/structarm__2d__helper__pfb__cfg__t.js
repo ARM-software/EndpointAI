@@ -1,13 +1,13 @@
 var structarm__2d__helper__pfb__cfg__t =
 [
-    [ "bDisableDynamicFPBSize", "structarm__2d__helper__pfb__cfg__t.html#a47c93dae796af9b8d284f2b8fd0070c0", null ],
-    [ "bDoNOTUpdateDefaultFrameBuffer", "structarm__2d__helper__pfb__cfg__t.html#a02a63104e286d382eb62a3cca7837b16", null ],
-    [ "bSwapRGB16", "structarm__2d__helper__pfb__cfg__t.html#ad43cf08f34fb056a7a59c0cf013b1cd5", null ],
-    [ "Dependency", "structarm__2d__helper__pfb__cfg__t.html#af36eefafa72be742f932332a955dc7b1", null ],
-    [ "FrameBuffer", "structarm__2d__helper__pfb__cfg__t.html#ab95667e59821f1b6a4c2cdb3092fc6a2", null ],
-    [ "hwPFBNum", "structarm__2d__helper__pfb__cfg__t.html#a90a987a6022fc5c85c04cb3e6bc5aa19", null ],
-    [ "ptPFBs", "structarm__2d__helper__pfb__cfg__t.html#ae2706ab3d35da0abad0b8d7af83f8b13", null ],
-    [ "tDisplayArea", "structarm__2d__helper__pfb__cfg__t.html#aa8e6112ec044bb1d8447aea1c4345946", null ],
-    [ "tFrameSize", "structarm__2d__helper__pfb__cfg__t.html#aa8f595e4559633822a116ff3fa68e290", null ],
-    [ "wBufferSize", "structarm__2d__helper__pfb__cfg__t.html#aa06ce7e78b54bff0ac512f8b6cfc1e9b", null ]
+    [ "bDisableDynamicFPBSize", "structarm__2d__helper__pfb__cfg__t.html#aba981bed04008932aef68ad64d53ade8", null ],
+    [ "bDoNOTUpdateDefaultFrameBuffer", "structarm__2d__helper__pfb__cfg__t.html#a7f2659e2d2d91903f7c7ddb2e6601665", null ],
+    [ "bSwapRGB16", "structarm__2d__helper__pfb__cfg__t.html#a5eae45d5bd62c3fc6b332fae8fe26c9a", null ],
+    [ "Dependency", "structarm__2d__helper__pfb__cfg__t.html#a65ec336911098eaed7b2ac60038dda6e", null ],
+    [ "FrameBuffer", "structarm__2d__helper__pfb__cfg__t.html#aa24ae9a0fa4971e27e32942bf1399d8a", null ],
+    [ "hwPFBNum", "structarm__2d__helper__pfb__cfg__t.html#a9b01913bdd6fe9d2a2b539b4ff977133", null ],
+    [ "ptPFBs", "structarm__2d__helper__pfb__cfg__t.html#a48ff609d75c80432423b4a537b210565", null ],
+    [ "tDisplayArea", "structarm__2d__helper__pfb__cfg__t.html#adc4ca6df76cda6514cff8a4cec3918ca", null ],
+    [ "tFrameSize", "structarm__2d__helper__pfb__cfg__t.html#a37d9ea4a7da037ac29136a17b0e351b8", null ],
+    [ "wBufferSize", "structarm__2d__helper__pfb__cfg__t.html#a373f82efd20baa85bccf7755f4ef8f99", null ]
 ];

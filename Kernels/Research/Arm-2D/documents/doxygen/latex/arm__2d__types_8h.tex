@@ -1,5 +1,5 @@
-\hypertarget{arm__2d__types_8h}{}\doxysection{/\+Users/gabwan01/\+Documents/\+Work/\+CPMK/\+Git/\+Endpoint\+AI/\+Kernels/\+Research/\+Arm-\/2\+D/\+Library/\+Include/arm\+\_\+2d\+\_\+types.h File Reference}
-\label{arm__2d__types_8h}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/arm\_2d\_types.h@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/arm\_2d\_types.h}}
+\hypertarget{arm__2d__types_8h}{}\doxysection{arm\+\_\+2d\+\_\+types.\+h File Reference}
+\label{arm__2d__types_8h}\index{arm\_2d\_types.h@{arm\_2d\_types.h}}
 {\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
 {\ttfamily \#include $<$stdbool.\+h$>$}\newline
@@ -44,8 +44,6 @@ struct \mbox{\hyperlink{structarm__2d__op__evt__t}{arm\+\_\+2d\+\_\+op\+\_\+evt\
 \item 
 struct \mbox{\hyperlink{structarm__2d__evt__t}{arm\+\_\+2d\+\_\+evt\+\_\+t}}
 \item 
-union \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}}
-\item 
 union \mbox{\hyperlink{unionarm__2d__op__status__t}{arm\+\_\+2d\+\_\+op\+\_\+status\+\_\+t}}
 \item 
 struct \mbox{\hyperlink{structarm__2d__op__core__t}{arm\+\_\+2d\+\_\+op\+\_\+core\+\_\+t}}
@@ -76,73 +74,13 @@ struct \mbox{\hyperlink{structarm__2d__rot__linear__regr__t}{arm\+\_\+2d\+\_\+ro
 \#define \mbox{\hyperlink{arm__2d__types_8h_a7c26c656a4dd352e1a9607c9319f1007}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+INFO\+\_\+\+PARAM\+\_\+\+HAS\+\_\+\+TARGET\+\_\+\+MASK}}~\mbox{\hyperlink{____arm__2d__math_8h_a94026a8222e1438f86fdb8c36b381903}{\+\_\+\+BV}}(3)
 \item 
 \#define \mbox{\hyperlink{arm__2d__types_8h_a0593a5fcaddee75b1a3ce23c4c94f5df}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+INFO\+\_\+\+PARAM\+\_\+\+HAS\+\_\+\+ORIGIN}}~\mbox{\hyperlink{____arm__2d__math_8h_a94026a8222e1438f86fdb8c36b381903}{\+\_\+\+BV}}(4)
-\item 
-\#define \mbox{\hyperlink{arm__2d__types_8h_aab013a91e0bb930476d0e4ace60db7e8}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+STATUS\+\_\+\+BUSY\+\_\+msk}}~(1 $<$$<$ 4)
-\item 
-\#define \mbox{\hyperlink{arm__2d__types_8h_a8a63d991855534acc4752ad0c8635201}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+STATUS\+\_\+\+IO\+\_\+\+ERROR\+\_\+msk}}~(1 $<$$<$ 5)
-\item 
-\#define \mbox{\hyperlink{arm__2d__types_8h_a7ee4588567408362c3dbfe7ad583b386}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+STATUS\+\_\+\+CPL\+\_\+msk}}~(1 $<$$<$ 6)
 \end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef union \mbox{\hyperlink{unionarm__2d__color__rgb565__t}{arm\+\_\+2d\+\_\+color\+\_\+rgb565\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a429053f653557847843b5ddacdc68758}{arm\+\_\+2d\+\_\+color\+\_\+rgb565\+\_\+t}}
-\item 
-typedef union \mbox{\hyperlink{unionarm__2d__color__rgba8888__t}{arm\+\_\+2d\+\_\+color\+\_\+rgba8888\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a7136016c4851c73def591869155da193}{arm\+\_\+2d\+\_\+color\+\_\+rgba8888\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em In most cases four equal-\/sized pieces of adjacent memory are used, ! one for each channel, and a 0 in a channel indicates black color or ! transparent alpha, while all-\/1 bits indicates white or fully opaque ! alpha. By far the most common format is to store 8 bits (one byte) ! for each channel, which is 32 bits for each pixel. ! ! (source\+: \href{https://en.wikipedia.org/wiki/RGBA_color_model\#ARGB32}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+RGBA\+\_\+color\+\_\+model\#\+ARGB32}}) \end{DoxyCompactList}\item 
-typedef union \mbox{\hyperlink{unionarm__2d__color__rgb888__t}{arm\+\_\+2d\+\_\+color\+\_\+rgb888\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_aa009ffc21a0912bf823f33e8b61aa358}{arm\+\_\+2d\+\_\+color\+\_\+rgb888\+\_\+t}}
-\item 
-typedef union \mbox{\hyperlink{unionarm__2d__color__ccca8888__t}{arm\+\_\+2d\+\_\+color\+\_\+ccca8888\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a0a073292efe01af1845789f5ccead67a}{arm\+\_\+2d\+\_\+color\+\_\+ccca8888\+\_\+t}}
-\item 
-typedef union \mbox{\hyperlink{unionarm__2d__color__accc8888__t}{arm\+\_\+2d\+\_\+color\+\_\+accc8888\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a82d9076e9d39e2482c05a2e216349509}{arm\+\_\+2d\+\_\+color\+\_\+accc8888\+\_\+t}}
-\item 
-typedef union \mbox{\hyperlink{unionarm__2d__color__cccn888__t}{arm\+\_\+2d\+\_\+color\+\_\+cccn888\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a5b598ae0bda224338e6c52053b842e77}{arm\+\_\+2d\+\_\+color\+\_\+cccn888\+\_\+t}}
-\item 
-typedef union \mbox{\hyperlink{unionarm__2d__color__nccc888__t}{arm\+\_\+2d\+\_\+color\+\_\+nccc888\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_acc9dc316cb4c2266226cd9f94afa2e8f}{arm\+\_\+2d\+\_\+color\+\_\+nccc888\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__location__t}{arm\+\_\+2d\+\_\+location\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a8b306d4b070a537600d438468f438f4c}{arm\+\_\+2d\+\_\+location\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__point__float__t}{arm\+\_\+2d\+\_\+point\+\_\+float\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_af63b19842ee9e51e2da6363584b8463b}{arm\+\_\+2d\+\_\+point\+\_\+float\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__point__fx__t}{arm\+\_\+2d\+\_\+point\+\_\+fx\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a97c1aebfd9f9e52f65ebc4fb7d820607}{arm\+\_\+2d\+\_\+point\+\_\+fx\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__size__t}{arm\+\_\+2d\+\_\+size\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_ad7ce85b93fda2db317cab6c4b2611376}{arm\+\_\+2d\+\_\+size\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__region__t}{arm\+\_\+2d\+\_\+region\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a5cca30ba8fa201b45e2f9de90930f596}{arm\+\_\+2d\+\_\+region\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__tile__t}{arm\+\_\+2d\+\_\+tile\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a79cd23de9e091278cb041dc39d142189}{arm\+\_\+2d\+\_\+tile\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__task__t}{arm\+\_\+2d\+\_\+task\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_ae89e05338277f72370067c20a50543bf}{arm\+\_\+2d\+\_\+task\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__op__core__t}{arm\+\_\+2d\+\_\+op\+\_\+core\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a4abd85dfa67927a33fc7eb74f45c1502}{arm\+\_\+2d\+\_\+op\+\_\+core\+\_\+t}}
-\item 
 typedef bool \mbox{\hyperlink{arm__2d__types_8h_a4e7011e388565d69bc0a1abd1edb636e}{arm\+\_\+2d\+\_\+op\+\_\+evt\+\_\+handler\+\_\+t}}(\mbox{\hyperlink{structarm__2d__op__core__t}{arm\+\_\+2d\+\_\+op\+\_\+core\+\_\+t}} $\ast$pt\+This\+OP, \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} t\+Result, void $\ast$p\+Target)
 \item 
-typedef struct \mbox{\hyperlink{structarm__2d__op__evt__t}{arm\+\_\+2d\+\_\+op\+\_\+evt\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a8334a6547ffc953f1ccab5ddd4eee310}{arm\+\_\+2d\+\_\+op\+\_\+evt\+\_\+t}}
-\item 
 typedef bool \mbox{\hyperlink{arm__2d__types_8h_aa694e2eb6d25481ef5cc3cc4bbc20eb1}{arm\+\_\+2d\+\_\+evt\+\_\+handler\+\_\+t}}(void $\ast$p\+Target)
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__evt__t}{arm\+\_\+2d\+\_\+evt\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a3b8dfc9679796ba365228a103f1f2b2e}{arm\+\_\+2d\+\_\+evt\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+low\+\_\+level\+\_\+io\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a5794a4d595906803e2c82088b3e29464}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+low\+\_\+level\+\_\+io\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em an imcomplete defintion which is only used for defining pointers \end{DoxyCompactList}\item 
-typedef union \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a955bdd1e3946a72370f5d0c67fcbb717}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}}
-\item 
-typedef union \mbox{\hyperlink{unionarm__2d__op__status__t}{arm\+\_\+2d\+\_\+op\+\_\+status\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a161719a3d659040158e5e663a29e2f4b}{arm\+\_\+2d\+\_\+op\+\_\+status\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__op__t}{arm\+\_\+2d\+\_\+op\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a34589c022e1fdfe07ad040a3f1b9b1ed}{arm\+\_\+2d\+\_\+op\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__op__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+msk\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_ac61d97a4b379fc596ec19aefec5afc62}{arm\+\_\+2d\+\_\+op\+\_\+msk\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structarm__2d__op__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+msk\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__t}{arm\+\_\+2d\+\_\+op\+\_\+t}} \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structarm__2d__op__src__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_ad1012bd19c2fbcda232fb1e86ac22e91}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structarm__2d__op__src__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__t}{arm\+\_\+2d\+\_\+op\+\_\+t}} \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structarm__2d__op__src__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+msk\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_aab4dfe5b2202ffecae0084f84b360ff0}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+msk\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structarm__2d__op__src__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+msk\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__src__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+t}} \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structarm__2d__op__src__orig__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a1fa121898bd6dd0a3f137ada0afa1a58}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structarm__2d__op__src__orig__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__src__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+t}} \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structarm__2d__op__src__orig__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+msk\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_a2f06d594fe5429db139c7cc2f254c46f}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+msk\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structarm__2d__op__src__orig__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+msk\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__src__orig__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+t}} \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structarm__2d__rot__linear__regr__t}{arm\+\_\+2d\+\_\+rot\+\_\+linear\+\_\+regr\+\_\+t}} \mbox{\hyperlink{arm__2d__types_8h_ab66334fbe55ed3e8b911679feddb3a67}{arm\+\_\+2d\+\_\+rot\+\_\+linear\+\_\+regr\+\_\+t}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Enumerations}
 \begin{Indent}\textbf{ finite-\/state-\/machine status return (Compatible with arm\+\_\+status), int8\+\_\+t}\par
@@ -264,36 +202,6 @@ enum \{ \mbox{\hyperlink{arm__2d__types_8h_afccd240f973cf154952fb917c9209719a56f
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{arm__2d__types_8h_aab013a91e0bb930476d0e4ace60db7e8}\label{arm__2d__types_8h_aab013a91e0bb930476d0e4ace60db7e8}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!\_\_ARM\_2D\_OP\_STATUS\_BUSY\_msk@{\_\_ARM\_2D\_OP\_STATUS\_BUSY\_msk}}
-\index{\_\_ARM\_2D\_OP\_STATUS\_BUSY\_msk@{\_\_ARM\_2D\_OP\_STATUS\_BUSY\_msk}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{\_\_ARM\_2D\_OP\_STATUS\_BUSY\_msk}{\_\_ARM\_2D\_OP\_STATUS\_BUSY\_msk}}
-{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+STATUS\+\_\+\+BUSY\+\_\+msk~(1 $<$$<$ 4)}
-
-
-
-Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00447}{447}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
-
-\mbox{\Hypertarget{arm__2d__types_8h_a7ee4588567408362c3dbfe7ad583b386}\label{arm__2d__types_8h_a7ee4588567408362c3dbfe7ad583b386}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!\_\_ARM\_2D\_OP\_STATUS\_CPL\_msk@{\_\_ARM\_2D\_OP\_STATUS\_CPL\_msk}}
-\index{\_\_ARM\_2D\_OP\_STATUS\_CPL\_msk@{\_\_ARM\_2D\_OP\_STATUS\_CPL\_msk}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{\_\_ARM\_2D\_OP\_STATUS\_CPL\_msk}{\_\_ARM\_2D\_OP\_STATUS\_CPL\_msk}}
-{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+STATUS\+\_\+\+CPL\+\_\+msk~(1 $<$$<$ 6)}
-
-
-
-Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00449}{449}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
-
-\mbox{\Hypertarget{arm__2d__types_8h_a8a63d991855534acc4752ad0c8635201}\label{arm__2d__types_8h_a8a63d991855534acc4752ad0c8635201}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!\_\_ARM\_2D\_OP\_STATUS\_IO\_ERROR\_msk@{\_\_ARM\_2D\_OP\_STATUS\_IO\_ERROR\_msk}}
-\index{\_\_ARM\_2D\_OP\_STATUS\_IO\_ERROR\_msk@{\_\_ARM\_2D\_OP\_STATUS\_IO\_ERROR\_msk}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{\_\_ARM\_2D\_OP\_STATUS\_IO\_ERROR\_msk}{\_\_ARM\_2D\_OP\_STATUS\_IO\_ERROR\_msk}}
-{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+STATUS\+\_\+\+IO\+\_\+\+ERROR\+\_\+msk~(1 $<$$<$ 5)}
-
-
-
-Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00448}{448}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
-
 \mbox{\Hypertarget{arm__2d__types_8h_a0593a5fcaddee75b1a3ce23c4c94f5df}\label{arm__2d__types_8h_a0593a5fcaddee75b1a3ce23c4c94f5df}} 
 \index{arm\_2d\_types.h@{arm\_2d\_types.h}!ARM\_2D\_OP\_INFO\_PARAM\_HAS\_ORIGIN@{ARM\_2D\_OP\_INFO\_PARAM\_HAS\_ORIGIN}}
 \index{ARM\_2D\_OP\_INFO\_PARAM\_HAS\_ORIGIN@{ARM\_2D\_OP\_INFO\_PARAM\_HAS\_ORIGIN}!arm\_2d\_types.h@{arm\_2d\_types.h}}
@@ -347,72 +255,6 @@ Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00370}{370}} of fi
 
 
 \doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{arm__2d__types_8h_a5794a4d595906803e2c82088b3e29464}\label{arm__2d__types_8h_a5794a4d595906803e2c82088b3e29464}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!\_\_arm\_2d\_low\_level\_io\_t@{\_\_arm\_2d\_low\_level\_io\_t}}
-\index{\_\_arm\_2d\_low\_level\_io\_t@{\_\_arm\_2d\_low\_level\_io\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_low\_level\_io\_t}{\_\_arm\_2d\_low\_level\_io\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+low\+\_\+level\+\_\+io\+\_\+t}} \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+low\+\_\+level\+\_\+io\+\_\+t}}}
-
-
-
-an imcomplete defintion which is only used for defining pointers 
-
-
-
-Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00374}{374}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
-
-\mbox{\Hypertarget{arm__2d__types_8h_a955bdd1e3946a72370f5d0c67fcbb717}\label{arm__2d__types_8h_a955bdd1e3946a72370f5d0c67fcbb717}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
-\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_op\_info\_t}{\_\_arm\_2d\_op\_info\_t}}
-{\footnotesize\ttfamily typedef union \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_a82d9076e9d39e2482c05a2e216349509}\label{arm__2d__types_8h_a82d9076e9d39e2482c05a2e216349509}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_color\_accc8888\_t@{arm\_2d\_color\_accc8888\_t}}
-\index{arm\_2d\_color\_accc8888\_t@{arm\_2d\_color\_accc8888\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_color\_accc8888\_t}{arm\_2d\_color\_accc8888\_t}}
-{\footnotesize\ttfamily typedef union \mbox{\hyperlink{unionarm__2d__color__accc8888__t}{arm\+\_\+2d\+\_\+color\+\_\+accc8888\+\_\+t}} \mbox{\hyperlink{unionarm__2d__color__accc8888__t}{arm\+\_\+2d\+\_\+color\+\_\+accc8888\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_a0a073292efe01af1845789f5ccead67a}\label{arm__2d__types_8h_a0a073292efe01af1845789f5ccead67a}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_color\_ccca8888\_t@{arm\_2d\_color\_ccca8888\_t}}
-\index{arm\_2d\_color\_ccca8888\_t@{arm\_2d\_color\_ccca8888\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_color\_ccca8888\_t}{arm\_2d\_color\_ccca8888\_t}}
-{\footnotesize\ttfamily typedef union \mbox{\hyperlink{unionarm__2d__color__ccca8888__t}{arm\+\_\+2d\+\_\+color\+\_\+ccca8888\+\_\+t}} \mbox{\hyperlink{unionarm__2d__color__ccca8888__t}{arm\+\_\+2d\+\_\+color\+\_\+ccca8888\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_a5b598ae0bda224338e6c52053b842e77}\label{arm__2d__types_8h_a5b598ae0bda224338e6c52053b842e77}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_color\_cccn888\_t@{arm\_2d\_color\_cccn888\_t}}
-\index{arm\_2d\_color\_cccn888\_t@{arm\_2d\_color\_cccn888\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_color\_cccn888\_t}{arm\_2d\_color\_cccn888\_t}}
-{\footnotesize\ttfamily typedef union \mbox{\hyperlink{unionarm__2d__color__cccn888__t}{arm\+\_\+2d\+\_\+color\+\_\+cccn888\+\_\+t}} \mbox{\hyperlink{unionarm__2d__color__cccn888__t}{arm\+\_\+2d\+\_\+color\+\_\+cccn888\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_acc9dc316cb4c2266226cd9f94afa2e8f}\label{arm__2d__types_8h_acc9dc316cb4c2266226cd9f94afa2e8f}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_color\_nccc888\_t@{arm\_2d\_color\_nccc888\_t}}
-\index{arm\_2d\_color\_nccc888\_t@{arm\_2d\_color\_nccc888\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_color\_nccc888\_t}{arm\_2d\_color\_nccc888\_t}}
-{\footnotesize\ttfamily typedef union \mbox{\hyperlink{unionarm__2d__color__nccc888__t}{arm\+\_\+2d\+\_\+color\+\_\+nccc888\+\_\+t}} \mbox{\hyperlink{unionarm__2d__color__nccc888__t}{arm\+\_\+2d\+\_\+color\+\_\+nccc888\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_a429053f653557847843b5ddacdc68758}\label{arm__2d__types_8h_a429053f653557847843b5ddacdc68758}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_color\_rgb565\_t@{arm\_2d\_color\_rgb565\_t}}
-\index{arm\_2d\_color\_rgb565\_t@{arm\_2d\_color\_rgb565\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_color\_rgb565\_t}{arm\_2d\_color\_rgb565\_t}}
-{\footnotesize\ttfamily typedef union \mbox{\hyperlink{unionarm__2d__color__rgb565__t}{arm\+\_\+2d\+\_\+color\+\_\+rgb565\+\_\+t}} \mbox{\hyperlink{unionarm__2d__color__rgb565__t}{arm\+\_\+2d\+\_\+color\+\_\+rgb565\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_aa009ffc21a0912bf823f33e8b61aa358}\label{arm__2d__types_8h_aa009ffc21a0912bf823f33e8b61aa358}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_color\_rgb888\_t@{arm\_2d\_color\_rgb888\_t}}
-\index{arm\_2d\_color\_rgb888\_t@{arm\_2d\_color\_rgb888\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_color\_rgb888\_t}{arm\_2d\_color\_rgb888\_t}}
-{\footnotesize\ttfamily typedef union \mbox{\hyperlink{unionarm__2d__color__rgb888__t}{arm\+\_\+2d\+\_\+color\+\_\+rgb888\+\_\+t}} \mbox{\hyperlink{unionarm__2d__color__rgb888__t}{arm\+\_\+2d\+\_\+color\+\_\+rgb888\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_a7136016c4851c73def591869155da193}\label{arm__2d__types_8h_a7136016c4851c73def591869155da193}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_color\_rgba8888\_t@{arm\_2d\_color\_rgba8888\_t}}
-\index{arm\_2d\_color\_rgba8888\_t@{arm\_2d\_color\_rgba8888\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_color\_rgba8888\_t}{arm\_2d\_color\_rgba8888\_t}}
-{\footnotesize\ttfamily typedef union \mbox{\hyperlink{unionarm__2d__color__rgba8888__t}{arm\+\_\+2d\+\_\+color\+\_\+rgba8888\+\_\+t}} \mbox{\hyperlink{unionarm__2d__color__rgba8888__t}{arm\+\_\+2d\+\_\+color\+\_\+rgba8888\+\_\+t}}}
-
-
-
-In most cases four equal-\/sized pieces of adjacent memory are used, ! one for each channel, and a 0 in a channel indicates black color or ! transparent alpha, while all-\/1 bits indicates white or fully opaque ! alpha. By far the most common format is to store 8 bits (one byte) ! for each channel, which is 32 bits for each pixel. ! ! (source\+: \href{https://en.wikipedia.org/wiki/RGBA_color_model\#ARGB32}{\texttt{ https\+://en.\+wikipedia.\+org/wiki/\+RGBA\+\_\+color\+\_\+model\#\+ARGB32}}) 
-
 \mbox{\Hypertarget{arm__2d__types_8h_aa694e2eb6d25481ef5cc3cc4bbc20eb1}\label{arm__2d__types_8h_aa694e2eb6d25481ef5cc3cc4bbc20eb1}} 
 \index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_evt\_handler\_t@{arm\_2d\_evt\_handler\_t}}
 \index{arm\_2d\_evt\_handler\_t@{arm\_2d\_evt\_handler\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
@@ -423,28 +265,6 @@ In most cases four equal-\/sized pieces of adjacent memory are used, ! one for e
 
 Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00359}{359}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
 
-\mbox{\Hypertarget{arm__2d__types_8h_a3b8dfc9679796ba365228a103f1f2b2e}\label{arm__2d__types_8h_a3b8dfc9679796ba365228a103f1f2b2e}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_evt\_t@{arm\_2d\_evt\_t}}
-\index{arm\_2d\_evt\_t@{arm\_2d\_evt\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_evt\_t}{arm\_2d\_evt\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__evt__t}{arm\+\_\+2d\+\_\+evt\+\_\+t}} \mbox{\hyperlink{structarm__2d__evt__t}{arm\+\_\+2d\+\_\+evt\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_a8b306d4b070a537600d438468f438f4c}\label{arm__2d__types_8h_a8b306d4b070a537600d438468f438f4c}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_location\_t@{arm\_2d\_location\_t}}
-\index{arm\_2d\_location\_t@{arm\_2d\_location\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_location\_t}{arm\_2d\_location\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__location__t}{arm\+\_\+2d\+\_\+location\+\_\+t}} \mbox{\hyperlink{structarm__2d__location__t}{arm\+\_\+2d\+\_\+location\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_a4abd85dfa67927a33fc7eb74f45c1502}\label{arm__2d__types_8h_a4abd85dfa67927a33fc7eb74f45c1502}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_op\_core\_t@{arm\_2d\_op\_core\_t}}
-\index{arm\_2d\_op\_core\_t@{arm\_2d\_op\_core\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_core\_t}{arm\_2d\_op\_core\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__op__core__t}{arm\+\_\+2d\+\_\+op\+\_\+core\+\_\+t}} \mbox{\hyperlink{structarm__2d__op__core__t}{arm\+\_\+2d\+\_\+op\+\_\+core\+\_\+t}}}
-
-
-
-Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00348}{348}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
-
 \mbox{\Hypertarget{arm__2d__types_8h_a4e7011e388565d69bc0a1abd1edb636e}\label{arm__2d__types_8h_a4e7011e388565d69bc0a1abd1edb636e}} 
 \index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_op\_evt\_handler\_t@{arm\_2d\_op\_evt\_handler\_t}}
 \index{arm\_2d\_op\_evt\_handler\_t@{arm\_2d\_op\_evt\_handler\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
@@ -454,120 +274,6 @@ Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00348}{348}} of fi
 
 
 Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00350}{350}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
-
-\mbox{\Hypertarget{arm__2d__types_8h_a8334a6547ffc953f1ccab5ddd4eee310}\label{arm__2d__types_8h_a8334a6547ffc953f1ccab5ddd4eee310}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_op\_evt\_t@{arm\_2d\_op\_evt\_t}}
-\index{arm\_2d\_op\_evt\_t@{arm\_2d\_op\_evt\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_evt\_t}{arm\_2d\_op\_evt\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__op__evt__t}{arm\+\_\+2d\+\_\+op\+\_\+evt\+\_\+t}} \mbox{\hyperlink{structarm__2d__op__evt__t}{arm\+\_\+2d\+\_\+op\+\_\+evt\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_ac61d97a4b379fc596ec19aefec5afc62}\label{arm__2d__types_8h_ac61d97a4b379fc596ec19aefec5afc62}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_op\_msk\_t@{arm\_2d\_op\_msk\_t}}
-\index{arm\_2d\_op\_msk\_t@{arm\_2d\_op\_msk\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_msk\_t}{arm\_2d\_op\_msk\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__op__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+msk\+\_\+t}} \mbox{\hyperlink{structarm__2d__op__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+msk\+\_\+t}}}
-
-
-
-\mbox{\hyperlink{structarm__2d__op__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+msk\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__t}{arm\+\_\+2d\+\_\+op\+\_\+t}} 
-
-\mbox{\Hypertarget{arm__2d__types_8h_aab4dfe5b2202ffecae0084f84b360ff0}\label{arm__2d__types_8h_aab4dfe5b2202ffecae0084f84b360ff0}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_op\_src\_msk\_t@{arm\_2d\_op\_src\_msk\_t}}
-\index{arm\_2d\_op\_src\_msk\_t@{arm\_2d\_op\_src\_msk\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_src\_msk\_t}{arm\_2d\_op\_src\_msk\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__op__src__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+msk\+\_\+t}} \mbox{\hyperlink{structarm__2d__op__src__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+msk\+\_\+t}}}
-
-
-
-\mbox{\hyperlink{structarm__2d__op__src__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+msk\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__src__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+t}} 
-
-\mbox{\Hypertarget{arm__2d__types_8h_a2f06d594fe5429db139c7cc2f254c46f}\label{arm__2d__types_8h_a2f06d594fe5429db139c7cc2f254c46f}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_op\_src\_orig\_msk\_t@{arm\_2d\_op\_src\_orig\_msk\_t}}
-\index{arm\_2d\_op\_src\_orig\_msk\_t@{arm\_2d\_op\_src\_orig\_msk\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_src\_orig\_msk\_t}{arm\_2d\_op\_src\_orig\_msk\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__op__src__orig__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+msk\+\_\+t}} \mbox{\hyperlink{structarm__2d__op__src__orig__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+msk\+\_\+t}}}
-
-
-
-\mbox{\hyperlink{structarm__2d__op__src__orig__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+msk\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__src__orig__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+t}} 
-
-\mbox{\Hypertarget{arm__2d__types_8h_a1fa121898bd6dd0a3f137ada0afa1a58}\label{arm__2d__types_8h_a1fa121898bd6dd0a3f137ada0afa1a58}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_op\_src\_orig\_t@{arm\_2d\_op\_src\_orig\_t}}
-\index{arm\_2d\_op\_src\_orig\_t@{arm\_2d\_op\_src\_orig\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_src\_orig\_t}{arm\_2d\_op\_src\_orig\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__op__src__orig__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+t}} \mbox{\hyperlink{structarm__2d__op__src__orig__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+t}}}
-
-
-
-\mbox{\hyperlink{structarm__2d__op__src__orig__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__src__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+t}} 
-
-\mbox{\Hypertarget{arm__2d__types_8h_ad1012bd19c2fbcda232fb1e86ac22e91}\label{arm__2d__types_8h_ad1012bd19c2fbcda232fb1e86ac22e91}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_op\_src\_t@{arm\_2d\_op\_src\_t}}
-\index{arm\_2d\_op\_src\_t@{arm\_2d\_op\_src\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_src\_t}{arm\_2d\_op\_src\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__op__src__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+t}} \mbox{\hyperlink{structarm__2d__op__src__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+t}}}
-
-
-
-\mbox{\hyperlink{structarm__2d__op__src__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__t}{arm\+\_\+2d\+\_\+op\+\_\+t}} 
-
-\mbox{\Hypertarget{arm__2d__types_8h_a161719a3d659040158e5e663a29e2f4b}\label{arm__2d__types_8h_a161719a3d659040158e5e663a29e2f4b}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_op\_status\_t@{arm\_2d\_op\_status\_t}}
-\index{arm\_2d\_op\_status\_t@{arm\_2d\_op\_status\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_status\_t}{arm\_2d\_op\_status\_t}}
-{\footnotesize\ttfamily typedef union \mbox{\hyperlink{unionarm__2d__op__status__t}{arm\+\_\+2d\+\_\+op\+\_\+status\+\_\+t}} \mbox{\hyperlink{unionarm__2d__op__status__t}{arm\+\_\+2d\+\_\+op\+\_\+status\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_a34589c022e1fdfe07ad040a3f1b9b1ed}\label{arm__2d__types_8h_a34589c022e1fdfe07ad040a3f1b9b1ed}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_op\_t@{arm\_2d\_op\_t}}
-\index{arm\_2d\_op\_t@{arm\_2d\_op\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_t}{arm\_2d\_op\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__op__t}{arm\+\_\+2d\+\_\+op\+\_\+t}} \mbox{\hyperlink{structarm__2d__op__t}{arm\+\_\+2d\+\_\+op\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_af63b19842ee9e51e2da6363584b8463b}\label{arm__2d__types_8h_af63b19842ee9e51e2da6363584b8463b}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_point\_float\_t@{arm\_2d\_point\_float\_t}}
-\index{arm\_2d\_point\_float\_t@{arm\_2d\_point\_float\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_point\_float\_t}{arm\_2d\_point\_float\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__point__float__t}{arm\+\_\+2d\+\_\+point\+\_\+float\+\_\+t}} \mbox{\hyperlink{structarm__2d__point__float__t}{arm\+\_\+2d\+\_\+point\+\_\+float\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_a97c1aebfd9f9e52f65ebc4fb7d820607}\label{arm__2d__types_8h_a97c1aebfd9f9e52f65ebc4fb7d820607}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_point\_fx\_t@{arm\_2d\_point\_fx\_t}}
-\index{arm\_2d\_point\_fx\_t@{arm\_2d\_point\_fx\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_point\_fx\_t}{arm\_2d\_point\_fx\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__point__fx__t}{arm\+\_\+2d\+\_\+point\+\_\+fx\+\_\+t}} \mbox{\hyperlink{structarm__2d__point__fx__t}{arm\+\_\+2d\+\_\+point\+\_\+fx\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_a5cca30ba8fa201b45e2f9de90930f596}\label{arm__2d__types_8h_a5cca30ba8fa201b45e2f9de90930f596}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_region\_t@{arm\_2d\_region\_t}}
-\index{arm\_2d\_region\_t@{arm\_2d\_region\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_region\_t}{arm\_2d\_region\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__region__t}{arm\+\_\+2d\+\_\+region\+\_\+t}} \mbox{\hyperlink{structarm__2d__region__t}{arm\+\_\+2d\+\_\+region\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_ab66334fbe55ed3e8b911679feddb3a67}\label{arm__2d__types_8h_ab66334fbe55ed3e8b911679feddb3a67}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_rot\_linear\_regr\_t@{arm\_2d\_rot\_linear\_regr\_t}}
-\index{arm\_2d\_rot\_linear\_regr\_t@{arm\_2d\_rot\_linear\_regr\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_rot\_linear\_regr\_t}{arm\_2d\_rot\_linear\_regr\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__rot__linear__regr__t}{arm\+\_\+2d\+\_\+rot\+\_\+linear\+\_\+regr\+\_\+t}} \mbox{\hyperlink{structarm__2d__rot__linear__regr__t}{arm\+\_\+2d\+\_\+rot\+\_\+linear\+\_\+regr\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_ad7ce85b93fda2db317cab6c4b2611376}\label{arm__2d__types_8h_ad7ce85b93fda2db317cab6c4b2611376}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_size\_t@{arm\_2d\_size\_t}}
-\index{arm\_2d\_size\_t@{arm\_2d\_size\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_size\_t}{arm\_2d\_size\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__size__t}{arm\+\_\+2d\+\_\+size\+\_\+t}} \mbox{\hyperlink{structarm__2d__size__t}{arm\+\_\+2d\+\_\+size\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_ae89e05338277f72370067c20a50543bf}\label{arm__2d__types_8h_ae89e05338277f72370067c20a50543bf}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_task\_t@{arm\_2d\_task\_t}}
-\index{arm\_2d\_task\_t@{arm\_2d\_task\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_task\_t}{arm\_2d\_task\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__task__t}{arm\+\_\+2d\+\_\+task\+\_\+t}} \mbox{\hyperlink{structarm__2d__task__t}{arm\+\_\+2d\+\_\+task\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__types_8h_a79cd23de9e091278cb041dc39d142189}\label{arm__2d__types_8h_a79cd23de9e091278cb041dc39d142189}} 
-\index{arm\_2d\_types.h@{arm\_2d\_types.h}!arm\_2d\_tile\_t@{arm\_2d\_tile\_t}}
-\index{arm\_2d\_tile\_t@{arm\_2d\_tile\_t}!arm\_2d\_types.h@{arm\_2d\_types.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_tile\_t}{arm\_2d\_tile\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__tile__t}{arm\+\_\+2d\+\_\+tile\+\_\+t}} \mbox{\hyperlink{structarm__2d__tile__t}{arm\+\_\+2d\+\_\+tile\+\_\+t}}}
-
-
-
-Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00306}{306}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
 
 
 

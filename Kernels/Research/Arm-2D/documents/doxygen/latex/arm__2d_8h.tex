@@ -1,5 +1,5 @@
-\hypertarget{arm__2d_8h}{}\doxysection{/\+Users/gabwan01/\+Documents/\+Work/\+CPMK/\+Git/\+Endpoint\+AI/\+Kernels/\+Research/\+Arm-\/2\+D/\+Library/\+Include/arm\+\_\+2d.h File Reference}
-\label{arm__2d_8h}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/arm\_2d.h@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/arm\_2d.h}}
+\hypertarget{arm__2d_8h}{}\doxysection{arm\+\_\+2d.\+h File Reference}
+\label{arm__2d_8h}\index{arm\_2d.h@{arm\_2d.h}}
 {\ttfamily \#include \char`\"{}arm\+\_\+2d\+\_\+types.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}arm\+\_\+2d\+\_\+op.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}arm\+\_\+2d\+\_\+tile.\+h\char`\"{}}\newline
@@ -122,10 +122,6 @@ Definition at line \mbox{\hyperlink{arm__2d_8h_source_l00064}{64}} of file \mbox
 \doxysubsubsection{\texorpdfstring{arm\_2d\_get\_default\_frame\_buffer()}{arm\_2d\_get\_default\_frame\_buffer()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structarm__2d__tile__t}{arm\+\_\+2d\+\_\+tile\+\_\+t}} $\ast$ arm\+\_\+2d\+\_\+get\+\_\+default\+\_\+frame\+\_\+buffer (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
-
-
-get the default frame buffer 
-
 \begin{DoxyReturn}{Returns}
 arm\+\_\+2d\+\_\+tile\+\_\+t$\ast$ the address of the default frame buffer 
 \end{DoxyReturn}
@@ -134,10 +130,6 @@ arm\+\_\+2d\+\_\+tile\+\_\+t$\ast$ the address of the default frame buffer
 \index{arm\_2d\_get\_op\_status@{arm\_2d\_get\_op\_status}!arm\_2d.h@{arm\_2d.h}}
 \doxysubsubsection{\texorpdfstring{arm\_2d\_get\_op\_status()}{arm\_2d\_get\_op\_status()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{unionarm__2d__op__status__t}{arm\+\_\+2d\+\_\+op\+\_\+status\+\_\+t}} arm\+\_\+2d\+\_\+get\+\_\+op\+\_\+status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structarm__2d__op__core__t}{arm\+\_\+2d\+\_\+op\+\_\+core\+\_\+t}} $\ast$}]{pt\+OP }\end{DoxyParamCaption})}
-
-
-
-get the status of a specified OP, 
 
 
 \begin{DoxyParams}{Parameters}
@@ -155,20 +147,16 @@ get the status of a specified OP,
 
 
 
-initialise arm-\/2d 
-
-
-
 Definition at line \mbox{\hyperlink{arm__2d_8c_source_l00132}{132}} of file \mbox{\hyperlink{arm__2d_8c_source}{arm\+\_\+2d.\+c}}.
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00133 \{}
-\DoxyCodeLine{00134     \mbox{\hyperlink{arm__2d_8c_a7dad308ac760e335ebf18c59fe847013}{\_\_arm\_2d\_init}}();      }
+\DoxyCodeLine{00134     \_\_arm\_2d\_init();      }
 \DoxyCodeLine{00135     }
 \DoxyCodeLine{00136     \textcolor{keywordflow}{do} \{}
-\DoxyCodeLine{00137         \textcolor{keyword}{static} \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} }
-\DoxyCodeLine{00138             s\_tDefaultTaskPool[\mbox{\hyperlink{arm__2d_8c_a849a39b45e7a5a22160515dda935ce09}{\_\_ARM\_2D\_CFG\_DEFAULT\_SUB\_TASK\_POOL\_SIZE\_\_}}];}
+\DoxyCodeLine{00137         \textcolor{keyword}{static} \_\_arm\_2d\_sub\_task\_t }
+\DoxyCodeLine{00138             s\_tDefaultTaskPool[\_\_ARM\_2D\_CFG\_DEFAULT\_SUB\_TASK\_POOL\_SIZE\_\_];}
 \DoxyCodeLine{00139 }
 \DoxyCodeLine{00140         \mbox{\hyperlink{arm__2d__utils_8h_a206ba077ba0d890fd0be935fc5d15dda}{ARM\_2D\_UNUSED}}(s\_tDefaultTaskPool);}
 \DoxyCodeLine{00141 }
@@ -181,19 +169,11 @@ Definition at line \mbox{\hyperlink{arm__2d_8c_source_l00132}{132}} of file \mbo
 \DoxyCodeLine{00148 \}}
 
 \end{DoxyCode}
-
-
-References \mbox{\hyperlink{arm__2d_8c_a849a39b45e7a5a22160515dda935ce09}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+CFG\+\_\+\+DEFAULT\+\_\+\+SUB\+\_\+\+TASK\+\_\+\+POOL\+\_\+\+SIZE\+\_\+\+\_\+}}, \mbox{\hyperlink{arm__2d_8c_a7dad308ac760e335ebf18c59fe847013}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+init()}}, \mbox{\hyperlink{arm__2d__utils_8h_a206ba077ba0d890fd0be935fc5d15dda}{ARM\+\_\+2\+D\+\_\+\+UNUSED}}, and \mbox{\hyperlink{arm__2d__utils_8h_a7b6c484887a402bba1af11b457264553}{dimof}}.
-
 \mbox{\Hypertarget{arm__2d_8h_a129e2a7110847b0fd22eeb6351205989}\label{arm__2d_8h_a129e2a7110847b0fd22eeb6351205989}} 
 \index{arm\_2d.h@{arm\_2d.h}!arm\_2d\_op\_wait\_async@{arm\_2d\_op\_wait\_async}}
 \index{arm\_2d\_op\_wait\_async@{arm\_2d\_op\_wait\_async}!arm\_2d.h@{arm\_2d.h}}
 \doxysubsubsection{\texorpdfstring{arm\_2d\_op\_wait\_async()}{arm\_2d\_op\_wait\_async()}}
 {\footnotesize\ttfamily bool arm\+\_\+2d\+\_\+op\+\_\+wait\+\_\+async (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structarm__2d__op__core__t}{arm\+\_\+2d\+\_\+op\+\_\+core\+\_\+t}} $\ast$}]{pt\+OP }\end{DoxyParamCaption})}
-
-
-
-wait asynchronouse operation complete 
 
 
 \begin{DoxyRetVals}{Return values}
@@ -207,10 +187,6 @@ wait asynchronouse operation complete
 \index{arm\_2d\_set\_default\_frame\_buffer@{arm\_2d\_set\_default\_frame\_buffer}!arm\_2d.h@{arm\_2d.h}}
 \doxysubsubsection{\texorpdfstring{arm\_2d\_set\_default\_frame\_buffer()}{arm\_2d\_set\_default\_frame\_buffer()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structarm__2d__tile__t}{arm\+\_\+2d\+\_\+tile\+\_\+t}} $\ast$ arm\+\_\+2d\+\_\+set\+\_\+default\+\_\+frame\+\_\+buffer (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structarm__2d__tile__t}{arm\+\_\+2d\+\_\+tile\+\_\+t}} $\ast$}]{pt\+Frame\+Buffer }\end{DoxyParamCaption})}
-
-
-
-set the default frame buffer 
 
 
 \begin{DoxyParams}{Parameters}
@@ -230,10 +206,6 @@ arm\+\_\+2d\+\_\+tile\+\_\+t$\ast$ the address of the old frame buffer
 {\footnotesize\ttfamily void arm\+\_\+2d\+\_\+set\+\_\+user\+\_\+param (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structarm__2d__op__core__t}{arm\+\_\+2d\+\_\+op\+\_\+core\+\_\+t}} $\ast$}]{pt\+OP,  }\item[{uintptr\+\_\+t}]{p\+User\+Param }\end{DoxyParamCaption})}
 
 
-
-attach a user param (which could be a pointer) to specified OP 
-
-
 \begin{DoxyParams}{Parameters}
 {\em pt\+OP} & the address of the target OP (NULL means using the default OP) \\
 \hline
@@ -245,10 +217,6 @@ attach a user param (which could be a pointer) to specified OP
 \index{arm\_2d\_task@{arm\_2d\_task}!arm\_2d.h@{arm\_2d.h}}
 \doxysubsubsection{\texorpdfstring{arm\_2d\_task()}{arm\_2d\_task()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} arm\+\_\+2d\+\_\+task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structarm__2d__task__t}{arm\+\_\+2d\+\_\+task\+\_\+t}} $\ast$}]{pt\+Task }\end{DoxyParamCaption})}
-
-
-
-arm-\/2d pixel pipeline task entery 
 
 \begin{DoxyNote}{Note}
 This function is {\itshape TRHEAD-\/\+SAFE} 

@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version {projectNumber}</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -92,250 +94,234 @@ $(document).ready(function(){initNavTree('union____arm__2d__op__info__t.html',''
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a3bf2940c881d5853d3e964a28285ef55"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:a39ef7abf9db2b1da80284c97d69a0a4c"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="unionarm__2d__color__info__t.html">arm_2d_color_info_t</a>&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a39ef7abf9db2b1da80284c97d69a0a4c">Colour</a></td></tr>
-<tr class="memdesc:a39ef7abf9db2b1da80284c97d69a0a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">the colour used in thie operation  <a href="union____arm__2d__op__info__t.html#a39ef7abf9db2b1da80284c97d69a0a4c">More...</a><br /></td></tr>
-<tr class="separator:a39ef7abf9db2b1da80284c97d69a0a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3ce9972c6a2708a453c4c28ff3eb464"><td class="memItemLeft" >&#160;&#160;&#160;union {</td></tr>
-<tr class="memitem:a6f56eae3fefaf11e670baba6e03859ca"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
-<tr class="memitem:ab165d6c70f3d84525bd310ec37871025"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#ab165d6c70f3d84525bd310ec37871025">bHasSource</a>: 1</td></tr>
-<tr class="memdesc:ab165d6c70f3d84525bd310ec37871025"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether this operation contains source tile  <a href="union____arm__2d__op__info__t.html#ab165d6c70f3d84525bd310ec37871025">More...</a><br /></td></tr>
-<tr class="separator:ab165d6c70f3d84525bd310ec37871025"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa3617a08d93e5472d64d0d5b0084479"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#aaa3617a08d93e5472d64d0d5b0084479">bHasTarget</a>: 1</td></tr>
-<tr class="memdesc:aaa3617a08d93e5472d64d0d5b0084479"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether this operation contains target tile  <a href="union____arm__2d__op__info__t.html#aaa3617a08d93e5472d64d0d5b0084479">More...</a><br /></td></tr>
-<tr class="separator:aaa3617a08d93e5472d64d0d5b0084479"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab39d0b6dd7679bcbf9654e64fc84cfdd"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#ab39d0b6dd7679bcbf9654e64fc84cfdd">bHasSrcMask</a>: 1</td></tr>
-<tr class="memdesc:ab39d0b6dd7679bcbf9654e64fc84cfdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether this operation has Mask layer for source tile  <a href="union____arm__2d__op__info__t.html#ab39d0b6dd7679bcbf9654e64fc84cfdd">More...</a><br /></td></tr>
-<tr class="separator:ab39d0b6dd7679bcbf9654e64fc84cfdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c9eb198ff88e2c0898022a77a8829fa"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a3c9eb198ff88e2c0898022a77a8829fa">bHasDesMask</a>: 1</td></tr>
-<tr class="memdesc:a3c9eb198ff88e2c0898022a77a8829fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether this operation has Mask layer for target tile  <a href="union____arm__2d__op__info__t.html#a3c9eb198ff88e2c0898022a77a8829fa">More...</a><br /></td></tr>
-<tr class="separator:a3c9eb198ff88e2c0898022a77a8829fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab058e670a03b4cd0a84bd6265157440f"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#ab058e670a03b4cd0a84bd6265157440f">bHasOrigin</a>: 1</td></tr>
-<tr class="memdesc:ab058e670a03b4cd0a84bd6265157440f"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the Source has an origin tile  <a href="union____arm__2d__op__info__t.html#ab058e670a03b4cd0a84bd6265157440f">More...</a><br /></td></tr>
-<tr class="separator:ab058e670a03b4cd0a84bd6265157440f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5869948fa94c93e1933e7414577d114a"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a5869948fa94c93e1933e7414577d114a">bAllowEnforcedColour</a>: 1</td></tr>
-<tr class="memdesc:a5869948fa94c93e1933e7414577d114a"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether this operation allow enforced colours in tiles  <a href="union____arm__2d__op__info__t.html#a5869948fa94c93e1933e7414577d114a">More...</a><br /></td></tr>
-<tr class="separator:a5869948fa94c93e1933e7414577d114a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f56eae3fefaf11e670baba6e03859ca"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a6f56eae3fefaf11e670baba6e03859ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf5e0400a20421dbc7c2bd2f8afdec54"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#adf5e0400a20421dbc7c2bd2f8afdec54">chValue</a></td></tr>
-<tr class="separator:adf5e0400a20421dbc7c2bd2f8afdec54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3ce9972c6a2708a453c4c28ff3eb464"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#aa3ce9972c6a2708a453c4c28ff3eb464">Param</a></td></tr>
-<tr class="separator:aa3ce9972c6a2708a453c4c28ff3eb464"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc1d60a0049e8a4b19b9e2bd7c9f7b23"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#adc1d60a0049e8a4b19b9e2bd7c9f7b23">chInClassOffset</a></td></tr>
-<tr class="memdesc:adc1d60a0049e8a4b19b9e2bd7c9f7b23"><td class="mdescLeft">&#160;</td><td class="mdescRight">some operation uses this as the offset of the key member in the class  <a href="union____arm__2d__op__info__t.html#adc1d60a0049e8a4b19b9e2bd7c9f7b23">More...</a><br /></td></tr>
-<tr class="separator:adc1d60a0049e8a4b19b9e2bd7c9f7b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac1d17c9145bbbefca153f16de89bab5"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#aac1d17c9145bbbefca153f16de89bab5">chOpIndex</a></td></tr>
-<tr class="memdesc:aac1d17c9145bbbefca153f16de89bab5"><td class="mdescLeft">&#160;</td><td class="mdescRight">__ARM_2D_OP_IDX_XXXXXX  <a href="union____arm__2d__op__info__t.html#aac1d17c9145bbbefca153f16de89bab5">More...</a><br /></td></tr>
-<tr class="separator:aac1d17c9145bbbefca153f16de89bab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad29a59d2cdb283efbbaeab8ca1b9d5f1"><td class="memItemLeft" >&#160;&#160;&#160;union {</td></tr>
-<tr class="memitem:a864bb2d84b1cabc3ec8bb02b28e8344f"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
-<tr class="memitem:a618c0345549881f71a563e7079be313b"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a618c0345549881f71a563e7079be313b">CopyLike</a></td></tr>
-<tr class="separator:a618c0345549881f71a563e7079be313b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecbab73e9c69e4a4dc6963122cd8d18e"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#aecbab73e9c69e4a4dc6963122cd8d18e">FillLike</a></td></tr>
-<tr class="separator:aecbab73e9c69e4a4dc6963122cd8d18e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a864bb2d84b1cabc3ec8bb02b28e8344f"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a864bb2d84b1cabc3ec8bb02b28e8344f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2044b0fdf1f40612e9b29ebc152b5322"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
-<tr class="memitem:a0f8272faf49a848e7b425e2600202064"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a0f8272faf49a848e7b425e2600202064">CopyOrigLike</a></td></tr>
-<tr class="separator:a0f8272faf49a848e7b425e2600202064"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cd25e15713a1867315d3bd3a94699b9"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a7cd25e15713a1867315d3bd3a94699b9">FillOrigLike</a></td></tr>
-<tr class="separator:a7cd25e15713a1867315d3bd3a94699b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2044b0fdf1f40612e9b29ebc152b5322"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a2044b0fdf1f40612e9b29ebc152b5322"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb30744f1f7c91d477de362383978bc9"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
-<tr class="memitem:aea9104a73cf58d9c1ba95e534d00a031"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#aea9104a73cf58d9c1ba95e534d00a031">TileProcessLike</a></td></tr>
-<tr class="separator:aea9104a73cf58d9c1ba95e534d00a031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb30744f1f7c91d477de362383978bc9"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:afb30744f1f7c91d477de362383978bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad29a59d2cdb283efbbaeab8ca1b9d5f1"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#ad29a59d2cdb283efbbaeab8ca1b9d5f1">LowLevelInterfaceIndex</a></td></tr>
-<tr class="separator:ad29a59d2cdb283efbbaeab8ca1b9d5f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5143178dc22fb48a4df78b5a0752fb16"><td class="memItemLeft" >&#160;&#160;&#160;union {</td></tr>
-<tr class="memitem:a16ea47193664d41d46ff171a27674200"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;const <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a> *&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a16ea47193664d41d46ff171a27674200">IO</a> [2]</td></tr>
-<tr class="separator:a16ea47193664d41d46ff171a27674200"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed074883fc3d2e6175823e6c509ac801"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
-<tr class="memitem:a9fd3d401093565d235871b544a814d79"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;const <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a> *&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a9fd3d401093565d235871b544a814d79">ptCopyLike</a></td></tr>
-<tr class="separator:a9fd3d401093565d235871b544a814d79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6af6c055faa3507fbac36d583ba90717"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;const <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a> *&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a6af6c055faa3507fbac36d583ba90717">ptFillLike</a></td></tr>
-<tr class="separator:a6af6c055faa3507fbac36d583ba90717"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed074883fc3d2e6175823e6c509ac801"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:aed074883fc3d2e6175823e6c509ac801"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada17196ec04d0c6112949e8802b0a246"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
-<tr class="memitem:a67b0aa267ad6830c9ae4af7d03c40aee"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;const <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a> *&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a67b0aa267ad6830c9ae4af7d03c40aee">ptCopyOrigLike</a></td></tr>
-<tr class="separator:a67b0aa267ad6830c9ae4af7d03c40aee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4aa9d5a7cbb807e76defb99511b021f6"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;const <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a> *&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a4aa9d5a7cbb807e76defb99511b021f6">ptFillOrigLike</a></td></tr>
-<tr class="separator:a4aa9d5a7cbb807e76defb99511b021f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada17196ec04d0c6112949e8802b0a246"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:ada17196ec04d0c6112949e8802b0a246"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0749872100236761c3cbefb547375eb8"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
-<tr class="memitem:aabe514a32b2509182b77b3c40fd790a1"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;const <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a> *&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#aabe514a32b2509182b77b3c40fd790a1">ptTileProcessLike</a></td></tr>
-<tr class="separator:aabe514a32b2509182b77b3c40fd790a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0749872100236761c3cbefb547375eb8"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a0749872100236761c3cbefb547375eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5143178dc22fb48a4df78b5a0752fb16"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a5143178dc22fb48a4df78b5a0752fb16">LowLevelIO</a></td></tr>
-<tr class="separator:a5143178dc22fb48a4df78b5a0752fb16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bf2940c881d5853d3e964a28285ef55"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union____arm__2d__op__info__t.html#a3bf2940c881d5853d3e964a28285ef55">Info</a></td></tr>
-<tr class="separator:a3bf2940c881d5853d3e964a28285ef55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa23400a63808663c02e4b6ba6815f683"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union____arm__2d__op__info__t.html#aa23400a63808663c02e4b6ba6815f683">wID</a></td></tr>
-<tr class="memdesc:aa23400a63808663c02e4b6ba6815f683"><td class="mdescLeft">&#160;</td><td class="mdescRight">ID for a specific operation.  <a href="union____arm__2d__op__info__t.html#aa23400a63808663c02e4b6ba6815f683">More...</a><br /></td></tr>
-<tr class="separator:aa23400a63808663c02e4b6ba6815f683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada01abf1e6a83eff27a9f34600b95eb7"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a2104d3ad644ffeb932608264b9795618"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="unionarm__2d__color__info__t.html">arm_2d_color_info_t</a>&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a08e116ea0be6ea1c8d6f373e59a9b6e9">Colour</a></td></tr>
+<tr class="memdesc:a2104d3ad644ffeb932608264b9795618"><td class="mdescLeft">&#160;</td><td class="mdescRight">the colour used in thie operation  <a href="union____arm__2d__op__info__t.html#a08e116ea0be6ea1c8d6f373e59a9b6e9">More...</a><br /></td></tr>
+<tr class="separator:a2104d3ad644ffeb932608264b9795618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7a2b2452ae3f7856abb4dc796d27dea"><td class="memItemLeft" >&#160;&#160;&#160;union {</td></tr>
+<tr class="memitem:a77a669ac51516fa4f5f1cb00947c9340"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:adb02565624492a5cea6ddead6772733e"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a259c023ae91de16d05d41b3c33762d43">bHasSource</a>: 1</td></tr>
+<tr class="memdesc:adb02565624492a5cea6ddead6772733e"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether this operation contains source tile  <a href="union____arm__2d__op__info__t.html#a259c023ae91de16d05d41b3c33762d43">More...</a><br /></td></tr>
+<tr class="separator:adb02565624492a5cea6ddead6772733e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2ecb8ccac053b7031ed340285d1e035"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a791215b4448a5820ab1924e42bd55463">bHasTarget</a>: 1</td></tr>
+<tr class="memdesc:ae2ecb8ccac053b7031ed340285d1e035"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether this operation contains target tile  <a href="union____arm__2d__op__info__t.html#a791215b4448a5820ab1924e42bd55463">More...</a><br /></td></tr>
+<tr class="separator:ae2ecb8ccac053b7031ed340285d1e035"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08f43c135a486608b18037f2341f9021"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a04f11b664914fbb1160ade7b53c7ed53">bHasSrcMask</a>: 1</td></tr>
+<tr class="memdesc:a08f43c135a486608b18037f2341f9021"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether this operation has Mask layer for source tile  <a href="union____arm__2d__op__info__t.html#a04f11b664914fbb1160ade7b53c7ed53">More...</a><br /></td></tr>
+<tr class="separator:a08f43c135a486608b18037f2341f9021"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba5fa8f71e7b08b595d8b6c29f32f023"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a21f5fb4744896890182c9d2e626ba900">bHasDesMask</a>: 1</td></tr>
+<tr class="memdesc:aba5fa8f71e7b08b595d8b6c29f32f023"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether this operation has Mask layer for target tile  <a href="union____arm__2d__op__info__t.html#a21f5fb4744896890182c9d2e626ba900">More...</a><br /></td></tr>
+<tr class="separator:aba5fa8f71e7b08b595d8b6c29f32f023"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d06b1dbc6b7edf15fc0ac7504870bdc"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#afbeb136185de531235c61e51e4ce55fb">bHasOrigin</a>: 1</td></tr>
+<tr class="memdesc:a4d06b1dbc6b7edf15fc0ac7504870bdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the Source has an origin tile  <a href="union____arm__2d__op__info__t.html#afbeb136185de531235c61e51e4ce55fb">More...</a><br /></td></tr>
+<tr class="separator:a4d06b1dbc6b7edf15fc0ac7504870bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a1cc42fa0dee37ecd67c1ebc2180ba9"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a98e7a6a94b257ce28d1779be2df77f10">bAllowEnforcedColour</a>: 1</td></tr>
+<tr class="memdesc:a2a1cc42fa0dee37ecd67c1ebc2180ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether this operation allow enforced colours in tiles  <a href="union____arm__2d__op__info__t.html#a98e7a6a94b257ce28d1779be2df77f10">More...</a><br /></td></tr>
+<tr class="separator:a2a1cc42fa0dee37ecd67c1ebc2180ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77a669ac51516fa4f5f1cb00947c9340"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a77a669ac51516fa4f5f1cb00947c9340"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c83a4af82dda974aeaf44c86051d921"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#ad2bdda7c843873d93b4bb4da9b51265b">chValue</a></td></tr>
+<tr class="separator:a2c83a4af82dda974aeaf44c86051d921"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7a2b2452ae3f7856abb4dc796d27dea"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a7ebd60f2cb2c3d787247ef820fc3945a">Param</a></td></tr>
+<tr class="separator:af7a2b2452ae3f7856abb4dc796d27dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae27ac76692ed444029903faa41c0ea6b"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a89d845a8e18cc5f61156997849b75a90">chInClassOffset</a></td></tr>
+<tr class="memdesc:ae27ac76692ed444029903faa41c0ea6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">some operation uses this as the offset of the key member in the class  <a href="union____arm__2d__op__info__t.html#a89d845a8e18cc5f61156997849b75a90">More...</a><br /></td></tr>
+<tr class="separator:ae27ac76692ed444029903faa41c0ea6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afee129270fb88d8f65559701d9635b14"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a40e892069ae7de2b5fa94017897ce2ea">chOpIndex</a></td></tr>
+<tr class="memdesc:afee129270fb88d8f65559701d9635b14"><td class="mdescLeft">&#160;</td><td class="mdescRight">__ARM_2D_OP_IDX_XXXXXX  <a href="union____arm__2d__op__info__t.html#a40e892069ae7de2b5fa94017897ce2ea">More...</a><br /></td></tr>
+<tr class="separator:afee129270fb88d8f65559701d9635b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a3690c66d2ca7aa04b4b74e83e2acae"><td class="memItemLeft" >&#160;&#160;&#160;union {</td></tr>
+<tr class="memitem:ad946cf28467000e5cd0f1f0cd87d523e"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:a6f48d83585aa189e71e42fddf0a8cd88"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a648fecf730ad99e8a3da393b9164ead7">CopyLike</a></td></tr>
+<tr class="separator:a6f48d83585aa189e71e42fddf0a8cd88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2c7d675ee05fcc4dd712c4b7a092e90"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#ad80f3f0b50c2ab231a1b572972641b19">FillLike</a></td></tr>
+<tr class="separator:ad2c7d675ee05fcc4dd712c4b7a092e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad946cf28467000e5cd0f1f0cd87d523e"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:ad946cf28467000e5cd0f1f0cd87d523e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefcb8da40d39fa178a7b6b299badcb13"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:a160eed45658ba391fc79e69421fe9d94"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#aa1a0a31d1185bf16419066d9629fe975">CopyOrigLike</a></td></tr>
+<tr class="separator:a160eed45658ba391fc79e69421fe9d94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0ff4bcca511680178bd1ce2620a7372"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#ae66c114e427dc8e158c1c8be05974468">FillOrigLike</a></td></tr>
+<tr class="separator:af0ff4bcca511680178bd1ce2620a7372"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefcb8da40d39fa178a7b6b299badcb13"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:aefcb8da40d39fa178a7b6b299badcb13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77c7493a92ece7b9542a8b42f83a5682"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:ab0a6356a47e095674cb682c682e526c0"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a5bc326524884ee62ff95a1d94e091026">TileProcessLike</a></td></tr>
+<tr class="separator:ab0a6356a47e095674cb682c682e526c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77c7493a92ece7b9542a8b42f83a5682"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a77c7493a92ece7b9542a8b42f83a5682"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a3690c66d2ca7aa04b4b74e83e2acae"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a4385b415595786ebd84f0bf2e89717d2">LowLevelInterfaceIndex</a></td></tr>
+<tr class="separator:a7a3690c66d2ca7aa04b4b74e83e2acae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a300b2be631dee7089eefff2c8fec18ab"><td class="memItemLeft" >&#160;&#160;&#160;union {</td></tr>
+<tr class="memitem:a709bcf7a83b7559b0c4bdfab4e48acca"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;const <a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_low_level_io_t</a> *&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a6494b4338acf303ed4ea0e4631af24cb">IO</a> [2]</td></tr>
+<tr class="separator:a709bcf7a83b7559b0c4bdfab4e48acca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5abd8f12705efa4d5c34456c5f93117"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:a12a8af7cbdfae923149345fb794ebe4c"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;const <a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_low_level_io_t</a> *&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a786bd2795b982d40444e1f1dc727fe4c">ptCopyLike</a></td></tr>
+<tr class="separator:a12a8af7cbdfae923149345fb794ebe4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a8bb7c0a3a96994750f72f3c810fcad"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;const <a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_low_level_io_t</a> *&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a4b59a3b918fcd8866e2e28bbfacc5b18">ptFillLike</a></td></tr>
+<tr class="separator:a3a8bb7c0a3a96994750f72f3c810fcad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5abd8f12705efa4d5c34456c5f93117"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:aa5abd8f12705efa4d5c34456c5f93117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdde787353edb948daee48cf1a001ca8"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:a50687850cf8d66e4b1becb690db54307"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;const <a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_low_level_io_t</a> *&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a4349bc986a6dd0b46107df6e2cce2e45">ptCopyOrigLike</a></td></tr>
+<tr class="separator:a50687850cf8d66e4b1becb690db54307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a9daf58b697139f9c0d969985aede17"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;const <a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_low_level_io_t</a> *&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a529c07bb595314f68c8296697352212f">ptFillOrigLike</a></td></tr>
+<tr class="separator:a9a9daf58b697139f9c0d969985aede17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdde787353edb948daee48cf1a001ca8"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:abdde787353edb948daee48cf1a001ca8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7203941fd986178c16dcea111f2abd03"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:ac860ec85fdcb057bb422fcd628d771f3"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;const <a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_low_level_io_t</a> *&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#ac6e0824bb5d34e12fcbec7a7e4a2f03a">ptTileProcessLike</a></td></tr>
+<tr class="separator:ac860ec85fdcb057bb422fcd628d771f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7203941fd986178c16dcea111f2abd03"><td class="memItemLeft" valign="top">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a7203941fd986178c16dcea111f2abd03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a300b2be631dee7089eefff2c8fec18ab"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;&#160;&#160;<a class="el" href="union____arm__2d__op__info__t.html#a9bb2ecd21b049cb4aeaf935fb609e219">LowLevelIO</a></td></tr>
+<tr class="separator:a300b2be631dee7089eefff2c8fec18ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada01abf1e6a83eff27a9f34600b95eb7"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union____arm__2d__op__info__t.html#ada01abf1e6a83eff27a9f34600b95eb7">Info</a></td></tr>
+<tr class="separator:ada01abf1e6a83eff27a9f34600b95eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7eaf57395ac174e3588fa638bd4fdac4"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union____arm__2d__op__info__t.html#a7eaf57395ac174e3588fa638bd4fdac4">wID</a></td></tr>
+<tr class="memdesc:a7eaf57395ac174e3588fa638bd4fdac4"><td class="mdescLeft">&#160;</td><td class="mdescRight">ID for a specific operation.  <a href="union____arm__2d__op__info__t.html#a7eaf57395ac174e3588fa638bd4fdac4">More...</a><br /></td></tr>
+<tr class="separator:a7eaf57395ac174e3588fa638bd4fdac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00376">376</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="a5869948fa94c93e1933e7414577d114a" name="a5869948fa94c93e1933e7414577d114a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5869948fa94c93e1933e7414577d114a">&#9670;&nbsp;</a></span>bAllowEnforcedColour</h2>
+<a id="a98e7a6a94b257ce28d1779be2df77f10" name="a98e7a6a94b257ce28d1779be2df77f10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98e7a6a94b257ce28d1779be2df77f10">&#9670;&nbsp;</a></span>bAllowEnforcedColour</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t bAllowEnforcedColour</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::bAllowEnforcedColour</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>whether this operation allow enforced colours in tiles </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00387">387</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="a3c9eb198ff88e2c0898022a77a8829fa" name="a3c9eb198ff88e2c0898022a77a8829fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c9eb198ff88e2c0898022a77a8829fa">&#9670;&nbsp;</a></span>bHasDesMask</h2>
+<a id="a21f5fb4744896890182c9d2e626ba900" name="a21f5fb4744896890182c9d2e626ba900"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21f5fb4744896890182c9d2e626ba900">&#9670;&nbsp;</a></span>bHasDesMask</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t bHasDesMask</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::bHasDesMask</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>whether this operation has Mask layer for target tile </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00384">384</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="ab058e670a03b4cd0a84bd6265157440f" name="ab058e670a03b4cd0a84bd6265157440f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab058e670a03b4cd0a84bd6265157440f">&#9670;&nbsp;</a></span>bHasOrigin</h2>
+<a id="afbeb136185de531235c61e51e4ce55fb" name="afbeb136185de531235c61e51e4ce55fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbeb136185de531235c61e51e4ce55fb">&#9670;&nbsp;</a></span>bHasOrigin</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t bHasOrigin</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::bHasOrigin</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>whether the Source has an origin tile </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00385">385</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="ab165d6c70f3d84525bd310ec37871025" name="ab165d6c70f3d84525bd310ec37871025"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab165d6c70f3d84525bd310ec37871025">&#9670;&nbsp;</a></span>bHasSource</h2>
+<a id="a259c023ae91de16d05d41b3c33762d43" name="a259c023ae91de16d05d41b3c33762d43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a259c023ae91de16d05d41b3c33762d43">&#9670;&nbsp;</a></span>bHasSource</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t bHasSource</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::bHasSource</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>whether this operation contains source tile </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00381">381</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="ab39d0b6dd7679bcbf9654e64fc84cfdd" name="ab39d0b6dd7679bcbf9654e64fc84cfdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab39d0b6dd7679bcbf9654e64fc84cfdd">&#9670;&nbsp;</a></span>bHasSrcMask</h2>
+<a id="a04f11b664914fbb1160ade7b53c7ed53" name="a04f11b664914fbb1160ade7b53c7ed53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04f11b664914fbb1160ade7b53c7ed53">&#9670;&nbsp;</a></span>bHasSrcMask</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t bHasSrcMask</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::bHasSrcMask</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>whether this operation has Mask layer for source tile </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00383">383</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="aaa3617a08d93e5472d64d0d5b0084479" name="aaa3617a08d93e5472d64d0d5b0084479"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa3617a08d93e5472d64d0d5b0084479">&#9670;&nbsp;</a></span>bHasTarget</h2>
+<a id="a791215b4448a5820ab1924e42bd55463" name="a791215b4448a5820ab1924e42bd55463"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a791215b4448a5820ab1924e42bd55463">&#9670;&nbsp;</a></span>bHasTarget</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t bHasTarget</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::bHasTarget</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>whether this operation contains target tile </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00382">382</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="adc1d60a0049e8a4b19b9e2bd7c9f7b23" name="adc1d60a0049e8a4b19b9e2bd7c9f7b23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc1d60a0049e8a4b19b9e2bd7c9f7b23">&#9670;&nbsp;</a></span>chInClassOffset</h2>
+<a id="a89d845a8e18cc5f61156997849b75a90" name="a89d845a8e18cc5f61156997849b75a90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89d845a8e18cc5f61156997849b75a90">&#9670;&nbsp;</a></span>chInClassOffset</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t chInClassOffset</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::chInClassOffset</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>some operation uses this as the offset of the key member in the class </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00392">392</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="aac1d17c9145bbbefca153f16de89bab5" name="aac1d17c9145bbbefca153f16de89bab5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac1d17c9145bbbefca153f16de89bab5">&#9670;&nbsp;</a></span>chOpIndex</h2>
+<a id="a40e892069ae7de2b5fa94017897ce2ea" name="a40e892069ae7de2b5fa94017897ce2ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40e892069ae7de2b5fa94017897ce2ea">&#9670;&nbsp;</a></span>chOpIndex</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t chOpIndex</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::chOpIndex</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>__ARM_2D_OP_IDX_XXXXXX </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00393">393</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="adf5e0400a20421dbc7c2bd2f8afdec54" name="adf5e0400a20421dbc7c2bd2f8afdec54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf5e0400a20421dbc7c2bd2f8afdec54">&#9670;&nbsp;</a></span>chValue</h2>
+<a id="ad2bdda7c843873d93b4bb4da9b51265b" name="ad2bdda7c843873d93b4bb4da9b51265b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2bdda7c843873d93b4bb4da9b51265b">&#9670;&nbsp;</a></span>chValue</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t chValue</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::chValue</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -344,32 +330,30 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a39ef7abf9db2b1da80284c97d69a0a4c" name="a39ef7abf9db2b1da80284c97d69a0a4c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39ef7abf9db2b1da80284c97d69a0a4c">&#9670;&nbsp;</a></span>Colour</h2>
+<a id="a08e116ea0be6ea1c8d6f373e59a9b6e9" name="a08e116ea0be6ea1c8d6f373e59a9b6e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08e116ea0be6ea1c8d6f373e59a9b6e9">&#9670;&nbsp;</a></span>Colour</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="unionarm__2d__color__info__t.html">arm_2d_color_info_t</a> Colour</td>
+          <td class="memname"><a class="el" href="unionarm__2d__color__info__t.html">arm_2d_color_info_t</a> __arm_2d_op_info_t::Colour</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>the colour used in thie operation </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00378">378</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="a618c0345549881f71a563e7079be313b" name="a618c0345549881f71a563e7079be313b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a618c0345549881f71a563e7079be313b">&#9670;&nbsp;</a></span>CopyLike</h2>
+<a id="a648fecf730ad99e8a3da393b9164ead7" name="a648fecf730ad99e8a3da393b9164ead7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a648fecf730ad99e8a3da393b9164ead7">&#9670;&nbsp;</a></span>CopyLike</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t CopyLike</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::CopyLike</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -378,14 +362,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a0f8272faf49a848e7b425e2600202064" name="a0f8272faf49a848e7b425e2600202064"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f8272faf49a848e7b425e2600202064">&#9670;&nbsp;</a></span>CopyOrigLike</h2>
+<a id="aa1a0a31d1185bf16419066d9629fe975" name="aa1a0a31d1185bf16419066d9629fe975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1a0a31d1185bf16419066d9629fe975">&#9670;&nbsp;</a></span>CopyOrigLike</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t CopyOrigLike</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::CopyOrigLike</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -394,14 +378,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="aecbab73e9c69e4a4dc6963122cd8d18e" name="aecbab73e9c69e4a4dc6963122cd8d18e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecbab73e9c69e4a4dc6963122cd8d18e">&#9670;&nbsp;</a></span>FillLike</h2>
+<a id="ad80f3f0b50c2ab231a1b572972641b19" name="ad80f3f0b50c2ab231a1b572972641b19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad80f3f0b50c2ab231a1b572972641b19">&#9670;&nbsp;</a></span>FillLike</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t FillLike</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::FillLike</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -410,14 +394,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a7cd25e15713a1867315d3bd3a94699b9" name="a7cd25e15713a1867315d3bd3a94699b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cd25e15713a1867315d3bd3a94699b9">&#9670;&nbsp;</a></span>FillOrigLike</h2>
+<a id="ae66c114e427dc8e158c1c8be05974468" name="ae66c114e427dc8e158c1c8be05974468"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae66c114e427dc8e158c1c8be05974468">&#9670;&nbsp;</a></span>FillOrigLike</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t FillOrigLike</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::FillOrigLike</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -426,28 +410,28 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a3bf2940c881d5853d3e964a28285ef55" name="a3bf2940c881d5853d3e964a28285ef55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3bf2940c881d5853d3e964a28285ef55">&#9670;&nbsp;</a></span></h2>
+<a id="ada01abf1e6a83eff27a9f34600b95eb7" name="ada01abf1e6a83eff27a9f34600b95eb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada01abf1e6a83eff27a9f34600b95eb7">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct  { ... }  Info</td>
+          <td class="memname">struct  { ... }  __arm_2d_op_info_t::Info</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a16ea47193664d41d46ff171a27674200" name="a16ea47193664d41d46ff171a27674200"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16ea47193664d41d46ff171a27674200">&#9670;&nbsp;</a></span>IO</h2>
+<a id="a6494b4338acf303ed4ea0e4631af24cb" name="a6494b4338acf303ed4ea0e4631af24cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6494b4338acf303ed4ea0e4631af24cb">&#9670;&nbsp;</a></span>IO</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a>* IO[2]</td>
+          <td class="memname">const <a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_low_level_io_t</a>* __arm_2d_op_info_t::IO[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -456,56 +440,56 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="ad29a59d2cdb283efbbaeab8ca1b9d5f1" name="ad29a59d2cdb283efbbaeab8ca1b9d5f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad29a59d2cdb283efbbaeab8ca1b9d5f1">&#9670;&nbsp;</a></span></h2>
+<a id="a4385b415595786ebd84f0bf2e89717d2" name="a4385b415595786ebd84f0bf2e89717d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4385b415595786ebd84f0bf2e89717d2">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">union  { ... }  LowLevelInterfaceIndex</td>
+          <td class="memname">union  { ... }  __arm_2d_op_info_t::LowLevelInterfaceIndex</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a5143178dc22fb48a4df78b5a0752fb16" name="a5143178dc22fb48a4df78b5a0752fb16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5143178dc22fb48a4df78b5a0752fb16">&#9670;&nbsp;</a></span></h2>
+<a id="a9bb2ecd21b049cb4aeaf935fb609e219" name="a9bb2ecd21b049cb4aeaf935fb609e219"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bb2ecd21b049cb4aeaf935fb609e219">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">union  { ... }  LowLevelIO</td>
+          <td class="memname">union  { ... }  __arm_2d_op_info_t::LowLevelIO</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aa3ce9972c6a2708a453c4c28ff3eb464" name="aa3ce9972c6a2708a453c4c28ff3eb464"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3ce9972c6a2708a453c4c28ff3eb464">&#9670;&nbsp;</a></span></h2>
+<a id="a7ebd60f2cb2c3d787247ef820fc3945a" name="a7ebd60f2cb2c3d787247ef820fc3945a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ebd60f2cb2c3d787247ef820fc3945a">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">union  { ... }  Param</td>
+          <td class="memname">union  { ... }  __arm_2d_op_info_t::Param</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a9fd3d401093565d235871b544a814d79" name="a9fd3d401093565d235871b544a814d79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fd3d401093565d235871b544a814d79">&#9670;&nbsp;</a></span>ptCopyLike</h2>
+<a id="a786bd2795b982d40444e1f1dc727fe4c" name="a786bd2795b982d40444e1f1dc727fe4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a786bd2795b982d40444e1f1dc727fe4c">&#9670;&nbsp;</a></span>ptCopyLike</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a>* ptCopyLike</td>
+          <td class="memname">const <a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_low_level_io_t</a>* __arm_2d_op_info_t::ptCopyLike</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -514,14 +498,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a67b0aa267ad6830c9ae4af7d03c40aee" name="a67b0aa267ad6830c9ae4af7d03c40aee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67b0aa267ad6830c9ae4af7d03c40aee">&#9670;&nbsp;</a></span>ptCopyOrigLike</h2>
+<a id="a4349bc986a6dd0b46107df6e2cce2e45" name="a4349bc986a6dd0b46107df6e2cce2e45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4349bc986a6dd0b46107df6e2cce2e45">&#9670;&nbsp;</a></span>ptCopyOrigLike</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a>* ptCopyOrigLike</td>
+          <td class="memname">const <a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_low_level_io_t</a>* __arm_2d_op_info_t::ptCopyOrigLike</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -530,14 +514,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a6af6c055faa3507fbac36d583ba90717" name="a6af6c055faa3507fbac36d583ba90717"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6af6c055faa3507fbac36d583ba90717">&#9670;&nbsp;</a></span>ptFillLike</h2>
+<a id="a4b59a3b918fcd8866e2e28bbfacc5b18" name="a4b59a3b918fcd8866e2e28bbfacc5b18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b59a3b918fcd8866e2e28bbfacc5b18">&#9670;&nbsp;</a></span>ptFillLike</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a>* ptFillLike</td>
+          <td class="memname">const <a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_low_level_io_t</a>* __arm_2d_op_info_t::ptFillLike</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -546,14 +530,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a4aa9d5a7cbb807e76defb99511b021f6" name="a4aa9d5a7cbb807e76defb99511b021f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4aa9d5a7cbb807e76defb99511b021f6">&#9670;&nbsp;</a></span>ptFillOrigLike</h2>
+<a id="a529c07bb595314f68c8296697352212f" name="a529c07bb595314f68c8296697352212f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a529c07bb595314f68c8296697352212f">&#9670;&nbsp;</a></span>ptFillOrigLike</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a>* ptFillOrigLike</td>
+          <td class="memname">const <a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_low_level_io_t</a>* __arm_2d_op_info_t::ptFillOrigLike</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -562,14 +546,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="aabe514a32b2509182b77b3c40fd790a1" name="aabe514a32b2509182b77b3c40fd790a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabe514a32b2509182b77b3c40fd790a1">&#9670;&nbsp;</a></span>ptTileProcessLike</h2>
+<a id="ac6e0824bb5d34e12fcbec7a7e4a2f03a" name="ac6e0824bb5d34e12fcbec7a7e4a2f03a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6e0824bb5d34e12fcbec7a7e4a2f03a">&#9670;&nbsp;</a></span>ptTileProcessLike</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="struct____arm__2d__low__level__io__t.html">__arm_2d_low_level_io_t</a>* ptTileProcessLike</td>
+          <td class="memname">const <a class="el" href="arm__2d__types_8h.html#a5794a4d595906803e2c82088b3e29464">__arm_2d_low_level_io_t</a>* __arm_2d_op_info_t::ptTileProcessLike</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -578,14 +562,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="aea9104a73cf58d9c1ba95e534d00a031" name="aea9104a73cf58d9c1ba95e534d00a031"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea9104a73cf58d9c1ba95e534d00a031">&#9670;&nbsp;</a></span>TileProcessLike</h2>
+<a id="a5bc326524884ee62ff95a1d94e091026" name="a5bc326524884ee62ff95a1d94e091026"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bc326524884ee62ff95a1d94e091026">&#9670;&nbsp;</a></span>TileProcessLike</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t TileProcessLike</td>
+          <td class="memname">uint8_t __arm_2d_op_info_t::TileProcessLike</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -594,27 +578,22 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="aa23400a63808663c02e4b6ba6815f683" name="aa23400a63808663c02e4b6ba6815f683"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa23400a63808663c02e4b6ba6815f683">&#9670;&nbsp;</a></span>wID</h2>
+<a id="a7eaf57395ac174e3588fa638bd4fdac4" name="a7eaf57395ac174e3588fa638bd4fdac4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eaf57395ac174e3588fa638bd4fdac4">&#9670;&nbsp;</a></span>wID</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t wID</td>
+          <td class="memname">uint32_t __arm_2d_op_info_t::wID</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>ID for a specific operation. </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00426">426</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this union was generated from the following file:<ul>
-<li>/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/<a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

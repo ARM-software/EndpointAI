@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version {projectNumber}</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -88,27 +90,30 @@ $(document).ready(function(){initNavTree('struct____arm__2d__low__level__io__t.h
 </div><!--header-->
 <div class="contents">
 
+<p>an imcomplete defintion which is only used for defining pointers  
+ <a href="struct____arm__2d__low__level__io__t.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="____arm__2d__impl_8h_source.html">__arm_2d_impl.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a1fe8e3ad97968357acd71a1e31de5b9d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="____arm__2d__impl_8h.html#a537d0b7df8ec51f645a23dc843b56a4b">__arm_2d_io_func_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____arm__2d__low__level__io__t.html#a1fe8e3ad97968357acd71a1e31de5b9d">SW</a></td></tr>
-<tr class="separator:a1fe8e3ad97968357acd71a1e31de5b9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89bbfcd8ab4a193f5e8fb5210800090a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="____arm__2d__impl_8h.html#a537d0b7df8ec51f645a23dc843b56a4b">__arm_2d_io_func_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____arm__2d__low__level__io__t.html#a89bbfcd8ab4a193f5e8fb5210800090a">HW</a></td></tr>
-<tr class="separator:a89bbfcd8ab4a193f5e8fb5210800090a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14d3936e9debdcde32c9c31dcccad953"><td class="memItemLeft" align="right" valign="top"><a class="el" href="____arm__2d__impl_8h.html#a537d0b7df8ec51f645a23dc843b56a4b">__arm_2d_io_func_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____arm__2d__low__level__io__t.html#a14d3936e9debdcde32c9c31dcccad953">SW</a></td></tr>
+<tr class="separator:a14d3936e9debdcde32c9c31dcccad953"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cf7b2b6237e14420c29acfb7db93f31"><td class="memItemLeft" align="right" valign="top"><a class="el" href="____arm__2d__impl_8h.html#a537d0b7df8ec51f645a23dc843b56a4b">__arm_2d_io_func_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct____arm__2d__low__level__io__t.html#a3cf7b2b6237e14420c29acfb7db93f31">HW</a></td></tr>
+<tr class="separator:a3cf7b2b6237e14420c29acfb7db93f31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="____arm__2d__impl_8h_source.html#l00278">278</a> of file <a class="el" href="____arm__2d__impl_8h_source.html">__arm_2d_impl.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="a89bbfcd8ab4a193f5e8fb5210800090a" name="a89bbfcd8ab4a193f5e8fb5210800090a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89bbfcd8ab4a193f5e8fb5210800090a">&#9670;&nbsp;</a></span>HW</h2>
+<a id="a3cf7b2b6237e14420c29acfb7db93f31" name="a3cf7b2b6237e14420c29acfb7db93f31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cf7b2b6237e14420c29acfb7db93f31">&#9670;&nbsp;</a></span>HW</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="____arm__2d__impl_8h.html#a537d0b7df8ec51f645a23dc843b56a4b">__arm_2d_io_func_t</a>* HW</td>
+          <td class="memname"><a class="el" href="____arm__2d__impl_8h.html#a537d0b7df8ec51f645a23dc843b56a4b">__arm_2d_io_func_t</a>* __arm_2d_low_level_io_t::HW</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -117,14 +122,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a1fe8e3ad97968357acd71a1e31de5b9d" name="a1fe8e3ad97968357acd71a1e31de5b9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fe8e3ad97968357acd71a1e31de5b9d">&#9670;&nbsp;</a></span>SW</h2>
+<a id="a14d3936e9debdcde32c9c31dcccad953" name="a14d3936e9debdcde32c9c31dcccad953"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14d3936e9debdcde32c9c31dcccad953">&#9670;&nbsp;</a></span>SW</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="____arm__2d__impl_8h.html#a537d0b7df8ec51f645a23dc843b56a4b">__arm_2d_io_func_t</a>* SW</td>
+          <td class="memname"><a class="el" href="____arm__2d__impl_8h.html#a537d0b7df8ec51f645a23dc843b56a4b">__arm_2d_io_func_t</a>* __arm_2d_low_level_io_t::SW</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -133,9 +138,6 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/<a class="el" href="____arm__2d__impl_8h_source.html">__arm_2d_impl.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

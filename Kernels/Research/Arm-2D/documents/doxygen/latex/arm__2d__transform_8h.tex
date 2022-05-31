@@ -1,10 +1,8 @@
-\hypertarget{arm__2d__transform_8h}{}\doxysection{/\+Users/gabwan01/\+Documents/\+Work/\+CPMK/\+Git/\+Endpoint\+AI/\+Kernels/\+Research/\+Arm-\/2\+D/\+Library/\+Include/arm\+\_\+2d\+\_\+transform.h File Reference}
-\label{arm__2d__transform_8h}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/arm\_2d\_transform.h@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/arm\_2d\_transform.h}}
+\hypertarget{arm__2d__transform_8h}{}\doxysection{arm\+\_\+2d\+\_\+transform.\+h File Reference}
+\label{arm__2d__transform_8h}\index{arm\_2d\_transform.h@{arm\_2d\_transform.h}}
 {\ttfamily \#include \char`\"{}arm\+\_\+2d\+\_\+types.\+h\char`\"{}}\newline
 \doxysubsection*{Data Structures}
 \begin{DoxyCompactItemize}
-\item 
-struct \mbox{\hyperlink{struct____arm__2d__transform__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+transform\+\_\+info\+\_\+t}}
 \item 
 struct \mbox{\hyperlink{structarm__2d__op__trans__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+t}}
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structarm__2d__op__trans__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__src__orig__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+t}} \end{DoxyCompactList}\item 
@@ -347,19 +345,6 @@ struct \mbox{\hyperlink{structarm__2d__op__trans__msk__opa__t}{arm\+\_\+2d\+\_\+
 \item 
 \#define \mbox{\hyperlink{arm__2d__transform_8h_a17b436da7eb8a052334cb754da4d32e3}{arm\+\_\+2d\+\_\+cccn888\+\_\+tile\+\_\+scaling\+\_\+with\+\_\+src\+\_\+mask\+\_\+and\+\_\+opacity}}( \+\_\+\+\_\+\+SRC\+\_\+\+TILE\+\_\+\+ADDR,  \+\_\+\+\_\+\+SRC\+\_\+\+MASK\+\_\+\+ADDR,  \+\_\+\+\_\+\+DES\+\_\+\+TILE\+\_\+\+ADDR,  \+\_\+\+\_\+\+DES\+\_\+\+REGION\+\_\+\+ADDR,  \+\_\+\+\_\+\+CENTRE,  \+\_\+\+\_\+\+SCALE,  \+\_\+\+\_\+\+OPACITY,  ...)
 \end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
-\begin{DoxyCompactItemize}
-\item 
-typedef struct \mbox{\hyperlink{struct____arm__2d__transform__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+transform\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8h_af56a12b07aaefec0ff0f526bffc6da3f}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+transform\+\_\+info\+\_\+t}}
-\item 
-typedef struct \mbox{\hyperlink{structarm__2d__op__trans__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8h_a350da7f17a2947ec97f42ee3e98782a7}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structarm__2d__op__trans__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__src__orig__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+t}} \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structarm__2d__op__trans__opa__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+opa\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8h_a3cb26fee83664c650245ee59699b9a90}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+opa\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structarm__2d__op__trans__opa__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+opa\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__trans__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+t}} \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8h_ab6ecce3e82048bc65c7c546c65004319}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__src__orig__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+msk\+\_\+t}} \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structarm__2d__op__trans__msk__opa__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+opa\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8h_a432369db6b1f5e7b0df76f98215b0e45}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+opa\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+t}} \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -1035,10 +1020,6 @@ Definition at line \mbox{\hyperlink{arm__2d__transform_8h_source_l00741}{741}} o
 \end{DoxyCode}
 
 
-API wrappers\+: Rotation. 
-
-
-
 Definition at line \mbox{\hyperlink{arm__2d__transform_8h_source_l00078}{78}} of file \mbox{\hyperlink{arm__2d__transform_8h_source}{arm\+\_\+2d\+\_\+transform.\+h}}.
 
 \mbox{\Hypertarget{arm__2d__transform_8h_aa3dda478e54745e751a012cdc011aa31}\label{arm__2d__transform_8h_aa3dda478e54745e751a012cdc011aa31}} 
@@ -1284,10 +1265,6 @@ Definition at line \mbox{\hyperlink{arm__2d__transform_8h_source_l02942}{2942}} 
 \DoxyCodeLine{                                                   (\_\_MSK\_COLOUR))}
 
 \end{DoxyCode}
-
-
-API wrappers\+: scaling. 
-
 
 
 Definition at line \mbox{\hyperlink{arm__2d__transform_8h_source_l02279}{2279}} of file \mbox{\hyperlink{arm__2d__transform_8h_source}{arm\+\_\+2d\+\_\+transform.\+h}}.
@@ -1537,10 +1514,6 @@ Definition at line \mbox{\hyperlink{arm__2d__transform_8h_source_l01854}{1854}} 
 \end{DoxyCode}
 
 
-API wrappers\+: Transform. 
-
-
-
 Definition at line \mbox{\hyperlink{arm__2d__transform_8h_source_l01150}{1150}} of file \mbox{\hyperlink{arm__2d__transform_8h_source}{arm\+\_\+2d\+\_\+transform.\+h}}.
 
 \mbox{\Hypertarget{arm__2d__transform_8h_a08e9425a6543d661463fca4b8343de64}\label{arm__2d__transform_8h_a08e9425a6543d661463fca4b8343de64}} 
@@ -1757,10 +1730,6 @@ Definition at line \mbox{\hyperlink{arm__2d__transform_8h_source_l00054}{54}} of
 \index{arm\_2d\_op\_rotate\_t@{arm\_2d\_op\_rotate\_t}!arm\_2d\_transform.h@{arm\_2d\_transform.h}}
 \doxysubsubsection{\texorpdfstring{arm\_2d\_op\_rotate\_t}{arm\_2d\_op\_rotate\_t}}
 {\footnotesize\ttfamily \#define arm\+\_\+2d\+\_\+op\+\_\+rotate\+\_\+t~\mbox{\hyperlink{structarm__2d__op__trans__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+t}}}
-
-
-
-deprecated type alias, should be removed in the future 
 
 
 
@@ -4543,60 +4512,7 @@ Definition at line \mbox{\hyperlink{arm__2d__transform_8h_source_l01613}{1613}} 
 
 
 
-deprecated API alias, should be removed in the future 
-
-
-
 Definition at line \mbox{\hyperlink{arm__2d__transform_8h_source_l00059}{59}} of file \mbox{\hyperlink{arm__2d__transform_8h_source}{arm\+\_\+2d\+\_\+transform.\+h}}.
-
-
-
-\doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{arm__2d__transform_8h_af56a12b07aaefec0ff0f526bffc6da3f}\label{arm__2d__transform_8h_af56a12b07aaefec0ff0f526bffc6da3f}} 
-\index{arm\_2d\_transform.h@{arm\_2d\_transform.h}!\_\_arm\_2d\_transform\_info\_t@{\_\_arm\_2d\_transform\_info\_t}}
-\index{\_\_arm\_2d\_transform\_info\_t@{\_\_arm\_2d\_transform\_info\_t}!arm\_2d\_transform.h@{arm\_2d\_transform.h}}
-\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_transform\_info\_t}{\_\_arm\_2d\_transform\_info\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{struct____arm__2d__transform__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+transform\+\_\+info\+\_\+t}} \mbox{\hyperlink{struct____arm__2d__transform__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+transform\+\_\+info\+\_\+t}}}
-
-\mbox{\Hypertarget{arm__2d__transform_8h_a432369db6b1f5e7b0df76f98215b0e45}\label{arm__2d__transform_8h_a432369db6b1f5e7b0df76f98215b0e45}} 
-\index{arm\_2d\_transform.h@{arm\_2d\_transform.h}!arm\_2d\_op\_trans\_msk\_opa\_t@{arm\_2d\_op\_trans\_msk\_opa\_t}}
-\index{arm\_2d\_op\_trans\_msk\_opa\_t@{arm\_2d\_op\_trans\_msk\_opa\_t}!arm\_2d\_transform.h@{arm\_2d\_transform.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_trans\_msk\_opa\_t}{arm\_2d\_op\_trans\_msk\_opa\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__op__trans__msk__opa__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+opa\+\_\+t}} \mbox{\hyperlink{structarm__2d__op__trans__msk__opa__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+opa\+\_\+t}}}
-
-
-
-\mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+t}} 
-
-\mbox{\Hypertarget{arm__2d__transform_8h_ab6ecce3e82048bc65c7c546c65004319}\label{arm__2d__transform_8h_ab6ecce3e82048bc65c7c546c65004319}} 
-\index{arm\_2d\_transform.h@{arm\_2d\_transform.h}!arm\_2d\_op\_trans\_msk\_t@{arm\_2d\_op\_trans\_msk\_t}}
-\index{arm\_2d\_op\_trans\_msk\_t@{arm\_2d\_op\_trans\_msk\_t}!arm\_2d\_transform.h@{arm\_2d\_transform.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_trans\_msk\_t}{arm\_2d\_op\_trans\_msk\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+t}} \mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+t}}}
-
-
-
-\mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+msk\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__src__orig__msk__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+msk\+\_\+t}} 
-
-\mbox{\Hypertarget{arm__2d__transform_8h_a3cb26fee83664c650245ee59699b9a90}\label{arm__2d__transform_8h_a3cb26fee83664c650245ee59699b9a90}} 
-\index{arm\_2d\_transform.h@{arm\_2d\_transform.h}!arm\_2d\_op\_trans\_opa\_t@{arm\_2d\_op\_trans\_opa\_t}}
-\index{arm\_2d\_op\_trans\_opa\_t@{arm\_2d\_op\_trans\_opa\_t}!arm\_2d\_transform.h@{arm\_2d\_transform.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_trans\_opa\_t}{arm\_2d\_op\_trans\_opa\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__op__trans__opa__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+opa\+\_\+t}} \mbox{\hyperlink{structarm__2d__op__trans__opa__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+opa\+\_\+t}}}
-
-
-
-\mbox{\hyperlink{structarm__2d__op__trans__opa__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+opa\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__trans__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+t}} 
-
-\mbox{\Hypertarget{arm__2d__transform_8h_a350da7f17a2947ec97f42ee3e98782a7}\label{arm__2d__transform_8h_a350da7f17a2947ec97f42ee3e98782a7}} 
-\index{arm\_2d\_transform.h@{arm\_2d\_transform.h}!arm\_2d\_op\_trans\_t@{arm\_2d\_op\_trans\_t}}
-\index{arm\_2d\_op\_trans\_t@{arm\_2d\_op\_trans\_t}!arm\_2d\_transform.h@{arm\_2d\_transform.h}}
-\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_trans\_t}{arm\_2d\_op\_trans\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structarm__2d__op__trans__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+t}} \mbox{\hyperlink{structarm__2d__op__trans__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+t}}}
-
-
-
-\mbox{\hyperlink{structarm__2d__op__trans__t}{arm\+\_\+2d\+\_\+op\+\_\+trans\+\_\+t}} is inherit from \mbox{\hyperlink{structarm__2d__op__src__orig__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+orig\+\_\+t}} 
 
 
 

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/arm_2d.h File Reference</title>
+<title>arm-2d: arm_2d.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -255,8 +257,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>get the default frame buffer </p>
 <dl class="section return"><dt>Returns</dt><dd>arm_2d_tile_t* the address of the default frame buffer </dd></dl>
 
 </div>
@@ -276,8 +276,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>get the status of a specified OP, </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ptOP</td><td>the address of the target OP (NULL means using the default OP) </td></tr>
@@ -304,15 +302,13 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>initialise arm-2d </p>
-
 <p class="definition">Definition at line <a class="el" href="arm__2d_8c_source.html#l00132">132</a> of file <a class="el" href="arm__2d_8c_source.html">arm_2d.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  133</span>{</div>
-<div class="line"><span class="lineno">  134</span>    <a class="code hl_function" href="arm__2d_8c.html#a7dad308ac760e335ebf18c59fe847013">__arm_2d_init</a>();      </div>
+<div class="line"><span class="lineno">  134</span>    __arm_2d_init();      </div>
 <div class="line"><span class="lineno">  135</span>    </div>
 <div class="line"><span class="lineno">  136</span>    <span class="keywordflow">do</span> {</div>
-<div class="line"><span class="lineno">  137</span>        <span class="keyword">static</span> <a class="code hl_struct" href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a> </div>
-<div class="line"><span class="lineno">  138</span>            s_tDefaultTaskPool[<a class="code hl_define" href="arm__2d_8c.html#a849a39b45e7a5a22160515dda935ce09">__ARM_2D_CFG_DEFAULT_SUB_TASK_POOL_SIZE__</a>];</div>
+<div class="line"><span class="lineno">  137</span>        <span class="keyword">static</span> __arm_2d_sub_task_t </div>
+<div class="line"><span class="lineno">  138</span>            s_tDefaultTaskPool[__ARM_2D_CFG_DEFAULT_SUB_TASK_POOL_SIZE__];</div>
 <div class="line"><span class="lineno">  139</span> </div>
 <div class="line"><span class="lineno">  140</span>        <a class="code hl_define" href="arm__2d__utils_8h.html#a206ba077ba0d890fd0be935fc5d15dda">ARM_2D_UNUSED</a>(s_tDefaultTaskPool);</div>
 <div class="line"><span class="lineno">  141</span> </div>
@@ -323,14 +319,9 @@ Variables</h2></td></tr>
 <div class="line"><span class="lineno">  146</span>    __arm_2d_cde_init();                                                </div>
 <div class="line"><span class="lineno">  147</span>    __arm_2d_acc_init();                                                </div>
 <div class="line"><span class="lineno">  148</span>}</div>
-<div class="ttc" id="aarm__2d_8c_html_a7dad308ac760e335ebf18c59fe847013"><div class="ttname"><a href="arm__2d_8c.html#a7dad308ac760e335ebf18c59fe847013">__arm_2d_init</a></div><div class="ttdeci">void __arm_2d_init(void)</div><div class="ttdoc">initialise the arm-2d core service</div></div>
-<div class="ttc" id="aarm__2d_8c_html_a849a39b45e7a5a22160515dda935ce09"><div class="ttname"><a href="arm__2d_8c.html#a849a39b45e7a5a22160515dda935ce09">__ARM_2D_CFG_DEFAULT_SUB_TASK_POOL_SIZE__</a></div><div class="ttdeci">#define __ARM_2D_CFG_DEFAULT_SUB_TASK_POOL_SIZE__</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d_8c_source.html#l00067">arm_2d.c:67</a></div></div>
 <div class="ttc" id="aarm__2d__utils_8h_html_a206ba077ba0d890fd0be935fc5d15dda"><div class="ttname"><a href="arm__2d__utils_8h.html#a206ba077ba0d890fd0be935fc5d15dda">ARM_2D_UNUSED</a></div><div class="ttdeci">#define ARM_2D_UNUSED(__VAR)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00157">arm_2d_utils.h:157</a></div></div>
 <div class="ttc" id="aarm__2d__utils_8h_html_a7b6c484887a402bba1af11b457264553"><div class="ttname"><a href="arm__2d__utils_8h.html#a7b6c484887a402bba1af11b457264553">dimof</a></div><div class="ttdeci">#define dimof(__array)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__utils_8h_source.html#l00165">arm_2d_utils.h:165</a></div></div>
-<div class="ttc" id="astruct____arm__2d__sub__task__t_html"><div class="ttname"><a href="struct____arm__2d__sub__task__t.html">__arm_2d_sub_task_t</a></div><div class="ttdef"><b>Definition:</b> <a href="____arm__2d__impl_8h_source.html#l00344">__arm_2d_impl.h:344</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="arm__2d_8c.html#a849a39b45e7a5a22160515dda935ce09">__ARM_2D_CFG_DEFAULT_SUB_TASK_POOL_SIZE__</a>, <a class="el" href="arm__2d_8c.html#a7dad308ac760e335ebf18c59fe847013">__arm_2d_init()</a>, <a class="el" href="arm__2d__utils_8h.html#a206ba077ba0d890fd0be935fc5d15dda">ARM_2D_UNUSED</a>, and <a class="el" href="arm__2d__utils_8h.html#a7b6c484887a402bba1af11b457264553">dimof</a>.</p>
-
 </div>
 </div>
 <a id="a129e2a7110847b0fd22eeb6351205989" name="a129e2a7110847b0fd22eeb6351205989"></a>
@@ -348,8 +339,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>wait asynchronouse operation complete </p>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
     <tr><td class="paramname">true</td><td>sync up with operation </td></tr>
@@ -375,8 +364,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>set the default frame buffer </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ptFramebuffer</td><td>the new frame buffer, </td></tr>
@@ -413,8 +400,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>attach a user param (which could be a pointer) to specified OP </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ptOP</td><td>the address of the target OP (NULL means using the default OP) </td></tr>
@@ -440,8 +425,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>arm-2d pixel pipeline task entery </p>
 <dl class="section note"><dt>Note</dt><dd>This function is <em>TRHEAD-SAFE</em> </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

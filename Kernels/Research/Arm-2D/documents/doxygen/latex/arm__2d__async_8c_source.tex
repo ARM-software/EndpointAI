@@ -1,5 +1,5 @@
 \hypertarget{arm__2d__async_8c_source}{}\doxysection{arm\+\_\+2d\+\_\+async.\+c}
-\label{arm__2d__async_8c_source}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Source/arm\_2d\_async.c@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Source/arm\_2d\_async.c}}
+\label{arm__2d__async_8c_source}\index{arm\_2d\_async.c@{arm\_2d\_async.c}}
 \mbox{\hyperlink{arm__2d__async_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00001}00001 \textcolor{comment}{/*}}
@@ -34,7 +34,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00030}00030 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00031}00031 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00032}00032 \textcolor{comment}{/*============================ INCLUDES ======================================*/}}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00033}\mbox{\hyperlink{arm__2d__async_8c_aa391cb8cbcf1b1a4ab83847b83d8b8de}{00033}} \textcolor{preprocessor}{\#define \_\_ARM\_2D\_IMPL\_\_}}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00033}00033 \textcolor{preprocessor}{\#define \_\_ARM\_2D\_IMPL\_\_}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00034}00034 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00035}00035 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{arm__2d_8h}{arm\_2d.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00036}00036 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{____arm__2d__impl_8h}{\_\_arm\_2d\_impl.h}}"{}}}
@@ -120,9 +120,9 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00116}00116 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00117}00117 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00118}00118 \textcolor{keyword}{static}}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00119}00119 \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *\_\_arm\_2d\_sub\_task\_new(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00119}00119 \_\_arm\_2d\_sub\_task\_t *\_\_arm\_2d\_sub\_task\_new(\textcolor{keywordtype}{void})}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00120}00120 \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00121}00121     \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask = NULL;}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00121}00121     \_\_arm\_2d\_sub\_task\_t *ptTask = NULL;}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00122}00122     }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00123}00123     \mbox{\hyperlink{arm__2d__utils_8h_aee644f33c5b07d65d292017b21fb3f39}{arm\_irq\_safe}} \{    }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00124}00124         \textcolor{keywordflow}{if} (NULL != \mbox{\hyperlink{____arm__2d__impl_8h_ac44741102f43d22321f1a8fae52be6ce}{ARM\_2D\_CTRL}}.ptFreeList) \{}
@@ -135,13 +135,13 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00131}00131         \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00132}00132     \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00133}00133     }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00134}00134     memset(ptTask, 0 ,\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}}));}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00134}00134     memset(ptTask, 0 ,\textcolor{keyword}{sizeof}(\_\_arm\_2d\_sub\_task\_t));}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00135}00135     }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00136}00136     \textcolor{keywordflow}{return} ptTask;}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00137}00137 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00138}00138 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00139}00139 \textcolor{keyword}{static} }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00140}00140 \textcolor{keywordtype}{void} \_\_arm\_2d\_sub\_task\_free(\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask)}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00140}00140 \textcolor{keywordtype}{void} \_\_arm\_2d\_sub\_task\_free(\_\_arm\_2d\_sub\_task\_t *ptTask)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00141}00141 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00142}00142     \textcolor{keywordflow}{if} (NULL == ptTask) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00143}00143         return ;}
@@ -164,7 +164,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00160}00160 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00161}00161 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00162}00162 \textcolor{keyword}{static} }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00163}00163 \textcolor{keywordtype}{void} \_\_arm\_2d\_sub\_task\_add(\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask)}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00163}00163 \textcolor{keywordtype}{void} \_\_arm\_2d\_sub\_task\_add(\_\_arm\_2d\_sub\_task\_t *ptTask)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00164}00164 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00165}00165     assert(NULL != ptTask);}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00166}00166     \textcolor{comment}{//bool bIsEmpty = false;}}
@@ -184,9 +184,9 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00180}00180 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00181}00181 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00182}00182 \textcolor{keyword}{static} }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00183}00183 \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} * \_\_arm\_2d\_sub\_task\_fetch(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00183}00183 \_\_arm\_2d\_sub\_task\_t * \_\_arm\_2d\_sub\_task\_fetch(\textcolor{keywordtype}{void})}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00184}00184 \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00185}00185     \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask = NULL;}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00185}00185     \_\_arm\_2d\_sub\_task\_t *ptTask = NULL;}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00186}00186     }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00187}00187     \mbox{\hyperlink{arm__2d__utils_8h_aee644f33c5b07d65d292017b21fb3f39}{arm\_irq\_safe}} \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00188}00188         \textcolor{keywordflow}{if} (NULL != \mbox{\hyperlink{____arm__2d__impl_8h_ac44741102f43d22321f1a8fae52be6ce}{ARM\_2D\_CTRL}}.TaskFIFO.ptHead) \{}
@@ -206,7 +206,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00202}00202 \textcolor{comment}{ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00203}00203  }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00204}00204 \textcolor{keyword}{static} }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00205}00205 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_call\_default\_io(  \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask, }
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00205}00205 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_call\_default\_io(  \_\_arm\_2d\_sub\_task\_t *ptTask, }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00206}00206                                         uint\_fast8\_t chInterfaceIndex)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00207}00207 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00208}00208     assert(NULL != ptTask);}
@@ -218,7 +218,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00214}00214     \textcolor{keywordflow}{do} \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00215}00215         \textcolor{keywordflow}{if} (chAccPreference != \mbox{\hyperlink{arm__2d__types_8h_afccd240f973cf154952fb917c9209719a7073e7b41d758c515548cb3d9a97076b}{ARM\_2D\_PREF\_ACC\_SW\_ONLY}}) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00216}00216         \textcolor{comment}{/* call hardware accelerator */}}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00236}00236             \mbox{\hyperlink{____arm__2d__impl_8h_a4b283d1d8cd28fdc1a93a1d7dd2e4f57}{ARM\_2D\_TRY\_ACCELERATION}}( chInterfaceIndex, \mbox{\hyperlink{____arm__2d__impl_8h_a537d0b7df8ec51f645a23dc843b56a4b}{\_\_arm\_2d\_io\_func\_t}} ); }
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00236}00236             \mbox{\hyperlink{____arm__2d__impl_8h_a4b283d1d8cd28fdc1a93a1d7dd2e4f57}{ARM\_2D\_TRY\_ACCELERATION}}( chInterfaceIndex, \_\_arm\_2d\_io\_func\_t ); }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00237}00237                             }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00238}00238             assert(tResult != \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcadcf044fad5c682cf87809bd71d556d84}{arm\_fsm\_rt\_on\_going}});}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00239}00239             }
@@ -254,7 +254,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00276}00276         \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00277}00277 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00278}00278         \textcolor{comment}{/* call default software implementation */}}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00290}00290         \mbox{\hyperlink{____arm__2d__impl_8h_ac0a8a9b5defd52c6b5251c9579e7f520}{ARM\_2D\_RUN\_DEFAULT}}(  chInterfaceIndex, \mbox{\hyperlink{____arm__2d__impl_8h_a537d0b7df8ec51f645a23dc843b56a4b}{\_\_arm\_2d\_io\_func\_t}}  );}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00290}00290         \mbox{\hyperlink{____arm__2d__impl_8h_ac0a8a9b5defd52c6b5251c9579e7f520}{ARM\_2D\_RUN\_DEFAULT}}(  chInterfaceIndex, \_\_arm\_2d\_io\_func\_t  );}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00291}00291     \} \textcolor{keywordflow}{while}(0);}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00292}00292     \textcolor{keywordflow}{return} tResult;}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00293}00293 \}}
@@ -309,7 +309,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00352}00352 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00353}00353 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00354}00354 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00358}00358 \textcolor{keywordtype}{void} \mbox{\hyperlink{____arm__2d__impl_8h_a744e21a96be305b078b07d4e5d7fcc8d}{\_\_arm\_2d\_notify\_sub\_task\_cpl}}(  \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask, }
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00358}00358 \textcolor{keywordtype}{void} \_\_arm\_2d\_notify\_sub\_task\_cpl(  \_\_arm\_2d\_sub\_task\_t *ptTask, }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00359}00359                                     \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} tResult,}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00360}00360                                     \textcolor{keywordtype}{bool} bFromHW)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00361}00361 \{}
@@ -332,7 +332,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00379}00379     }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00380}00380 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00381}00381 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00386}00386 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_sub\_task\_dispatch(\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask)}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00386}00386 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_sub\_task\_dispatch(\_\_arm\_2d\_sub\_task\_t *ptTask)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00387}00387 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00388}00388 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00389}00389     \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} tResult = (\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}})\mbox{\hyperlink{arm__2d__types_8h_a27a24a896295488772e6d847c790fd1ca857ecb1544c60a6edbae6a1601064976}{ARM\_2D\_ERR\_INVALID\_OP}};}
@@ -380,7 +380,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00445}00445         \textcolor{keywordflow}{case} DISPATCH:}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00446}00446 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00448}00448             this.tResult = }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00449}00449                 \_\_arm\_2d\_sub\_task\_dispatch((\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *)this.ptTask);}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00449}00449                 \_\_arm\_2d\_sub\_task\_dispatch((\_\_arm\_2d\_sub\_task\_t *)this.ptTask);}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00450}00450 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00451}00451             \textcolor{keywordflow}{if} (    (\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcadcf044fad5c682cf87809bd71d556d84}{arm\_fsm\_rt\_on\_going}} == this.tResult)                       }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00452}00452                 ||  (\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fca4e8025cf61b9b22f9abc6fe918f80e6b}{arm\_fsm\_rt\_wait\_for\_obj}} == this.tResult)) \{                }
@@ -388,8 +388,8 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00454}00454             \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00455}00455             }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00456}00456             \textcolor{keywordflow}{if} (this.tResult != \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fca6904301c000a8bd3f1f13b557d18679b}{arm\_fsm\_rt\_async}}) \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00458}00458                 \mbox{\hyperlink{____arm__2d__impl_8h_a744e21a96be305b078b07d4e5d7fcc8d}{\_\_arm\_2d\_notify\_sub\_task\_cpl}}(   }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00459}00459                                             (\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *)this.ptTask, }
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00458}00458                 \_\_arm\_2d\_notify\_sub\_task\_cpl(   }
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00459}00459                                             (\_\_arm\_2d\_sub\_task\_t *)this.ptTask, }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00460}00460                                             this.tResult, }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00461}00461                                             \textcolor{keyword}{false}); }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00462}00462             \} }
@@ -422,7 +422,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00507}00507         \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00508}00508     \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00509}00509 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00510}00510     tResult = \mbox{\hyperlink{____arm__2d__impl_8h_adfb39302cb886537dd7bbd5beaade980}{\_\_arm\_2d\_op\_frontend\_op\_decoder}}(ptOP);}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00510}00510     tResult = \_\_arm\_2d\_op\_frontend\_op\_decoder(ptOP);}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00511}00511     }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00512}00512     \textcolor{keywordflow}{if} ((\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}} == tResult) || (tResult < 0)) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00513}00513 }
@@ -482,13 +482,13 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00578}00578 \textcolor{comment}{ * Overridden Implementations                                                 *}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00579}00579 \textcolor{comment}{ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00580}00580 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00581}00581 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00581}00581 \_\_OVERRIDE\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00582}00582 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_op\_frontend\_on\_leave( \mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *ptThis, }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00583}00583                                             \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} tResult)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00584}00584 \{  }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00585}00585 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00586}00586     }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00587}00587     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{arm__2d_8h_ae30937777f3c67e2418c9c26c76fb501}{ARM\_2D\_RUNTIME\_FEATURE}}.\mbox{\hyperlink{structarm__2d__runtime__feature__t_a62caaa202914ebc92812c32d41607836}{HAS\_DEDICATED\_THREAD\_FOR\_2D\_TASK}}) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00587}00587     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{arm__2d_8h_ae30937777f3c67e2418c9c26c76fb501}{ARM\_2D\_RUNTIME\_FEATURE}}.\mbox{\hyperlink{structarm__2d__runtime__feature__t_a43ace7cfacc269488ec92483ab3beaca}{HAS\_DEDICATED\_THREAD\_FOR\_2D\_TASK}}) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00588}00588         \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} tTaskResult;}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00589}00589         \mbox{\hyperlink{structarm__2d__task__t}{arm\_2d\_task\_t}} tTaskCB = \{0\};}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00590}00590         \textcolor{keywordflow}{do} \{}
@@ -513,7 +513,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00610}00610 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00611}00611 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00612}00612 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00613}00613 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00613}00613 \_\_OVERRIDE\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00614}00614 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_op\_frontend(\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *ptThis)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00615}00615 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00616}00616     \textcolor{keywordtype}{bool} bEmptyQueue = \textcolor{keyword}{false};}
@@ -537,7 +537,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00634}00634     \textcolor{keywordflow}{return} tResult;}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00635}00635 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00636}00636 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00637}00637 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00637}00637 \_\_OVERRIDE\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00638}00638 \textcolor{keywordtype}{bool} \_\_arm\_2d\_op\_ensure\_resource(   \mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *ptOP, }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00639}00639                                     uint\_fast16\_t hwRequired)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00640}00640 \{}
@@ -557,15 +557,15 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00654}00654 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00655}00655 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00656}00656 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00657}00657 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00657}00657 \_\_OVERRIDE\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00658}00658 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_issue\_sub\_task\_tile\_process(  }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00659}00659                                         \mbox{\hyperlink{structarm__2d__op__t}{arm\_2d\_op\_t}} *ptThis,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00660}00660                                         \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *ptParam)}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00660}00660                                         \_\_arm\_2d\_tile\_param\_t *ptParam)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00661}00661 \{    }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00662}00662     \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask = \_\_arm\_2d\_sub\_task\_new();}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00662}00662     \_\_arm\_2d\_sub\_task\_t *ptTask = \_\_arm\_2d\_sub\_task\_new();}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00663}00663     assert(NULL != ptTask);         }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00664}00664 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00665}00665     (*ptTask) = (\mbox{\hyperlink{____arm__2d__impl_8h_ab73c5561bbb9f10f4c5d0b9ed4fd0557}{\_\_arm\_2d\_sub\_task\_t}}) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00665}00665     (*ptTask) = (\_\_arm\_2d\_sub\_task\_t) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00666}00666                     .ptOP = \&(ptThis-\/>use\_as\_\_arm\_2d\_op\_core\_t),}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00667}00667                     .chLowLeveIOIndex = 0,}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00668}00668                     .Param.tTileProcess = *ptParam,}
@@ -578,16 +578,16 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00675}00675     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fca6904301c000a8bd3f1f13b557d18679b}{arm\_fsm\_rt\_async}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00676}00676 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00677}00677 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00678}00678 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00678}00678 \_\_OVERRIDE\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00679}00679 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_issue\_sub\_task\_fill(}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00680}00680                                     \mbox{\hyperlink{structarm__2d__op__src__t}{arm\_2d\_op\_cp\_t}} *ptThis,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00681}00681                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00682}00682                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}})}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00681}00681                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00682}00682                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}})}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00683}00683 \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00684}00684     \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask = \_\_arm\_2d\_sub\_task\_new();}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00684}00684     \_\_arm\_2d\_sub\_task\_t *ptTask = \_\_arm\_2d\_sub\_task\_new();}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00685}00685     assert(NULL != ptTask);         }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00686}00686 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00687}00687     (*ptTask) = (\mbox{\hyperlink{____arm__2d__impl_8h_ab73c5561bbb9f10f4c5d0b9ed4fd0557}{\_\_arm\_2d\_sub\_task\_t}}) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00687}00687     (*ptTask) = (\_\_arm\_2d\_sub\_task\_t) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00688}00688                     .ptOP = \&(ptThis-\/>use\_as\_\_arm\_2d\_op\_core\_t),}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00689}00689                     .chLowLeveIOIndex = 1,}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00690}00690                     .Param.tFill = \{}
@@ -603,18 +603,18 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00700}00700     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fca6904301c000a8bd3f1f13b557d18679b}{arm\_fsm\_rt\_async}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00701}00701 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00702}00702 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00703}00703 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00703}00703 \_\_OVERRIDE\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00704}00704 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_issue\_sub\_task\_fill\_with\_mask(}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00705}00705                                     \mbox{\hyperlink{structarm__2d__op__src__t}{arm\_2d\_op\_cp\_t}} *ptThis,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00706}00706                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00707}00707                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__transform_8h_adfc23443ff45178daff786e8351a8b9d}{ptSourceMask}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00708}00708                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00709}00709                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *ptTargetMask)}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00706}00706                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00707}00707                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__transform_8h_adfc23443ff45178daff786e8351a8b9d}{ptSourceMask}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00708}00708                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00709}00709                                     \_\_arm\_2d\_tile\_param\_t *ptTargetMask)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00710}00710 \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00711}00711     \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask = \_\_arm\_2d\_sub\_task\_new();}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00711}00711     \_\_arm\_2d\_sub\_task\_t *ptTask = \_\_arm\_2d\_sub\_task\_new();}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00712}00712     assert(NULL != ptTask);         }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00713}00713 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00714}00714     (*ptTask) = (\mbox{\hyperlink{____arm__2d__impl_8h_ab73c5561bbb9f10f4c5d0b9ed4fd0557}{\_\_arm\_2d\_sub\_task\_t}}) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00714}00714     (*ptTask) = (\_\_arm\_2d\_sub\_task\_t) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00715}00715                     .ptOP = \&(ptThis-\/>use\_as\_\_arm\_2d\_op\_core\_t),}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00716}00716                     .chLowLeveIOIndex = 1,}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00717}00717                     .Param.tFillMask = \{}
@@ -646,17 +646,17 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00743}00743 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00744}00744 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00745}00745 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00746}00746 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00746}00746 \_\_OVERRIDE\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00747}00747 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_issue\_sub\_task\_copy(}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00748}00748                                     \mbox{\hyperlink{structarm__2d__op__src__t}{arm\_2d\_op\_cp\_t}} *ptThis,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00749}00749                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00750}00750                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00749}00749                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00750}00750                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}},}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00751}00751                                     \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} * ptCopySize)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00752}00752 \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00753}00753     \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask = \_\_arm\_2d\_sub\_task\_new();}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00753}00753     \_\_arm\_2d\_sub\_task\_t *ptTask = \_\_arm\_2d\_sub\_task\_new();}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00754}00754     assert(NULL != ptTask);         }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00755}00755 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00756}00756     (*ptTask) = (\mbox{\hyperlink{____arm__2d__impl_8h_ab73c5561bbb9f10f4c5d0b9ed4fd0557}{\_\_arm\_2d\_sub\_task\_t}}) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00756}00756     (*ptTask) = (\_\_arm\_2d\_sub\_task\_t) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00757}00757                     .ptOP = \&(ptThis-\/>use\_as\_\_arm\_2d\_op\_core\_t),}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00758}00758                     .chLowLeveIOIndex = 0,}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00759}00759                     .Param.tCopy = \{}
@@ -672,20 +672,20 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00769}00769     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fca6904301c000a8bd3f1f13b557d18679b}{arm\_fsm\_rt\_async}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00770}00770 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00771}00771 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00772}00772 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00772}00772 \_\_OVERRIDE\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00773}00773 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_issue\_sub\_task\_copy\_with\_mask(}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00774}00774                                     \mbox{\hyperlink{structarm__2d__op__src__t}{arm\_2d\_op\_cp\_t}} *ptThis,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00775}00775                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00776}00776                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__transform_8h_adfc23443ff45178daff786e8351a8b9d}{ptSourceMask}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00777}00777                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00778}00778                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *ptTargetMask,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00779}00779                                     \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} * \mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize)}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00775}00775                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00776}00776                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__transform_8h_adfc23443ff45178daff786e8351a8b9d}{ptSourceMask}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00777}00777                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00778}00778                                     \_\_arm\_2d\_tile\_param\_t *ptTargetMask,}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00779}00779                                     \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} * \_\_RESTRICT ptCopySize)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00780}00780 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00781}00781 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00782}00782     \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask = \_\_arm\_2d\_sub\_task\_new();}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00782}00782     \_\_arm\_2d\_sub\_task\_t *ptTask = \_\_arm\_2d\_sub\_task\_new();}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00783}00783     assert(NULL != ptTask);         }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00784}00784 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00785}00785     (*ptTask) = (\mbox{\hyperlink{____arm__2d__impl_8h_ab73c5561bbb9f10f4c5d0b9ed4fd0557}{\_\_arm\_2d\_sub\_task\_t}}) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00785}00785     (*ptTask) = (\_\_arm\_2d\_sub\_task\_t) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00786}00786                     .ptOP = \&(ptThis-\/>use\_as\_\_arm\_2d\_op\_core\_t),}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00787}00787                     .chLowLeveIOIndex = 0,}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00788}00788                     .Param.tCopyMask = \{}
@@ -717,17 +717,17 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00814}00814 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00815}00815 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00816}00816 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00817}00817 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00817}00817 \_\_OVERRIDE\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00818}00818 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_issue\_sub\_task\_fill\_origin(}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00819}00819                                     \mbox{\hyperlink{structarm__2d__op__src__t}{arm\_2d\_op\_cp\_t}} *ptThis,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00820}00820                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00821}00821                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *ptOrigin,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00822}00822                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}})}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00820}00820                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00821}00821                                     \_\_arm\_2d\_tile\_param\_t *ptOrigin,}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00822}00822                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}})}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00823}00823 \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00824}00824     \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask = \_\_arm\_2d\_sub\_task\_new();}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00824}00824     \_\_arm\_2d\_sub\_task\_t *ptTask = \_\_arm\_2d\_sub\_task\_new();}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00825}00825     assert(NULL != ptTask);         }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00826}00826 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00827}00827     (*ptTask) = (\mbox{\hyperlink{____arm__2d__impl_8h_ab73c5561bbb9f10f4c5d0b9ed4fd0557}{\_\_arm\_2d\_sub\_task\_t}}) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00827}00827     (*ptTask) = (\_\_arm\_2d\_sub\_task\_t) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00828}00828                     .ptOP = \&(ptThis-\/>use\_as\_\_arm\_2d\_op\_core\_t),}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00829}00829                     .chLowLeveIOIndex = 1,}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00830}00830                     .Param.tFillOrig = \{}
@@ -746,18 +746,18 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00843}00843     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fca6904301c000a8bd3f1f13b557d18679b}{arm\_fsm\_rt\_async}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00844}00844 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00845}00845 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00846}00846 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00846}00846 \_\_OVERRIDE\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00847}00847 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_issue\_sub\_task\_copy\_origin(}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00848}00848                                     \mbox{\hyperlink{structarm__2d__op__src__t}{arm\_2d\_op\_cp\_t}} *ptThis,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00849}00849                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00850}00850                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *ptOrigin,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00851}00851                                     \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00852}00852                                     \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} * \mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize)}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00849}00849                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00850}00850                                     \_\_arm\_2d\_tile\_param\_t *ptOrigin,}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00851}00851                                     \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00852}00852                                     \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} * \_\_RESTRICT ptCopySize)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00853}00853 \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00854}00854     \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask = \_\_arm\_2d\_sub\_task\_new();}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00854}00854     \_\_arm\_2d\_sub\_task\_t *ptTask = \_\_arm\_2d\_sub\_task\_new();}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00855}00855     assert(NULL != ptTask);         }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00856}00856 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00857}00857     (*ptTask) = (\mbox{\hyperlink{____arm__2d__impl_8h_ab73c5561bbb9f10f4c5d0b9ed4fd0557}{\_\_arm\_2d\_sub\_task\_t}}) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00857}00857     (*ptTask) = (\_\_arm\_2d\_sub\_task\_t) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00858}00858                     .ptOP = \&(ptThis-\/>use\_as\_\_arm\_2d\_op\_core\_t),}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00859}00859                     .chLowLeveIOIndex = 0,}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00860}00860                     .Param.tCopyOrig = \{}
@@ -777,20 +777,20 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00874}00874 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00875}00875 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00876}00876 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00877}00877 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00877}00877 \_\_OVERRIDE\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00878}00878 \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\_fsm\_rt\_t}} \_\_arm\_2d\_issue\_sub\_task\_copy\_origin\_masks(}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00879}00879                                         \mbox{\hyperlink{structarm__2d__op__src__t}{arm\_2d\_op\_cp\_t}} *ptThis,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00880}00880                                         \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00881}00881                                         \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *ptOrigin,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00882}00882                                         \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *ptOriginMask,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00883}00883                                         \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}},}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00884}00884                                         \mbox{\hyperlink{struct____arm__2d__tile__param__t}{\_\_arm\_2d\_tile\_param\_t}} *ptTargetMask,}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00885}00885                                         \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} * \mbox{\hyperlink{arm__2d__utils_8h_a378ac21329d33f561f90265eef89f564}{\_\_RESTRICT}} ptCopySize)}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00880}00880                                         \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a3993bb94d25fad259236f86ef3034fe4}{ptSource}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00881}00881                                         \_\_arm\_2d\_tile\_param\_t *ptOrigin,}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00882}00882                                         \_\_arm\_2d\_tile\_param\_t *ptOriginMask,}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00883}00883                                         \_\_arm\_2d\_tile\_param\_t *\mbox{\hyperlink{arm__2d__alpha__blending_8h_a46ba63bb042a2ef13c3295664d0a8a00}{ptTarget}},}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00884}00884                                         \_\_arm\_2d\_tile\_param\_t *ptTargetMask,}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00885}00885                                         \mbox{\hyperlink{structarm__2d__size__t}{arm\_2d\_size\_t}} * \_\_RESTRICT ptCopySize)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00886}00886 \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00887}00887     \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptTask = \_\_arm\_2d\_sub\_task\_new();}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00887}00887     \_\_arm\_2d\_sub\_task\_t *ptTask = \_\_arm\_2d\_sub\_task\_new();}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00888}00888     assert(NULL != ptTask);         }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00889}00889 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00890}00890     (*ptTask) = (\mbox{\hyperlink{____arm__2d__impl_8h_ab73c5561bbb9f10f4c5d0b9ed4fd0557}{\_\_arm\_2d\_sub\_task\_t}}) \{}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00890}00890     (*ptTask) = (\_\_arm\_2d\_sub\_task\_t) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00891}00891                     .ptOP = \&(ptThis-\/>use\_as\_\_arm\_2d\_op\_core\_t),}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00892}00892                     .chLowLeveIOIndex = 0,}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00893}00893                     .Param.tCopyOrigMask = \{}
@@ -816,7 +816,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00913}00913 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00914}00914 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00915}00915 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00922}00922 \mbox{\hyperlink{arm__2d__types_8h_a27a24a896295488772e6d847c790fd1c}{arm\_2d\_err\_t}} \_\_arm\_2d\_async\_init(   \mbox{\hyperlink{struct____arm__2d__sub__task__t}{\_\_arm\_2d\_sub\_task\_t}} *ptSubTasks, }
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00922}00922 \mbox{\hyperlink{arm__2d__types_8h_a27a24a896295488772e6d847c790fd1c}{arm\_2d\_err\_t}} \_\_arm\_2d\_async\_init(   \_\_arm\_2d\_sub\_task\_t *ptSubTasks, }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00923}00923                                     uint\_fast16\_t hwCount)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00924}00924 \{   }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00925}00925 }
@@ -838,7 +838,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00942}00942     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00943}00943 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00944}00944 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00945}00945 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00945}00945 \_\_OVERRIDE\_WEAK}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00951}00951 \textcolor{keywordtype}{bool} \mbox{\hyperlink{arm__2d_8h_a129e2a7110847b0fd22eeb6351205989}{arm\_2d\_op\_wait\_async}}(\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *ptOP)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00952}00952 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00953}00953     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}}, ptOP)}
@@ -848,7 +848,7 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00957}00957         }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00958}00958     \textcolor{keywordtype}{bool} bIsBusy = \textcolor{keyword}{false};}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00959}00959     \textcolor{keywordflow}{do} \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00960}00960         bIsBusy = ptStatus-\/>\mbox{\hyperlink{unionarm__2d__op__status__t_a9289e62d3026cc4ec7dd051c900b085f}{bIsBusy}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00960}00960         bIsBusy = ptStatus-\/>\mbox{\hyperlink{unionarm__2d__op__status__t_a3ae8d10f4e4edc70da8ce05be5e3aa58}{bIsBusy}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00961}00961         }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00962}00962         \textcolor{keywordflow}{if} (!bIsBusy) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00963}00963             \textcolor{keywordflow}{break};}
@@ -863,8 +863,8 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00972}00972 \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00973}00973 }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00974}00974 }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00975}00975 \mbox{\hyperlink{arm__2d__utils_8h_af675320d8afdd3d72e951d1a5eb9fcd1}{\_\_OVERRIDE\_WEAK}}}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00980}00980 \textcolor{keywordtype}{bool} \mbox{\hyperlink{____arm__2d__impl_8h_a584514fb179257990ece85a1ed5dff5e}{\_\_arm\_2d\_op\_acquire}}(\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *ptOP)}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00975}00975 \_\_OVERRIDE\_WEAK}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00980}00980 \textcolor{keywordtype}{bool} \_\_arm\_2d\_op\_acquire(\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}} *ptOP)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00981}00981 \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00982}00982     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__core__t}{arm\_2d\_op\_core\_t}}, ptOP)}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00983}00983     \textcolor{keyword}{volatile} \mbox{\hyperlink{unionarm__2d__op__status__t}{arm\_2d\_op\_status\_t}} *ptStatus }
@@ -873,11 +873,11 @@
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00986}00986     \textcolor{keywordtype}{bool} bResult = \textcolor{keyword}{false};}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00987}00987     \textcolor{keywordflow}{do} \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00988}00988         \mbox{\hyperlink{arm__2d__utils_8h_aee644f33c5b07d65d292017b21fb3f39}{arm\_irq\_safe}} \{}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00989}00989             bResult = ptStatus-\/>\mbox{\hyperlink{unionarm__2d__op__status__t_a9289e62d3026cc4ec7dd051c900b085f}{bIsBusy}};}
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00989}00989             bResult = ptStatus-\/>\mbox{\hyperlink{unionarm__2d__op__status__t_a3ae8d10f4e4edc70da8ce05be5e3aa58}{bIsBusy}};}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00990}00990             \textcolor{keywordflow}{if} (!bResult) \{}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00991}00991                 this.tResult = \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fca6904301c000a8bd3f1f13b557d18679b}{arm\_fsm\_rt\_async}};}
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00992}00992                 ptStatus-\/>\mbox{\hyperlink{unionarm__2d__op__status__t_ab1f76f0fc627647bf4b9ced693334263}{tValue}} = 0;                                           }
-\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00993}00993                 ptStatus-\/>\mbox{\hyperlink{unionarm__2d__op__status__t_a9289e62d3026cc4ec7dd051c900b085f}{bIsBusy}} = \textcolor{keyword}{true};                                       }
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00992}00992                 ptStatus-\/>\mbox{\hyperlink{unionarm__2d__op__status__t_a8ca4c52fadfcbc94c68db2f5452531d3}{tValue}} = 0;                                           }
+\DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00993}00993                 ptStatus-\/>\mbox{\hyperlink{unionarm__2d__op__status__t_a3ae8d10f4e4edc70da8ce05be5e3aa58}{bIsBusy}} = \textcolor{keyword}{true};                                       }
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00994}00994             \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00995}00995         \}}
 \DoxyCodeLine{\Hypertarget{arm__2d__async_8c_source_l00996}00996         }

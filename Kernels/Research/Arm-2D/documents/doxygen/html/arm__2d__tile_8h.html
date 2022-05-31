@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>arm-2d: /Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/arm_2d_tile.h File Reference</title>
+<title>arm-2d: arm_2d_tile.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -168,12 +170,8 @@ Macros</h2></td></tr>
 <tr class="separator:a8b0b184727f906e2d090a835aafd71dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebbc92311796e5c9cf86bc5c5df267a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__tile_8h.html#aebbc92311796e5c9cf86bc5c5df267a6">arm_2d_rgb32_tile_copy_with_colour_keying</a>( __SRC_ADDR,  __DES_ADDR,  __DES_REGION_ADDR,  __MSK_COLOUR,  __MODE)</td></tr>
 <tr class="separator:aebbc92311796e5c9cf86bc5c5df267a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a346dada2017ab3f792a70c836c6e04d7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__tile_8h.html#a346dada2017ab3f792a70c836c6e04d7">__arm_2d_get_address_and_region_from_tile</a>( __TILE_PTR,  __VALID_REGION_NAME,  __LOCATION_OFFSET_PTR,  __TYPE,  __BUF_PTR_NAME)</td></tr>
-<tr class="separator:a346dada2017ab3f792a70c836c6e04d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fd50f143930535c58f61d3cca9e2921"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__tile_8h.html#a9fd50f143930535c58f61d3cca9e2921">arm_2d_get_address_and_region_from_tile</a>(__TILE_PTR,  __VALID_REGION_NAME,  __LOCATION_OFFSET_PTR,  __TYPE,  __BUF_PTR_NAME)</td></tr>
 <tr class="separator:a9fd50f143930535c58f61d3cca9e2921"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e15ef5ed466c38997228a74ea539be3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__tile_8h.html#a3e15ef5ed466c38997228a74ea539be3">__arm_2d_get_address_and_region_from_tile_with_mirroring</a>( __TILE_PTR,  __VALID_REGION_NAME,  __LOCATION_OFFSET_PTR,  __TYPE,  __BUF_PTR_NAME,  __MODE)</td></tr>
-<tr class="separator:a3e15ef5ed466c38997228a74ea539be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35cde51709d5ffc8bfef0ba6dd04bf8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__tile_8h.html#a35cde51709d5ffc8bfef0ba6dd04bf8b">arm_2d_get_address_and_region_from_tile_with_mirroring</a>( __TILE_PTR,  __VALID_REGION_NAME,  __LOCATION_OFFSET_PTR,  __TYPE,  __BUF_PTR_NAME,  __MODE)</td></tr>
 <tr class="separator:a35cde51709d5ffc8bfef0ba6dd04bf8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -181,8 +179,6 @@ Macros</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:a7a8963fd261ac942f11c9d9cd03f7b34"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="structarm__2d__op__src__t.html">arm_2d_op_src_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__tile_8h.html#a7a8963fd261ac942f11c9d9cd03f7b34">arm_2d_op_cp_t</a></td></tr>
 <tr class="separator:a7a8963fd261ac942f11c9d9cd03f7b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4fc5dbc8786ec8652293c5bd12211ab"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structarm__2d__op__cp__cl__key__t.html">arm_2d_op_cp_cl_key_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="arm__2d__tile_8h.html#ac4fc5dbc8786ec8652293c5bd12211ab">arm_2d_op_cp_cl_key_t</a></td></tr>
-<tr class="separator:ac4fc5dbc8786ec8652293c5bd12211ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -235,145 +231,6 @@ Variables</h2></td></tr>
 <tr class="separator:a099a3dd4d2fc6a07ecbd21ef7d8e2b9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a346dada2017ab3f792a70c836c6e04d7" name="a346dada2017ab3f792a70c836c6e04d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a346dada2017ab3f792a70c836c6e04d7">&#9670;&nbsp;</a></span>__arm_2d_get_address_and_region_from_tile</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __arm_2d_get_address_and_region_from_tile</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__TILE_PTR, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__VALID_REGION_NAME, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__LOCATION_OFFSET_PTR, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__TYPE, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__BUF_PTR_NAME&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_struct" href="structarm__2d__region__t.html">arm_2d_region_t</a> __VALID_REGION_NAME;                                        \</div>
-<div class="line">    assert(NULL != (__TILE_PTR));                                               \</div>
-<div class="line">    __TYPE *(__BUF_PTR_NAME) = NULL;                                            \</div>
-<div class="line">                                                                                \</div>
-<div class="line">    (__TILE_PTR) = arm_2d_tile_get_root((__TILE_PTR),                           \</div>
-<div class="line">                                        &amp;__VALID_REGION_NAME,                   \</div>
-<div class="line">                                         __LOCATION_OFFSET_PTR);                \</div>
-<div class="line">                                                                                \</div>
-<div class="line">    if (NULL != (__TILE_PTR)) {                                                 \</div>
-<div class="line">        (__BUF_PTR_NAME) = ((__TYPE *)((__TILE_PTR)-&gt;pchBuffer))                \</div>
-<div class="line">                        + (__TILE_PTR)-&gt;tRegion.tSize.iWidth *                  \</div>
-<div class="line">                                __VALID_REGION_NAME.tLocation.iY                \</div>
-<div class="line">                        + __VALID_REGION_NAME.tLocation.iX;                     \</div>
-<div class="line">    }</div>
-<div class="ttc" id="astructarm__2d__region__t_html"><div class="ttname"><a href="structarm__2d__region__t.html">arm_2d_region_t</a></div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__types_8h_source.html#l00301">arm_2d_types.h:301</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="arm__2d__tile_8h_source.html#l00423">423</a> of file <a class="el" href="arm__2d__tile_8h_source.html">arm_2d_tile.h</a>.</p>
-
-</div>
-</div>
-<a id="a3e15ef5ed466c38997228a74ea539be3" name="a3e15ef5ed466c38997228a74ea539be3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e15ef5ed466c38997228a74ea539be3">&#9670;&nbsp;</a></span>__arm_2d_get_address_and_region_from_tile_with_mirroring</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __arm_2d_get_address_and_region_from_tile_with_mirroring</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__TILE_PTR, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__VALID_REGION_NAME, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__LOCATION_OFFSET_PTR, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__TYPE, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__BUF_PTR_NAME, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">__MODE&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_struct" href="structarm__2d__region__t.html">arm_2d_region_t</a> __VALID_REGION_NAME;                                        \</div>
-<div class="line">    assert(NULL != (__TILE_PTR));                                               \</div>
-<div class="line">    __TYPE *(__BUF_PTR_NAME) = NULL;                                            \</div>
-<div class="line">                                                                                \</div>
-<div class="line">    (__TILE_PTR) = arm_2d_tile_get_root((__TILE_PTR),                           \</div>
-<div class="line">                                        &amp;__VALID_REGION_NAME,                   \</div>
-<div class="line">                                         __LOCATION_OFFSET_PTR);                \</div>
-<div class="line">                                                                                \</div>
-<div class="line">    if (NULL != (__TILE_PTR)) {                                                 \</div>
-<div class="line">        arm_2d_location_t tOffset = __VALID_REGION_NAME.tLocation;              \</div>
-<div class="line">        if ((__MODE) &amp; <a class="code hl_enumvalue" href="arm__2d__tile_8h.html#aac34dfe6c6b73b43a4656c9dce041034a69116a74f0ddd40fad4d810dd8191cf1">ARM_2D_CP_MODE_X_MIRROR</a>) {                               \</div>
-<div class="line">            tOffset.iX = 0;                                                     \</div>
-<div class="line">        }                                                                       \</div>
-<div class="line">        if ((__MODE) &amp; <a class="code hl_enumvalue" href="arm__2d__tile_8h.html#aac34dfe6c6b73b43a4656c9dce041034ac561823141d2a0cb61b1d79970d88a60">ARM_2D_CP_MODE_Y_MIRROR</a>) {                               \</div>
-<div class="line">            tOffset.iY = 0;                                                     \</div>
-<div class="line">        }                                                                       \</div>
-<div class="line">        (__BUF_PTR_NAME) = ((__TYPE *)((__TILE_PTR)-&gt;pchBuffer))                \</div>
-<div class="line">                            + (__TILE_PTR)-&gt;tRegion.tSize.iWidth * tOffset.iY   \</div>
-<div class="line">                            + tOffset.iX;                                       \</div>
-<div class="line">    }</div>
-<div class="ttc" id="aarm__2d__tile_8h_html_aac34dfe6c6b73b43a4656c9dce041034a69116a74f0ddd40fad4d810dd8191cf1"><div class="ttname"><a href="arm__2d__tile_8h.html#aac34dfe6c6b73b43a4656c9dce041034a69116a74f0ddd40fad4d810dd8191cf1">ARM_2D_CP_MODE_X_MIRROR</a></div><div class="ttdeci">@ ARM_2D_CP_MODE_X_MIRROR</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__tile_8h_source.html#l00654">arm_2d_tile.h:654</a></div></div>
-<div class="ttc" id="aarm__2d__tile_8h_html_aac34dfe6c6b73b43a4656c9dce041034ac561823141d2a0cb61b1d79970d88a60"><div class="ttname"><a href="arm__2d__tile_8h.html#aac34dfe6c6b73b43a4656c9dce041034ac561823141d2a0cb61b1d79970d88a60">ARM_2D_CP_MODE_Y_MIRROR</a></div><div class="ttdeci">@ ARM_2D_CP_MODE_Y_MIRROR</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__tile_8h_source.html#l00653">arm_2d_tile.h:653</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="arm__2d__tile_8h_source.html#l00456">456</a> of file <a class="el" href="arm__2d__tile_8h_source.html">arm_2d_tile.h</a>.</p>
-
-</div>
-</div>
 <a id="afb2e3507690d5f733555a47c50d534e5" name="afb2e3507690d5f733555a47c50d534e5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afb2e3507690d5f733555a47c50d534e5">&#9670;&nbsp;</a></span>arm_2d_c8bit_tile_copy</h2>
 
@@ -894,12 +751,11 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        <a class="code hl_define" href="arm__2d__tile_8h.html#a346dada2017ab3f792a70c836c6e04d7">__arm_2d_get_address_and_region_from_tile</a>(  __TILE_PTR,                 \</div>
+<b>Value:</b><div class="fragment"><div class="line">        __arm_2d_get_address_and_region_from_tile(  __TILE_PTR,                 \</div>
 <div class="line">                                                    __VALID_REGION_NAME,        \</div>
 <div class="line">                                                    __LOCATION_OFFSET_PTR,      \</div>
 <div class="line">                                                    __TYPE,                     \</div>
 <div class="line">                                                    __BUF_PTR_NAME)</div>
-<div class="ttc" id="aarm__2d__tile_8h_html_a346dada2017ab3f792a70c836c6e04d7"><div class="ttname"><a href="arm__2d__tile_8h.html#a346dada2017ab3f792a70c836c6e04d7">__arm_2d_get_address_and_region_from_tile</a></div><div class="ttdeci">#define __arm_2d_get_address_and_region_from_tile( __TILE_PTR, __VALID_REGION_NAME, __LOCATION_OFFSET_PTR, __TYPE, __BUF_PTR_NAME)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__tile_8h_source.html#l00423">arm_2d_tile.h:423</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="arm__2d__tile_8h_source.html#l00444">444</a> of file <a class="el" href="arm__2d__tile_8h_source.html">arm_2d_tile.h</a>.</p>
 
@@ -954,14 +810,13 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        <a class="code hl_define" href="arm__2d__tile_8h.html#a3e15ef5ed466c38997228a74ea539be3">__arm_2d_get_address_and_region_from_tile_with_mirroring</a>(               \</div>
+<b>Value:</b><div class="fragment"><div class="line">        __arm_2d_get_address_and_region_from_tile_with_mirroring(               \</div>
 <div class="line">                                                    __TILE_PTR,                 \</div>
 <div class="line">                                                    __VALID_REGION_NAME,        \</div>
 <div class="line">                                                    __LOCATION_OFFSET_PTR,      \</div>
 <div class="line">                                                    __TYPE,                     \</div>
 <div class="line">                                                    __BUF_PTR_NAME,             \</div>
 <div class="line">                                                    (__MODE))</div>
-<div class="ttc" id="aarm__2d__tile_8h_html_a3e15ef5ed466c38997228a74ea539be3"><div class="ttname"><a href="arm__2d__tile_8h.html#a3e15ef5ed466c38997228a74ea539be3">__arm_2d_get_address_and_region_from_tile_with_mirroring</a></div><div class="ttdeci">#define __arm_2d_get_address_and_region_from_tile_with_mirroring( __TILE_PTR, __VALID_REGION_NAME, __LOCATION_OFFSET_PTR, __TYPE, __BUF_PTR_NAME, __MODE)</div><div class="ttdef"><b>Definition:</b> <a href="arm__2d__tile_8h_source.html#l00456">arm_2d_tile.h:456</a></div></div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="arm__2d__tile_8h_source.html#l00485">485</a> of file <a class="el" href="arm__2d__tile_8h_source.html">arm_2d_tile.h</a>.</p>
 
@@ -1912,21 +1767,6 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="ac4fc5dbc8786ec8652293c5bd12211ab" name="ac4fc5dbc8786ec8652293c5bd12211ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4fc5dbc8786ec8652293c5bd12211ab">&#9670;&nbsp;</a></span>arm_2d_op_cp_cl_key_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structarm__2d__op__cp__cl__key__t.html">arm_2d_op_cp_cl_key_t</a> <a class="el" href="structarm__2d__op__cp__cl__key__t.html">arm_2d_op_cp_cl_key_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="structarm__2d__op__cp__cl__key__t.html">arm_2d_op_cp_cl_key_t</a> inherits from <a class="el" href="structarm__2d__op__src__t.html" title="arm_2d_op_src_t is inherit from arm_2d_op_t">arm_2d_op_src_t</a> explicitly </dd></dl>
-
-</div>
-</div>
 <a id="a7a8963fd261ac942f11c9d9cd03f7b34" name="a7a8963fd261ac942f11c9d9cd03f7b34"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7a8963fd261ac942f11c9d9cd03f7b34">&#9670;&nbsp;</a></span>arm_2d_op_cp_t</h2>
 

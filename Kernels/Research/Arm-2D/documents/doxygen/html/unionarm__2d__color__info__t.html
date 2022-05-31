@@ -24,9 +24,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="CMSIS_Logo_Final.png"/></td>
   <td id="projectalign">
-   <div id="projectname">arm-2d
+   <div id="projectname">arm-2d<span id="projectnumber">&#160;Version 1.0.0-preview</span>
    </div>
+   <div id="projectbrief">2D Image Processing Library for Cortex-M Processors</div>
   </td>
  </tr>
  </tbody>
@@ -92,85 +94,81 @@ $(document).ready(function(){initNavTree('unionarm__2d__color__info__t.html','')
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a368bf97ed262a225e2af27ed07fd5368"><td class="memItemLeft" >struct {</td></tr>
-<tr class="memitem:a23f106f416885b1950978b81363c6fa6"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__color__info__t.html#a23f106f416885b1950978b81363c6fa6">bHasAlpha</a>: 1</td></tr>
-<tr class="memdesc:a23f106f416885b1950978b81363c6fa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the target colour has alpha channel  <a href="unionarm__2d__color__info__t.html#a23f106f416885b1950978b81363c6fa6">More...</a><br /></td></tr>
-<tr class="separator:a23f106f416885b1950978b81363c6fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa53b7cf1c3020f07a528a3002f286df7"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__color__info__t.html#aa53b7cf1c3020f07a528a3002f286df7">u3ColourSZ</a>: 3</td></tr>
-<tr class="memdesc:aa53b7cf1c3020f07a528a3002f286df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">the size of the colour  <a href="unionarm__2d__color__info__t.html#aa53b7cf1c3020f07a528a3002f286df7">More...</a><br /></td></tr>
-<tr class="separator:aa53b7cf1c3020f07a528a3002f286df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e8607ff1c51d52722e86a2426843564"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__color__info__t.html#a8e8607ff1c51d52722e86a2426843564">bBigEndian</a>: 1</td></tr>
-<tr class="memdesc:a8e8607ff1c51d52722e86a2426843564"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the colour is stored in big endian  <a href="unionarm__2d__color__info__t.html#a8e8607ff1c51d52722e86a2426843564">More...</a><br /></td></tr>
-<tr class="separator:a8e8607ff1c51d52722e86a2426843564"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf40da187f889229b3253a2f181678e4"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__color__info__t.html#acf40da187f889229b3253a2f181678e4">u3Variant</a>: 3</td></tr>
-<tr class="separator:acf40da187f889229b3253a2f181678e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a368bf97ed262a225e2af27ed07fd5368"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a368bf97ed262a225e2af27ed07fd5368"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa236eb54ebd5cbf803d5ed68bff0a666"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionarm__2d__color__info__t.html#aa236eb54ebd5cbf803d5ed68bff0a666">chScheme</a></td></tr>
-<tr class="separator:aa236eb54ebd5cbf803d5ed68bff0a666"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a136894fca2ab6f0e1b1339399559171d"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:abf6ba51e473235e43dfe812fd25871a1"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__color__info__t.html#ad8ba6acfc19fcbdc93ced722ad8c1b5b">bHasAlpha</a>: 1</td></tr>
+<tr class="memdesc:abf6ba51e473235e43dfe812fd25871a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the target colour has alpha channel  <a href="unionarm__2d__color__info__t.html#ad8ba6acfc19fcbdc93ced722ad8c1b5b">More...</a><br /></td></tr>
+<tr class="separator:abf6ba51e473235e43dfe812fd25871a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb0ab83a66498bc8f8d1e9196fc13734"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__color__info__t.html#a367a79439643b5f63b9153534f082c51">u3ColourSZ</a>: 3</td></tr>
+<tr class="memdesc:abb0ab83a66498bc8f8d1e9196fc13734"><td class="mdescLeft">&#160;</td><td class="mdescRight">the size of the colour  <a href="unionarm__2d__color__info__t.html#a367a79439643b5f63b9153534f082c51">More...</a><br /></td></tr>
+<tr class="separator:abb0ab83a66498bc8f8d1e9196fc13734"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1322c506d512496cc89c5fc791137a0"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__color__info__t.html#a2df74bcca8eee55fafc964e4ac4ddd37">bBigEndian</a>: 1</td></tr>
+<tr class="memdesc:af1322c506d512496cc89c5fc791137a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether the colour is stored in big endian  <a href="unionarm__2d__color__info__t.html#a2df74bcca8eee55fafc964e4ac4ddd37">More...</a><br /></td></tr>
+<tr class="separator:af1322c506d512496cc89c5fc791137a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1427ef0846a9683c47d9ead3d705c4b3"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="unionarm__2d__color__info__t.html#ae1e4a766120db54d6f748954e132f8ad">u3Variant</a>: 3</td></tr>
+<tr class="separator:a1427ef0846a9683c47d9ead3d705c4b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a136894fca2ab6f0e1b1339399559171d"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a136894fca2ab6f0e1b1339399559171d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ae530807a4e1f2e08fd4cd3cda269e7"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionarm__2d__color__info__t.html#a8ae530807a4e1f2e08fd4cd3cda269e7">chScheme</a></td></tr>
+<tr class="separator:a8ae530807a4e1f2e08fd4cd3cda269e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00265">265</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="a368bf97ed262a225e2af27ed07fd5368" name="a368bf97ed262a225e2af27ed07fd5368"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a368bf97ed262a225e2af27ed07fd5368">&#9670;&nbsp;</a></span></h2>
+<a id="a136894fca2ab6f0e1b1339399559171d" name="a136894fca2ab6f0e1b1339399559171d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a136894fca2ab6f0e1b1339399559171d">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct  { ... }  @67</td>
+          <td class="memname">struct  { ... }  arm_2d_color_info_t::@67</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a8e8607ff1c51d52722e86a2426843564" name="a8e8607ff1c51d52722e86a2426843564"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e8607ff1c51d52722e86a2426843564">&#9670;&nbsp;</a></span>bBigEndian</h2>
+<a id="a2df74bcca8eee55fafc964e4ac4ddd37" name="a2df74bcca8eee55fafc964e4ac4ddd37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2df74bcca8eee55fafc964e4ac4ddd37">&#9670;&nbsp;</a></span>bBigEndian</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t bBigEndian</td>
+          <td class="memname">uint8_t arm_2d_color_info_t::bBigEndian</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>whether the colour is stored in big endian </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00269">269</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="a23f106f416885b1950978b81363c6fa6" name="a23f106f416885b1950978b81363c6fa6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23f106f416885b1950978b81363c6fa6">&#9670;&nbsp;</a></span>bHasAlpha</h2>
+<a id="ad8ba6acfc19fcbdc93ced722ad8c1b5b" name="ad8ba6acfc19fcbdc93ced722ad8c1b5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8ba6acfc19fcbdc93ced722ad8c1b5b">&#9670;&nbsp;</a></span>bHasAlpha</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t bHasAlpha</td>
+          <td class="memname">uint8_t arm_2d_color_info_t::bHasAlpha</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>whether the target colour has alpha channel </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00267">267</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="aa236eb54ebd5cbf803d5ed68bff0a666" name="aa236eb54ebd5cbf803d5ed68bff0a666"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa236eb54ebd5cbf803d5ed68bff0a666">&#9670;&nbsp;</a></span>chScheme</h2>
+<a id="a8ae530807a4e1f2e08fd4cd3cda269e7" name="a8ae530807a4e1f2e08fd4cd3cda269e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ae530807a4e1f2e08fd4cd3cda269e7">&#9670;&nbsp;</a></span>chScheme</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t chScheme</td>
+          <td class="memname">uint8_t arm_2d_color_info_t::chScheme</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -179,32 +177,30 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="aa53b7cf1c3020f07a528a3002f286df7" name="aa53b7cf1c3020f07a528a3002f286df7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa53b7cf1c3020f07a528a3002f286df7">&#9670;&nbsp;</a></span>u3ColourSZ</h2>
+<a id="a367a79439643b5f63b9153534f082c51" name="a367a79439643b5f63b9153534f082c51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a367a79439643b5f63b9153534f082c51">&#9670;&nbsp;</a></span>u3ColourSZ</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t u3ColourSZ</td>
+          <td class="memname">uint8_t arm_2d_color_info_t::u3ColourSZ</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>the size of the colour </p>
 
 <p class="definition">Definition at line <a class="el" href="arm__2d__types_8h_source.html#l00268">268</a> of file <a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a>.</p>
 
 </div>
 </div>
-<a id="acf40da187f889229b3253a2f181678e4" name="acf40da187f889229b3253a2f181678e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf40da187f889229b3253a2f181678e4">&#9670;&nbsp;</a></span>u3Variant</h2>
+<a id="ae1e4a766120db54d6f748954e132f8ad" name="ae1e4a766120db54d6f748954e132f8ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1e4a766120db54d6f748954e132f8ad">&#9670;&nbsp;</a></span>u3Variant</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t u3Variant</td>
+          <td class="memname">uint8_t arm_2d_color_info_t::u3Variant</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -213,9 +209,6 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this union was generated from the following file:<ul>
-<li>/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-2D/Library/Include/<a class="el" href="arm__2d__types_8h_source.html">arm_2d_types.h</a></li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

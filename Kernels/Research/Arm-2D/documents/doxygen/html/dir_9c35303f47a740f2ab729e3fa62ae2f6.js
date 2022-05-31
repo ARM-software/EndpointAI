@@ -21,10 +21,10 @@ var dir_9c35303f47a740f2ab729e3fa62ae2f6 =
     [ "__arm_2d_transform_helium.inc", "____arm__2d__transform__helium_8inc.html", null ],
     [ "arm_2d.c", "arm__2d_8c.html", "arm__2d_8c" ],
     [ "arm_2d_alpha_blending.c", "arm__2d__alpha__blending_8c.html", "arm__2d__alpha__blending_8c" ],
-    [ "arm_2d_async.c", "arm__2d__async_8c.html", "arm__2d__async_8c" ],
+    [ "arm_2d_async.c", "arm__2d__async_8c.html", null ],
     [ "arm_2d_conversion.c", "arm__2d__conversion_8c.html", "arm__2d__conversion_8c" ],
     [ "arm_2d_draw.c", "arm__2d__draw_8c.html", "arm__2d__draw_8c" ],
-    [ "arm_2d_helium.c", "arm__2d__helium_8c.html", "arm__2d__helium_8c" ],
+    [ "arm_2d_helium.c", "arm__2d__helium_8c.html", null ],
     [ "arm_2d_transform.c", "arm__2d__transform_8c.html", "arm__2d__transform_8c" ],
-    [ "arm_2d_transform_helium.c", "arm__2d__transform__helium_8c.html", "arm__2d__transform__helium_8c" ]
+    [ "arm_2d_transform_helium.c", "arm__2d__transform__helium_8c.html", null ]
 ];
