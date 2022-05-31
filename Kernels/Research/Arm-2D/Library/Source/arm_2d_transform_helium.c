@@ -22,7 +22,7 @@
  * Description:  Acceleration extensions using Helium.
  *
  * $Date:        31. May 2022
- * $Revision:    V.0.1.2
+ * $Revision:    V.0.1.3
  *
  * Target Processor:  Cortex-M cores with Helium
  *
@@ -2530,17 +2530,21 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
 
 
 #define __API_INT_TYPE_BIT_NUM      8
-#define __API_COLOUR                gray8
+#define __API_COLOUR                ARM_2D_M_COLOUR_GRAY8
+#define __API_COLOUR_NAME           gray8
+
 
 #include "__arm_2d_transform_helium.inc"
 
 #define __API_INT_TYPE_BIT_NUM      16
-#define __API_COLOUR                rgb565
+#define __API_COLOUR                ARM_2D_M_COLOUR_RGB565
+#define __API_COLOUR_NAME           rgb565
 
 #include "__arm_2d_transform_helium.inc"
 
 #define __API_INT_TYPE_BIT_NUM      32
-#define __API_COLOUR                cccn888
+#define __API_COLOUR                ARM_2D_M_COLOUR_CCCN888
+#define __API_COLOUR_NAME           cccn888
 
 #include "__arm_2d_transform_helium.inc"
 

@@ -26,12 +26,15 @@
  *                  - transform_with_src_mask
  *
  * $Date:        31. May 2022
- * $Revision:    V.1.0.1
+ * $Revision:    V.1.0.2
  *
  * -------------------------------------------------------------------- */
 
 #ifndef __API_MTWM_COLOUR
 #   error You have to define __API_MTWM_COLOUR before using this c template
+#endif
+#ifndef __API_MTWM_COLOUR_NAME
+#   error You have to define __API_MTWM_COLOUR_NAME before using this c template
 #endif
 #ifndef __API_MTWM_INT_TYPE
 #   error You have to define the __API_MTWM_INT_TYPE before using this c template
@@ -105,7 +108,7 @@
         ____MTWM_FUNC(__API_MTWM_OP_NAME, __NAME, __COLOUR)
 #endif
 
-#define __MTWM_FUNC(__NAME)   ___MTWM_FUNC(__NAME, __API_MTWM_COLOUR)
+#define __MTWM_FUNC(__NAME)   ___MTWM_FUNC(__NAME, __API_MTWM_COLOUR_NAME)
 
 
 #undef ____MTWM_TYPE
@@ -144,7 +147,7 @@ void __MTWM_FUNC(transform_with_mask)(
 
 /*============================ IMPLEMENTATION ================================*/
 
-#if __API_MTWM_INT_TYPE_BIT_NUM == 8
+#if __API_MTWM_COLOUR == ARM_2D_M_COLOUR_GRAY8
 
 #define __ARM_2D_GRAY8_GET_PIXVEC_FROM_POINT_MASK_ARR_FAR(vecX, vecY, ptVal8, vPixelAlpha,          \
                                         iOrigStride, pMaskArr, maskStrd, maskScal, opacity, pGlb) \
@@ -173,7 +176,7 @@ void __MTWM_FUNC(transform_with_mask)(
                                                                                                     \
         ALPHA_255_COMP_VEC16(vPixelAlpha, 255);
 
-#elif __API_MTWM_INT_TYPE_BIT_NUM == 16
+#elif __API_MTWM_COLOUR == ARM_2D_M_COLOUR_RGB565
 
 #define __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT_MASK_ARRR_FAR(vecX, vecY, R, G, B, vPixelAlpha,              \
                                         iOrigStride, opacity, pMaskArr, maskStrd, maskScal, pGlb)          \
@@ -204,7 +207,7 @@ void __MTWM_FUNC(transform_with_mask)(
                                                                                                            \
         ALPHA_255_COMP_VEC16(vPixelAlpha, 255);
 
-#elif __API_MTWM_INT_TYPE_BIT_NUM == 32
+#elif __API_MTWM_COLOUR == ARM_2D_M_COLOUR_CCCN888
 
 #define __ARM_2D_RGB888_GET_RGBVEC_FROM_POINT_MASK_ARR(vecX, vecY, R, G, B, vPixelAlpha, iOrigStride,      \
                                                  pMaskArr, maskStrd, maskScal, opacity, pGlbLo, pGlbHi)    \
@@ -301,7 +304,7 @@ void __MTWM_FUNC(transform_with_mask)(
         vAvgPixelB += vAlpha * vcvtq_f16_u16(B);
 
 
-#if __API_MTWM_INT_TYPE_BIT_NUM == 8
+#if __API_MTWM_COLOUR == ARM_2D_M_COLOUR_GRAY8
 
 
 static
@@ -424,7 +427,7 @@ void ARM_CONNECT2(__arm_2d_impl_gray8_, get_pixel_colour_mask)(arm_2d_point_f16x
     vstrbq_p_u16(pTarget, vTarget, predTail);
 }
 
-#elif __API_MTWM_INT_TYPE_BIT_NUM == 16
+#elif __API_MTWM_COLOUR == ARM_2D_M_COLOUR_RGB565
 
 
 static
@@ -574,7 +577,7 @@ void ARM_CONNECT2(__arm_2d_impl_rgb565_, get_pixel_colour_mask)(arm_2d_point_f16
     vst1q_p(pTarget, vTarget, predTail);
 }
 
-#elif __API_MTWM_INT_TYPE_BIT_NUM == 32
+#elif __API_MTWM_COLOUR == ARM_2D_M_COLOUR_CCCN888
 
 
 static
@@ -891,7 +894,7 @@ void __MTWM_FUNC(transform_with_mask)(
         vAvgPixelB += vmulhq_u16(vAlpha, B << 8);
 
 
-#if __API_MTWM_INT_TYPE_BIT_NUM == 8
+#if __API_MTWM_COLOUR == ARM_2D_M_COLOUR_GRAY8
 
 
 static
@@ -1032,7 +1035,7 @@ void ARM_CONNECT2(__arm_2d_impl_gray8_, get_pixel_colour_mask)(arm_2d_point_s16x
     vstrbq_p_u16(pTarget, vTarget, predTail);
 }
 
-#elif __API_MTWM_INT_TYPE_BIT_NUM == 16
+#elif __API_MTWM_COLOUR == ARM_2D_M_COLOUR_RGB565
 
 static
 void ARM_CONNECT2(__arm_2d_impl_rgb565_, get_pixel_colour_mask)(arm_2d_point_s16x8_t * ptPoint,
@@ -1184,7 +1187,7 @@ void ARM_CONNECT2(__arm_2d_impl_rgb565_, get_pixel_colour_mask)(arm_2d_point_s16
 }
 
 
-#elif __API_MTWM_INT_TYPE_BIT_NUM == 32
+#elif __API_MTWM_COLOUR == ARM_2D_M_COLOUR_CCCN888
 
 static
 void ARM_CONNECT2(__arm_2d_impl_cccn888_, get_pixel_colour_mask)(arm_2d_point_s16x8_t *ptPoint,
@@ -1507,6 +1510,7 @@ void __MTWM_FUNC(transform_with_mask)(
 #undef ___MTWM_FUNC
 #undef __MTWM_FUNC
 #undef __API_MTWM_COLOUR
+#undef __API_MTWM_COLOUR_NAME
 #undef __API_MTWM_INT_TYPE
 #undef __API_MTWM_INT_TYPE_BIT_NUM
 #undef ____MTWM_TYPE
