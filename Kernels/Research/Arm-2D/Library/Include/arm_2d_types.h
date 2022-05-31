@@ -215,9 +215,42 @@ enum {
     ARM_2D_COLOUR_NO_ALPHA_msk        = ARM_2D_COLOUR_NO_ALPHA      << 0,
     ARM_2D_COLOUR_HAS_ALPHA_msk       = ARM_2D_COLOUR_HAS_ALPHA     << 0,
     
-    ARM_2D_COLOUR_VARIANT = 5,
-    ARM_2D_COLOUR_VARIANT_msk         = 0x07 << ARM_2D_COLOUR_VARIANT,
+    ARM_2D_COLOUR_VARIANT_pos = 5,
+    ARM_2D_COLOUR_VARIANT_msk         = 0x07 << ARM_2D_COLOUR_VARIANT_pos,
 };
+//! @}
+
+//! \name macors for colour attributes
+//! @{
+#define ARM_2D_M_COLOUR_SZ_1BIT             0       //!< 1 bit:black and white
+#define ARM_2D_M_COLOUR_SZ_2BIT             1       //!< 4 colours or 4 gray-levels
+#define ARM_2D_M_COLOUR_SZ_4BIT             2       //!< 16 colours or 16 gray-levels
+#define ARM_2D_M_COLOUR_SZ_8BIT             3       //!< 256 colours
+#define ARM_2D_M_COLOUR_SZ_16BIT            4       //!< 16bits
+#define ARM_2D_M_COLOUR_SZ_32BIT            5       //!< true colour
+
+#define ARM_2D_M_COLOUR_SZ_1BIT_msk         (ARM_2D_M_COLOUR_SZ_1BIT << 1)
+#define ARM_2D_M_COLOUR_SZ_2BIT_msk         (ARM_2D_M_COLOUR_SZ_2BIT << 1)
+#define ARM_2D_M_COLOUR_SZ_4BIT_msk         (ARM_2D_M_COLOUR_SZ_4BIT << 1)
+#define ARM_2D_M_COLOUR_SZ_8BIT_msk         (ARM_2D_M_COLOUR_SZ_8BIT << 1)
+#define ARM_2D_M_COLOUR_SZ_16BIT_msk        (ARM_2D_M_COLOUR_SZ_16BIT<< 1)
+#define ARM_2D_M_COLOUR_SZ_32BIT_msk        (ARM_2D_M_COLOUR_SZ_32BIT<< 1)
+#define ARM_2D_M_COLOUR_SZ_msk              (0x07 << 1),
+
+#define ARM_2D_M_COLOUR_LITTLE_ENDIAN       0
+#define ARM_2D_M_COLOUR_BIG_ENDIAN          1
+
+#define ARM_2D_M_COLOUR_LITTLE_ENDIAN_msk   (ARM_2D_M_COLOUR_LITTLE_ENDIAN << 4)
+#define ARM_2D_M_COLOUR_BIG_ENDIAN_msk      (ARM_2D_M_COLOUR_BIG_ENDIAN    << 4)
+
+#define ARM_2D_M_COLOUR_NO_ALPHA            0
+#define ARM_2D_M_COLOUR_HAS_ALPHA           1
+
+#define ARM_2D_M_COLOUR_NO_ALPHA_msk        (ARM_2D_M_COLOUR_NO_ALPHA  << 0)
+#define ARM_2D_M_COLOUR_HAS_ALPHA_msk       (ARM_2D_M_COLOUR_HAS_ALPHA << 0)
+    
+#define ARM_2D_M_COLOUR_VARIANT_pos             5
+#define ARM_2D_M_COLOUR_VARIANT_msk         (0x07 << ARM_2D_M_COLOUR_VARIANT_pos)
 //! @}
 
 //! \name colour scheme
@@ -261,6 +294,44 @@ enum {
 };
 //! @}
 
+//! \name macros for colour formats used in code tempalte
+//! @{
+#define ARM_2D_M_COLOUR_BIN         ARM_2D_M_COLOUR_SZ_1BIT_msk
+#define ARM_2D_M_COLOUR_1BIT        ARM_2D_M_COLOUR_SZ_1BIT_msk
+    
+#define ARM_2D_M_COLOUR_8BIT        ARM_2D_M_COLOUR_SZ_8BIT_msk
+#define ARM_2D_M_COLOUR_GRAY8       ARM_2D_M_COLOUR_SZ_8BIT_msk
+    
+#define ARM_2D_M_COLOUR_16BIT       ARM_2D_M_COLOUR_SZ_16BIT_msk
+#define ARM_2D_M_COLOUR_RGB16       ARM_2D_M_COLOUR_SZ_16BIT_msk
+#define ARM_2D_M_COLOUR_RGB565      ARM_2D_M_COLOUR_RGB16
+    
+/* will not support
+#define ARM_2D_M_COLOUR_RGB565_BE   (   ARM_2D_M_COLOUR_SZ_16BIT_msk            \
+                                    |   ARM_2D_M_COLOUR_BIG_ENDIAN_msk          )
+ */
+ 
+#define ARM_2D_M_COLOUR_32BIT       ARM_2D_M_COLOUR_SZ_32BIT_msk
+#define ARM_2D_M_COLOUR_RGB32       ARM_2D_M_COLOUR_SZ_32BIT_msk
+
+#define ARM_2D_M_COLOUR_CCCN888     ARM_2D_M_COLOUR_RGB32
+#define ARM_2D_M_COLOUR_CCCA8888    (   ARM_2D_M_COLOUR_SZ_32BIT_msk            \
+                                    |   ARM_2D_M_COLOUR_HAS_ALPHA)
+
+#define ARM_2D_M_COLOUR_RGB888      ARM_2D_M_COLOUR_CCCN888
+#define ARM_2D_M_COLOUR_RGBA8888    ARM_2D_M_COLOUR_CCCA8888
+
+/* not supported yet
+#define ARM_2D_M_COLOUR_NCCC888     (   ARM_2D_M_COLOUR_RGB32                   \
+                                    |   ARM_2D_M_COLOUR_BIG_ENDIAN_msk          )
+#define ARM_2D_M_COLOUR_ACCC8888    (   ARM_2D_M_COLOUR_SZ_32BIT_msk            \
+                                    |   ARM_2D_M_COLOUR_HAS_ALPHA               \
+                                    |   ARM_2D_M_COLOUR_BIG_ENDIAN_msk          )
+*/
+#define ARM_2D_M_CHANNEL_8in32      (   ARM_2D_M_COLOUR_SZ_32BIT_msk            \
+                                    |   ARM_2D_M_COLOUR_HAS_ALPHA)              \
+                                    |   (0x07 << ARM_2D_M_COLOUR_VARIANT_pos)   )
+//! @}
 
 typedef union {
     struct {
