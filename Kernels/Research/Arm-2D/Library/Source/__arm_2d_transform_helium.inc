@@ -19,11 +19,11 @@
 
 /* ----------------------------------------------------------------------
  * Project:      Arm-2D Library
- * Title:        __arm_2d_rotate_helium.inc
- * Description:  c code template for rotation
+ * Title:        __arm_2d_transform_helium.inc
+ * Description:  c code template for transform
  *
- * $Date:        22. May 2022
- * $Revision:    V.1.0.1
+ * $Date:        31. May 2022
+ * $Revision:    V.1.0.2
  *
  * -------------------------------------------------------------------- */
 
@@ -641,22 +641,50 @@ void __ARM_2D_FUNC(transform_with_opacity)(   __arm_2d_param_copy_orig_t *ptPara
 #endif /* __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__ */
 
 
+#define __API_MTWM_COLOUR                       __API_COLOUR
+#define __API_MTWM_INT_TYPE                     __API_INT_TYPE
+#define __API_MTWM_INT_TYPE_BIT_NUM             __API_INT_TYPE_BIT_NUM
+#define __API_MTWM_CFG_SUPPORT_SOURCE_MASK      1
+
+#define get_pixel_colour_mask                   get_pixel_colour_src_mask
+#define transform_with_mask                     transform_with_src_mask
+
+#include "__arm_2d_meta_trans_with_masks_helium.inc"
+
 #if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
 #   define __API_MTWM_COLOUR                        __API_COLOUR
 #   define __API_MTWM_INT_TYPE                      __API_INT_TYPE
-#   define __API_MTWM_PIXEL_BLENDING                __API_PIXEL_BLENDING
-#   define __API_MTWM_PIXEL_AVERAGE                 __API_PIXEL_AVERAGE
-#   define __API_MTWM_PIXEL_AVERAGE_RESULT          __API_PIXEL_AVERAGE_RESULT
-#   define __API_MTWM_PIXEL_AVERAGE_INIT            __API_PIXEL_AVERAGE_INIT
+#   define __API_MTWM_INT_TYPE_BIT_NUM              __API_INT_TYPE_BIT_NUM
+#   define __API_MTWM_CFG_SUPPORT_SOURCE_MASK       1
+#   define __API_MTWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE  1
+#   define get_pixel_colour_mask                    get_pixel_colour_src_chn_mask
+#   define transform_with_mask                      transform_with_src_chn_mask
 
-#   define __API_MTWM_INT_TYPE_BIT_NUM  __API_INT_TYPE_BIT_NUM
+#   include "__arm_2d_meta_trans_with_masks_helium.inc"
+#endif
 
+#define __API_MTWM_COLOUR                       __API_COLOUR
+#define __API_MTWM_INT_TYPE                     __API_INT_TYPE
+#define __API_MTWM_INT_TYPE_BIT_NUM             __API_INT_TYPE_BIT_NUM
+#define __API_MTWM_CFG_SUPPORT_SOURCE_MASK      1
+#define __API_MTWM_CFG_SUPPORT_OPATICY          1
+
+#define get_pixel_colour_mask                   get_pixel_colour_src_mask_opa
+#define transform_with_mask                     transform_with_src_mask_and_opacity
+
+#include "__arm_2d_meta_trans_with_masks_helium.inc"
+
+
+#if __ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__
+#   define __API_MTWM_COLOUR                        __API_COLOUR
+#   define __API_MTWM_INT_TYPE                      __API_INT_TYPE
+#   define __API_MTWM_INT_TYPE_BIT_NUM              __API_INT_TYPE_BIT_NUM
 #   define __API_MTWM_CFG_SUPPORT_SOURCE_MASK       1
 #   define __API_MTWM_CFG_SUPPORT_OPATICY           1
 #   define __API_MTWM_CFG_CHANNEL_8in32_SUPPORT_ON_SOURCE_SIDE  1
+
 #   define get_pixel_colour_mask                    get_pixel_colour_src_chn_mask_opa
 #   define transform_with_mask                      transform_with_src_chn_mask_and_opacity
-#   define get_pixel_colour_mask_offs_compensated   get_pixel_colour_src_chn_mask_opa_offs_compensated
 
 #   include "__arm_2d_meta_trans_with_masks_helium.inc"
 #endif
