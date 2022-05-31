@@ -1,0 +1,366 @@
+\hypertarget{union____arm__2d__op__info__t}{}\doxysection{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t Union Reference}
+\label{union____arm__2d__op__info__t}\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+
+
+{\ttfamily \#include $<$arm\+\_\+2d\+\_\+types.\+h$>$}
+
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>\mbox{\hyperlink{unionarm__2d__color__info__t}{arm\_2d\_color\_info\_t}} \mbox{\hyperlink{union____arm__2d__op__info__t_a39ef7abf9db2b1da80284c97d69a0a4c}{Colour}}\\
+\>\>{\em the colour used in thie operation }\\
+\>union \{\\
+\>\>struct \{\\
+\>\>\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_ab165d6c70f3d84525bd310ec37871025}{bHasSource}}: 1\\
+\>\>\>\>{\em whether this operation contains source tile }\\
+\>\>\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_aaa3617a08d93e5472d64d0d5b0084479}{bHasTarget}}: 1\\
+\>\>\>\>{\em whether this operation contains target tile }\\
+\>\>\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_ab39d0b6dd7679bcbf9654e64fc84cfdd}{bHasSrcMask}}: 1\\
+\>\>\>\>{\em whether this operation has Mask layer for source tile }\\
+\>\>\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_a3c9eb198ff88e2c0898022a77a8829fa}{bHasDesMask}}: 1\\
+\>\>\>\>{\em whether this operation has Mask layer for target tile }\\
+\>\>\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_ab058e670a03b4cd0a84bd6265157440f}{bHasOrigin}}: 1\\
+\>\>\>\>{\em whether the Source has an origin tile }\\
+\>\>\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_a5869948fa94c93e1933e7414577d114a}{bAllowEnforcedColour}}: 1\\
+\>\>\>\>{\em whether this operation allow enforced colours in tiles }\\
+\>\>\} \\
+\>\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_adf5e0400a20421dbc7c2bd2f8afdec54}{chValue}}\\
+\>\} \mbox{\hyperlink{union____arm__2d__op__info__t_aa3ce9972c6a2708a453c4c28ff3eb464}{Param}}\\
+\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_adc1d60a0049e8a4b19b9e2bd7c9f7b23}{chInClassOffset}}\\
+\>\>\>{\em some operation uses this as the offset of the key member in the class }\\
+\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_aac1d17c9145bbbefca153f16de89bab5}{chOpIndex}}\\
+\>\>\>{\em \_\_ARM\_2D\_OP\_IDX\_XXXXXX }\\
+\>union \{\\
+\>\>struct \{\\
+\>\>\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_a618c0345549881f71a563e7079be313b}{CopyLike}}\\
+\>\>\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_aecbab73e9c69e4a4dc6963122cd8d18e}{FillLike}}\\
+\>\>\} \\
+\>\>struct \{\\
+\>\>\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_a0f8272faf49a848e7b425e2600202064}{CopyOrigLike}}\\
+\>\>\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_a7cd25e15713a1867315d3bd3a94699b9}{FillOrigLike}}\\
+\>\>\} \\
+\>\>struct \{\\
+\>\>\>uint8\_t \mbox{\hyperlink{union____arm__2d__op__info__t_aea9104a73cf58d9c1ba95e534d00a031}{TileProcessLike}}\\
+\>\>\} \\
+\>\} \mbox{\hyperlink{union____arm__2d__op__info__t_ad29a59d2cdb283efbbaeab8ca1b9d5f1}{LowLevelInterfaceIndex}}\\
+\>union \{\\
+\>\>const \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\_\_arm\_2d\_low\_level\_io\_t}} $\ast$ \mbox{\hyperlink{union____arm__2d__op__info__t_a16ea47193664d41d46ff171a27674200}{IO}} \mbox{[}2\mbox{]}\\
+\>\>struct \{\\
+\>\>\>const \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\_\_arm\_2d\_low\_level\_io\_t}} $\ast$ \mbox{\hyperlink{union____arm__2d__op__info__t_a9fd3d401093565d235871b544a814d79}{ptCopyLike}}\\
+\>\>\>const \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\_\_arm\_2d\_low\_level\_io\_t}} $\ast$ \mbox{\hyperlink{union____arm__2d__op__info__t_a6af6c055faa3507fbac36d583ba90717}{ptFillLike}}\\
+\>\>\} \\
+\>\>struct \{\\
+\>\>\>const \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\_\_arm\_2d\_low\_level\_io\_t}} $\ast$ \mbox{\hyperlink{union____arm__2d__op__info__t_a67b0aa267ad6830c9ae4af7d03c40aee}{ptCopyOrigLike}}\\
+\>\>\>const \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\_\_arm\_2d\_low\_level\_io\_t}} $\ast$ \mbox{\hyperlink{union____arm__2d__op__info__t_a4aa9d5a7cbb807e76defb99511b021f6}{ptFillOrigLike}}\\
+\>\>\} \\
+\>\>struct \{\\
+\>\>\>const \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\_\_arm\_2d\_low\_level\_io\_t}} $\ast$ \mbox{\hyperlink{union____arm__2d__op__info__t_aabe514a32b2509182b77b3c40fd790a1}{ptTileProcessLike}}\\
+\>\>\} \\
+\>\} \mbox{\hyperlink{union____arm__2d__op__info__t_a5143178dc22fb48a4df78b5a0752fb16}{LowLevelIO}}\\
+\} \mbox{\hyperlink{union____arm__2d__op__info__t_a3bf2940c881d5853d3e964a28285ef55}{Info}}\\
+
+\end{tabbing}\item 
+uint32\+\_\+t \mbox{\hyperlink{union____arm__2d__op__info__t_aa23400a63808663c02e4b6ba6815f683}{w\+ID}}
+\begin{DoxyCompactList}\small\item\em ID for a specific operation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00376}{376}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{union____arm__2d__op__info__t_a5869948fa94c93e1933e7414577d114a}\label{union____arm__2d__op__info__t_a5869948fa94c93e1933e7414577d114a}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!bAllowEnforcedColour@{bAllowEnforcedColour}}
+\index{bAllowEnforcedColour@{bAllowEnforcedColour}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{bAllowEnforcedColour}{bAllowEnforcedColour}}
+{\footnotesize\ttfamily uint8\+\_\+t b\+Allow\+Enforced\+Colour}
+
+
+
+whether this operation allow enforced colours in tiles 
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00387}{387}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_a3c9eb198ff88e2c0898022a77a8829fa}\label{union____arm__2d__op__info__t_a3c9eb198ff88e2c0898022a77a8829fa}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!bHasDesMask@{bHasDesMask}}
+\index{bHasDesMask@{bHasDesMask}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{bHasDesMask}{bHasDesMask}}
+{\footnotesize\ttfamily uint8\+\_\+t b\+Has\+Des\+Mask}
+
+
+
+whether this operation has Mask layer for target tile 
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00384}{384}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_ab058e670a03b4cd0a84bd6265157440f}\label{union____arm__2d__op__info__t_ab058e670a03b4cd0a84bd6265157440f}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!bHasOrigin@{bHasOrigin}}
+\index{bHasOrigin@{bHasOrigin}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{bHasOrigin}{bHasOrigin}}
+{\footnotesize\ttfamily uint8\+\_\+t b\+Has\+Origin}
+
+
+
+whether the Source has an origin tile 
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00385}{385}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_ab165d6c70f3d84525bd310ec37871025}\label{union____arm__2d__op__info__t_ab165d6c70f3d84525bd310ec37871025}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!bHasSource@{bHasSource}}
+\index{bHasSource@{bHasSource}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{bHasSource}{bHasSource}}
+{\footnotesize\ttfamily uint8\+\_\+t b\+Has\+Source}
+
+
+
+whether this operation contains source tile 
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00381}{381}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_ab39d0b6dd7679bcbf9654e64fc84cfdd}\label{union____arm__2d__op__info__t_ab39d0b6dd7679bcbf9654e64fc84cfdd}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!bHasSrcMask@{bHasSrcMask}}
+\index{bHasSrcMask@{bHasSrcMask}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{bHasSrcMask}{bHasSrcMask}}
+{\footnotesize\ttfamily uint8\+\_\+t b\+Has\+Src\+Mask}
+
+
+
+whether this operation has Mask layer for source tile 
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00383}{383}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_aaa3617a08d93e5472d64d0d5b0084479}\label{union____arm__2d__op__info__t_aaa3617a08d93e5472d64d0d5b0084479}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!bHasTarget@{bHasTarget}}
+\index{bHasTarget@{bHasTarget}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{bHasTarget}{bHasTarget}}
+{\footnotesize\ttfamily uint8\+\_\+t b\+Has\+Target}
+
+
+
+whether this operation contains target tile 
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00382}{382}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_adc1d60a0049e8a4b19b9e2bd7c9f7b23}\label{union____arm__2d__op__info__t_adc1d60a0049e8a4b19b9e2bd7c9f7b23}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!chInClassOffset@{chInClassOffset}}
+\index{chInClassOffset@{chInClassOffset}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{chInClassOffset}{chInClassOffset}}
+{\footnotesize\ttfamily uint8\+\_\+t ch\+In\+Class\+Offset}
+
+
+
+some operation uses this as the offset of the key member in the class 
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00392}{392}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_aac1d17c9145bbbefca153f16de89bab5}\label{union____arm__2d__op__info__t_aac1d17c9145bbbefca153f16de89bab5}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!chOpIndex@{chOpIndex}}
+\index{chOpIndex@{chOpIndex}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{chOpIndex}{chOpIndex}}
+{\footnotesize\ttfamily uint8\+\_\+t ch\+Op\+Index}
+
+
+
+\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+IDX\+\_\+\+XXXXXX 
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00393}{393}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_adf5e0400a20421dbc7c2bd2f8afdec54}\label{union____arm__2d__op__info__t_adf5e0400a20421dbc7c2bd2f8afdec54}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!chValue@{chValue}}
+\index{chValue@{chValue}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{chValue}{chValue}}
+{\footnotesize\ttfamily uint8\+\_\+t ch\+Value}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00389}{389}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_a39ef7abf9db2b1da80284c97d69a0a4c}\label{union____arm__2d__op__info__t_a39ef7abf9db2b1da80284c97d69a0a4c}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!Colour@{Colour}}
+\index{Colour@{Colour}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{Colour}{Colour}}
+{\footnotesize\ttfamily \mbox{\hyperlink{unionarm__2d__color__info__t}{arm\+\_\+2d\+\_\+color\+\_\+info\+\_\+t}} Colour}
+
+
+
+the colour used in thie operation 
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00378}{378}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_a618c0345549881f71a563e7079be313b}\label{union____arm__2d__op__info__t_a618c0345549881f71a563e7079be313b}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!CopyLike@{CopyLike}}
+\index{CopyLike@{CopyLike}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{CopyLike}{CopyLike}}
+{\footnotesize\ttfamily uint8\+\_\+t Copy\+Like}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00397}{397}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_a0f8272faf49a848e7b425e2600202064}\label{union____arm__2d__op__info__t_a0f8272faf49a848e7b425e2600202064}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!CopyOrigLike@{CopyOrigLike}}
+\index{CopyOrigLike@{CopyOrigLike}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{CopyOrigLike}{CopyOrigLike}}
+{\footnotesize\ttfamily uint8\+\_\+t Copy\+Orig\+Like}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00401}{401}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_aecbab73e9c69e4a4dc6963122cd8d18e}\label{union____arm__2d__op__info__t_aecbab73e9c69e4a4dc6963122cd8d18e}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!FillLike@{FillLike}}
+\index{FillLike@{FillLike}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{FillLike}{FillLike}}
+{\footnotesize\ttfamily uint8\+\_\+t Fill\+Like}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00398}{398}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_a7cd25e15713a1867315d3bd3a94699b9}\label{union____arm__2d__op__info__t_a7cd25e15713a1867315d3bd3a94699b9}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!FillOrigLike@{FillOrigLike}}
+\index{FillOrigLike@{FillOrigLike}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{FillOrigLike}{FillOrigLike}}
+{\footnotesize\ttfamily uint8\+\_\+t Fill\+Orig\+Like}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00402}{402}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_a3bf2940c881d5853d3e964a28285ef55}\label{union____arm__2d__op__info__t_a3bf2940c881d5853d3e964a28285ef55}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!Info@{Info}}
+\index{Info@{Info}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{}{}}
+{\footnotesize\ttfamily struct  \{ ... \}  Info}
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_a16ea47193664d41d46ff171a27674200}\label{union____arm__2d__op__info__t_a16ea47193664d41d46ff171a27674200}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!IO@{IO}}
+\index{IO@{IO}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{IO}{IO}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+low\+\_\+level\+\_\+io\+\_\+t}}$\ast$ IO\mbox{[}2\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00410}{410}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_ad29a59d2cdb283efbbaeab8ca1b9d5f1}\label{union____arm__2d__op__info__t_ad29a59d2cdb283efbbaeab8ca1b9d5f1}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!LowLevelInterfaceIndex@{LowLevelInterfaceIndex}}
+\index{LowLevelInterfaceIndex@{LowLevelInterfaceIndex}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{}{}}
+{\footnotesize\ttfamily union  \{ ... \}  Low\+Level\+Interface\+Index}
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_a5143178dc22fb48a4df78b5a0752fb16}\label{union____arm__2d__op__info__t_a5143178dc22fb48a4df78b5a0752fb16}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!LowLevelIO@{LowLevelIO}}
+\index{LowLevelIO@{LowLevelIO}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{}{}}
+{\footnotesize\ttfamily union  \{ ... \}  Low\+Level\+IO}
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_aa3ce9972c6a2708a453c4c28ff3eb464}\label{union____arm__2d__op__info__t_aa3ce9972c6a2708a453c4c28ff3eb464}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!Param@{Param}}
+\index{Param@{Param}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{}{}}
+{\footnotesize\ttfamily union  \{ ... \}  Param}
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_a9fd3d401093565d235871b544a814d79}\label{union____arm__2d__op__info__t_a9fd3d401093565d235871b544a814d79}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!ptCopyLike@{ptCopyLike}}
+\index{ptCopyLike@{ptCopyLike}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{ptCopyLike}{ptCopyLike}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+low\+\_\+level\+\_\+io\+\_\+t}}$\ast$ pt\+Copy\+Like}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00413}{413}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_a67b0aa267ad6830c9ae4af7d03c40aee}\label{union____arm__2d__op__info__t_a67b0aa267ad6830c9ae4af7d03c40aee}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!ptCopyOrigLike@{ptCopyOrigLike}}
+\index{ptCopyOrigLike@{ptCopyOrigLike}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{ptCopyOrigLike}{ptCopyOrigLike}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+low\+\_\+level\+\_\+io\+\_\+t}}$\ast$ pt\+Copy\+Orig\+Like}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00417}{417}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_a6af6c055faa3507fbac36d583ba90717}\label{union____arm__2d__op__info__t_a6af6c055faa3507fbac36d583ba90717}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!ptFillLike@{ptFillLike}}
+\index{ptFillLike@{ptFillLike}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{ptFillLike}{ptFillLike}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+low\+\_\+level\+\_\+io\+\_\+t}}$\ast$ pt\+Fill\+Like}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00414}{414}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_a4aa9d5a7cbb807e76defb99511b021f6}\label{union____arm__2d__op__info__t_a4aa9d5a7cbb807e76defb99511b021f6}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!ptFillOrigLike@{ptFillOrigLike}}
+\index{ptFillOrigLike@{ptFillOrigLike}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{ptFillOrigLike}{ptFillOrigLike}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+low\+\_\+level\+\_\+io\+\_\+t}}$\ast$ pt\+Fill\+Orig\+Like}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00418}{418}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_aabe514a32b2509182b77b3c40fd790a1}\label{union____arm__2d__op__info__t_aabe514a32b2509182b77b3c40fd790a1}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!ptTileProcessLike@{ptTileProcessLike}}
+\index{ptTileProcessLike@{ptTileProcessLike}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{ptTileProcessLike}{ptTileProcessLike}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{struct____arm__2d__low__level__io__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+low\+\_\+level\+\_\+io\+\_\+t}}$\ast$ pt\+Tile\+Process\+Like}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00421}{421}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_aea9104a73cf58d9c1ba95e534d00a031}\label{union____arm__2d__op__info__t_aea9104a73cf58d9c1ba95e534d00a031}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!TileProcessLike@{TileProcessLike}}
+\index{TileProcessLike@{TileProcessLike}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{TileProcessLike}{TileProcessLike}}
+{\footnotesize\ttfamily uint8\+\_\+t Tile\+Process\+Like}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00405}{405}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+\mbox{\Hypertarget{union____arm__2d__op__info__t_aa23400a63808663c02e4b6ba6815f683}\label{union____arm__2d__op__info__t_aa23400a63808663c02e4b6ba6815f683}} 
+\index{\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}!wID@{wID}}
+\index{wID@{wID}!\_\_arm\_2d\_op\_info\_t@{\_\_arm\_2d\_op\_info\_t}}
+\doxysubsubsection{\texorpdfstring{wID}{wID}}
+{\footnotesize\ttfamily uint32\+\_\+t w\+ID}
+
+
+
+ID for a specific operation. 
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__types_8h_source_l00426}{426}} of file \mbox{\hyperlink{arm__2d__types_8h_source}{arm\+\_\+2d\+\_\+types.\+h}}.
+
+
+
+The documentation for this union was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/gabwan01/\+Documents/\+Work/\+CPMK/\+Git/\+Endpoint\+AI/\+Kernels/\+Research/\+Arm-\/2\+D/\+Library/\+Include/\mbox{\hyperlink{arm__2d__types_8h}{arm\+\_\+2d\+\_\+types.\+h}}\end{DoxyCompactItemize}

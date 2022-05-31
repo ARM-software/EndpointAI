@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['b_0',['B',['../union____arm__2d__color__fast__rgb__t.html#ae783bd90764c8455228772c025c064e4',1,'__arm_2d_color_fast_rgb_t']]],
+  ['background_1',['Background',['../structarm__2d__op__drw__patn__t.html#a9b7768af463f57ebc725d107bfda1b2e',1,'arm_2d_op_drw_patn_t']]],
+  ['ballowenforcedcolour_2',['bAllowEnforcedColour',['../union____arm__2d__op__info__t.html#a5869948fa94c93e1933e7414577d114a',1,'__arm_2d_op_info_t']]],
+  ['bbigendian_3',['bBigEndian',['../unionarm__2d__color__info__t.html#a8e8607ff1c51d52722e86a2426843564',1,'arm_2d_color_info_t']]],
+  ['bclipregion_4',['bClipRegion',['../arm__2d__tile_8h.html#a7dc372aa5fc05c99cc23552860121efc',1,'arm_2d_tile.h']]],
+  ['bderivedresource_5',['bDerivedResource',['../struct____arm__2d__tile__param__t.html#aeee935b128643f4c3f36271b6afd53c5',1,'__arm_2d_tile_param_t']]],
+  ['bdisabledynamicfpbsize_6',['bDisableDynamicFPBSize',['../structarm__2d__helper__pfb__cfg__t.html#a47c93dae796af9b8d284f2b8fd0070c0',1,'arm_2d_helper_pfb_cfg_t']]],
+  ['bdonotupdatedefaultframebuffer_7',['bDoNOTUpdateDefaultFrameBuffer',['../structarm__2d__helper__pfb__cfg__t.html#a02a63104e286d382eb62a3cca7837b16',1,'arm_2d_helper_pfb_cfg_t']]],
+  ['bhasalpha_8',['bHasAlpha',['../unionarm__2d__color__info__t.html#a23f106f416885b1950978b81363c6fa6',1,'arm_2d_color_info_t']]],
+  ['bhasdesmask_9',['bHasDesMask',['../union____arm__2d__op__info__t.html#a3c9eb198ff88e2c0898022a77a8829fa',1,'__arm_2d_op_info_t']]],
+  ['bhasorigin_10',['bHasOrigin',['../union____arm__2d__op__info__t.html#ab058e670a03b4cd0a84bd6265157440f',1,'__arm_2d_op_info_t']]],
+  ['bhassource_11',['bHasSource',['../union____arm__2d__op__info__t.html#ab165d6c70f3d84525bd310ec37871025',1,'__arm_2d_op_info_t']]],
+  ['bhassrcmask_12',['bHasSrcMask',['../union____arm__2d__op__info__t.html#ab39d0b6dd7679bcbf9654e64fc84cfdd',1,'__arm_2d_op_info_t']]],
+  ['bhastarget_13',['bHasTarget',['../union____arm__2d__op__info__t.html#aaa3617a08d93e5472d64d0d5b0084479',1,'__arm_2d_op_info_t']]],
+  ['binvalid_14',['bInvalid',['../struct____arm__2d__tile__param__t.html#afce3c78a17e7cce945565fcc3df7d067',1,'__arm_2d_tile_param_t']]],
+  ['bioerror_15',['bIOError',['../unionarm__2d__op__status__t.html#a9486a3c21a4f04ce2fda7c48807cd5ff',1,'arm_2d_op_status_t']]],
+  ['bisbusy_16',['bIsBusy',['../unionarm__2d__op__status__t.html#a9289e62d3026cc4ec7dd051c900b085f',1,'arm_2d_op_status_t']]],
+  ['bisnewframe_17',['bIsNewFrame',['../structarm__2d__pfb__t.html#aa27150feeb52b10582b43758423056f7',1,'arm_2d_pfb_t']]],
+  ['bopcpl_18',['bOpCpl',['../unionarm__2d__op__status__t.html#a14d3a8ec257eff02c2805a9225d1fb8f',1,'arm_2d_op_status_t']]],
+  ['bswaprgb16_19',['bSwapRGB16',['../structarm__2d__helper__pfb__cfg__t.html#ad43cf08f34fb056a7a59c0cf013b1cd5',1,'arm_2d_helper_pfb_cfg_t']]]
+];

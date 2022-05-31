@@ -21,8 +21,8 @@
  * Title:        arm-2d_helium.c
  * Description:  Acceleration extensions using Helium.
  *
- * $Date:        20. May 2022
- * $Revision:    V.0.13.3
+ * $Date:        31. May 2022
+ * $Revision:    V.0.13.4
  *
  * Target Processor:  Cortex-M cores with Helium
  *
@@ -68,12 +68,8 @@
 extern "C" {
 #endif
 
-
-
-
-/*! \brief initialise the helium service service
- *! \param none
- *! \return none
+/*! 
+ * \brief initialise the helium acceleration
  */
 void __arm_2d_helium_init(void)
 {

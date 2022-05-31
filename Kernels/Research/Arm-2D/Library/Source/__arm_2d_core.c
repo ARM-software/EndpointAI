@@ -21,8 +21,8 @@
  * Title:        __arm-2d_core.c
  * Description:  Basic Tile operations
  *
- * $Date:        21. April 2022
- * $Revision:    V.1.0.2
+ * $Date:        31. May 2022
+ * $Revision:    V.1.0.3
  *
  * Target Processor:  Cortex-M cores
  *
@@ -1513,9 +1513,10 @@ arm_fsm_rt_t __arm_2d_op_frontend_op_decoder(arm_2d_op_core_t *ptThis)
 
 
 __WEAK
-/*! \brief sync up with operation 
- *! \retval true sync up with operation
- *! \retval false operation is busy
+/*! 
+ * \brief wait asynchronouse operation complete
+ * \retval true sync up with operation
+ * \retval false operation is busy
  */
 bool arm_2d_op_wait_async(arm_2d_op_core_t *ptOP)
 {
@@ -1578,21 +1579,20 @@ arm_fsm_rt_t __arm_2d_op_invoke(arm_2d_op_core_t *ptOP)
 }
 
 
-/*! \brief initialise the whole arm-2d service
- *! \param none
- *! \return none
+/*! 
+ *  \brief initialise the arm-2d core service
  */
-
 void __arm_2d_init(void)
 {
     /*! initialise arm-2d control block */
     memset(&ARM_2D_CTRL, 0, sizeof(struct __arm_2d_op_control));
 }
 
-/*! \brief set the default frame buffer
- *! \param ptFramebuffer the new frame buffer, if NULL is given, no default
- *!       frame buffer will be used
- *! \return the address of the old frame buffer
+/*!
+ * \brief set the default frame buffer
+ * \param ptFramebuffer the new frame buffer, 
+ * \note  if NULL is given, no default frame buffer will be used
+ * \return arm_2d_tile_t* the address of the old frame buffer
  */
 arm_2d_tile_t *arm_2d_set_default_frame_buffer(const arm_2d_tile_t *ptFrameBuffer)
 {
@@ -1606,17 +1606,19 @@ arm_2d_tile_t *arm_2d_set_default_frame_buffer(const arm_2d_tile_t *ptFrameBuffe
     return ptOldBuffer;
 }
 
-/*! \brief get the default frame buffer
- *! \return the address of the default frame buffer
+/*! 
+ * \brief get the default frame buffer
+ * \return arm_2d_tile_t* the address of the default frame buffer
  */
 arm_2d_tile_t *arm_2d_get_default_frame_buffer(void)
 {
     return ARM_2D_CTRL.ptDefaultFrameBuffer;
 }
 
-/*! \brief attach a user param (which could be a pointer) to specified OP
- *! \param ptOP the address of the target OP (NULL means using the default OP)
- *! \param pUserParam a user param (it can be used as a pointer)
+/*! 
+ * \brief attach a user param (which could be a pointer) to specified OP
+ * \param ptOP the address of the target OP (NULL means using the default OP)
+ * \param pUserParam a user parameter (it can be used as a pointer)
  */
 void arm_2d_set_user_param(arm_2d_op_core_t *ptOP, uintptr_t pUserParam)
 {
@@ -1625,9 +1627,25 @@ void arm_2d_set_user_param(arm_2d_op_core_t *ptOP, uintptr_t pUserParam)
     this.pUserParam = pUserParam;
 }
 
-/*! \brief get the status of a specified OP
- *! \param ptOP the address of the target OP (NULL means using the default OP)
- *! \return the status
+/*! 
+   \brief get the status of a specified OP, 
+   \param ptOP the address of the target OP (NULL means using the default OP)
+   \return arm_2d_op_status_t the operation status
+ */
+/*
+    usually, it is used after calling arm_2d_op_wait_async(). 
+    E.g.
+    //! wait for previous operation complete
+    do {
+        arm_2d_op_wait_async();
+        arm_2d_op_status_t tStatus = arm_2d_get_op_status();
+        if (tStatus.bIOError) {
+            //! error detected
+            ...
+        } else if (tStatus.bOpCpl) {
+            break;
+        }
+    } while(true);
  */
 arm_2d_op_status_t arm_2d_get_op_status(arm_2d_op_core_t *ptOP)
 {
@@ -1641,19 +1659,17 @@ arm_2d_op_status_t arm_2d_get_op_status(arm_2d_op_core_t *ptOP)
 
 
 __WEAK
- /*! \brief arm-2d pixel pipeline task entery
-  *! \note  This function is *TRHEAD-SAFE*
-  *! \param none
-  *! \retval arm_fsm_rt_cpl The sub-task FIFO is empty, the caller, i.e. the host
-  *!            RTOS thread can block itself by waiting for a semaphore which is
-  *!            set by arm_2d_notif_sub_task_fifo_task_arrive()
-  *! \retval arm_fsm_rt_on_going The arm_2d_task issued one sub-task without 
-  *!            problem and it yields. 
-  *! \retval arm_fsm_rt_async You shouldn't see this value
-  *! \retval arm_fsm_rt_wait_for_obj some algorithm or hardware accelerator wants
-  *!            to sync-up with applications.
-  *! \retval (<0) Serious error is detected.
-  */
+/*! 
+ * \brief arm-2d pixel pipeline task entery
+ * \note  This function is *TRHEAD-SAFE*
+ * \param ptTask the address of an arm-2d task control block
+ * \retval arm_fsm_rt_cpl The sub-task FIFO is empty, the caller can wait for a 
+ *         semaphore set by arm_2d_notif_sub_task_fifo_task_arrive()
+ * \retval arm_fsm_rt_on_going The arm_2d_task yields 
+ * \retval arm_fsm_rt_async You shouldn't see this value
+ * \retval arm_fsm_rt_wait_for_obj hardware accelerator wants to sync-up with applications.
+ * \retval (<0) Serious error is detected.
+ */
 arm_fsm_rt_t arm_2d_task(arm_2d_task_t *ptTask)
 {
     ARM_2D_UNUSED(ptTask);

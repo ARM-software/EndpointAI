@@ -1,0 +1,361 @@
+\hypertarget{____arm__2d__paving__helium_8h}{}\doxysection{/\+Users/gabwan01/\+Documents/\+Work/\+CPMK/\+Git/\+Endpoint\+AI/\+Kernels/\+Research/\+Arm-\/2\+D/\+Library/\+Include/\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.h File Reference}
+\label{____arm__2d__paving__helium_8h}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/\_\_arm\_2d\_paving\_helium.h@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/\_\_arm\_2d\_paving\_helium.h}}
+{\ttfamily \#include \char`\"{}arm\+\_\+2d.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_a1881c58e6c13b58d0b7d7a18a631d5c9}{CMP\+\_\+\+CL\+\_\+\+MSK}}(sz,  colour)~p = vcmpneq\+\_\+m(in, colour, p)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_addfb5d002955f2aaaa4f625a382a6094}{LOAD\+\_\+\+SRC\+\_\+\+DIRECT\+\_\+8}}(p\+Source,  offset)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_a2d54828dcdaeecfd790417b941a52212}{LOAD\+\_\+\+SRC\+\_\+\+DIRECT\+\_\+16}}(p\+Source,  offset)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_a6be833173f8216880262603ad58342a7}{LOAD\+\_\+\+SRC\+\_\+\+DIRECT\+\_\+32}}(p\+Source,  offset)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_a847e58844c5cf18614a1ced92c5efc0d}{LOAD\+\_\+\+SRC\+\_\+\+X\+\_\+\+MIRROR\+\_\+8}}(p\+Source,  offset)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_ab93b1d05838af7ce1536e08c64ac92e0}{LOAD\+\_\+\+SRC\+\_\+\+X\+\_\+\+MIRROR\+\_\+16}}(p\+Source,  offset)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_a9d5d767528d31c10704c5ed631cdb95f}{LOAD\+\_\+\+SRC\+\_\+\+X\+\_\+\+MIRROR\+\_\+32}}(p\+Source,  offset)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_aba18a21253bc71e6688ed32210ef294a}{SETUP\+\_\+\+MIRROR\+\_\+\+COPY\+\_\+8}}(src\+Width)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_a1143d22209a37ec736ee112ba68bf347}{SETUP\+\_\+\+MIRROR\+\_\+\+COPY\+\_\+16}}(src\+Width)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_a06a499b24562cadbf731a09c50d5ad8d}{SETUP\+\_\+\+MIRROR\+\_\+\+COPY\+\_\+32}}(src\+Width)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_af889be4d0439f1db19c1e02aca6963b1}{IS\+\_\+\+PAVING\+\_\+\+DIRECT\+\_\+\+LOAD\+\_\+\+PATTERN}}(sz)~(0)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_a5903002af84a4c9c4c7333bf5776372b}{IS\+\_\+\+PAVING\+\_\+\+X\+\_\+\+MIRROR\+\_\+\+LOAD\+\_\+\+PATTERN}}(sz)~((sz == 8)? 1\+: 0)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_af7bd05089495134c09cebb55601ea976}{IS\+\_\+\+PAVING\+\_\+\+Y\+\_\+\+MIRROR\+\_\+\+LOAD\+\_\+\+PATTERN}}(sz)~(0)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_afbf3a65c7f7dd7fddd2e3720141be82d}{IS\+\_\+\+PAVING\+\_\+\+XY\+\_\+\+MIRROR\+\_\+\+LOAD\+\_\+\+PATTERN}}(sz)~((sz == 8)? 1\+: 0)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_af56215d7de39d26f144d84d408a56dcf}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+2x2\+\_\+8\+BIT\+\_\+\+X\+\_\+\+MIRROR\+\_\+\+FIXUP}}(SRC\+\_\+\+OFFSET,  DIR,  SETUP\+\_\+\+MIRROR,  LOAD, ...)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_a3aa30fafe93c0eb6cab64dcfd994d7b5}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+2x2}}(sz,  SRC\+\_\+\+OFFSET,  DIR,  SETUP\+\_\+\+MIRROR,  LOAD, ...)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_abe933a5da48ec1a2ed7a200d9a27d8bd}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+1x2\+\_\+8\+BIT\+\_\+\+X\+\_\+\+MIRROR\+\_\+\+FIXUP}}(SRC\+\_\+\+OFFSET,  DIR,  SETUP\+\_\+\+MIRROR,  LOAD, ...)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_a6dc4fc569cdee0f81173f17febf28c30}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+1x2}}(sz,  SRC\+\_\+\+OFFSET,  DIR,  SETUP\+\_\+\+MIRROR,  LOAD, ...)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_a06368f7ffa6f2f062498db1a90e881dd}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+2x1\+\_\+8\+BIT\+\_\+\+X\+\_\+\+MIRROR\+\_\+\+FIXUP}}(SRC\+\_\+\+OFFSET,  DIR,  SETUP\+\_\+\+MIRROR,  LOAD, ...)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_ae74eb5406343fe0d1bab9d1298e38375}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+2x1}}(sz,  SRC\+\_\+\+OFFSET,  DIR,  SETUP\+\_\+\+MIRROR,  LOAD, ...)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_af7efd7f6879a9fa73b15e55c83b767a8}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+1x1\+\_\+8\+BIT\+\_\+\+X\+\_\+\+MIRROR\+\_\+\+FIXUP}}(SRC\+\_\+\+OFFSET,  DIR,  SETUP\+\_\+\+MIRROR,  LOAD, ...)
+\item 
+\#define \mbox{\hyperlink{____arm__2d__paving__helium_8h_ae0cba1ca90a8d21180e50e45cc0dd873}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+1x1}}(sz,  SRC\+\_\+\+OFFSET,  DIR,  SETUP\+\_\+\+MIRROR,  LOAD, ...)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_ae0cba1ca90a8d21180e50e45cc0dd873}\label{____arm__2d__paving__helium_8h_ae0cba1ca90a8d21180e50e45cc0dd873}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!\_\_ARM\_2D\_PAVING\_1x1@{\_\_ARM\_2D\_PAVING\_1x1}}
+\index{\_\_ARM\_2D\_PAVING\_1x1@{\_\_ARM\_2D\_PAVING\_1x1}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{\_\_ARM\_2D\_PAVING\_1x1}{\_\_ARM\_2D\_PAVING\_1x1}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+1x1(\begin{DoxyParamCaption}\item[{}]{sz,  }\item[{}]{SRC\+\_\+\+OFFSET,  }\item[{}]{DIR,  }\item[{}]{SETUP\+\_\+\+MIRROR,  }\item[{}]{LOAD,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00566}{566}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_af7efd7f6879a9fa73b15e55c83b767a8}\label{____arm__2d__paving__helium_8h_af7efd7f6879a9fa73b15e55c83b767a8}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!\_\_ARM\_2D\_PAVING\_1x1\_8BIT\_X\_MIRROR\_FIXUP@{\_\_ARM\_2D\_PAVING\_1x1\_8BIT\_X\_MIRROR\_FIXUP}}
+\index{\_\_ARM\_2D\_PAVING\_1x1\_8BIT\_X\_MIRROR\_FIXUP@{\_\_ARM\_2D\_PAVING\_1x1\_8BIT\_X\_MIRROR\_FIXUP}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{\_\_ARM\_2D\_PAVING\_1x1\_8BIT\_X\_MIRROR\_FIXUP}{\_\_ARM\_2D\_PAVING\_1x1\_8BIT\_X\_MIRROR\_FIXUP}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+1x1\+\_\+8\+BIT\+\_\+\+X\+\_\+\+MIRROR\+\_\+\+FIXUP(\begin{DoxyParamCaption}\item[{}]{SRC\+\_\+\+OFFSET,  }\item[{}]{DIR,  }\item[{}]{SETUP\+\_\+\+MIRROR,  }\item[{}]{LOAD,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{                                                                               \(\backslash\)}
+\DoxyCodeLine{    pSource += SRC\_OFFSET;                                                      \(\backslash\)}
+\DoxyCodeLine{                                                                                \(\backslash\)}
+\DoxyCodeLine{    for (int\_fast16\_t y = 0; y < ptDstCopySize-\/>iHeight; y++) \{                 \(\backslash\)}
+\DoxyCodeLine{        uint8\_t         *pDst = (uint8\_t  *)pTarget;                            \(\backslash\)}
+\DoxyCodeLine{        const uint8\_t   *pSrc = (\textcolor{keyword}{const} uint8\_t*)pSource;                        \(\backslash\)}
+\DoxyCodeLine{        uint32\_t         dstWidth = ptDstCopySize-\/>iWidth;                      \(\backslash\)}
+\DoxyCodeLine{        uint32\_t         curOffsetIdx = srcWidth -\/ 1;                           \(\backslash\)}
+\DoxyCodeLine{        uint16x8\_t       offset = vddupq\_wb\_u16(\&curOffsetIdx, 1);              \(\backslash\)}
+\DoxyCodeLine{                                                                                \(\backslash\)}
+\DoxyCodeLine{        do \{                                                                    \(\backslash\)}
+\DoxyCodeLine{            mve\_pred16\_t    p = vctp16q(dstWidth);                              \(\backslash\)}
+\DoxyCodeLine{            uint8x16\_t      in;                                                 \(\backslash\)}
+\DoxyCodeLine{            in = vldrbq\_gather\_offset\_z\_u16(pSrc, offset, p);                   \(\backslash\)}
+\DoxyCodeLine{            offset = vddupq\_x\_wb\_u16(\&curOffsetIdx, 1, p);                      \(\backslash\)}
+\DoxyCodeLine{            \textcolor{comment}{/* placeholder for color masking */}                                 \(\backslash\)}
+\DoxyCodeLine{            \_\_VA\_ARGS\_\_;                                                        \(\backslash\)}
+\DoxyCodeLine{                                                                                \(\backslash\)}
+\DoxyCodeLine{            vstrbq\_p\_u16(pDst, in, p);                                          \(\backslash\)}
+\DoxyCodeLine{                                                                                \(\backslash\)}
+\DoxyCodeLine{            pDst += 8;                                                          \(\backslash\)}
+\DoxyCodeLine{            dstWidth -\/= 8;                                                      \(\backslash\)}
+\DoxyCodeLine{        \}                                                                       \(\backslash\)}
+\DoxyCodeLine{        while ((int32\_t) dstWidth > 0);                                         \(\backslash\)}
+\DoxyCodeLine{                                                                                \(\backslash\)}
+\DoxyCodeLine{        pSource += (iSourceStride * DIR);                                       \(\backslash\)}
+\DoxyCodeLine{        pTarget += iTargetStride;                                               \(\backslash\)}
+\DoxyCodeLine{    \}                                                                           \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00533}{533}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_a6dc4fc569cdee0f81173f17febf28c30}\label{____arm__2d__paving__helium_8h_a6dc4fc569cdee0f81173f17febf28c30}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!\_\_ARM\_2D\_PAVING\_1x2@{\_\_ARM\_2D\_PAVING\_1x2}}
+\index{\_\_ARM\_2D\_PAVING\_1x2@{\_\_ARM\_2D\_PAVING\_1x2}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{\_\_ARM\_2D\_PAVING\_1x2}{\_\_ARM\_2D\_PAVING\_1x2}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+1x2(\begin{DoxyParamCaption}\item[{}]{sz,  }\item[{}]{SRC\+\_\+\+OFFSET,  }\item[{}]{DIR,  }\item[{}]{SETUP\+\_\+\+MIRROR,  }\item[{}]{LOAD,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00339}{339}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_abe933a5da48ec1a2ed7a200d9a27d8bd}\label{____arm__2d__paving__helium_8h_abe933a5da48ec1a2ed7a200d9a27d8bd}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!\_\_ARM\_2D\_PAVING\_1x2\_8BIT\_X\_MIRROR\_FIXUP@{\_\_ARM\_2D\_PAVING\_1x2\_8BIT\_X\_MIRROR\_FIXUP}}
+\index{\_\_ARM\_2D\_PAVING\_1x2\_8BIT\_X\_MIRROR\_FIXUP@{\_\_ARM\_2D\_PAVING\_1x2\_8BIT\_X\_MIRROR\_FIXUP}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{\_\_ARM\_2D\_PAVING\_1x2\_8BIT\_X\_MIRROR\_FIXUP}{\_\_ARM\_2D\_PAVING\_1x2\_8BIT\_X\_MIRROR\_FIXUP}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+1x2\+\_\+8\+BIT\+\_\+\+X\+\_\+\+MIRROR\+\_\+\+FIXUP(\begin{DoxyParamCaption}\item[{}]{SRC\+\_\+\+OFFSET,  }\item[{}]{DIR,  }\item[{}]{SETUP\+\_\+\+MIRROR,  }\item[{}]{LOAD,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00281}{281}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_ae74eb5406343fe0d1bab9d1298e38375}\label{____arm__2d__paving__helium_8h_ae74eb5406343fe0d1bab9d1298e38375}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!\_\_ARM\_2D\_PAVING\_2x1@{\_\_ARM\_2D\_PAVING\_2x1}}
+\index{\_\_ARM\_2D\_PAVING\_2x1@{\_\_ARM\_2D\_PAVING\_2x1}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{\_\_ARM\_2D\_PAVING\_2x1}{\_\_ARM\_2D\_PAVING\_2x1}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+2x1(\begin{DoxyParamCaption}\item[{}]{sz,  }\item[{}]{SRC\+\_\+\+OFFSET,  }\item[{}]{DIR,  }\item[{}]{SETUP\+\_\+\+MIRROR,  }\item[{}]{LOAD,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00464}{464}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_a06368f7ffa6f2f062498db1a90e881dd}\label{____arm__2d__paving__helium_8h_a06368f7ffa6f2f062498db1a90e881dd}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!\_\_ARM\_2D\_PAVING\_2x1\_8BIT\_X\_MIRROR\_FIXUP@{\_\_ARM\_2D\_PAVING\_2x1\_8BIT\_X\_MIRROR\_FIXUP}}
+\index{\_\_ARM\_2D\_PAVING\_2x1\_8BIT\_X\_MIRROR\_FIXUP@{\_\_ARM\_2D\_PAVING\_2x1\_8BIT\_X\_MIRROR\_FIXUP}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{\_\_ARM\_2D\_PAVING\_2x1\_8BIT\_X\_MIRROR\_FIXUP}{\_\_ARM\_2D\_PAVING\_2x1\_8BIT\_X\_MIRROR\_FIXUP}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+2x1\+\_\+8\+BIT\+\_\+\+X\+\_\+\+MIRROR\+\_\+\+FIXUP(\begin{DoxyParamCaption}\item[{}]{SRC\+\_\+\+OFFSET,  }\item[{}]{DIR,  }\item[{}]{SETUP\+\_\+\+MIRROR,  }\item[{}]{LOAD,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00408}{408}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_a3aa30fafe93c0eb6cab64dcfd994d7b5}\label{____arm__2d__paving__helium_8h_a3aa30fafe93c0eb6cab64dcfd994d7b5}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!\_\_ARM\_2D\_PAVING\_2x2@{\_\_ARM\_2D\_PAVING\_2x2}}
+\index{\_\_ARM\_2D\_PAVING\_2x2@{\_\_ARM\_2D\_PAVING\_2x2}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{\_\_ARM\_2D\_PAVING\_2x2}{\_\_ARM\_2D\_PAVING\_2x2}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+2x2(\begin{DoxyParamCaption}\item[{}]{sz,  }\item[{}]{SRC\+\_\+\+OFFSET,  }\item[{}]{DIR,  }\item[{}]{SETUP\+\_\+\+MIRROR,  }\item[{}]{LOAD,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00196}{196}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_af56215d7de39d26f144d84d408a56dcf}\label{____arm__2d__paving__helium_8h_af56215d7de39d26f144d84d408a56dcf}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!\_\_ARM\_2D\_PAVING\_2x2\_8BIT\_X\_MIRROR\_FIXUP@{\_\_ARM\_2D\_PAVING\_2x2\_8BIT\_X\_MIRROR\_FIXUP}}
+\index{\_\_ARM\_2D\_PAVING\_2x2\_8BIT\_X\_MIRROR\_FIXUP@{\_\_ARM\_2D\_PAVING\_2x2\_8BIT\_X\_MIRROR\_FIXUP}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{\_\_ARM\_2D\_PAVING\_2x2\_8BIT\_X\_MIRROR\_FIXUP}{\_\_ARM\_2D\_PAVING\_2x2\_8BIT\_X\_MIRROR\_FIXUP}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PAVING\+\_\+2x2\+\_\+8\+BIT\+\_\+\+X\+\_\+\+MIRROR\+\_\+\+FIXUP(\begin{DoxyParamCaption}\item[{}]{SRC\+\_\+\+OFFSET,  }\item[{}]{DIR,  }\item[{}]{SETUP\+\_\+\+MIRROR,  }\item[{}]{LOAD,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00122}{122}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_a1881c58e6c13b58d0b7d7a18a631d5c9}\label{____arm__2d__paving__helium_8h_a1881c58e6c13b58d0b7d7a18a631d5c9}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!CMP\_CL\_MSK@{CMP\_CL\_MSK}}
+\index{CMP\_CL\_MSK@{CMP\_CL\_MSK}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{CMP\_CL\_MSK}{CMP\_CL\_MSK}}
+{\footnotesize\ttfamily \#define CMP\+\_\+\+CL\+\_\+\+MSK(\begin{DoxyParamCaption}\item[{}]{sz,  }\item[{}]{colour }\end{DoxyParamCaption})~p = vcmpneq\+\_\+m(in, colour, p)}
+
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00061}{61}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_af889be4d0439f1db19c1e02aca6963b1}\label{____arm__2d__paving__helium_8h_af889be4d0439f1db19c1e02aca6963b1}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!IS\_PAVING\_DIRECT\_LOAD\_PATTERN@{IS\_PAVING\_DIRECT\_LOAD\_PATTERN}}
+\index{IS\_PAVING\_DIRECT\_LOAD\_PATTERN@{IS\_PAVING\_DIRECT\_LOAD\_PATTERN}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{IS\_PAVING\_DIRECT\_LOAD\_PATTERN}{IS\_PAVING\_DIRECT\_LOAD\_PATTERN}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+PAVING\+\_\+\+DIRECT\+\_\+\+LOAD\+\_\+\+PATTERN(\begin{DoxyParamCaption}\item[{}]{sz }\end{DoxyParamCaption})~(0)}
+
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00114}{114}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_a5903002af84a4c9c4c7333bf5776372b}\label{____arm__2d__paving__helium_8h_a5903002af84a4c9c4c7333bf5776372b}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!IS\_PAVING\_X\_MIRROR\_LOAD\_PATTERN@{IS\_PAVING\_X\_MIRROR\_LOAD\_PATTERN}}
+\index{IS\_PAVING\_X\_MIRROR\_LOAD\_PATTERN@{IS\_PAVING\_X\_MIRROR\_LOAD\_PATTERN}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{IS\_PAVING\_X\_MIRROR\_LOAD\_PATTERN}{IS\_PAVING\_X\_MIRROR\_LOAD\_PATTERN}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+PAVING\+\_\+\+X\+\_\+\+MIRROR\+\_\+\+LOAD\+\_\+\+PATTERN(\begin{DoxyParamCaption}\item[{}]{sz }\end{DoxyParamCaption})~((sz == 8)? 1\+: 0)}
+
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00115}{115}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_afbf3a65c7f7dd7fddd2e3720141be82d}\label{____arm__2d__paving__helium_8h_afbf3a65c7f7dd7fddd2e3720141be82d}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!IS\_PAVING\_XY\_MIRROR\_LOAD\_PATTERN@{IS\_PAVING\_XY\_MIRROR\_LOAD\_PATTERN}}
+\index{IS\_PAVING\_XY\_MIRROR\_LOAD\_PATTERN@{IS\_PAVING\_XY\_MIRROR\_LOAD\_PATTERN}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{IS\_PAVING\_XY\_MIRROR\_LOAD\_PATTERN}{IS\_PAVING\_XY\_MIRROR\_LOAD\_PATTERN}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+PAVING\+\_\+\+XY\+\_\+\+MIRROR\+\_\+\+LOAD\+\_\+\+PATTERN(\begin{DoxyParamCaption}\item[{}]{sz }\end{DoxyParamCaption})~((sz == 8)? 1\+: 0)}
+
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00117}{117}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_af7bd05089495134c09cebb55601ea976}\label{____arm__2d__paving__helium_8h_af7bd05089495134c09cebb55601ea976}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!IS\_PAVING\_Y\_MIRROR\_LOAD\_PATTERN@{IS\_PAVING\_Y\_MIRROR\_LOAD\_PATTERN}}
+\index{IS\_PAVING\_Y\_MIRROR\_LOAD\_PATTERN@{IS\_PAVING\_Y\_MIRROR\_LOAD\_PATTERN}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{IS\_PAVING\_Y\_MIRROR\_LOAD\_PATTERN}{IS\_PAVING\_Y\_MIRROR\_LOAD\_PATTERN}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+PAVING\+\_\+\+Y\+\_\+\+MIRROR\+\_\+\+LOAD\+\_\+\+PATTERN(\begin{DoxyParamCaption}\item[{}]{sz }\end{DoxyParamCaption})~(0)}
+
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00116}{116}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_a2d54828dcdaeecfd790417b941a52212}\label{____arm__2d__paving__helium_8h_a2d54828dcdaeecfd790417b941a52212}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!LOAD\_SRC\_DIRECT\_16@{LOAD\_SRC\_DIRECT\_16}}
+\index{LOAD\_SRC\_DIRECT\_16@{LOAD\_SRC\_DIRECT\_16}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{LOAD\_SRC\_DIRECT\_16}{LOAD\_SRC\_DIRECT\_16}}
+{\footnotesize\ttfamily \#define LOAD\+\_\+\+SRC\+\_\+\+DIRECT\+\_\+16(\begin{DoxyParamCaption}\item[{}]{p\+Source,  }\item[{}]{offset }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{            vld1q\_z(pSource, p);                                                \(\backslash\)}
+\DoxyCodeLine{            pSource += 8;}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00079}{79}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_a6be833173f8216880262603ad58342a7}\label{____arm__2d__paving__helium_8h_a6be833173f8216880262603ad58342a7}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!LOAD\_SRC\_DIRECT\_32@{LOAD\_SRC\_DIRECT\_32}}
+\index{LOAD\_SRC\_DIRECT\_32@{LOAD\_SRC\_DIRECT\_32}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{LOAD\_SRC\_DIRECT\_32}{LOAD\_SRC\_DIRECT\_32}}
+{\footnotesize\ttfamily \#define LOAD\+\_\+\+SRC\+\_\+\+DIRECT\+\_\+32(\begin{DoxyParamCaption}\item[{}]{p\+Source,  }\item[{}]{offset }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{            vld1q\_z(pSource, p);                                                \(\backslash\)}
+\DoxyCodeLine{            pSource += 4;}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00083}{83}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_addfb5d002955f2aaaa4f625a382a6094}\label{____arm__2d__paving__helium_8h_addfb5d002955f2aaaa4f625a382a6094}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!LOAD\_SRC\_DIRECT\_8@{LOAD\_SRC\_DIRECT\_8}}
+\index{LOAD\_SRC\_DIRECT\_8@{LOAD\_SRC\_DIRECT\_8}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{LOAD\_SRC\_DIRECT\_8}{LOAD\_SRC\_DIRECT\_8}}
+{\footnotesize\ttfamily \#define LOAD\+\_\+\+SRC\+\_\+\+DIRECT\+\_\+8(\begin{DoxyParamCaption}\item[{}]{p\+Source,  }\item[{}]{offset }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{            vld1q\_z(pSource, p);                                                \(\backslash\)}
+\DoxyCodeLine{            pSource += 16;}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00075}{75}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_ab93b1d05838af7ce1536e08c64ac92e0}\label{____arm__2d__paving__helium_8h_ab93b1d05838af7ce1536e08c64ac92e0}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!LOAD\_SRC\_X\_MIRROR\_16@{LOAD\_SRC\_X\_MIRROR\_16}}
+\index{LOAD\_SRC\_X\_MIRROR\_16@{LOAD\_SRC\_X\_MIRROR\_16}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{LOAD\_SRC\_X\_MIRROR\_16}{LOAD\_SRC\_X\_MIRROR\_16}}
+{\footnotesize\ttfamily \#define LOAD\+\_\+\+SRC\+\_\+\+X\+\_\+\+MIRROR\+\_\+16(\begin{DoxyParamCaption}\item[{}]{p\+Source,  }\item[{}]{offset }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{            vldrhq\_gather\_shifted\_offset\_z(pSource, offset, p);                 \(\backslash\)}
+\DoxyCodeLine{            offset = vddupq\_x\_wb\_u16(\&curOffsetIdx, 1, p);}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00091}{91}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_a9d5d767528d31c10704c5ed631cdb95f}\label{____arm__2d__paving__helium_8h_a9d5d767528d31c10704c5ed631cdb95f}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!LOAD\_SRC\_X\_MIRROR\_32@{LOAD\_SRC\_X\_MIRROR\_32}}
+\index{LOAD\_SRC\_X\_MIRROR\_32@{LOAD\_SRC\_X\_MIRROR\_32}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{LOAD\_SRC\_X\_MIRROR\_32}{LOAD\_SRC\_X\_MIRROR\_32}}
+{\footnotesize\ttfamily \#define LOAD\+\_\+\+SRC\+\_\+\+X\+\_\+\+MIRROR\+\_\+32(\begin{DoxyParamCaption}\item[{}]{p\+Source,  }\item[{}]{offset }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{            vldrwq\_gather\_shifted\_offset\_z(pSource, offset, p);                 \(\backslash\)}
+\DoxyCodeLine{            offset = vddupq\_x\_wb\_u32(\&curOffsetIdx, 1, p);}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00095}{95}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_a847e58844c5cf18614a1ced92c5efc0d}\label{____arm__2d__paving__helium_8h_a847e58844c5cf18614a1ced92c5efc0d}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!LOAD\_SRC\_X\_MIRROR\_8@{LOAD\_SRC\_X\_MIRROR\_8}}
+\index{LOAD\_SRC\_X\_MIRROR\_8@{LOAD\_SRC\_X\_MIRROR\_8}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{LOAD\_SRC\_X\_MIRROR\_8}{LOAD\_SRC\_X\_MIRROR\_8}}
+{\footnotesize\ttfamily \#define LOAD\+\_\+\+SRC\+\_\+\+X\+\_\+\+MIRROR\+\_\+8(\begin{DoxyParamCaption}\item[{}]{p\+Source,  }\item[{}]{offset }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{            vldrbq\_gather\_offset\_z(pSource, offset, p);                         \(\backslash\)}
+\DoxyCodeLine{            offset = vddupq\_x\_wb\_u8(\&curOffsetIdx, 1, p);}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00087}{87}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_a1143d22209a37ec736ee112ba68bf347}\label{____arm__2d__paving__helium_8h_a1143d22209a37ec736ee112ba68bf347}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!SETUP\_MIRROR\_COPY\_16@{SETUP\_MIRROR\_COPY\_16}}
+\index{SETUP\_MIRROR\_COPY\_16@{SETUP\_MIRROR\_COPY\_16}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{SETUP\_MIRROR\_COPY\_16}{SETUP\_MIRROR\_COPY\_16}}
+{\footnotesize\ttfamily \#define SETUP\+\_\+\+MIRROR\+\_\+\+COPY\+\_\+16(\begin{DoxyParamCaption}\item[{}]{src\+Width }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{            uint32\_t curOffsetIdx = srcWidth -\/ 1;                               \(\backslash\)}
+\DoxyCodeLine{            uint16x8\_t offset = vddupq\_wb\_u16(\&curOffsetIdx, 1);}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00104}{104}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_a06a499b24562cadbf731a09c50d5ad8d}\label{____arm__2d__paving__helium_8h_a06a499b24562cadbf731a09c50d5ad8d}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!SETUP\_MIRROR\_COPY\_32@{SETUP\_MIRROR\_COPY\_32}}
+\index{SETUP\_MIRROR\_COPY\_32@{SETUP\_MIRROR\_COPY\_32}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{SETUP\_MIRROR\_COPY\_32}{SETUP\_MIRROR\_COPY\_32}}
+{\footnotesize\ttfamily \#define SETUP\+\_\+\+MIRROR\+\_\+\+COPY\+\_\+32(\begin{DoxyParamCaption}\item[{}]{src\+Width }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{            uint32\_t curOffsetIdx = srcWidth -\/ 1;                               \(\backslash\)}
+\DoxyCodeLine{            uint32x4\_t offset = vddupq\_wb\_u32(\&curOffsetIdx, 1);}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00108}{108}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+
+\mbox{\Hypertarget{____arm__2d__paving__helium_8h_aba18a21253bc71e6688ed32210ef294a}\label{____arm__2d__paving__helium_8h_aba18a21253bc71e6688ed32210ef294a}} 
+\index{\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}!SETUP\_MIRROR\_COPY\_8@{SETUP\_MIRROR\_COPY\_8}}
+\index{SETUP\_MIRROR\_COPY\_8@{SETUP\_MIRROR\_COPY\_8}!\_\_arm\_2d\_paving\_helium.h@{\_\_arm\_2d\_paving\_helium.h}}
+\doxysubsubsection{\texorpdfstring{SETUP\_MIRROR\_COPY\_8}{SETUP\_MIRROR\_COPY\_8}}
+{\footnotesize\ttfamily \#define SETUP\+\_\+\+MIRROR\+\_\+\+COPY\+\_\+8(\begin{DoxyParamCaption}\item[{}]{src\+Width }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{            uint32\_t curOffsetIdx = srcWidth -\/ 1;                               \(\backslash\)}
+\DoxyCodeLine{            uint8x16\_t offset = vddupq\_wb\_u8(\&curOffsetIdx, 1);}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{____arm__2d__paving__helium_8h_source_l00100}{100}} of file \mbox{\hyperlink{____arm__2d__paving__helium_8h_source}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+paving\+\_\+helium.\+h}}.
+

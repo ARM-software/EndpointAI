@@ -6,3 +6,8 @@ Kernels/Research/Arm-2D/examples/watch_panel/Objects/gcc_template.sct
 Kernels/Research/Arm-2D/examples/[template][cmsis-rtos2][pfb]/Objects/gcc_template.sct
 Kernels/Research/Arm-2D/examples/[template][cmsis-rtos2][pfb]/Objects/gcc_template.sct
 *.gabriel
+Kernels/Research/Arm-2D/documents/.DS_Store
+Kernels/Research/.DS_Store
+Kernels/.DS_Store
+Kernels/Research/Arm-2D/.DS_Store
+.DS_Store

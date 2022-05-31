@@ -1,0 +1,1494 @@
+\hypertarget{arm__2d__transform_8c}{}\doxysection{/\+Users/gabwan01/\+Documents/\+Work/\+CPMK/\+Git/\+Endpoint\+AI/\+Kernels/\+Research/\+Arm-\/2\+D/\+Library/\+Source/arm\+\_\+2d\+\_\+transform.c File Reference}
+\label{arm__2d__transform_8c}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Source/arm\_2d\_transform.c@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Source/arm\_2d\_transform.c}}
+{\ttfamily \#include \char`\"{}arm\+\_\+2d.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}\+\_\+\+\_\+arm\+\_\+2d\+\_\+impl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$arm\+\_\+math.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}\+\_\+\+\_\+arm\+\_\+2d\+\_\+transform.\+inc\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_aa391cb8cbcf1b1a4ab83847b83d8b8de}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+IMPL\+\_\+\+\_\+}}
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_a0970494ab17b4e6cf0189c329d89ded0}{\+\_\+\+\_\+\+PI}}~3.\+1415926f
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}{\+\_\+\+\_\+\+CALIB}}~0.\+009f
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_ac41f1aec57abc106e2ddbd4f5d75a0f4}{FAST\+\_\+\+ATAN\+\_\+\+F32\+\_\+1}}(x,  xabs)~                            (x $\ast$ (PI / 4.\+0f) + 0.\+273f $\ast$ x $\ast$ (1.\+0f -\/ xabs))
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_ac45b3b5e459e7f42272921180e72d037}{EPS\+\_\+\+ATAN2}}~1e-\/5f
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\+\_\+\+Q16}}(x)~((int32\+\_\+t)(x) $<$$<$ 16)
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_a8287bff112f04877923dbce47641b831}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT\+\_\+\+GRAY8}}()~    (   t\+Pixel $>$$>$ 8)
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_a2e99bc874b79b14f10b839ba93c7cd6c}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT\+\_\+\+RGB565}}()
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_aecc9109d91f976b9ed166d0ba53c62f1}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT\+\_\+\+CCCN888}}()
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}{\+\_\+\+\_\+\+API\+\_\+\+COLOUR}}~gray8
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_a71ef659837d31a3da6b902b7c50fce6f}{\+\_\+\+\_\+\+API\+\_\+\+INT\+\_\+\+TYPE}}~uint8\+\_\+t
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_ace29e49156529f94695cada845142f1d}{\+\_\+\+\_\+\+API\+\_\+\+INT\+\_\+\+TYPE\+\_\+\+BIT\+\_\+\+NUM}}~16
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_ade53620dddd942ecc042a37029e4ccdb}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+INIT}}()~uint16\+\_\+t t\+Pixel = 0;
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_a95dfb0261d9afed55f49e0c74c8e5d7b}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+BLENDING}}~\mbox{\hyperlink{____arm__2d__impl_8h_a9c5e7dad99684b081524928f1201498a}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PIXEL\+\_\+\+BLENDING\+\_\+\+OPA\+\_\+\+GRAY8}}
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_ae12cd186a80f710b73f3463adede27cf}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE}}~\mbox{\hyperlink{____arm__2d__impl_8h_ad0b7ead17a3dfe8d13925e08b27afda1}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+GRAY8}}
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_a4087a83e3446b268a3618804532a5004}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT}}~\mbox{\hyperlink{arm__2d__transform_8c_a8287bff112f04877923dbce47641b831}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT\+\_\+\+GRAY8}}
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}{\+\_\+\+\_\+\+API\+\_\+\+COLOUR}}~rgb565
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_a71ef659837d31a3da6b902b7c50fce6f}{\+\_\+\+\_\+\+API\+\_\+\+INT\+\_\+\+TYPE}}~uint16\+\_\+t
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_ace29e49156529f94695cada845142f1d}{\+\_\+\+\_\+\+API\+\_\+\+INT\+\_\+\+TYPE\+\_\+\+BIT\+\_\+\+NUM}}~16
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_a95dfb0261d9afed55f49e0c74c8e5d7b}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+BLENDING}}~\mbox{\hyperlink{____arm__2d__impl_8h_a3612ad8bfc70d8e5813ffda9f7d80f64}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PIXEL\+\_\+\+BLENDING\+\_\+\+OPA\+\_\+\+RGB565}}
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_ae12cd186a80f710b73f3463adede27cf}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE}}~\mbox{\hyperlink{____arm__2d__impl_8h_ab03429d557b53d5cb0d3b02b1ecc52b4}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RGB565}}
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_a4087a83e3446b268a3618804532a5004}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT}}~\mbox{\hyperlink{arm__2d__transform_8c_a2e99bc874b79b14f10b839ba93c7cd6c}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT\+\_\+\+RGB565}}
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}{\+\_\+\+\_\+\+API\+\_\+\+COLOUR}}~cccn888
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_a71ef659837d31a3da6b902b7c50fce6f}{\+\_\+\+\_\+\+API\+\_\+\+INT\+\_\+\+TYPE}}~uint32\+\_\+t
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_ace29e49156529f94695cada845142f1d}{\+\_\+\+\_\+\+API\+\_\+\+INT\+\_\+\+TYPE\+\_\+\+BIT\+\_\+\+NUM}}~32
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_a95dfb0261d9afed55f49e0c74c8e5d7b}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+BLENDING}}~\mbox{\hyperlink{____arm__2d__impl_8h_a1546454f0797806d1d9874ad2512c57c}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PIXEL\+\_\+\+BLENDING\+\_\+\+OPA\+\_\+\+CCCN888}}
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_ae12cd186a80f710b73f3463adede27cf}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE}}~\mbox{\hyperlink{____arm__2d__impl_8h_acb6bc2cb543e736eacc929964c9368dc}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+CCCN888}}
+\item 
+\#define \mbox{\hyperlink{arm__2d__transform_8c_a4087a83e3446b268a3618804532a5004}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT}}~\mbox{\hyperlink{arm__2d__transform_8c_aecc9109d91f976b9ed166d0ba53c62f1}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT\+\_\+\+CCCN888}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+point\+\_\+adj\+\_\+alpha\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a21310a511b9be9658b9f242e7626f7e7}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+point\+\_\+get\+\_\+adjacent\+\_\+alpha\+\_\+fp}} (\mbox{\hyperlink{structarm__2d__point__float__t}{arm\+\_\+2d\+\_\+point\+\_\+float\+\_\+t}} $\ast$\mbox{\hyperlink{arm__2d__tile_8h_a3b6b3df8fa64632f584b6ebb21852f3a}{pt\+Point}})
+\item 
+\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+point\+\_\+adj\+\_\+alpha\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_acc34261c4d0d2d2de2025032307e3dd2}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+point\+\_\+get\+\_\+adjacent\+\_\+alpha\+\_\+q16}} (\mbox{\hyperlink{structarm__2d__point__fx__t}{arm\+\_\+2d\+\_\+point\+\_\+fx\+\_\+t}} $\ast$\mbox{\hyperlink{arm__2d__tile_8h_a3b6b3df8fa64632f584b6ebb21852f3a}{pt\+Point}})
+\item 
+\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_af7ac5fdeb6fe8af6c0dfbe9b877e4804}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+gray8\+\_\+sw\+\_\+transform}} (\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$pt\+Task)
+\item 
+\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a67bf14fa36736467364cecd802a490e7}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+sw\+\_\+transform}} (\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$pt\+Task)
+\item 
+\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_aa06f55e0f308cb6bee60b9e999451d2e}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+cccn888\+\_\+sw\+\_\+transform}} (\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$pt\+Task)
+\item 
+\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a687db04d1a562c7895a86e4edddfcd16}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+gray8\+\_\+sw\+\_\+transform\+\_\+with\+\_\+alpha}} (\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$pt\+Task)
+\item 
+\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_af3e9d41d01b06becc5caa36a5b22320a}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+sw\+\_\+transform\+\_\+with\+\_\+alpha}} (\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$pt\+Task)
+\item 
+\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a9238b200c78f565224d2f292adb67057}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+cccn888\+\_\+sw\+\_\+transform\+\_\+with\+\_\+alpha}} (\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$pt\+Task)
+\item 
+\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a7f95f3a4a573b83135ae3cfba0ecda28}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+gray8\+\_\+sw\+\_\+transform\+\_\+with\+\_\+src\+\_\+mask}} (\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$pt\+Task)
+\item 
+\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_ae516d7ce00b915012e8ae1b6df572ae9}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+sw\+\_\+transform\+\_\+with\+\_\+src\+\_\+mask}} (\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$pt\+Task)
+\item 
+\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a09018ab58e160d9e4df36e7f6aaafdd0}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+cccn888\+\_\+sw\+\_\+transform\+\_\+with\+\_\+src\+\_\+mask}} (\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$pt\+Task)
+\item 
+\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a79a37f0c5c4cae547211073661db40d2}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+gray8\+\_\+sw\+\_\+transform\+\_\+with\+\_\+src\+\_\+mask\+\_\+and\+\_\+opacity}} (\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$pt\+Task)
+\item 
+\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_abbdbdd2fe932cf3cd860a0c718bed057}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+sw\+\_\+transform\+\_\+with\+\_\+src\+\_\+mask\+\_\+and\+\_\+opacity}} (\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$pt\+Task)
+\item 
+\mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a2a85d260670bb8ad3b17b4379d9721ba}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+cccn888\+\_\+sw\+\_\+transform\+\_\+with\+\_\+src\+\_\+mask\+\_\+and\+\_\+opacity}} (\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$pt\+Task)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a8c119784229c6faad9232d53421e9cc2}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+GRAY8}}
+\item 
+const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a2ad78854bb79598f853c7f75783cf6e1}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+RGB565}}
+\item 
+const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_abfe25527c148bf09da32f1a3136dd135}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+CCCN888}}
+\item 
+const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a13769e17e1ca190770e16f23ac320360}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+OPACITY\+\_\+\+GRAY8}}
+\item 
+const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a294ced4bc5ad4c50d64d1633900882fb}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+OPACITY\+\_\+\+RGB565}}
+\item 
+const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_aba0d623307f37cc43f1d11b7560c1664}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+OPACITY\+\_\+\+CCCN888}}
+\item 
+const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a0c45e316e2d4030ea633cbd527d7baad}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+SRC\+\_\+\+MSK\+\_\+\+GRAY8}}
+\item 
+const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_acaca737de98172486cc771b74ea20fdd}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+SRC\+\_\+\+MSK\+\_\+\+RGB565}}
+\item 
+const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a342bb795c009b87eb3badb04d3d47828}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+SRC\+\_\+\+MSK\+\_\+\+CCCN888}}
+\item 
+const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a2f0e8df2479833d6be5e4b4a16906133}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+SRC\+\_\+\+MSK\+\_\+\+AND\+\_\+\+OPACITY\+\_\+\+GRAY8}}
+\item 
+const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a335dc2ab781da2964094255cade2c6a0}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+SRC\+\_\+\+MSK\+\_\+\+AND\+\_\+\+OPACITY\+\_\+\+RGB565}}
+\item 
+const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} \mbox{\hyperlink{arm__2d__transform_8c_a4a2272d482bf6c3784930975bc99a349}{ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+SRC\+\_\+\+MSK\+\_\+\+AND\+\_\+\+OPACITY\+\_\+\+CCCN888}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{arm__2d__transform_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}\label{arm__2d__transform_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_COLOUR@{\_\_API\_COLOUR}}
+\index{\_\_API\_COLOUR@{\_\_API\_COLOUR}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_COLOUR}{\_\_API\_COLOUR}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+COLOUR~gray8}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00127}{127}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}\label{arm__2d__transform_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_COLOUR@{\_\_API\_COLOUR}}
+\index{\_\_API\_COLOUR@{\_\_API\_COLOUR}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_COLOUR}{\_\_API\_COLOUR}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+COLOUR~rgb565}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00127}{127}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}\label{arm__2d__transform_8c_ae5149ac0ed15b2de1eccb9ecf1a02f64}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_COLOUR@{\_\_API\_COLOUR}}
+\index{\_\_API\_COLOUR@{\_\_API\_COLOUR}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_COLOUR}{\_\_API\_COLOUR}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+COLOUR~cccn888}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00127}{127}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a71ef659837d31a3da6b902b7c50fce6f}\label{arm__2d__transform_8c_a71ef659837d31a3da6b902b7c50fce6f}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_INT\_TYPE@{\_\_API\_INT\_TYPE}}
+\index{\_\_API\_INT\_TYPE@{\_\_API\_INT\_TYPE}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_INT\_TYPE}{\_\_API\_INT\_TYPE}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+INT\+\_\+\+TYPE~uint8\+\_\+t}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00128}{128}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a71ef659837d31a3da6b902b7c50fce6f}\label{arm__2d__transform_8c_a71ef659837d31a3da6b902b7c50fce6f}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_INT\_TYPE@{\_\_API\_INT\_TYPE}}
+\index{\_\_API\_INT\_TYPE@{\_\_API\_INT\_TYPE}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_INT\_TYPE}{\_\_API\_INT\_TYPE}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+INT\+\_\+\+TYPE~uint16\+\_\+t}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00128}{128}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a71ef659837d31a3da6b902b7c50fce6f}\label{arm__2d__transform_8c_a71ef659837d31a3da6b902b7c50fce6f}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_INT\_TYPE@{\_\_API\_INT\_TYPE}}
+\index{\_\_API\_INT\_TYPE@{\_\_API\_INT\_TYPE}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_INT\_TYPE}{\_\_API\_INT\_TYPE}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+INT\+\_\+\+TYPE~uint32\+\_\+t}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00128}{128}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_ace29e49156529f94695cada845142f1d}\label{arm__2d__transform_8c_ace29e49156529f94695cada845142f1d}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_INT\_TYPE\_BIT\_NUM@{\_\_API\_INT\_TYPE\_BIT\_NUM}}
+\index{\_\_API\_INT\_TYPE\_BIT\_NUM@{\_\_API\_INT\_TYPE\_BIT\_NUM}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_INT\_TYPE\_BIT\_NUM}{\_\_API\_INT\_TYPE\_BIT\_NUM}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+INT\+\_\+\+TYPE\+\_\+\+BIT\+\_\+\+NUM~16}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00129}{129}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_ace29e49156529f94695cada845142f1d}\label{arm__2d__transform_8c_ace29e49156529f94695cada845142f1d}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_INT\_TYPE\_BIT\_NUM@{\_\_API\_INT\_TYPE\_BIT\_NUM}}
+\index{\_\_API\_INT\_TYPE\_BIT\_NUM@{\_\_API\_INT\_TYPE\_BIT\_NUM}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_INT\_TYPE\_BIT\_NUM}{\_\_API\_INT\_TYPE\_BIT\_NUM}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+INT\+\_\+\+TYPE\+\_\+\+BIT\+\_\+\+NUM~16}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00129}{129}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_ace29e49156529f94695cada845142f1d}\label{arm__2d__transform_8c_ace29e49156529f94695cada845142f1d}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_INT\_TYPE\_BIT\_NUM@{\_\_API\_INT\_TYPE\_BIT\_NUM}}
+\index{\_\_API\_INT\_TYPE\_BIT\_NUM@{\_\_API\_INT\_TYPE\_BIT\_NUM}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_INT\_TYPE\_BIT\_NUM}{\_\_API\_INT\_TYPE\_BIT\_NUM}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+INT\+\_\+\+TYPE\+\_\+\+BIT\+\_\+\+NUM~32}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00129}{129}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_ae12cd186a80f710b73f3463adede27cf}\label{arm__2d__transform_8c_ae12cd186a80f710b73f3463adede27cf}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_PIXEL\_AVERAGE@{\_\_API\_PIXEL\_AVERAGE}}
+\index{\_\_API\_PIXEL\_AVERAGE@{\_\_API\_PIXEL\_AVERAGE}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_PIXEL\_AVERAGE}{\_\_API\_PIXEL\_AVERAGE}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE~\mbox{\hyperlink{____arm__2d__impl_8h_ad0b7ead17a3dfe8d13925e08b27afda1}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+GRAY8}}}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00131}{131}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_ae12cd186a80f710b73f3463adede27cf}\label{arm__2d__transform_8c_ae12cd186a80f710b73f3463adede27cf}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_PIXEL\_AVERAGE@{\_\_API\_PIXEL\_AVERAGE}}
+\index{\_\_API\_PIXEL\_AVERAGE@{\_\_API\_PIXEL\_AVERAGE}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_PIXEL\_AVERAGE}{\_\_API\_PIXEL\_AVERAGE}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE~\mbox{\hyperlink{____arm__2d__impl_8h_ab03429d557b53d5cb0d3b02b1ecc52b4}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RGB565}}}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00131}{131}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_ae12cd186a80f710b73f3463adede27cf}\label{arm__2d__transform_8c_ae12cd186a80f710b73f3463adede27cf}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_PIXEL\_AVERAGE@{\_\_API\_PIXEL\_AVERAGE}}
+\index{\_\_API\_PIXEL\_AVERAGE@{\_\_API\_PIXEL\_AVERAGE}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_PIXEL\_AVERAGE}{\_\_API\_PIXEL\_AVERAGE}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE~\mbox{\hyperlink{____arm__2d__impl_8h_acb6bc2cb543e736eacc929964c9368dc}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+CCCN888}}}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00131}{131}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_ade53620dddd942ecc042a37029e4ccdb}\label{arm__2d__transform_8c_ade53620dddd942ecc042a37029e4ccdb}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_PIXEL\_AVERAGE\_INIT@{\_\_API\_PIXEL\_AVERAGE\_INIT}}
+\index{\_\_API\_PIXEL\_AVERAGE\_INIT@{\_\_API\_PIXEL\_AVERAGE\_INIT}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_PIXEL\_AVERAGE\_INIT}{\_\_API\_PIXEL\_AVERAGE\_INIT}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+INIT(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~uint16\+\_\+t t\+Pixel = 0;}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00113}{113}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a4087a83e3446b268a3618804532a5004}\label{arm__2d__transform_8c_a4087a83e3446b268a3618804532a5004}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_PIXEL\_AVERAGE\_RESULT@{\_\_API\_PIXEL\_AVERAGE\_RESULT}}
+\index{\_\_API\_PIXEL\_AVERAGE\_RESULT@{\_\_API\_PIXEL\_AVERAGE\_RESULT}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_PIXEL\_AVERAGE\_RESULT}{\_\_API\_PIXEL\_AVERAGE\_RESULT}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT~\mbox{\hyperlink{arm__2d__transform_8c_a8287bff112f04877923dbce47641b831}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT\+\_\+\+GRAY8}}}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00132}{132}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a4087a83e3446b268a3618804532a5004}\label{arm__2d__transform_8c_a4087a83e3446b268a3618804532a5004}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_PIXEL\_AVERAGE\_RESULT@{\_\_API\_PIXEL\_AVERAGE\_RESULT}}
+\index{\_\_API\_PIXEL\_AVERAGE\_RESULT@{\_\_API\_PIXEL\_AVERAGE\_RESULT}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_PIXEL\_AVERAGE\_RESULT}{\_\_API\_PIXEL\_AVERAGE\_RESULT}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT~\mbox{\hyperlink{arm__2d__transform_8c_a2e99bc874b79b14f10b839ba93c7cd6c}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT\+\_\+\+RGB565}}}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00132}{132}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a4087a83e3446b268a3618804532a5004}\label{arm__2d__transform_8c_a4087a83e3446b268a3618804532a5004}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_PIXEL\_AVERAGE\_RESULT@{\_\_API\_PIXEL\_AVERAGE\_RESULT}}
+\index{\_\_API\_PIXEL\_AVERAGE\_RESULT@{\_\_API\_PIXEL\_AVERAGE\_RESULT}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_PIXEL\_AVERAGE\_RESULT}{\_\_API\_PIXEL\_AVERAGE\_RESULT}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT~\mbox{\hyperlink{arm__2d__transform_8c_aecc9109d91f976b9ed166d0ba53c62f1}{\+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT\+\_\+\+CCCN888}}}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00132}{132}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_aecc9109d91f976b9ed166d0ba53c62f1}\label{arm__2d__transform_8c_aecc9109d91f976b9ed166d0ba53c62f1}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_PIXEL\_AVERAGE\_RESULT\_CCCN888@{\_\_API\_PIXEL\_AVERAGE\_RESULT\_CCCN888}}
+\index{\_\_API\_PIXEL\_AVERAGE\_RESULT\_CCCN888@{\_\_API\_PIXEL\_AVERAGE\_RESULT\_CCCN888}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_PIXEL\_AVERAGE\_RESULT\_CCCN888}{\_\_API\_PIXEL\_AVERAGE\_RESULT\_CCCN888}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT\+\_\+\+CCCN888(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    (   tPixel.R >>= 8,                                         \(\backslash\)}
+\DoxyCodeLine{        tPixel.G >>= 8,                                         \(\backslash\)}
+\DoxyCodeLine{        tPixel.B >>= 8,                                         \(\backslash\)}
+\DoxyCodeLine{        tPixel.A = *((uint8\_t *)pTarget + 3),                   \(\backslash\)}
+\DoxyCodeLine{        \_\_arm\_2d\_cccn888\_pack(\&tPixel))}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00102}{102}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a8287bff112f04877923dbce47641b831}\label{arm__2d__transform_8c_a8287bff112f04877923dbce47641b831}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_PIXEL\_AVERAGE\_RESULT\_GRAY8@{\_\_API\_PIXEL\_AVERAGE\_RESULT\_GRAY8}}
+\index{\_\_API\_PIXEL\_AVERAGE\_RESULT\_GRAY8@{\_\_API\_PIXEL\_AVERAGE\_RESULT\_GRAY8}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_PIXEL\_AVERAGE\_RESULT\_GRAY8}{\_\_API\_PIXEL\_AVERAGE\_RESULT\_GRAY8}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT\+\_\+\+GRAY8(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~    (   t\+Pixel $>$$>$ 8)}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00093}{93}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a2e99bc874b79b14f10b839ba93c7cd6c}\label{arm__2d__transform_8c_a2e99bc874b79b14f10b839ba93c7cd6c}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_PIXEL\_AVERAGE\_RESULT\_RGB565@{\_\_API\_PIXEL\_AVERAGE\_RESULT\_RGB565}}
+\index{\_\_API\_PIXEL\_AVERAGE\_RESULT\_RGB565@{\_\_API\_PIXEL\_AVERAGE\_RESULT\_RGB565}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_PIXEL\_AVERAGE\_RESULT\_RGB565}{\_\_API\_PIXEL\_AVERAGE\_RESULT\_RGB565}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+AVERAGE\+\_\+\+RESULT\+\_\+\+RGB565(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    (   tPixel.R >>= 8,                                         \(\backslash\)}
+\DoxyCodeLine{        tPixel.G >>= 8,                                         \(\backslash\)}
+\DoxyCodeLine{        tPixel.B >>= 8,                                         \(\backslash\)}
+\DoxyCodeLine{        \_\_arm\_2d\_rgb565\_pack(\&tPixel))}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00096}{96}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a95dfb0261d9afed55f49e0c74c8e5d7b}\label{arm__2d__transform_8c_a95dfb0261d9afed55f49e0c74c8e5d7b}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_PIXEL\_BLENDING@{\_\_API\_PIXEL\_BLENDING}}
+\index{\_\_API\_PIXEL\_BLENDING@{\_\_API\_PIXEL\_BLENDING}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_PIXEL\_BLENDING}{\_\_API\_PIXEL\_BLENDING}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+BLENDING~\mbox{\hyperlink{____arm__2d__impl_8h_a9c5e7dad99684b081524928f1201498a}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PIXEL\+\_\+\+BLENDING\+\_\+\+OPA\+\_\+\+GRAY8}}}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00130}{130}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a95dfb0261d9afed55f49e0c74c8e5d7b}\label{arm__2d__transform_8c_a95dfb0261d9afed55f49e0c74c8e5d7b}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_PIXEL\_BLENDING@{\_\_API\_PIXEL\_BLENDING}}
+\index{\_\_API\_PIXEL\_BLENDING@{\_\_API\_PIXEL\_BLENDING}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_PIXEL\_BLENDING}{\_\_API\_PIXEL\_BLENDING}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+BLENDING~\mbox{\hyperlink{____arm__2d__impl_8h_a3612ad8bfc70d8e5813ffda9f7d80f64}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PIXEL\+\_\+\+BLENDING\+\_\+\+OPA\+\_\+\+RGB565}}}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00130}{130}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a95dfb0261d9afed55f49e0c74c8e5d7b}\label{arm__2d__transform_8c_a95dfb0261d9afed55f49e0c74c8e5d7b}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_API\_PIXEL\_BLENDING@{\_\_API\_PIXEL\_BLENDING}}
+\index{\_\_API\_PIXEL\_BLENDING@{\_\_API\_PIXEL\_BLENDING}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_API\_PIXEL\_BLENDING}{\_\_API\_PIXEL\_BLENDING}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+API\+\_\+\+PIXEL\+\_\+\+BLENDING~\mbox{\hyperlink{____arm__2d__impl_8h_a1546454f0797806d1d9874ad2512c57c}{\+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+PIXEL\+\_\+\+BLENDING\+\_\+\+OPA\+\_\+\+CCCN888}}}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00130}{130}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_aa391cb8cbcf1b1a4ab83847b83d8b8de}\label{arm__2d__transform_8c_aa391cb8cbcf1b1a4ab83847b83d8b8de}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_ARM\_2D\_IMPL\_\_@{\_\_ARM\_2D\_IMPL\_\_}}
+\index{\_\_ARM\_2D\_IMPL\_\_@{\_\_ARM\_2D\_IMPL\_\_}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_ARM\_2D\_IMPL\_\_}{\_\_ARM\_2D\_IMPL\_\_}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+ARM\+\_\+2\+D\+\_\+\+IMPL\+\_\+\+\_\+}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00033}{33}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}\label{arm__2d__transform_8c_a29e4ea6d26ca19e8db3073efd2292cb4}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_CALIB@{\_\_CALIB}}
+\index{\_\_CALIB@{\_\_CALIB}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_CALIB}{\_\_CALIB}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+CALIB~0.\+009f}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00080}{80}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a0970494ab17b4e6cf0189c329d89ded0}\label{arm__2d__transform_8c_a0970494ab17b4e6cf0189c329d89ded0}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_PI@{\_\_PI}}
+\index{\_\_PI@{\_\_PI}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_PI}{\_\_PI}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+\+PI~3.\+1415926f}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00078}{78}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_ac45b3b5e459e7f42272921180e72d037}\label{arm__2d__transform_8c_ac45b3b5e459e7f42272921180e72d037}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!EPS\_ATAN2@{EPS\_ATAN2}}
+\index{EPS\_ATAN2@{EPS\_ATAN2}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{EPS\_ATAN2}{EPS\_ATAN2}}
+{\footnotesize\ttfamily \#define EPS\+\_\+\+ATAN2~1e-\/5f}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00084}{84}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_ac41f1aec57abc106e2ddbd4f5d75a0f4}\label{arm__2d__transform_8c_ac41f1aec57abc106e2ddbd4f5d75a0f4}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!FAST\_ATAN\_F32\_1@{FAST\_ATAN\_F32\_1}}
+\index{FAST\_ATAN\_F32\_1@{FAST\_ATAN\_F32\_1}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{FAST\_ATAN\_F32\_1}{FAST\_ATAN\_F32\_1}}
+{\footnotesize\ttfamily \#define FAST\+\_\+\+ATAN\+\_\+\+F32\+\_\+1(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{xabs }\end{DoxyParamCaption})~                            (x $\ast$ (PI / 4.\+0f) + 0.\+273f $\ast$ x $\ast$ (1.\+0f -\/ xabs))}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00082}{82}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}\label{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!TO\_Q16@{TO\_Q16}}
+\index{TO\_Q16@{TO\_Q16}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{TO\_Q16}{TO\_Q16}}
+{\footnotesize\ttfamily \#define TO\+\_\+\+Q16(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~((int32\+\_\+t)(x) $<$$<$ 16)}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00087}{87}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{arm__2d__transform_8c_aa06f55e0f308cb6bee60b9e999451d2e}\label{arm__2d__transform_8c_aa06f55e0f308cb6bee60b9e999451d2e}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_cccn888\_sw\_transform@{\_\_arm\_2d\_cccn888\_sw\_transform}}
+\index{\_\_arm\_2d\_cccn888\_sw\_transform@{\_\_arm\_2d\_cccn888\_sw\_transform}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_cccn888\_sw\_transform()}{\_\_arm\_2d\_cccn888\_sw\_transform()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+cccn888\+\_\+sw\+\_\+transform (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$}]{pt\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00817}{817}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00818 \{}
+\DoxyCodeLine{00819     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__trans__t}{arm\_2d\_op\_trans\_t}}, ptTask-\/>ptOP);}
+\DoxyCodeLine{00820     assert(\mbox{\hyperlink{arm__2d__types_8h_af715e26dfffd1f8de1c18449e2770cffab73d9139521893b7600e21c84c091614}{ARM\_2D\_COLOUR\_SZ\_32BIT}} == \mbox{\hyperlink{____arm__2d__impl_8h_a9f9d937dc5a6d79e26e25ebf55bbf679}{OP\_CORE}}.ptOp-\/>Info.Colour.u3ColourSZ);}
+\DoxyCodeLine{00821 }
+\DoxyCodeLine{00822 }
+\DoxyCodeLine{00823     \mbox{\hyperlink{____arm__2d__direct_8h_a9000e7b19db15919c5c684500a16033d}{\_\_arm\_2d\_impl\_cccn888\_transform}}(\&(ptTask-\/>Param.tCopyOrig),}
+\DoxyCodeLine{00824                                     \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{00825 }
+\DoxyCodeLine{00826     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
+\DoxyCodeLine{00827 \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\+\_\+2\+D\+\_\+\+IMPL}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a9238b200c78f565224d2f292adb67057}\label{arm__2d__transform_8c_a9238b200c78f565224d2f292adb67057}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_cccn888\_sw\_transform\_with\_alpha@{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_alpha}}
+\index{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_alpha@{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_alpha}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_alpha()}{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_alpha()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+cccn888\+\_\+sw\+\_\+transform\+\_\+with\+\_\+alpha (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$}]{pt\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00963}{963}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00964 \{}
+\DoxyCodeLine{00965     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__trans__opa__t}{arm\_2d\_op\_trans\_opa\_t}}, ptTask-\/>ptOP);}
+\DoxyCodeLine{00966     assert(\mbox{\hyperlink{arm__2d__types_8h_af715e26dfffd1f8de1c18449e2770cffab73d9139521893b7600e21c84c091614}{ARM\_2D\_COLOUR\_SZ\_32BIT}} == \mbox{\hyperlink{____arm__2d__impl_8h_a9f9d937dc5a6d79e26e25ebf55bbf679}{OP\_CORE}}.ptOp-\/>Info.Colour.u3ColourSZ);}
+\DoxyCodeLine{00967 }
+\DoxyCodeLine{00968     \textcolor{keywordflow}{if} (255 == this.\mbox{\hyperlink{arm__2d__alpha__blending_8h_ab025c7acb6920ba4cf780b0bc2a715d2}{chOpacity}}) \{}
+\DoxyCodeLine{00969         \mbox{\hyperlink{____arm__2d__direct_8h_a9000e7b19db15919c5c684500a16033d}{\_\_arm\_2d\_impl\_cccn888\_transform}}(\&(ptTask-\/>Param.tCopyOrig),}
+\DoxyCodeLine{00970                                         \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{00971     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00972         \mbox{\hyperlink{____arm__2d__direct_8h_a9bc203cf96805af92466763164dbd0d3}{\_\_arm\_2d\_impl\_cccn888\_transform\_with\_opacity}}(  \&(ptTask-\/>Param.tCopyOrig),}
+\DoxyCodeLine{00973                                                 \&\textcolor{keyword}{this}.tTransform,}
+\DoxyCodeLine{00974                                                 \textcolor{keyword}{this}.chOpacity);}
+\DoxyCodeLine{00975     \}}
+\DoxyCodeLine{00976     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
+\DoxyCodeLine{00977 \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\+\_\+2\+D\+\_\+\+IMPL}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a09018ab58e160d9e4df36e7f6aaafdd0}\label{arm__2d__transform_8c_a09018ab58e160d9e4df36e7f6aaafdd0}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_cccn888\_sw\_transform\_with\_src\_mask@{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_src\_mask}}
+\index{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_src\_mask@{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_src\_mask}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_src\_mask()}{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_src\_mask()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+cccn888\+\_\+sw\+\_\+transform\+\_\+with\+\_\+src\+\_\+mask (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$}]{pt\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01208}{1208}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01209 \{}
+\DoxyCodeLine{01210     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\_2d\_op\_trans\_msk\_t}}, ptTask-\/>ptOP);}
+\DoxyCodeLine{01211     assert(\mbox{\hyperlink{arm__2d__types_8h_af715e26dfffd1f8de1c18449e2770cffab73d9139521893b7600e21c84c091614}{ARM\_2D\_COLOUR\_SZ\_32BIT}} == \mbox{\hyperlink{____arm__2d__impl_8h_a9f9d937dc5a6d79e26e25ebf55bbf679}{OP\_CORE}}.ptOp-\/>Info.Colour.u3ColourSZ);}
+\DoxyCodeLine{01212 }
+\DoxyCodeLine{01213 \textcolor{preprocessor}{\#if \_\_ARM\_2D\_CFG\_SUPPORT\_COLOUR\_CHANNEL\_ACCESS\_\_}}
+\DoxyCodeLine{01214     \textcolor{keywordtype}{bool} bIsMaskChannel8In32 = (\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58}{ARM\_2D\_CHANNEL\_8in32}}}
+\DoxyCodeLine{01215             ==  ptTask-\/>Param.tCopyOrigMask.tOrigMask.tColour.chScheme);}
+\DoxyCodeLine{01216 }
+\DoxyCodeLine{01217     \textcolor{keywordflow}{if} (bIsMaskChannel8In32) \{}
+\DoxyCodeLine{01218         \mbox{\hyperlink{____arm__2d__direct_8h_a9e398f78d44f79a0a772907bf4d9b1fd}{\_\_arm\_2d\_impl\_cccn888\_transform\_with\_src\_chn\_mask}}(}
+\DoxyCodeLine{01219                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01220                                                 \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{01221     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01222 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01223     \{}
+\DoxyCodeLine{01224         \mbox{\hyperlink{____arm__2d__direct_8h_a64c4c3ca14817bcbd38524d8c3e4f75c}{\_\_arm\_2d\_impl\_cccn888\_transform\_with\_src\_mask}}(}
+\DoxyCodeLine{01225                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01226                                                 \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{01227     \}}
+\DoxyCodeLine{01228 }
+\DoxyCodeLine{01229     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
+\DoxyCodeLine{01230 \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\+\_\+2\+D\+\_\+\+IMPL}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a2a85d260670bb8ad3b17b4379d9721ba}\label{arm__2d__transform_8c_a2a85d260670bb8ad3b17b4379d9721ba}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_cccn888\_sw\_transform\_with\_src\_mask\_and\_opacity@{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_src\_mask\_and\_opacity}}
+\index{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_src\_mask\_and\_opacity@{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_src\_mask\_and\_opacity}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_src\_mask\_and\_opacity()}{\_\_arm\_2d\_cccn888\_sw\_transform\_with\_src\_mask\_and\_opacity()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+cccn888\+\_\+sw\+\_\+transform\+\_\+with\+\_\+src\+\_\+mask\+\_\+and\+\_\+opacity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$}]{pt\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01453}{1453}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01454 \{}
+\DoxyCodeLine{01455     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__trans__msk__opa__t}{arm\_2d\_op\_trans\_msk\_opa\_t}}, ptTask-\/>ptOP);}
+\DoxyCodeLine{01456     assert(\mbox{\hyperlink{arm__2d__types_8h_af715e26dfffd1f8de1c18449e2770cffab73d9139521893b7600e21c84c091614}{ARM\_2D\_COLOUR\_SZ\_32BIT}} == \mbox{\hyperlink{____arm__2d__impl_8h_a9f9d937dc5a6d79e26e25ebf55bbf679}{OP\_CORE}}.ptOp-\/>Info.Colour.u3ColourSZ);}
+\DoxyCodeLine{01457 }
+\DoxyCodeLine{01458 \textcolor{preprocessor}{\#if \_\_ARM\_2D\_CFG\_SUPPORT\_COLOUR\_CHANNEL\_ACCESS\_\_}}
+\DoxyCodeLine{01459     \textcolor{keywordtype}{bool} bIsMaskChannel8In32 = (\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58}{ARM\_2D\_CHANNEL\_8in32}}}
+\DoxyCodeLine{01460             ==  ptTask-\/>Param.tCopyOrigMask.tOrigMask.tColour.chScheme);}
+\DoxyCodeLine{01461 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01462 }
+\DoxyCodeLine{01463     \textcolor{keywordflow}{if} (255 == this.\mbox{\hyperlink{arm__2d__alpha__blending_8h_ab025c7acb6920ba4cf780b0bc2a715d2}{chOpacity}}) \{}
+\DoxyCodeLine{01464 \textcolor{preprocessor}{    \#if \_\_ARM\_2D\_CFG\_SUPPORT\_COLOUR\_CHANNEL\_ACCESS\_\_}}
+\DoxyCodeLine{01465         \textcolor{keywordflow}{if} (bIsMaskChannel8In32) \{}
+\DoxyCodeLine{01466             \mbox{\hyperlink{____arm__2d__direct_8h_a9e398f78d44f79a0a772907bf4d9b1fd}{\_\_arm\_2d\_impl\_cccn888\_transform\_with\_src\_chn\_mask}}(}
+\DoxyCodeLine{01467                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01468                                                 \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{01469         \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01470 \textcolor{preprocessor}{    \#endif}}
+\DoxyCodeLine{01471         \{}
+\DoxyCodeLine{01472             \mbox{\hyperlink{____arm__2d__direct_8h_a64c4c3ca14817bcbd38524d8c3e4f75c}{\_\_arm\_2d\_impl\_cccn888\_transform\_with\_src\_mask}}(}
+\DoxyCodeLine{01473                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01474                                                 \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{01475         \}}
+\DoxyCodeLine{01476     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{01477 \textcolor{preprocessor}{    \#if \_\_ARM\_2D\_CFG\_SUPPORT\_COLOUR\_CHANNEL\_ACCESS\_\_}}
+\DoxyCodeLine{01478         \textcolor{keywordflow}{if} (bIsMaskChannel8In32) \{}
+\DoxyCodeLine{01479             \mbox{\hyperlink{____arm__2d__direct_8h_a48448e6a418b9a0eb574e8555c7af375}{\_\_arm\_2d\_impl\_cccn888\_transform\_with\_src\_chn\_mask\_and\_opacity}}(}
+\DoxyCodeLine{01480                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01481                                                 \&\textcolor{keyword}{this}.tTransform,}
+\DoxyCodeLine{01482                                                 \textcolor{keyword}{this}.chOpacity);}
+\DoxyCodeLine{01483         \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01484 \textcolor{preprocessor}{    \#endif}}
+\DoxyCodeLine{01485         \{}
+\DoxyCodeLine{01486             \mbox{\hyperlink{____arm__2d__direct_8h_a3fdc0917f1116e02b0de595aa48f338d}{\_\_arm\_2d\_impl\_cccn888\_transform\_with\_src\_mask\_and\_opacity}}(}
+\DoxyCodeLine{01487                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01488                                                 \&\textcolor{keyword}{this}.tTransform,}
+\DoxyCodeLine{01489                                                 \textcolor{keyword}{this}.chOpacity);}
+\DoxyCodeLine{01490         \}}
+\DoxyCodeLine{01491     \}}
+\DoxyCodeLine{01492     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
+\DoxyCodeLine{01493 \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\+\_\+2\+D\+\_\+\+IMPL}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_af7ac5fdeb6fe8af6c0dfbe9b877e4804}\label{arm__2d__transform_8c_af7ac5fdeb6fe8af6c0dfbe9b877e4804}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_gray8\_sw\_transform@{\_\_arm\_2d\_gray8\_sw\_transform}}
+\index{\_\_arm\_2d\_gray8\_sw\_transform@{\_\_arm\_2d\_gray8\_sw\_transform}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_gray8\_sw\_transform()}{\_\_arm\_2d\_gray8\_sw\_transform()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+gray8\+\_\+sw\+\_\+transform (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$}]{pt\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00794}{794}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00795 \{}
+\DoxyCodeLine{00796     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__trans__t}{arm\_2d\_op\_trans\_t}}, ptTask-\/>ptOP);}
+\DoxyCodeLine{00797     assert(\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185}{ARM\_2D\_COLOUR\_8BIT}} == \mbox{\hyperlink{____arm__2d__impl_8h_a9f9d937dc5a6d79e26e25ebf55bbf679}{OP\_CORE}}.ptOp-\/>Info.Colour.chScheme);}
+\DoxyCodeLine{00798 }
+\DoxyCodeLine{00799     \mbox{\hyperlink{____arm__2d__direct_8h_a4ffd250fa481c2e8e66ecc5bbcfa6118}{\_\_arm\_2d\_impl\_gray8\_transform}}(  \&(ptTask-\/>Param.tCopyOrig),}
+\DoxyCodeLine{00800                                     \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{00801 }
+\DoxyCodeLine{00802 }
+\DoxyCodeLine{00803     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
+\DoxyCodeLine{00804 \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\+\_\+2\+D\+\_\+\+IMPL}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a687db04d1a562c7895a86e4edddfcd16}\label{arm__2d__transform_8c_a687db04d1a562c7895a86e4edddfcd16}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_gray8\_sw\_transform\_with\_alpha@{\_\_arm\_2d\_gray8\_sw\_transform\_with\_alpha}}
+\index{\_\_arm\_2d\_gray8\_sw\_transform\_with\_alpha@{\_\_arm\_2d\_gray8\_sw\_transform\_with\_alpha}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_gray8\_sw\_transform\_with\_alpha()}{\_\_arm\_2d\_gray8\_sw\_transform\_with\_alpha()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+gray8\+\_\+sw\+\_\+transform\+\_\+with\+\_\+alpha (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$}]{pt\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00929}{929}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00930 \{}
+\DoxyCodeLine{00931     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__trans__opa__t}{arm\_2d\_op\_trans\_opa\_t}}, ptTask-\/>ptOP);}
+\DoxyCodeLine{00932     assert(\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39ae30b45e21340e05f42d705d24c0958dd}{ARM\_2D\_COLOUR\_GRAY8}} == \mbox{\hyperlink{____arm__2d__impl_8h_a9f9d937dc5a6d79e26e25ebf55bbf679}{OP\_CORE}}.ptOp-\/>Info.Colour.chScheme);}
+\DoxyCodeLine{00933 }
+\DoxyCodeLine{00934     \textcolor{keywordflow}{if} (255 == this.\mbox{\hyperlink{arm__2d__alpha__blending_8h_ab025c7acb6920ba4cf780b0bc2a715d2}{chOpacity}}) \{}
+\DoxyCodeLine{00935         \mbox{\hyperlink{____arm__2d__direct_8h_a4ffd250fa481c2e8e66ecc5bbcfa6118}{\_\_arm\_2d\_impl\_gray8\_transform}}(  \&(ptTask-\/>Param.tCopyOrig),}
+\DoxyCodeLine{00936                                         \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{00937     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00938         \mbox{\hyperlink{____arm__2d__direct_8h_a50a28ee5db07e4eb4fd92a1d394e6d93}{\_\_arm\_2d\_impl\_gray8\_transform\_with\_opacity}}(  \&(ptTask-\/>Param.tCopyOrig),}
+\DoxyCodeLine{00939                                             \&\textcolor{keyword}{this}.tTransform,}
+\DoxyCodeLine{00940                                             \textcolor{keyword}{this}.chOpacity);}
+\DoxyCodeLine{00941     \}}
+\DoxyCodeLine{00942 }
+\DoxyCodeLine{00943     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
+\DoxyCodeLine{00944 \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\+\_\+2\+D\+\_\+\+IMPL}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a7f95f3a4a573b83135ae3cfba0ecda28}\label{arm__2d__transform_8c_a7f95f3a4a573b83135ae3cfba0ecda28}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_gray8\_sw\_transform\_with\_src\_mask@{\_\_arm\_2d\_gray8\_sw\_transform\_with\_src\_mask}}
+\index{\_\_arm\_2d\_gray8\_sw\_transform\_with\_src\_mask@{\_\_arm\_2d\_gray8\_sw\_transform\_with\_src\_mask}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_gray8\_sw\_transform\_with\_src\_mask()}{\_\_arm\_2d\_gray8\_sw\_transform\_with\_src\_mask()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+gray8\+\_\+sw\+\_\+transform\+\_\+with\+\_\+src\+\_\+mask (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$}]{pt\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01158}{1158}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01159 \{}
+\DoxyCodeLine{01160     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\_2d\_op\_trans\_msk\_t}}, ptTask-\/>ptOP);}
+\DoxyCodeLine{01161     assert(\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185}{ARM\_2D\_COLOUR\_8BIT}} == \mbox{\hyperlink{____arm__2d__impl_8h_a9f9d937dc5a6d79e26e25ebf55bbf679}{OP\_CORE}}.ptOp-\/>Info.Colour.chScheme);}
+\DoxyCodeLine{01162 }
+\DoxyCodeLine{01163 \textcolor{preprocessor}{\#if \_\_ARM\_2D\_CFG\_SUPPORT\_COLOUR\_CHANNEL\_ACCESS\_\_}}
+\DoxyCodeLine{01164     \textcolor{keywordtype}{bool} bIsMaskChannel8In32 = (\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58}{ARM\_2D\_CHANNEL\_8in32}}}
+\DoxyCodeLine{01165             ==  ptTask-\/>Param.tCopyOrigMask.tOrigMask.tColour.chScheme);}
+\DoxyCodeLine{01166 }
+\DoxyCodeLine{01167     \textcolor{keywordflow}{if} (bIsMaskChannel8In32) \{}
+\DoxyCodeLine{01168         \mbox{\hyperlink{____arm__2d__direct_8h_a8ce1aad44e6a463252b5e7c2c2a0fb2e}{\_\_arm\_2d\_impl\_gray8\_transform\_with\_src\_chn\_mask}}(}
+\DoxyCodeLine{01169                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01170                                                 \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{01171     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01172 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01173     \{}
+\DoxyCodeLine{01174         \mbox{\hyperlink{____arm__2d__direct_8h_a3f2190cd3548ac16fe5cb61c05a37e1c}{\_\_arm\_2d\_impl\_gray8\_transform\_with\_src\_mask}}(}
+\DoxyCodeLine{01175                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01176                                                 \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{01177     \}}
+\DoxyCodeLine{01178 }
+\DoxyCodeLine{01179     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
+\DoxyCodeLine{01180 \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\+\_\+2\+D\+\_\+\+IMPL}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a79a37f0c5c4cae547211073661db40d2}\label{arm__2d__transform_8c_a79a37f0c5c4cae547211073661db40d2}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_gray8\_sw\_transform\_with\_src\_mask\_and\_opacity@{\_\_arm\_2d\_gray8\_sw\_transform\_with\_src\_mask\_and\_opacity}}
+\index{\_\_arm\_2d\_gray8\_sw\_transform\_with\_src\_mask\_and\_opacity@{\_\_arm\_2d\_gray8\_sw\_transform\_with\_src\_mask\_and\_opacity}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_gray8\_sw\_transform\_with\_src\_mask\_and\_opacity()}{\_\_arm\_2d\_gray8\_sw\_transform\_with\_src\_mask\_and\_opacity()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+gray8\+\_\+sw\+\_\+transform\+\_\+with\+\_\+src\+\_\+mask\+\_\+and\+\_\+opacity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$}]{pt\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01364}{1364}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01365 \{}
+\DoxyCodeLine{01366     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__trans__msk__opa__t}{arm\_2d\_op\_trans\_msk\_opa\_t}}, ptTask-\/>ptOP);}
+\DoxyCodeLine{01367     assert(\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185}{ARM\_2D\_COLOUR\_8BIT}} == \mbox{\hyperlink{____arm__2d__impl_8h_a9f9d937dc5a6d79e26e25ebf55bbf679}{OP\_CORE}}.ptOp-\/>Info.Colour.chScheme);}
+\DoxyCodeLine{01368 }
+\DoxyCodeLine{01369 \textcolor{preprocessor}{\#if \_\_ARM\_2D\_CFG\_SUPPORT\_COLOUR\_CHANNEL\_ACCESS\_\_}}
+\DoxyCodeLine{01370     \textcolor{keywordtype}{bool} bIsMaskChannel8In32 = (\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58}{ARM\_2D\_CHANNEL\_8in32}}}
+\DoxyCodeLine{01371             ==  ptTask-\/>Param.tCopyOrigMask.tOrigMask.tColour.chScheme);}
+\DoxyCodeLine{01372 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01373 }
+\DoxyCodeLine{01374     \textcolor{keywordflow}{if} (255 == this.\mbox{\hyperlink{arm__2d__alpha__blending_8h_ab025c7acb6920ba4cf780b0bc2a715d2}{chOpacity}}) \{}
+\DoxyCodeLine{01375 \textcolor{preprocessor}{    \#if \_\_ARM\_2D\_CFG\_SUPPORT\_COLOUR\_CHANNEL\_ACCESS\_\_}}
+\DoxyCodeLine{01376         \textcolor{keywordflow}{if} (bIsMaskChannel8In32) \{}
+\DoxyCodeLine{01377             \mbox{\hyperlink{____arm__2d__direct_8h_a8ce1aad44e6a463252b5e7c2c2a0fb2e}{\_\_arm\_2d\_impl\_gray8\_transform\_with\_src\_chn\_mask}}(}
+\DoxyCodeLine{01378                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01379                                                 \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{01380         \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01381 \textcolor{preprocessor}{    \#endif}}
+\DoxyCodeLine{01382         \{}
+\DoxyCodeLine{01383             \mbox{\hyperlink{____arm__2d__direct_8h_a3f2190cd3548ac16fe5cb61c05a37e1c}{\_\_arm\_2d\_impl\_gray8\_transform\_with\_src\_mask}}(}
+\DoxyCodeLine{01384                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01385                                                 \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{01386         \}}
+\DoxyCodeLine{01387     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{01388 \textcolor{preprocessor}{    \#if \_\_ARM\_2D\_CFG\_SUPPORT\_COLOUR\_CHANNEL\_ACCESS\_\_}}
+\DoxyCodeLine{01389         \textcolor{keywordflow}{if} (bIsMaskChannel8In32) \{}
+\DoxyCodeLine{01390             \mbox{\hyperlink{____arm__2d__direct_8h_a7379ef903379bc57024a7e3d45419926}{\_\_arm\_2d\_impl\_gray8\_transform\_with\_src\_chn\_mask\_and\_opacity}}(}
+\DoxyCodeLine{01391                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01392                                                 \&\textcolor{keyword}{this}.tTransform,}
+\DoxyCodeLine{01393                                                 \textcolor{keyword}{this}.chOpacity);}
+\DoxyCodeLine{01394         \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01395 \textcolor{preprocessor}{    \#endif}}
+\DoxyCodeLine{01396         \{}
+\DoxyCodeLine{01397             \mbox{\hyperlink{____arm__2d__direct_8h_a3e2fd921306c701723aed431163409df}{\_\_arm\_2d\_impl\_gray8\_transform\_with\_src\_mask\_and\_opacity}}(}
+\DoxyCodeLine{01398                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01399                                                 \&\textcolor{keyword}{this}.tTransform,}
+\DoxyCodeLine{01400                                                 \textcolor{keyword}{this}.chOpacity);}
+\DoxyCodeLine{01401         \}}
+\DoxyCodeLine{01402     \}}
+\DoxyCodeLine{01403 }
+\DoxyCodeLine{01404 }
+\DoxyCodeLine{01405     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
+\DoxyCodeLine{01406 \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\+\_\+2\+D\+\_\+\+IMPL}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a21310a511b9be9658b9f242e7626f7e7}\label{arm__2d__transform_8c_a21310a511b9be9658b9f242e7626f7e7}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_point\_get\_adjacent\_alpha\_fp@{\_\_arm\_2d\_point\_get\_adjacent\_alpha\_fp}}
+\index{\_\_arm\_2d\_point\_get\_adjacent\_alpha\_fp@{\_\_arm\_2d\_point\_get\_adjacent\_alpha\_fp}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_point\_get\_adjacent\_alpha\_fp()}{\_\_arm\_2d\_point\_get\_adjacent\_alpha\_fp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+point\+\_\+adj\+\_\+alpha\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+point\+\_\+get\+\_\+adjacent\+\_\+alpha\+\_\+fp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structarm__2d__point__float__t}{arm\+\_\+2d\+\_\+point\+\_\+float\+\_\+t}} $\ast$}]{pt\+Point }\end{DoxyParamCaption})}
+
+\texorpdfstring{$<$}{<} x
+
+\texorpdfstring{$<$}{<} y
+
+\texorpdfstring{$<$}{<} x
+
+\texorpdfstring{$<$}{<} y
+
+\texorpdfstring{$<$}{<} x
+
+\texorpdfstring{$<$}{<} y
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00147}{147}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00148 \{}
+\DoxyCodeLine{00149     assert(NULL != \mbox{\hyperlink{arm__2d__tile_8h_a3b6b3df8fa64632f584b6ebb21852f3a}{ptPoint}});}
+\DoxyCodeLine{00150     \textcolor{keywordtype}{float} x = \mbox{\hyperlink{arm__2d__tile_8h_a3b6b3df8fa64632f584b6ebb21852f3a}{ptPoint}}-\/>fX -\/ (int32\_t)\mbox{\hyperlink{arm__2d__tile_8h_a3b6b3df8fa64632f584b6ebb21852f3a}{ptPoint}}-\/>fX;}
+\DoxyCodeLine{00151     \textcolor{keywordtype}{float} y = \mbox{\hyperlink{arm__2d__tile_8h_a3b6b3df8fa64632f584b6ebb21852f3a}{ptPoint}}-\/>fY -\/ (int32\_t)\mbox{\hyperlink{arm__2d__tile_8h_a3b6b3df8fa64632f584b6ebb21852f3a}{ptPoint}}-\/>fY;}
+\DoxyCodeLine{00152 }
+\DoxyCodeLine{00153     int16\_t iXSign = x < 0 ;}
+\DoxyCodeLine{00154     int16\_t iYSign = y < 0 ;}
+\DoxyCodeLine{00155 }
+\DoxyCodeLine{00156     \mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t}{\_\_arm\_2d\_point\_adj\_alpha\_t}} tResult = \{}
+\DoxyCodeLine{00157         .\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_aaa4cec909daf7fe98601288d2b3f890f}{tMatrix}} = \{}
+\DoxyCodeLine{00158             [0] = \{}
+\DoxyCodeLine{00159                 .\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_adeabbb3cca2d507003a2cb0ff40b3841}{tOffset}} = \{}
+\DoxyCodeLine{00160                     .\mbox{\hyperlink{structarm__2d__location__t_a7c7434482f3a34f7e8340c56bf42f8b4}{iX}} = -\/iXSign,}
+\DoxyCodeLine{00161                     .iY = -\/iYSign,}
+\DoxyCodeLine{00162                 \},}
+\DoxyCodeLine{00163 \textcolor{preprocessor}{            \#if 0}}
+\DoxyCodeLine{00164                 .chAlpha = (uint8\_t)(}
+\DoxyCodeLine{00165                                 ((\textcolor{keywordtype}{float})(1-\/iXSign)  -\/ (\textcolor{keywordtype}{float})x)     }
+\DoxyCodeLine{00166                             *   ((\textcolor{keywordtype}{float})(1-\/iYSign)  -\/ (\textcolor{keywordtype}{float})y)     }
+\DoxyCodeLine{00167                             *   256.0f}
+\DoxyCodeLine{00168                             ),}
+\DoxyCodeLine{00169 \textcolor{preprocessor}{            \#endif}}
+\DoxyCodeLine{00170             \},}
+\DoxyCodeLine{00171             [1] = \{}
+\DoxyCodeLine{00172                 .tOffset = \{}
+\DoxyCodeLine{00173                     .iX = -\/iXSign + 1,}
+\DoxyCodeLine{00174                     .iY = -\/iYSign,}
+\DoxyCodeLine{00175                 \},}
+\DoxyCodeLine{00176                 .chAlpha = (uint8\_t)(}
+\DoxyCodeLine{00177                                 ((\textcolor{keywordtype}{float})iXSign      + (float)x)     }
+\DoxyCodeLine{00178                             *   ((float)(1-\/iYSign)  -\/ (float)y)     }
+\DoxyCodeLine{00179                             *   256.0f}
+\DoxyCodeLine{00180                             ),}
+\DoxyCodeLine{00181             \},}
+\DoxyCodeLine{00182             [2] = \{}
+\DoxyCodeLine{00183                 .tOffset = \{}
+\DoxyCodeLine{00184                     .iX = -\/iXSign,}
+\DoxyCodeLine{00185                     .iY = -\/iYSign + 1,}
+\DoxyCodeLine{00186                 \},}
+\DoxyCodeLine{00187                 .chAlpha = (uint8\_t)(}
+\DoxyCodeLine{00188                                 ((\textcolor{keywordtype}{float})(1-\/iXSign)  -\/ (\textcolor{keywordtype}{float})x)     }
+\DoxyCodeLine{00189                             *   ((\textcolor{keywordtype}{float})iYSign      + (float)y)     }
+\DoxyCodeLine{00190                             *   256.0f}
+\DoxyCodeLine{00191                             ),}
+\DoxyCodeLine{00192             \},}
+\DoxyCodeLine{00193             [3] = \{}
+\DoxyCodeLine{00194                 .tOffset = \{}
+\DoxyCodeLine{00195                     .iX = -\/iXSign + 1,}
+\DoxyCodeLine{00196                     .iY = -\/iYSign +1,}
+\DoxyCodeLine{00197                 \},}
+\DoxyCodeLine{00198                 .chAlpha = (uint8\_t)(}
+\DoxyCodeLine{00199                                 ((\textcolor{keywordtype}{float})iXSign      + (float)x)     }
+\DoxyCodeLine{00200                             *   ((float)iYSign      + (\textcolor{keywordtype}{float})y)     }
+\DoxyCodeLine{00201                             *   256.0f}
+\DoxyCodeLine{00202                             ),}
+\DoxyCodeLine{00203             \},}
+\DoxyCodeLine{00204         \},}
+\DoxyCodeLine{00205     \};}
+\DoxyCodeLine{00206 \textcolor{preprocessor}{\#if 1}}
+\DoxyCodeLine{00207     tResult.\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_aaa4cec909daf7fe98601288d2b3f890f}{tMatrix}}[0].\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_a960060ab209df0f9be7bd76bcf8a5c39}{chAlpha}}  = 256}
+\DoxyCodeLine{00208                                 -\/ tResult.\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_aaa4cec909daf7fe98601288d2b3f890f}{tMatrix}}[1].\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_a960060ab209df0f9be7bd76bcf8a5c39}{chAlpha}}}
+\DoxyCodeLine{00209                                 -\/ tResult.\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_aaa4cec909daf7fe98601288d2b3f890f}{tMatrix}}[2].\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_a960060ab209df0f9be7bd76bcf8a5c39}{chAlpha}}}
+\DoxyCodeLine{00210                                 -\/ tResult.\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_aaa4cec909daf7fe98601288d2b3f890f}{tMatrix}}[3].\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_a960060ab209df0f9be7bd76bcf8a5c39}{chAlpha}};}
+\DoxyCodeLine{00211 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00212     \textcolor{keywordflow}{return} tResult;}
+\DoxyCodeLine{00213 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{arm__2d__transform_8c_acc34261c4d0d2d2de2025032307e3dd2}\label{arm__2d__transform_8c_acc34261c4d0d2d2de2025032307e3dd2}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_point\_get\_adjacent\_alpha\_q16@{\_\_arm\_2d\_point\_get\_adjacent\_alpha\_q16}}
+\index{\_\_arm\_2d\_point\_get\_adjacent\_alpha\_q16@{\_\_arm\_2d\_point\_get\_adjacent\_alpha\_q16}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_point\_get\_adjacent\_alpha\_q16()}{\_\_arm\_2d\_point\_get\_adjacent\_alpha\_q16()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+point\+\_\+adj\+\_\+alpha\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+point\+\_\+get\+\_\+adjacent\+\_\+alpha\+\_\+q16 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structarm__2d__point__fx__t}{arm\+\_\+2d\+\_\+point\+\_\+fx\+\_\+t}} $\ast$}]{pt\+Point }\end{DoxyParamCaption})}
+
+\texorpdfstring{$<$}{<} x
+
+\texorpdfstring{$<$}{<} y
+
+\texorpdfstring{$<$}{<} x
+
+\texorpdfstring{$<$}{<} y
+
+\texorpdfstring{$<$}{<} x
+
+\texorpdfstring{$<$}{<} y
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00216}{216}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00217 \{}
+\DoxyCodeLine{00218     assert(NULL != \mbox{\hyperlink{arm__2d__tile_8h_a3b6b3df8fa64632f584b6ebb21852f3a}{ptPoint}});}
+\DoxyCodeLine{00219     int32\_t x = \mbox{\hyperlink{arm__2d__tile_8h_a3b6b3df8fa64632f584b6ebb21852f3a}{ptPoint}}-\/>X  \& 0xFFFF;}
+\DoxyCodeLine{00220     int32\_t y = \mbox{\hyperlink{arm__2d__tile_8h_a3b6b3df8fa64632f584b6ebb21852f3a}{ptPoint}}-\/>Y  \& 0xFFFF;}
+\DoxyCodeLine{00221 }
+\DoxyCodeLine{00222     x |= ((\mbox{\hyperlink{arm__2d__tile_8h_a3b6b3df8fa64632f584b6ebb21852f3a}{ptPoint}}-\/>X < 0) * 0xFFFF0000);}
+\DoxyCodeLine{00223     y |= ((\mbox{\hyperlink{arm__2d__tile_8h_a3b6b3df8fa64632f584b6ebb21852f3a}{ptPoint}}-\/>Y < 0) * 0xFFFF0000);}
+\DoxyCodeLine{00224 }
+\DoxyCodeLine{00225     int\_fast16\_t iXSign = x < 0;\textcolor{comment}{// ? 1 : 0;}}
+\DoxyCodeLine{00226     int\_fast16\_t iYSign = y < 0;\textcolor{comment}{// ? 1 : 0;}}
+\DoxyCodeLine{00227 }
+\DoxyCodeLine{00228     \mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t}{\_\_arm\_2d\_point\_adj\_alpha\_t}} tResult = \{}
+\DoxyCodeLine{00229         .\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_aaa4cec909daf7fe98601288d2b3f890f}{tMatrix}} = \{}
+\DoxyCodeLine{00230             [0] = \{}
+\DoxyCodeLine{00231                 .\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_adeabbb3cca2d507003a2cb0ff40b3841}{tOffset}} = \{}
+\DoxyCodeLine{00232                     .\mbox{\hyperlink{structarm__2d__location__t_a7c7434482f3a34f7e8340c56bf42f8b4}{iX}} = -\/iXSign,}
+\DoxyCodeLine{00233                     .iY = -\/iYSign,}
+\DoxyCodeLine{00234                 \},}
+\DoxyCodeLine{00235 \textcolor{preprocessor}{            \#if 0}}
+\DoxyCodeLine{00236                 .chAlpha = (uint8\_t)\_\_USAT(}
+\DoxyCodeLine{00237              \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(\mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(   (\mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(1-\/iXSign)   -\/ x)        }
+\DoxyCodeLine{00238                             ,   (\mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(1-\/iYSign)   -\/ y))       }
+\DoxyCodeLine{00239                             ,   \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(256)}
+\DoxyCodeLine{00240                             ) >> 16, 8),}
+\DoxyCodeLine{00241 \textcolor{preprocessor}{            \#endif}}
+\DoxyCodeLine{00242             \},}
+\DoxyCodeLine{00243             [1] = \{}
+\DoxyCodeLine{00244                 .tOffset = \{}
+\DoxyCodeLine{00245                     .iX = -\/iXSign + 1,}
+\DoxyCodeLine{00246                     .iY = -\/iYSign,}
+\DoxyCodeLine{00247                 \},}
+\DoxyCodeLine{00248                 .chAlpha = (uint8\_t)\_\_USAT(}
+\DoxyCodeLine{00249              \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(\mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(   (\mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(iXSign)     + x)        }
+\DoxyCodeLine{00250                             ,   (\mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(1-\/iYSign)   -\/ y))       }
+\DoxyCodeLine{00251                             ,   \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(256)}
+\DoxyCodeLine{00252                             ) >> 16, 8),}
+\DoxyCodeLine{00253             \},}
+\DoxyCodeLine{00254             [2] = \{}
+\DoxyCodeLine{00255                 .tOffset = \{}
+\DoxyCodeLine{00256                     .iX = -\/iXSign,}
+\DoxyCodeLine{00257                     .iY = -\/iYSign + 1,}
+\DoxyCodeLine{00258                 \},}
+\DoxyCodeLine{00259                 .chAlpha = (uint8\_t)\_\_USAT(}
+\DoxyCodeLine{00260              \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(\mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(   (\mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(1-\/iXSign)   -\/ x)        }
+\DoxyCodeLine{00261                             ,   (\mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(iYSign)     + y))       }
+\DoxyCodeLine{00262                             ,   \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(256)}
+\DoxyCodeLine{00263                             ) >> 16, 8),}
+\DoxyCodeLine{00264             \},}
+\DoxyCodeLine{00265             [3] = \{}
+\DoxyCodeLine{00266                 .tOffset = \{}
+\DoxyCodeLine{00267                     .iX = -\/iXSign + 1,}
+\DoxyCodeLine{00268                     .iY = -\/iYSign +1,}
+\DoxyCodeLine{00269                 \},}
+\DoxyCodeLine{00270                 .chAlpha = (uint8\_t)\_\_USAT(}
+\DoxyCodeLine{00271              \mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(\mbox{\hyperlink{____arm__2d__math_8h_a4ef0ba639a9c54743e098669d658998c}{MUL\_Q16}}(   (\mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(iXSign)     + x)        }
+\DoxyCodeLine{00272                             ,   (\mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(iYSign)     + y))       }
+\DoxyCodeLine{00273                             ,   \mbox{\hyperlink{arm__2d__transform_8c_ae4d6b00f640338228c69e4978ca10167}{TO\_Q16}}(256)}
+\DoxyCodeLine{00274                             ) >> 16, 8),}
+\DoxyCodeLine{00275             \},}
+\DoxyCodeLine{00276         \},}
+\DoxyCodeLine{00277     \};}
+\DoxyCodeLine{00278 \textcolor{preprocessor}{\#if 1}}
+\DoxyCodeLine{00279     tResult.\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_aaa4cec909daf7fe98601288d2b3f890f}{tMatrix}}[0].\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_a960060ab209df0f9be7bd76bcf8a5c39}{chAlpha}}  = 256}
+\DoxyCodeLine{00280                                 -\/ tResult.\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_aaa4cec909daf7fe98601288d2b3f890f}{tMatrix}}[1].\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_a960060ab209df0f9be7bd76bcf8a5c39}{chAlpha}}}
+\DoxyCodeLine{00281                                 -\/ tResult.\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_aaa4cec909daf7fe98601288d2b3f890f}{tMatrix}}[2].\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_a960060ab209df0f9be7bd76bcf8a5c39}{chAlpha}}}
+\DoxyCodeLine{00282                                 -\/ tResult.\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_aaa4cec909daf7fe98601288d2b3f890f}{tMatrix}}[3].\mbox{\hyperlink{struct____arm__2d__point__adj__alpha__t_a960060ab209df0f9be7bd76bcf8a5c39}{chAlpha}};}
+\DoxyCodeLine{00283 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00284 }
+\DoxyCodeLine{00285     \textcolor{keywordflow}{return} tResult;}
+\DoxyCodeLine{00286 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{arm__2d__transform_8c_a67bf14fa36736467364cecd802a490e7}\label{arm__2d__transform_8c_a67bf14fa36736467364cecd802a490e7}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_rgb565\_sw\_transform@{\_\_arm\_2d\_rgb565\_sw\_transform}}
+\index{\_\_arm\_2d\_rgb565\_sw\_transform@{\_\_arm\_2d\_rgb565\_sw\_transform}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_rgb565\_sw\_transform()}{\_\_arm\_2d\_rgb565\_sw\_transform()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+sw\+\_\+transform (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$}]{pt\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00806}{806}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00807 \{}
+\DoxyCodeLine{00808     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__trans__t}{arm\_2d\_op\_trans\_t}}, ptTask-\/>ptOP);}
+\DoxyCodeLine{00809     assert(\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38}{ARM\_2D\_COLOUR\_RGB565}} == \mbox{\hyperlink{____arm__2d__impl_8h_a9f9d937dc5a6d79e26e25ebf55bbf679}{OP\_CORE}}.ptOp-\/>Info.Colour.chScheme);}
+\DoxyCodeLine{00810 }
+\DoxyCodeLine{00811     \mbox{\hyperlink{____arm__2d__direct_8h_a49ff0fb10c9950859ba9945a5c256dda}{\_\_arm\_2d\_impl\_rgb565\_transform}}( \&(ptTask-\/>Param.tCopyOrig),}
+\DoxyCodeLine{00812                                     \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{00813 }
+\DoxyCodeLine{00814     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
+\DoxyCodeLine{00815 \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\+\_\+2\+D\+\_\+\+IMPL}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_af3e9d41d01b06becc5caa36a5b22320a}\label{arm__2d__transform_8c_af3e9d41d01b06becc5caa36a5b22320a}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_rgb565\_sw\_transform\_with\_alpha@{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_alpha}}
+\index{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_alpha@{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_alpha}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_alpha()}{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_alpha()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+sw\+\_\+transform\+\_\+with\+\_\+alpha (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$}]{pt\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l00946}{946}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00947 \{}
+\DoxyCodeLine{00948     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__trans__opa__t}{arm\_2d\_op\_trans\_opa\_t}}, ptTask-\/>ptOP);}
+\DoxyCodeLine{00949     assert(\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38}{ARM\_2D\_COLOUR\_RGB565}} == \mbox{\hyperlink{____arm__2d__impl_8h_a9f9d937dc5a6d79e26e25ebf55bbf679}{OP\_CORE}}.ptOp-\/>Info.Colour.chScheme);}
+\DoxyCodeLine{00950 }
+\DoxyCodeLine{00951     \textcolor{keywordflow}{if} (255 == this.\mbox{\hyperlink{arm__2d__alpha__blending_8h_ab025c7acb6920ba4cf780b0bc2a715d2}{chOpacity}}) \{}
+\DoxyCodeLine{00952         \mbox{\hyperlink{____arm__2d__direct_8h_a49ff0fb10c9950859ba9945a5c256dda}{\_\_arm\_2d\_impl\_rgb565\_transform}}( \&(ptTask-\/>Param.tCopyOrig),}
+\DoxyCodeLine{00953                                         \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{00954     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00955         \mbox{\hyperlink{____arm__2d__direct_8h_a8c24e04670a931498ef4c65034265f25}{\_\_arm\_2d\_impl\_rgb565\_transform\_with\_opacity}}(   \&(ptTask-\/>Param.tCopyOrig),}
+\DoxyCodeLine{00956                                                 \&\textcolor{keyword}{this}.tTransform,}
+\DoxyCodeLine{00957                                                 \textcolor{keyword}{this}.chOpacity);}
+\DoxyCodeLine{00958     \}}
+\DoxyCodeLine{00959 }
+\DoxyCodeLine{00960     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
+\DoxyCodeLine{00961 \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\+\_\+2\+D\+\_\+\+IMPL}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_ae516d7ce00b915012e8ae1b6df572ae9}\label{arm__2d__transform_8c_ae516d7ce00b915012e8ae1b6df572ae9}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_rgb565\_sw\_transform\_with\_src\_mask@{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_src\_mask}}
+\index{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_src\_mask@{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_src\_mask}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_src\_mask()}{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_src\_mask()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+sw\+\_\+transform\+\_\+with\+\_\+src\+\_\+mask (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$}]{pt\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01183}{1183}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01184 \{}
+\DoxyCodeLine{01185     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\_2d\_op\_trans\_msk\_t}}, ptTask-\/>ptOP);}
+\DoxyCodeLine{01186     assert(\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38}{ARM\_2D\_COLOUR\_RGB565}} == \mbox{\hyperlink{____arm__2d__impl_8h_a9f9d937dc5a6d79e26e25ebf55bbf679}{OP\_CORE}}.ptOp-\/>Info.Colour.chScheme);}
+\DoxyCodeLine{01187 }
+\DoxyCodeLine{01188 \textcolor{preprocessor}{\#if \_\_ARM\_2D\_CFG\_SUPPORT\_COLOUR\_CHANNEL\_ACCESS\_\_}}
+\DoxyCodeLine{01189     \textcolor{keywordtype}{bool} bIsMaskChannel8In32 = (\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58}{ARM\_2D\_CHANNEL\_8in32}}}
+\DoxyCodeLine{01190             ==  ptTask-\/>Param.tCopyOrigMask.tOrigMask.tColour.chScheme);}
+\DoxyCodeLine{01191 }
+\DoxyCodeLine{01192     \textcolor{keywordflow}{if} (bIsMaskChannel8In32) \{}
+\DoxyCodeLine{01193         \mbox{\hyperlink{____arm__2d__direct_8h_a89972504c9aefa2f2ad3b7d83f41c482}{\_\_arm\_2d\_impl\_rgb565\_transform\_with\_src\_chn\_mask}}(}
+\DoxyCodeLine{01194                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01195                                                 \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{01196     \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01197 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01198     \{}
+\DoxyCodeLine{01199         \mbox{\hyperlink{____arm__2d__direct_8h_a0ba9897b44467b218b92bd8164c5cba1}{\_\_arm\_2d\_impl\_rgb565\_transform\_with\_src\_mask}}(}
+\DoxyCodeLine{01200                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01201                                                 \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{01202     \}}
+\DoxyCodeLine{01203 }
+\DoxyCodeLine{01204     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
+\DoxyCodeLine{01205 \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\+\_\+2\+D\+\_\+\+IMPL}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_abbdbdd2fe932cf3cd860a0c718bed057}\label{arm__2d__transform_8c_abbdbdd2fe932cf3cd860a0c718bed057}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!\_\_arm\_2d\_rgb565\_sw\_transform\_with\_src\_mask\_and\_opacity@{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_src\_mask\_and\_opacity}}
+\index{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_src\_mask\_and\_opacity@{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_src\_mask\_and\_opacity}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_src\_mask\_and\_opacity()}{\_\_arm\_2d\_rgb565\_sw\_transform\_with\_src\_mask\_and\_opacity()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fc}{arm\+\_\+fsm\+\_\+rt\+\_\+t}} \+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+sw\+\_\+transform\+\_\+with\+\_\+src\+\_\+mask\+\_\+and\+\_\+opacity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct____arm__2d__sub__task__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+sub\+\_\+task\+\_\+t}} $\ast$}]{pt\+Task }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01409}{1409}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01410 \{}
+\DoxyCodeLine{01411     \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\_2D\_IMPL}}(\mbox{\hyperlink{structarm__2d__op__trans__msk__opa__t}{arm\_2d\_op\_trans\_msk\_opa\_t}}, ptTask-\/>ptOP);}
+\DoxyCodeLine{01412     assert(\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38}{ARM\_2D\_COLOUR\_RGB565}} == \mbox{\hyperlink{____arm__2d__impl_8h_a9f9d937dc5a6d79e26e25ebf55bbf679}{OP\_CORE}}.ptOp-\/>Info.Colour.chScheme);}
+\DoxyCodeLine{01413 }
+\DoxyCodeLine{01414 \textcolor{preprocessor}{\#if \_\_ARM\_2D\_CFG\_SUPPORT\_COLOUR\_CHANNEL\_ACCESS\_\_}}
+\DoxyCodeLine{01415     \textcolor{keywordtype}{bool} bIsMaskChannel8In32 = (\mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39ae04ee41701b7cbd9eede171ae5e28f58}{ARM\_2D\_CHANNEL\_8in32}}}
+\DoxyCodeLine{01416             ==  ptTask-\/>Param.tCopyOrigMask.tOrigMask.tColour.chScheme);}
+\DoxyCodeLine{01417 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01418 }
+\DoxyCodeLine{01419     \textcolor{keywordflow}{if} (255 == this.\mbox{\hyperlink{arm__2d__alpha__blending_8h_ab025c7acb6920ba4cf780b0bc2a715d2}{chOpacity}}) \{}
+\DoxyCodeLine{01420 \textcolor{preprocessor}{    \#if \_\_ARM\_2D\_CFG\_SUPPORT\_COLOUR\_CHANNEL\_ACCESS\_\_}}
+\DoxyCodeLine{01421         \textcolor{keywordflow}{if} (bIsMaskChannel8In32) \{}
+\DoxyCodeLine{01422             \mbox{\hyperlink{____arm__2d__direct_8h_a89972504c9aefa2f2ad3b7d83f41c482}{\_\_arm\_2d\_impl\_rgb565\_transform\_with\_src\_chn\_mask}}(}
+\DoxyCodeLine{01423                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01424                                                 \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{01425         \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01426 \textcolor{preprocessor}{    \#endif}}
+\DoxyCodeLine{01427         \{}
+\DoxyCodeLine{01428             \mbox{\hyperlink{____arm__2d__direct_8h_a0ba9897b44467b218b92bd8164c5cba1}{\_\_arm\_2d\_impl\_rgb565\_transform\_with\_src\_mask}}(}
+\DoxyCodeLine{01429                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01430                                                 \&\textcolor{keyword}{this}.tTransform);}
+\DoxyCodeLine{01431         \}}
+\DoxyCodeLine{01432     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{01433 \textcolor{preprocessor}{    \#if \_\_ARM\_2D\_CFG\_SUPPORT\_COLOUR\_CHANNEL\_ACCESS\_\_}}
+\DoxyCodeLine{01434         \textcolor{keywordflow}{if} (bIsMaskChannel8In32) \{}
+\DoxyCodeLine{01435             \mbox{\hyperlink{____arm__2d__direct_8h_a96daad6ad919eb0a5ef2fc4986aaec94}{\_\_arm\_2d\_impl\_rgb565\_transform\_with\_src\_chn\_mask\_and\_opacity}}(}
+\DoxyCodeLine{01436                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01437                                                 \&\textcolor{keyword}{this}.tTransform,}
+\DoxyCodeLine{01438                                                 \textcolor{keyword}{this}.chOpacity);}
+\DoxyCodeLine{01439         \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01440 \textcolor{preprocessor}{    \#endif}}
+\DoxyCodeLine{01441         \{}
+\DoxyCodeLine{01442             \mbox{\hyperlink{____arm__2d__direct_8h_a11914d9fab308f6eee39cb652d5ca975}{\_\_arm\_2d\_impl\_rgb565\_transform\_with\_src\_mask\_and\_opacity}}(}
+\DoxyCodeLine{01443                                                 \&(ptTask-\/>Param.tCopyOrigMask),}
+\DoxyCodeLine{01444                                                 \&\textcolor{keyword}{this}.tTransform,}
+\DoxyCodeLine{01445                                                 \textcolor{keyword}{this}.chOpacity);}
+\DoxyCodeLine{01446         \}}
+\DoxyCodeLine{01447     \}}
+\DoxyCodeLine{01448 }
+\DoxyCodeLine{01449     \textcolor{keywordflow}{return} \mbox{\hyperlink{arm__2d__types_8h_a373f79d09c0d15653ca46ea08e0377fcacf7b5f9e66c44d332ea46d05860d78d1}{arm\_fsm\_rt\_cpl}};}
+\DoxyCodeLine{01450 \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{____arm__2d__impl_8h_a451aeef94e8d5bf76519f63cbca43493}{ARM\+\_\+2\+D\+\_\+\+IMPL}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{arm__2d__transform_8c_abfe25527c148bf09da32f1a3136dd135}\label{arm__2d__transform_8c_abfe25527c148bf09da32f1a3136dd135}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!ARM\_2D\_OP\_TRANSFORM\_CCCN888@{ARM\_2D\_OP\_TRANSFORM\_CCCN888}}
+\index{ARM\_2D\_OP\_TRANSFORM\_CCCN888@{ARM\_2D\_OP\_TRANSFORM\_CCCN888}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{ARM\_2D\_OP\_TRANSFORM\_CCCN888}{ARM\_2D\_OP\_TRANSFORM\_CCCN888}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+CCCN888}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .Info = \{}
+\DoxyCodeLine{        .Colour = \{}
+\DoxyCodeLine{            .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a6507e9aa44de854d820857e988096852}{ARM\_2D\_COLOUR\_CCCN888}},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .Param = \{}
+\DoxyCodeLine{            .bHasSource             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasOrigin             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasTarget             = \textcolor{keyword}{true},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .chOpIndex          = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55ba0b70a3b52f2749d53d871b9c3ef10ecf}{\_\_ARM\_2D\_OP\_IDX\_TRANSFORM}},}
+\DoxyCodeLine{        .chInClassOffset    = \mbox{\hyperlink{arm__2d__utils_8h_a8a4dba3eaaa8e7d90abb2eff93092042}{offsetof}}(\mbox{\hyperlink{structarm__2d__op__trans__t}{arm\_2d\_op\_trans\_t}}, tTransform),}
+\DoxyCodeLine{}
+\DoxyCodeLine{        .LowLevelIO = \{}
+\DoxyCodeLine{            .ptCopyOrigLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_TRANSFORM\_CCCN888),}
+\DoxyCodeLine{            .ptFillOrigLike = NULL,}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{    \},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01633}{1633}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a8c119784229c6faad9232d53421e9cc2}\label{arm__2d__transform_8c_a8c119784229c6faad9232d53421e9cc2}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!ARM\_2D\_OP\_TRANSFORM\_GRAY8@{ARM\_2D\_OP\_TRANSFORM\_GRAY8}}
+\index{ARM\_2D\_OP\_TRANSFORM\_GRAY8@{ARM\_2D\_OP\_TRANSFORM\_GRAY8}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{ARM\_2D\_OP\_TRANSFORM\_GRAY8}{ARM\_2D\_OP\_TRANSFORM\_GRAY8}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+GRAY8}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .Info = \{}
+\DoxyCodeLine{        .Colour = \{}
+\DoxyCodeLine{            .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185}{ARM\_2D\_COLOUR\_8BIT}},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .Param = \{}
+\DoxyCodeLine{            .bHasSource             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasOrigin             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasTarget             = \textcolor{keyword}{true},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .chOpIndex          = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55ba0b70a3b52f2749d53d871b9c3ef10ecf}{\_\_ARM\_2D\_OP\_IDX\_TRANSFORM}},}
+\DoxyCodeLine{        .chInClassOffset    = \mbox{\hyperlink{arm__2d__utils_8h_a8a4dba3eaaa8e7d90abb2eff93092042}{offsetof}}(\mbox{\hyperlink{structarm__2d__op__trans__t}{arm\_2d\_op\_trans\_t}}, tTransform),}
+\DoxyCodeLine{}
+\DoxyCodeLine{        .LowLevelIO = \{}
+\DoxyCodeLine{            .ptCopyOrigLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_TRANSFORM\_GRAY8),}
+\DoxyCodeLine{            .ptFillOrigLike = NULL,}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{    \},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01592}{1592}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a2ad78854bb79598f853c7f75783cf6e1}\label{arm__2d__transform_8c_a2ad78854bb79598f853c7f75783cf6e1}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!ARM\_2D\_OP\_TRANSFORM\_RGB565@{ARM\_2D\_OP\_TRANSFORM\_RGB565}}
+\index{ARM\_2D\_OP\_TRANSFORM\_RGB565@{ARM\_2D\_OP\_TRANSFORM\_RGB565}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{ARM\_2D\_OP\_TRANSFORM\_RGB565}{ARM\_2D\_OP\_TRANSFORM\_RGB565}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+RGB565}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .Info = \{}
+\DoxyCodeLine{        .Colour = \{}
+\DoxyCodeLine{            .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38}{ARM\_2D\_COLOUR\_RGB565}},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .Param = \{}
+\DoxyCodeLine{            .bHasSource             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasOrigin             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasTarget             = \textcolor{keyword}{true},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .chOpIndex          = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55ba0b70a3b52f2749d53d871b9c3ef10ecf}{\_\_ARM\_2D\_OP\_IDX\_TRANSFORM}},}
+\DoxyCodeLine{        .chInClassOffset    = \mbox{\hyperlink{arm__2d__utils_8h_a8a4dba3eaaa8e7d90abb2eff93092042}{offsetof}}(\mbox{\hyperlink{structarm__2d__op__trans__t}{arm\_2d\_op\_trans\_t}}, tTransform),}
+\DoxyCodeLine{}
+\DoxyCodeLine{        .LowLevelIO = \{}
+\DoxyCodeLine{            .ptCopyOrigLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_TRANSFORM\_RGB565),}
+\DoxyCodeLine{            .ptFillOrigLike = NULL,}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{    \},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01612}{1612}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_aba0d623307f37cc43f1d11b7560c1664}\label{arm__2d__transform_8c_aba0d623307f37cc43f1d11b7560c1664}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_CCCN888@{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_CCCN888}}
+\index{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_CCCN888@{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_CCCN888}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_CCCN888}{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_CCCN888}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+OPACITY\+\_\+\+CCCN888}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .Info = \{}
+\DoxyCodeLine{        .Colour = \{}
+\DoxyCodeLine{            .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a6507e9aa44de854d820857e988096852}{ARM\_2D\_COLOUR\_CCCN888}},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .Param = \{}
+\DoxyCodeLine{            .bHasSource             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasOrigin             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasTarget             = \textcolor{keyword}{true},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .chOpIndex          = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55baf269137c1408bd8ef4793a3fa63cd9e7}{\_\_ARM\_2D\_OP\_IDX\_TRANSFORM\_WITH\_OPACITY}},}
+\DoxyCodeLine{        .chInClassOffset    = \mbox{\hyperlink{arm__2d__utils_8h_a8a4dba3eaaa8e7d90abb2eff93092042}{offsetof}}(\mbox{\hyperlink{structarm__2d__op__trans__opa__t}{arm\_2d\_op\_trans\_opa\_t}}, tTransform),}
+\DoxyCodeLine{}
+\DoxyCodeLine{        .LowLevelIO = \{}
+\DoxyCodeLine{            .ptCopyOrigLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_TRANSFORM\_WITH\_ALPHA\_CCCN888),}
+\DoxyCodeLine{            .ptFillOrigLike = NULL,}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{    \},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01695}{1695}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a13769e17e1ca190770e16f23ac320360}\label{arm__2d__transform_8c_a13769e17e1ca190770e16f23ac320360}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_GRAY8@{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_GRAY8}}
+\index{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_GRAY8@{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_GRAY8}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_GRAY8}{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_GRAY8}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+OPACITY\+\_\+\+GRAY8}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .Info = \{}
+\DoxyCodeLine{        .Colour = \{}
+\DoxyCodeLine{            .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39ae30b45e21340e05f42d705d24c0958dd}{ARM\_2D\_COLOUR\_GRAY8}},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .Param = \{}
+\DoxyCodeLine{            .bHasSource             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasOrigin             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasTarget             = \textcolor{keyword}{true},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .chOpIndex          = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55baf269137c1408bd8ef4793a3fa63cd9e7}{\_\_ARM\_2D\_OP\_IDX\_TRANSFORM\_WITH\_OPACITY}},}
+\DoxyCodeLine{        .chInClassOffset    = \mbox{\hyperlink{arm__2d__utils_8h_a8a4dba3eaaa8e7d90abb2eff93092042}{offsetof}}(\mbox{\hyperlink{structarm__2d__op__trans__opa__t}{arm\_2d\_op\_trans\_opa\_t}}, tTransform),}
+\DoxyCodeLine{}
+\DoxyCodeLine{        .LowLevelIO = \{}
+\DoxyCodeLine{            .ptCopyOrigLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_TRANSFORM\_WITH\_ALPHA\_GRAY8),}
+\DoxyCodeLine{            .ptFillOrigLike = NULL,}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{    \},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01653}{1653}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a294ced4bc5ad4c50d64d1633900882fb}\label{arm__2d__transform_8c_a294ced4bc5ad4c50d64d1633900882fb}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_RGB565@{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_RGB565}}
+\index{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_RGB565@{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_RGB565}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_RGB565}{ARM\_2D\_OP\_TRANSFORM\_WITH\_OPACITY\_RGB565}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+OPACITY\+\_\+\+RGB565}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .Info = \{}
+\DoxyCodeLine{        .Colour = \{}
+\DoxyCodeLine{            .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38}{ARM\_2D\_COLOUR\_RGB565}},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .Param = \{}
+\DoxyCodeLine{            .bHasSource             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasOrigin             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasTarget             = \textcolor{keyword}{true},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .chOpIndex          = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55baf269137c1408bd8ef4793a3fa63cd9e7}{\_\_ARM\_2D\_OP\_IDX\_TRANSFORM\_WITH\_OPACITY}},}
+\DoxyCodeLine{        .chInClassOffset    = \mbox{\hyperlink{arm__2d__utils_8h_a8a4dba3eaaa8e7d90abb2eff93092042}{offsetof}}(\mbox{\hyperlink{structarm__2d__op__trans__opa__t}{arm\_2d\_op\_trans\_opa\_t}}, tTransform),}
+\DoxyCodeLine{}
+\DoxyCodeLine{        .LowLevelIO = \{}
+\DoxyCodeLine{            .ptCopyOrigLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_TRANSFORM\_WITH\_ALPHA\_RGB565),}
+\DoxyCodeLine{            .ptFillOrigLike = NULL,}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{    \},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01674}{1674}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a4a2272d482bf6c3784930975bc99a349}\label{arm__2d__transform_8c_a4a2272d482bf6c3784930975bc99a349}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_CCCN888@{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_CCCN888}}
+\index{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_CCCN888@{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_CCCN888}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_CCCN888}{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_CCCN888}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+SRC\+\_\+\+MSK\+\_\+\+AND\+\_\+\+OPACITY\+\_\+\+CCCN888}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .Info = \{}
+\DoxyCodeLine{        .Colour = \{}
+\DoxyCodeLine{            .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a6507e9aa44de854d820857e988096852}{ARM\_2D\_COLOUR\_CCCN888}},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .Param = \{}
+\DoxyCodeLine{            .bHasSource             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasOrigin             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasTarget             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasSrcMask            = \textcolor{keyword}{true},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .chOpIndex          = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55ba5f3754670465054db6f721053d537871}{\_\_ARM\_2D\_OP\_IDX\_TRANSFORM\_WITH\_SOURCE\_MASK\_AND\_OPACITY}},}
+\DoxyCodeLine{        .chInClassOffset    = \mbox{\hyperlink{arm__2d__utils_8h_a8a4dba3eaaa8e7d90abb2eff93092042}{offsetof}}(\mbox{\hyperlink{structarm__2d__op__trans__msk__opa__t}{arm\_2d\_op\_trans\_msk\_opa\_t}}, tTransform),}
+\DoxyCodeLine{}
+\DoxyCodeLine{        .LowLevelIO = \{}
+\DoxyCodeLine{            .ptCopyOrigLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_CCCN888),}
+\DoxyCodeLine{            .ptFillOrigLike = NULL,}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{    \},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01823}{1823}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a2f0e8df2479833d6be5e4b4a16906133}\label{arm__2d__transform_8c_a2f0e8df2479833d6be5e4b4a16906133}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_GRAY8@{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_GRAY8}}
+\index{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_GRAY8@{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_GRAY8}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_GRAY8}{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_GRAY8}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+SRC\+\_\+\+MSK\+\_\+\+AND\+\_\+\+OPACITY\+\_\+\+GRAY8}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .Info = \{}
+\DoxyCodeLine{        .Colour = \{}
+\DoxyCodeLine{            .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185}{ARM\_2D\_COLOUR\_8BIT}},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .Param = \{}
+\DoxyCodeLine{            .bHasSource             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasOrigin             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasTarget             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasSrcMask            = \textcolor{keyword}{true},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .chOpIndex          = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55ba5f3754670465054db6f721053d537871}{\_\_ARM\_2D\_OP\_IDX\_TRANSFORM\_WITH\_SOURCE\_MASK\_AND\_OPACITY}},}
+\DoxyCodeLine{        .chInClassOffset    = \mbox{\hyperlink{arm__2d__utils_8h_a8a4dba3eaaa8e7d90abb2eff93092042}{offsetof}}(\mbox{\hyperlink{structarm__2d__op__trans__msk__opa__t}{arm\_2d\_op\_trans\_msk\_opa\_t}}, tTransform),}
+\DoxyCodeLine{}
+\DoxyCodeLine{        .LowLevelIO = \{}
+\DoxyCodeLine{            .ptCopyOrigLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_GRAY8),}
+\DoxyCodeLine{            .ptFillOrigLike = NULL,}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{    \},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01780}{1780}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a335dc2ab781da2964094255cade2c6a0}\label{arm__2d__transform_8c_a335dc2ab781da2964094255cade2c6a0}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_RGB565@{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_RGB565}}
+\index{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_RGB565@{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_RGB565}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_RGB565}{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_RGB565}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+SRC\+\_\+\+MSK\+\_\+\+AND\+\_\+\+OPACITY\+\_\+\+RGB565}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .Info = \{}
+\DoxyCodeLine{        .Colour = \{}
+\DoxyCodeLine{            .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38}{ARM\_2D\_COLOUR\_RGB565}},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .Param = \{}
+\DoxyCodeLine{            .bHasSource             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasOrigin             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasTarget             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasSrcMask            = \textcolor{keyword}{true},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .chOpIndex          = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55ba5f3754670465054db6f721053d537871}{\_\_ARM\_2D\_OP\_IDX\_TRANSFORM\_WITH\_SOURCE\_MASK\_AND\_OPACITY}},}
+\DoxyCodeLine{        .chInClassOffset    = \mbox{\hyperlink{arm__2d__utils_8h_a8a4dba3eaaa8e7d90abb2eff93092042}{offsetof}}(\mbox{\hyperlink{structarm__2d__op__trans__msk__opa__t}{arm\_2d\_op\_trans\_msk\_opa\_t}}, tTransform),}
+\DoxyCodeLine{}
+\DoxyCodeLine{        .LowLevelIO = \{}
+\DoxyCodeLine{            .ptCopyOrigLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_TRANSFORM\_WITH\_SRC\_MSK\_AND\_OPACITY\_RGB565),}
+\DoxyCodeLine{            .ptFillOrigLike = NULL,}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{    \},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01801}{1801}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a342bb795c009b87eb3badb04d3d47828}\label{arm__2d__transform_8c_a342bb795c009b87eb3badb04d3d47828}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_CCCN888@{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_CCCN888}}
+\index{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_CCCN888@{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_CCCN888}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_CCCN888}{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_CCCN888}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+SRC\+\_\+\+MSK\+\_\+\+CCCN888}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .Info = \{}
+\DoxyCodeLine{        .Colour = \{}
+\DoxyCodeLine{            .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a6507e9aa44de854d820857e988096852}{ARM\_2D\_COLOUR\_CCCN888}},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .Param = \{}
+\DoxyCodeLine{            .bHasSource             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasOrigin             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasTarget             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasSrcMask            = \textcolor{keyword}{true},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .chOpIndex          = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55bad140bc34bc207c68b16c87cbcb34906b}{\_\_ARM\_2D\_OP\_IDX\_TRANSFORM\_WITH\_SOURCE\_MASK}},}
+\DoxyCodeLine{        .chInClassOffset    = \mbox{\hyperlink{arm__2d__utils_8h_a8a4dba3eaaa8e7d90abb2eff93092042}{offsetof}}(\mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\_2d\_op\_trans\_msk\_t}}, tTransform),}
+\DoxyCodeLine{}
+\DoxyCodeLine{        .LowLevelIO = \{}
+\DoxyCodeLine{            .ptCopyOrigLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_TRANSFORM\_WITH\_SRC\_MSK\_CCCN888),}
+\DoxyCodeLine{            .ptFillOrigLike = NULL,}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{    \},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01758}{1758}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_a0c45e316e2d4030ea633cbd527d7baad}\label{arm__2d__transform_8c_a0c45e316e2d4030ea633cbd527d7baad}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_GRAY8@{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_GRAY8}}
+\index{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_GRAY8@{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_GRAY8}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_GRAY8}{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_GRAY8}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+SRC\+\_\+\+MSK\+\_\+\+GRAY8}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .Info = \{}
+\DoxyCodeLine{        .Colour = \{}
+\DoxyCodeLine{            .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39af0dee7dd3064f92613ec3a8345d0c185}{ARM\_2D\_COLOUR\_8BIT}},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .Param = \{}
+\DoxyCodeLine{            .bHasSource             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasOrigin             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasTarget             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasSrcMask            = \textcolor{keyword}{true},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .chOpIndex          = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55bad140bc34bc207c68b16c87cbcb34906b}{\_\_ARM\_2D\_OP\_IDX\_TRANSFORM\_WITH\_SOURCE\_MASK}},}
+\DoxyCodeLine{        .chInClassOffset    = \mbox{\hyperlink{arm__2d__utils_8h_a8a4dba3eaaa8e7d90abb2eff93092042}{offsetof}}(\mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\_2d\_op\_trans\_msk\_t}}, tTransform),}
+\DoxyCodeLine{}
+\DoxyCodeLine{        .LowLevelIO = \{}
+\DoxyCodeLine{            .ptCopyOrigLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_TRANSFORM\_WITH\_SRC\_MSK\_GRAY8),}
+\DoxyCodeLine{            .ptFillOrigLike = NULL,}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{    \},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01715}{1715}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+
+\mbox{\Hypertarget{arm__2d__transform_8c_acaca737de98172486cc771b74ea20fdd}\label{arm__2d__transform_8c_acaca737de98172486cc771b74ea20fdd}} 
+\index{arm\_2d\_transform.c@{arm\_2d\_transform.c}!ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_RGB565@{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_RGB565}}
+\index{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_RGB565@{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_RGB565}!arm\_2d\_transform.c@{arm\_2d\_transform.c}}
+\doxysubsubsection{\texorpdfstring{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_RGB565}{ARM\_2D\_OP\_TRANSFORM\_WITH\_SRC\_MSK\_RGB565}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{union____arm__2d__op__info__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+op\+\_\+info\+\_\+t}} ARM\+\_\+2\+D\+\_\+\+OP\+\_\+\+TRANSFORM\+\_\+\+WITH\+\_\+\+SRC\+\_\+\+MSK\+\_\+\+RGB565}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    .Info = \{}
+\DoxyCodeLine{        .Colour = \{}
+\DoxyCodeLine{            .chScheme   = \mbox{\hyperlink{arm__2d__types_8h_afb730582952b7ceec73d7dc9bf7bef39a722291a1596b47199a716a1e001a8d38}{ARM\_2D\_COLOUR\_RGB565}},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .Param = \{}
+\DoxyCodeLine{            .bHasSource             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasOrigin             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasTarget             = \textcolor{keyword}{true},}
+\DoxyCodeLine{            .bHasSrcMask            = \textcolor{keyword}{true},}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{        .chOpIndex          = \mbox{\hyperlink{____arm__2d__impl_8h_a06fc87d81c62e9abb8790b6e5713c55bad140bc34bc207c68b16c87cbcb34906b}{\_\_ARM\_2D\_OP\_IDX\_TRANSFORM\_WITH\_SOURCE\_MASK}},}
+\DoxyCodeLine{        .chInClassOffset    = \mbox{\hyperlink{arm__2d__utils_8h_a8a4dba3eaaa8e7d90abb2eff93092042}{offsetof}}(\mbox{\hyperlink{structarm__2d__op__trans__msk__t}{arm\_2d\_op\_trans\_msk\_t}}, tTransform),}
+\DoxyCodeLine{}
+\DoxyCodeLine{        .LowLevelIO = \{}
+\DoxyCodeLine{            .ptCopyOrigLike = \mbox{\hyperlink{arm__2d__utils_8h_ae3cfa68806c0c6c9fa7bb2a36453eef5}{ref\_low\_lv\_io}}(\_\_ARM\_2D\_IO\_TRANSFORM\_WITH\_SRC\_MSK\_RGB565),}
+\DoxyCodeLine{            .ptFillOrigLike = NULL,}
+\DoxyCodeLine{        \},}
+\DoxyCodeLine{    \},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{arm__2d__transform_8c_source_l01736}{1736}} of file \mbox{\hyperlink{arm__2d__transform_8c_source}{arm\+\_\+2d\+\_\+transform.\+c}}.
+

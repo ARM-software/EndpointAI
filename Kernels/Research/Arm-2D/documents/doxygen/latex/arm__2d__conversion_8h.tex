@@ -1,0 +1,164 @@
+\hypertarget{arm__2d__conversion_8h}{}\doxysection{/\+Users/gabwan01/\+Documents/\+Work/\+CPMK/\+Git/\+Endpoint\+AI/\+Kernels/\+Research/\+Arm-\/2\+D/\+Library/\+Include/arm\+\_\+2d\+\_\+conversion.h File Reference}
+\label{arm__2d__conversion_8h}\index{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/arm\_2d\_conversion.h@{/Users/gabwan01/Documents/Work/CPMK/Git/EndpointAI/Kernels/Research/Arm-\/2D/Library/Include/arm\_2d\_conversion.h}}
+{\ttfamily \#include \char`\"{}arm\+\_\+2d\+\_\+types.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+union \mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em 3x16-\/bit packed RGB color ! autovectorizer friendly format \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{arm__2d__conversion_8h_a4a4ad54453368c831a4eb4ca5d34dc16}{arm\+\_\+2d\+\_\+convert\+\_\+colour\+\_\+to\+\_\+rgb888}}(\+\_\+\+\_\+\+SRC\+\_\+\+ADDR,  \+\_\+\+\_\+\+DES\+\_\+\+ADDR)
+\item 
+\#define \mbox{\hyperlink{arm__2d__conversion_8h_a90719240aa9d8471c0c016aaf68840c3}{arm\+\_\+2d\+\_\+convert\+\_\+colour\+\_\+to\+\_\+rgb565}}(\+\_\+\+\_\+\+SRC\+\_\+\+ADDR,  \+\_\+\+\_\+\+DES\+\_\+\+ADDR)
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{structarm__2d__op__src__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+t}} \mbox{\hyperlink{arm__2d__conversion_8h_a188510a195fbaa9f8f29b2c90a2b7bfc}{arm\+\_\+2d\+\_\+op\+\_\+cl\+\_\+convt\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE void \mbox{\hyperlink{arm__2d__conversion_8h_a0dac4bd927c28a54130bfe279542065c}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+unpack}} (uint16\+\_\+t hw\+Color, \mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}} $\ast$pt\+RGB)
+\item 
+\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE uint16\+\_\+t \mbox{\hyperlink{arm__2d__conversion_8h_ad741f60e362467e251ef35febec37c28}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+pack}} (\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}} $\ast$pt\+RGB)
+\item 
+\+\_\+\+\_\+\+STATIC\+\_\+\+INLINE uint32\+\_\+t \mbox{\hyperlink{arm__2d__conversion_8h_a50cef518f8e1fe3aa7b6870ac797c66e}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+cccn888\+\_\+pack}} (\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}} $\ast$pt\+RGB)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{structarm__2d__tile__t}{arm\+\_\+2d\+\_\+tile\+\_\+t}} $\ast$ \mbox{\hyperlink{arm__2d__conversion_8h_a839113872b353ce27e460e1bc21c2e1b}{pt\+Source}}
+\item 
+const \mbox{\hyperlink{structarm__2d__tile__t}{arm\+\_\+2d\+\_\+tile\+\_\+t}} const \mbox{\hyperlink{structarm__2d__tile__t}{arm\+\_\+2d\+\_\+tile\+\_\+t}} $\ast$ \mbox{\hyperlink{arm__2d__conversion_8h_a81568a0a131f60b06a5a97ee9415fef7}{pt\+Target}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{arm__2d__conversion_8h_a90719240aa9d8471c0c016aaf68840c3}\label{arm__2d__conversion_8h_a90719240aa9d8471c0c016aaf68840c3}} 
+\index{arm\_2d\_conversion.h@{arm\_2d\_conversion.h}!arm\_2d\_convert\_colour\_to\_rgb565@{arm\_2d\_convert\_colour\_to\_rgb565}}
+\index{arm\_2d\_convert\_colour\_to\_rgb565@{arm\_2d\_convert\_colour\_to\_rgb565}!arm\_2d\_conversion.h@{arm\_2d\_conversion.h}}
+\doxysubsubsection{\texorpdfstring{arm\_2d\_convert\_colour\_to\_rgb565}{arm\_2d\_convert\_colour\_to\_rgb565}}
+{\footnotesize\ttfamily \#define arm\+\_\+2d\+\_\+convert\+\_\+colour\+\_\+to\+\_\+rgb565(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+SRC\+\_\+\+ADDR,  }\item[{}]{\+\_\+\+\_\+\+DES\+\_\+\+ADDR }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{            arm\_2dp\_convert\_colour\_to\_rgb565(   NULL,                           \(\backslash\)}
+\DoxyCodeLine{                                                (\_\_SRC\_ADDR),                   \(\backslash\)}
+\DoxyCodeLine{                                                (\_\_DES\_ADDR))}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{arm__2d__conversion_8h_a4a4ad54453368c831a4eb4ca5d34dc16}\label{arm__2d__conversion_8h_a4a4ad54453368c831a4eb4ca5d34dc16}} 
+\index{arm\_2d\_conversion.h@{arm\_2d\_conversion.h}!arm\_2d\_convert\_colour\_to\_rgb888@{arm\_2d\_convert\_colour\_to\_rgb888}}
+\index{arm\_2d\_convert\_colour\_to\_rgb888@{arm\_2d\_convert\_colour\_to\_rgb888}!arm\_2d\_conversion.h@{arm\_2d\_conversion.h}}
+\doxysubsubsection{\texorpdfstring{arm\_2d\_convert\_colour\_to\_rgb888}{arm\_2d\_convert\_colour\_to\_rgb888}}
+{\footnotesize\ttfamily \#define arm\+\_\+2d\+\_\+convert\+\_\+colour\+\_\+to\+\_\+rgb888(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+SRC\+\_\+\+ADDR,  }\item[{}]{\+\_\+\+\_\+\+DES\+\_\+\+ADDR }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{            arm\_2dp\_convert\_colour\_to\_rgb888(   NULL,                           \(\backslash\)}
+\DoxyCodeLine{                                                (\_\_SRC\_ADDR),                   \(\backslash\)}
+\DoxyCodeLine{                                                (\_\_DES\_ADDR))}
+
+\end{DoxyCode}
+\texorpdfstring{$<$}{<} source tile address
+
+\texorpdfstring{$<$}{<} target tile address source tile address target tile address 
+
+Definition at line \mbox{\hyperlink{arm__2d__conversion_8h_source_l00069}{69}} of file \mbox{\hyperlink{arm__2d__conversion_8h_source}{arm\+\_\+2d\+\_\+conversion.\+h}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{arm__2d__conversion_8h_a188510a195fbaa9f8f29b2c90a2b7bfc}\label{arm__2d__conversion_8h_a188510a195fbaa9f8f29b2c90a2b7bfc}} 
+\index{arm\_2d\_conversion.h@{arm\_2d\_conversion.h}!arm\_2d\_op\_cl\_convt\_t@{arm\_2d\_op\_cl\_convt\_t}}
+\index{arm\_2d\_op\_cl\_convt\_t@{arm\_2d\_op\_cl\_convt\_t}!arm\_2d\_conversion.h@{arm\_2d\_conversion.h}}
+\doxysubsubsection{\texorpdfstring{arm\_2d\_op\_cl\_convt\_t}{arm\_2d\_op\_cl\_convt\_t}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{structarm__2d__op__src__t}{arm\+\_\+2d\+\_\+op\+\_\+src\+\_\+t}} \mbox{\hyperlink{arm__2d__conversion_8h_a188510a195fbaa9f8f29b2c90a2b7bfc}{arm\+\_\+2d\+\_\+op\+\_\+cl\+\_\+convt\+\_\+t}}}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__conversion_8h_source_l00077}{77}} of file \mbox{\hyperlink{arm__2d__conversion_8h_source}{arm\+\_\+2d\+\_\+conversion.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{arm__2d__conversion_8h_a50cef518f8e1fe3aa7b6870ac797c66e}\label{arm__2d__conversion_8h_a50cef518f8e1fe3aa7b6870ac797c66e}} 
+\index{arm\_2d\_conversion.h@{arm\_2d\_conversion.h}!\_\_arm\_2d\_cccn888\_pack@{\_\_arm\_2d\_cccn888\_pack}}
+\index{\_\_arm\_2d\_cccn888\_pack@{\_\_arm\_2d\_cccn888\_pack}!arm\_2d\_conversion.h@{arm\_2d\_conversion.h}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_cccn888\_pack()}{\_\_arm\_2d\_cccn888\_pack()}}
+{\footnotesize\ttfamily \+\_\+\+\_\+\+STATIC\+\_\+\+INLINE uint32\+\_\+t \+\_\+\+\_\+arm\+\_\+2d\+\_\+cccn888\+\_\+pack (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}} $\ast$}]{pt\+RGB }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__conversion_8h_source_l00127}{127}} of file \mbox{\hyperlink{arm__2d__conversion_8h_source}{arm\+\_\+2d\+\_\+conversion.\+h}}.
+
+\mbox{\Hypertarget{arm__2d__conversion_8h_ad741f60e362467e251ef35febec37c28}\label{arm__2d__conversion_8h_ad741f60e362467e251ef35febec37c28}} 
+\index{arm\_2d\_conversion.h@{arm\_2d\_conversion.h}!\_\_arm\_2d\_rgb565\_pack@{\_\_arm\_2d\_rgb565\_pack}}
+\index{\_\_arm\_2d\_rgb565\_pack@{\_\_arm\_2d\_rgb565\_pack}!arm\_2d\_conversion.h@{arm\_2d\_conversion.h}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_rgb565\_pack()}{\_\_arm\_2d\_rgb565\_pack()}}
+{\footnotesize\ttfamily \+\_\+\+\_\+\+STATIC\+\_\+\+INLINE uint16\+\_\+t \+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+pack (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}} $\ast$}]{pt\+RGB }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__conversion_8h_source_l00115}{115}} of file \mbox{\hyperlink{arm__2d__conversion_8h_source}{arm\+\_\+2d\+\_\+conversion.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00122 \{}
+\DoxyCodeLine{00123     assert(NULL != ptRGB);}
+\DoxyCodeLine{00124     }
+\DoxyCodeLine{00125     \mbox{\hyperlink{unionarm__2d__color__rgba8888__t}{arm\_2d\_color\_rgba8888\_t}} tOutput = \{}
+
+\end{DoxyCode}
+
+
+Referenced by \mbox{\hyperlink{arm__2d__conversion_8c_a63648c25d72eb5ef1bd7202e72886ba7}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+impl\+\_\+cccn888\+\_\+to\+\_\+rgb565()}}, and \mbox{\hyperlink{arm__2d__alpha__blending_8c_a84dfc9fc248a23cce0ea9b1153469cff}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+impl\+\_\+rgb565\+\_\+alpha\+\_\+blending()}}.
+
+\mbox{\Hypertarget{arm__2d__conversion_8h_a0dac4bd927c28a54130bfe279542065c}\label{arm__2d__conversion_8h_a0dac4bd927c28a54130bfe279542065c}} 
+\index{arm\_2d\_conversion.h@{arm\_2d\_conversion.h}!\_\_arm\_2d\_rgb565\_unpack@{\_\_arm\_2d\_rgb565\_unpack}}
+\index{\_\_arm\_2d\_rgb565\_unpack@{\_\_arm\_2d\_rgb565\_unpack}!arm\_2d\_conversion.h@{arm\_2d\_conversion.h}}
+\doxysubsubsection{\texorpdfstring{\_\_arm\_2d\_rgb565\_unpack()}{\_\_arm\_2d\_rgb565\_unpack()}}
+{\footnotesize\ttfamily \+\_\+\+\_\+\+STATIC\+\_\+\+INLINE void \+\_\+\+\_\+arm\+\_\+2d\+\_\+rgb565\+\_\+unpack (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{hw\+Color,  }\item[{\mbox{\hyperlink{union____arm__2d__color__fast__rgb__t}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+color\+\_\+fast\+\_\+rgb\+\_\+t}} $\ast$}]{pt\+RGB }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__conversion_8h_source_l00101}{101}} of file \mbox{\hyperlink{arm__2d__conversion_8h_source}{arm\+\_\+2d\+\_\+conversion.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00110 \{}
+\DoxyCodeLine{00111     assert(NULL != ptRGB);}
+\DoxyCodeLine{00112     }
+\DoxyCodeLine{00113     \mbox{\hyperlink{unionarm__2d__color__rgb565__t}{arm\_2d\_color\_rgb565\_t}} tOutput = \{}
+
+\end{DoxyCode}
+
+
+Referenced by \mbox{\hyperlink{arm__2d__alpha__blending_8c_a84dfc9fc248a23cce0ea9b1153469cff}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+impl\+\_\+rgb565\+\_\+alpha\+\_\+blending()}}, and \mbox{\hyperlink{arm__2d__conversion_8c_a3fb61dbe3298a99b65f995b1e7db5be1}{\+\_\+\+\_\+arm\+\_\+2d\+\_\+impl\+\_\+rgb565\+\_\+to\+\_\+cccn888()}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{arm__2d__conversion_8h_a839113872b353ce27e460e1bc21c2e1b}\label{arm__2d__conversion_8h_a839113872b353ce27e460e1bc21c2e1b}} 
+\index{arm\_2d\_conversion.h@{arm\_2d\_conversion.h}!ptSource@{ptSource}}
+\index{ptSource@{ptSource}!arm\_2d\_conversion.h@{arm\_2d\_conversion.h}}
+\doxysubsubsection{\texorpdfstring{ptSource}{ptSource}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structarm__2d__tile__t}{arm\+\_\+2d\+\_\+tile\+\_\+t}}$\ast$ pt\+Source}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__conversion_8h_source_l00148}{148}} of file \mbox{\hyperlink{arm__2d__conversion_8h_source}{arm\+\_\+2d\+\_\+conversion.\+h}}.
+
+\mbox{\Hypertarget{arm__2d__conversion_8h_a81568a0a131f60b06a5a97ee9415fef7}\label{arm__2d__conversion_8h_a81568a0a131f60b06a5a97ee9415fef7}} 
+\index{arm\_2d\_conversion.h@{arm\_2d\_conversion.h}!ptTarget@{ptTarget}}
+\index{ptTarget@{ptTarget}!arm\_2d\_conversion.h@{arm\_2d\_conversion.h}}
+\doxysubsubsection{\texorpdfstring{ptTarget}{ptTarget}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structarm__2d__tile__t}{arm\+\_\+2d\+\_\+tile\+\_\+t}} const \mbox{\hyperlink{structarm__2d__tile__t}{arm\+\_\+2d\+\_\+tile\+\_\+t}}$\ast$ pt\+Target}
+
+
+
+Definition at line \mbox{\hyperlink{arm__2d__conversion_8h_source_l00149}{149}} of file \mbox{\hyperlink{arm__2d__conversion_8h_source}{arm\+\_\+2d\+\_\+conversion.\+h}}.
+
