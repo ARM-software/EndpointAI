@@ -290,7 +290,7 @@ enum {
 */
     ARM_2D_CHANNEL_8in32      =   ARM_2D_COLOUR_SZ_32BIT_msk        |
                                   ARM_2D_COLOUR_HAS_ALPHA           |
-                                  (0x07 << ARM_2D_COLOUR_VARIANT)   ,
+                                  ARM_2D_COLOUR_VARIANT_msk   ,
 };
 //! @}
 
