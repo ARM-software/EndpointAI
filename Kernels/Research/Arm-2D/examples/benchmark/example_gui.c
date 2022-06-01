@@ -396,7 +396,7 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                                             ptFrameBuffer,
                                             &c_tFillRegion);
                 break;
-        };
+        }
     #endif
     } while(0);
 

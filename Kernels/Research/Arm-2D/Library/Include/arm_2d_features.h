@@ -137,7 +137,7 @@ extern "C" {
 #endif
 
 #ifndef __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__
-#   define __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__   0
+#   define __ARM_2D_CFG_FORCED_FIXED_POINT_TRANSFORM__   1
 #endif
 
 /*! \note In your application, if you do need to use RGBA8888 for some resources
