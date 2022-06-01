@@ -867,31 +867,31 @@ void __MTWM_FUNC(transform_with_mask)(
 #define __ARM_2D_SCALE_MASK_GRAY8VEC(vAvgPix, vTransp, vPtVal, vAreaScal, vAlphaSc)     \
         uint16x8_t vAlpha = vmulq_u16((vAreaScal >> 8),  vAlphaSc);                     \
         vTransp = vAreaScal - vAlpha;                                                   \
-        vAvgPix = vmulhq(vAlpha, vPtVal << 8);
+        vAvgPix = vrmulhq(vAlpha, vPtVal << 8);
 
 
 #define __ARM_2D_SCALE_MASK_GRAY8VEC_ACC(vAvgPix, vTransp, vPtVal, vAreaScal, vAlphaSc) \
         uint16x8_t vAlpha = vmulq_u16((vAreaScal >> 8), vAlphaSc);                      \
         vTransp += vAreaScal - vAlpha;                                                  \
-        vAvgPix += vmulhq(vAlpha,  vPtVal << 8);
+        vAvgPix += vrmulhq(vAlpha,  vPtVal << 8);
 
 
 #define __ARM_2D_SCALE_MASK_RGBVEC(vAvgPixR, vAvgPixG, vAvgPixB, vTransp, R, G, B,      \
                                                             vAreaScal, vAlphaSc)        \
         uint16x8_t vAlpha = vmulq_u16((vAreaScal >> 8), vAlphaSc);                      \
         vTransp = vAreaScal - vAlpha;                                                   \
-        vAvgPixelR = vmulhq_u16(vAlpha, R << 8);                                        \
-        vAvgPixelG = vmulhq_u16(vAlpha, G << 8);                                        \
-        vAvgPixelB = vmulhq_u16(vAlpha, B << 8);
+        vAvgPixelR = vrmulhq_u16(vAlpha, R << 8);                                       \
+        vAvgPixelG = vrmulhq_u16(vAlpha, G << 8);                                       \
+        vAvgPixelB = vrmulhq_u16(vAlpha, B << 8);
 
 
 #define __ARM_2D_SCALE_MASK_RGBVEC_ACC(vAvgPixR, vAvgPixG, vAvgPixB, vTransp, R, G, B,  \
                                                              vAreaScal, vAlphaSc)       \
         uint16x8_t vAlpha = vmulq_u16((vAreaScal >> 8), vAlphaSc);                      \
-        vTransp += vAreaScal - vAlpha;                                                  \
-        vAvgPixelR += vmulhq_u16(vAlpha, R << 8);                                       \
-        vAvgPixelG += vmulhq_u16(vAlpha, G << 8);                                       \
-        vAvgPixelB += vmulhq_u16(vAlpha, B << 8);
+        vTransp = vqaddq(vTransp, vAreaScal - vAlpha);                                  \
+        vAvgPixelR = vqaddq(vAvgPixelR, vrmulhq_u16(vAlpha, R << 8));                   \
+        vAvgPixelG = vqaddq(vAvgPixelG, vrmulhq_u16(vAlpha, G << 8));                   \
+        vAvgPixelB = vqaddq(vAvgPixelB, vrmulhq_u16(vAlpha, B << 8));
 
 
 #if __API_MTWM_COLOUR == ARM_2D_M_COLOUR_GRAY8
