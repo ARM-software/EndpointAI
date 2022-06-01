@@ -249,7 +249,7 @@ enum {
 #define ARM_2D_M_COLOUR_NO_ALPHA_msk        (ARM_2D_M_COLOUR_NO_ALPHA  << 0)
 #define ARM_2D_M_COLOUR_HAS_ALPHA_msk       (ARM_2D_M_COLOUR_HAS_ALPHA << 0)
     
-#define ARM_2D_M_COLOUR_VARIANT_pos             5
+#define ARM_2D_M_COLOUR_VARIANT_pos         5
 #define ARM_2D_M_COLOUR_VARIANT_msk         (0x07 << ARM_2D_M_COLOUR_VARIANT_pos)
 //! @}
 
@@ -276,7 +276,7 @@ enum {
 
     ARM_2D_COLOUR_CCCN888     =   ARM_2D_COLOUR_RGB32               ,
     ARM_2D_COLOUR_CCCA8888    =   ARM_2D_COLOUR_SZ_32BIT_msk        |
-                                  ARM_2D_COLOUR_HAS_ALPHA           ,
+                                  ARM_2D_COLOUR_HAS_ALPHA_msk       ,
 
     ARM_2D_COLOUR_RGB888      =   ARM_2D_COLOUR_CCCN888             ,
     ARM_2D_COLOUR_RGBA8888    =   ARM_2D_COLOUR_CCCA8888            ,
@@ -285,11 +285,11 @@ enum {
     ARM_2D_COLOUR_NCCC888     =   ARM_2D_COLOUR_RGB32               |
                                   ARM_2D_COLOUR_BIG_ENDIAN_msk      ,
     ARM_2D_COLOUR_ACCC8888    =   ARM_2D_COLOUR_SZ_32BIT_msk        |
-                                  ARM_2D_COLOUR_HAS_ALPHA           |
+                                  ARM_2D_COLOUR_HAS_ALPHA_msk       |
                                   ARM_2D_COLOUR_BIG_ENDIAN_msk      ,
 */
     ARM_2D_CHANNEL_8in32      =   ARM_2D_COLOUR_SZ_32BIT_msk        |
-                                  ARM_2D_COLOUR_HAS_ALPHA           |
+                                  ARM_2D_COLOUR_HAS_ALPHA_msk       |
                                   ARM_2D_COLOUR_VARIANT_msk   ,
 };
 //! @}
@@ -316,7 +316,7 @@ enum {
 
 #define ARM_2D_M_COLOUR_CCCN888     ARM_2D_M_COLOUR_RGB32
 #define ARM_2D_M_COLOUR_CCCA8888    (   ARM_2D_M_COLOUR_SZ_32BIT_msk            \
-                                    |   ARM_2D_M_COLOUR_HAS_ALPHA)
+                                    |   ARM_2D_M_COLOUR_HAS_ALPHA_msk)
 
 #define ARM_2D_M_COLOUR_RGB888      ARM_2D_M_COLOUR_CCCN888
 #define ARM_2D_M_COLOUR_RGBA8888    ARM_2D_M_COLOUR_CCCA8888
@@ -325,12 +325,12 @@ enum {
 #define ARM_2D_M_COLOUR_NCCC888     (   ARM_2D_M_COLOUR_RGB32                   \
                                     |   ARM_2D_M_COLOUR_BIG_ENDIAN_msk          )
 #define ARM_2D_M_COLOUR_ACCC8888    (   ARM_2D_M_COLOUR_SZ_32BIT_msk            \
-                                    |   ARM_2D_M_COLOUR_HAS_ALPHA               \
+                                    |   ARM_2D_M_COLOUR_HAS_ALPHA_msk           \
                                     |   ARM_2D_M_COLOUR_BIG_ENDIAN_msk          )
 */
 #define ARM_2D_M_CHANNEL_8in32      (   ARM_2D_M_COLOUR_SZ_32BIT_msk            \
-                                    |   ARM_2D_M_COLOUR_HAS_ALPHA)              \
-                                    |   (0x07 << ARM_2D_M_COLOUR_VARIANT_pos)   )
+                                    |   ARM_2D_M_COLOUR_HAS_ALPHA_msk)          \
+                                    |   ARM_2D_M_COLOUR_VARIANT_msk             )
 //! @}
 
 typedef union {
