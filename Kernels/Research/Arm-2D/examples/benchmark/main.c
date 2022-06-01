@@ -258,6 +258,7 @@ IMPL_PFB_ON_LOW_LV_RENDERING(__pfb_render_handler)
  *----------------------------------------------------------------------------*/
 int main (void)
 {
+    printf("Hello Arm-2D\r\n");
 
     arm_irq_safe {
         arm_2d_init();
