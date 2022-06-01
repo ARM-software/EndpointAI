@@ -456,6 +456,27 @@ bool __arm_2d_transform_regression(arm_2d_size_t * __RESTRICT ptCopySize,
     return gatherLoadIdxOverflow;
 }
 
+#if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
+
+#define __ARM2D_GET_NEIGHBR_PIX_AREAS(vXi, vYi, ptPoint,                        \
+                                           vAreaTR, vAreaTL, vAreaBR, vAreaBL)  \
+    float16x8_t     vOne = vdupq_n_f16(1.0f);                                   \
+                                                                                \
+    vXi = vsubq_m_n_s16(vXi, vXi, 1, vcmpltq_n_f16(ptPoint->X, 0));             \
+    vYi = vsubq_m_n_s16(vYi, vYi, 1, vcmpltq_n_f16(ptPoint->Y, 0));             \
+                                                                                \
+    float16x8_t     vWX = ptPoint->X - vcvtq_f16_s16(vXi);                      \
+    float16x8_t     vWY = ptPoint->Y - vcvtq_f16_s16(vYi);                      \
+                                                                                \
+    /* combination of Bottom / Top & Left / Right areas contributions */        \
+    vAreaTR = vWX * vWY;                                                        \
+    vAreaTL = (vOne - vWX) * vWY;                                               \
+    vAreaBR = vWX * (vOne - vWY);                                               \
+    vAreaBL = (vOne - vWX) * (vOne - vWY);
+
+#endif
+
+
 static
 void __arm_2d_impl_gray8_get_pixel_colour(arm_2d_point_f16x8_t
                                           * ptPoint,
@@ -480,22 +501,12 @@ void __arm_2d_impl_gray8_get_pixel_colour(arm_2d_point_f16x8_t
     uint16x8_t      ptVal8,  vAvgPixel8;
 
 #if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
-    float16x8_t     vOne = vdupq_n_f16(1.0f);
+    /* combination of Bottom / Top & Left / Right areas contributions */
+    float16x8_t     vAreaTR, vAreaTL, vAreaBR, vAreaBL;
+    __ARM2D_GET_NEIGHBR_PIX_AREAS(vXi, vYi, ptPoint, vAreaTR, vAreaTL, vAreaBR, vAreaBL)
+
     /* accumulated pixel vectors */
     float16x8_t     vAvgPixelF;
-
-    vXi = vsubq_m_n_s16(vXi, vXi, 1, vcmpltq_n_f16(ptPoint->X, 0));
-    vYi = vsubq_m_n_s16(vYi, vYi, 1, vcmpltq_n_f16(ptPoint->Y, 0));
-
-    float16x8_t     vWX = ptPoint->X - vcvtq_f16_s16(vXi);
-    float16x8_t     vWY = ptPoint->Y - vcvtq_f16_s16(vYi);
-
-    /* combination of Bottom / Top & Left / Right areas contributions */
-    float16x8_t     vAreaTR = vWX * vWY;
-    float16x8_t     vAreaTL = (vOne - vWX) * vWY;
-    float16x8_t     vAreaBR = vWX * (vOne - vWY);
-    float16x8_t     vAreaBL = (vOne - vWX) * (vOne - vWY);
-
 
     /*
      * accumulate / average over the 4 neigbouring pixels
@@ -574,20 +585,9 @@ void __arm_2d_impl_gray8_get_pixel_colour_with_alpha(arm_2d_point_f16x8_t * ptPo
     uint16x8_t      ptVal8;
 
 #if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
-
-    float16x8_t     vOne = vdupq_n_f16(1.0f);
-
-    vXi = vsubq_m_n_s16(vXi, vXi, 1, vcmpltq_n_f16(ptPoint->X, 0));
-    vYi = vsubq_m_n_s16(vYi, vYi, 1, vcmpltq_n_f16(ptPoint->Y, 0));
-
-    float16x8_t     vWX = ptPoint->X - vcvtq_f16_s16(vXi);
-    float16x8_t     vWY = ptPoint->Y - vcvtq_f16_s16(vYi);
-
     /* combination of Bottom / Top & Left / Right areas contributions */
-    float16x8_t     vAreaTR = vWX * vWY;
-    float16x8_t     vAreaTL = (vOne - vWX) * vWY;
-    float16x8_t     vAreaBR = vWX * (vOne - vWY);
-    float16x8_t     vAreaBL = (vOne - vWX) * (vOne - vWY);
+    float16x8_t     vAreaTR, vAreaTL, vAreaBR, vAreaBL;
+    __ARM2D_GET_NEIGHBR_PIX_AREAS(vXi, vYi, ptPoint, vAreaTR, vAreaTL, vAreaBR, vAreaBL)
 
     /* accumulated pixel vectors */
     float16x8_t     vAvgPixelF;
@@ -661,22 +661,12 @@ void __arm_2d_impl_rgb565_get_pixel_colour(arm_2d_point_f16x8_t * ptPoint,
     uint16x8_t      vTarget = vld1q(pTarget);
 
 #if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
-    float16x8_t     vOne = vdupq_n_f16(1.0f);
     int16x8_t       vXi = vcvtq_s16_f16(ptPoint->X);
     int16x8_t       vYi = vcvtq_s16_f16(ptPoint->Y);
 
-    vXi = vsubq_m_n_s16(vXi, vXi, 1, vcmpltq_n_f16(ptPoint->X, 0));
-    vYi = vsubq_m_n_s16(vYi, vYi, 1, vcmpltq_n_f16(ptPoint->Y, 0));
-
-    float16x8_t     vWX = ptPoint->X - vcvtq_f16_s16(vXi);
-    float16x8_t     vWY = ptPoint->Y - vcvtq_f16_s16(vYi);
-
-
     /* combination of Bottom / Top & Left / Right areas contributions */
-    float16x8_t     vAreaTR = vWX * vWY;
-    float16x8_t     vAreaTL = (vOne - vWX) * vWY;
-    float16x8_t     vAreaBR = vWX * (vOne - vWY);
-    float16x8_t     vAreaBL = (vOne - vWX) * (vOne - vWY);
+    float16x8_t     vAreaTR, vAreaTL, vAreaBR, vAreaBL;
+    __ARM2D_GET_NEIGHBR_PIX_AREAS(vXi, vYi, ptPoint, vAreaTR, vAreaTL, vAreaBR, vAreaBL)
 
     /* accumulated pixel vectors */
     float16x8_t     vAvgPixelR, vAvgPixelG, vAvgPixelB;
@@ -1405,30 +1395,30 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
   Scale Gray8 channel
  */
 #define __ARM_2D_SCALE_GRAY8VEC(vAvgPix, vPtVal, vAreaScal)                             \
-        vAvgPix = vmulhq_u16(vAreaScal, vPtVal);
+        vAvgPix = vrmulhq_u16(vAreaScal, vPtVal);
 
 /**
   Scale Gray8 channel with accumulation
  */
 #define __ARM_2D_SCALE_GRAY8VEC_ACC(vAvgPixel, ptVal8, vScal)                           \
-        vAvgPixel += vmulhq_u16(vScal, ptVal8);
+        vAvgPixel += vrmulhq_u16(vScal, ptVal8);
 
 
 /**
   Scale R, G & B channels
  */
 #define __ARM_2D_SCALE_RGBVEC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)       \
-        vAvgPixelR = vmulhq_u16(vScal, R);                                              \
-        vAvgPixelG = vmulhq_u16(vScal, G);                                              \
-        vAvgPixelB = vmulhq_u16(vScal, B);
+        vAvgPixelR = vrmulhq_u16(vScal, R);                                              \
+        vAvgPixelG = vrmulhq_u16(vScal, G);                                              \
+        vAvgPixelB = vrmulhq_u16(vScal, B);
 
 /**
   Scale R, G & B channels with accumulation
  */
 #define __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)  \
-        vAvgPixelR += vmulhq_u16(vScal, R);                                            \
-        vAvgPixelG += vmulhq_u16(vScal, G);                                            \
-        vAvgPixelB += vmulhq_u16(vScal, B);
+        vAvgPixelR += vrmulhq_u16(vScal, R);                                            \
+        vAvgPixelG += vrmulhq_u16(vScal, G);                                            \
+        vAvgPixelB += vrmulhq_u16(vScal, B);
 
 
 
