@@ -267,10 +267,6 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
 }
 
 
-
-
-
-
 void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 {
 
@@ -278,7 +274,7 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 
 
     arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
-    
+
     static arm_2d_tile_t s_tPanelTile;
     
     arm_2d_tile_generate_child( ptTile,
@@ -314,7 +310,7 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
                 .iHeight = 221,
             },
         };
-        arm_2d_rgb565_alpha_blending_with_colour_masking(
+        arm_2d_rgb565_alpha_blending_with_colour_keying(
                                     &c_tileWatchPanel,
                                     ptTile,
                                     &tPanelRegion,
@@ -323,7 +319,6 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
 
 
     } while(0);
-
 
     /*! for each item (ptItem) inside array s_tGears */
     arm_foreach (demo_gears_t, s_tGears, ptItem) {
@@ -377,7 +372,7 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
     
     spinning_wheel_show(&s_tTempTile, bIsNewFrame);
 #endif
-    
+
     //! demo for transform
     do {
         static volatile float s_fAngle = 0.0f;
@@ -437,7 +432,7 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
             ,s_chOpacity         //!< opacity
         );               
      #endif
-    } while(0);
+    } while(0); 
 
     example_gui_on_refresh_evt_handler(ptTile);
 
