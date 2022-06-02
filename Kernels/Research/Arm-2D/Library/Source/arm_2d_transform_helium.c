@@ -1418,7 +1418,7 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(
 #define __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)   \
         vAvgPixelR = vqaddq(vAvgPixelR, vrmulhq_u16(vScal, R));                         \
         vAvgPixelG = vqaddq(vAvgPixelG, vrmulhq_u16(vScal, G));                         \
-        vAvgPixelB = vqaddq(vAvgPixelB, vrmulhq_u16(vScal, B);
+        vAvgPixelB = vqaddq(vAvgPixelB, vrmulhq_u16(vScal, B));
 
 
 
