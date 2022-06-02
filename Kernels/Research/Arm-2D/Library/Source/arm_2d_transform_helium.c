@@ -1436,7 +1436,7 @@ bool __arm_2d_transform_regression(arm_2d_size_t * __RESTRICT ptCopySize,
 {
     int_fast16_t        iHeight = ptCopySize->iHeight;
     int_fast16_t        iWidth = ptCopySize->iWidth;
-    q31_t               invHeightFx = INT32_MAX / (iHeight - 1);
+    q31_t               invHeightFx = iHeight > 1 ? INT32_MAX / (iHeight - 1) : INT32_MAX;
     int32_t             AngleFx = lroundf(fAngle * ONE_BY_2PI_Q31);
     int32_t             ScaleFx = (int32_t)((float)fScale * (float)TO_Q16(1));
     q31_t               cosAngleFx = MULTFX(arm_cos_q31(AngleFx), ScaleFx);
