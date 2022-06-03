@@ -350,19 +350,8 @@ void ARM_CONNECT2(__arm_2d_impl_gray8_, get_pixel_colour_mask)(arm_2d_point_f16x
      * accumulate / average over the 4 neigbouring pixels
      */
 
-    float16x8_t     vOne = vdupq_n_f16(1.0f);
-
-    vXi = vsubq_m_n_s16(vXi, vXi, 1, vcmpltq_n_f16(ptPoint->X, 0));
-    vYi = vsubq_m_n_s16(vYi, vYi, 1, vcmpltq_n_f16(ptPoint->Y, 0));
-
-    float16x8_t     vWX = ptPoint->X - vcvtq_f16_s16(vXi);
-    float16x8_t     vWY = ptPoint->Y - vcvtq_f16_s16(vYi);
-
-    /* combination of Bottom / Top & Left / Right areas contributions */
-    float16x8_t     vAreaTR = vWX * vWY;
-    float16x8_t     vAreaTL = (vOne - vWX) * vWY;
-    float16x8_t     vAreaBR = vWX * (vOne - vWY);
-    float16x8_t     vAreaBL = (vOne - vWX) * (vOne - vWY);
+    float16x8_t     vAreaTR, vAreaTL, vAreaBR, vAreaBL;
+    __ARM2D_GET_NEIGHBR_PIX_AREAS(vXi, vYi, ptPoint, vAreaTR, vAreaTL, vAreaBR, vAreaBL);
 
     /* Bottom Left averaging */
     {
@@ -466,22 +455,8 @@ void ARM_CONNECT2(__arm_2d_impl_rgb565_, get_pixel_colour_mask)(arm_2d_point_f16
     uint16x8_t      R, G, B;
 
 #if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
-    /*
-     * accumulate / average over the 4 neigbouring pixels
-     */
-    float16x8_t     vOne = vdupq_n_f16(1.0f);
-
-    vXi = vsubq_m_n_s16(vXi, vXi, 1, vcmpltq_n_f16(ptPoint->X, 0));
-    vYi = vsubq_m_n_s16(vYi, vYi, 1, vcmpltq_n_f16(ptPoint->Y, 0));
-
-    float16x8_t     vWX = ptPoint->X - vcvtq_f16_s16(vXi);
-    float16x8_t     vWY = ptPoint->Y - vcvtq_f16_s16(vYi);
-
-    /* combination of Bottom / Top & Left / Right areas contributions */
-    float16x8_t     vAreaTR = vWX * vWY;
-    float16x8_t     vAreaTL = (vOne - vWX) * vWY;
-    float16x8_t     vAreaBR = vWX * (vOne - vWY);
-    float16x8_t     vAreaBL = (vOne - vWX) * (vOne - vWY);
+    float16x8_t     vAreaTR, vAreaTL, vAreaBR, vAreaBL;
+    __ARM2D_GET_NEIGHBR_PIX_AREAS(vXi, vYi, ptPoint, vAreaTR, vAreaTL, vAreaBR, vAreaBL);
 
 
     /* Bottom Left averaging */
@@ -627,19 +602,8 @@ void ARM_CONNECT2(__arm_2d_impl_cccn888_, get_pixel_colour_mask)(arm_2d_point_f1
     float16x8_t     vhwTransparency;
 
 #if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__)  &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
-    float16x8_t     vOne = vdupq_n_f16(1.0f);
-
-    vXi = vsubq_m_n_s16(vXi, vXi, 1, vcmpltq_n_f16(ptPoint->X, 0));
-    vYi = vsubq_m_n_s16(vYi, vYi, 1, vcmpltq_n_f16(ptPoint->Y, 0));
-
-    float16x8_t     vWX = ptPoint->X - vcvtq_f16_s16(vXi);
-    float16x8_t     vWY = ptPoint->Y - vcvtq_f16_s16(vYi);
-
-    /* combination of Bottom / Top & Left / Right areas contributions */
-    float16x8_t     vAreaTR = vWX * vWY;
-    float16x8_t     vAreaTL = (vOne - vWX) * vWY;
-    float16x8_t     vAreaBR = vWX * (vOne - vWY);
-    float16x8_t     vAreaBL = (vOne - vWX) * (vOne - vWY);
+    float16x8_t     vAreaTR, vAreaTL, vAreaBR, vAreaBL;
+    __ARM2D_GET_NEIGHBR_PIX_AREAS(vXi, vYi, ptPoint, vAreaTR, vAreaTL, vAreaBR, vAreaBL);
 
 
     /* Bottom Left averaging */
@@ -938,25 +902,8 @@ void ARM_CONNECT2(__arm_2d_impl_gray8_, get_pixel_colour_mask)(arm_2d_point_s16x
 
 
 #if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
-    int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
-
-    vXi = vsubq_m_n_s16(vXi, vXi, 1, vcmpltq_n_s16(ptPoint->X, 0));
-    vYi = vsubq_m_n_s16(vYi, vYi, 1, vcmpltq_n_s16(ptPoint->Y, 0));
-
-    int16x8_t       vWX = ptPoint->X - SET_Q6INT(vXi);
-    int16x8_t       vWY = ptPoint->Y - SET_Q6INT(vYi);
-
-    /* combination of Bottom / Top & Left / Right areas contributions */
-    uint16x8_t      vAreaTR = vmulq_u16(vWX, vWY);
-    uint16x8_t      vAreaTL = vmulq_u16((vOne - vWX), vWY);
-    uint16x8_t      vAreaBR = vmulq_u16(vWX, (vOne - vWY));
-    uint16x8_t      vAreaBL = vmulq_u16((vOne - vWX), (vOne - vWY));
-
-    /* Q16 conversion */
-    vAreaTR = vqshlq_n_u16(vAreaTR, 4);
-    vAreaTL = vqshlq_n_u16(vAreaTL, 4);
-    vAreaBR = vqshlq_n_u16(vAreaBR, 4);
-    vAreaBL = vqshlq_n_u16(vAreaBL, 4);
+    uint16x8_t     vAreaTR, vAreaTL, vAreaBR, vAreaBL;
+    __ARM2D_GET_NEIGHBR_PIX_AREAS(vXi, vYi, ptPoint, vAreaTR, vAreaTL, vAreaBR, vAreaBL);
 
 
     /*
@@ -1079,25 +1026,8 @@ void ARM_CONNECT2(__arm_2d_impl_rgb565_, get_pixel_colour_mask)(arm_2d_point_s16
 
 
 #if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
-    int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
-
-    vXi = vsubq_m_n_s16(vXi, vXi, 1, vcmpltq_n_s16(ptPoint->X, 0));
-    vYi = vsubq_m_n_s16(vYi, vYi, 1, vcmpltq_n_s16(ptPoint->Y, 0));
-
-    int16x8_t       vWX = ptPoint->X - SET_Q6INT(vXi);
-    int16x8_t       vWY = ptPoint->Y - SET_Q6INT(vYi);
-
-    /* combination of Bottom / Top & Left / Right areas contributions */
-    uint16x8_t      vAreaTR = vmulq_u16(vWX, vWY);
-    uint16x8_t      vAreaTL = vmulq_u16((vOne - vWX), vWY);
-    uint16x8_t      vAreaBR = vmulq_u16(vWX, (vOne - vWY));
-    uint16x8_t      vAreaBL = vmulq_u16((vOne - vWX), (vOne - vWY));
-
-    /* Q16 conversion */
-    vAreaTR = vqshlq_n_u16(vAreaTR, 4);
-    vAreaTL = vqshlq_n_u16(vAreaTL, 4);
-    vAreaBR = vqshlq_n_u16(vAreaBR, 4);
-    vAreaBL = vqshlq_n_u16(vAreaBL, 4);
+    uint16x8_t     vAreaTR, vAreaTL, vAreaBR, vAreaBL;
+    __ARM2D_GET_NEIGHBR_PIX_AREAS(vXi, vYi, ptPoint, vAreaTR, vAreaTL, vAreaBR, vAreaBL);
 
     /*
      * accumulate / average over the 4 neigbouring pixels
@@ -1237,25 +1167,8 @@ void ARM_CONNECT2(__arm_2d_impl_cccn888_, get_pixel_colour_mask)(arm_2d_point_s1
 
 
 #if     defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__)  &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
-    vXi = vsubq_m_n_s16(vXi, vXi, 1, vcmpltq_n_s16(ptPoint->X, 0));
-    vYi = vsubq_m_n_s16(vYi, vYi, 1, vcmpltq_n_s16(ptPoint->Y, 0));
-
-    int16x8_t       vOne = vdupq_n_s16(SET_Q6INT(1));
-    int16x8_t       vWX = ptPoint->X - (SET_Q6INT(vXi));
-    int16x8_t       vWY = ptPoint->Y - (SET_Q6INT(vYi));
-
-    /* combination of Bottom / Top & Left / Right areas contributions */
-    uint16x8_t      vAreaTR = vmulq_u16(vWX, vWY);
-    uint16x8_t      vAreaTL = vmulq_u16((vOne - vWX), vWY);
-    uint16x8_t      vAreaBR = vmulq_u16(vWX, (vOne - vWY));
-    uint16x8_t      vAreaBL = vmulq_u16((vOne - vWX), (vOne - vWY));
-
-    /* Q16 conversion */
-    vAreaTR = vqshlq_n_u16(vAreaTR, 4);
-    vAreaTL = vqshlq_n_u16(vAreaTL, 4);
-    vAreaBR = vqshlq_n_u16(vAreaBR, 4);
-    vAreaBL = vqshlq_n_u16(vAreaBL, 4);
-
+    uint16x8_t     vAreaTR, vAreaTL, vAreaBR, vAreaBL;
+    __ARM2D_GET_NEIGHBR_PIX_AREAS(vXi, vYi, ptPoint, vAreaTR, vAreaTL, vAreaBR, vAreaBL);
 
     /*
      * accumulate / average over the 4 neigbouring pixels
@@ -1413,7 +1326,6 @@ void __MTWM_FUNC(transform_with_mask)(
         &(ptInfo->tCenter),
         iOrigStride,
         regrCoefs);
-
 
 
     /* slopes between 1st and last cols */
