@@ -48,7 +48,7 @@
  *----------------------------------------------------------------------------*/
 #define  XTAL            (50000000UL)     /* Oscillator frequency */
 
-#define  SYSTEM_CLOCK    50000000UL //(XTAL / 2U)
+#define  SYSTEM_CLOCK    (XTAL / 2U)
 
 /*----------------------------------------------------------------------------
   Exception / Interrupt Vector table
@@ -89,14 +89,9 @@ void SystemInit (void)
   SCB->CCR |= SCB_CCR_UNALIGN_TRP_Msk;
 #endif
 
-#if 0
-
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   TZ_SAU_Setup();
 #endif
 
-#endif
-  
   SystemCoreClock = SYSTEM_CLOCK;
- 
 }

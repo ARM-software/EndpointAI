@@ -10,7 +10,7 @@
       <TargetName>DO_NOT_USE_V2M-MPS3-CM33</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
+      <pCCUsed>6180000::V6.18::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -186,13 +186,14 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>2</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>1</hadIROM2>
             <StupSel>8</StupSel>
             <useUlib>0</useUlib>
             <EndSel>1</EndSel>
             <uLtcg>0</uLtcg>
-            <nSecure>1</nSecure>
+            <nSecure>2</nSecure>
             <RoSelD>4</RoSelD>
             <RwSelD>4</RwSelD>
             <CodeSel>0</CodeSel>
@@ -339,7 +340,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,EXTERANL_DELAY_MS_DECLARE="extern void delay_ms(uint32_t);"</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\mps3\v2m_mps3;..\common\platform\mps3;.;..\common\platform\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -352,7 +353,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <ClangAsOpt>4</ClangAsOpt>
+            <ClangAsOpt>1</ClangAsOpt>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -370,7 +371,7 @@
             <TextAddressRange>0x00000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
             <pXoBase></pXoBase>
-            <ScatterFile>.\MPS3_M33.sct</ScatterFile>
+            <ScatterFile>.\RTE\Device\ARMCM33_DSP_FP_TZ\ARMCM33_ac6.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc>--entry=Reset_Handler
@@ -1114,6 +1115,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -2111,6 +2113,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -3107,6 +3110,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>2</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>1</hadIROM2>
             <StupSel>8</StupSel>
@@ -4035,6 +4039,7 @@
             <RvdsVP>3</RvdsVP>
             <RvdsMve>2</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>1</hadIROM2>
             <StupSel>8</StupSel>
@@ -5032,6 +5037,7 @@
             <RvdsVP>0</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -6029,6 +6035,7 @@
             <RvdsVP>3</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -7026,6 +7033,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>1</hadIROM2>
             <StupSel>8</StupSel>
@@ -8023,6 +8031,7 @@
             <RvdsVP>3</RvdsVP>
             <RvdsMve>2</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>0</StupSel>
@@ -8951,6 +8960,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>1</hadIROM2>
             <StupSel>8</StupSel>
@@ -10026,7 +10036,7 @@
         </targetInfos>
       </component>
       <component Cclass="Acceleration" Cgroup="Arm-2D Helper" Csub="PFB" Cvendor="Arm" Cversion="1.0.0-preview" condition="Arm-2D-CORE">
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha6"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha11"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -10041,7 +10051,7 @@
         </targetInfos>
       </component>
       <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Alpha-Blending" Cvendor="Arm" Cversion="1.0.0-preview" condition="Arm-2D-CORE">
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha6"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha11"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -10056,7 +10066,7 @@
         </targetInfos>
       </component>
       <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="1.0.0-preview" condition="CMSIS-DSP">
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha6"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha11"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -10071,7 +10081,7 @@
         </targetInfos>
       </component>
       <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Transform" Cvendor="Arm" Cversion="1.0.0-preview" condition="Arm-2D-CORE">
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha6"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha11"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -10279,7 +10289,7 @@
       <file attr="config" category="sourceC" name="Library\Source\arm_2d.c" version="1.0.0">
         <instance index="0">RTE\Acceleration\arm_2d.c</instance>
         <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="1.0.0-preview" condition="CMSIS-DSP"/>
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha6"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha11"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -10293,10 +10303,10 @@
           <targetInfo name="V2M-MPS3-CM55"/>
         </targetInfos>
       </file>
-      <file attr="config" category="preIncludeGlobal" name="Library\Include\template\arm_2d_cfg.h" version="1.0.2">
+      <file attr="config" category="preIncludeGlobal" name="Library\Include\template\arm_2d_cfg.h" version="1.0.3">
         <instance index="0">RTE\Acceleration\arm_2d_cfg.h</instance>
         <component Cclass="Acceleration" Cgroup="Arm-2D" Csub="Core" Cvendor="Arm" Cversion="1.0.0-preview" condition="CMSIS-DSP"/>
-        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha6"/>
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/main-arm-2d-developing/Kernels/Research/Arm-2D/cmsis-pack/" vendor="Arm" version="1.0.0-preview-alpha11"/>
         <targetInfos>
           <targetInfo name="AN547-Cortex-M55_r0"/>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
@@ -10344,13 +10354,19 @@
           <targetInfo name="V2M-MPS3-CM55"/>
         </targetInfos>
       </file>
-      <file attr="config" category="linkerScript" condition="Startup ARMCC6 Secure" name="Device\ARM\ARMCM33\Source\ARM\ARMCM33_ac6_s.sct" version="1.1.0">
-        <instance index="0">RTE\Device\ARMCM33_DSP_FP_TZ\ARMCM33_ac6_s.sct</instance>
+      <file attr="config" category="linkerScript" condition="Startup ARMCC6 Unsecure" name="Device\ARM\ARMCM33\Source\ARM\ARMCM33_ac6.sct" version="1.1.0">
+        <instance index="0">RTE\Device\ARMCM33_DSP_FP_TZ\ARMCM33_ac6.sct</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="ARM" Cversion="1.3.0" condition="ARMCM33 CMSIS"/>
         <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
         <targetInfos>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
         </targetInfos>
+      </file>
+      <file attr="config" category="linkerScript" condition="Startup ARMCC6 Secure" name="Device\ARM\ARMCM33\Source\ARM\ARMCM33_ac6_s.sct" version="1.1.0">
+        <instance index="0" removed="1">RTE\Device\ARMCM33_DSP_FP_TZ\ARMCM33_ac6_s.sct</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="ARM" Cversion="1.3.0" condition="ARMCM33 CMSIS"/>
+        <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
+        <targetInfos/>
       </file>
       <file attr="config" category="header" name="template\RTE_Device.h" version="1.0.0">
         <instance index="0" removed="1">RTE\Device\ARMCM33_DSP_FP_TZ\RTE_Device.h</instance>
@@ -10359,14 +10375,12 @@
         <targetInfos/>
       </file>
       <file attr="config" category="header" condition="TZ Secure" name="Device\ARM\ARMCM33\Include\Template\partition_ARMCM33.h" version="1.1.1">
-        <instance index="0">RTE\Device\ARMCM33_DSP_FP_TZ\partition_ARMCM33.h</instance>
+        <instance index="0" removed="1">RTE\Device\ARMCM33_DSP_FP_TZ\partition_ARMCM33.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="ARM" Cversion="1.3.0" condition="ARMCM33 CMSIS"/>
         <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
-        <targetInfos>
-          <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
-      <file attr="config" category="sourceAsm" condition="ARMCC6" name="Device\ARM\ARMCM33\Source\ARM\startup_ARMCM33.S" version="1.0.1">
+      <file attr="config" category="sourceAsm" condition="ARMCC6" name="Device\ARM\ARMCM33\Source\ARM\startup_ARMCM33.S" version="2.0.0">
         <instance index="0">RTE\Device\ARMCM33_DSP_FP_TZ\startup_ARMCM33.S</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="ARM" Cversion="1.3.0" condition="ARMCM33 CMSIS"/>
         <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
