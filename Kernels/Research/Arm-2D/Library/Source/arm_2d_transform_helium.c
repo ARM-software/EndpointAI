@@ -21,8 +21,8 @@
  * Title:        arm-2d_transform_helium.c
  * Description:  Acceleration extensions using Helium.
  *
- * $Date:        31. May 2022
- * $Revision:    V.0.1.3
+ * $Date:        9. Jun 2022
+ * $Revision:    V.0.1.4
  *
  * Target Processor:  Cortex-M cores with Helium
  *
@@ -146,8 +146,11 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
   vTarget and ptOrigValidRegion)
   Update global predictor tracking region fit & color mask comparison.
  */
-#define __ARM_2D_GRAY8_GET_PIXVEC_FROM_POINT_MASK_CLR_FAR(vecX, vecY, pOrigin, ptOrigValidRegion,   \
-                                  iOrigStride, MaskColour, vTarget, vPixVal, predGlb, predTail)     \
+#define __ARM_2D_GRAY8_GET_PIXVEC_FROM_POINT_MASK_CLR_FAR(/* inputs */                              \
+                                                      vecX, vecY, pOrigin, ptOrigValidRegion,       \
+                                                      iOrigStride, MaskColour, vTarget, predTail,   \
+                                                      /* outputs */                                 \
+                                                      vPixVal, predGlb)                             \
         arm_2d_point_s16x8_t vPoint = {.X = vecX,.Y = vecY };                                       \
         /* set vector predicate if point is inside the region */                                    \
         mve_pred16_t    p =                                                                         \
@@ -172,8 +175,6 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
 
 
 
-
-
 /**
   unpack vectors of pixels read from a input 2D coordinates if fits inside the region of
   interest or alternative target pixel if content matches color mask
@@ -182,8 +183,11 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
   Update global predictor tracking region fit & color mask comparison.
  */
 
-#define __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT_NOUNPK(vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,  \
-                                   MaskColour, vTarget, ptVal, predGlb, predTail)                          \
+#define __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT_NOUNPK(/* inputs */                                          \
+                                                    vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,   \
+                                                    MaskColour, vTarget, predTail,                         \
+                                                    /* outputs */                                          \
+                                                    ptVal, predGlb)                                        \
         arm_2d_point_s16x8_t vPoint = {.X = vecX,.Y = vecY };                                              \
         /* set vector predicate if point is inside the region */                                           \
         mve_pred16_t    p =                                                                                \
@@ -202,12 +206,15 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
 
 
 
-#define __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT(vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,         \
-                                   MaskColour, vTarget, vPixValR, vPixValG, vPixValB, predGlb, predTail)   \
+#define __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT(/* inputs */                                                 \
+                                              vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,         \
+                                              MaskColour, vTarget, predTail,                               \
+                                              /* outputs */                                                \
+                                              vPixValR, vPixValG, vPixValB, predGlb)                       \
         uint16x8_t      ptVal;                                                                             \
                                                                                                            \
         __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT_NOUNPK(vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,  \
-                                   MaskColour, vTarget, ptVal, predGlb, predTail)                          \
+                                   MaskColour, vTarget, predTail, ptVal, predGlb)                          \
         /* expand channels */                                                                              \
         __arm_2d_rgb565_unpack_single_vec(ptVal, &vPixValR, &vPixValG, &vPixValB);
 
@@ -224,8 +231,12 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
   Update global predictor tracking region fit & color mask comparison.
  */
 
-#define __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT_NOUNPK_FAR(vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,     \
-                                   MaskColour, vTarget, ptVal, predGlb, predTail)   \
+#define __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT_NOUNPK_FAR(                                                  \
+                                                /* inputs */                                               \
+                                                vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,       \
+                                                MaskColour, vTarget, predTail,                             \
+                                                /* outputs */                                              \
+                                                ptVal, predGlb)                                            \
         arm_2d_point_s16x8_t vPoint = {.X = vecX,.Y = vecY };                                              \
         /* set vector predicate if point is inside the region */                                           \
         mve_pred16_t    p =                                                                                \
@@ -246,12 +257,15 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
         ptVal = vpselq_u16(ptVal, vTarget, p);
 
 
-#define __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT_FAR(vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,     \
-                                   MaskColour, vTarget, vPixValR, vPixValG, vPixValB, predGlb, predTail)   \
+#define __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT_FAR(/* inputs */                                             \
+                                                  vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,     \
+                                                  MaskColour, vTarget, predTail,                           \
+                                                  /* outputs */                                            \
+                                                  vPixValR, vPixValG, vPixValB, predGlb)                   \
         uint16x8_t      ptVal;                                                                             \
                                                                                                            \
         __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT_NOUNPK_FAR(vecX, vecY, pOrigin, ptOrigValidRegion,           \
-                        iOrigStride, MaskColour, vTarget, ptVal, predGlb, predTail);                       \
+                        iOrigStride, MaskColour, vTarget, predTail, ptVal, predGlb);                       \
                                                                                                            \
         /* expand channels */                                                                              \
         __arm_2d_rgb565_unpack_single_vec(ptVal, &vPixValR, &vPixValG, &vPixValB);
@@ -266,9 +280,12 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
   Update 2 global predictors tracking region fit & color mask comparison for 1st and 2nd half.
  */
 
-#define __ARM_2D_RGB888_GET_RGBVEC_FROM_POINT_NOUNPK(vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,  \
-                     MaskColour, vTargetLo, vTargetHi, pointLo, pointHi, predGlbLo, predGlbHi,             \
-                                                                             predTailLo, predTailHi)       \
+#define __ARM_2D_RGB888_GET_RGBVEC_FROM_POINT_NOUNPK(/* inputs */ \
+                                                    vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,   \
+                                                    MaskColour, vTargetLo, vTargetHi,                      \
+                                                    predTailLo, predTailHi,                                \
+                                                    /* outputs */                                          \
+                                                    pointLo, pointHi, predGlbLo, predGlbHi)                \
         arm_2d_point_s16x8_t vPoint = {.X = vecX,.Y = vecY };                                              \
         arm_2d_point_s32x4_t tPointLo, tPointHi;                                                           \
         ARM_ALIGN(8) uint32_t scratch32[32];                                                               \
@@ -315,15 +332,17 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
         pointHi = vpselq_u32(pointHi, vTargetHi, p);
 
 
-#define __ARM_2D_RGB888_GET_RGBVEC_FROM_POINT(vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,         \
-                     MaskColour, vTargetLo, vTargetHi, vPixValR, vPixValG, vPixValB, predGlbLo, predGlbHi, \
-                                                                             predTailLo, predTailHi)       \
+#define __ARM_2D_RGB888_GET_RGBVEC_FROM_POINT(/* inputs */                                                 \
+                                                vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,       \
+                                                MaskColour, vTargetLo, vTargetHi, predTailLo, predTailHi,  \
+                                              /* outputs */                                                \
+                                                 vPixValR, vPixValG, vPixValB, predGlbLo, predGlbHi )      \
                                                                                                            \
         uint32x4_t      pointLo, pointHi;                                                                  \
                                                                                                            \
         __ARM_2D_RGB888_GET_RGBVEC_FROM_POINT_NOUNPK(vecX, vecY, pOrigin, ptOrigValidRegion, iOrigStride,  \
-                 MaskColour, vTargetLo, vTargetHi, pointLo, pointHi, predGlbLo, predGlbHi,                 \
-                                                                         predTailLo, predTailHi)           \
+                 MaskColour, vTargetLo, vTargetHi, predTailLo, predTailHi,                                 \
+                                                   pointLo, pointHi, predGlbLo, predGlbHi)                 \
                                                                                                            \
         /* expand channels */                                                                              \
         vst1q(scratch32, pointLo);                                                                         \
@@ -336,8 +355,11 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
 
 #if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
 
-#define __ARM2D_AVG_NEIGHBR_GRAY8_PIX(ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,         \
-                                                MaskColour, vTarget, predGlb, predTail, vAvgPixel)        \
+#define __ARM2D_AVG_NEIGHBR_GRAY8_PIX(/* inputs */ \
+                                      ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,         \
+                                      MaskColour, vTarget, predTail,                                      \
+                                      /* outputs */                                                       \
+                                      predGlb, vAvgPixel)                                                 \
                                                                                                           \
     uint16x8_t      ptVal8;                                                                               \
     /* combination of Bottom / Top & Left / Right areas contributions */                                  \
@@ -352,7 +374,7 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
     /* Bottom Left averaging */                                                                           \
     {                                                                                                     \
         __ARM_2D_GRAY8_GET_PIXVEC_FROM_POINT_MASK_CLR_FAR(vXi, vYi, pOrigin, ptOrigValidRegion,           \
-                                    iOrigStride, MaskColour, vTarget, ptVal8, predGlb, predTail);         \
+                                    iOrigStride, MaskColour, vTarget, predTail, ptVal8, predGlb);         \
                                                                                                           \
         __ARM_2D_SCALE_GRAY8VEC(vAvgPixel, ptVal8, vAreaBL);                                              \
     }                                                                                                     \
@@ -360,7 +382,7 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
     /* Bottom Right averaging */                                                                          \
     {                                                                                                     \
         __ARM_2D_GRAY8_GET_PIXVEC_FROM_POINT_MASK_CLR_FAR(vaddq_n_s16(vXi, 1), vYi, pOrigin,              \
-                ptOrigValidRegion, iOrigStride, MaskColour, vTarget, ptVal8, predGlb, predTail);          \
+                ptOrigValidRegion, iOrigStride, MaskColour, vTarget, predTail, ptVal8, predGlb);          \
                                                                                                           \
         __ARM_2D_SCALE_GRAY8VEC_ACC(vAvgPixel, ptVal8, vAreaBR);                                          \
     }                                                                                                     \
@@ -368,7 +390,7 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
     /* Top Left averaging */                                                                              \
     {                                                                                                     \
         __ARM_2D_GRAY8_GET_PIXVEC_FROM_POINT_MASK_CLR_FAR(vXi, vaddq_n_s16(vYi, 1), pOrigin,              \
-                 ptOrigValidRegion, iOrigStride, MaskColour, vTarget, ptVal8, predGlb, predTail);         \
+                 ptOrigValidRegion, iOrigStride, MaskColour, vTarget, predTail, ptVal8, predGlb);         \
                                                                                                           \
         __ARM_2D_SCALE_GRAY8VEC_ACC(vAvgPixel, ptVal8, vAreaTL);                                          \
     }                                                                                                     \
@@ -376,15 +398,18 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
     /* Top Right averaging */                                                                             \
     {                                                                                                     \
         __ARM_2D_GRAY8_GET_PIXVEC_FROM_POINT_MASK_CLR_FAR(vaddq_n_s16(vXi, 1), vaddq_n_s16(vYi, 1),       \
-            pOrigin, ptOrigValidRegion, iOrigStride, MaskColour, vTarget, ptVal8, predGlb, predTail);     \
+            pOrigin, ptOrigValidRegion, iOrigStride, MaskColour, vTarget, predTail, ptVal8, predGlb);     \
                                                                                                           \
         __ARM_2D_SCALE_GRAY8VEC_ACC(vAvgPixel, ptVal8, vAreaTR);                                          \
     }
 
 
 
-#define __ARM2D_AVG_NEIGHBR_RGB565_PIX(far, ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,    \
-                             MaskColour, vTarget, predGlb, predTail, vAvgPixelR, vAvgPixelG, vAvgPixelB)   \
+#define __ARM2D_AVG_NEIGHBR_RGB565_PIX(/* inputs */                                                        \
+                             far, ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,              \
+                             MaskColour, vTarget, predTail,                                                \
+                             /* outputs */                                                                 \
+                             predGlb, vAvgPixelR, vAvgPixelG, vAvgPixelB)                                  \
                                                                                                            \
     uint16x8_t      R, G, B;                                                                               \
     __typeof__ (vAvgPixelR)     vAreaTR, vAreaTL, vAreaBR, vAreaBL;                                        \
@@ -399,7 +424,7 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
     /* Bottom Left averaging */                                                                            \
     {                                                                                                      \
         ARM_CONNECT2(__ARM_2D_RGB565_GET_RGBVEC_FROM_POINT, far)(vXi, vYi, pOrigin, ptOrigValidRegion,     \
-        iOrigStride, MaskColour,vTarget, R, G, B, predGlb, predTail);                                      \
+        iOrigStride, MaskColour,vTarget, predTail, R, G, B, predGlb);                                      \
                                                                                                            \
         __ARM_2D_SCALE_RGBVEC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vAreaBL);                       \
     }                                                                                                      \
@@ -407,7 +432,7 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
     /* Bottom Right averaging */                                                                           \
     {                                                                                                      \
         ARM_CONNECT2(__ARM_2D_RGB565_GET_RGBVEC_FROM_POINT, far)(vaddq_n_s16(vXi, 1), vYi,                 \
-             pOrigin, ptOrigValidRegion, iOrigStride, MaskColour, vTarget, R, G, B, predGlb, predTail);    \
+             pOrigin, ptOrigValidRegion, iOrigStride, MaskColour, vTarget, predTail, R, G, B, predGlb);    \
                                                                                                            \
         __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vAreaBR);                   \
     }                                                                                                      \
@@ -415,7 +440,7 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
     /* Top Left averaging */                                                                               \
     {                                                                                                      \
         ARM_CONNECT2(__ARM_2D_RGB565_GET_RGBVEC_FROM_POINT, far)(vXi, vaddq_n_s16(vYi, 1),                 \
-                 pOrigin, ptOrigValidRegion, iOrigStride, MaskColour, vTarget, R, G, B, predGlb, predTail);\
+                 pOrigin, ptOrigValidRegion, iOrigStride, MaskColour, vTarget, predTail, R, G, B, predGlb);\
                                                                                                            \
         __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vAreaTL);                   \
     }                                                                                                      \
@@ -423,15 +448,18 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
     /* Top Right averaging */                                                                              \
     {                                                                                                      \
         ARM_CONNECT2(__ARM_2D_RGB565_GET_RGBVEC_FROM_POINT, far)(vaddq_n_s16(vXi, 1), vaddq_n_s16(vYi, 1), \
-                 pOrigin, ptOrigValidRegion, iOrigStride, MaskColour, vTarget, R, G, B, predGlb, predTail);\
+                 pOrigin, ptOrigValidRegion, iOrigStride, MaskColour, vTarget, predTail, R, G, B, predGlb);\
                                                                                                            \
         __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vAreaTR);                   \
     }
 
 
-#define __ARM2D_AVG_NEIGHBR_CCCN888_PIX(ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,       \
-                                                  MaskColour, vTargetLo, vTargetHi, predGlbLo, predGlbHi, \
-                                            predTailLow, predTailHigh, vAvgPixelR, vAvgPixelG, vAvgPixelB)\
+#define __ARM2D_AVG_NEIGHBR_CCCN888_PIX(/* inputs */                                                       \
+                                        ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,        \
+                                        MaskColour, vTargetLo, vTargetHi, predTailLow, predTailHigh,       \
+                                        /* outputs */                                                      \
+                                        predGlbLo, predGlbHi,                                              \
+                                        vAvgPixelR, vAvgPixelG, vAvgPixelB)                                \
                                                                                                            \
     uint16x8_t      R, G, B;                                                                               \
     __typeof__ (vAvgPixelR)     vAreaTR, vAreaTL, vAreaBR, vAreaBL;                                        \
@@ -445,7 +473,7 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
     /* Bottom Left averaging */                                                                            \
     {                                                                                                      \
         __ARM_2D_RGB888_GET_RGBVEC_FROM_POINT(vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,           \
-            MaskColour, vTargetLo, vTargetHi, R, G, B, predGlbLo, predGlbHi, predTailLow, predTailHigh);   \
+            MaskColour, vTargetLo, vTargetHi, predTailLow, predTailHigh, R, G, B, predGlbLo, predGlbHi);   \
                                                                                                            \
         __ARM_2D_SCALE_RGBVEC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vAreaBL);                       \
     }                                                                                                      \
@@ -453,8 +481,8 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
     /* Bottom Right averaging */                                                                           \
     {                                                                                                      \
         __ARM_2D_RGB888_GET_RGBVEC_FROM_POINT(vaddq_n_s16(vXi, 1), vYi, pOrigin, ptOrigValidRegion,        \
-                        iOrigStride, MaskColour, vTargetLo, vTargetHi, R, G, B, predGlbLo, predGlbHi,      \
-                                                                            predTailLow, predTailHigh);    \
+                               iOrigStride, MaskColour, vTargetLo, vTargetHi, predTailLow, predTailHigh,   \
+                                                                        R, G, B, predGlbLo, predGlbHi);    \
                                                                                                            \
         __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vAreaBR);                   \
     }                                                                                                      \
@@ -462,8 +490,8 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
     /* Top Left averaging */                                                                               \
     {                                                                                                      \
         __ARM_2D_RGB888_GET_RGBVEC_FROM_POINT(vXi, vaddq_n_s16(vYi, 1), pOrigin, ptOrigValidRegion,        \
-                    iOrigStride, MaskColour, vTargetLo, vTargetHi, R, G, B, predGlbLo, predGlbHi,          \
-                                                                            predTailLow, predTailHigh);    \
+                               iOrigStride, MaskColour, vTargetLo, vTargetHi, predTailLow, predTailHigh,   \
+                                                                        R, G, B, predGlbLo, predGlbHi);    \
                                                                                                            \
         __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vAreaTL);                   \
     }                                                                                                      \
@@ -471,8 +499,8 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
     /* Top Right averaging */                                                                              \
     {                                                                                                      \
         __ARM_2D_RGB888_GET_RGBVEC_FROM_POINT(vaddq_n_s16(vXi, 1), vaddq_n_s16(vYi, 1), pOrigin,           \
-                                ptOrigValidRegion, iOrigStride, MaskColour, vTargetLo, vTargetHi, R, G, B, \
-                                                predGlbLo, predGlbHi, predTailLow, predTailHigh);          \
+                                         ptOrigValidRegion, iOrigStride, MaskColour, vTargetLo, vTargetHi, \
+                                       predTailLow, predTailHigh, R, G, B, predGlbLo, predGlbHi);          \
                                                                                                            \
         __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vAreaTR);                   \
     }
@@ -480,31 +508,40 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
 
 #endif
 
+#define __ARM_2D_8BIT_RGB_MIX(/* inputs / outputs */                                                       \
+                            vR_InOut, vG_InOut, vB_InOut,                                                  \
+                            /* inputs */                                                                   \
+                            C1,                                                                            \
+                            vR2, vG2, vB2, C2)                                                             \
+    vR_InOut = vqaddq(vR_InOut * C1, vR2 * C2);                                                            \
+    vR_InOut = vR_InOut >> 8;                                                                              \
+                                                                                                           \
+    vG_InOut = vqaddq(vG_InOut * C1, vG2 * C2);                                                            \
+    vG_InOut = vG_InOut >> 8;                                                                              \
+                                                                                                           \
+    vB_InOut = vqaddq(vB_InOut * C1, vB2 * C2);                                                            \
+    vB_InOut = vB_InOut >> 8;
+
 
 /**
   Alpha blending of a packed vector with 3 vectors of single R, G & B channels
  */
 
 
-#define __ARM_2D_BLEND_RGB565_TARGET_RGBVEC(hwOpacity, vPackedTarget, vAvgR, vAvgG, vAvgB, vBlended)       \
+#define __ARM_2D_BLEND_RGB565_TARGET_RGBVEC(/* inputs */                                                   \
+                                            hwOpacity, vPackedTarget, vAvgR, vAvgG, vAvgB,                 \
+                                            /* output */                                                   \
+                                            vBlended)                                                      \
     uint16x8_t      vTargetR, vTargetG, vTargetB;                                                          \
                                                                                                            \
     __arm_2d_rgb565_unpack_single_vec(vTarget, &vTargetR, &vTargetG, &vTargetB);                           \
                                                                                                            \
     uint16_t        transp = 256 - hwOpacity;                                                              \
     /* merge */                                                                                            \
-    vAvgR = vqaddq(vAvgR * hwOpacity, vTargetR * transp);                                                  \
-    vAvgR = vAvgR >> 8;                                                                                    \
-                                                                                                           \
-    vAvgG = vqaddq(vAvgG * hwOpacity, vTargetG * transp);                                                  \
-    vAvgG = vAvgG >> 8;                                                                                    \
-                                                                                                           \
-    vAvgB = vqaddq(vAvgB * hwOpacity, vTargetB * transp);                                                  \
-    vAvgB = vAvgB >> 8;                                                                                    \
+    __ARM_2D_8BIT_RGB_MIX(vAvgR, vAvgG, vAvgB, hwOpacity,                                                  \
+                                    vTargetR, vTargetG, vTargetB, transp);                                 \
                                                                                                            \
     vBlended = __arm_2d_rgb565_pack_single_vec(vAvgR, vAvgG, vAvgB);
-
-
 
 
 
@@ -517,20 +554,29 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
 /**
   Scale Gray8 channel
  */
-#define __ARM_2D_SCALE_GRAY8VEC(vAvgPix, vPtVal, vAreaScal)                           \
+#define __ARM_2D_SCALE_GRAY8VEC(/* output */                                            \
+                                vAvgPix,                                                \
+                                /* inputs */                                            \
+                                vPtVal, vAreaScal)                                      \
         vAvgPix = vAreaScal * vcvtq_f16_u16(vPtVal);
 
 /**
   Scale Gray8 channel with accumulation
  */
-#define __ARM_2D_SCALE_GRAY8VEC_ACC(vAvgPix, vPtVal, vAreaScal)                         \
+#define __ARM_2D_SCALE_GRAY8VEC_ACC(/* input / output */                                \
+                                vAvgPix,                                                \
+                                /* inputs */                                            \
+                                vPtVal, vAreaScal)                                      \
         vAvgPix += vAreaScal * vcvtq_f16_u16(vPtVal);
 
 
 /**
   Scale R, G & B channels
  */
-#define __ARM_2D_SCALE_RGBVEC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)       \
+#define __ARM_2D_SCALE_RGBVEC(/* outputs */                                             \
+                                vAvgPixelR, vAvgPixelG, vAvgPixelB,                     \
+                              /* inputs */                                              \
+                                R, G, B, vScal)                                         \
         vAvgPixelR = vScal * vcvtq_f16_u16(R);                                          \
         vAvgPixelG = vScal * vcvtq_f16_u16(G);                                          \
         vAvgPixelB = vScal * vcvtq_f16_u16(B);
@@ -540,17 +586,22 @@ void __arm_2d_pack_rgb888_to_mem(uint8_t * pMem, uint16x8_t R, uint16x8_t G, uin
   Scale R, G & B channels with accumulation
  */
 
-#define __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)      \
-        vAvgPixelR += vScal * vcvtq_f16_u16(R);                                            \
-        vAvgPixelG += vScal * vcvtq_f16_u16(G);                                            \
+#define __ARM_2D_SCALE_RGBVEC_ACC(/* inputs / outputs */                                \
+                                   vAvgPixelR, vAvgPixelG, vAvgPixelB,                  \
+                                  /* inputs */                                          \
+                                   R, G, B, vScal)                                      \
+        vAvgPixelR += vScal * vcvtq_f16_u16(R);                                         \
+        vAvgPixelG += vScal * vcvtq_f16_u16(G);                                         \
         vAvgPixelB += vScal * vcvtq_f16_u16(B);
 
 
 
-#define ARM_2D_POINT_VEC                arm_2d_point_f16x8_t
-#define __ARM_2D_GET_POINT_COORD(point)   vcvtq_s16_f16(point)
-#define PIX_VEC_TYP                     float16x8_t
-#define __ARM_2D_CONVERT_TO_PIX_TYP(x)           vcvtq_u16_f16(x)
+#define __ARM_2D_GET_POINT_COORD(point)     vcvtq_s16_f16(point)
+#define __ARM_2D_CONVERT_TO_PIX_TYP(x)      vcvtq_u16_f16(x)
+
+#define PIX_VEC_TYP                         float16x8_t
+#define ARM_2D_POINT_VEC                    arm_2d_point_f16x8_t
+#define AREA_UNITY                          1.0f16
 
 
 static
@@ -680,20 +731,29 @@ bool __arm_2d_transform_regression(arm_2d_size_t * __RESTRICT ptCopySize,
 /**
   Scale Gray8 channel
  */
-#define __ARM_2D_SCALE_GRAY8VEC(vAvgPix, vPtVal, vAreaScal)                             \
+#define __ARM_2D_SCALE_GRAY8VEC(/* output */                                            \
+                                vAvgPix,                                                \
+                                /* inputs */                                            \
+                                vPtVal, vAreaScal)                                      \
         vAvgPix = vrmulhq_u16(vAreaScal, vPtVal);
 
 /**
   Scale Gray8 channel with accumulation
  */
-#define __ARM_2D_SCALE_GRAY8VEC_ACC(vAvgPixel, ptVal8, vScal)                           \
-        vAvgPixel = vqaddq(vAvgPixel, vrmulhq_u16(vScal, ptVal8));
+#define __ARM_2D_SCALE_GRAY8VEC_ACC(/* input / output */                                \
+                                vAvgPix,                                                \
+                                /* inputs */                                            \
+                                vPtVal, vAreaScal)                                      \
+        vAvgPix = vqaddq(vAvgPix, vrmulhq_u16(vAreaScal, vPtVal));
 
 
 /**
   Scale R, G & B channels
  */
-#define __ARM_2D_SCALE_RGBVEC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)       \
+#define __ARM_2D_SCALE_RGBVEC(/* outputs */                                             \
+                                vAvgPixelR, vAvgPixelG, vAvgPixelB,                     \
+                              /* inputs */                                              \
+                                R, G, B, vScal)                                         \
         vAvgPixelR = vrmulhq_u16(vScal, R);                                             \
         vAvgPixelG = vrmulhq_u16(vScal, G);                                             \
         vAvgPixelB = vrmulhq_u16(vScal, B);
@@ -701,7 +761,10 @@ bool __arm_2d_transform_regression(arm_2d_size_t * __RESTRICT ptCopySize,
 /**
   Scale R, G & B channels with accumulation
  */
-#define __ARM_2D_SCALE_RGBVEC_ACC(vAvgPixelR, vAvgPixelG, vAvgPixelB, R, G, B, vScal)   \
+#define __ARM_2D_SCALE_RGBVEC_ACC(/* inputs / outputs */                                \
+                                   vAvgPixelR, vAvgPixelG, vAvgPixelB,                  \
+                                  /* inputs */                                          \
+                                   R, G, B, vScal)                                      \
         vAvgPixelR = vqaddq(vAvgPixelR, vrmulhq_u16(vScal, R));                         \
         vAvgPixelG = vqaddq(vAvgPixelG, vrmulhq_u16(vScal, G));                         \
         vAvgPixelB = vqaddq(vAvgPixelB, vrmulhq_u16(vScal, B));
@@ -713,6 +776,7 @@ bool __arm_2d_transform_regression(arm_2d_size_t * __RESTRICT ptCopySize,
 
 #define PIX_VEC_TYP                         uint16x8_t
 #define ARM_2D_POINT_VEC                    arm_2d_point_s16x8_t
+#define AREA_UNITY                          vdupq_n_u16(ONE_Q16)
 
 
 #if defined(__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__) &&  __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
@@ -901,7 +965,7 @@ void __arm_2d_impl_gray8_get_pixel_colour(ARM_2D_POINT_VEC * ptPoint,
         PIX_VEC_TYP     vAvgPixel;
 
         __ARM2D_AVG_NEIGHBR_GRAY8_PIX(ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,
-                                      MaskColour, vTarget, predGlb, predTail, vAvgPixel);
+                                      MaskColour, vTarget, predTail, predGlb, vAvgPixel);
 
         vDstPixel = __ARM_2D_CONVERT_TO_PIX_TYP(vAvgPixel);
 
@@ -911,8 +975,8 @@ void __arm_2d_impl_gray8_get_pixel_colour(ARM_2D_POINT_VEC * ptPoint,
 #else
     {
         __ARM_2D_GRAY8_GET_PIXVEC_FROM_POINT_MASK_CLR_FAR(vXi, vYi, pOrigin, ptOrigValidRegion,
-                                                          iOrigStride, MaskColour, vTarget,
-                                                          vDstPixel, predGlb, predTail);
+                                                          iOrigStride, MaskColour, vTarget, predTail,
+                                                          vDstPixel, predGlb);
     }
 #endif
 
@@ -950,15 +1014,15 @@ void __arm_2d_impl_gray8_get_pixel_colour_with_alpha(ARM_2D_POINT_VEC * ptPoint,
         PIX_VEC_TYP     vAvgPixel;
 
         __ARM2D_AVG_NEIGHBR_GRAY8_PIX(ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,
-                                      MaskColour, vTarget, predGlb, predTail, vAvgPixel);
+                                      MaskColour, vTarget, predTail, predGlb, vAvgPixel);
 
         vDstPixel = __ARM_2D_CONVERT_TO_PIX_TYP(vAvgPixel);
     }
 #else
     {
         __ARM_2D_GRAY8_GET_PIXVEC_FROM_POINT_MASK_CLR_FAR(vXi, vYi, pOrigin, ptOrigValidRegion,
-                                                          iOrigStride, MaskColour, vTarget,
-                                                          vDstPixel, predGlb, predTail);
+                                                          iOrigStride, MaskColour, vTarget, predTail,
+                                                          vDstPixel, predGlb);
     }
 #endif
 
@@ -997,7 +1061,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour(ARM_2D_POINT_VEC * ptPoint,
         PIX_VEC_TYP     vAvgPixelR, vAvgPixelG, vAvgPixelB;
 
         __ARM2D_AVG_NEIGHBR_RGB565_PIX(NEAR_OFFSET, ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion,
-                                       iOrigStride, MaskColour, vTarget, predGlb, predTail, vAvgPixelR,
+                                       iOrigStride, MaskColour, vTarget, predTail, predGlb, vAvgPixelR,
                                        vAvgPixelG, vAvgPixelB);
 
         /* pack */
@@ -1009,7 +1073,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour(ARM_2D_POINT_VEC * ptPoint,
     {
 
         __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT_NOUNPK(vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,
-                                        MaskColour, vTarget, vDstPixel, predGlb, predTail );
+                                        MaskColour, vTarget, predTail, vDstPixel, predGlb );
     }
 #endif
 
@@ -1045,7 +1109,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_offs_compensated(ARM_2D_POINT_VEC * p
         PIX_VEC_TYP     vAvgPixelR, vAvgPixelG, vAvgPixelB;
 
         __ARM2D_AVG_NEIGHBR_RGB565_PIX(FAR_OFFSET, ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion,
-                                       iOrigStride, MaskColour, vTarget, predGlb, predTail, vAvgPixelR,
+                                       iOrigStride, MaskColour, vTarget, predTail, predGlb, vAvgPixelR,
                                        vAvgPixelG, vAvgPixelB);
 
         /* pack */
@@ -1057,7 +1121,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_offs_compensated(ARM_2D_POINT_VEC * p
     {
 
         __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT_NOUNPK_FAR(vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,
-                                        MaskColour, vTarget, vDstPixel, predGlb, predTail );
+                                        MaskColour, vTarget, predTail, vDstPixel, predGlb);
     }
 #endif
 
@@ -1094,7 +1158,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(ARM_2D_POINT_VEC * ptPoint
         PIX_VEC_TYP     vAvgPixelR, vAvgPixelG, vAvgPixelB;
 
         __ARM2D_AVG_NEIGHBR_RGB565_PIX(NEAR_OFFSET, ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion,
-                                       iOrigStride, MaskColour, vTarget, predGlb, predTail, vAvgPixelR,
+                                       iOrigStride, MaskColour, vTarget, predTail, predGlb, vAvgPixelR,
                                        vAvgPixelG, vAvgPixelB);
 
         vAvgR = __ARM_2D_CONVERT_TO_PIX_TYP(vAvgPixelR);
@@ -1105,7 +1169,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha(ARM_2D_POINT_VEC * ptPoint
     {
 
         __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT(vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,
-                                        MaskColour, vTarget, vAvgR, vAvgG, vAvgB, predGlb, predTail );
+                                        MaskColour, vTarget, predTail, vAvgR, vAvgG, vAvgB, predGlb );
     }
 #endif
     /* blending */
@@ -1147,7 +1211,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(ARM_2D_PO
         PIX_VEC_TYP     vAvgPixelR, vAvgPixelG, vAvgPixelB;
 
         __ARM2D_AVG_NEIGHBR_RGB565_PIX(FAR_OFFSET, ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion,
-                                       iOrigStride, MaskColour, vTarget, predGlb, predTail, vAvgPixelR,
+                                       iOrigStride, MaskColour, vTarget, predTail, predGlb, vAvgPixelR,
                                        vAvgPixelG, vAvgPixelB);
 
         vAvgR = __ARM_2D_CONVERT_TO_PIX_TYP(vAvgPixelR);
@@ -1157,7 +1221,7 @@ void __arm_2d_impl_rgb565_get_pixel_colour_with_alpha_offs_compensated(ARM_2D_PO
 #else
     {
         __ARM_2D_RGB565_GET_RGBVEC_FROM_POINT_FAR(vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,
-                                        MaskColour, vTarget, vAvgR, vAvgG, vAvgB, predGlb, predTail );
+                                        MaskColour, vTarget, predTail, vAvgR, vAvgG, vAvgB, predGlb );
     }
 #endif
     /* blending */
@@ -1201,36 +1265,40 @@ void __arm_2d_impl_cccn888_get_pixel_colour(ARM_2D_POINT_VEC * ptPoint,
     {
         /* accumulated pixel vectors */
         PIX_VEC_TYP     vAvgPixelR, vAvgPixelG, vAvgPixelB;
-        ARM_ALIGN(8)    uint32_t scratch32[32];
 
 
         __ARM2D_AVG_NEIGHBR_CCCN888_PIX(ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,
-                                        MaskColour, vTargetLo, vTargetHi, predGlbLo, predGlbHi,
-                                        predTailLow, predTailHigh, vAvgPixelR, vAvgPixelG, vAvgPixelB);
-        /* pack */
-        __arm_2d_pack_rgb888_to_mem((uint8_t *) scratch32, __ARM_2D_CONVERT_TO_PIX_TYP(vAvgPixelR),
-                                    __ARM_2D_CONVERT_TO_PIX_TYP(vAvgPixelG), __ARM_2D_CONVERT_TO_PIX_TYP(vAvgPixelB));
+                                        MaskColour, vTargetLo, vTargetHi, predTailLow, predTailHigh,
+                                        predGlbLo, predGlbHi,
+                                        vAvgPixelR, vAvgPixelG, vAvgPixelB);
 
-        uint32x4_t      TempPixel = vld1q(scratch32);
+        {
+            ARM_ALIGN(8)    uint32_t scratch32[32];
+            /* pack */
+            __arm_2d_pack_rgb888_to_mem((uint8_t *) scratch32, __ARM_2D_CONVERT_TO_PIX_TYP(vAvgPixelR),
+                                        __ARM_2D_CONVERT_TO_PIX_TYP(vAvgPixelG), __ARM_2D_CONVERT_TO_PIX_TYP(vAvgPixelB));
 
-        /* select between target pixel, averaged pixed */
-        TempPixel = vpselq_u32(TempPixel, vTargetLo, predGlbLo);
+            uint32x4_t      TempPixel = vld1q(scratch32);
 
-        vst1q_p(pTarget, TempPixel, predTailLow);
+            /* select between target pixel, averaged pixed */
+            TempPixel = vpselq_u32(TempPixel, vTargetLo, predGlbLo);
 
-        TempPixel = vld1q(scratch32 + 4);
+            vst1q_p(pTarget, TempPixel, predTailLow);
 
-        /* select between target pixel, averaged pixed */
-        TempPixel = vpselq_u32(TempPixel, vTargetHi, predGlbHi);
+            TempPixel = vld1q(scratch32 + 4);
 
-        vst1q_p(pTarget + 4, TempPixel, predTailHigh);
+            /* select between target pixel, averaged pixed */
+            TempPixel = vpselq_u32(TempPixel, vTargetHi, predGlbHi);
+
+            vst1q_p(pTarget + 4, TempPixel, predTailHigh);
+        }
     }
 #else
     {
         uint32x4_t      pointLo, pointHi;
 
         __ARM_2D_RGB888_GET_RGBVEC_FROM_POINT_NOUNPK(vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,
-            MaskColour, vTargetLo, vTargetHi, pointLo, pointHi, predGlbLo, predGlbHi, predTailLow, predTailHigh);
+            MaskColour, vTargetLo, vTargetHi, predTailLow, predTailHigh, pointLo, pointHi, predGlbLo, predGlbHi);
 
         uint32x4_t vPixel = vpselq_u32(pointLo, vTargetLo, predGlbLo);
 
@@ -1276,8 +1344,9 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(ARM_2D_POINT_VEC * ptPoin
         PIX_VEC_TYP     vAvgPixelR, vAvgPixelG, vAvgPixelB;
 
         __ARM2D_AVG_NEIGHBR_CCCN888_PIX(ptPoint, vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride,
-                                        MaskColour, vTargetLo, vTargetHi, predGlbLo, predGlbHi,
-                                        predTailLow, predTailHigh, vAvgPixelR, vAvgPixelG,
+                                        MaskColour, vTargetLo, vTargetHi, predTailLow, predTailHigh,
+                                        predGlbLo, predGlbHi,
+                                        vAvgPixelR, vAvgPixelG,
                                         vAvgPixelB);
         vAvgR = __ARM_2D_CONVERT_TO_PIX_TYP(vAvgPixelR);
         vAvgG = __ARM_2D_CONVERT_TO_PIX_TYP(vAvgPixelG);
@@ -1288,7 +1357,7 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(ARM_2D_POINT_VEC * ptPoin
         uint16x8_t      R, G, B;
 
         __ARM_2D_RGB888_GET_RGBVEC_FROM_POINT(vXi, vYi, pOrigin, ptOrigValidRegion, iOrigStride, MaskColour, vTargetLo,
-                                              vTargetHi, R, G, B, predGlbLo, predGlbHi, predTailLow, predTailHigh);
+                                              vTargetHi, predTailLow, predTailHigh, R, G, B, predGlbLo, predGlbHi);
 
         vAvgR = R;
         vAvgG = G;
@@ -1305,14 +1374,8 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(ARM_2D_POINT_VEC * ptPoin
     __arm_2d_unpack_rgb888_from_mem((const uint8_t *) pTarget, &vTargetR, &vTargetG, &vTargetB);
 
     /* merge */
-    vAvgR = vqaddq(vAvgR * (uint16_t) hwOpacity, vTargetR * transp);
-    vAvgR = vAvgR >> 8;
-
-    vAvgG = vqaddq(vAvgG * (uint16_t) hwOpacity, vTargetG * transp);
-    vAvgG = vAvgG >> 8;
-
-    vAvgB = vqaddq(vAvgB * (uint16_t) hwOpacity, vTargetB * transp);
-    vAvgB = vAvgB >> 8;
+    __ARM_2D_8BIT_RGB_MIX(vAvgR, vAvgG, vAvgB, (uint16_t) hwOpacity,
+                                    vTargetR, vTargetG, vTargetB, transp);
 
     /* pack */
     __arm_2d_pack_rgb888_to_mem((uint8_t *) scratch32, vAvgR, vAvgG, vAvgB);
