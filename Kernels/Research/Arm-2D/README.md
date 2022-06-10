@@ -185,7 +185,7 @@ There is no public 2D image processing benchmark available for microcontrollers.
 
 **Figure 1-5 Performance Comparison among some Cortex-M processors**
 
-![image-20210318225839820](./documents/pictures/TopReadme_1_6_2_b.png) 
+![](./documents/pictures/TopReadme_1_6_2_b.png) 
 
 
 
