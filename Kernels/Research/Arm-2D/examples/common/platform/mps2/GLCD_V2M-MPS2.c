@@ -34,7 +34,19 @@
    ---------------------------------------------------------------------------*/
 
 #include <stddef.h>
-#include "SMM_MPS2.h"                   // Keil::Board Support:V2M-MPS2:Common
+
+#if   defined IOTKit_ARMv8MBL ||    \
+      defined IOTKit_ARMv8MML ||    \
+      defined IOTKit_CM23     ||    \
+      defined IOTKit_CM33     ||    \
+      defined IOTKit_CM33_FP    
+
+#   include "SMM_MPS2_IoTKit.h"                   // Keil::Board Support:V2M-MPS2:Common
+                       /* device specific header file */
+#else
+#   include "SMM_MPS2.h"                   // Keil::Board Support:V2M-MPS2:Common
+#endif
+
 #include "GLCD_Config.h"
 #include "Board_GLCD.h"
 

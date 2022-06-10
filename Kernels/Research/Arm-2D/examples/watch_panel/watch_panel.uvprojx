@@ -1181,7 +1181,7 @@
       <TargetName>V2M-MPS2-CM4</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
+      <pCCUsed>6180000::V6.18::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -1509,7 +1509,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
+              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
               <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include</IncludePath>
             </VariousControls>
@@ -3591,7 +3591,7 @@
       <TargetName>V2M-MPS2-CM33</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
+      <pCCUsed>6180000::V6.18::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -3919,9 +3919,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
+              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3\v2m_mps3</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps2</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -5090,7 +5090,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=0</Define>
+              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
               <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3</IncludePath>
             </VariousControls>
@@ -6002,7 +6002,7 @@
       <TargetName>V2M-MPS2-CM0+</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
+      <pCCUsed>6180000::V6.18::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -7173,7 +7173,7 @@
       <TargetName>V2M-MPS2-CM7</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6180000::V6.18::.\ArmCompilerforEmbedded6.18</pCCUsed>
+      <pCCUsed>6180000::V6.18::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -12116,7 +12116,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=0</Define>
+              <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
               <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3</IncludePath>
             </VariousControls>

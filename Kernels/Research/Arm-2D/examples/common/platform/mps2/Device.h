@@ -58,6 +58,16 @@
 #elif defined CMSDK_ARMv8MML_DP
   #include "CMSDK_ARMv8MML_DP.h"                 /* device specific header file */
 
+#elif   defined IOTKit_ARMv8MBL
+  #include "IOTKit_ARMv8MBL.h"                         /* device specific header file */
+#elif defined IOTKit_ARMv8MML
+  #include "IOTKit_ARMv8MML.h"                         /* device specific header file */
+#elif defined IOTKit_CM23
+  #include "IOTKit_CM23.h"                             /* device specific header file */
+#elif defined IOTKit_CM33
+  #include "IOTKit_CM33.h"                             /* device specific header file */
+#elif defined IOTKit_CM33_FP
+  #include "IOTKit_CM33_FP.h"                          /* device specific header file */
 #else
   #warning "no appropriate header file found!"
 #endif

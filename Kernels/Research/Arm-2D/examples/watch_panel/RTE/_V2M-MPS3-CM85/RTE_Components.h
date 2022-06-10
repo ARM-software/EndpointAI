@@ -3,8 +3,8 @@
  * Auto generated Run-Time-Environment Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'benchmark' 
- * Target:  'V2M-MPS2-CM0+' 
+ * Project: 'watch_panel' 
+ * Target:  'V2M-MPS3-CM85' 
  */
 
 #ifndef RTE_COMPONENTS_H
@@ -14,7 +14,7 @@
 /*
  * Define the Device Header File: 
  */
-#define CMSIS_device_header "CMSDK_CM0plus.h"
+#define CMSIS_device_header "ARMCM85.h"
 
 /* Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.5.1 */
 #define RTE_Compiler_EventRecorder
