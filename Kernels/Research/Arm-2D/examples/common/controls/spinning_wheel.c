@@ -27,6 +27,7 @@
 
 #include "./spinning_wheel.h"
 #include "./shape_round_corner_box.h"
+#include <time.h>
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -56,8 +57,6 @@ extern uint32_t SystemCoreClock;
 extern const arm_2d_tile_t c_tileSpinWheelMask;
 
 /*============================ PROTOTYPES ====================================*/
-__attribute__((nothrow)) 
-extern int64_t clock(void);
 
 /*============================ LOCAL VARIABLES ===============================*/
 

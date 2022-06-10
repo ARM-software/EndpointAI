@@ -22,6 +22,7 @@
 #include "platform.h"
 #include "arm_2d.h"
 #include <math.h>
+#include <time.h>
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -57,9 +58,6 @@ const arm_2d_tile_t c_tileWhiteDot;
 extern
 const arm_2d_tile_t c_tileWhiteDotAlpha;
 /*============================ PROTOTYPES ====================================*/
-__attribute__((nothrow)) 
-extern int64_t clock(void);
-
 /*============================ LOCAL VARIABLES ===============================*/
 
 ARM_NOINIT static arm_2d_location_t s_tDotsLocation[8];

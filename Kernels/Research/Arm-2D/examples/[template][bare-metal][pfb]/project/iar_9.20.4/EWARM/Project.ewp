@@ -11,7 +11,7 @@
             <name>General</name>
             <archiveVersion>3</archiveVersion>
             <data>
-                <version>33</version>
+                <version>34</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -70,7 +70,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>9.10.2.39304</state>
+                    <state>9.20.4.46976</state>
                 </option>
                 <option>
                     <name>OGChipSelectEditMenu</name>
@@ -98,7 +98,7 @@
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
-                    <version>30</version>
+                    <version>31</version>
                     <state>41</state>
                 </option>
                 <option>
@@ -115,7 +115,7 @@
                 </option>
                 <option>
                     <name>CoreVariant</name>
-                    <version>30</version>
+                    <version>31</version>
                     <state>41</state>
                 </option>
                 <option>
@@ -138,7 +138,7 @@
                 </option>
                 <option>
                     <name>GFPUCoreSlave2</name>
-                    <version>30</version>
+                    <version>31</version>
                     <state>41</state>
                 </option>
                 <option>
@@ -198,6 +198,10 @@
                 <option>
                     <name>OG_32_64Device</name>
                     <state>0</state>
+                </option>
+                <option>
+                    <name>BuildFilesPath</name>
+                    <state>STM32746G_DISCOVERY</state>
                 </option>
             </data>
         </settings>
@@ -347,9 +351,11 @@
                     <state>$PROJ_DIR$/../Utilities/CPU</state>
                     <state>$PROJ_DIR$\..\..\..\..\..\Helper\Include</state>
                     <state>$PROJ_DIR$\..\..\..\..\..\Library\Include</state>
-                    <state>$PROJ_DIR$\..\..\..\platform\stm32f746g-discovery</state>
-                    <state>$PROJ_DIR$\..\..\..\platform</state>
+                    <state>$PROJ_DIR$\..\..\..\..\common\platform\stm32f746g-discovery</state>
+                    <state>$PROJ_DIR$\..\..\..\..\common\platform</state>
                     <state>$PROJ_DIR$\..\..\..</state>
+                    <state>$PROJ_DIR$\..\..\..\..\common\platform\lib</state>
+                    <state>$PROJ_DIR$\..\..\mdk\RTE\_STM32F746G-Discovery</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -681,7 +687,7 @@
             <name>ILINK</name>
             <archiveVersion>0</archiveVersion>
             <data>
-                <version>25</version>
+                <version>26</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -758,7 +764,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>C:\Work\CPMK\Git\cmsis-2d\examples\[template][bare-metal][pfb]\project\iar_9.10.2\EWARM\stm32f746xx_flash.icf</state>
+                    <state>$PROJ_DIR$\stm32f746xx_flash.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -806,7 +812,7 @@
                 </option>
                 <option>
                     <name>IlinkAdditionalLibs</name>
-                    <state>$PROJ_DIR$\..\..\..\platform\lib\libperf_counter_gcc.a</state>
+                    <state>$PROJ_DIR$\..\..\..\..\common\platform\lib\libperf_counter_gcc.a</state>
                 </option>
                 <option>
                     <name>IlinkOverrideProgramEntryLabel</name>
@@ -1033,6 +1039,14 @@
                     <name>IlinkDemangle</name>
                     <state>0</state>
                 </option>
+                <option>
+                    <name>IlinkWrapperFileEnable</name>
+                    <state>0</state>
+                </option>
+                <option>
+                    <name>IlinkWrapperFile</name>
+                    <state></state>
+                </option>
             </data>
         </settings>
         <settings>
@@ -1062,22 +1076,79 @@
         <group>
             <name>Asset</name>
             <file>
-                <name>$PROJ_DIR$\..\..\..\asset\whilte_dot.c.c</name>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\arrow.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\background.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\circle_mask.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\clockface.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\cmsis_logo.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\gear_01.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\gear_02.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\helium.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\pointer_sec.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\small_icon_sun.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\software.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\SpinWheel.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\star.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\star32.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\watch_panel.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\asset\whilte_dot.c.c</name>
             </file>
         </group>
         <group>
             <name>Controls</name>
             <file>
-                <name>$PROJ_DIR$\..\..\..\controls\busy_wheel.c</name>
+                <name>$PROJ_DIR$\..\..\..\..\common\controls\busy_wheel.c</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\..\..\controls\busy_wheel.h</name>
+                <name>$PROJ_DIR$\..\..\..\..\common\controls\busy_wheel.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\..\..\controls\controls.c</name>
+                <name>$PROJ_DIR$\..\..\..\..\common\controls\controls.c</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\..\..\controls\controls.h</name>
+                <name>$PROJ_DIR$\..\..\..\..\common\controls\controls.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\controls\shape_round_corner_box.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\controls\shape_round_corner_box.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\controls\spinning_wheel.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\..\..\..\common\controls\spinning_wheel.h</name>
             </file>
         </group>
         <file>
@@ -1173,20 +1244,17 @@
     </group>
     <group>
         <name>Platform</name>
-        <group>
-            <name>Perf_counter</name>
-            <file>
-                <name>$PROJ_DIR$\..\..\..\platform\lib\perf_counter.h</name>
-            </file>
-        </group>
         <file>
-            <name>$PROJ_DIR$\..\..\..\platform\app_platform.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\common\platform\app_platform.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\platform\GLCD_Fonts.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\common\platform\GLCD_Fonts.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\platform\lcd_printf.c</name>
+            <name>$PROJ_DIR$\..\..\..\..\common\platform\lcd_printf.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\common\platform\lib\perf_counter.c</name>
         </file>
     </group>
     <group>
@@ -1266,7 +1334,7 @@
                 </excluded>
             </file>
             <file>
-                <name>$PROJ_DIR$\..\..\..\platform\stm32f746g-discovery\startup_ARMCM7.c</name>
+                <name>$PROJ_DIR$\..\..\..\..\common\platform\stm32f746g-discovery\startup_ARMCM7.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\stm32f746_discovery_platform.c</name>

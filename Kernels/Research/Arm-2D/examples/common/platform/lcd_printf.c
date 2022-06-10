@@ -187,6 +187,11 @@ void lcd_puts(const char *str)
     }
 }
 
+#if __IS_COMPILER_IAR__
+#define __va_list    va_list
+
+#endif
+
 int lcd_printf(const char *format, ...)
 {
     int real_size;

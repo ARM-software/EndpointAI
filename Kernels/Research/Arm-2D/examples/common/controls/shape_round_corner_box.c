@@ -23,6 +23,7 @@
 #include "arm_2d_helper.h"
 #include "platform.h"
 #include <math.h>
+#include <time.h>
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -51,9 +52,6 @@ extern
 const arm_2d_tile_t c_tileWhiteDotAlphaQuarter;
 
 /*============================ PROTOTYPES ====================================*/
-__attribute__((nothrow)) 
-extern int64_t clock(void);
-
 /*============================ LOCAL VARIABLES ===============================*/
 
 declare_tile(s_tCorner)
