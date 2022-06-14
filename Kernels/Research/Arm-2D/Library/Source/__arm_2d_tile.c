@@ -21,8 +21,8 @@
  * Title:        arm-2d_tile.c
  * Description:  Basic Tile operations
  *
- * $Date:        17. May 2022
- * $Revision:    V.1.1.0
+ * $Date:        14. June 2022
+ * $Revision:    V.1.1.1
  *
  * Target Processor:  Cortex-M cores
  *
