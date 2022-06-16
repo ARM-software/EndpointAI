@@ -1589,8 +1589,8 @@ void __arm_2d_init(void)
 
 /*!
  * \brief set the default frame buffer
- * \param ptFramebuffer the new frame buffer, 
- * \note  if NULL is given, no default frame buffer will be used
+ * \param ptFrameBuffer the new frame buffer, 
+ * \note  Passing NULL means using no default framebuffer
  * \return arm_2d_tile_t* the address of the old frame buffer
  */
 arm_2d_tile_t *arm_2d_set_default_frame_buffer(const arm_2d_tile_t *ptFrameBuffer)

@@ -22,8 +22,8 @@
  * Description:  Public header file to contain the all avaialble Arm-2D 
  *               interface header files 
  *
- * $Date:        13. June 2022
- * $Revision:    V.1.0.2
+ * $Date:        16. June 2022
+ * $Revision:    V.1.0.3
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -102,8 +102,8 @@ void arm_2d_init(void);
 
 /*!
  * \brief set the default frame buffer
- * \param ptFramebuffer the new frame buffer, 
- * \note  if NULL is given, no default frame buffer will be used
+ * \param ptFrameBuffer the new frame buffer, 
+ * \note  Passing NULL means using no default framebuffer
  * \return arm_2d_tile_t* the address of the old frame buffer
  */
 extern 
