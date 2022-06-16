@@ -21,8 +21,8 @@
  * Title:        arm_2d_tile.h
  * Description:  Public header file to contain the basic tile operations
  *
- * $Date:        17. May 2022
- * $Revision:    V.1.0.0
+ * $Date:        16. June 2022
+ * $Revision:    V.1.0.1
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -39,30 +39,30 @@ extern "C" {
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
-#define arm_2d_c8bit_tile_copy( __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR,  /*!< target region address*/\
-                                __MODE)             /*!< mode */                \
+#define arm_2d_c8bit_tile_copy( __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR,  /*   target region address*/\
+                                __MODE)             /*   mode */                \
             arm_2dp_c8bit_tile_copy(NULL,                                       \
                                     (__SRC_ADDR),                               \
                                     (__DES_ADDR),                               \
                                     (__DES_REGION_ADDR),                        \
                                     (__MODE))
 
-#define arm_2d_rgb16_tile_copy( __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR,  /*!< target region address*/\
-                                __MODE)             /*!< mode */                \
+#define arm_2d_rgb16_tile_copy( __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR,  /*   target region address*/\
+                                __MODE)             /*   mode */                \
             arm_2dp_rgb16_tile_copy(NULL,                                       \
                                     (__SRC_ADDR),                               \
                                     (__DES_ADDR),                               \
                                     (__DES_REGION_ADDR),                        \
                                     (__MODE))
 
-#define arm_2d_rgb32_tile_copy( __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR,  /*!< target region address*/\
-                                __MODE)             /*!< mode */                \
+#define arm_2d_rgb32_tile_copy( __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR,  /*   target region address*/\
+                                __MODE)             /*   mode */                \
             arm_2dp_rgb32_tile_copy(NULL,                                       \
                                     (__SRC_ADDR),                               \
                                     (__DES_ADDR),                               \
@@ -70,36 +70,36 @@ extern "C" {
                                     (__MODE))
 
 #define arm_2d_c8bit_tile_copy_only(                                            \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_c8bit_tile_copy_only(NULL,                                  \
                                     (__SRC_ADDR),                               \
                                     (__DES_ADDR),                               \
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb16_tile_copy_only(                                            \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb16_tile_copy_only(NULL,                                  \
                                     (__SRC_ADDR),                               \
                                     (__DES_ADDR),                               \
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb32_tile_copy_only(                                            \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb32_tile_copy_only(NULL,                                  \
                                     (__SRC_ADDR),                               \
                                     (__DES_ADDR),                               \
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_c8bit_tile_copy_with_x_mirror(                                   \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_c8bit_tile_copy_with_x_mirror(                              \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -107,9 +107,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb16_tile_copy_with_x_mirror(                                   \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb16_tile_copy_with_x_mirror(                              \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -117,9 +117,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb32_tile_copy_with_x_mirror(                                   \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb32_tile_copy_with_x_mirror(                              \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -127,9 +127,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_c8bit_tile_copy_with_y_mirror(                                   \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_c8bit_tile_copy_with_y_mirror(                              \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -137,9 +137,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb16_tile_copy_with_y_mirror(                                   \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb16_tile_copy_with_y_mirror(                              \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -147,9 +147,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb32_tile_copy_with_y_mirror(                                   \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb32_tile_copy_with_y_mirror(                              \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -157,9 +157,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_c8bit_tile_copy_with_xy_mirror(                                  \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_c8bit_tile_copy_with_xy_mirror(                             \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -167,9 +167,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb16_tile_copy_with_xy_mirror(                                  \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb16_tile_copy_with_xy_mirror(                             \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -177,9 +177,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb32_tile_copy_with_xy_mirror(                                  \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb32_tile_copy_with_xy_mirror(                             \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -187,36 +187,36 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_c8bit_tile_fill_only(                                            \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_c8bit_tile_fill_only(NULL,                                  \
                                     (__SRC_ADDR),                               \
                                     (__DES_ADDR),                               \
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb16_tile_fill_only(                                            \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb16_tile_fill_only(NULL,                                  \
                                     (__SRC_ADDR),                               \
                                     (__DES_ADDR),                               \
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb32_tile_fill_only(                                            \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb32_tile_fill_only(NULL,                                  \
                                     (__SRC_ADDR),                               \
                                     (__DES_ADDR),                               \
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_c8bit_tile_fill_with_x_mirror(                                   \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_c8bit_tile_fill_with_x_mirror(                              \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -224,9 +224,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb16_tile_fill_with_x_mirror(                                   \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb16_tile_fill_with_x_mirror(                              \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -234,9 +234,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb32_tile_fill_with_x_mirror(                                   \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb32_tile_fill_with_x_mirror(                              \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -244,9 +244,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_c8bit_tile_fill_with_y_mirror(                                   \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_c8bit_tile_fill_with_y_mirror(                              \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -254,9 +254,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb16_tile_fill_with_y_mirror(                                   \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb16_tile_fill_with_y_mirror(                              \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -264,9 +264,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb32_tile_fill_with_y_mirror(                                   \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb32_tile_fill_with_y_mirror(                              \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -274,9 +274,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_c8bit_tile_fill_with_xy_mirror(                                  \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_c8bit_tile_fill_with_xy_mirror(                             \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -284,9 +284,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb16_tile_fill_with_xy_mirror(                                  \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb16_tile_fill_with_xy_mirror(                             \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -294,9 +294,9 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_rgb32_tile_fill_with_xy_mirror(                                  \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR)  /*!< target region address*/\
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR)  /*   target region address*/\
             arm_2dp_rgb32_tile_fill_with_xy_mirror(                             \
                                      NULL,                                      \
                                     (__SRC_ADDR),                               \
@@ -304,11 +304,11 @@ extern "C" {
                                     (__DES_REGION_ADDR))
 
 #define arm_2d_c8bit_tile_copy_with_colour_masking(                             \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR,  /*!< target region address*/\
-                                __MSK_COLOUR,       /*!< mask(key) colour */    \
-                                __MODE)             /*!< mode */                \
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR,  /*   target region address*/\
+                                __MSK_COLOUR,       /*   mask(key) colour */    \
+                                __MODE)             /*   mode */                \
             arm_2dp_c8bit_tile_copy_with_colour_keying(                         \
                                     NULL,                                       \
                                     (__SRC_ADDR),                               \
@@ -318,11 +318,11 @@ extern "C" {
                                     (__MODE))
 
 #define arm_2d_c8bit_tile_copy_with_colour_keying(                              \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR,  /*!< target region address*/\
-                                __MSK_COLOUR,       /*!< mask(key) colour */    \
-                                __MODE)             /*!< mode */                \
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR,  /*   target region address*/\
+                                __MSK_COLOUR,       /*   mask(key) colour */    \
+                                __MODE)             /*   mode */                \
             arm_2dp_c8bit_tile_copy_with_colour_keying(                         \
                                     NULL,                                       \
                                     (__SRC_ADDR),                               \
@@ -332,11 +332,11 @@ extern "C" {
                                     (__MODE))
 
 #define arm_2d_rgb16_tile_copy_with_colour_masking(                             \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR,  /*!< target region address*/\
-                                __MSK_COLOUR,       /*!< mask(key) colour */    \
-                                __MODE)             /*!< mode */                \
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR,  /*   target region address*/\
+                                __MSK_COLOUR,       /*   mask(key) colour */    \
+                                __MODE)             /*   mode */                \
             arm_2dp_rgb16_tile_copy_with_colour_keying(                         \
                                     NULL,                                       \
                                     (__SRC_ADDR),                               \
@@ -346,11 +346,11 @@ extern "C" {
                                     (__MODE))
                
 #define arm_2d_rgb16_tile_copy_with_colour_keying(                              \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR,  /*!< target region address*/\
-                                __MSK_COLOUR,       /*!< mask(key) colour */    \
-                                __MODE)             /*!< mode */                \
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR,  /*   target region address*/\
+                                __MSK_COLOUR,       /*   mask(key) colour */    \
+                                __MODE)             /*   mode */                \
             arm_2dp_rgb16_tile_copy_with_colour_keying(                         \
                                     NULL,                                       \
                                     (__SRC_ADDR),                               \
@@ -360,11 +360,11 @@ extern "C" {
                                     (__MODE))
 
 #define arm_2d_rgb32_tile_copy_with_colour_masking(                             \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR,  /*!< target region address*/\
-                                __MSK_COLOUR,       /*!< mask(key) colour */    \
-                                __MODE)             /*!< mode */                \
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR,  /*   target region address*/\
+                                __MSK_COLOUR,       /*   mask(key) colour */    \
+                                __MODE)             /*   mode */                \
             arm_2dp_rgb32_tile_copy_with_colour_keying(                         \
                                     NULL,                                       \
                                     (__SRC_ADDR),                               \
@@ -374,11 +374,11 @@ extern "C" {
                                     (__MODE))
 
 #define arm_2d_rgb32_tile_copy_with_colour_keying(                              \
-                                __SRC_ADDR,         /*!< source tile address */ \
-                                __DES_ADDR,         /*!< target tile address */ \
-                                __DES_REGION_ADDR,  /*!< target region address*/\
-                                __MSK_COLOUR,       /*!< mask(key) colour */    \
-                                __MODE)             /*!< mode */                \
+                                __SRC_ADDR,         /*   source tile address */ \
+                                __DES_ADDR,         /*   target tile address */ \
+                                __DES_REGION_ADDR,  /*   target region address*/\
+                                __MSK_COLOUR,       /*   mask(key) colour */    \
+                                __MODE)             /*   mode */                \
             arm_2dp_rgb32_tile_copy_with_colour_keying(                         \
                                     NULL,                                       \
                                     (__SRC_ADDR),                               \
@@ -494,7 +494,7 @@ typedef arm_2d_op_src_t arm_2d_op_cp_t;
 /*! \note arm_2d_op_cp_cl_key_t inherits from arm_2d_op_src_t explicitly 
  */
 typedef struct arm_2d_op_cp_cl_key_t {
-    inherit(arm_2d_op_core_t);
+    inherit(arm_2d_op_core_t);                  //!< base
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile 
         const arm_2d_region_t   *ptRegion;      //!< target region
@@ -502,11 +502,11 @@ typedef struct arm_2d_op_cp_cl_key_t {
     struct {
         const arm_2d_tile_t     *ptTile;        //!< source tile 
     }Source;
-    uint32_t wMode;
+    uint32_t wMode;                             //!< copy mode
     union {
-        uint8_t  chColour;
-        uint16_t hwColour;
-        uint32_t wColour;
+        uint8_t  chColour;                      //!< 8bit colour
+        uint16_t hwColour;                      //!< 16bit colour
+        uint32_t wColour;                       //!< 32bit colour
     };
 } arm_2d_op_cp_cl_key_t;
 
@@ -518,7 +518,12 @@ typedef struct arm_2d_op_cp_cl_key_t {
  * Tile Operations                                                            *
  *----------------------------------------------------------------------------*/
 
-
+/*!
+ * \brief check whether a given tile is root or not
+ * \param[in] ptTile the target tile
+ * \retval true the target tile is a root tile
+ * \retval false the target tile is a child tile
+ */
 ARM_NONNULL(1)
 __STATIC_INLINE bool arm_2d_is_root_tile(const arm_2d_tile_t *ptTile)
 {
@@ -526,7 +531,16 @@ __STATIC_INLINE bool arm_2d_is_root_tile(const arm_2d_tile_t *ptTile)
 }
 
 
-/*
+/*!
+ * \brief intersect two regions and find the overlapped region
+ * \param[in] ptRegionIn0 the input region 0
+ * \param[in] ptRegionIn1 the input region 1
+ * \param[out] ptRegionOut the overlapped region
+ * \retval false the two regions do not overlap
+ * \retval true the two regions overlap
+ * 
+ * \code
+
   HOW IT WORKS:
   
     Input Region 0
@@ -543,27 +557,43 @@ __STATIC_INLINE bool arm_2d_is_root_tile(const arm_2d_tile_t *ptTile)
                           |////////////////////////////////////////|
                           +----------------------------------------+
                                                    Input Region 1
+ *  \endcode
  */
 extern
 ARM_NONNULL(1,2)
 bool arm_2d_region_intersect(   const arm_2d_region_t *ptRegionIn0,
                                 const arm_2d_region_t *ptRegionIn1,
                                 arm_2d_region_t *ptRegionOut);
+
+/*!
+ * \brief check whether a point is inside a given region
+ * \param[in] ptRegion the target region
+ * \param[in] ptPoint the target point
+ * \retval true the point is inside the target region
+ * \retval false the point is outside the target region
+ */
 extern
 ARM_NONNULL(1,2)
 bool arm_2d_is_point_inside_region( const arm_2d_region_t *ptRegion,
                                     const arm_2d_location_t *ptPoint);
 
-/*
+/*!
+ * \brief get the root tile and the valid region for a given tile
+ * \param[in] ptTile the target tile
+ * \param[out] ptValidRegion the valid region inside the root tile
+ * \param[out] ptOffset the offsite of the root tile as if the root tile is inside the target tile
+ * \return const arm_2d_tile_t* the root tile
+ * 
+ * \code
   HOW IT WORKS:
   
    Root Tile (Output Tile)
   +------------------------------------------------------------------------+
   |     ... ...                                                            |
   |                                                                        |
-  |                   Parent Tile' (Child Tile of Parent Tile'')           |
+  |                    Child Tile of Parent Tile                           |
   |                 +------------------------------------+                 |
-  |                 |        Child Tile of Parent Tile'  |                 |
+  |                 |        Child Tile of Parent Tile   |                 |
   |                 |     +------------------------------+---------+       |
   |                 |     |                              |/////////|       |
   |                 |     |       Valid Region           |/////////|       |
@@ -574,6 +604,7 @@ bool arm_2d_is_point_inside_region( const arm_2d_region_t *ptRegion,
   |                       +----------------------------------------+       |
   |                                                                        |
   +------------------------------------------------------------------------+
+  \endcode
  */
 extern
 ARM_NONNULL(1,2)
@@ -581,10 +612,21 @@ const arm_2d_tile_t *arm_2d_tile_get_root(  const arm_2d_tile_t *ptTile,
                                             arm_2d_region_t *ptValidRegion,
                                             arm_2d_location_t *ptOffset);
 
-/*
+/*!
+ * \brief generate a child tile from the target tile with a given region
+ * \param[in] ptTargetTile the target tile
+ * \param[in] ptRegion the target region
+ * \param[out] ptOutput the child tile
+ * \param[in] bClipRegion whether clip the region for the child tile
+ * \note We highly recommend that please DO NOT clip the child tile if 
+ *       you don't know what you are doing.
+ * \retval non-NULL the child tile
+ * \retval NULL the given region is outside the target tile
+ * 
+ * \code
   HOW IT WORKS:
   
-   Parent Tile (Are NOT necessarily a ROOT tile )
+   Parent Tile (NOT necessarily a ROOT tile )
   +------------------------------------------------------+
   |                                                      |
   |                                                      |
@@ -597,7 +639,7 @@ const arm_2d_tile_t *arm_2d_tile_get_root(  const arm_2d_tile_t *ptTile,
                           |////////////////////////////////////////|
                           |////////////////////////////////////////|
                           +----------------------------------------+
-
+   \endcode
  */
 extern 
 ARM_NONNULL(1,2,3)
@@ -607,27 +649,57 @@ arm_2d_tile_t *arm_2d_tile_generate_child(
                                         arm_2d_tile_t *ptOutput,
                                         bool bClipRegion);
 
+/*!
+ * \brief compare the widths of two tiles
+ * \param[in] ptTarget the target tile
+ * \param[in] ptReference the reference tile
+ * \return arm_2d_cmp_t the comparision result
+ */
 extern
 ARM_NONNULL(1,2)
 arm_2d_cmp_t arm_2d_tile_width_compare( const arm_2d_tile_t *ptTarget,
                                         const arm_2d_tile_t *ptReference);
-
+/*!
+ * \brief compare the heights of two tiles
+ * \param[in] ptTarget the target tile
+ * \param[in] ptReference the reference tile
+ * \return arm_2d_cmp_t the comparision result
+ */
 extern
 ARM_NONNULL(1,2)
 arm_2d_cmp_t arm_2d_tile_height_compare(const arm_2d_tile_t *ptTarget,
                                         const arm_2d_tile_t *ptReference);
 
+/*!
+ * \brief compare the shape (both widths and heights) of two tiles
+ * \param[in] ptTarget the target tile
+ * \param[in] ptReference the reference tile
+ * \return arm_2d_cmp_t the comparision result
+ */
 extern
 ARM_NONNULL(1,2)
 arm_2d_cmp_t arm_2d_tile_shape_compare( const arm_2d_tile_t *ptTarget,
                                         const arm_2d_tile_t *ptReference);
-                                        
+
+/*!
+ * \brief get the absolute location of a given tile
+ * \param[in] ptTile the target tile
+ * \param[out] ptLocation the absolute location in the root tile
+ * \return const arm_2d_tile_t * the root tile
+ */
 extern
 ARM_NONNULL(1,2)
 const arm_2d_tile_t * arm_2d_get_absolute_location(
                                         const arm_2d_tile_t *ptTile, 
                                         arm_2d_location_t *ptLocation);
 
+/*!
+ * \brief calculate the region differences between two tiles
+ * \param[in] ptTarget the target tile
+ * \param[in] ptReference the reference tile
+ * \param[out] ptBuffer the difference stored in a region
+ * \return arm_2d_region_t * the ptBuffer passed to this function
+ */
 extern
 ARM_NONNULL(1,2,3)
 arm_2d_region_t *arm_2d_tile_region_diff(   const arm_2d_tile_t *ptTarget,
