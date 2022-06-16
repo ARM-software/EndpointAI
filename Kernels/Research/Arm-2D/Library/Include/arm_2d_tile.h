@@ -709,7 +709,10 @@ arm_2d_region_t *arm_2d_tile_region_diff(   const arm_2d_tile_t *ptTarget,
  * Copy/Fill tile to destination with Mirroring                               *
  *----------------------------------------------------------------------------*/
 
-enum {
+/*!
+ * \brief tile copy modes
+ */
+enum __arm_2d_copy_mode_t {
     ARM_2D_CP_MODE_COPY =         0,
     ARM_2D_CP_MODE_FILL =         _BV(0),
     ARM_2D_CP_MODE_Y_MIRROR =     _BV(2),
@@ -718,6 +721,16 @@ enum {
                                   ARM_2D_CP_MODE_Y_MIRROR,
 };
 
+/*!
+ * \brief tile copy with specified mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_c8bit_tile_copy(arm_2d_op_cp_t *ptOP,
@@ -726,6 +739,16 @@ arm_fsm_rt_t arm_2dp_c8bit_tile_copy(arm_2d_op_cp_t *ptOP,
                                      const arm_2d_region_t *ptRegion,
                                      uint32_t wMode);
 
+/*!
+ * \brief tile copy with specified mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb16_tile_copy(arm_2d_op_cp_t *ptOP,
@@ -733,7 +756,17 @@ arm_fsm_rt_t arm_2dp_rgb16_tile_copy(arm_2d_op_cp_t *ptOP,
                                      const arm_2d_tile_t *ptTarget,
                                      const arm_2d_region_t *ptRegion,
                                      uint32_t wMode);
-                                     
+
+/*!
+ * \brief tile copy with specified mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ */                             
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb32_tile_copy(arm_2d_op_cp_t *ptOP,
@@ -745,6 +778,15 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_copy(arm_2d_op_cp_t *ptOP,
 /*----------------------------------------------------------------------------*
  * Copy Only                                                                  *
  *----------------------------------------------------------------------------*/
+/*!
+ * \brief tile copy only
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_c8bit_tile_copy_only(  arm_2d_op_cp_t *ptOP,
@@ -752,13 +794,31 @@ arm_fsm_rt_t arm_2dp_c8bit_tile_copy_only(  arm_2d_op_cp_t *ptOP,
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
 
+/*!
+ * \brief tile copy only
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb16_tile_copy_only(  arm_2d_op_cp_t *ptOP,
                                             const arm_2d_tile_t *ptSource,
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
-                                     
+
+/*!
+ * \brief tile copy only
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */                
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb32_tile_copy_only(  arm_2d_op_cp_t *ptOP,
@@ -769,6 +829,15 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_copy_only(  arm_2d_op_cp_t *ptOP,
 /*----------------------------------------------------------------------------*
  * Copy with X mirroring                                                      *
  *----------------------------------------------------------------------------*/
+/*!
+ * \brief tile copy with x-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_c8bit_tile_copy_with_x_mirror(
@@ -777,6 +846,15 @@ arm_fsm_rt_t arm_2dp_c8bit_tile_copy_with_x_mirror(
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
 
+/*!
+ * \brief tile copy with x-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_x_mirror(
@@ -784,7 +862,16 @@ arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_x_mirror(
                                             const arm_2d_tile_t *ptSource,
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
-                                     
+
+/*!
+ * \brief tile copy with x-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */                  
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb32_tile_copy_with_x_mirror(
@@ -796,6 +883,16 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_copy_with_x_mirror(
 /*----------------------------------------------------------------------------*
  * Copy with Y mirroring                                                      *
  *----------------------------------------------------------------------------*/
+
+/*!
+ * \brief tile copy with y-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_c8bit_tile_copy_with_y_mirror(
@@ -804,6 +901,15 @@ arm_fsm_rt_t arm_2dp_c8bit_tile_copy_with_y_mirror(
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
 
+/*!
+ * \brief tile copy with y-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_y_mirror(
@@ -811,7 +917,16 @@ arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_y_mirror(
                                             const arm_2d_tile_t *ptSource,
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
-                                     
+
+/*!
+ * \brief tile copy with y-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb32_tile_copy_with_y_mirror(
@@ -821,8 +936,18 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_copy_with_y_mirror(
                                             const arm_2d_region_t *ptRegion);
 
 /*----------------------------------------------------------------------------*
- * Copy with XY mirroring                                                      *
+ * Copy with XY mirroring                                                     *
  *----------------------------------------------------------------------------*/
+
+/*!
+ * \brief tile copy with xy-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_c8bit_tile_copy_with_xy_mirror(
@@ -831,6 +956,15 @@ arm_fsm_rt_t arm_2dp_c8bit_tile_copy_with_xy_mirror(
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
 
+/*!
+ * \brief tile copy with xy-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_xy_mirror(
@@ -838,7 +972,16 @@ arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_xy_mirror(
                                             const arm_2d_tile_t *ptSource,
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
-                                     
+
+/*!
+ * \brief tile copy with xy-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */        
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb32_tile_copy_with_xy_mirror(
@@ -850,6 +993,16 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_copy_with_xy_mirror(
 /*----------------------------------------------------------------------------*
  * Fill Only                                                                  *
  *----------------------------------------------------------------------------*/
+
+/*!
+ * \brief Tiling only
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_c8bit_tile_fill_only(  arm_2d_op_cp_t *ptOP,
@@ -857,13 +1010,31 @@ arm_fsm_rt_t arm_2dp_c8bit_tile_fill_only(  arm_2d_op_cp_t *ptOP,
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
 
+/*!
+ * \brief Tiling only
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb16_tile_fill_only(  arm_2d_op_cp_t *ptOP,
                                             const arm_2d_tile_t *ptSource,
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
-                                     
+
+/*!
+ * \brief Tiling only
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb32_tile_fill_only(  arm_2d_op_cp_t *ptOP,
@@ -874,6 +1045,16 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_fill_only(  arm_2d_op_cp_t *ptOP,
 /*----------------------------------------------------------------------------*
  * Fill with X mirroring                                                      *
  *----------------------------------------------------------------------------*/
+
+/*!
+ * \brief Tiling with x-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_c8bit_tile_fill_with_x_mirror(
@@ -882,6 +1063,15 @@ arm_fsm_rt_t arm_2dp_c8bit_tile_fill_with_x_mirror(
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
 
+/*!
+ * \brief Tiling with x-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb16_tile_fill_with_x_mirror(
@@ -889,7 +1079,16 @@ arm_fsm_rt_t arm_2dp_rgb16_tile_fill_with_x_mirror(
                                             const arm_2d_tile_t *ptSource,
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
-                                     
+
+/*!
+ * \brief Tiling with x-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb32_tile_fill_with_x_mirror(
@@ -901,6 +1100,16 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_fill_with_x_mirror(
 /*----------------------------------------------------------------------------*
  * Fill with Y mirroring                                                      *
  *----------------------------------------------------------------------------*/
+
+/*!
+ * \brief Tiling with y-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_c8bit_tile_fill_with_y_mirror(
@@ -909,6 +1118,15 @@ arm_fsm_rt_t arm_2dp_c8bit_tile_fill_with_y_mirror(
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
 
+/*!
+ * \brief Tiling with y-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb16_tile_fill_with_y_mirror(
@@ -916,7 +1134,16 @@ arm_fsm_rt_t arm_2dp_rgb16_tile_fill_with_y_mirror(
                                             const arm_2d_tile_t *ptSource,
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
-                                     
+
+/*!
+ * \brief Tiling with y-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb32_tile_fill_with_y_mirror(
@@ -926,8 +1153,18 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_fill_with_y_mirror(
                                             const arm_2d_region_t *ptRegion);
 
 /*----------------------------------------------------------------------------*
- * Fill with XY mirroring                                                      *
+ * Fill with XY mirroring                                                     *
  *----------------------------------------------------------------------------*/
+
+/*!
+ * \brief Tiling with xy-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_c8bit_tile_fill_with_xy_mirror(
@@ -936,6 +1173,15 @@ arm_fsm_rt_t arm_2dp_c8bit_tile_fill_with_xy_mirror(
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
 
+/*!
+ * \brief Tiling with xy-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb16_tile_fill_with_xy_mirror(
@@ -943,7 +1189,16 @@ arm_fsm_rt_t arm_2dp_rgb16_tile_fill_with_xy_mirror(
                                             const arm_2d_tile_t *ptSource,
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion);
-                                     
+
+/*!
+ * \brief Tiling with xy-mirroring
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb32_tile_fill_with_xy_mirror(
@@ -956,13 +1211,16 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_fill_with_xy_mirror(
  * Copy/Fill tile to destination with colour-keying and mirroring             *
  *----------------------------------------------------------------------------*/
 
-/*! \brief copy source tile to destination tile and use destination tile as 
- *!        background. When encountering specified mask colour, the background
- *!        pixel should be used, otherwise the foreground pixel from source tile
- *!        is used. 
- *!         
- *! \note  All color formats which using 8bits per pixel are treated equally.
- *!
+/*! 
+ * \brief tile copy with colour-keying and specified mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \param[in] chMaskColour the key colour
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
  */
 extern
 ARM_NONNULL(2,3)
@@ -974,14 +1232,18 @@ arm_fsm_rt_t arm_2dp_c8bit_tile_copy_with_colour_keying(
                                             uint8_t chMaskColour,
                                             uint32_t wMode);
 
-/*! \brief copy source tile to destination tile and use destination tile as 
- *!        background. When encountering specified mask colour, the background
- *!        pixel should be used, otherwise the foreground pixel from source tile
- *!        is used. 
- *!         
- *! \note  All color formats which using 16bits per pixel are treated equally.
- *! 
- *! \note  alpha channel is not handled, i.e. rgba5551
+/*! 
+ * \brief tile copy with colour-keying and specified mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \param[in] hwMaskColour the key colour
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ * 
+ * \note  alpha channel is not handled, i.e. rgba5551
  */
 extern
 ARM_NONNULL(2,3)
@@ -994,14 +1256,18 @@ arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_colour_keying(
                                             uint32_t wMode);
 
 
-/*! \brief copy source tile to destination tile and use destination tile as 
- *!        background. When encountering specified mask colour, the background
- *!        pixel should be used, otherwise the foreground pixel from source tile
- *!        is used. 
- *! 
- *! \note  All color formats which using 32bits per pixel are treated equally.
- *! 
- *! \note  alpha channel is not handled.
+/*! 
+ * \brief tile copy with colour-keying and specified mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region, NULL means using the region of the 
+ *            target tile.
+ * \param[in] wMaskColour the key colour
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ * 
+ * \note  alpha channel is not handled
  */
 extern
 ARM_NONNULL(2,3)
