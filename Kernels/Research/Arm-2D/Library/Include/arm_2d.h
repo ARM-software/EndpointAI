@@ -72,7 +72,10 @@ extern "C" {
 /*============================ TYPES =========================================*/
 
 typedef struct {
+    /*! if the target region is out of the target tile, return arm_fsm_rt_cpl */
     uint8_t     TREAT_OUT_OF_RANGE_AS_COMPLETE          : 1;
+    
+    /*! indicate that there is a dedicated thread to run arm_2d_task() in RTOS env */
     uint8_t     HAS_DEDICATED_THREAD_FOR_2D_TASK        : 1;
     uint8_t                                             : 6;
 } arm_2d_runtime_feature_t;
