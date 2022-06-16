@@ -1218,7 +1218,7 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_fill_with_xy_mirror(
  * \param[in] ptTarget the target tile
  * \param[in] ptRegion the target region, NULL means using the region of the 
  *            target tile.
- * \param[in] chMaskColour the key colour
+ * \param[in] chMaskColour the key colour in any 8bit colour format
  * \param[in] wMode the copy mode
  * \return arm_fsm_rt_t the operation result
  */
@@ -1239,7 +1239,7 @@ arm_fsm_rt_t arm_2dp_c8bit_tile_copy_with_colour_keying(
  * \param[in] ptTarget the target tile
  * \param[in] ptRegion the target region, NULL means using the region of the 
  *            target tile.
- * \param[in] hwMaskColour the key colour
+ * \param[in] hwMaskColour the key colour in any 16bit colour format
  * \param[in] wMode the copy mode
  * \return arm_fsm_rt_t the operation result
  * 
@@ -1263,7 +1263,7 @@ arm_fsm_rt_t arm_2dp_rgb16_tile_copy_with_colour_keying(
  * \param[in] ptTarget the target tile
  * \param[in] ptRegion the target region, NULL means using the region of the 
  *            target tile.
- * \param[in] wMaskColour the key colour
+ * \param[in] wMaskColour the key colour in any 32bit colour format
  * \param[in] wMode the copy mode
  * \return arm_fsm_rt_t the operation result
  * 
