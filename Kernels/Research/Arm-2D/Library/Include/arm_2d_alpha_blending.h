@@ -113,9 +113,10 @@ extern "C" {
 /*! @} */
 
 /*!
- * \addtogroup Alpha 4 Alpha Blending Operations
+ * \addtogroup gAlpha 4 Alpha Blending Operations
  * @{
  */
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
 #define arm_2d_gray8_alpha_blending(  __SRC_ADDR,   /*   source tile address */ \
@@ -353,8 +354,8 @@ extern "C" {
                                       __SRC_ADDR,   /*   source tile address */ \
                                       __DES_ADDR,   /*   target tile address */ \
                                       __REGION_ADDR,/*   region address */      \
-                                      __ALPHA,     /*   colour */               \
-                                      __COLOUR)      /*   alpha */              \
+                                      __ALPHA,      /*   colour */              \
+                                      __COLOUR)     /*   alpha */               \
             arm_2dp_cccn888_alpha_blending_with_colour_keying(                  \
                                                     NULL,                       \
                                                  (__SRC_ADDR),                  \
@@ -521,10 +522,10 @@ typedef struct arm_2d_op_alpha_t {
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile 
         const arm_2d_region_t   *ptRegion;      //!< target region
-    } Target;
+    } Target;                                   //!< target
     struct {
         const arm_2d_tile_t     *ptTile;        //!< source tile 
-    }Source;
+    }Source;                                    //!< source
     uint32_t wMode;                             //!< copy mode
     uint8_t chRatio;                            //!< opacity
 } arm_2d_op_alpha_t;
@@ -539,10 +540,10 @@ typedef struct arm_2d_op_alpha_cl_key_t {
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile 
         const arm_2d_region_t   *ptRegion;      //!< target region
-    } Target;
+    } Target;                                   //!< target
     struct {
         const arm_2d_tile_t     *ptTile;        //!< source tile 
-    }Source;
+    }Source;                                    //!< source
     uint32_t wMode;                             //!< copy mode
     uint8_t chRatio;                            //!< opacity
 
@@ -563,10 +564,10 @@ typedef struct arm_2d_op_fill_cl_msk_t {
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile
         const arm_2d_region_t   *ptRegion;      //!< target region
-    } Target;
+    } Target;                                   //!< target
     struct {
         const arm_2d_tile_t     *ptTile;        //!< Alpha Mask tile
-    } Mask;
+    } Mask;                                     //!< mask
     uint32_t wMode;                             //!< copy mode
 
     union {
@@ -586,10 +587,10 @@ typedef struct arm_2d_op_alpha_fill_cl_msk_opc_t {
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile
         const arm_2d_region_t   *ptRegion;      //!< target region
-    } Target;
+    } Target;                                   //!< target
     struct {
         const arm_2d_tile_t     *ptTile;        //!< Alpha Mask tile
-    } Mask;
+    } Mask;                                     //!< mask
     uint32_t wMode;                             //!< copy mode
     union {
         uint8_t  chColour;                      //!< 8bit key colour
@@ -608,7 +609,7 @@ typedef struct arm_2d_op_fill_cl_opc_t {
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile 
         const arm_2d_region_t   *ptRegion;      //!< target region
-    } Target;
+    } Target;                                   //!< target
     union {
         uint8_t  chColour;                      //!< 8bit key colour
         uint16_t hwColour;                      //!< 16bit key colour
@@ -630,6 +631,15 @@ typedef arm_2d_op_src_msk_t arm_2d_op_cp_msk_t;
  * Copy tile to destination with specified transparency ratio (0~255)         *
  *----------------------------------------------------------------------------*/
 
+/*!
+ * \brief blend a source tile to a target tile with a specified opacity
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] chRatio the opacity
+ * \return arm_fsm_rt_t the operation result
+ */
 extern 
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_gray8_alpha_blending(  arm_2d_op_alpha_t *ptOP,
@@ -637,7 +647,16 @@ arm_fsm_rt_t arm_2dp_gray8_alpha_blending(  arm_2d_op_alpha_t *ptOP,
                                             const arm_2d_tile_t *ptTarget,
                                             const arm_2d_region_t *ptRegion,
                                             uint_fast8_t chRatio);
-                             
+
+/*!
+ * \brief blend a source tile to a target tile with a specified opacity
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] chRatio the opacity
+ * \return arm_fsm_rt_t the operation result
+ */
 extern 
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb565_alpha_blending( arm_2d_op_alpha_t *ptOP,
@@ -646,6 +665,15 @@ arm_fsm_rt_t arm_2dp_rgb565_alpha_blending( arm_2d_op_alpha_t *ptOP,
                                             const arm_2d_region_t *ptRegion,
                                             uint_fast8_t chRatio);
 
+/*!
+ * \brief blend a source tile to a target tile with a specified opacity
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] chRatio the opacity
+ * \return arm_fsm_rt_t the operation result
+ */
 extern 
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_cccn888_alpha_blending( arm_2d_op_alpha_t *ptOP,
@@ -659,6 +687,15 @@ arm_fsm_rt_t arm_2dp_cccn888_alpha_blending( arm_2d_op_alpha_t *ptOP,
  * Fill a specified region with a given colour and transparency ratio (0~255) *
  *----------------------------------------------------------------------------*/
 
+/*!
+ * \brief fill a target tile with a given gray8 colour and a specified opacity
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] chColour a gray8 colour
+ * \param[in] chRatio the opacity
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2)
 arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_opacity( 
@@ -668,6 +705,15 @@ arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_opacity(
                                                 uint8_t chColour,
                                                 uint_fast8_t chRatio);
 
+/*!
+ * \brief fill a target tile with a given rgb565 colour and a specified opacity
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] tColour a rgb565 colour
+ * \param[in] chRatio the opacity
+ * \return arm_fsm_rt_t the operation result
+ */
 extern 
 ARM_NONNULL(2)
 arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_opacity( 
@@ -677,6 +723,15 @@ arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_opacity(
                                                 arm_2d_color_rgb565_t tColour,
                                                 uint_fast8_t chRatio);
 
+/*!
+ * \brief fill a target tile with a given cccn888 colour and a specified opacity
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] tColour a cccn888 colour
+ * \param[in] chRatio the opacity
+ * \return arm_fsm_rt_t the operation result
+ */
 extern 
 ARM_NONNULL(2)
 arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_opacity( 
@@ -690,6 +745,15 @@ arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_opacity(
  * Fill tile with a specified colour and an alpha mask                        *
  *----------------------------------------------------------------------------*/
 
+/*!
+ * \brief fill a target tile with a given gray8 colour and a mask on target side
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] ptAlpha the mask on the target side
+ * \param[in] chColour a gray8 colour
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_mask(
@@ -699,6 +763,15 @@ arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_mask(
                                         const arm_2d_tile_t *ptAlpha,
                                         uint8_t chColour);
 
+/*!
+ * \brief fill a target tile with a given rgb565 colour and a mask on target side
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] ptAlpha the mask on the target side
+ * \param[in] tColour a rgb565 colour
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_mask( 
@@ -708,6 +781,15 @@ arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_mask(
                                         const arm_2d_tile_t *ptAlpha,
                                         arm_2d_color_rgb565_t tColour);
 
+/*!
+ * \brief fill a target tile with a given cccn888 colour and a mask on target side
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] ptAlpha the mask on the target side
+ * \param[in] tColour a cccn888 colour
+ * \return arm_fsm_rt_t the operation result
+ */
 extern                                  
 ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_mask( 
@@ -717,11 +799,20 @@ arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_mask(
                                         const arm_2d_tile_t *ptAlpha,
                                         arm_2d_color_cccn888_t tColour);
 
-
 /*----------------------------------------------------------------------------*
  * Fill tile with a specified colour, an alpha mask and a specified opacity   *
  *----------------------------------------------------------------------------*/
 
+/*!
+ * \brief fill a target tile with a given gray8 colour, a mask on target side and an opacity
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] ptAlpha the mask on the target side
+ * \param[in] chColour a gray8 colour
+ * \param[in] chOpacity the opacity
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_mask_and_opacity(
@@ -731,7 +822,17 @@ arm_fsm_rt_t arm_2dp_gray8_fill_colour_with_mask_and_opacity(
                                         const arm_2d_tile_t *ptAlpha,
                                         uint8_t chColour,
                                         uint8_t chOpacity);
-                                        
+
+/*!
+ * \brief fill a target tile with a given rgb565 colour, a mask on target side and an opacity
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] ptAlpha the mask on the target side
+ * \param[in] tColour a rgb565 colour
+ * \param[in] chOpacity the opacity
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_mask_and_opacity(
@@ -742,6 +843,16 @@ arm_fsm_rt_t arm_2dp_rgb565_fill_colour_with_mask_and_opacity(
                                         arm_2d_color_rgb565_t tColour,
                                         uint8_t chOpacity);
 
+/*!
+ * \brief fill a target tile with a given cccn888 colour, a mask on target side and an opacity
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] ptAlpha the mask on the target side
+ * \param[in] tColour a cccn888 colour
+ * \param[in] chOpacity the opacity
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,4)
 arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_mask_and_opacity(
@@ -757,6 +868,16 @@ arm_fsm_rt_t arm_2dp_cccn888_fill_colour_with_mask_and_opacity(
  * specified transparency color mask                                          *
  *----------------------------------------------------------------------------*/
 
+/*!
+ * \brief blend a source tile to a target tile with a opacity and colour keying
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] chRatio the opacity
+ * \param[in] chColour the key colour
+ * \return arm_fsm_rt_t the operation result
+ */
 extern 
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_gray8_alpha_blending_with_colour_keying(
@@ -767,6 +888,16 @@ arm_fsm_rt_t arm_2dp_gray8_alpha_blending_with_colour_keying(
                                             uint_fast8_t chRatio,
                                             uint8_t chColour);
 
+/*!
+ * \brief blend a source tile to a target tile with a opacity and colour keying
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] chRatio the opacity
+ * \param[in] tColour the key colour
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_rgb565_alpha_blending_with_colour_keying(
@@ -776,7 +907,17 @@ arm_fsm_rt_t arm_2dp_rgb565_alpha_blending_with_colour_keying(
                                                 const arm_2d_region_t *ptRegion,
                                                 uint_fast8_t chRatio,
                                                 arm_2d_color_rgb565_t tColour);
-                                            
+
+/*!
+ * \brief blend a source tile to a target tile with a opacity and colour keying
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] chRatio the opacity
+ * \param[in] tColour the key colour
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_cccn888_alpha_blending_with_colour_keying(
@@ -791,6 +932,17 @@ arm_fsm_rt_t arm_2dp_cccn888_alpha_blending_with_colour_keying(
  * Copy tile to destination with both a source mask and a target mask         *
  *----------------------------------------------------------------------------*/
 
+/*!
+ * \brief copy a source tile to a target tile with masks in a given mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptSrcMask the mask on the source side
+ * \param[in] ptTarget the target tile
+ * \param[in] ptDesMask the mask on the target side
+ * \param[in] ptRegion the target region
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3,4,5)
 arm_fsm_rt_t arm_2dp_gray8_tile_copy_with_masks(
@@ -802,6 +954,17 @@ arm_fsm_rt_t arm_2dp_gray8_tile_copy_with_masks(
                                         const arm_2d_region_t *ptRegion,
                                         uint32_t wMode); 
 
+/*!
+ * \brief copy a source tile to a target tile with masks in a given mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptSrcMask the mask on the source side
+ * \param[in] ptTarget the target tile
+ * \param[in] ptDesMask the mask on the target side
+ * \param[in] ptRegion the target region
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3,4,5)
 arm_fsm_rt_t arm_2dp_rgb565_tile_copy_with_masks(
@@ -813,6 +976,17 @@ arm_fsm_rt_t arm_2dp_rgb565_tile_copy_with_masks(
                                         const arm_2d_region_t *ptRegion,
                                         uint32_t wMode);
 
+/*!
+ * \brief copy a source tile to a target tile with masks in a given mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptSrcMask the mask on the source side
+ * \param[in] ptTarget the target tile
+ * \param[in] ptDesMask the mask on the target side
+ * \param[in] ptRegion the target region
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3,4,5)
 arm_fsm_rt_t arm_2dp_cccn888_tile_copy_with_masks(
@@ -827,7 +1001,16 @@ arm_fsm_rt_t arm_2dp_cccn888_tile_copy_with_masks(
 /*----------------------------------------------------------------------------*
  * Copy tile to destination with a specified source mask                      *
  *----------------------------------------------------------------------------*/
-
+/*!
+ * \brief copy a source tile to a target tile with a source mask in a given mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptSrcMask the mask on the source side
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3,4)
 arm_fsm_rt_t arm_2dp_gray8_tile_copy_with_src_mask(
@@ -838,6 +1021,16 @@ arm_fsm_rt_t arm_2dp_gray8_tile_copy_with_src_mask(
                                         const arm_2d_region_t *ptRegion,
                                         uint32_t wMode); 
 
+/*!
+ * \brief copy a source tile to a target tile with a source mask in a given mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptSrcMask the mask on the source side
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3,4)
 arm_fsm_rt_t arm_2dp_rgb565_tile_copy_with_src_mask(
@@ -848,6 +1041,16 @@ arm_fsm_rt_t arm_2dp_rgb565_tile_copy_with_src_mask(
                                         const arm_2d_region_t *ptRegion,
                                         uint32_t wMode);
 
+/*!
+ * \brief copy a source tile to a target tile with a source mask in a given mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptSrcMask the mask on the source side
+ * \param[in] ptTarget the target tile
+ * \param[in] ptRegion the target region
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3,4)
 arm_fsm_rt_t arm_2dp_cccn888_tile_copy_with_src_mask(
@@ -862,6 +1065,16 @@ arm_fsm_rt_t arm_2dp_cccn888_tile_copy_with_src_mask(
  * Copy tile to destination with a specified target mask                      *
  *----------------------------------------------------------------------------*/
 
+/*!
+ * \brief copy a source tile to a target tile with a target mask in a given mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptDesMask the mask on the target side
+ * \param[in] ptRegion the target region
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3,4)
 arm_fsm_rt_t arm_2dp_gray8_tile_copy_with_des_mask(
@@ -872,6 +1085,16 @@ arm_fsm_rt_t arm_2dp_gray8_tile_copy_with_des_mask(
                                         const arm_2d_region_t *ptRegion,
                                         uint32_t wMode); 
 
+/*!
+ * \brief copy a source tile to a target tile with a target mask in a given mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptDesMask the mask on the target side
+ * \param[in] ptRegion the target region
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3,4)
 arm_fsm_rt_t arm_2dp_rgb565_tile_copy_with_des_mask(
@@ -882,6 +1105,16 @@ arm_fsm_rt_t arm_2dp_rgb565_tile_copy_with_des_mask(
                                         const arm_2d_region_t *ptRegion,
                                         uint32_t wMode);
 
+/*!
+ * \brief copy a source tile to a target tile with a target mask in a given mode
+ * \param[in] ptOP the control block, NULL means using the default control block
+ * \param[in] ptSource the source tile
+ * \param[in] ptTarget the target tile
+ * \param[in] ptDesMask the mask on the target side
+ * \param[in] ptRegion the target region
+ * \param[in] wMode the copy mode
+ * \return arm_fsm_rt_t the operation result
+ */
 extern
 ARM_NONNULL(2,3,4)
 arm_fsm_rt_t arm_2dp_cccn888_tile_copy_with_des_mask(
