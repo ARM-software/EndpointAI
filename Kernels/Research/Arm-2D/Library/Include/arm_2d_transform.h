@@ -190,7 +190,7 @@ extern "C" {
 /*! @} */
 
 /*!
- * \addtogroup Transform 5 Transform Operations
+ * \addtogroup gTransform 5 Transform Operations
  * @{
  */
 
@@ -2907,6 +2907,7 @@ arm_2d_err_t arm_2dp_cccn888_tile_transform_prepare(
  * \param[in] fAngle the rotation angle
  * \param[in] fScale the scaling factor
  * \param[in] chFillColour the key colour
+ * \param[in] chRatio the opacity
  * \return arm_2d_err_t the result of the preparing process
  */
 extern
@@ -2928,6 +2929,7 @@ arm_2d_err_t arm_2dp_gray8_tile_transform_with_opacity_prepare(
  * \param[in] fAngle the rotation angle
  * \param[in] fScale the scaling factor
  * \param[in] hwFillColour the key colour
+ * \param[in] chRatio the opacity
  * \return arm_2d_err_t the result of the preparing process
  */
 extern
@@ -2949,6 +2951,7 @@ arm_2d_err_t arm_2dp_rgb565_tile_transform_with_opacity_prepare(
  * \param[in] fAngle the rotation angle
  * \param[in] fScale the scaling factor
  * \param[in] wFillColour the key colour
+ * \param[in] chRatio the opacity
  * \return arm_2d_err_t the result of the preparing process
  */
 extern
@@ -2966,10 +2969,10 @@ arm_2d_err_t arm_2dp_cccn888_tile_transform_with_opacity_prepare(
  * \brief prepare for a transform with a source mask in gray8
  * \param[in] ptOP the control block, NULL means using the default control block
  * \param[in] ptSource the source tile
+ * \param[in] ptSourceMask the source mask
  * \param[in] tCentre the pivot in the source tile
  * \param[in] fAngle the rotation angle
  * \param[in] fScale the scaling factor
- * \param[in] chFillColour the key colour
  * \return arm_2d_err_t the result of the preparing process
  */
 extern
@@ -2986,10 +2989,10 @@ arm_2d_err_t arm_2dp_gray8_tile_transform_with_src_mask_prepare(
  * \brief prepare for a transform with a source mask in rgb565
  * \param[in] ptOP the control block, NULL means using the default control block
  * \param[in] ptSource the source tile
+ * \param[in] ptSourceMask the source mask
  * \param[in] tCentre the pivot in the source tile
  * \param[in] fAngle the rotation angle
  * \param[in] fScale the scaling factor
- * \param[in] hwFillColour the key colour
  * \return arm_2d_err_t the result of the preparing process
  */
 extern
@@ -3006,10 +3009,10 @@ arm_2d_err_t arm_2dp_rgb565_tile_transform_with_src_mask_prepare(
  * \brief prepare for a transform with a source mask in cccn888
  * \param[in] ptOP the control block, NULL means using the default control block
  * \param[in] ptSource the source tile
+ * \param[in] ptSourceMask the source mask
  * \param[in] tCentre the pivot in the source tile
  * \param[in] fAngle the rotation angle
  * \param[in] fScale the scaling factor
- * \param[in] wFillColour the key colour
  * \return arm_2d_err_t the result of the preparing process
  */
 extern
@@ -3026,10 +3029,11 @@ arm_2d_err_t arm_2dp_cccn888_tile_transform_with_src_mask_prepare(
  * \brief prepare for a transform with a source mask and opacity in gray8
  * \param[in] ptOP the control block, NULL means using the default control block
  * \param[in] ptSource the source tile
+ * \param[in] ptSourceMask the source mask
  * \param[in] tCentre the pivot in the source tile
  * \param[in] fAngle the rotation angle
  * \param[in] fScale the scaling factor
- * \param[in] chFillColour the key colour
+ * \param[in] chOpacity the opacity
  * \return arm_2d_err_t the result of the preparing process
  */
 extern
@@ -3047,10 +3051,11 @@ arm_2d_err_t arm_2dp_gray8_tile_transform_with_src_mask_and_opacity_prepare(
  * \brief prepare for a transform with a source mask and opacity in rgb565
  * \param[in] ptOP the control block, NULL means using the default control block
  * \param[in] ptSource the source tile
+ * \param[in] ptSourceMask the source mask
  * \param[in] tCentre the pivot in the source tile
  * \param[in] fAngle the rotation angle
  * \param[in] fScale the scaling factor
- * \param[in] hwFillColour the key colour
+ * \param[in] chOpacity the opacity
  * \return arm_2d_err_t the result of the preparing process
  */
 extern
@@ -3068,10 +3073,11 @@ arm_2d_err_t arm_2dp_rgb565_tile_transform_with_src_mask_and_opacity_prepare(
  * \brief prepare for a transform with a source mask and opacity in cccn888
  * \param[in] ptOP the control block, NULL means using the default control block
  * \param[in] ptSource the source tile
+ * \param[in] ptSourceMask the source mask
  * \param[in] tCentre the pivot in the source tile
  * \param[in] fAngle the rotation angle
  * \param[in] fScale the scaling factor
- * \param[in] wFillColour the key colour
+ * \param[in] chOpacity the opacity
  * \return arm_2d_err_t the result of the preparing process
  */
 extern

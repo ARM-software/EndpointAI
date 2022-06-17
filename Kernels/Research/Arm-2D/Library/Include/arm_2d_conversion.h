@@ -52,7 +52,7 @@ extern "C" {
 #endif
 
 /*!
- * \addtogroup Conversion 6 Conversion Operations
+ * \addtogroup gConversion 6 Conversion Operations
  * @{
  */
 
