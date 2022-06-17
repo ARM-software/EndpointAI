@@ -54,6 +54,11 @@ extern "C" {
 #   pragma diag_suppress 1296,174
 #endif
 
+/*!
+ * \addtogroup Kernel 1 Kernel
+ * @{
+ */
+
 /*============================ MACROS ========================================*/
 
 //! \name arm-2d version
@@ -172,6 +177,8 @@ arm_2d_op_status_t arm_2d_get_op_status(arm_2d_op_core_t *ptOP);
  */
 extern
 arm_fsm_rt_t arm_2d_task(arm_2d_task_t *ptTask);
+
+/*! @} */
 
 /*! \note delibrately comment out */
 //#if defined(__clang__)

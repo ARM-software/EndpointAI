@@ -49,8 +49,7 @@ extern "C" {
 
 /*============================ MACROS ========================================*/
 /*! 
- *  \addtogroup deprecated
- *  \brief deprecated type alias, should be removed in the future
+ *  \addtogroup Deprecated
  *  @{
  */
 #define arm_2d_op_rotate_t          arm_2d_op_trans_t
@@ -58,7 +57,7 @@ extern "C" {
 /*! @} */
 
 /*!
- *  \addtogroup deprecated
+ *  \addtogroup Deprecated
  *  @{
  */
 #define arm_2dp_tile_rotate                                                     \
@@ -190,6 +189,11 @@ extern "C" {
 #define arm_2d_cccn888_tile_scaling_with_alpha(                                 \
             arm_2d_cccn888_tile_scaling_with_opacity
 /*! @} */
+
+/*!
+ * \addtogroup Transform 5 Transform Operations
+ * @{
+ */
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
@@ -2962,6 +2966,8 @@ arm_fsm_rt_t arm_2dp_tile_transform( arm_2d_op_trans_t *ptOP,
                                      const arm_2d_tile_t *ptTarget,
                                      const arm_2d_region_t *ptRegion,
                                      const arm_2d_location_t *ptTargetCentre);
+
+/*! @} */
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

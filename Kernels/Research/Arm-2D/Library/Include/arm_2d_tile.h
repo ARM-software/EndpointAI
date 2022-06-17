@@ -36,6 +36,12 @@
 #ifdef   __cplusplus
 extern "C" {
 #endif
+
+/*!
+ * \addtogroup Tile 2 Tile Operations
+ * @{
+ */
+
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
@@ -1278,6 +1284,8 @@ arm_fsm_rt_t arm_2dp_rgb32_tile_copy_with_colour_keying(
                                             const arm_2d_region_t *ptRegion,
                                             uint32_t wMaskColour,
                                             uint32_t wMode);
+
+/*! @} */
 
 #ifdef   __cplusplus
 }

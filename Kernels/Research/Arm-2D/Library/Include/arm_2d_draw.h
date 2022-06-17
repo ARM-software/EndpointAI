@@ -47,6 +47,11 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wsign-conversion"
 #endif
 
+/*!
+ * \addtogroup Drawing 3 Drawing Operations
+ * @{
+ */
+
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
@@ -482,6 +487,8 @@ arm_fsm_rt_t arm_2dp_rgb32_fill_colour( arm_2d_op_fill_cl_t     *ptOP,
                                         const arm_2d_region_t   *ptRegion,
                                         uint32_t wColour);
 
+
+/*! @} */
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

@@ -51,6 +51,11 @@ extern "C" {
 #   pragma diag_suppress=Go029 
 #endif
 
+/*!
+ * \addtogroup Conversion 6 Conversion Operations
+ * @{
+ */
+
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
@@ -177,6 +182,8 @@ ARM_NONNULL(2,3)
 arm_fsm_rt_t arm_2dp_convert_colour_to_rgb565(  arm_2d_op_cl_convt_t *ptOP,
                                                 const arm_2d_tile_t *ptSource,
                                                 const arm_2d_tile_t *ptTarget);
+
+/*! @} */
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

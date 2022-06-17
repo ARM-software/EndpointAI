@@ -49,6 +49,11 @@ extern "C" {
 #endif
 
 /*============================ MACROS ========================================*/
+
+/*!
+ * \addtogroup Alpha 4 Alpha Blending Operations
+ * @{
+ */
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
 #define arm_2d_gray8_alpha_blending(  __SRC_ADDR,   /*!< source tile address */ \
@@ -1104,6 +1109,7 @@ arm_fsm_rt_t arm_2dp_cccn888_tile_copy_with_des_mask(
                                         const arm_2d_region_t *ptRegion,
                                         uint32_t wMode); 
 
+/*! @} */
 
 #if defined(__clang__)
 #pragma clang diagnostic pop
