@@ -21,8 +21,8 @@
  * Title:        arm_2d_tile.h
  * Description:  Public header file to contain the basic tile operations
  *
- * $Date:        16. June 2022
- * $Revision:    V.1.0.1
+ * $Date:        17. June 2022
+ * $Revision:    V.1.0.2
  *
  * Target Processor:  Cortex-M cores
  * -------------------------------------------------------------------- */
@@ -37,12 +37,28 @@
 extern "C" {
 #endif
 
+
+
+/*============================ MACROS ========================================*/
+
+/*!
+ * \addtogroup Deprecated
+ * @{
+ */
+#define arm_2d_c8bit_tile_copy_with_colour_masking                              \
+             arm_2d_c8bit_tile_copy_with_colour_keying
+
+#define arm_2d_rgb16_tile_copy_with_colour_masking                              \
+            arm_2d_rgb16_tile_copy_with_colour_keying
+
+#define arm_2d_rgb32_tile_copy_with_colour_masking                              \
+            arm_2d_rgb32_tile_copy_with_colour_keying
+/*! @} */
+
 /*!
  * \addtogroup Tile 2 Tile Operations
  * @{
  */
-
-/*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
 #define arm_2d_c8bit_tile_copy( __SRC_ADDR,         /*   source tile address */ \
@@ -309,20 +325,6 @@ extern "C" {
                                     (__DES_ADDR),                               \
                                     (__DES_REGION_ADDR))
 
-#define arm_2d_c8bit_tile_copy_with_colour_masking(                             \
-                                __SRC_ADDR,         /*   source tile address */ \
-                                __DES_ADDR,         /*   target tile address */ \
-                                __DES_REGION_ADDR,  /*   target region address*/\
-                                __MSK_COLOUR,       /*   mask(key) colour */    \
-                                __MODE)             /*   mode */                \
-            arm_2dp_c8bit_tile_copy_with_colour_keying(                         \
-                                    NULL,                                       \
-                                    (__SRC_ADDR),                               \
-                                    (__DES_ADDR),                               \
-                                    (__DES_REGION_ADDR),                        \
-                                    (__MSK_COLOUR),                             \
-                                    (__MODE))
-
 #define arm_2d_c8bit_tile_copy_with_colour_keying(                              \
                                 __SRC_ADDR,         /*   source tile address */ \
                                 __DES_ADDR,         /*   target tile address */ \
@@ -337,19 +339,6 @@ extern "C" {
                                     (__MSK_COLOUR),                             \
                                     (__MODE))
 
-#define arm_2d_rgb16_tile_copy_with_colour_masking(                             \
-                                __SRC_ADDR,         /*   source tile address */ \
-                                __DES_ADDR,         /*   target tile address */ \
-                                __DES_REGION_ADDR,  /*   target region address*/\
-                                __MSK_COLOUR,       /*   mask(key) colour */    \
-                                __MODE)             /*   mode */                \
-            arm_2dp_rgb16_tile_copy_with_colour_keying(                         \
-                                    NULL,                                       \
-                                    (__SRC_ADDR),                               \
-                                    (__DES_ADDR),                               \
-                                    (__DES_REGION_ADDR),                        \
-                                    (__MSK_COLOUR),                             \
-                                    (__MODE))
                
 #define arm_2d_rgb16_tile_copy_with_colour_keying(                              \
                                 __SRC_ADDR,         /*   source tile address */ \
@@ -358,20 +347,6 @@ extern "C" {
                                 __MSK_COLOUR,       /*   mask(key) colour */    \
                                 __MODE)             /*   mode */                \
             arm_2dp_rgb16_tile_copy_with_colour_keying(                         \
-                                    NULL,                                       \
-                                    (__SRC_ADDR),                               \
-                                    (__DES_ADDR),                               \
-                                    (__DES_REGION_ADDR),                        \
-                                    (__MSK_COLOUR),                             \
-                                    (__MODE))
-
-#define arm_2d_rgb32_tile_copy_with_colour_masking(                             \
-                                __SRC_ADDR,         /*   source tile address */ \
-                                __DES_ADDR,         /*   target tile address */ \
-                                __DES_REGION_ADDR,  /*   target region address*/\
-                                __MSK_COLOUR,       /*   mask(key) colour */    \
-                                __MODE)             /*   mode */                \
-            arm_2dp_rgb32_tile_copy_with_colour_keying(                         \
                                     NULL,                                       \
                                     (__SRC_ADDR),                               \
                                     (__DES_ADDR),                               \
