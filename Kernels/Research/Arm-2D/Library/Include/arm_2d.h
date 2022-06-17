@@ -44,7 +44,7 @@
 extern "C" {
 #endif
 
-/*! \brief suppress some warnings for user applications when using arm-2d.
+/* suppress some warnings for user applications when using arm-2d.
  */
 #if defined(__clang__)
 #   pragma clang diagnostic push
