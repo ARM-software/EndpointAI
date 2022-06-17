@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2020 Arm Limited. All rights reserved.
+ * Copyright (C) 2022 Arm Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -15,6 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/* ----------------------------------------------------------------------
+ * Project:      Arm-2D Library
+ * Title:        #include "arm_2d_helper.h"
+ * Description:  Public header file for the all helper services
+ *
+ * $Date:        17. June 2022
+ * $Revision:    V.1.0.1
+ *
+ * Target Processor:  Cortex-M cores
+ * -------------------------------------------------------------------- */
 
 #ifndef __ARM_2D_HELPER_H__
 #define __ARM_2D_HELPER_H__
@@ -32,6 +43,11 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #endif
 
+
+/*!
+ * \addtogroup gHelper 7 Helper Services
+ * @{
+ */
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
@@ -99,6 +115,8 @@ extern "C" {
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ PROTOTYPES ====================================*/
+
+/*! @} */
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop

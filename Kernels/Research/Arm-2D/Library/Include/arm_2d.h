@@ -55,7 +55,7 @@ extern "C" {
 #endif
 
 /*!
- * \addtogroup Kernel 1 Kernel
+ * \addtogroup gKernel 1 Kernel
  * @{
  */
 
