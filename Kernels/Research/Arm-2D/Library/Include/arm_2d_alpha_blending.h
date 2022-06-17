@@ -512,26 +512,12 @@ extern "C" {
 
 /*============================ TYPES =========================================*/
 
-/*! \note arm_2d_op_alpha_t inherits from arm_2d_op_src_t explicitly 
+/*!
+ * \brief control block for alpha-blending operations
+ * \note arm_2d_op_alpha_t inherits from arm_2d_op_src_t explicitly 
  */
 typedef struct arm_2d_op_alpha_t {
-    inherit(arm_2d_op_core_t);
-    struct {
-        const arm_2d_tile_t     *ptTile;        //   target tile 
-        const arm_2d_region_t   *ptRegion;      //!< target region
-    } Target;
-    struct {
-        const arm_2d_tile_t     *ptTile;        //!< source tile 
-    }Source;
-    uint32_t wMode;
-    uint8_t chRatio;
-} arm_2d_op_alpha_t;
-
-
-/*! \note arm_2d_op_alpha_cl_key_t inherits from arm_2d_op_src_t explicitly 
- */
-typedef struct arm_2d_op_alpha_cl_key_t {
-    inherit(arm_2d_op_core_t);
+    inherit(arm_2d_op_core_t);                  //!< base
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile 
         const arm_2d_region_t   *ptRegion;      //!< target region
@@ -539,20 +525,41 @@ typedef struct arm_2d_op_alpha_cl_key_t {
     struct {
         const arm_2d_tile_t     *ptTile;        //!< source tile 
     }Source;
-    uint32_t wMode;
-    uint8_t chRatio;
+    uint32_t wMode;                             //!< copy mode
+    uint8_t chRatio;                            //!< opacity
+} arm_2d_op_alpha_t;
+
+
+/*!
+ * \brief control block for alpha-blending-with-colour-keying operations
+ * \note arm_2d_op_alpha_cl_key_t inherits from arm_2d_op_src_t explicitly 
+ */
+typedef struct arm_2d_op_alpha_cl_key_t {
+    inherit(arm_2d_op_core_t);                  //!< base
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< target tile 
+        const arm_2d_region_t   *ptRegion;      //!< target region
+    } Target;
+    struct {
+        const arm_2d_tile_t     *ptTile;        //!< source tile 
+    }Source;
+    uint32_t wMode;                             //!< copy mode
+    uint8_t chRatio;                            //!< opacity
+
     union {
-        uint8_t  chColour;
-        uint16_t hwColour;
-        uint32_t wColour;
+        uint8_t  chColour;                      //!< 8bit key colour
+        uint16_t hwColour;                      //!< 16bit key colour
+        uint32_t wColour;                       //!< 32bit key colour
     };
 } arm_2d_op_alpha_cl_key_t;
 
 
-/*! \note arm_2d_op_fill_cl_msk_t inherits from arm_2d_op_src_t explicitly 
+/*!
+ * \brief control block for colour-filling-with-mask operations
+ * \note arm_2d_op_fill_cl_msk_t inherits from arm_2d_op_src_t explicitly 
  */
 typedef struct arm_2d_op_fill_cl_msk_t {
-    inherit(arm_2d_op_core_t);
+    inherit(arm_2d_op_core_t);                  //!< base
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile
         const arm_2d_region_t   *ptRegion;      //!< target region
@@ -560,19 +567,22 @@ typedef struct arm_2d_op_fill_cl_msk_t {
     struct {
         const arm_2d_tile_t     *ptTile;        //!< Alpha Mask tile
     } Mask;
-    uint32_t wMode;
+    uint32_t wMode;                             //!< copy mode
+
     union {
-        uint8_t  chColour;
-        uint16_t hwColour;
-        uint32_t wColour;
+        uint8_t  chColour;                      //!< 8bit key colour
+        uint16_t hwColour;                      //!< 16bit key colour
+        uint32_t wColour;                       //!< 32bit key colour
     };
 } arm_2d_op_fill_cl_msk_t;
 
 
-/*! \note arm_2d_op_fill_cl_msk_t inherits from arm_2d_op_src_t explicitly 
+/*!
+ * \brief control block for colour-filling-with-mask-and-opacity operations
+ * \note arm_2d_op_fill_cl_msk_t inherits from arm_2d_op_src_t explicitly 
  */
 typedef struct arm_2d_op_alpha_fill_cl_msk_opc_t {
-    inherit(arm_2d_op_core_t);
+    inherit(arm_2d_op_core_t);                  //!< core
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile
         const arm_2d_region_t   *ptRegion;      //!< target region
@@ -580,32 +590,37 @@ typedef struct arm_2d_op_alpha_fill_cl_msk_opc_t {
     struct {
         const arm_2d_tile_t     *ptTile;        //!< Alpha Mask tile
     } Mask;
-    uint32_t wMode;
+    uint32_t wMode;                             //!< copy mode
     union {
-        uint8_t  chColour;
-        uint16_t hwColour;
-        uint32_t wColour;
+        uint8_t  chColour;                      //!< 8bit key colour
+        uint16_t hwColour;                      //!< 16bit key colour
+        uint32_t wColour;                       //!< 32bit key colour
     };
-    uint8_t chRatio;
+    uint8_t chRatio;                            //!< opacity
 } arm_2d_op_alpha_fill_cl_msk_opc_t;
 
-/*! \note arm_2d_op_fill_cl_t inherits from arm_2d_op_t explicitly 
+/*!
+ * \brief control block for colour-filling-with-opacity operations
+ * \note arm_2d_op_fill_cl_t inherits from arm_2d_op_t explicitly 
  */
 typedef struct arm_2d_op_fill_cl_opc_t {
-    inherit(arm_2d_op_core_t);
+    inherit(arm_2d_op_core_t);                  //!< base 
     struct {
         const arm_2d_tile_t     *ptTile;        //!< target tile 
         const arm_2d_region_t   *ptRegion;      //!< target region
     } Target;
     union {
-        uint8_t chColour;
-        uint16_t hwColour;
-        uint32_t wColour;
+        uint8_t  chColour;                      //!< 8bit key colour
+        uint16_t hwColour;                      //!< 16bit key colour
+        uint32_t wColour;                       //!< 32bit key colour
     };
-    uint8_t chRatio;                       //!< transparency ratio 
+    uint8_t chRatio;                             //!< opacity
 } arm_2d_op_fill_cl_opc_t;
 
-
+/*!
+ * \brief control block for copy with masks operations
+ * 
+ */
 typedef arm_2d_op_src_msk_t arm_2d_op_cp_msk_t;
 
 /*============================ GLOBAL VARIABLES ==============================*/
