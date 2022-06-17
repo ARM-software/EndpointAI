@@ -1027,13 +1027,8 @@ EXCLUDE_PATTERNS       = __*
 # exclude all test directories use the pattern */test/*
 
 EXCLUDE_SYMBOLS        = def_low_lv_io \
-                         implement \
-                         implement_ex \
-                         inherit \
                          __pad0__ \
                          assert \
-                         __arm_2d_* \
-                         __* \
                          _
 
 # The EXAMPLE_PATH tag can be used to specify one or more files or directories
@@ -2343,7 +2338,8 @@ INCLUDE_FILE_PATTERNS  =
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
 PREDEFINED             = ARM_NONNULL(...)= \
-                         __attribute__(...)=
+                         __attribute__(...)= \
+                         "ARM_PRIVATE(...)=struct {__VA_ARGS__};"
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The

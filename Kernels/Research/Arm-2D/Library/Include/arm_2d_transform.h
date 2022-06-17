@@ -170,10 +170,10 @@ extern "C" {
 #define arm_2dp_rgb565_tile_scaling_with_alpha                                  \
             arm_2dp_rgb565_tile_scaling_with_opacity
 
-#define arm_2dp_rgb888_tile_scaling_with_alpha(                                 \
+#define arm_2dp_rgb888_tile_scaling_with_alpha                                  \
             arm_2dp_rgb888_tile_scaling_with_opacity
 
-#define arm_2dp_cccn888_tile_scaling_with_alpha(                                \
+#define arm_2dp_cccn888_tile_scaling_with_alpha                                 \
             arm_2dp_cccn888_tile_scaling_with_opacity
 
 #define arm_2d_gray8_tile_scaling_with_alpha                                    \
@@ -185,7 +185,7 @@ extern "C" {
 #define arm_2d_rgb888_tile_scaling_with_alpha                                   \
             arm_2d_rgb888_tile_scaling_with_opacity
 
-#define arm_2d_cccn888_tile_scaling_with_alpha(                                 \
+#define arm_2d_cccn888_tile_scaling_with_alpha                                  \
             arm_2d_cccn888_tile_scaling_with_opacity
 /*! @} */
 
