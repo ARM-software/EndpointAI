@@ -31,7 +31,17 @@
    POSSIBILITY OF SUCH DAMAGE.
    ---------------------------------------------------------------------------*/
 
-#include "Board_GLCD.h"
+#include <stdint.h>
+
+
+/* Font definitions */
+typedef struct {
+        uint16_t width;         ///< Character width
+        uint16_t height;        ///< Character height
+        uint32_t offset;        ///< Character offset
+        uint32_t count;         ///< Character count
+  const uint8_t *bitmap;        ///< Characters bitmaps
+} const GLCD_FONT;
 
 extern GLCD_FONT GLCD_Font_6x8;
 extern GLCD_FONT GLCD_Font_16x24;
