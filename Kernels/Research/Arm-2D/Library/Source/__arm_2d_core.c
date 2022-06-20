@@ -628,21 +628,26 @@ arm_fsm_rt_t __arm_2d_region_calculator(  arm_2d_op_cp_t *ptThis,
                         = tTargetTileParam.tValidRegion.tSize.iWidth 
                         - tTempRegion.tSize.iWidth;
                 
-                    tTempRegion.tLocation.iY 
-                        = tTargetTileParam.tValidRegion.tLocation.iY 
-                        - tTempRegion.tLocation.iY;
-                
-                    tTempRegion.tSize.iHeight
-                        = tTargetTileParam.tValidRegion.tSize.iHeight 
-                        - tTempRegion.tSize.iHeight;
-                
+                    
                     arm_2d_region_t tNewTargetMaskRegion = ptTargetMask->tRegion;
                 
                     tNewTargetMaskRegion.tLocation.iX += tTempRegion.tLocation.iX;
-                    tNewTargetMaskRegion.tLocation.iY += tTempRegion.tLocation.iY;
                     tNewTargetMaskRegion.tSize.iWidth += tTempRegion.tSize.iWidth;
-                    tNewTargetMaskRegion.tSize.iHeight += tTempRegion.tSize.iHeight;
                     
+                    // when the target mask is not 1-horizontal line mask
+                    if (ptTargetMask->tRegion.tSize.iHeight != 1 ) {
+                        tTempRegion.tLocation.iY 
+                            = tTargetTileParam.tValidRegion.tLocation.iY 
+                            - tTempRegion.tLocation.iY;
+                    
+                        tTempRegion.tSize.iHeight
+                            = tTargetTileParam.tValidRegion.tSize.iHeight 
+                            - tTempRegion.tSize.iHeight;
+                    
+                        
+                        tNewTargetMaskRegion.tLocation.iY += tTempRegion.tLocation.iY;
+                        tNewTargetMaskRegion.tSize.iHeight += tTempRegion.tSize.iHeight;
+                    }
                 
                     ptTargetMask = arm_2d_tile_generate_child( 
                                             ptTargetMask,
@@ -705,20 +710,26 @@ arm_fsm_rt_t __arm_2d_region_calculator(  arm_2d_op_cp_t *ptThis,
                         = tTargetTileParam.tValidRegion.tSize.iWidth 
                         - tTempRegion.tSize.iWidth;
                 
-                    tTempRegion.tLocation.iY 
-                        = tTargetTileParam.tValidRegion.tLocation.iY 
-                        - tTempRegion.tLocation.iY;
-                
-                    tTempRegion.tSize.iHeight
-                        = tTargetTileParam.tValidRegion.tSize.iHeight 
-                        - tTempRegion.tSize.iHeight;
-                
+                    
                     arm_2d_region_t tNewTargetMaskRegion = ptTargetMask->tRegion;
                 
                     tNewTargetMaskRegion.tLocation.iX += tTempRegion.tLocation.iX;
-                    tNewTargetMaskRegion.tLocation.iY += tTempRegion.tLocation.iY;
                     tNewTargetMaskRegion.tSize.iWidth += tTempRegion.tSize.iWidth;
-                    tNewTargetMaskRegion.tSize.iHeight += tTempRegion.tSize.iHeight;
+                    
+                    // when the target mask is not 1-horizontal line mask
+                    if (ptTargetMask->tRegion.tSize.iHeight != 1 ) {
+                        tTempRegion.tLocation.iY 
+                            = tTargetTileParam.tValidRegion.tLocation.iY 
+                            - tTempRegion.tLocation.iY;
+                    
+                        tTempRegion.tSize.iHeight
+                            = tTargetTileParam.tValidRegion.tSize.iHeight 
+                            - tTempRegion.tSize.iHeight;
+                    
+                        
+                        tNewTargetMaskRegion.tLocation.iY += tTempRegion.tLocation.iY;
+                        tNewTargetMaskRegion.tSize.iHeight += tTempRegion.tSize.iHeight;
+                    }
                 
                     ptTargetMask = arm_2d_tile_generate_child( 
                                             ptTargetMask,
