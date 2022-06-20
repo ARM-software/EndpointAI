@@ -47,6 +47,7 @@ PACK_DIRS="
   Helper
   documents
   tools
+  examples
 "
 
   
@@ -158,6 +159,17 @@ done
 echo Remove cde files
 rm -rf $PACK_BUILD/Library/Include/__arm_2d_cde.h
 rm -rf $PACK_BUILD/Library/Source/arm_2d_cde.c
+
+echo Remove unrequired files
+rm -rf $PACK_BUILD/examples/[template][bare-metal][pfb]
+rm -rf $PACK_BUILD/examples/[template][cmsis-rtos2][pfb]
+rm -rf $PACK_BUILD/examples/benchmark
+rm -rf $PACK_BUILD/examples/watch_panel
+rm -rf $PACK_BUILD/examples/README.md
+rm -rf $PACK_BUILD/examples/common/platform
+rm -rf $PACK_BUILD/examples/common/*.pack
+rm -rf $PACK_BUILD/examples/common/asset/*.png
+rm -rf $PACK_BUILD/examples/common/asset/*.jpg
 
 # Run Schema Check (for Linux only):
 # sudo apt-get install libxml2-utils

@@ -7,15 +7,10 @@
  * Target:  'STM32F746G-Discovery-GCC' 
  */
 
-#ifndef PRE_INCLUDE_GLOBAL_H
-#define PRE_INCLUDE_GLOBAL_H
+#ifndef PRE_INCLUDE__ACCELERATION_ARM-2D_CORE_H
+#define PRE_INCLUDE__ACCELERATION_ARM-2D_CORE_H
 
 /* Arm::Acceleration:Arm-2D:Core:1.0.0-preview */
 #define __ARM_2D_SKIP_CFG_HEADER__
-/* Keil::Device:STM32Cube HAL:Common:1.2.8 */
-#define USE_HAL_DRIVER
-/* Keil::Device:STM32Cube LL:Common:1.2.8 */
-#define USE_FULL_LL_DRIVER
 
-
-#endif /* PRE_INCLUDE_GLOBAL_H */
+#endif /* PRE_INCLUDE__ACCELERATION_ARM-2D_CORE_H */

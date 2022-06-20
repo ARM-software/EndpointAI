@@ -3,8 +3,8 @@
  * Auto generated Run-Time-Environment Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'gcc_template' 
- * Target:  'STM32F746G-Discovery-GCC' 
+ * Project: 'template' 
+ * Target:  'DO_NOT_USE_V2M-MPS3-CM33' 
  */
 
 #ifndef PRE_INCLUDE_GLOBAL_H
@@ -12,10 +12,6 @@
 
 /* Arm::Acceleration:Arm-2D:Core:1.0.0-preview */
 #define __ARM_2D_SKIP_CFG_HEADER__
-/* Keil::Device:STM32Cube HAL:Common:1.2.8 */
-#define USE_HAL_DRIVER
-/* Keil::Device:STM32Cube LL:Common:1.2.8 */
-#define USE_FULL_LL_DRIVER
 
 
 #endif /* PRE_INCLUDE_GLOBAL_H */

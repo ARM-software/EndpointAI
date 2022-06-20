@@ -4,7 +4,7 @@
  *      *** Do not modify ! ***
  *
  * Project: 'template' 
- * Target:  'V2M-MPS3-CM55' 
+ * Target:  'V2M-MPS3-CM85' 
  */
 
 #ifndef RTE_COMPONENTS_H
@@ -14,7 +14,7 @@
 /*
  * Define the Device Header File: 
  */
-#define CMSIS_device_header "ARMCM55.h"
+#define CMSIS_device_header "ARMCM85.h"
 
 /* ARM::CMSIS:RTOS2:Keil RTX5:Library:5.5.4 */
 #define RTE_CMSIS_RTOS2                 /* CMSIS-RTOS2 */
