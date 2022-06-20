@@ -25,11 +25,8 @@
 #include <stdarg.h>
 
 #include "lcd_printf.h"
-
-#include "Board_GLCD.h"     // ::Board Support:Graphic LCD
-#include "GLCD_Config.h"    // Keil.SAM4E-EK::Board Support:Graphic LCD
 #include "arm_2d.h"
-#include "app_cfg.h"
+#include "./__common.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -41,11 +38,51 @@
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wsign-conversion"
+#   pragma clang diagnostic ignored "-Wpedantic"
+#   pragma clang diagnostic ignored "-Wimplicit-int-conversion"
 #endif
 
 /*============================ MACROS ========================================*/
+#ifndef __GLCD_CFG_SCEEN_WIDTH__
+#warning Please specify the screen width by defining the macro __GLCD_CFG_SCEEN_WIDTH__, default value 320 is used for now
+#define __GLCD_CFG_SCEEN_WIDTH__      320
+#endif
+
+#ifndef __GLCD_CFG_SCEEN_HEIGHT__
+#   warning Please specify the screen height by defining the macro __GLCD_CFG_SCEEN_HEIGHT__, default value 240 is used for now
+#   define __GLCD_CFG_SCEEN_HEIGHT__      320
+#endif
+
+#ifndef __GLCD_CFG_COLOUR_DEPTH__
+#   warning Please specify the colour depth by defining the macro __GLCD_CFG_COLOUR_DEPTH__, default value 16 is used for now
+#   define __GLCD_CFG_COLOUR_DEPTH__      16
+#endif
+
+#if __GLCD_CFG_COLOUR_DEPTH__ == 8
+#   define COLOUR_INT_TYPE         uint8_t 
+
+#elif __GLCD_CFG_COLOUR_DEPTH__ == 16
+#   define COLOUR_INT_TYPE         uint16_t 
+
+#elif __GLCD_CFG_COLOUR_DEPTH__ == 32
+#   define COLOUR_INT_TYPE         uint32_t 
+
+#else
+#   error Unsupported colour depth!
+#endif
+
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
+/* Font definitions */
+typedef struct {
+        uint16_t width;         ///< Character width
+        uint16_t height;        ///< Character height
+        uint32_t offset;        ///< Character offset
+        uint32_t count;         ///< Character count
+  const uint8_t *bitmap;        ///< Characters bitmaps
+} const GLCD_FONT;
+
 /*============================ GLOBAL VARIABLES ==============================*/
 extern
 const uint8_t Font_6x8_h[(144-32)*8];
@@ -61,16 +98,31 @@ static struct {
         uint8_t         chX;
         uint8_t         chY;
     } tTextLocation;
+    
+    struct {
+        COLOUR_INT_TYPE     tForeground;
+        COLOUR_INT_TYPE     tBackground;
+    } tColour;
 } s_tLCDTextControl = {
     .tRegion = { 
         .tSize = {
-            .iWidth = GLCD_WIDTH,
-            .iHeight = GLCD_HEIGHT,
+            .iWidth = __GLCD_CFG_SCEEN_WIDTH__,
+            .iHeight = __GLCD_CFG_SCEEN_HEIGHT__,
         },
+    },
+    .tColour = {
+        .tForeground = GLCD_COLOR_GREEN,
+        .tBackground = GLCD_COLOR_BLACK,
     },
 };
 
 /*============================ IMPLEMENTATION ================================*/
+
+void lcd_text_set_colour(uint32_t wForeground, uint32_t wBackground)
+{
+    s_tLCDTextControl.tColour.tForeground = wForeground;
+    s_tLCDTextControl.tColour.tBackground = wBackground;
+}
 
 void lcd_text_location(uint8_t chY, uint8_t chX)
 {
@@ -90,8 +142,7 @@ void lcd_text_location(uint8_t chY, uint8_t chX)
 
 static void lcd_draw_char(int16_t iX, int16_t iY, char chChar)
 {
-    //! use default frame buffer
-    //arm_2d_tile_t *ptFrameBuffer = arm_2d_get_default_frame_buffer();//(arm_2d_tile_t *) -1;
+    // use default frame buffer
     arm_2d_tile_t *ptFrameBuffer = (arm_2d_tile_t *) -1;
     
     const static arm_2d_tile_t s_tileFont6x8 = {
@@ -136,8 +187,8 @@ static void lcd_draw_char(int16_t iX, int16_t iY, char chChar)
                                 //| ARM_2D_DRW_PATN_MODE_NO_FG_COLOR    
                                 //| ARM_2D_DRW_PATH_MODE_COMP_FG_COLOUR 
                                 ,
-                                GLCD_COLOR_GREEN,
-                                GLCD_COLOR_BLACK);
+                                s_tLCDTextControl.tColour.tForeground,
+                                s_tLCDTextControl.tColour.tBackground);
     arm_2d_op_wait_async(NULL);
 }
 
@@ -195,7 +246,7 @@ void lcd_puts(const char *str)
 int lcd_printf(const char *format, ...)
 {
     int real_size;
-    static char s_chBuffer[MAX(((GLCD_WIDTH/6)+1), 54)];
+    static char s_chBuffer[MAX((((__GLCD_CFG_SCEEN_WIDTH__)/6)+1), 54)];
     __va_list ap;
     va_start(ap, format);
         real_size = vsnprintf(s_chBuffer, sizeof(s_chBuffer)-1, format, ap);

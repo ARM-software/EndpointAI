@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009-2021 Arm Limited. All rights reserved.
+ * Copyright (c) 2009-2022 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -17,13 +17,11 @@
  */
 
 /*============================ INCLUDES ======================================*/
-#include "app_cfg.h"
-
-
 #include "arm_2d.h"
 #include "arm_2d_helper.h"
-#include "platform.h"
 #include <math.h>
+
+#include "__common.h"
 
 #include "./spinning_wheel.h"
 #include "./shape_round_corner_box.h"

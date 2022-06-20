@@ -17,7 +17,6 @@
  */
 
 /*============================ INCLUDES ======================================*/
-#include "app_cfg.h"
 #include "./shape_round_corner_box.h"
 #include "arm_2d.h"
 #include "arm_2d_helper.h"

@@ -75,8 +75,36 @@ extern "C" {
 // <i> This option is used to remove calibration in angle computations to gain a better performance, small error might be noticible for angles like 90, 180, 270 etc.
 //#define __ARM_2D_CFG_UNSAFE_NO_SATURATION_IN_FIXED_POINT__ 
 // </c>
+// </h>
 
+//#ifdef __RTE_ACCELERATION_ARM_2D_EXTRA__
 
+// <h>Extra Components
+// =======================
+// 
+// <o __GLCD_CFG_COLOUR_DEPTH__> Select the screen colour depth
+//     <8=>     8 Bits
+//     <16=>    16Bits
+//     <32=>    32Bits
+// <i> The colour depth of your LCD
+#define __GLCD_CFG_COLOUR_DEPTH__       16
+
+// <o>Width of the screen <8-32767>
+// <i> The width of your screen
+// <i> Default: 320
+#ifndef __GLCD_CFG_SCEEN_WIDTH__
+ #define __GLCD_CFG_SCEEN_WIDTH__     320
+#endif
+
+// <o>Height of the screen <8-32767>
+// <i> The height of your screen
+// <i> Default: 240
+#ifndef __GLCD_CFG_SCEEN_HEIGHT__
+ #define __GLCD_CFG_SCEEN_HEIGHT__     240
+#endif
+// </h>
+
+//#endif
 
 // <<< end of configuration section >>>
 

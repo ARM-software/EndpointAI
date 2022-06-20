@@ -22,7 +22,6 @@
 #include "example_gui.h"
 #include "arm_2d.h"
 #include "arm_2d_helper.h"
-#include "../common/controls/controls.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

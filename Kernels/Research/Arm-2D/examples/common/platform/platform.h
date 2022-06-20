@@ -32,7 +32,6 @@
 #include <string.h>
 
 #include "arm_2d.h"
-#include "lcd_printf.h"
 
 //#include "Device.h"                     // Keil::Board Support:V2M-MPS2:Common
 #include "RTE_Components.h"             // Component selection
@@ -46,6 +45,7 @@
 #   include "cmsis_os2.h"                  // ::CMSIS:RTOS2
 #endif
 
+#include "../controls/controls.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push

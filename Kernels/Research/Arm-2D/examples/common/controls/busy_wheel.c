@@ -17,7 +17,6 @@
  */
 
 /*============================ INCLUDES ======================================*/
-#include "app_cfg.h"
 #include "./busy_wheel.h"
 #include "platform.h"
 #include "arm_2d.h"

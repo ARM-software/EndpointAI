@@ -38,6 +38,12 @@
 extern "C" {
 #endif
 
+#ifndef __ARM_2D_USER_CFG_HEADER__
+#   include "arm_2d_cfg.h"
+#else
+#   include __ARM_2D_USER_CFG_HEADER__
+#endif
+
 /*============================ MACROS ========================================*/
 
 #undef __ARM_2D_HAS_HELIUM__

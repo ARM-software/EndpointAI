@@ -17,7 +17,6 @@
  */
 
 /*============================ INCLUDES ======================================*/
-#include "app_cfg.h"
 #include "./controls.h"
 
 #if defined(__clang__)

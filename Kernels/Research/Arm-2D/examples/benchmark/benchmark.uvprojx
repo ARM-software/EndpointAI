@@ -340,7 +340,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,EXTERANL_DELAY_MS_DECLARE="extern void delay_ms(uint32_t);"</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include</IncludePath>
+              <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -431,21 +431,6 @@
               <FilePath>..\common\platform\app_platform.c</FilePath>
             </File>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\platform\lcd_printf.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\platform\platform.h</FilePath>
@@ -529,6 +514,21 @@
               <FileName>spinning_wheel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\controls\spinning_wheel.h</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1419,7 +1419,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\lib</IncludePath>
+              <IncludePath>..\common\platform;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\lib;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1510,21 +1510,6 @@
               <FilePath>..\common\platform\app_platform.c</FilePath>
             </File>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\platform\lcd_printf.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\platform\platform.h</FilePath>
@@ -1608,6 +1593,21 @@
               <FileName>spinning_wheel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\controls\spinning_wheel.h</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2567,7 +2567,7 @@
               <MiscControls></MiscControls>
               <Define>__USE_FVP__,NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;.;..\..\Library\Include;..\..\Helper\Include;..\common\platform\lib</IncludePath>
+              <IncludePath>..\common\platform;.;..\..\Library\Include;..\..\Helper\Include;..\common\platform\lib;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2657,21 +2657,6 @@
               <FilePath>..\common\platform\app_platform.c</FilePath>
             </File>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\platform\lcd_printf.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\platform\platform.h</FilePath>
@@ -2755,6 +2740,21 @@
               <FileName>spinning_wheel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\controls\spinning_wheel.h</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3714,7 +3714,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\v2m_mps2;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\lib;..\common\platform\mps2</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\v2m_mps2;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\lib;..\common\platform\mps2;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3805,21 +3805,6 @@
               <FilePath>..\common\platform\app_platform.c</FilePath>
             </File>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\platform\lcd_printf.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\platform\platform.h</FilePath>
@@ -3903,6 +3888,21 @@
               <FileName>spinning_wheel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\controls\spinning_wheel.h</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -4793,7 +4793,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include;..\..\Helper\Include;.;..\common\platform\lib</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include;..\..\Helper\Include;.;..\common\platform\lib;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -4884,21 +4884,6 @@
               <FilePath>..\common\platform\app_platform.c</FilePath>
             </File>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\platform\lcd_printf.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\platform\platform.h</FilePath>
@@ -4982,6 +4967,21 @@
               <FileName>spinning_wheel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\controls\spinning_wheel.h</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -5941,7 +5941,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;..\..\Helper\Include;.</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;..\..\Helper\Include;.;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -6032,21 +6032,6 @@
               <FilePath>..\common\platform\app_platform.c</FilePath>
             </File>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\platform\lcd_printf.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\platform\platform.h</FilePath>
@@ -6130,6 +6115,21 @@
               <FileName>spinning_wheel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\controls\spinning_wheel.h</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -7089,7 +7089,7 @@
               <MiscControls>-Omax -Wno-nonportable-include-path</MiscControls>
               <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;..\..\Helper\Include;.</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;..\..\Helper\Include;.;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -7180,21 +7180,6 @@
               <FilePath>..\common\platform\app_platform.c</FilePath>
             </File>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\platform\lcd_printf.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\platform\platform.h</FilePath>
@@ -7278,6 +7263,21 @@
               <FileName>spinning_wheel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\controls\spinning_wheel.h</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -8237,7 +8237,7 @@
               <MiscControls>-Wno-nonportable-include-path -Omax</MiscControls>
               <Define>NDEBUG,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Library\Include;.;..\..\Helper\Include;..\common\platform;..\common\platform\stm32f746g-discovery;..\common\platform\lib</IncludePath>
+              <IncludePath>..\..\Library\Include;.;..\..\Helper\Include;..\common\platform;..\common\platform\stm32f746g-discovery;..\common\platform\lib;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -8328,21 +8328,6 @@
               <FilePath>..\common\platform\app_platform.c</FilePath>
             </File>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\platform\lcd_printf.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\platform\platform.h</FilePath>
@@ -8426,6 +8411,21 @@
               <FileName>spinning_wheel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\controls\spinning_wheel.h</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -9178,7 +9178,7 @@
             <UseExternalTool>1</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>1</Capability>
+            <Capability>0</Capability>
             <DriverSelection>4102</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
@@ -9385,7 +9385,7 @@
               <MiscControls>-Wno-padded -Omax</MiscControls>
               <Define>__USE_FVP__,NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__USE_AN547__,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include;..\..\Helper\Include;.;..\common\platform\lib</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include;..\..\Helper\Include;.;..\common\platform\lib;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -9476,21 +9476,6 @@
               <FilePath>..\common\platform\app_platform.c</FilePath>
             </File>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\platform\lcd_printf.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\platform\platform.h</FilePath>
@@ -9574,6 +9559,21 @@
               <FileName>spinning_wheel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\controls\spinning_wheel.h</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -10464,7 +10464,7 @@
               <MiscControls></MiscControls>
               <Define>NDEBUG,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_UNSAFE_IGNORE_ALPHA_255_COMPENSATION__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\stm32f746g-discovery;..\..\Library\Include;.;..\..\Helper\Include</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\stm32f746g-discovery;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -10555,21 +10555,6 @@
               <FilePath>..\common\platform\app_platform.c</FilePath>
             </File>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\platform\lcd_printf.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\platform\platform.h</FilePath>
@@ -10653,6 +10638,21 @@
               <FileName>spinning_wheel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\controls\spinning_wheel.h</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -11612,7 +11612,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include;..\..\Helper\Include;.;..\common\platform\lib</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include;..\..\Helper\Include;.;..\common\platform\lib;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -11703,21 +11703,6 @@
               <FilePath>..\common\platform\app_platform.c</FilePath>
             </File>
             <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\platform\lcd_printf.h</FilePath>
-            </File>
-            <File>
               <FileName>platform.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\platform\platform.h</FilePath>
@@ -11801,6 +11786,21 @@
               <FileName>spinning_wheel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\controls\spinning_wheel.h</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>

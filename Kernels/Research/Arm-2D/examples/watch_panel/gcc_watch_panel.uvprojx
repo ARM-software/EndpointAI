@@ -245,7 +245,7 @@
               <MiscControls>-Ofast -flto -fdata-sections -ffunction-sections -fms-extensions -mcpu=cortex-m7 -mfloat-abi=hard -mfpu=fpv5-sp-d16 -std=gnu11</MiscControls>
               <Define>NDEBUG,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\..\Library\Include;..\common\platform\stm32f746g-discovery;.;..\..\Helper\Include;..\common\platform\lib</IncludePath>
+              <IncludePath>..\common\platform;..\..\Library\Include;..\common\platform\stm32f746g-discovery;.;..\..\Helper\Include;..\common\platform\lib;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Carm>
           <Aarm>
@@ -310,16 +310,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
@@ -531,6 +521,21 @@
               <FileType>5</FileType>
               <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\lcd_printf.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -585,6 +590,36 @@
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>small_icon_sun.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\small_icon_sun.c</FilePath>
+            </File>
+            <File>
+              <FileName>arrow.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\arrow.c</FilePath>
+            </File>
+            <File>
+              <FileName>circle_mask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\circle_mask.c</FilePath>
+            </File>
+            <File>
+              <FileName>cmsis_logo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\cmsis_logo.c</FilePath>
+            </File>
+            <File>
+              <FileName>helium.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\helium.c</FilePath>
+            </File>
+            <File>
+              <FileName>software.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\software.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -943,7 +978,7 @@
               <MiscControls>-Ofast -flto -fdata-sections -ffunction-sections -fms-extensions -mfloat-abi=soft -std=gnu11</MiscControls>
               <Define>RTE_Compiler_IO_STDOUT_User,CMSDK_CM0plus,ITERATION_CNT=10</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\lib;..\common\platform\mps2</IncludePath>
+              <IncludePath>..\common\platform;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\lib;..\common\platform\mps2;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Carm>
           <Aarm>
@@ -1008,16 +1043,6 @@
               <FileName>app_platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\platform\app_platform.c</FilePath>
-            </File>
-            <File>
-              <FileName>GLCD_Fonts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\GLCD_Fonts.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\platform\lcd_printf.c</FilePath>
             </File>
             <File>
               <FileName>platform.h</FileName>
@@ -1229,6 +1254,21 @@
               <FileType>5</FileType>
               <FilePath>..\common\controls\spinning_wheel.h</FilePath>
             </File>
+            <File>
+              <FileName>lcd_printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\lcd_printf.c</FilePath>
+            </File>
+            <File>
+              <FileName>GLCD_Fonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\controls\GLCD_Fonts.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\lcd_printf.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1283,6 +1323,36 @@
               <FileName>whilte_dot.c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\asset\whilte_dot.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>small_icon_sun.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\small_icon_sun.c</FilePath>
+            </File>
+            <File>
+              <FileName>arrow.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\arrow.c</FilePath>
+            </File>
+            <File>
+              <FileName>circle_mask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\circle_mask.c</FilePath>
+            </File>
+            <File>
+              <FileName>cmsis_logo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\cmsis_logo.c</FilePath>
+            </File>
+            <File>
+              <FileName>helium.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\helium.c</FilePath>
+            </File>
+            <File>
+              <FileName>software.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\asset\software.c</FilePath>
             </File>
           </Files>
         </Group>
