@@ -58,19 +58,6 @@
 #   define __GLCD_CFG_COLOUR_DEPTH__      16
 #endif
 
-#if __GLCD_CFG_COLOUR_DEPTH__ == 8
-#   define COLOUR_INT_TYPE         uint8_t 
-
-#elif __GLCD_CFG_COLOUR_DEPTH__ == 16
-#   define COLOUR_INT_TYPE         uint16_t 
-
-#elif __GLCD_CFG_COLOUR_DEPTH__ == 32
-#   define COLOUR_INT_TYPE         uint32_t 
-
-#else
-#   error Unsupported colour depth!
-#endif
-
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
@@ -118,7 +105,7 @@ static struct {
 
 /*============================ IMPLEMENTATION ================================*/
 
-void lcd_text_set_colour(uint32_t wForeground, uint32_t wBackground)
+void lcd_text_set_colour(COLOUR_INT_TYPE wForeground, COLOUR_INT_TYPE wBackground)
 {
     s_tLCDTextControl.tColour.tForeground = wForeground;
     s_tLCDTextControl.tColour.tBackground = wBackground;

@@ -21,12 +21,26 @@
 
 /*============================ INCLUDES ======================================*/
 #include <stdint.h>
+#include "arm_2d.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /*============================ MACROS ========================================*/
+#if __GLCD_CFG_COLOUR_DEPTH__ == 8
+#   define COLOUR_INT_TYPE         uint8_t 
+
+#elif __GLCD_CFG_COLOUR_DEPTH__ == 16
+#   define COLOUR_INT_TYPE         uint16_t 
+
+#elif __GLCD_CFG_COLOUR_DEPTH__ == 32
+#   define COLOUR_INT_TYPE         uint32_t 
+
+#else
+#   error Unsupported colour depth!
+#endif
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 #define __PRINT_BANNER(__STR)                                                   \
         do {                                                                    \
@@ -48,6 +62,10 @@ void lcd_puts(const char *str);
 
 extern 
 void lcd_text_location(uint8_t chY, uint8_t chX);
+
+extern 
+void lcd_text_set_colour(   COLOUR_INT_TYPE wForeground, 
+                            COLOUR_INT_TYPE wBackground);
 
 #ifdef __cplusplus
 }
