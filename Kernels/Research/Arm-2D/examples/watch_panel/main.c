@@ -153,23 +153,23 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
 
     if (0 == BENCHMARK.wIterations) {
     #if !defined(__USE_FVP__)
-        lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
-        lcd_puts(  "Transform Test, running "
+        arm_lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
+        arm_lcd_puts(  "Transform Test, running "
                     STR(ITERATION_CNT)
                     " iterations\r\n");
 
-        lcd_puts(   "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
+        arm_lcd_puts(   "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
                     "  Screen Size: "STR(APP_SCREEN_WIDTH)"*" STR(APP_SCREEN_HEIGHT));
-        lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
-        lcd_puts( "Benchmark Report:\r\n");
+        arm_lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
+        arm_lcd_puts( "Benchmark Report:\r\n");
         
-        lcd_printf("Average: %d ", BENCHMARK.wAverage);
-        lcd_printf("FPS30Freq: %4.2f MHz\r\n", ((float)BENCHMARK.wAverage * 30.0f) / 1000000.0f);
-        lcd_printf("FPS: %3d:%dms   ",
+        arm_lcd_printf("Average: %d ", BENCHMARK.wAverage);
+        arm_lcd_printf("FPS30Freq: %4.2f MHz\r\n", ((float)BENCHMARK.wAverage * 30.0f) / 1000000.0f);
+        arm_lcd_printf("FPS: %3d:%dms   ",
                             SystemCoreClock / BENCHMARK.wAverage,
                             BENCHMARK.wAverage / (SystemCoreClock / 1000ul));
-        lcd_printf("LCD Latency: %2dms", BENCHMARK.wLCDLatency / (SystemCoreClock / 1000ul) );
-        //lcd_printf(" %08x", (int32_t)get_system_ticks() );
+        arm_lcd_printf("LCD Latency: %2dms", BENCHMARK.wLCDLatency / (SystemCoreClock / 1000ul) );
+        //arm_lcd_printf(" %08x", (int32_t)get_system_ticks() );
     #endif
     }
 }
@@ -216,22 +216,22 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
                         NULL,
                         ARM_2D_CP_MODE_COPY);
     
-    __PRINT_BANNER("Arm-2D Benchmark");
+    arm_print_banner("Arm-2D Benchmark");
     
 #if !defined(__USE_FVP__)
-    lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
-    lcd_puts(  "Transform Test, running "
+    arm_lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
+    arm_lcd_puts(  "Transform Test, running "
                 STR(ITERATION_CNT)
                 " iterations\r\n");
 
-    lcd_puts(   "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
+    arm_lcd_puts(   "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
                 "  Screen Size: "STR(APP_SCREEN_WIDTH)"*" STR(APP_SCREEN_HEIGHT));
-    lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
-    lcd_puts( "Testing...\r\n\r\n");
+    arm_lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
+    arm_lcd_puts( "Testing...\r\n\r\n");
 #endif
 
-    //lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
-    //lcd_puts("Cycles\tAvrage\tUPS30Freq\tUPS\tLCD Latency");
+    //arm_lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
+    //arm_lcd_puts("Cycles\tAvrage\tUPS30Freq\tUPS\tLCD Latency");
     arm_2d_op_wait_async(NULL);
 
     return arm_fsm_rt_cpl;

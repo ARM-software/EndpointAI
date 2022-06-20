@@ -105,13 +105,13 @@ static struct {
 
 /*============================ IMPLEMENTATION ================================*/
 
-void lcd_text_set_colour(COLOUR_INT_TYPE wForeground, COLOUR_INT_TYPE wBackground)
+void arm_lcd_text_set_colour(COLOUR_INT_TYPE wForeground, COLOUR_INT_TYPE wBackground)
 {
     s_tLCDTextControl.tColour.tForeground = wForeground;
     s_tLCDTextControl.tColour.tBackground = wBackground;
 }
 
-void lcd_text_location(uint8_t chY, uint8_t chX)
+void arm_lcd_text_location(uint8_t chY, uint8_t chX)
 {
     s_tLCDTextControl.tTextLocation.chX = chX;
     s_tLCDTextControl.tTextLocation.chY = chY;
@@ -179,7 +179,7 @@ static void lcd_draw_char(int16_t iX, int16_t iY, char chChar)
     arm_2d_op_wait_async(NULL);
 }
 
-void lcd_puts(const char *str)
+void arm_lcd_puts(const char *str)
 {
     while(*str) {
         if (*str == '\r') {
@@ -230,7 +230,7 @@ void lcd_puts(const char *str)
 
 #endif
 
-int lcd_printf(const char *format, ...)
+int arm_lcd_printf(const char *format, ...)
 {
     int real_size;
     static char s_chBuffer[MAX((((__GLCD_CFG_SCEEN_WIDTH__)/6)+1), 54)];
@@ -240,7 +240,7 @@ int lcd_printf(const char *format, ...)
     va_end(ap);
     real_size = MIN(sizeof(s_chBuffer)-1, real_size);
     s_chBuffer[real_size] = '\0';
-    lcd_puts(s_chBuffer);
+    arm_lcd_puts(s_chBuffer);
     return real_size;
 }
 

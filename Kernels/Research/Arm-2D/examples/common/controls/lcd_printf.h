@@ -42,11 +42,11 @@ extern "C" {
 #endif
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
-#define __PRINT_BANNER(__STR)                                                   \
+#define arm_print_banner(__STR)                                                 \
         do {                                                                    \
-            lcd_text_location(  (GLCD_HEIGHT / 8) / 2 - 1,                      \
+            arm_lcd_text_location(  (GLCD_HEIGHT / 8) / 2 - 1,                      \
                                 ((GLCD_WIDTH / 6) - sizeof(__STR)) / 2);        \
-            lcd_puts(__STR);                                                    \
+            arm_lcd_puts(__STR);                                                \
         } while(0)
 
 /*============================ TYPES =========================================*/
@@ -55,17 +55,17 @@ extern "C" {
 
 
 extern
-int lcd_printf(const char *format, ...);
+int arm_lcd_printf(const char *format, ...);
 
 extern
-void lcd_puts(const char *str);
+void arm_lcd_puts(const char *str);
 
 extern 
-void lcd_text_location(uint8_t chY, uint8_t chX);
+void arm_lcd_text_location(uint8_t chY, uint8_t chX);
 
 extern 
-void lcd_text_set_colour(   COLOUR_INT_TYPE wForeground, 
-                            COLOUR_INT_TYPE wBackground);
+void arm_lcd_text_set_colour(   COLOUR_INT_TYPE wForeground, 
+                                COLOUR_INT_TYPE wBackground);
 
 #ifdef __cplusplus
 }
