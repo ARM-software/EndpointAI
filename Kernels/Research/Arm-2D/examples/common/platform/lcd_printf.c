@@ -187,7 +187,7 @@ void lcd_puts(const char *str)
     }
 }
 
-#if __IS_COMPILER_IAR__
+#if defined(__IS_COMPILER_IAR__) && __IS_COMPILER_IAR__
 #define __va_list    va_list
 
 #endif
