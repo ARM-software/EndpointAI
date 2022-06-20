@@ -28,10 +28,15 @@
  *
  * -------------------------------------------------------------------- */
 
+
+
 #define __ARM_2D_IMPL__
 
 #include "arm_2d.h"
 #include "__arm_2d_impl.h"
+
+#ifdef __ARM_2D_COMPILATION_UNIT
+#undef __ARM_2D_COMPILATION_UNIT
 
 #if defined(__ARM_2D_HAS_HELIUM__) && __ARM_2D_HAS_HELIUM__
 
@@ -1431,3 +1436,5 @@ void __arm_2d_impl_cccn888_get_pixel_colour_with_alpha(ARM_2D_POINT_VEC * ptPoin
 #endif
 
 #endif // __ARM_2D_HAS_HELIUM__
+
+#endif // __ARM_2D_COMPILATION_UNIT
