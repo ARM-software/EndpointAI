@@ -74,8 +74,8 @@ extern "C" {
     // initialise FPB helper
     if (ARM_2D_HELPER_PFB_INIT(
         &s_tExamplePFB,                 // FPB Helper object
-        APP_SCREEN_WIDTH,               // screen width
-        APP_SCREEN_HEIGHT,              // screen height
+        __GLCD_CFG_SCEEN_WIDTH__,       // screen width
+        __GLCD_CFG_SCEEN_HEIGHT__,      // screen height
         uint16_t,                       // colour date type
         240,                            // PFB block width
         1,                              // PFB block height
@@ -233,8 +233,8 @@ extern "C" {
     // initialise FPB helper
     if (init_arm_2d_helper_pfb(
         &s_tExamplePFB,                 // FPB Helper object
-        APP_SCREEN_WIDTH,               // screen width
-        APP_SCREEN_HEIGHT,              // screen height
+        __GLCD_CFG_SCEEN_WIDTH__,       // screen width
+        __GLCD_CFG_SCEEN_HEIGHT__,      // screen height
         uint16_t,                       // colour date type
         240,                            // PFB block width
         1,                              // PFB block height
