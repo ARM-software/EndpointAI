@@ -91,8 +91,8 @@ void display_task(void)
         /* a region for the busy wheel */
         ADD_REGION_TO_LIST(s_tDirtyRegions,
             .tLocation = {
-                .iX = ((APP_SCREEN_WIDTH - 222) >> 1),
-                .iY = ((APP_SCREEN_HEIGHT - 222) >> 1),
+                .iX = ((__GLCD_CFG_SCEEN_WIDTH__ - 222) >> 1),
+                .iY = ((__GLCD_CFG_SCEEN_HEIGHT__ - 222) >> 1),
             },
             .tSize = {
                 .iWidth = 222,
@@ -102,9 +102,9 @@ void display_task(void)
 
         /* a region for the status bar on the bottom of the screen */
         ADD_LAST_REGION_TO_LIST(s_tDirtyRegions,
-            .tLocation = {0,APP_SCREEN_HEIGHT - 16},
+            .tLocation = {0,__GLCD_CFG_SCEEN_HEIGHT__ - 16},
             .tSize = {
-                .iWidth = APP_SCREEN_WIDTH,
+                .iWidth = __GLCD_CFG_SCEEN_WIDTH__,
                 .iHeight = 16,
             },
         ),
@@ -162,7 +162,7 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
                     " iterations\r\n");
 
         arm_lcd_puts(   "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
-                    "  Screen Size: "STR(APP_SCREEN_WIDTH)"*" STR(APP_SCREEN_HEIGHT));
+                    "  Screen Size: "STR(__GLCD_CFG_SCEEN_WIDTH__)"*" STR(__GLCD_CFG_SCEEN_HEIGHT__));
         arm_lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
         arm_lcd_puts( "Benchmark Report:\r\n");
         
@@ -219,7 +219,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
                 " iterations\r\n");
 
     arm_lcd_puts(   "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
-                "  Screen Size: "STR(APP_SCREEN_WIDTH)"*" STR(APP_SCREEN_HEIGHT));
+                "  Screen Size: "STR(__GLCD_CFG_SCEEN_WIDTH__)"*" STR(__GLCD_CFG_SCEEN_HEIGHT__));
     arm_lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
     arm_lcd_puts( "Testing...\r\n\r\n");
 
@@ -269,8 +269,8 @@ int main (void)
     //! initialise FPB helper
     if (ARM_2D_HELPER_PFB_INIT(
         &s_tExamplePFB,                 //!< FPB Helper object
-        APP_SCREEN_WIDTH,               //!< screen width
-        APP_SCREEN_HEIGHT,              //!< screen height
+        __GLCD_CFG_SCEEN_WIDTH__,               //!< screen width
+        __GLCD_CFG_SCEEN_HEIGHT__,              //!< screen height
         uint16_t,                       //!< colour date type
         PFB_BLOCK_WIDTH,                //!< PFB block width
         PFB_BLOCK_HEIGHT,               //!< PFB block height
