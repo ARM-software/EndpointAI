@@ -16,11 +16,10 @@
  * limitations under the License.
  */
 
-#ifndef __EXAMPLE_GUI_H__
-#define __EXAMPLE_GUI_H__
+#ifndef __BENCHMARK_WATCH_PANEL_GUI_H__
+#define __BENCHMARK_WATCH_PANEL_GUI_H__
 
 /*============================ INCLUDES ======================================*/
-#include "app_cfg.h"
 #include <stdint.h>
 #include "arm_2d.h"
 

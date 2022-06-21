@@ -10,7 +10,7 @@
       <TargetName>DO_NOT_USE_V2M-MPS3-CM33</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
+      <pCCUsed>6180000::V6.18::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -193,7 +193,7 @@
             <useUlib>0</useUlib>
             <EndSel>1</EndSel>
             <uLtcg>0</uLtcg>
-            <nSecure>1</nSecure>
+            <nSecure>2</nSecure>
             <RoSelD>4</RoSelD>
             <RwSelD>4</RwSelD>
             <CodeSel>0</CodeSel>
@@ -338,9 +338,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,EXTERANL_DELAY_MS_DECLARE="extern void delay_ms(uint32_t);"</Define>
+              <Define>GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,EXTERANL_DELAY_MS_DECLARE="extern void delay_ms(uint32_t);",__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>.\platform;.\platform\mps3\v2m_mps3;..\..\Library\Include;.\platform\mps3;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\common\controls;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -396,14 +396,14 @@
               <FilePath>.\app_cfg.h</FilePath>
             </File>
             <File>
-              <FileName>example_gui.c</FileName>
+              <FileName>benchmark_watch_panel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\example_gui.c</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.c</FilePath>
             </File>
             <File>
-              <FileName>example_gui.h</FileName>
+              <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\example_gui.h</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -521,11 +521,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -554,11 +549,6 @@
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1511,7 +1501,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template;..\common\controls;..\common\platform\mps2</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1567,14 +1557,14 @@
               <FilePath>.\app_cfg.h</FilePath>
             </File>
             <File>
-              <FileName>example_gui.c</FileName>
+              <FileName>benchmark_watch_panel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\example_gui.c</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.c</FilePath>
             </File>
             <File>
-              <FileName>example_gui.h</FileName>
+              <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\example_gui.h</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1692,11 +1682,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -1725,11 +1710,6 @@
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2130,7 +2110,7 @@
               <RVCTZI>0</RVCTZI>
               <RVCTOtherData>0</RVCTOtherData>
               <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>1</IncludeInBuild>
+              <IncludeInBuild>0</IncludeInBuild>
               <AlwaysBuild>2</AlwaysBuild>
               <GenerateAssemblyFile>2</GenerateAssemblyFile>
               <AssembleAssemblyFile>2</AssembleAssemblyFile>
@@ -2421,7 +2401,7 @@
       <TargetName>FastModel</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6170000::V6.17::.\Arm Compiler 6.17</pCCUsed>
+      <pCCUsed>6180000::V6.18::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -2749,9 +2729,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>__USE_FVP__,NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
+              <Define>__USE_FVP__,NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template;..\common\controls;..\common\platform\mps2</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2806,14 +2786,14 @@
               <FilePath>.\app_cfg.h</FilePath>
             </File>
             <File>
-              <FileName>example_gui.c</FileName>
+              <FileName>benchmark_watch_panel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\example_gui.c</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.c</FilePath>
             </File>
             <File>
-              <FileName>example_gui.h</FileName>
+              <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\example_gui.h</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2931,11 +2911,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -2964,11 +2939,6 @@
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3369,7 +3339,7 @@
               <RVCTZI>0</RVCTZI>
               <RVCTOtherData>0</RVCTOtherData>
               <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>1</IncludeInBuild>
+              <IncludeInBuild>0</IncludeInBuild>
               <AlwaysBuild>2</AlwaysBuild>
               <GenerateAssemblyFile>2</GenerateAssemblyFile>
               <AssembleAssemblyFile>2</AssembleAssemblyFile>
@@ -3921,7 +3891,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps2;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps2;..\..\Library\Include\template;;..\common\controls</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3977,14 +3947,14 @@
               <FilePath>.\app_cfg.h</FilePath>
             </File>
             <File>
-              <FileName>example_gui.c</FileName>
+              <FileName>benchmark_watch_panel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\example_gui.c</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.c</FilePath>
             </File>
             <File>
-              <FileName>example_gui.h</FileName>
+              <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\example_gui.h</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -4102,11 +4072,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -4135,11 +4100,6 @@
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -5092,7 +5052,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include\template;;..\common\controls</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -5148,14 +5108,14 @@
               <FilePath>.\app_cfg.h</FilePath>
             </File>
             <File>
-              <FileName>example_gui.c</FileName>
+              <FileName>benchmark_watch_panel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\example_gui.c</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.c</FilePath>
             </File>
             <File>
-              <FileName>example_gui.h</FileName>
+              <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\example_gui.h</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -5273,11 +5233,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -5306,11 +5261,6 @@
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -6330,9 +6280,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax</MiscControls>
-              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
+              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\mps2;;..\common\controls;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -6388,14 +6338,14 @@
               <FilePath>.\app_cfg.h</FilePath>
             </File>
             <File>
-              <FileName>example_gui.c</FileName>
+              <FileName>benchmark_watch_panel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\example_gui.c</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.c</FilePath>
             </File>
             <File>
-              <FileName>example_gui.h</FileName>
+              <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\example_gui.h</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -6513,11 +6463,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -6546,11 +6491,6 @@
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -6951,7 +6891,7 @@
               <RVCTZI>0</RVCTZI>
               <RVCTOtherData>0</RVCTOtherData>
               <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>1</IncludeInBuild>
+              <IncludeInBuild>0</IncludeInBuild>
               <AlwaysBuild>2</AlwaysBuild>
               <GenerateAssemblyFile>2</GenerateAssemblyFile>
               <AssembleAssemblyFile>2</AssembleAssemblyFile>
@@ -7501,9 +7441,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-Omax -Wno-nonportable-include-path</MiscControls>
-              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
+              <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\mps2;..\common\controls;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -7559,14 +7499,14 @@
               <FilePath>.\app_cfg.h</FilePath>
             </File>
             <File>
-              <FileName>example_gui.c</FileName>
+              <FileName>benchmark_watch_panel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\example_gui.c</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.c</FilePath>
             </File>
             <File>
-              <FileName>example_gui.h</FileName>
+              <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\example_gui.h</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -7684,11 +7624,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -7717,11 +7652,6 @@
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -8122,7 +8052,7 @@
               <RVCTZI>0</RVCTZI>
               <RVCTOtherData>0</RVCTOtherData>
               <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>1</IncludeInBuild>
+              <IncludeInBuild>0</IncludeInBuild>
               <AlwaysBuild>2</AlwaysBuild>
               <GenerateAssemblyFile>2</GenerateAssemblyFile>
               <AssembleAssemblyFile>2</AssembleAssemblyFile>
@@ -8672,9 +8602,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls> -Wno-nonportable-include-path -Omax</MiscControls>
-              <Define>NDEBUG,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
+              <Define>NDEBUG,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\stm32f746g-discovery;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\stm32f746g-discovery;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template;..\common\controls</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -8730,14 +8660,14 @@
               <FilePath>.\app_cfg.h</FilePath>
             </File>
             <File>
-              <FileName>example_gui.c</FileName>
+              <FileName>benchmark_watch_panel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\example_gui.c</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.c</FilePath>
             </File>
             <File>
-              <FileName>example_gui.h</FileName>
+              <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\example_gui.h</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -8855,11 +8785,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -8888,11 +8813,6 @@
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -9750,7 +9670,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>0</Optim>
             <oTime>1</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -9769,14 +9689,14 @@
             <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
-            <v6Lto>0</v6Lto>
+            <v6Lto>1</v6Lto>
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Wno-padded -fdata-sections</MiscControls>
+              <MiscControls>-Wno-padded -fdata-sections -Omax</MiscControls>
               <Define>__USE_FVP__,NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__USE_AN547__,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include\template;..\common\controls</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -9832,14 +9752,14 @@
               <FilePath>.\app_cfg.h</FilePath>
             </File>
             <File>
-              <FileName>example_gui.c</FileName>
+              <FileName>benchmark_watch_panel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\example_gui.c</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.c</FilePath>
             </File>
             <File>
-              <FileName>example_gui.h</FileName>
+              <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\example_gui.h</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -10026,11 +9946,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -10059,11 +9974,6 @@
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -10686,7 +10596,7 @@
       <TargetName>STM32F746G-Discovery-AC5</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060960::V5.06 update 7 (build 960)::ARMCC</pCCUsed>
+      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -11014,9 +10924,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>NDEBUG,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
+              <Define>NDEBUG__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\stm32f746g-discovery;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\stm32f746g-discovery;..\..\Library\Include\template;..\common\controls</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -11072,14 +10982,14 @@
               <FilePath>.\app_cfg.h</FilePath>
             </File>
             <File>
-              <FileName>example_gui.c</FileName>
+              <FileName>benchmark_watch_panel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\example_gui.c</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.c</FilePath>
             </File>
             <File>
-              <FileName>example_gui.h</FileName>
+              <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\example_gui.h</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -11197,11 +11107,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -11230,11 +11135,6 @@
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -12118,7 +12018,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include\template;..\common\controls</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -12174,14 +12074,14 @@
               <FilePath>.\app_cfg.h</FilePath>
             </File>
             <File>
-              <FileName>example_gui.c</FileName>
+              <FileName>benchmark_watch_panel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\example_gui.c</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.c</FilePath>
             </File>
             <File>
-              <FileName>example_gui.h</FileName>
+              <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\example_gui.h</FilePath>
+              <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -12299,11 +12199,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -12332,11 +12227,6 @@
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -13248,15 +13138,6 @@
           <targetInfo name="V2M-MPS2-CM33"/>
         </targetInfos>
       </component>
-      <component Cbundle="V2M-MPS2" Cclass="Board Support" Cgroup="Common" Cvendor="Keil" Cversion="2.0.0" condition="CMSDK CMSIS">
-        <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.7.1"/>
-        <targetInfos>
-          <targetInfo name="FastModel"/>
-          <targetInfo name="V2M-MPS2-CM0+"/>
-          <targetInfo name="V2M-MPS2-CM4"/>
-          <targetInfo name="V2M-MPS2-CM7"/>
-        </targetInfos>
-      </component>
       <component Capiversion="2.1.0" Cclass="CMSIS Driver" Cgroup="USART" Cvendor="Keil" Cversion="1.0.3" condition="CMSDK CMSIS">
         <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.7.1"/>
         <targetInfos>
@@ -13450,13 +13331,19 @@
           <targetInfo name="V2M-MPS3-CM85"/>
         </targetInfos>
       </file>
-      <file attr="config" category="linkerScript" condition="Startup ARMCC6 Secure" name="Device\ARM\ARMCM33\Source\ARM\ARMCM33_ac6_s.sct" version="1.1.0">
-        <instance index="0">RTE\Device\ARMCM33_DSP_FP_TZ\ARMCM33_ac6_s.sct</instance>
+      <file attr="config" category="linkerScript" condition="Startup ARMCC6 Unsecure" name="Device\ARM\ARMCM33\Source\ARM\ARMCM33_ac6.sct" version="1.1.0">
+        <instance index="0">RTE\Device\ARMCM33_DSP_FP_TZ\ARMCM33_ac6.sct</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="ARM" Cversion="1.3.0" condition="ARMCM33 CMSIS"/>
         <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
         <targetInfos>
           <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
         </targetInfos>
+      </file>
+      <file attr="config" category="linkerScript" condition="Startup ARMCC6 Secure" name="Device\ARM\ARMCM33\Source\ARM\ARMCM33_ac6_s.sct" version="1.1.0">
+        <instance index="0" removed="1">RTE\Device\ARMCM33_DSP_FP_TZ\ARMCM33_ac6_s.sct</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="ARM" Cversion="1.3.0" condition="ARMCM33 CMSIS"/>
+        <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
+        <targetInfos/>
       </file>
       <file attr="config" category="header" name="template\RTE_Device.h" version="1.0.0">
         <instance index="0" removed="1">RTE\Device\ARMCM33_DSP_FP_TZ\RTE_Device.h</instance>
@@ -13465,12 +13352,10 @@
         <targetInfos/>
       </file>
       <file attr="config" category="header" condition="TZ Secure" name="Device\ARM\ARMCM33\Include\Template\partition_ARMCM33.h" version="1.1.1">
-        <instance index="0">RTE\Device\ARMCM33_DSP_FP_TZ\partition_ARMCM33.h</instance>
+        <instance index="0" removed="1">RTE\Device\ARMCM33_DSP_FP_TZ\partition_ARMCM33.h</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="ARM" Cversion="1.3.0" condition="ARMCM33 CMSIS"/>
         <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
-        <targetInfos>
-          <targetInfo name="DO_NOT_USE_V2M-MPS3-CM33"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="sourceAsm" condition="ARMCC6" name="Device\ARM\ARMCM33\Source\ARM\startup_ARMCM33.S" version="1.0.1">
         <instance index="0">RTE\Device\ARMCM33_DSP_FP_TZ\startup_ARMCM33.S</instance>

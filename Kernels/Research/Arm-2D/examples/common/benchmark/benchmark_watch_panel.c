@@ -17,10 +17,8 @@
  */
 
 /*============================ INCLUDES ======================================*/
-#include <stdio.h>
-#include "platform.h"
-#include "example_gui.h"
-#include "../common/controls/controls.h"
+#include "benchmark_watch_panel.h"
+#include "arm_extra_controls.h"
 #include <math.h>
 
 #if defined(__clang__)
@@ -43,6 +41,17 @@
 #endif
 
 /*============================ MACROS ========================================*/
+#ifndef __GLCD_CFG_SCEEN_WIDTH__
+#   warning Please specify the screen width by defining the macro __GLCD_CFG_SCEEN_WIDTH__, default value 320 is used for now
+#   define __GLCD_CFG_SCEEN_WIDTH__      320
+#endif
+
+#ifndef __GLCD_CFG_SCEEN_HEIGHT__
+#   warning Please specify the screen height by defining the macro __GLCD_CFG_SCEEN_HEIGHT__, default value 240 is used for now
+#   define __GLCD_CFG_SCEEN_HEIGHT__      320
+#endif
+
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
 #define arm_2d_layer(__TILE_ADDR, __TRANS, __X, __Y, ...)                       \
@@ -125,8 +134,8 @@ demo_gears_t s_tGears[] = {
 
         .ptRegion = (arm_2d_region_t []){ {
             .tLocation = {
-                .iX = ((APP_SCREEN_WIDTH - 41) >> 1) + 30,
-                .iY = ((APP_SCREEN_HEIGHT - 41) >>1) + 30,
+                .iX = ((__GLCD_CFG_SCEEN_WIDTH__ - 41) >> 1) + 30,
+                .iY = ((__GLCD_CFG_SCEEN_HEIGHT__ - 41) >>1) + 30,
             },
             .tSize = {
                 .iWidth = 41,
@@ -137,8 +146,8 @@ demo_gears_t s_tGears[] = {
     #if 0  /*! a demo shows how to specifiy the centre of rotation on the target tile */
         .ptTargetCentre = (arm_2d_location_t []){
             {
-                .iX = ((APP_SCREEN_WIDTH - 41) >> 1) + 30,
-                .iY = ((APP_SCREEN_HEIGHT - 41) >>1) + 30,
+                .iX = ((__GLCD_CFG_SCEEN_WIDTH__ - 41) >> 1) + 30,
+                .iY = ((__GLCD_CFG_SCEEN_HEIGHT__ - 41) >>1) + 30,
             },
         },
     #endif
@@ -154,8 +163,8 @@ demo_gears_t s_tGears[] = {
         },
         .ptRegion = (arm_2d_region_t []){ {
             .tLocation = {
-                .iX = ((APP_SCREEN_WIDTH - 120) >> 1),
-                .iY = ((APP_SCREEN_HEIGHT - 120) >>1),
+                .iX = ((__GLCD_CFG_SCEEN_WIDTH__ - 120) >> 1),
+                .iY = ((__GLCD_CFG_SCEEN_HEIGHT__ - 120) >>1),
             },
             .tSize = {
                 .iWidth = 120,
@@ -174,8 +183,8 @@ demo_gears_t s_tGears[] = {
         },
         .ptRegion = (arm_2d_region_t []){ {
             .tLocation = {
-                .iX = ((APP_SCREEN_WIDTH - 222) >> 1),
-                .iY = ((APP_SCREEN_HEIGHT - 222) >>1),
+                .iX = ((__GLCD_CFG_SCEEN_WIDTH__ - 222) >> 1),
+                .iY = ((__GLCD_CFG_SCEEN_HEIGHT__ - 222) >>1),
             },
             .tSize = {
                 .iWidth = 222,
@@ -203,7 +212,7 @@ void platform_1ms_event_handler(void)
 
 void example_gui_init(void)
 {
-    controls_init();
+    arm_extra_controls_init();
 
     arm_foreach(arm_2d_layer_t, s_ptRefreshLayers) {
         arm_2d_region_t tRegion = _->tRegion;
@@ -282,8 +291,8 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
                                     {
                                         .tSize = {240, 240},
                                         .tLocation = {
-                                            .iX = ((APP_SCREEN_WIDTH - 240) >> 1),
-                                            .iY = ((APP_SCREEN_HEIGHT - 240) >> 1),
+                                            .iX = ((__GLCD_CFG_SCEEN_WIDTH__ - 240) >> 1),
+                                            .iY = ((__GLCD_CFG_SCEEN_HEIGHT__ - 240) >> 1),
                                         },
                                     },
                                 },
@@ -302,8 +311,8 @@ void example_gui_refresh(const arm_2d_tile_t *ptTile, bool bIsNewFrame)
     do {
         static const arm_2d_region_t tPanelRegion = {
             .tLocation = {
-                .iX = ((APP_SCREEN_WIDTH - 221) >> 1),
-                .iY = ((APP_SCREEN_HEIGHT - 221) >> 1),
+                .iX = ((__GLCD_CFG_SCEEN_WIDTH__ - 221) >> 1),
+                .iY = ((__GLCD_CFG_SCEEN_HEIGHT__ - 221) >> 1),
             },
             .tSize = {
                 .iWidth = 221,

@@ -284,16 +284,6 @@
           <GroupName>Application</GroupName>
           <Files>
             <File>
-              <FileName>example_gui.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\example_gui.c</FilePath>
-            </File>
-            <File>
-              <FileName>example_gui.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\example_gui.h</FilePath>
-            </File>
-            <File>
               <FileName>app_cfg.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\app_cfg.h</FilePath>
@@ -302,6 +292,16 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_generic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic.c</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_generic.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic.h</FilePath>
             </File>
           </Files>
         </Group>

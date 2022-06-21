@@ -17,8 +17,6 @@
  */
 
 /*============================ INCLUDES ======================================*/
-#include <stdio.h>
-//#include "platform.h"
 #include "arm_extra_controls.h"
 #include "benchmark_generic.h"
 #include "arm_2d.h"
@@ -44,6 +42,16 @@
 #endif
 
 /*============================ MACROS ========================================*/
+#ifndef __GLCD_CFG_SCEEN_WIDTH__
+#   warning Please specify the screen width by defining the macro __GLCD_CFG_SCEEN_WIDTH__, default value 320 is used for now
+#   define __GLCD_CFG_SCEEN_WIDTH__      320
+#endif
+
+#ifndef __GLCD_CFG_SCEEN_HEIGHT__
+#   warning Please specify the screen height by defining the macro __GLCD_CFG_SCEEN_HEIGHT__, default value 240 is used for now
+#   define __GLCD_CFG_SCEEN_HEIGHT__      320
+#endif
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 
 #define arm_2d_layer(__TILE_ADDR, __OPACITY, __X, __Y, ...)                     \

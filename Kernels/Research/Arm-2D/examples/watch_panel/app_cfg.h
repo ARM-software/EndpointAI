@@ -59,14 +59,6 @@
 
 #define BUSY_WHEEL_SPIN_SPEED           100
 
-#ifndef APP_SCREEN_WIDTH 
-#   define APP_SCREEN_WIDTH             GLCD_WIDTH
-#endif
-
-#ifndef APP_SCREEN_HEIGHT 
-#   define APP_SCREEN_HEIGHT            GLCD_HEIGHT
-#endif
-
 
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
