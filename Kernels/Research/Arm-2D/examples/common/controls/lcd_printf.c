@@ -45,12 +45,16 @@
 /*============================ MACROS ========================================*/
 #ifndef __GLCD_CFG_SCEEN_WIDTH__
 #warning Please specify the screen width by defining the macro __GLCD_CFG_SCEEN_WIDTH__, default value 320 is used for now
-#define __GLCD_CFG_SCEEN_WIDTH__      320
+#define __GLCD_CFG_SCEEN_WIDTH__                            320
 #endif
 
 #ifndef __GLCD_CFG_SCEEN_HEIGHT__
 #   warning Please specify the screen height by defining the macro __GLCD_CFG_SCEEN_HEIGHT__, default value 240 is used for now
-#   define __GLCD_CFG_SCEEN_HEIGHT__      320
+#   define __GLCD_CFG_SCEEN_HEIGHT__                        320
+#endif
+
+#ifndef __LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__
+#   define __LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__              256
 #endif
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
@@ -125,6 +129,21 @@ void arm_lcd_text_set_target_framebuffer(arm_2d_tile_t *ptFrameBuffer)
 void arm_lcd_text_set_display_mode(uint32_t wMode)
 {
     s_tLCDTextControl.wMode = wMode;
+}
+
+void arm_lcd_text_set_draw_region(arm_2d_region_t *ptRegion)
+{
+    if (NULL == ptRegion) {
+        ptRegion =  (arm_2d_region_t []) {
+                    {
+                        .tSize = {
+                            .iWidth = __GLCD_CFG_SCEEN_WIDTH__,
+                            .iHeight = __GLCD_CFG_SCEEN_HEIGHT__,
+                        },
+                    }};
+    }
+    
+    s_tLCDTextControl.tRegion = *ptRegion;
 }
 
 void arm_lcd_text_location(uint8_t chY, uint8_t chX)
@@ -243,7 +262,7 @@ void arm_lcd_puts(const char *str)
 int arm_lcd_printf(const char *format, ...)
 {
     int real_size;
-    static char s_chBuffer[MAX((((__GLCD_CFG_SCEEN_WIDTH__)/6)+1), 54)];
+    static char s_chBuffer[__LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__ + 1];
     __va_list ap;
     va_start(ap, format);
         real_size = vsnprintf(s_chBuffer, sizeof(s_chBuffer)-1, format, ap);

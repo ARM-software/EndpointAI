@@ -86,20 +86,26 @@ extern "C" {
 //     <16=>    16Bits
 //     <32=>    32Bits
 // <i> The colour depth of your LCD
-#define __GLCD_CFG_COLOUR_DEPTH__       16
+#define __GLCD_CFG_COLOUR_DEPTH__               16
 
 // <o>Width of the screen <8-32767>
 // <i> The width of your screen
 // <i> Default: 320
 #ifndef __GLCD_CFG_SCEEN_WIDTH__
- #define __GLCD_CFG_SCEEN_WIDTH__       320
+#   define __GLCD_CFG_SCEEN_WIDTH__             320
 #endif
 
 // <o>Height of the screen <8-32767>
 // <i> The height of your screen
 // <i> Default: 240
 #ifndef __GLCD_CFG_SCEEN_HEIGHT__
- #define __GLCD_CFG_SCEEN_HEIGHT__      240
+#   define __GLCD_CFG_SCEEN_HEIGHT__            240
+#endif
+
+// <o> The size of the LCD printf text buffer <16-65535>
+// <i> The text buffer size for the lcd printf service. It determins how many character you can use in one printf string.
+#ifndef __LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__
+#   define __LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__  64
 #endif
 // </h>
 

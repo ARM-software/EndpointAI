@@ -88,6 +88,9 @@ void arm_lcd_text_set_target_framebuffer(arm_2d_tile_t *ptFrameBuffer);
 extern
 void arm_lcd_text_set_display_mode(uint32_t wMode);
 
+extern 
+void arm_lcd_text_set_draw_region(arm_2d_region_t *ptRegion);
+
 #ifdef __cplusplus
 }
 #endif
