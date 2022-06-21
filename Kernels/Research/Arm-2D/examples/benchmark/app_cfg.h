@@ -55,19 +55,10 @@
  *!       480 * 4    3840B
  *!       480 * 8    7680B
  */
-#define PFB_BLOCK_WIDTH         GLCD_WIDTH
-#define PFB_BLOCK_HEIGHT        GLCD_HEIGHT
+#define PFB_BLOCK_WIDTH                     GLCD_WIDTH
+#define PFB_BLOCK_HEIGHT                    GLCD_HEIGHT
 
 #define BUSY_WHEEL_SPIN_SPEED   100
-
-#ifndef APP_SCREEN_WIDTH 
-#   define APP_SCREEN_WIDTH         GLCD_WIDTH
-#endif
-
-#ifndef APP_SCREEN_HEIGHT 
-#   define APP_SCREEN_HEIGHT        GLCD_HEIGHT
-#endif
-
 
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/

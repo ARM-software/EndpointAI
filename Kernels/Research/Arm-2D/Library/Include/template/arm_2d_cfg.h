@@ -77,8 +77,6 @@ extern "C" {
 // </c>
 // </h>
 
-#if     defined(__RTE_ACCELERATION_ARM_2D_EXTRA_LCD_PRINTF__)                   \
-    ||  defined(__RTE_ACCELERATION_ARM_2D_EXTRA_CONTROLS__)
 
 // <h>Extra Components
 // =======================
@@ -104,8 +102,6 @@ extern "C" {
  #define __GLCD_CFG_SCEEN_HEIGHT__      240
 #endif
 // </h>
-
-#endif
 
 // <<< end of configuration section >>>
 

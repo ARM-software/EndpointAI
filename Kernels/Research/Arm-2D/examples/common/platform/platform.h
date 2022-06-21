@@ -20,9 +20,6 @@
 #define __PLATFORM_H__
 
 /*============================ INCLUDES ======================================*/
-
-
-
 #include "perf_counter.h"
 #include "cmsis_compiler.h"
 

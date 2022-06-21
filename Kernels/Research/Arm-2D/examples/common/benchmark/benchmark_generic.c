@@ -20,7 +20,7 @@
 #include <stdio.h>
 //#include "platform.h"
 #include "arm_extra_controls.h"
-#include "generic_gui.h"
+#include "benchmark_generic.h"
 #include "arm_2d.h"
 #include "arm_2d_helper.h"
 

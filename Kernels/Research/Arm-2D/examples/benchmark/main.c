@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include "platform.h"
 #include "arm_2d_helper.h"
-#include "example_gui.h"
+#include "..\benchmark\benchmark_generic.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
