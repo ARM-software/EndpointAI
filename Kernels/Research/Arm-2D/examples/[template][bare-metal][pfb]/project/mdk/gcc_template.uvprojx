@@ -351,66 +351,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Control</GroupName>
-          <Files>
-            <File>
-              <FileName>busy_wheel.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\common\controls\busy_wheel.c</FilePath>
-            </File>
-            <File>
-              <FileName>busy_wheel.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\common\controls\busy_wheel.h</FilePath>
-            </File>
-            <File>
-              <FileName>controls.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\common\controls\controls.c</FilePath>
-            </File>
-            <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
-              <FileName>shape_round_corner_box.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\common\controls\shape_round_corner_box.c</FilePath>
-            </File>
-            <File>
-              <FileName>shape_round_corner_box.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\common\controls\shape_round_corner_box.h</FilePath>
-            </File>
-            <File>
-              <FileName>spinning_wheel.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\common\controls\spinning_wheel.c</FilePath>
-            </File>
-            <File>
-              <FileName>spinning_wheel.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\common\controls\spinning_wheel.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>asset</GroupName>
-          <Files>
-            <File>
-              <FileName>SpinWheel.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\common\asset\SpinWheel.c</FilePath>
-            </File>
-            <File>
-              <FileName>whilte_dot.c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\common\asset\whilte_dot.c.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>::Acceleration</GroupName>
         </Group>
         <Group>
@@ -463,6 +403,12 @@
               <MiscControls>-Ofast -w -fdata-sections -ffunction-sections</MiscControls>
             </c>
           </targetInfo>
+        </targetInfos>
+      </component>
+      <component Cclass="Acceleration" Cgroup="Arm-2D Extras" Csub="Controls" Cvendor="Arm" Cversion="1.0.0" condition="Arm-2D-CORE">
+        <package name="Arm-2D" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/Arm-2D/developing/cmsis-pack/" vendor="Arm" version="1.0.0-preview-beta5"/>
+        <targetInfos>
+          <targetInfo name="STM32F746G-Discovery-GCC"/>
         </targetInfos>
       </component>
       <component Cclass="Acceleration" Cgroup="Arm-2D Extras" Csub="LCD ASCII Printf" Cvendor="Arm" Cversion="1.0.0" condition="Arm-2D-CORE">

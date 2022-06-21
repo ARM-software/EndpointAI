@@ -27,7 +27,10 @@
 #include "./busy_wheel.h"
 #include "./shape_round_corner_box.h"
 #include "./spinning_wheel.h"
-#include "./lcd_printf.h"
+
+#if defined(__RTE_ACCELERATION_ARM_2D_EXTRA_LCD_PRINTF__)
+#   include "./arm_extra_lcd_printf.h"
+#endif
 
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
@@ -36,6 +39,6 @@
 /*============================ PROTOTYPES ====================================*/
 
 extern
-void controls_init(void);
+void arm_extra_controls_init(void);
 
 #endif

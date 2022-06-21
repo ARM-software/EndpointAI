@@ -491,11 +491,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -526,9 +521,19 @@
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_printf.h</FileName>
+              <FileName>arm_extra_controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
+              <FilePath>..\common\controls\arm_extra_controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_extra_lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\arm_extra_lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>__common.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\__common.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1570,11 +1575,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -1605,9 +1605,19 @@
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_printf.h</FileName>
+              <FileName>arm_extra_controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
+              <FilePath>..\common\controls\arm_extra_controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_extra_lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\arm_extra_lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>__common.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\__common.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2717,11 +2727,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -2752,9 +2757,19 @@
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_printf.h</FileName>
+              <FileName>arm_extra_controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
+              <FilePath>..\common\controls\arm_extra_controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_extra_lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\arm_extra_lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>__common.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\__common.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3865,11 +3880,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -3900,9 +3910,19 @@
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_printf.h</FileName>
+              <FileName>arm_extra_controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
+              <FilePath>..\common\controls\arm_extra_controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_extra_lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\arm_extra_lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>__common.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\__common.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -4944,11 +4964,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -4979,9 +4994,19 @@
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_printf.h</FileName>
+              <FileName>arm_extra_controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
+              <FilePath>..\common\controls\arm_extra_controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_extra_lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\arm_extra_lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>__common.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\__common.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -6092,11 +6117,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -6127,9 +6147,19 @@
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_printf.h</FileName>
+              <FileName>arm_extra_controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
+              <FilePath>..\common\controls\arm_extra_controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_extra_lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\arm_extra_lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>__common.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\__common.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -7240,11 +7270,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -7275,9 +7300,19 @@
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_printf.h</FileName>
+              <FileName>arm_extra_controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
+              <FilePath>..\common\controls\arm_extra_controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_extra_lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\arm_extra_lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>__common.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\__common.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -8388,11 +8423,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -8423,9 +8453,19 @@
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_printf.h</FileName>
+              <FileName>arm_extra_controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
+              <FilePath>..\common\controls\arm_extra_controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_extra_lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\arm_extra_lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>__common.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\__common.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -9536,11 +9576,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -9571,9 +9606,19 @@
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_printf.h</FileName>
+              <FileName>arm_extra_controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
+              <FilePath>..\common\controls\arm_extra_controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_extra_lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\arm_extra_lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>__common.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\__common.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -10615,11 +10660,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -10650,9 +10690,19 @@
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_printf.h</FileName>
+              <FileName>arm_extra_controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
+              <FilePath>..\common\controls\arm_extra_controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_extra_lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\arm_extra_lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>__common.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\__common.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -11763,11 +11813,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -11798,9 +11843,19 @@
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_printf.h</FileName>
+              <FileName>arm_extra_controls.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
+              <FilePath>..\common\controls\arm_extra_controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_extra_lcd_printf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\arm_extra_lcd_printf.h</FilePath>
+            </File>
+            <File>
+              <FileName>__common.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\controls\__common.h</FilePath>
             </File>
           </Files>
         </Group>

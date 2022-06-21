@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include "platform.h"
 #include "example_gui.h"
-#include "../common/controls/controls.h"
+#include "arm_extra_controls.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -73,7 +73,7 @@ void platform_1ms_event_handler(void)
 
 void example_gui_init(void)
 {
-    controls_init();
+    arm_extra_controls_init();
     
 }
 

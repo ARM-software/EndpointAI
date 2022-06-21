@@ -17,7 +17,7 @@
  */
 
 /*============================ INCLUDES ======================================*/
-#include "./controls.h"
+#include "./arm_extra_controls.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -42,7 +42,7 @@
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ IMPLEMENTATION ================================*/
 
-void controls_init(void)
+void arm_extra_controls_init(void)
 {
     busy_wheel_init();
     spinning_wheel_init();

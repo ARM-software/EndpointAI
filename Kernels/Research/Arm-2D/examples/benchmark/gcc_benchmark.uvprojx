@@ -82,7 +82,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>arm-none-eabi-size.exe ./Objects/gcc_partial_frame_buffer.elf</UserProg1Name>
+            <UserProg1Name>arm-none-eabi-size.exe ./Objects/gcc_benchmark.elf</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -554,11 +554,6 @@
               <FilePath>..\common\controls\controls.c</FilePath>
             </File>
             <File>
-              <FileName>controls.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\controls.h</FilePath>
-            </File>
-            <File>
               <FileName>shape_round_corner_box.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\shape_round_corner_box.c</FilePath>
@@ -587,11 +582,6 @@
               <FileName>lcd_printf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\controls\lcd_printf.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd_printf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\controls\lcd_printf.h</FilePath>
             </File>
           </Files>
         </Group>

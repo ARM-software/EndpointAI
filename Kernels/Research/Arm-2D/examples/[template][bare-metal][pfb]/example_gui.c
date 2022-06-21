@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include "platform.h"
 #include "example_gui.h"
-#include "../common/controls/controls.h"
+#include "arm_extra_controls.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -52,9 +52,6 @@
 /*============================ PROTOTYPES ====================================*/
 /*============================ LOCAL VARIABLES ===============================*/
 
-extern const arm_2d_tile_t c_tPictureWhiteDot;
-
-
 /*============================ IMPLEMENTATION ================================*/
 
 static volatile uint32_t s_wSystemTimeInMs = 0;
@@ -71,7 +68,7 @@ void platform_1ms_event_handler(void)
 
 void example_gui_init(void)
 {
-    controls_init();
+    arm_extra_controls_init();
     
 }
 

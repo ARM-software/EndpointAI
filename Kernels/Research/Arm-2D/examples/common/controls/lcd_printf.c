@@ -24,7 +24,7 @@
 #include <stdbool.h>
 #include <stdarg.h>
 
-#include "lcd_printf.h"
+#include "arm_extra_lcd_printf.h"
 #include "arm_2d.h"
 #include "./__common.h"
 

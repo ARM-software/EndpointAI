@@ -161,7 +161,7 @@ void platform_1ms_event_handler(void)
 
 void example_gui_init(void)
 {
-    controls_init();
+    arm_extra_controls_init();
     
     s_ptRefreshLayers[0].wMode = ARM_2D_CP_MODE_FILL;
     s_ptRefreshLayers[2].wMode = ARM_2D_CP_MODE_FILL;

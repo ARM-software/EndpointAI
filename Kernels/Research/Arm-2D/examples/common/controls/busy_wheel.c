@@ -18,10 +18,11 @@
 
 /*============================ INCLUDES ======================================*/
 #include "./busy_wheel.h"
-#include "platform.h"
+#include "./__common.h"
 #include "arm_2d.h"
 #include <math.h>
 #include <time.h>
+#include <assert.h>
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -80,7 +81,7 @@ void busy_wheel_init(void)
 
 void busy_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
 {
-    ASSERT(NULL != ptTarget);
+    assert(NULL != ptTarget);
     static uint8_t s_chOffset = 0;
     arm_2d_location_t tBasePoint = {
         .iX = ptTarget->tRegion.tSize.iWidth / 2 - 10,
@@ -121,7 +122,7 @@ void busy_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
 
 void busy_wheel2_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
 {
-    ASSERT(NULL != ptTarget);
+    assert(NULL != ptTarget);
     static uint8_t s_chOffset = 0;
     arm_2d_location_t tBasePoint = {
         .iX = ptTarget->tRegion.tSize.iWidth / 2 - 10,

@@ -45,7 +45,8 @@
 #   include "cmsis_os2.h"                  // ::CMSIS:RTOS2
 #endif
 
-#include "../controls/controls.h"
+#include "../controls/arm_extra_controls.h"
+#include "../controls/arm_extra_lcd_printf.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
