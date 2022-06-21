@@ -84,6 +84,9 @@ static struct {
         COLOUR_INT_TYPE     tForeground;
         COLOUR_INT_TYPE     tBackground;
     } tColour;
+    
+    arm_2d_tile_t *ptTargetFB;
+    uint32_t       wMode;
 } s_tLCDTextControl = {
     .tRegion = { 
         .tSize = {
@@ -95,6 +98,10 @@ static struct {
         .tForeground = GLCD_COLOR_GREEN,
         .tBackground = GLCD_COLOR_BLACK,
     },
+    .ptTargetFB = (arm_2d_tile_t *)(-1),
+    .wMode = ARM_2D_DRW_PATN_MODE_COPY,
+            //| ARM_2D_DRW_PATN_MODE_NO_FG_COLOR    
+            //| ARM_2D_DRW_PATH_MODE_COMP_FG_COLOUR 
 };
 
 /*============================ IMPLEMENTATION ================================*/
@@ -103,6 +110,21 @@ void arm_lcd_text_set_colour(COLOUR_INT_TYPE wForeground, COLOUR_INT_TYPE wBackg
 {
     s_tLCDTextControl.tColour.tForeground = wForeground;
     s_tLCDTextControl.tColour.tBackground = wBackground;
+}
+
+void arm_lcd_text_set_target_framebuffer(arm_2d_tile_t *ptFrameBuffer)
+{
+    s_tLCDTextControl.ptTargetFB = ptFrameBuffer;
+
+    if (NULL == ptFrameBuffer) {
+        // use default framebuffer
+        s_tLCDTextControl.ptTargetFB = (arm_2d_tile_t *)(-1);
+    }
+}
+
+void arm_lcd_text_set_display_mode(uint32_t wMode)
+{
+    s_tLCDTextControl.wMode = wMode;
 }
 
 void arm_lcd_text_location(uint8_t chY, uint8_t chX)
@@ -123,9 +145,6 @@ void arm_lcd_text_location(uint8_t chY, uint8_t chX)
 
 static void lcd_draw_char(int16_t iX, int16_t iY, char chChar)
 {
-    // use default frame buffer
-    arm_2d_tile_t *ptFrameBuffer = (arm_2d_tile_t *) -1;
-    
     const static arm_2d_tile_t s_tileFont6x8 = {
         .tRegion = {
             .tSize = {
@@ -162,12 +181,9 @@ static void lcd_draw_char(int16_t iX, int16_t iY, char chChar)
     };
     
     arm_2d_rgb16_draw_pattern(  &s_tileChar, 
-                                ptFrameBuffer, 
+                                s_tLCDTextControl.ptTargetFB, 
                                 &tDrawRegion,
-                                    ARM_2D_DRW_PATN_MODE_COPY           
-                                //| ARM_2D_DRW_PATN_MODE_NO_FG_COLOR    
-                                //| ARM_2D_DRW_PATH_MODE_COMP_FG_COLOUR 
-                                ,
+                                s_tLCDTextControl.wMode,
                                 s_tLCDTextControl.tColour.tForeground,
                                 s_tLCDTextControl.tColour.tBackground);
     arm_2d_op_wait_async(NULL);

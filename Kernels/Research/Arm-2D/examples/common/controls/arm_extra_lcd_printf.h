@@ -72,6 +72,22 @@ extern
 void arm_lcd_text_set_colour(   COLOUR_INT_TYPE wForeground, 
                                 COLOUR_INT_TYPE wBackground);
 
+extern 
+void arm_lcd_text_set_target_framebuffer(arm_2d_tile_t *ptFrameBuffer);
+
+/*!
+ * \brief set the display mode for characters
+ * \param[in] wMode the display mode which could be the combination of following 
+              enum values:
+              - ARM_2D_DRW_PATN_MODE_COPY (default) - Copy without background colour
+              - ARM_2D_DRW_PATN_MODE_WITH_BG_COLOR - with background colour
+              - ARM_2D_DRW_PATN_MODE_NO_FG_COLOR - without foreground colour
+              - ARM_2D_DRW_PATH_MODE_COMP_FG_COLOUR - use complement value as the foreground colour
+ */
+
+extern
+void arm_lcd_text_set_display_mode(uint32_t wMode);
+
 #ifdef __cplusplus
 }
 #endif
