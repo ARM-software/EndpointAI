@@ -28,6 +28,11 @@ extern "C" {
 #endif
 
 /*============================ MACROS ========================================*/
+#ifndef __GLCD_CFG_COLOUR_DEPTH__
+#   warning Please specify the colour depth by defining the macro __GLCD_CFG_COLOUR_DEPTH__, default value 16 is used for now
+#   define __GLCD_CFG_COLOUR_DEPTH__      16
+#endif
+
 #if __GLCD_CFG_COLOUR_DEPTH__ == 8
 #   define COLOUR_INT_TYPE         uint8_t 
 

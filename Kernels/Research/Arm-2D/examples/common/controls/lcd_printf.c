@@ -53,10 +53,7 @@
 #   define __GLCD_CFG_SCEEN_HEIGHT__      320
 #endif
 
-#ifndef __GLCD_CFG_COLOUR_DEPTH__
-#   warning Please specify the colour depth by defining the macro __GLCD_CFG_COLOUR_DEPTH__, default value 16 is used for now
-#   define __GLCD_CFG_COLOUR_DEPTH__      16
-#endif
+
 
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
