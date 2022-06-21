@@ -47,7 +47,7 @@ extern "C" {
 // <i> Note that enabling this feature suffers a non-negligible performance drop.
 // <i> This feature is disabled by default.
 #ifndef __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__
-#   define __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__                      0
+#   define __ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__                      1
 #endif
 
 // <q>Enable support for accessing individual colour channels
@@ -77,7 +77,8 @@ extern "C" {
 // </c>
 // </h>
 
-//#ifdef __RTE_ACCELERATION_ARM_2D_EXTRA__
+#if     defined(__RTE_ACCELERATION_ARM_2D_EXTRA_LCD_PRINTF__)                   \
+    ||  defined(__RTE_ACCELERATION_ARM_2D_EXTRA_CONTROLS__)
 
 // <h>Extra Components
 // =======================
@@ -93,18 +94,18 @@ extern "C" {
 // <i> The width of your screen
 // <i> Default: 320
 #ifndef __GLCD_CFG_SCEEN_WIDTH__
- #define __GLCD_CFG_SCEEN_WIDTH__     320
+ #define __GLCD_CFG_SCEEN_WIDTH__       320
 #endif
 
 // <o>Height of the screen <8-32767>
 // <i> The height of your screen
 // <i> Default: 240
 #ifndef __GLCD_CFG_SCEEN_HEIGHT__
- #define __GLCD_CFG_SCEEN_HEIGHT__     240
+ #define __GLCD_CFG_SCEEN_HEIGHT__      240
 #endif
 // </h>
 
-//#endif
+#endif
 
 // <<< end of configuration section >>>
 

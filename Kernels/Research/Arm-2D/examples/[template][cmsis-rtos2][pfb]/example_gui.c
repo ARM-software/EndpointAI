@@ -93,9 +93,11 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
 
 void example_gui_refresh(const arm_2d_tile_t *ptFrameBuffer, bool bIsNewFrame)
 {
-    arm_2d_rgb16_fill_colour(ptFrameBuffer, NULL, GLCD_COLOR_BLACK);
+    arm_2d_rgb16_fill_colour(ptFrameBuffer, NULL, GLCD_COLOR_NAVY);
     
     busy_wheel2_show(ptFrameBuffer, bIsNewFrame);
+
+    //spinning_wheel_show(ptFrameBuffer, bIsNewFrame);
 
     example_gui_on_refresh_evt_handler(ptFrameBuffer);
     

@@ -194,7 +194,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
     ARM_2D_UNUSED(pTarget);
     ARM_2D_UNUSED(bIsNewFrame);
 
-    arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
+    arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_NAVY);
     arm_2d_op_wait_async(NULL);
     return arm_fsm_rt_cpl;
 }
