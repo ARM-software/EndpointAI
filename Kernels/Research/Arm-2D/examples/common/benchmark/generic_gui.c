@@ -18,8 +18,9 @@
 
 /*============================ INCLUDES ======================================*/
 #include <stdio.h>
-#include "platform.h"
-#include "example_gui.h"
+//#include "platform.h"
+#include "arm_extra_controls.h"
+#include "generic_gui.h"
 #include "arm_2d.h"
 #include "arm_2d_helper.h"
 
@@ -89,11 +90,11 @@ declare_tile(c_tLayerB)
 implement_tile(c_tLayerB, 90, 50, arm_2d_color_rgb565_t);
 
 
-ARM_NOINIT static uint8_t s_bmpFadeMask[APP_SCREEN_WIDTH >> 1];
+ARM_NOINIT static uint8_t s_bmpFadeMask[__GLCD_CFG_SCEEN_WIDTH__ >> 1];
 const arm_2d_tile_t c_tileFadeMask = {
     .tRegion = {
         .tSize = {
-            .iWidth = (APP_SCREEN_WIDTH >> 1),
+            .iWidth = (__GLCD_CFG_SCEEN_WIDTH__ >> 1),
             .iHeight = 1,
         },
     },
@@ -124,22 +125,22 @@ static arm_2d_layer_t s_ptRefreshLayers[] = {
 
 static floating_range_t s_ptFloatingBoxes[] = {
     {
-        .tRegion = {{0-200, 0-200}, {APP_SCREEN_WIDTH + 400, 256 + 400}},
+        .tRegion = {{0-200, 0-200}, {__GLCD_CFG_SCEEN_WIDTH__ + 400, 256 + 400}},
         .ptLayer = &s_ptRefreshLayers[0],
         .tOffset = {-1, -1},
     },
     {
-        .tRegion = {{0, 0}, {APP_SCREEN_WIDTH, APP_SCREEN_HEIGHT}},
+        .tRegion = {{0, 0}, {__GLCD_CFG_SCEEN_WIDTH__, __GLCD_CFG_SCEEN_HEIGHT__}},
         .ptLayer = &s_ptRefreshLayers[1],
         .tOffset = {5, -2},
     },
     {
-        .tRegion = {{0, 0}, {APP_SCREEN_WIDTH, APP_SCREEN_HEIGHT}},
+        .tRegion = {{0, 0}, {__GLCD_CFG_SCEEN_WIDTH__, __GLCD_CFG_SCEEN_HEIGHT__}},
         .ptLayer = &s_ptRefreshLayers[2],
         .tOffset = {-2, 4},
     },
     {
-        .tRegion = {{-100, -100}, {APP_SCREEN_WIDTH+200, APP_SCREEN_HEIGHT+200}},
+        .tRegion = {{-100, -100}, {__GLCD_CFG_SCEEN_WIDTH__+200, __GLCD_CFG_SCEEN_HEIGHT__+200}},
         .ptLayer = &s_ptRefreshLayers[3],
         .tOffset = {5, 5},
     },
@@ -170,8 +171,8 @@ void example_gui_init(void)
     //! generate line-fading template for a half of the screen
     do {
         memset(s_bmpFadeMask, 0, sizeof(s_bmpFadeMask));
-        float fRatio = 255.0f / (float)(APP_SCREEN_WIDTH >> 1);
-        for (int32_t n = 0; n < (APP_SCREEN_WIDTH >> 1); n++) {
+        float fRatio = 255.0f / (float)(__GLCD_CFG_SCEEN_WIDTH__ >> 1);
+        for (int32_t n = 0; n < (__GLCD_CFG_SCEEN_WIDTH__ >> 1); n++) {
             s_bmpFadeMask[n] = 255 - ((float)n * fRatio);
         }
     } while(0);
@@ -340,8 +341,8 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                                     .iY = -100, 
                                 },
                                 .tSize = {
-                                    .iWidth = (APP_SCREEN_WIDTH >> 1) + 200, 
-                                    .iHeight = APP_SCREEN_HEIGHT + 100 
+                                    .iWidth = (__GLCD_CFG_SCEEN_WIDTH__ >> 1) + 200, 
+                                    .iHeight = __GLCD_CFG_SCEEN_HEIGHT__ + 100 
                                 }};
 
     //! handle the left half of the screen
@@ -403,10 +404,10 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
     do {
         
         static const arm_2d_region_t tRightHalfScreen = {
-                                                (APP_SCREEN_WIDTH >> 1), 
+                                                (__GLCD_CFG_SCEEN_WIDTH__ >> 1), 
                                                 0, 
-                                                (APP_SCREEN_WIDTH >> 1), 
-                                                APP_SCREEN_HEIGHT
+                                                (__GLCD_CFG_SCEEN_WIDTH__ >> 1), 
+                                                __GLCD_CFG_SCEEN_HEIGHT__
                                             };
         
         //!< generate a child tile for this half of screen
@@ -507,8 +508,8 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                                 (arm_2d_region_t []){
                                     {
                                         .tSize = {
-                                            .iWidth = APP_SCREEN_WIDTH >> 1,
-                                            .iHeight = APP_SCREEN_HEIGHT >> 1,
+                                            .iWidth = __GLCD_CFG_SCEEN_WIDTH__ >> 1,
+                                            .iHeight = __GLCD_CFG_SCEEN_HEIGHT__ >> 1,
                                         },
                                     },
                                 },
@@ -525,11 +526,11 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                                     {
                                         .tLocation = {
                                             .iX = 0,
-                                            .iY = APP_SCREEN_HEIGHT >> 1,
+                                            .iY = __GLCD_CFG_SCEEN_HEIGHT__ >> 1,
                                         },
                                         .tSize = {
-                                            .iWidth = APP_SCREEN_WIDTH >> 1,
-                                            .iHeight = APP_SCREEN_HEIGHT >> 1,
+                                            .iWidth = __GLCD_CFG_SCEEN_WIDTH__ >> 1,
+                                            .iHeight = __GLCD_CFG_SCEEN_HEIGHT__ >> 1,
                                         },
                                     },
                                 },
@@ -545,12 +546,12 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                                 (arm_2d_region_t []){
                                     {
                                         .tLocation = {
-                                            .iX = APP_SCREEN_WIDTH >> 1,
+                                            .iX = __GLCD_CFG_SCEEN_WIDTH__ >> 1,
                                             .iY = 0
                                         },
                                         .tSize = {
-                                            .iWidth = APP_SCREEN_WIDTH >> 1,
-                                            .iHeight = APP_SCREEN_HEIGHT >> 1,
+                                            .iWidth = __GLCD_CFG_SCEEN_WIDTH__ >> 1,
+                                            .iHeight = __GLCD_CFG_SCEEN_HEIGHT__ >> 1,
                                         },
                                     },
                                 },
@@ -566,12 +567,12 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                                 (arm_2d_region_t []){
                                     {
                                         .tLocation = {
-                                            .iX = APP_SCREEN_WIDTH >> 1,
-                                            .iY = APP_SCREEN_HEIGHT >> 1,
+                                            .iX = __GLCD_CFG_SCEEN_WIDTH__ >> 1,
+                                            .iY = __GLCD_CFG_SCEEN_HEIGHT__ >> 1,
                                         },
                                         .tSize = {
-                                            .iWidth = APP_SCREEN_WIDTH >> 1,
-                                            .iHeight = APP_SCREEN_HEIGHT >> 1,
+                                            .iWidth = __GLCD_CFG_SCEEN_WIDTH__ >> 1,
+                                            .iHeight = __GLCD_CFG_SCEEN_HEIGHT__ >> 1,
                                         },
                                     },
                                 },

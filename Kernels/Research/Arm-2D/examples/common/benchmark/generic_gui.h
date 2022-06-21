@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 
-#ifndef __EXAMPLE_GUI_H__
-#define __EXAMPLE_GUI_H__
+#ifndef __GENERIC_GUI_H__
+#define __GENERIC_GUI_H__
 
 /*============================ INCLUDES ======================================*/
 #include "app_cfg.h"
@@ -42,8 +42,6 @@ typedef struct floating_range_t {
     arm_2d_layer_t     *ptLayer;
     arm_2d_location_t   tOffset;
 } floating_range_t;
-
-
 
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
