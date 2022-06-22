@@ -26,24 +26,6 @@
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
-typedef struct arm_2d_layer_t {
-    const arm_2d_tile_t *ptTile;
-    arm_2d_region_t tRegion;
-    uint32_t    wMode;
-    uint8_t     chTransparency;
-    uint8_t     bIsIrregular    : 1;
-    uint8_t                     : 7;
-    uint16_t    hwMaskingColour;
-} arm_2d_layer_t;
-
-typedef struct floating_range_t {
-    arm_2d_region_t tRegion;
-    arm_2d_layer_t *ptLayer;
-    arm_2d_location_t tOffset;
-} floating_range_t;
-
-
-
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
 
@@ -56,5 +38,8 @@ void example_gui_refresh(const arm_2d_tile_t *ptFrameBuffer, bool bIsNewFrame);
 extern
 void example_gui_do_events(void);
 
+__NO_RETURN
+extern
+void run_benchmark_watch_panel(void);
 
 #endif

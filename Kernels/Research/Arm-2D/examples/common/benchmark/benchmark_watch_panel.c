@@ -65,6 +65,24 @@
 
 /*============================ TYPES =========================================*/
 
+typedef struct arm_2d_layer_t {
+    const arm_2d_tile_t *ptTile;
+    arm_2d_region_t tRegion;
+    uint32_t    wMode;
+    uint8_t     chTransparency;
+    uint8_t     bIsIrregular    : 1;
+    uint8_t                     : 7;
+    uint16_t    hwMaskingColour;
+} arm_2d_layer_t;
+
+typedef struct floating_range_t {
+    arm_2d_region_t tRegion;
+    arm_2d_layer_t *ptLayer;
+    arm_2d_location_t tOffset;
+} floating_range_t;
+
+
+
 typedef struct {
     arm_2d_op_trans_opa_t tOP;
     const arm_2d_tile_t *ptTile;
@@ -229,8 +247,8 @@ void example_gui_init(void)
 
 static void example_update_boxes(floating_range_t *ptBoxes, uint_fast16_t hwCount)
 {
-    ASSERT(NULL != ptBoxes);
-    ASSERT(hwCount > 0);
+    assert(NULL != ptBoxes);
+    assert(hwCount > 0);
 
     do {
         arm_2d_region_t tOldRegion = ptBoxes->ptLayer->tRegion;

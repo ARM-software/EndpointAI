@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include "platform.h"
 #include "arm_2d_helper.h"
-#include "..\benchmark\benchmark_watch_panel.h"
+#include "benchmark_watch_panel.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
@@ -42,137 +42,12 @@
 #endif
 
 /*============================ MACROS ========================================*/
-#ifndef __STR
-#   define __STR(__A)      #__A
-#endif
-
-#ifndef STR
-#   define STR(__A)         __STR(__A)
-#endif
-
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
 /*============================ LOCAL VARIABLES ===============================*/
-
-static struct {
-    uint32_t wMin;
-    uint32_t wMax;
-    uint64_t dwTotal;
-    uint32_t wAverage;
-    uint32_t wIterations;
-    uint32_t wLCDLatency;
-} BENCHMARK = {
-    .wMin = UINT32_MAX,
-    .wMax = 0,
-    .dwTotal = 0,
-    .wAverage = 0,
-    .wIterations = ITERATION_CNT,
-};
-
-
 /*============================ IMPLEMENTATION ================================*/
-
-static ARM_NOINIT arm_2d_helper_pfb_t s_tExamplePFB;
-
-static volatile bool s_bDrawInfo = true;
-
-extern const arm_2d_tile_t c_tileArrow;
-
-void display_task(void)
-{
-
-    /*! define dirty regions */
-    IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions, const static)
-
-        /* a region for the busy wheel */
-        ADD_REGION_TO_LIST(s_tDirtyRegions,
-            .tLocation = {
-                .iX = ((__GLCD_CFG_SCEEN_WIDTH__ - 240) >> 1),
-                .iY = ((__GLCD_CFG_SCEEN_HEIGHT__ - 240) >> 1),
-            },
-            .tSize = {
-                .iWidth = 240,
-                .iHeight = 240,
-            },
-        ),
-
-        /* a region for the status bar on the bottom of the screen */
-        ADD_LAST_REGION_TO_LIST(s_tDirtyRegions,
-            .tLocation = {0,__GLCD_CFG_SCEEN_HEIGHT__ - 16},
-            .tSize = {
-                .iWidth = __GLCD_CFG_SCEEN_WIDTH__,
-                .iHeight = 16,
-            },
-        ),
-
-    END_IMPL_ARM_2D_REGION_LIST()
-
-
-/*! define the partial-flushing area */
-
-    example_gui_do_events();
-
-    //! call partial framebuffer helper service
-    while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task(
-                                &s_tExamplePFB, NULL));
-                                //&s_tExamplePFB, (arm_2d_region_list_item_t *)s_tDirtyRegions));
-
-    //! update performance info
-    do {
-
-        int32_t nTotalCyclCount = s_tExamplePFB.Statistics.nTotalCycle;
-        int32_t nTotalLCDCycCount = s_tExamplePFB.Statistics.nRenderingCycle;
-        BENCHMARK.wLCDLatency = nTotalLCDCycCount;
-
-        if (BENCHMARK.wIterations) {
-            BENCHMARK.wMin = MIN((uint32_t)nTotalCyclCount, BENCHMARK.wMin);
-            BENCHMARK.wMax = MAX(nTotalCyclCount, (int32_t)BENCHMARK.wMax);
-            BENCHMARK.dwTotal += nTotalCyclCount;
-            BENCHMARK.wIterations--;
-
-            if (0 == BENCHMARK.wIterations) {
-                BENCHMARK.wAverage =
-                    (uint32_t)(BENCHMARK.dwTotal / (uint64_t)ITERATION_CNT);
-
-            }
-
-        }
-
-    } while(0);
-
-}
-
-__OVERRIDE_WEAK
-void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
-{
-    ARM_2D_UNUSED(ptFrameBuffer);
-
-    //! print performance info
-
-    if (0 == BENCHMARK.wIterations) {
-    #if !defined(__USE_FVP__)
-        arm_lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
-        arm_lcd_puts(  "Transform Test, running "
-                    STR(ITERATION_CNT)
-                    " iterations\r\n");
-
-        arm_lcd_puts(   "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
-                    "  Screen Size: "STR(__GLCD_CFG_SCEEN_WIDTH__)"*" STR(__GLCD_CFG_SCEEN_HEIGHT__));
-        arm_lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
-        arm_lcd_puts( "Benchmark Report:\r\n");
-        
-        arm_lcd_printf("Average: %d ", BENCHMARK.wAverage);
-        arm_lcd_printf("FPS30Freq: %4.2f MHz\r\n", ((float)BENCHMARK.wAverage * 30.0f) / 1000000.0f);
-        arm_lcd_printf("FPS: %3d:%dms   ",
-                            SystemCoreClock / BENCHMARK.wAverage,
-                            BENCHMARK.wAverage / (SystemCoreClock / 1000ul));
-        arm_lcd_printf("LCD Latency: %2dms", BENCHMARK.wLCDLatency / (SystemCoreClock / 1000ul) );
-        //arm_lcd_printf(" %08x", (int32_t)get_system_ticks() );
-    #endif
-    }
-}
 
 
 __OVERRIDE_WEAK
@@ -187,77 +62,6 @@ int32_t arm_2d_helper_perf_counter_stop(void)
     return stop_cycle_counter();
 }
 
-
-static
-IMPL_PFB_ON_DRAW(__pfb_draw_handler)
-{
-    ARM_2D_UNUSED(pTarget);
-    example_gui_refresh(ptTile, bIsNewFrame);
-    
-    arm_2d_op_wait_async(NULL);
-    return arm_fsm_rt_cpl;
-}
-
-extern
-const arm_2d_tile_t c_tPictureHeliun;
-
-extern 
-const arm_2d_tile_t c_tileBackground;
-
-static
-IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
-{
-    ARM_2D_UNUSED(pTarget);
-    ARM_2D_UNUSED(bIsNewFrame);
-
-    arm_2d_rgb16_fill_colour(ptTile, NULL, GLCD_COLOR_BLACK);
-    arm_2d_rgb16_tile_copy(&c_tileBackground,
-                        ptTile,
-                        NULL,
-                        ARM_2D_CP_MODE_COPY);
-    
-    arm_print_banner("Arm-2D Benchmark");
-    
-#if !defined(__USE_FVP__)
-    arm_lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
-    arm_lcd_puts(  "Transform Test, running "
-                STR(ITERATION_CNT)
-                " iterations\r\n");
-
-    arm_lcd_puts(   "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
-                "  Screen Size: "STR(__GLCD_CFG_SCEEN_WIDTH__)"*" STR(__GLCD_CFG_SCEEN_HEIGHT__));
-    arm_lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
-    arm_lcd_puts( "Testing...\r\n\r\n");
-#endif
-
-    //arm_lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
-    //arm_lcd_puts("Cycles\tAvrage\tUPS30Freq\tUPS\tLCD Latency");
-    arm_2d_op_wait_async(NULL);
-
-    return arm_fsm_rt_cpl;
-}
-
-static
-IMPL_PFB_ON_LOW_LV_RENDERING(__pfb_render_handler)
-{
-    const arm_2d_tile_t *ptTile = &(ptPFB->tTile);
-
-    ARM_2D_UNUSED(pTarget);
-    ARM_2D_UNUSED(bIsNewFrame);
-
-    if (0 == BENCHMARK.wIterations || s_bDrawInfo) {
-        GLCD_DrawBitmap(ptTile->tRegion.tLocation.iX,
-                        ptTile->tRegion.tLocation.iY,
-                        ptTile->tRegion.tSize.iWidth,
-                        ptTile->tRegion.tSize.iHeight,
-                        (const uint8_t *)ptTile->pchBuffer);
-    }
-    arm_2d_helper_pfb_report_rendering_complete(&s_tExamplePFB,
-                                                (arm_2d_pfb_t *)ptPFB);
-}
-
-
-
 /*----------------------------------------------------------------------------
   Main function
  *----------------------------------------------------------------------------*/
@@ -271,41 +75,10 @@ int main (void)
         example_gui_init();
     }
 
-    //! initialise FPB helper
-    if (ARM_2D_HELPER_PFB_INIT(
-        &s_tExamplePFB,                 //!< FPB Helper object
-        __GLCD_CFG_SCEEN_WIDTH__,               //!< screen width
-        __GLCD_CFG_SCEEN_HEIGHT__,              //!< screen height
-        uint16_t,                       //!< colour date type
-        PFB_BLOCK_WIDTH,                //!< PFB block width
-        PFB_BLOCK_HEIGHT,               //!< PFB block height
-        1,                              //!< number of PFB in the PFB pool
-        {
-            .evtOnLowLevelRendering = {
-                //! callback for low level rendering
-                .fnHandler = &__pfb_render_handler,
-            },
-            .evtOnDrawing = {
-                //! callback for drawing GUI
-                .fnHandler = &__pfb_draw_background_handler,
-            },
-        },
-        //.FrameBuffer.bSwapRGB16 = true,
-    ) < 0) {
-        //! error detected
-        assert(false);
-    }
-
-    //! draw background first
-    while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task(&s_tExamplePFB,NULL));
-
-    s_bDrawInfo = false;
-
-    ARM_2D_HELPER_PFB_UPDATE_ON_DRAW_HANDLER(   &s_tExamplePFB,
-                                                &__pfb_draw_handler);
-
-    while (1) {
-        display_task();
+    run_benchmark_watch_panel();
+    
+    while(1) {
+        __NOP();
     }
 }
 
