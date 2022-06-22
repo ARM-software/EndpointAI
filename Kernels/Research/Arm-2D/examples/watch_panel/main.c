@@ -71,11 +71,9 @@ int main (void)
 
     arm_irq_safe {
         arm_2d_init();
-        /* put your code here */
-        example_gui_init();
     }
 
-    run_benchmark_watch_panel();
+    arm_2d_run_benchmark();
     
     while(1) {
         __NOP();

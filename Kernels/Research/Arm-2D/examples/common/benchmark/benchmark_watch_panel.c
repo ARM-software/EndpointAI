@@ -105,9 +105,6 @@ const arm_2d_tile_t c_tilePointerSec;
 
 extern 
 const arm_2d_tile_t c_tileWatchPanel;
-
-extern 
-const arm_2d_tile_t c_tileClockface;
  
 extern 
 const arm_2d_tile_t c_tileBackground;

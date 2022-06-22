@@ -60,8 +60,8 @@ extern "C" {
 #define arm_print_banner(__STR)                                                 \
         do {                                                                    \
             arm_lcd_text_location(                                              \
-                (__GLCD_CFG_SCEEN_WIDTH__ / 8) / 2 - 1,                         \
-                ((__GLCD_CFG_SCEEN_HEIGHT__ / 6) - sizeof(__STR)) / 2);         \
+                (__GLCD_CFG_SCEEN_HEIGHT__ / 8) / 2 - 1,                        \
+                ((__GLCD_CFG_SCEEN_WIDTH__ / 6) - sizeof(__STR)) / 2);          \
             arm_lcd_puts(__STR);                                                \
         } while(0)
 

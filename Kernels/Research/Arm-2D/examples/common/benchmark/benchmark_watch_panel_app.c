@@ -276,7 +276,7 @@ void arm_2d_user_scene_player_init(void)
  *----------------------------------------------------------------------------*/
 
 __NO_RETURN
-void run_benchmark_watch_panel(void)
+void arm_2d_run_benchmark(void)
 {
     example_gui_init();
 

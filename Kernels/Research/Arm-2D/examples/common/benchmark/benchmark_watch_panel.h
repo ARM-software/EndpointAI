@@ -38,8 +38,4 @@ void example_gui_refresh(const arm_2d_tile_t *ptFrameBuffer, bool bIsNewFrame);
 extern
 void example_gui_do_events(void);
 
-__NO_RETURN
-extern
-void run_benchmark_watch_panel(void);
-
 #endif

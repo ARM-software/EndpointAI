@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include "platform.h"
 #include "arm_2d.h"
-#include "benchmark_generic.h"
+#include "arm_2d_benchmark.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic push
@@ -76,7 +76,7 @@ int main (void)
         arm_2d_init();
     }
 
-    run_benchmark_generic();    
+    arm_2d_run_benchmark();    
     
     while(true) {
         
