@@ -47,7 +47,6 @@ PACK_DIRS="
   Helper
   documents
   tools
-  examples
 "
 
   
@@ -129,10 +128,13 @@ echo Generating Pack Version: for $PACK_VENDOR.$PACK_NAME
 echo " "
 IFS=$SAVEIFS
 
+
 #if $PACK_BUILD directory does not exist, create it.
 if [ ! -d $PACK_BUILD ]; then
   mkdir -p $PACK_BUILD
 fi
+
+
 
 # Copy files into build base directory: $PACK_BUILD
 # pdsc file is mandatory in base directory:
@@ -146,6 +148,9 @@ for d in ${PACK_DIRS}
 do
   cp -r "$d" ${PACK_BUILD}
 done
+
+mkdir -p $PACK_BUILD/examples
+cp -r "examples/common" ${PACK_BUILD}/examples
 
 # files for base directory
 echo Adding files to pack:
@@ -169,6 +174,7 @@ rm -rf $PACK_BUILD/examples/README.md
 rm -rf $PACK_BUILD/examples/common/platform
 rm -rf $PACK_BUILD/examples/common/*.pack
 rm -rf $PACK_BUILD/examples/common/asset/*.png
+rm -rf $PACK_BUILD/examples/common/asset/*.PNG
 rm -rf $PACK_BUILD/examples/common/asset/*.jpg
 
 # Run Schema Check (for Linux only):
