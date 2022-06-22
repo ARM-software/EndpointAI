@@ -188,7 +188,7 @@
             <file category="sourceC"     name="Library/Source/arm_2d_conversion.c" />
             <file category="sourceC"     name="Library/Source/arm_2d_helium.c"                  condition="Helium" />
             <file category="doc"         name="documents/doxygen/html/index.html"/>
-            <file category="preIncludeGlobal"    name="Library/Include/template/arm_2d_cfg.h"   attr="config" version="1.0.5" />
+            <file category="preIncludeGlobal"    name="Library/Include/template/arm_2d_cfg.h"   attr="config" version="1.0.6" />
           </files>
           
           <RTE_Components_h>
