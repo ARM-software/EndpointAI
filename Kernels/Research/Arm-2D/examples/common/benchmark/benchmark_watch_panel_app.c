@@ -155,7 +155,7 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
     if (0 == BENCHMARK.wIterations) {
 
 #if !defined(__USE_FVP__)
-        arm_lcd_text_location( BENCHMARK_PFB_BLOCK_HEIGHT / 8 - 7, 0);
+        arm_lcd_text_location( __GLCD_CFG_SCEEN_HEIGHT__ / 8 - 7, 0);
         arm_lcd_puts(  "Transform Test, running "
                     STR(ITERATION_CNT)
                     " iterations\r\n");
@@ -206,7 +206,7 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
     arm_print_banner("Arm-2D Benchmark");
     
 #if !defined(__USE_FVP__)
-    arm_lcd_text_location( BENCHMARK_PFB_BLOCK_HEIGHT / 8 - 7, 0);
+    arm_lcd_text_location( __GLCD_CFG_SCEEN_HEIGHT__ / 8 - 7, 0);
     arm_lcd_puts(  "Transform Test, running "
                 STR(ITERATION_CNT)
                 " iterations\r\n");
@@ -314,7 +314,7 @@ void arm_2d_run_benchmark(void)
                 .fnBackground   = &__pfb_draw_background_handler,
                 .fnScene        = &__pfb_draw_handler,
                 .ptDirtyRegion  = NULL, //s_tDirtyRegions,
-                .fnOnNewFrame   = &on_example_gui_do_event,
+                .fnOnFrameStart = &on_example_gui_do_event,
                 .fnOnFrameCPL   = &on_frame_complete,
                 .fnDepose       = NULL,
             },

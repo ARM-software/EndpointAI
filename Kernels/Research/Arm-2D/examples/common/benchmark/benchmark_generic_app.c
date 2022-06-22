@@ -297,7 +297,7 @@ void arm_2d_run_benchmark(void)
                 .fnBackground   = &__pfb_draw_background_handler,
                 .fnScene        = &__pfb_draw_handler,
                 .ptDirtyRegion  = NULL, //s_tDirtyRegions,
-                .fnOnNewFrame   = &on_example_gui_do_event,
+                .fnOnFrameStart   = &on_example_gui_do_event,
                 .fnOnFrameCPL   = &on_frame_complete,
                 .fnDepose       = NULL,
             },

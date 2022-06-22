@@ -84,8 +84,8 @@ extern "C" {
     for (arm_2d_region_t __centre_region = {                                    \
             .tSize = (__size),                                                  \
             .tLocation = {                                                      \
-                .iX = ((__region).tRegion.tSize.iWidth - (__size).iWidth)  >> 1,\
-                .iY = ((__region).tRegion.tSize.iHeight - (__size).iHeight)>> 1,\
+                .iX = ((__region).tSize.iWidth - (__size).iWidth)  >> 1,\
+                .iY = ((__region).tSize.iHeight - (__size).iHeight)>> 1,\
             },                                                                  \
         },                                                                      \
         *ARM_CONNECT3(__ARM_USING_, __LINE__,_ptr) = NULL;                      \
@@ -99,8 +99,8 @@ extern "C" {
                 .iHeight = (__height),                                          \
             },                                                                  \
             .tLocation = {                                                      \
-                .iX = ((__region).tRegion.tSize.iWidth - (__width))  >> 1,      \
-                .iY = ((__region).tRegion.tSize.iHeight - (__height))>> 1,      \
+                .iX = ((__region).tSize.iWidth - (__width))  >> 1,      \
+                .iY = ((__region).tSize.iHeight - (__height))>> 1,      \
             },                                                                  \
         },                                                                      \
         *ARM_CONNECT3(__ARM_USING_, __LINE__,_ptr) = NULL;                      \
