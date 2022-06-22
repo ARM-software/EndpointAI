@@ -160,6 +160,7 @@ arm_fsm_rt_t arm_2d_user_scene_player_task(arm_2d_scene_player_t *ptThis)
         DRAW_BACKGROUND_PREPARE,
         DRAW_BACKGROUND,
         DRAW_SCENE_PREPARE,
+        DRAW_SCENE_START,
         DRAW_SCENE,
         POST_SCENE_CHECK,
     };
@@ -200,13 +201,18 @@ arm_fsm_rt_t arm_2d_user_scene_player_task(arm_2d_scene_player_t *ptThis)
                 return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
             }
             
-            if (NULL != ptScene->fnOnNewFrame) {
-                ptScene->fnOnNewFrame(ptScene);
-            }
+
             
             ARM_2D_HELPER_PFB_UPDATE_ON_DRAW_HANDLER(   
                 &this.use_as__arm_2d_helper_pfb_t,
                 ptScene->fnScene);
+            this.Runtime.chState = DRAW_SCENE_START;
+            // fall-through
+            
+        case DRAW_SCENE_START:
+            if (NULL != ptScene->fnOnNewFrame) {
+                ptScene->fnOnNewFrame(ptScene);
+            }
             this.Runtime.chState = DRAW_SCENE;
             // fall-through
             
@@ -227,7 +233,7 @@ arm_fsm_rt_t arm_2d_user_scene_player_task(arm_2d_scene_player_t *ptThis)
             if (NULL != ptScene->fnOnFrameCPL) {
                 ptScene->fnOnFrameCPL(ptScene);
             }
-        
+
             if (this.Runtime.bNextSceneReq) {
                 __arm_2d_user_scene_player_next_scene(ptThis);
                 
@@ -235,9 +241,9 @@ arm_fsm_rt_t arm_2d_user_scene_player_task(arm_2d_scene_player_t *ptThis)
                 return arm_fsm_rt_cpl;
             }
 
-            this.Runtime.chState = DRAW_SCENE;
+            this.Runtime.chState = DRAW_SCENE_START;
             break;
-        
+
         default:
             ARM_2D_USER_SCENE_PLAYER_TASK_RESET();
             break;
