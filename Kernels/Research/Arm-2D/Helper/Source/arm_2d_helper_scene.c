@@ -179,6 +179,8 @@ arm_fsm_rt_t arm_2d_user_scene_player_task(arm_2d_scene_player_t *ptThis)
                 this.Runtime.chState = DRAW_SCENE_PREPARE;
                 break;
             } else {
+                ARM_2D_INVOKE(ptScene->fnOnBGStart, ptScene);
+            
                 ARM_2D_HELPER_PFB_UPDATE_ON_DRAW_HANDLER(   
                     &this.use_as__arm_2d_helper_pfb_t,
                     ptScene->fnBackground);
@@ -196,6 +198,9 @@ arm_fsm_rt_t arm_2d_user_scene_player_task(arm_2d_scene_player_t *ptThis)
             } else if (arm_fsm_rt_cpl != tResult) {
                 return tResult;
             }
+            
+            ARM_2D_INVOKE(ptScene->fnOnBGComplete, ptScene);
+            
             this.Runtime.chState = DRAW_SCENE_PREPARE;
             // fall-through
             
@@ -204,9 +209,7 @@ arm_fsm_rt_t arm_2d_user_scene_player_task(arm_2d_scene_player_t *ptThis)
                 ARM_2D_USER_SCENE_PLAYER_TASK_RESET();
                 return (arm_fsm_rt_t)ARM_2D_ERR_INVALID_PARAM;
             }
-            
 
-            
             ARM_2D_HELPER_PFB_UPDATE_ON_DRAW_HANDLER(   
                 &this.use_as__arm_2d_helper_pfb_t,
                 ptScene->fnScene);
@@ -214,9 +217,7 @@ arm_fsm_rt_t arm_2d_user_scene_player_task(arm_2d_scene_player_t *ptThis)
             // fall-through
             
         case DRAW_SCENE_START:
-            if (NULL != ptScene->fnOnFrameStart) {
-                ptScene->fnOnFrameStart(ptScene);
-            }
+            ARM_2D_INVOKE(ptScene->fnOnFrameStart, ptScene);
             this.Runtime.chState = DRAW_SCENE;
             // fall-through
             
@@ -234,9 +235,7 @@ arm_fsm_rt_t arm_2d_user_scene_player_task(arm_2d_scene_player_t *ptThis)
             // fall-through
             
         case POST_SCENE_CHECK:
-            if (NULL != ptScene->fnOnFrameCPL) {
-                ptScene->fnOnFrameCPL(ptScene);
-            }
+            ARM_2D_INVOKE(ptScene->fnOnFrameCPL, ptScene);
 
             if (this.Runtime.bNextSceneReq) {
                 __arm_2d_user_scene_player_next_scene(ptThis);
