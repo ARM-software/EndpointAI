@@ -92,9 +92,6 @@ const arm_2d_tile_t c_tileSoftwareMask2;
 extern 
 const arm_2d_tile_t c_tileSoftwareMask;
 
-extern 
-const arm_2d_tile_t c_tPictureWhiteDot;
-
 extern
 const arm_2d_tile_t c_tileCMSISLogo;
 

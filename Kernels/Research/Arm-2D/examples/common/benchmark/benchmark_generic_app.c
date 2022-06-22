@@ -74,6 +74,8 @@
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
+extern uint32_t SystemCoreClock;
+
 /*============================ PROTOTYPES ====================================*/
 extern 
 int32_t GLCD_DrawBitmap(uint32_t x, 
@@ -103,6 +105,7 @@ static struct {
 
 
 /*============================ IMPLEMENTATION ================================*/
+
 
 static volatile bool s_bDrawInfo = true;
 
@@ -145,12 +148,12 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
     if (0 == BENCHMARK.wIterations) {
 
 #if !defined(__USE_FVP__)
-        arm_lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
+        arm_lcd_text_location( __GLCD_CFG_SCEEN_HEIGHT__ / 8 - 7, 0);
         arm_lcd_puts(  "All-in-One Test, running "
                     STR(ITERATION_CNT)
                     " iterations\r\n");
 
-        arm_lcd_puts(   "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
+        arm_lcd_puts(   "PFB Size: " STR(BENCHMARK_PFB_BLOCK_WIDTH)"*" STR(BENCHMARK_PFB_BLOCK_HEIGHT)
                     "  Screen Size: "STR(__GLCD_CFG_SCEEN_WIDTH__)"*" STR(__GLCD_CFG_SCEEN_HEIGHT__));
         arm_lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
         arm_lcd_puts( "Benchmark Report:\r\n");
@@ -189,12 +192,12 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
     arm_print_banner("Arm-2D Benchmark");
     
 #if !defined(__USE_FVP__)
-    arm_lcd_text_location( GLCD_HEIGHT / 8 - 7, 0);
+    arm_lcd_text_location( __GLCD_CFG_SCEEN_HEIGHT__ / 8 - 7, 0);
     arm_lcd_puts(  "All-in-One Test, running "
                 STR(ITERATION_CNT)
                 " iterations\r\n");
 
-    arm_lcd_puts(   "PFB Size: " STR(PFB_BLOCK_WIDTH)"*" STR(PFB_BLOCK_HEIGHT)
+    arm_lcd_puts(   "PFB Size: " STR(BENCHMARK_PFB_BLOCK_WIDTH)"*" STR(BENCHMARK_PFB_BLOCK_HEIGHT)
                 "  Screen Size: "STR(__GLCD_CFG_SCEEN_WIDTH__)"*" STR(__GLCD_CFG_SCEEN_HEIGHT__));
     arm_lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
     arm_lcd_puts( "Testing...\r\n\r\n");
