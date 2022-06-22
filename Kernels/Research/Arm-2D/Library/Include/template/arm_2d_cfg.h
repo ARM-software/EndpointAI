@@ -112,13 +112,19 @@ extern "C" {
 // <o>Width of the PFB block
 // <i> The width of your PFB block size used in arm-2d benchmark
 #ifndef BENCHMARK_PFB_BLOCK_WIDTH
-#   define BENCHMARK_PFB_BLOCK_WIDTH             320
+#   define BENCHMARK_PFB_BLOCK_WIDTH            320
 #endif
 
 // <o>Height of the PFB block
 // <i> The height of your PFB block size used in arm-2d benchmark
 #ifndef BENCHMARK_PFB_BLOCK_HEIGHT
-#   define BENCHMARK_PFB_BLOCK_HEIGHT            240
+#   define BENCHMARK_PFB_BLOCK_HEIGHT           240
+#endif
+
+// <o>Number of interations <1-2000>
+// <i> run number of iterations used in arm-2d benchmark before calculate the result.
+#ifndef ITERATION_CNT
+#   define ITERATION_CNT                        1000
 #endif
 //</h>
 // </h>
