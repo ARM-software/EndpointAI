@@ -275,6 +275,7 @@ void arm_2d_user_scene_player_init(void)
  * Benchmark Entry                                                            *
  *----------------------------------------------------------------------------*/
 
+__NO_RETURN
 void run_benchmark_watch_panel(void)
 {
     example_gui_init();
