@@ -340,7 +340,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,EXTERANL_DELAY_MS_DECLARE="extern void delay_ms(uint32_t);",__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\common\controls;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\common\controls;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template;..\common\benchmark</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -404,6 +404,11 @@
               <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_watch_panel_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_watch_panel_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -937,6 +942,11 @@
               <FileName>arm_2d_helper_pfb.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Helper\Source\arm_2d_helper_pfb.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_helper_scene.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Helper\Source\arm_2d_helper_scene.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1501,7 +1511,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template;..\common\controls;..\common\platform\mps2</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template;..\common\controls;..\common\platform\mps2;..\common\benchmark</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1565,6 +1575,11 @@
               <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_watch_panel_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_watch_panel_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2098,6 +2113,11 @@
               <FileName>arm_2d_helper_pfb.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Helper\Source\arm_2d_helper_pfb.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_helper_scene.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Helper\Source\arm_2d_helper_scene.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2731,7 +2751,7 @@
               <MiscControls></MiscControls>
               <Define>__USE_FVP__,NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template;..\common\controls;..\common\platform\mps2</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template;..\common\controls;..\common\platform\mps2;..\common\benchmark</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2794,6 +2814,11 @@
               <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_watch_panel_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_watch_panel_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3327,6 +3352,11 @@
               <FileName>arm_2d_helper_pfb.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Helper\Source\arm_2d_helper_pfb.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_helper_scene.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Helper\Source\arm_2d_helper_scene.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3891,7 +3921,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps2;..\..\Library\Include\template;;..\common\controls</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps2;..\..\Library\Include\template;;..\common\controls;..\common\benchmark</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3955,6 +3985,11 @@
               <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_watch_panel_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_watch_panel_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4488,6 +4523,11 @@
               <FileName>arm_2d_helper_pfb.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Helper\Source\arm_2d_helper_pfb.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_helper_scene.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Helper\Source\arm_2d_helper_scene.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5052,7 +5092,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include\template;;..\common\controls</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include\template;;..\common\controls;..\common\benchmark</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -5116,6 +5156,11 @@
               <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_watch_panel_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_watch_panel_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5649,6 +5694,11 @@
               <FileName>arm_2d_helper_pfb.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Helper\Source\arm_2d_helper_pfb.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_helper_scene.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Helper\Source\arm_2d_helper_scene.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6282,7 +6332,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\mps2;;..\common\controls;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\mps2;..\common\controls;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template;..\common\benchmark</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -6346,6 +6396,11 @@
               <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_watch_panel_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_watch_panel_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6879,6 +6934,11 @@
               <FileName>arm_2d_helper_pfb.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Helper\Source\arm_2d_helper_pfb.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_helper_scene.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Helper\Source\arm_2d_helper_scene.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -7443,7 +7503,7 @@
               <MiscControls>-Omax -Wno-nonportable-include-path</MiscControls>
               <Define>NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\mps2;..\common\controls;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\mps2;..\common\controls;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template;..\common\benchmark</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -7507,6 +7567,11 @@
               <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_watch_panel_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_watch_panel_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -8040,6 +8105,11 @@
               <FileName>arm_2d_helper_pfb.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Helper\Source\arm_2d_helper_pfb.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_helper_scene.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Helper\Source\arm_2d_helper_scene.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -8604,7 +8674,7 @@
               <MiscControls> -Wno-nonportable-include-path -Omax</MiscControls>
               <Define>NDEBUG,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\stm32f746g-discovery;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template;..\common\controls</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\common\platform\stm32f746g-discovery;..\..\Library\Include;.;..\..\Helper\Include;..\..\Library\Include\template;..\common\controls;..\common\benchmark</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -8668,6 +8738,11 @@
               <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_watch_panel_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_watch_panel_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -9202,6 +9277,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Helper\Source\arm_2d_helper_pfb.c</FilePath>
             </File>
+            <File>
+              <FileName>arm_2d_helper_scene.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Helper\Source\arm_2d_helper_scene.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -9696,7 +9776,7 @@
               <MiscControls>-Wno-padded -fdata-sections -Omax</MiscControls>
               <Define>__USE_FVP__,NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__USE_AN547__,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include\template;..\common\controls</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include\template;..\common\controls;..\common\benchmark</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -9760,6 +9840,11 @@
               <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_watch_panel_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_watch_panel_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -10363,6 +10448,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Helper\Source\arm_2d_helper_pfb.c</FilePath>
             </File>
+            <File>
+              <FileName>arm_2d_helper_scene.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Helper\Source\arm_2d_helper_scene.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -10926,7 +11016,7 @@
               <MiscControls></MiscControls>
               <Define>NDEBUG__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\stm32f746g-discovery;..\..\Library\Include\template;..\common\controls</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\stm32f746g-discovery;..\..\Library\Include\template;..\common\controls;..\common\benchmark</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -10990,6 +11080,11 @@
               <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_watch_panel_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_watch_panel_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -11523,6 +11618,11 @@
               <FileName>arm_2d_helper_pfb.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Helper\Source\arm_2d_helper_pfb.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_helper_scene.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Helper\Source\arm_2d_helper_scene.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -12018,7 +12118,7 @@
               <MiscControls>-Omax</MiscControls>
               <Define>NDEBUG,LCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__ARM_2D_CFG_SUPPORT_COLOUR_CHANNEL_ACCESS__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include\template;..\common\controls</IncludePath>
+              <IncludePath>..\common\platform;..\common\platform\lib;..\..\Library\Include;.;..\..\Helper\Include;..\common\platform\mps3;..\common\platform\mps3\v2m_mps3;..\..\Library\Include\template;..\common\controls;..\common\benchmark</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -12082,6 +12182,11 @@
               <FileName>benchmark_watch_panel.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_watch_panel.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_watch_panel_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_watch_panel_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -12615,6 +12720,11 @@
               <FileName>arm_2d_helper_pfb.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Helper\Source\arm_2d_helper_pfb.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_helper_scene.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Helper\Source\arm_2d_helper_scene.c</FilePath>
             </File>
           </Files>
         </Group>
