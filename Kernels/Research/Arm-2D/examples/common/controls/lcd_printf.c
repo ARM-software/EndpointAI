@@ -40,6 +40,7 @@
 #   pragma clang diagnostic ignored "-Wsign-conversion"
 #   pragma clang diagnostic ignored "-Wpedantic"
 #   pragma clang diagnostic ignored "-Wimplicit-int-conversion"
+#   pragma clang diagnostic ignored "-Wpadded"
 #endif
 
 /*============================ MACROS ========================================*/

@@ -22,7 +22,26 @@
 #include "arm_2d.h"
 #include "benchmark_generic.h"
 
-
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wsign-conversion"
+#   pragma clang diagnostic ignored "-Wpadded"
+#   pragma clang diagnostic ignored "-Wcast-qual"
+#   pragma clang diagnostic ignored "-Wcast-align"
+#   pragma clang diagnostic ignored "-Wmissing-field-initializers"
+#   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#   pragma clang diagnostic ignored "-Wmissing-prototypes"
+#   pragma clang diagnostic ignored "-Wunused-variable"
+#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#   pragma clang diagnostic ignored "-Wdouble-promotion"
+#elif __IS_COMPILER_ARM_COMPILER_5__
+#elif __IS_COMPILER_GCC__
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wformat="
+#   pragma GCC diagnostic ignored "-Wpedantic"
+#endif
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
@@ -55,8 +74,6 @@ int main (void)
 
     arm_irq_safe {
         arm_2d_init();
-        /* put your code here */
-        example_gui_init();
     }
 
     run_benchmark_generic();    
@@ -66,4 +83,7 @@ int main (void)
     }
 }
 
+#if defined(__clang__)
+#   pragma clang diagnostic pop
+#endif
 

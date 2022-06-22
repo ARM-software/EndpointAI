@@ -37,6 +37,14 @@
 extern "C" {
 #endif
 
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
+#   pragma clang diagnostic ignored "-Wpadded"
+#endif
+
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
@@ -91,6 +99,10 @@ void arm_2d_user_scene_player_next_scene(arm_2d_scene_player_t *ptThis);
 extern
 ARM_NONNULL(1)
 arm_fsm_rt_t arm_2d_user_scene_player_task(arm_2d_scene_player_t *ptThis);
+
+#if defined(__clang__)
+#   pragma clang diagnostic pop
+#endif
 
 #ifdef   __cplusplus
 }

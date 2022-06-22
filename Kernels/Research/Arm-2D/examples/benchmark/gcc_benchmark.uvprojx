@@ -245,7 +245,7 @@
               <MiscControls>-Ofast -flto  -fdata-sections -ffunction-sections -fms-extensions -mcpu=cortex-m7 -mfloat-abi=hard -mfpu=fpv5-sp-d16 -std=gnu11</MiscControls>
               <Define>RTE_Compiler_IO_STDOUT_User,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;..\..\Library\Include;..\common\platform\stm32f746g-discovery;.;..\..\Helper\Include;..\common\platform\lib;..\..\Library\Include\template;..\common\controls</IncludePath>
+              <IncludePath>..\common\platform;..\..\Library\Include;..\common\platform\stm32f746g-discovery;.;..\..\Helper\Include;..\common\platform\lib;..\..\Library\Include\template;..\common\controls;..\common\benchmark</IncludePath>
             </VariousControls>
           </Carm>
           <Aarm>
@@ -302,6 +302,11 @@
               <FileName>benchmark_generic.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_generic.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_generic_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -497,6 +502,11 @@
               <FileName>arm_2d_helper.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Helper\Include\arm_2d_helper.h</FilePath>
+            </File>
+            <File>
+              <FileName>arm_2d_helper_scene.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Helper\Source\arm_2d_helper_scene.c</FilePath>
             </File>
           </Files>
         </Group>
