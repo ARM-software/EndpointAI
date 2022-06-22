@@ -214,8 +214,8 @@ arm_fsm_rt_t arm_2d_user_scene_player_task(arm_2d_scene_player_t *ptThis)
             // fall-through
             
         case DRAW_SCENE_START:
-            if (NULL != ptScene->fnOnNewFrame) {
-                ptScene->fnOnNewFrame(ptScene);
+            if (NULL != ptScene->fnOnFrameStart) {
+                ptScene->fnOnFrameStart(ptScene);
             }
             this.Runtime.chState = DRAW_SCENE;
             // fall-through

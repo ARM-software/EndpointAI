@@ -56,7 +56,7 @@ struct arm_2d_scene_t {
     arm_2d_region_list_item_t       *ptDirtyRegion;
     arm_2d_helper_draw_handler_t    *fnBackground;
     arm_2d_helper_draw_handler_t    *fnScene;
-    void (*fnOnNewFrame)(arm_2d_scene_t *ptThis);
+    void (*fnOnFrameStart)(arm_2d_scene_t *ptThis);
     void (*fnOnFrameCPL)(arm_2d_scene_t *ptThis);
     void (*fnDepose)(arm_2d_scene_t *ptThis);
 };
