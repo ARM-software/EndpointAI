@@ -16,30 +16,18 @@
  * limitations under the License.
  */
 
-#ifndef __BENCHMARK_WATCH_PANEL_GUI_H__
-#define __BENCHMARK_WATCH_PANEL_GUI_H__
+#ifndef __ARM_2D_BENCHMARK_H__
+#define __ARM_2D_BENCHMARK_H__
 
 /*============================ INCLUDES ======================================*/
-#include <stdint.h>
-#include "arm_2d.h"
+#include "./benchmark_generic.h"
+#include "./benchmark_watch_panel.h"
 
 /*============================ MACROS ========================================*/
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ PROTOTYPES ====================================*/
-
-extern
-void example_gui_init(void);
-
-extern
-void example_gui_refresh(const arm_2d_tile_t *ptFrameBuffer, bool bIsNewFrame);
-                            
-extern
-void example_gui_do_events(void);
-
-__NO_RETURN
-extern
-void run_benchmark_watch_panel(void);
 
 #endif

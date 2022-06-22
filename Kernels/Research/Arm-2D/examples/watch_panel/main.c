@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include "platform.h"
 #include "arm_2d_helper.h"
-#include "benchmark_watch_panel.h"
+#include "arm_2d_benchmark.h"
 
 #if defined(__clang__)
 #   pragma clang diagnostic ignored "-Wunknown-warning-option"
