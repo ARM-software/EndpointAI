@@ -83,7 +83,7 @@ void spinning_wheel_init(void)
 
 void spinning_wheel_show(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
 {
-    ASSERT(NULL != ptTarget);
+    assert(NULL != ptTarget);
     ARM_2D_UNUSED(ptTarget);
     ARM_2D_UNUSED(bIsNewFrame);
     static float s_fAngle = 0.0f;

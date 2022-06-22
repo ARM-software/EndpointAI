@@ -107,7 +107,24 @@ extern "C" {
 #ifndef __LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__
 #   define __LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__  64
 #endif
+
+// <h>Benchmark
+// <o>Width of the PFB block
+// <i> The width of your PFB block size used in arm-2d benchmark
+#ifndef BENCHMARK_PFB_BLOCK_WIDTH
+#   define BENCHMARK_PFB_BLOCK_WIDTH             320
+#endif
+
+// <o>Height of the PFB block
+// <i> The height of your PFB block size used in arm-2d benchmark
+#ifndef BENCHMARK_PFB_BLOCK_HEIGHT
+#   define BENCHMARK_PFB_BLOCK_HEIGHT            240
+#endif
+//</h>
 // </h>
+
+
+
 
 // <<< end of configuration section >>>
 

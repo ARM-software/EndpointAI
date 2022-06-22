@@ -46,11 +46,22 @@ extern "C" {
 #   error Unsupported colour depth!
 #endif
 
+#ifndef __GLCD_CFG_SCEEN_WIDTH__
+#warning Please specify the screen width by defining the macro __GLCD_CFG_SCEEN_WIDTH__, default value 320 is used for now
+#define __GLCD_CFG_SCEEN_WIDTH__                            320
+#endif
+
+#ifndef __GLCD_CFG_SCEEN_HEIGHT__
+#   warning Please specify the screen height by defining the macro __GLCD_CFG_SCEEN_HEIGHT__, default value 240 is used for now
+#   define __GLCD_CFG_SCEEN_HEIGHT__                        320
+#endif
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 #define arm_print_banner(__STR)                                                 \
         do {                                                                    \
-            arm_lcd_text_location(  (GLCD_HEIGHT / 8) / 2 - 1,                      \
-                                ((GLCD_WIDTH / 6) - sizeof(__STR)) / 2);        \
+            arm_lcd_text_location(                                              \
+                (__GLCD_CFG_SCEEN_WIDTH__ / 8) / 2 - 1,                         \
+                ((__GLCD_CFG_SCEEN_HEIGHT__ / 6) - sizeof(__STR)) / 2);         \
             arm_lcd_puts(__STR);                                                \
         } while(0)
 

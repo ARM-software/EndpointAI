@@ -405,6 +405,11 @@
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_generic.h</FilePath>
             </File>
+            <File>
+              <FileName>benchmark_generic_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic_app.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1498,6 +1503,11 @@
               <FileName>benchmark_generic.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_generic.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_generic_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2597,7 +2607,7 @@
               <MiscControls></MiscControls>
               <Define>__USE_FVP__,NDEBUG,GLCD_MIRROR_X=1,GLCD_MIRROR_Y=0,__ARM_2D_HAS_ANTI_ALIAS_TRANSFORM__=1,__RTE_ACCELERATION_ARM_2D_EXTRA_LCD_PRINTF__,__RTE_ACCELERATION_ARM_2D_EXTRA_CONTROLS__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\platform;.;..\..\Library\Include;..\..\Helper\Include;..\common\platform\lib;..\..\Library\Include\template;..\common\platform\mps2;..\common\controls</IncludePath>
+              <IncludePath>..\common\platform;.;..\..\Library\Include;..\..\Helper\Include;..\common\platform\lib;..\..\Library\Include\template;..\common\platform\mps2;..\common\controls;..\common\benchmark</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2660,6 +2670,11 @@
               <FileName>benchmark_generic.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_generic.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_generic_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3824,6 +3839,11 @@
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_generic.h</FilePath>
             </File>
+            <File>
+              <FileName>benchmark_generic_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic_app.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4917,6 +4937,11 @@
               <FileName>benchmark_generic.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_generic.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_generic_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6081,6 +6106,11 @@
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_generic.h</FilePath>
             </File>
+            <File>
+              <FileName>benchmark_generic_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic_app.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -7243,6 +7273,11 @@
               <FileName>benchmark_generic.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_generic.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_generic_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -8407,6 +8442,11 @@
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_generic.h</FilePath>
             </File>
+            <File>
+              <FileName>benchmark_generic_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic_app.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -9570,6 +9610,11 @@
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_generic.h</FilePath>
             </File>
+            <File>
+              <FileName>benchmark_generic_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic_app.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -10663,6 +10708,11 @@
               <FileName>benchmark_generic.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_generic.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_generic_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic_app.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -11826,6 +11876,11 @@
               <FileName>benchmark_generic.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\benchmark\benchmark_generic.h</FilePath>
+            </File>
+            <File>
+              <FileName>benchmark_generic_app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\benchmark\benchmark_generic_app.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -64,6 +64,22 @@
     }
 
 /*============================ TYPES =========================================*/
+typedef struct arm_2d_layer_t {
+    const arm_2d_tile_t    *ptTile;
+    arm_2d_region_t         tRegion;
+    uint32_t                wMode;
+    uint8_t                 chOpacity;
+    uint8_t                 bIsIrregular    : 1;
+    uint8_t                                 : 7;
+    uint16_t                hwKeyColour;
+} arm_2d_layer_t;
+
+typedef struct floating_range_t {
+    arm_2d_region_t     tRegion;
+    arm_2d_layer_t     *ptLayer;
+    arm_2d_location_t   tOffset;
+} floating_range_t;
+
 /*============================ GLOBAL VARIABLES ==============================*/
 
 /*! picture helium */
@@ -207,8 +223,8 @@ void example_gui_on_refresh_evt_handler(const arm_2d_tile_t *ptFrameBuffer)
 
 static void example_update_boxes(floating_range_t *ptBoxes, uint_fast16_t hwCount)
 {
-    ASSERT(NULL != ptBoxes);
-    ASSERT(hwCount > 0);
+    assert(NULL != ptBoxes);
+    assert(hwCount > 0);
 
     do {
         arm_2d_region_t tOldRegion = ptBoxes->ptLayer->tRegion;
@@ -279,7 +295,7 @@ void example_gui_do_events(void)
 
 void show_icon_with_background(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
 {
-    ASSERT(NULL != ptTarget);
+    assert(NULL != ptTarget);
     ARM_2D_UNUSED(bIsNewFrame);
 
 
@@ -306,7 +322,7 @@ void show_icon_with_background(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
 
 void show_icon_without_background(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
 {
-    ASSERT(NULL != ptTarget);
+    assert(NULL != ptTarget);
     ARM_2D_UNUSED(bIsNewFrame);
 
     arm_2d_align_centre(*ptTarget, c_tileSoftwareMask.tRegion.tSize) {
@@ -332,15 +348,13 @@ void show_icon_without_background(const arm_2d_tile_t *ptTarget, bool bIsNewFram
     }
 }
 
-
-
 static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
                             arm_2d_layer_t *ptLayers, 
                             uint_fast16_t hwCount,
                             bool bIsNewFrame)
 {
-    ASSERT(NULL != ptLayers);
-    ASSERT(hwCount > 0);
+    assert(NULL != ptLayers);
+    assert(hwCount > 0);
     arm_2d_tile_t tTempPanel;
     
     static const arm_2d_region_t c_tFillRegion = {
