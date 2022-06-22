@@ -149,12 +149,12 @@ extern "C" {
                                     ...)       /* An optional target address */ \
     arm_2d_helper_pfb_update_dependency((__CB_ADDR),                            \
                                         ARM_2D_PFB_DEPEND_ON_DRAWING,           \
-                                        &(arm_2d_helper_pfb_dependency_t) {     \
+                                        (arm_2d_helper_pfb_dependency_t []) {{  \
                                             .evtOnDrawing = {                   \
-                                                .fnHandler = __HANDLER,         \
+                                                .fnHandler = (__HANDLER),       \
                                                 .pTarget = (NULL,##__VA_ARGS__),\
                                             },                                  \
-                                        })
+                                        }})
 
 
 #define __IMPL_ARM_2D_REGION_LIST(__NAME, ...)                                  \

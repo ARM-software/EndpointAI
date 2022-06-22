@@ -141,8 +141,7 @@ arm_2d_err_t arm_2d_helper_pfb_init(arm_2d_helper_pfb_t *ptThis,
     memset(ptThis, 0, sizeof(this));
     this.tCFG = *ptCFG;
     
-    if (    (NULL == this.tCFG.Dependency.evtOnDrawing.fnHandler)
-       ||   (NULL == this.tCFG.Dependency.evtOnLowLevelRendering.fnHandler)) {
+    if (NULL == this.tCFG.Dependency.evtOnLowLevelRendering.fnHandler) {
         return ARM_2D_ERR_MISSING_PARAM;
     }
     
@@ -335,9 +334,7 @@ arm_2d_tile_t * __arm_2d_helper_pfb_drawing_iteration_begin(
         return NULL;
     }
     arm_2d_tile_t *ptPartialFrameBuffer = &(this.Adapter.ptCurrent->tTile);
-    
-    
-    
+
     if (this.Adapter.bFirstIteration) {
         this.Adapter.ptDirtyRegion = ptDirtyRegions;
         //this.Adapter.bFirstIteration = false;
