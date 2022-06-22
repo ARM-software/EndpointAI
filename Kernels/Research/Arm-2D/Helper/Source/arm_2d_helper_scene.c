@@ -49,6 +49,9 @@
 #   pragma clang diagnostic ignored "-Wmissing-braces"
 #   pragma clang diagnostic ignored "-Wunused-const-variable"
 #   pragma clang diagnostic ignored "-Wimplicit-fallthrough"
+#elif defined(__IS_COMPILER_GCC__)
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif
 
 /*============================ MACROS ========================================*/
@@ -256,4 +259,6 @@ arm_fsm_rt_t arm_2d_user_scene_player_task(arm_2d_scene_player_t *ptThis)
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
+#elif defined(__IS_COMPILER_GCC__)
+#   pragma GCC diagnostic pop
 #endif
