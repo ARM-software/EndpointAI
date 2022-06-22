@@ -33,6 +33,7 @@
 /*============================ INCLUDES ======================================*/
 #include "arm_2d.h"
 #include "./arm_2d_helper_pfb.h"
+#include "./arm_2d_helper_scene.h"
 
 #ifdef   __cplusplus
 extern "C" {

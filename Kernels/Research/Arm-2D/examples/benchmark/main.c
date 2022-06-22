@@ -58,6 +58,8 @@
 /*============================ PROTOTYPES ====================================*/
 /*============================ LOCAL VARIABLES ===============================*/
 
+static ARM_NOINIT arm_2d_scene_player_t s_tScenePlayer;
+
 static struct {
     uint32_t wMin;
     uint32_t wMax;
@@ -76,74 +78,35 @@ static struct {
 
 /*============================ IMPLEMENTATION ================================*/
 
-static ARM_NOINIT arm_2d_helper_pfb_t s_tExamplePFB;
-
 static volatile bool s_bDrawInfo = true;
 
-extern const arm_2d_tile_t c_tileArrow;
-
-void display_task(void)
+static void on_example_gui_do_event(arm_2d_scene_t *ptScene)
 {
-
-    /*! define dirty regions */
-    IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions, const static)
-
-        /* a region for the busy wheel */
-        ADD_REGION_TO_LIST(s_tDirtyRegions,
-            .tLocation = {
-                .iX = ((__GLCD_CFG_SCEEN_WIDTH__ - 222) >> 1),
-                .iY = ((__GLCD_CFG_SCEEN_HEIGHT__ - 222) >> 1),
-            },
-            .tSize = {
-                .iWidth = 222,
-                .iHeight = 222,
-            },
-        ),
-
-        /* a region for the status bar on the bottom of the screen */
-        ADD_LAST_REGION_TO_LIST(s_tDirtyRegions,
-            .tLocation = {0,__GLCD_CFG_SCEEN_HEIGHT__ - 16},
-            .tSize = {
-                .iWidth = __GLCD_CFG_SCEEN_WIDTH__,
-                .iHeight = 16,
-            },
-        ),
-
-    END_IMPL_ARM_2D_REGION_LIST()
-
-
-    /*! define the partial-flushing area */
-
+    ARM_2D_UNUSED(ptScene);
+    
+    s_bDrawInfo = false;
     example_gui_do_events();
+}
 
-    //! call partial framebuffer helper service
-    while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task(
-                                &s_tExamplePFB, NULL));
-                                //&s_tExamplePFB, (arm_2d_region_list_item_t *)s_tDirtyRegions));
+static void on_frame_complete(arm_2d_scene_t *ptScene)
+{
+    ARM_2D_UNUSED(ptScene);
+    
+    int32_t nTotalCyclCount = s_tScenePlayer.use_as__arm_2d_helper_pfb_t.Statistics.nTotalCycle;
+    int32_t nTotalLCDCycCount = s_tScenePlayer.use_as__arm_2d_helper_pfb_t.Statistics.nRenderingCycle;
+    BENCHMARK.wLCDLatency = nTotalLCDCycCount;
 
-    //! update performance info
-    do {
+    if (BENCHMARK.wIterations) {
+        BENCHMARK.wMin = MIN((uint32_t)nTotalCyclCount, BENCHMARK.wMin);
+        BENCHMARK.wMax = MAX(nTotalCyclCount, (int32_t)BENCHMARK.wMax);
+        BENCHMARK.dwTotal += nTotalCyclCount;
+        BENCHMARK.wIterations--;
 
-        int32_t nTotalCyclCount = s_tExamplePFB.Statistics.nTotalCycle;
-        int32_t nTotalLCDCycCount = s_tExamplePFB.Statistics.nRenderingCycle;
-        BENCHMARK.wLCDLatency = nTotalLCDCycCount;
-
-        if (BENCHMARK.wIterations) {
-            BENCHMARK.wMin = MIN((uint32_t)nTotalCyclCount, BENCHMARK.wMin);
-            BENCHMARK.wMax = MAX(nTotalCyclCount, (int32_t)BENCHMARK.wMax);
-            BENCHMARK.dwTotal += nTotalCyclCount;
-            BENCHMARK.wIterations--;
-
-            if (0 == BENCHMARK.wIterations) {
-                BENCHMARK.wAverage =
-                    (uint32_t)(BENCHMARK.dwTotal / (uint64_t)ITERATION_CNT);
-
-            }
-
+        if (0 == BENCHMARK.wIterations) {
+            BENCHMARK.wAverage =
+                (uint32_t)(BENCHMARK.dwTotal / (uint64_t)ITERATION_CNT);
         }
-
-    } while(0);
-
+    }
 }
 
 __OVERRIDE_WEAK
@@ -190,7 +153,6 @@ int32_t arm_2d_helper_perf_counter_stop(void)
     return stop_cycle_counter();
 }
 
-
 static
 IMPL_PFB_ON_DRAW(__pfb_draw_handler)
 {
@@ -222,9 +184,6 @@ IMPL_PFB_ON_DRAW(__pfb_draw_background_handler)
                 "  Screen Size: "STR(__GLCD_CFG_SCEEN_WIDTH__)"*" STR(__GLCD_CFG_SCEEN_HEIGHT__));
     arm_lcd_printf( "\r\nCPU Freq: %dMHz\r\n", SystemCoreClock / 1000000ul);
     arm_lcd_puts( "Testing...\r\n\r\n");
-
-    //arm_lcd_text_location( GLCD_HEIGHT / 8 - 2, 0);
-    //arm_lcd_puts("Cycles\tAvrage\tUPS30Freq\tUPS\tLCD Latency");
 #endif
 
     arm_2d_op_wait_async(NULL);
@@ -247,15 +206,41 @@ IMPL_PFB_ON_LOW_LV_RENDERING(__pfb_render_handler)
                         ptTile->tRegion.tSize.iHeight,
                         (const uint8_t *)ptTile->pchBuffer);
     }
-    arm_2d_helper_pfb_report_rendering_complete(&s_tExamplePFB,
+    arm_2d_helper_pfb_report_rendering_complete(&s_tScenePlayer.use_as__arm_2d_helper_pfb_t,
                                                 (arm_2d_pfb_t *)ptPFB);
 }
 
 
+void arm_2d_user_scene_player_init(void)
+{
+    memset(&s_tScenePlayer, 0, sizeof(s_tScenePlayer));
+
+    //! initialise FPB helper
+    if (ARM_2D_HELPER_PFB_INIT(
+        &s_tScenePlayer.use_as__arm_2d_helper_pfb_t,                            //!< FPB Helper object
+        __GLCD_CFG_SCEEN_WIDTH__,                                               //!< screen width
+        __GLCD_CFG_SCEEN_HEIGHT__,                                              //!< screen height
+        uint16_t,                                                               //!< colour date type
+        PFB_BLOCK_WIDTH,                                                        //!< PFB block width
+        PFB_BLOCK_HEIGHT,                                                       //!< PFB block height
+        1,                                                                      //!< number of PFB in the PFB pool
+        {
+            .evtOnLowLevelRendering = {
+                //! callback for low level rendering
+                .fnHandler = &__pfb_render_handler,
+            },
+        },
+        //.FrameBuffer.bSwapRGB16 = true,
+    ) < 0) {
+        //! error detected
+        assert(false);
+    }
+}
 
 /*----------------------------------------------------------------------------
   Main function
  *----------------------------------------------------------------------------*/
+
 int main (void)
 {
     printf("Hello Arm-2D\r\n");
@@ -265,44 +250,56 @@ int main (void)
         /* put your code here */
         example_gui_init();
     }
+    
+    arm_2d_user_scene_player_init();
+    
+    do {
+        /*! define dirty regions */
+        IMPL_ARM_2D_REGION_LIST(s_tDirtyRegions, const static)
 
-    //! initialise FPB helper
-    if (ARM_2D_HELPER_PFB_INIT(
-        &s_tExamplePFB,                 //!< FPB Helper object
-        __GLCD_CFG_SCEEN_WIDTH__,               //!< screen width
-        __GLCD_CFG_SCEEN_HEIGHT__,              //!< screen height
-        uint16_t,                       //!< colour date type
-        PFB_BLOCK_WIDTH,                //!< PFB block width
-        PFB_BLOCK_HEIGHT,               //!< PFB block height
-        1,                              //!< number of PFB in the PFB pool
-        {
-            .evtOnLowLevelRendering = {
-                //! callback for low level rendering
-                .fnHandler = &__pfb_render_handler,
+            /* a region for the busy wheel */
+            ADD_REGION_TO_LIST(s_tDirtyRegions,
+                .tLocation = {
+                    .iX = ((__GLCD_CFG_SCEEN_WIDTH__ - 222) >> 1),
+                    .iY = ((__GLCD_CFG_SCEEN_HEIGHT__ - 222) >> 1),
+                },
+                .tSize = {
+                    .iWidth = 222,
+                    .iHeight = 222,
+                },
+            ),
+
+            /* a region for the status bar on the bottom of the screen */
+            ADD_LAST_REGION_TO_LIST(s_tDirtyRegions,
+                .tLocation = {0,__GLCD_CFG_SCEEN_HEIGHT__ - 16},
+                .tSize = {
+                    .iWidth = __GLCD_CFG_SCEEN_WIDTH__,
+                    .iHeight = 16,
+                },
+            ),
+
+        END_IMPL_ARM_2D_REGION_LIST()
+        
+        static const arm_2d_scene_t c_tBenchmarkScene[] = {
+            [0] = {
+                .fnBackground   = &__pfb_draw_background_handler,
+                .fnScene        = &__pfb_draw_handler,
+                .ptDirtyRegion  = NULL, //s_tDirtyRegions,
+                .fnOnNewFrame   = &on_example_gui_do_event,
+                .fnOnFrameCPL   = &on_frame_complete,
+                .fnDepose       = NULL,
             },
-            .evtOnDrawing = {
-                //! callback for drawing GUI
-                .fnHandler = &__pfb_draw_background_handler,
-            },
-        },
-        //.FrameBuffer.bSwapRGB16 = true,
-    ) < 0) {
-        //! error detected
-        assert(false);
-    }
-
-    //! draw background first
-    while(arm_fsm_rt_cpl != arm_2d_helper_pfb_task(&s_tExamplePFB,NULL));
-
-    s_bDrawInfo = false;
-
-    ARM_2D_HELPER_PFB_UPDATE_ON_DRAW_HANDLER(   &s_tExamplePFB,
-                                                &__pfb_draw_handler);
-
-    while (1) {
-        display_task();
+        };
+        arm_2d_user_scene_player_append_scenes( 
+                                        &s_tScenePlayer,
+                                        (arm_2d_scene_t *)c_tBenchmarkScene);
+    } while(0);
+    
+    while(true) {
+        arm_2d_user_scene_player_task(&s_tScenePlayer);
     }
 }
+
 
 #if defined(__clang__)
 #   pragma clang diagnostic pop
