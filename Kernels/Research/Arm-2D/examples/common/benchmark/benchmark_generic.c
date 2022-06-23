@@ -296,7 +296,7 @@ void show_icon_with_background(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
     ARM_2D_UNUSED(bIsNewFrame);
 
 
-    arm_2d_align_centre(*ptTarget, 100, 100) {
+    arm_2d_align_centre(ptTarget->tRegion, 100, 100) {
         
         draw_round_corner_box(  ptTarget, 
                                 &__centre_region,
@@ -307,7 +307,7 @@ void show_icon_with_background(const arm_2d_tile_t *ptTarget, bool bIsNewFrame)
     }
 
 
-    arm_2d_align_centre(*ptTarget, c_tileSoftwareMask.tRegion.tSize) {
+    arm_2d_align_centre(ptTarget->tRegion, c_tileSoftwareMask.tRegion.tSize) {
         arm_2d_rgb565_fill_colour_with_mask(
                                 ptTarget, 
                                 &__centre_region, 
@@ -322,7 +322,7 @@ void show_icon_without_background(const arm_2d_tile_t *ptTarget, bool bIsNewFram
     assert(NULL != ptTarget);
     ARM_2D_UNUSED(bIsNewFrame);
 
-    arm_2d_align_centre(*ptTarget, c_tileSoftwareMask.tRegion.tSize) {
+    arm_2d_align_centre(ptTarget->tRegion, c_tileSoftwareMask.tRegion.tSize) {
         
         arm_2d_rgb565_fill_colour_with_mask_and_opacity(   
                                 ptTarget, 
@@ -447,7 +447,7 @@ static void __draw_layers(  const arm_2d_tile_t *ptFrameBuffer,
          *!       Use '__centre_region' when required as the target region in
          *!       2D operations inside the {...} .
          */
-        arm_2d_align_centre(tTempPanel, c_tileCMSISLogo.tRegion.tSize) {
+        arm_2d_align_centre(tTempPanel.tRegion, c_tileCMSISLogo.tRegion.tSize) {
             //!< copy CMSIS logo (with masks) to the centre of the right panel
             arm_2d_rgb565_tile_copy_with_masks(
                                 &c_tileCMSISLogo,

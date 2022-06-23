@@ -77,7 +77,6 @@ extern "C" {
 // </c>
 // </h>
 
-//#ifdef __RTE_ACCELERATION_ARM_2D_EXTRA__
 
 // <h>Extra Components
 // =======================
@@ -87,24 +86,51 @@ extern "C" {
 //     <16=>    16Bits
 //     <32=>    32Bits
 // <i> The colour depth of your LCD
-#define __GLCD_CFG_COLOUR_DEPTH__       16
+#define __GLCD_CFG_COLOUR_DEPTH__               16
 
 // <o>Width of the screen <8-32767>
 // <i> The width of your screen
 // <i> Default: 320
 #ifndef __GLCD_CFG_SCEEN_WIDTH__
- #define __GLCD_CFG_SCEEN_WIDTH__       320
+#   define __GLCD_CFG_SCEEN_WIDTH__             320
 #endif
 
 // <o>Height of the screen <8-32767>
 // <i> The height of your screen
 // <i> Default: 240
 #ifndef __GLCD_CFG_SCEEN_HEIGHT__
- #define __GLCD_CFG_SCEEN_HEIGHT__      240
+#   define __GLCD_CFG_SCEEN_HEIGHT__            240
 #endif
+
+// <o> The size of the LCD printf text buffer <16-65535>
+// <i> The text buffer size for the lcd printf service. It determins how many character you can use in one printf string.
+#ifndef __LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__
+#   define __LCD_PRINTF_CFG_TEXT_BUFFER_SIZE__  64
+#endif
+
+// <h>Benchmark
+// <o>Width of the PFB block
+// <i> The width of your PFB block size used in arm-2d benchmark
+#ifndef BENCHMARK_PFB_BLOCK_WIDTH
+#   define BENCHMARK_PFB_BLOCK_WIDTH            320
+#endif
+
+// <o>Height of the PFB block
+// <i> The height of your PFB block size used in arm-2d benchmark
+#ifndef BENCHMARK_PFB_BLOCK_HEIGHT
+#   define BENCHMARK_PFB_BLOCK_HEIGHT           240
+#endif
+
+// <o>Number of interations <1-2000>
+// <i> run number of iterations used in arm-2d benchmark before calculate the result.
+#ifndef ITERATION_CNT
+#   define ITERATION_CNT                        1000
+#endif
+//</h>
 // </h>
 
-//#endif
+
+
 
 // <<< end of configuration section >>>
 
