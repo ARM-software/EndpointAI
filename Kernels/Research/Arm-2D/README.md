@@ -1,6 +1,6 @@
 # README
 
-__This Repo is decprecated. Arm-2D now has a new home: https://github.com/ARM-software/Arm-2D__
+__Arm-2D has been moved out of this repository to a new home: https://github.com/ARM-software/Arm-2D__
 
 
 ## Features
