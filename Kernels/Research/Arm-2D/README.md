@@ -1,14 +1,6 @@
 # README
 
-
-
-## Branch Summary
-
-| Branch           | Description                                                  | Note                                      |
-| ---------------- | ------------------------------------------------------------ | ----------------------------------------- |
-| ***main***       | The main branch of the repository. It contains the Arm-2D library, examples, templates and a helper library. |                                           |
-| ***developing*** | The development branch of the ***master/main*** branch.      | It will be merged into ***main*** branch. |
-
+__This Repo is decprecated. Arm-2D now has a new home: https://github.com/ARM-software/Arm-2D__
 
 
 ## Features
