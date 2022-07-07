@@ -23,8 +23,9 @@ The new features compared to the [CMSIS-DSP](https://github.com/ARM-software/CMS
 
 ### 2. Arm-2D
 
-1. This library is a research project used to explore and demonstrate the possibilities of delivering smart-phone modern graphic user interface using low-cost and resource constraint micro-controllers. It is not a committed product from Arm, and the quality of the service is not validated with sophisticated tests but some functional tests. 
-2. The library name, i.e. **Arm-2D**, is a temporary term and might be subject to change in the future. The term "the Library" used in this documents refers to the **Arm-2D** library unless state otherwise. 
+[Deprecated]Arm-2D for acceleration of low-level 2D image processing.
+
+- It has been moved to https://github.com/ARM-software/Arm-2D
 
 ### 3. EigenMVE 
 
