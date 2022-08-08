@@ -53,7 +53,7 @@
                                                                                     \
     __asm volatile (                                                                \
         "vecTheta            .req q3                                    \n"         \
-
+                                                                                    \
         "   vmov.i32        q0, #0x1ff                                  \n"         \
         "   vdup.32         q1, %[cst7ffffe00]                          \n"         \
         "   vmvn.i32        q2, #0x80000000                             \n"         \
