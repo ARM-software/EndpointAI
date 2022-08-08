@@ -38,96 +38,69 @@
 
 #ifdef USE_ASM
 
-#define VSIN_CORE_Q15(pTheta, pVal)                                                 \
-        /* convert negative numbers to corresponding positive ones */               \
-        "   vand.i16            q0, q0, q7                                 \n"      \
+/* for Cosine, add 0.25 offset (pi/2) to read sine table */
+#define ADD_OFFS_COS(vecTheta)     "vadd.i16  " vecTheta ", " vecTheta ", %[cst0x2000] \n"
+/* for Sine, use sine table without offset */
+#define ADD_OFFS_SIN(vecTheta)
+
+#define ADD_OFF(vecTheta, SIN_COS)    ADD_OFFS_##SIN_COS(vecTheta)
+
+
+
+#define VSIN_CORE_Q15(pTheta, pVal, SIN_COS, len)                                   \
+    register unsigned loopCnt     __asm("lr") = len;                                \
+                                                                                    \
+    __asm volatile (                                                                \
+        "vecTheta            .req q2                                          \n"   \
+                                                                                    \
+        "   vmov.i16        q0, #0x7e00                                       \n"   \
+        "   vmvn.i16        q1, #0x8000                                       \n"   \
+                                                                                    \
+        "   vldrh.u16       vecTheta, [%[ptheta]], #16                        \n"   \
+        "   wlstp.16        lr, lr, 1f                                        \n"   \
+        "2:                                                                   \n"   \
+        /* adjust sin table offset */                                               \
+        ADD_OFF("vecTheta", SIN_COS)                                                \
                                                                                     \
         /* Calculate the nearest index */                                           \
-        /* q1 = index = (uint16_t)x >> FAST_MATH_Q15_SHIFT; */                      \
-        "   vshr.s16            q1, q0, %[q15shift]                        \n"      \
-        /* Calculation of fractional value */                                       \
-        /* q2 = fract = (x - (index << FAST_MATH_Q15_SHIFT)) << 9; */               \
-        "   vshl.s16            q2, q1, %[q15shift]                        \n"      \
-        "   vsub.s16            q2, q0, q2                                 \n"      \
-        "   vshl.s16            q2, q2, #9                                 \n"      \
-                                                                                    \
+        /* index = (uint32_t)x >> FAST_MATH_Q31_SHIFT; */                           \
+        "   vshr.u16        q3, vecTheta, #6                                  \n"   \
+        "   vmul.i16        q2, vecTheta, %[twoPow9]                          \n"   \
+        "   vbic.i16        q3, #0xfe00                                       \n"   \
+        "   vand            q2, q2, q0                                        \n"   \
         /* Read two nearest values of input value from the sin table */             \
         /* a = sinTable_q15[index]; */                                              \
-        "   vldrh.16            q3, [%[psinTable_q15], q1, UXTW #1]        \n"      \
-        "   vadd.s16            q1, q1, %[one]                             \n"      \
-        /* b = sinTable_q15[index+1]; */                                            \
-        "   vldrh.16            q4, [%[psinTable_q15], q1, UXTW #1]        \n"      \
-                                                                                    \
+        "   vldrh.u16       q5, [%[psinTable_q15], q3, uxtw #1]               \n"   \
+        "   veor            q4, q2, q1                                        \n"   \
         /* Linear interpolation process */                                          \
-        /* q3 = sincosVal = (0x7fff-fract)*a >> 16; */                              \
-        "   vsub.s16            q6, q7, q2                                 \n"      \
-        "   vqdmulh.s16         q3, q3, q6                                 \n"      \
-                                                                                    \
+        /* sincosVal = (0x7fff-fract)*a >> 16; */                                   \
+        "   vqdmulh.s16     q4, q5, q4                                        \n"   \
+        "   vldrh.u16       q5, [%[sinTable_q15_plus1], q3, uxtw #1]          \n"   \
+        "   vqdmulh.s16     q6, q5, q2                                        \n"   \
         /* schedule next load */                                                    \
-        "   vldrh.16            q0, [%[" #pTheta "]], #16                  \n"      \
-                                                                                    \
-        /* q4 = sincosVal =  */                                                     \
-        /*        (q15_t)((((q63_t)cosVal << 16) + ((q63_t)fract*b)) >> 16); */     \
-        "   vqdmulh.s16         q4, q4, q2                                 \n"      \
-        "   vqadd.s16           q2, q4, q3                                 \n"      \
-        "   vstrh.16            q2, [%[" #pVal "]], #16                    \n"
-
-
-
-
-#define VCOS_Q15(pTheta, pVal, len)                                                 \
-    register unsigned loopCnt     __asm("lr") = len;                                \
-                                                                                    \
-    __asm volatile (                                                                \
-        ".p2align 2                                                        \n"      \
-        "   wlstp.16            lr, lr, 1f                                 \n"      \
-                                                                                    \
-        "   vdup.16             q7, %[c0x7fff]                             \n"      \
-        /* preload */                                                               \
-        "   vldrh.16            q0, [%[ptheta]], #16                       \n"      \
-        "2:                                                                \n"      \
-                                                                                    \
-        /* add 0.25 (pi/2) to read sine table */                                    \
-        "   vadd.u16            q0, q0, %[c1]                              \n"      \
-                                                                                    \
-        VSIN_CORE_Q15(pTheta, pval)                                                 \
-                                                                                    \
-        "   letp                lr, 2b                                     \n"      \
-        "1:                                                                \n"      \
+        "   vldrh.u16       vecTheta, [%[ptheta]], #16                        \n"   \
+        /* sincosVal +=  */                                                         \
+        /*          ((q63_t)fract*b)) >> 16); */                                    \
+        "   vqadd.s16       q6, q4, q6                                        \n"   \
+        "   vstrh.16        q6, [%[pval]], #16                                \n"   \
+        "   letp            lr, 2b                                            \n"   \
+        "1:                                                                   \n"   \
+        ".unreq vecTheta                                                      \n"   \
         :[ptheta] "+r"(pTheta),                                                     \
         [pval] "+r"(pVal), [loopCnt] "+r"(loopCnt)                                  \
-        :[c0x7fff] "r" (0x7fff), [c1] "r"(0x2000),                                  \
-        [q15shift] "i"( FAST_MATH_Q15_SHIFT),                                       \
-        [psinTable_q15] "r" (sinTable_q15), [one] "r" (1)                           \
+        :[cst7ffffe00] "r" (0x7ffffe00), [cst0x2000] "r"(0x2000),                   \
+        [q31shift] "i"( FAST_MATH_Q31_SHIFT),                                       \
+        [psinTable_q15] "r" (sinTable_q15),                                         \
+        [sinTable_q15_plus1] "r" (&sinTable_q15[1]),                                \
+        [one] "r" (1),                                                              \
+        [twoPow9] "r" (1<<9)                                                        \
         :"q0", "q1", "q2", "q3",                                                    \
-         "q6", "q7", "memory");
+         "q4", "q5", "q6", "memory");
 
 
 
-
-#define VSIN_Q15(pTheta, pVal, len)                                                 \
-    register unsigned loopCnt     __asm("lr") = len;                                \
-                                                                                    \
-    __asm volatile (                                                                \
-        ".p2align 2                                                        \n"      \
-        "   wlstp.16            lr, lr, 1f                                 \n"      \
-                                                                                    \
-        "   vdup.16             q7, %[c0x7fff]                             \n"      \
-        /* preload */                                                               \
-        "   vldrh.16            q0, [%[ptheta]], #16                       \n"      \
-        "2:                                                                \n"      \
-                                                                                    \
-        VSIN_CORE_Q15(pTheta, pval)                                                 \
-                                                                                    \
-        "   letp                lr, 2b                                     \n"      \
-        "1:                                                                \n"      \
-        :[ptheta] "+r"(pTheta),                                                     \
-        [pval] "+r"(pVal), [loopCnt] "+r"(loopCnt)                                  \
-        :[c0x7fff] "r" (0x7fff),                                                    \
-        [q15shift] "i"( FAST_MATH_Q15_SHIFT),                                       \
-        [psinTable_q15] "r" (sinTable_q15), [one] "r" (1)                           \
-        :"q0", "q1", "q2", "q3", \
-         "q6", "q7", "memory");
+#define VSIN_Q15(pTheta, pVal, len)   VSIN_CORE_Q15(pTheta, pVal, SIN, len)
+#define VCOS_Q15(pTheta, pVal, len)   VSIN_CORE_Q15(pTheta, pVal, COS, len)
 
 
 #else                           /* MVE intrinsics */
