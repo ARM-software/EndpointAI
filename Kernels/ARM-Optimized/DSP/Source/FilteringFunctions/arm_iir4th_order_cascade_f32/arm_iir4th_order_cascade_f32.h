@@ -1,15 +1,15 @@
 /* ----------------------------------------------------------------------
  * Project:      CMSIS DSP Library
- * Title:        arm_iir4_mve.c
- * Description:  MVE IIR4 experimentation
+ * Title:        arm_iir4th_order_cascade_f32.h
+ * Description:  Cascade of 4th Order Single Precision IIR (experimental)
  *
- * $Date:        Feb 2021
- * $Revision:    V.0.0.1
+ * $Date:        Aug 2022
+ * $Revision:    V.1.0.0
  *
  * Target Processor: Cortex-M cores with MVE support
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2021 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2022 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -34,10 +34,6 @@
 
 #define IIR_4_ORDER                     4
 
-#define IIR4_F32_COEF_MATRIX_COLS       12
-#define IIR4_F32_COEF_MATRIX_ROWS       4       /* F32 MVE vector elements */
-#define IIR4_F32_COEF_MATRIX_SZ         (IIR4_F32_COEF_MATRIX_COLS * IIR4_F32_COEF_MATRIX_ROWS)
-#define IIR4_F32_CASC_MVE_CONTEXT_SZ    (IIR4_F32_COEF_MATRIX_SZ + IIR_4_ORDER * 2)
 
 /**
  * @brief Instance structure for the cascaded IIR
@@ -61,6 +57,13 @@ void            arm_iir4_cascade_f32(const arm_iir4_casd_inst_f32 * S, const flo
 
 
 #if defined(ARM_MATH_MVEF)
+
+/* SIMD-ified coefficients matrix dimension */
+#define IIR4_F32_COEF_MATRIX_COLS       12
+#define IIR4_F32_COEF_MATRIX_ROWS       4       /* F32 MVE vector elements */
+#define IIR4_F32_COEF_MATRIX_SZ         (IIR4_F32_COEF_MATRIX_COLS * IIR4_F32_COEF_MATRIX_ROWS)
+#define IIR4_F32_CASC_MVE_CONTEXT_SZ    (IIR4_F32_COEF_MATRIX_SZ + IIR_4_ORDER * 2)
+
 
 /**
  * @brief Instance structure for the modified IIR coefs required by vectorized code.

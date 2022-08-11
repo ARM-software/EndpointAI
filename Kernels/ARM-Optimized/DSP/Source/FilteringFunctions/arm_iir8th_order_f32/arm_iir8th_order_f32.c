@@ -185,7 +185,7 @@ void arm_iir8_f32_mve(const arm_iir8_instance_f32 * S, const float32_t * pSrc, f
           [pResult] "+r"(pResult)
         :[coef_fwd] "r" (pNumCoef),[coef_bck] "r"(pDenCoef)
         :"q0", "q1", "q2", "q3",
-         "q4", "q5", "q6", "q7",
+         "q5", "q6",
          "r14", "memory");
 
 #else                           /* MVE intrinsics */

@@ -306,22 +306,21 @@ void arm_iir4_f32_mve(float32_t * pState, const float32_t * pSrc, float32_t * pD
         "    vfma.f32        %[accVec], q0, r0                    \n"
 
         "    vldrw.32        q0, [%[pCoeffs], #(16*4)]            \n"
-
         "    vfma.f32        %[accVec], q0, %[Xn1]                \n"
+
         "    vmov            q1[2], q1[0], r0, r2                 \n"
         "    vmov            r2, r0, %[YVec][3], %[YVec][1]       \n"
 
         "    vldrw.32        q0, [%[pCoeffs], #(20*4)]            \n"
-
         "    vfma.f32        %[accVec], q0, %[Xn2]                \n"
 
         "    vldrw.32        q0, [%[pCoeffs], #(24*4)]            \n"
         "    vfma.f32        %[accVec], q0, %[Xn3]                \n"
+
         "    vmov            q1[3], q1[1], r1, r3                 \n"
         "    vmov            r3, r1, %[YVec][2], %[YVec][0]       \n"
 
         "    vldrw.32        q0, [%[pCoeffs], #(28*4)]            \n"
-
         "    vfma.f32        %[accVec], q0, %[Xn4]                \n"
 
 

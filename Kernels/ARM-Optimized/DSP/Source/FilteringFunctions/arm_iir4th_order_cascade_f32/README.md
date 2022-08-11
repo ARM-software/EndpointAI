@@ -29,65 +29,93 @@ Csscade of 4th order IIR filters for single-precision floating-point values
 ## TESTBENCH
 
 ```cpp
-#include "arm_iir12th_order_f32.h"
-
-    /* Use matlab(c) to design a 12th order lowpass digital filter, cutoff = 0.3 */
+#include "arm_iir4th_order_cascade_f32.h"
 
     /*
-      [b,a] = butter(12,0.3); 
-      a = [
-        1.00000000000000, 
-        -4.78968579333577, 11.64546405834363, -18.34602138357789, 20.56366202043100, 
-        -17.11188912134385, 10.77028655928594, -5.14107049712862, 1.84024534425086, 
-        -0.48028403826895, 0.08654072168022, -0.00964629980804, 0.00050214181632
-        ]
-      b = [
-           0.00000686125790, 0.00008233509476, 0.00045284302118, 0.00150947673727, 
-           0.00339632265886, 0.00543411625418, 0.00633980229654, 0.00543411625418, 
-           0.00339632265886, 0.00150947673727, 0.00045284302118, 0.00008233509476, 
-           0.00000686125790, 
-       ]
+     * Use matlab(c) to design a cascade of 3 x 4th order Butterworth Low Pass filters
+     *
+     * [b3,a3] = butter(4,0.3);
+     * [b2,a2] = butter(4,0.2);
+     * [b1,a1] = butter(4,0.1);
+     * H1=dfilt.df2t(b1,a1);
+     * H2=dfilt.df2t(b2,a2);
+     * H3=dfilt.df2t(b3,a3);
+     * Hcas=dfilt.cascade(H1,H2,H3)
      */
 
-    /* create C arrays. Numerator fist element = 1.0f is eluded */       
-    float32_t       iir12BckCoef_f32[IIR_12_ORDER] = {
-        /*  1 */ -4.78968579333577, 11.6454640583436, -18.3460213835779,
-        20.563662020431, -17.1118891213439, 10.7702865592859, -5.14107049712862,
-        1.84024534425086, -0.48028403826895, 0.0865407216802232, -0.00964629980804202,
-        0.000502141816315784
+   #define IIR4_NB_CASCADES   3
+
+    /* IIR4 coefficients arrays 
+       @par           Coefficient Ordering
+       Similartly to DF1 F32 Biquads, the coefficients are stored in the following order:
+       <pre>
+       {b00, b01, b02, b03, b04, a01, a02, a03, a04, b10, b11, b12, b13, b14, a11, a12, a13, a14 ...}
+       </pre>
+     */
+
+    struct arm_iir4_coef {
+        float32_t       num[IIR_4_ORDER + 1];
+        float32_t       den[IIR_4_ORDER];
     };
 
-    float32_t       iir12FwdCoef_f32[IIR_12_ORDER + 1] = {
-        6.86125789668875e-06, 8.2335094760265e-05, 0.000452843021181457, 0.00150947673727152,
-        0.00339632265886093, 0.00543411625417749, 0.0063398022965404, 0.00543411625417749,
-        0.00339632265886093, 0.00150947673727152, 0.000452843021181457, 8.2335094760265e-05,
-        6.86125789668875e-06
+    struct arm_iir4_coef iirCoeffs_f32[IIR4_NB_CASCADES] = {
+        /* butter(4,0.3); */
+        [0] = {
+               .num = {
+                       0.0185630106268972f, 0.0742520425075889f, 0.111378063761383f,
+                       0.0742520425075889f, 0.0185630106268972f},
+               .den = {
+                       /* 1 */ -1.57039885122817f, 1.27561332498328f, -0.484403368335085f,
+                       0.0761970646103324f}
+               },
+        /* butter(4,0.2); */
+        [1] = {
+               .num = {
+                       0.00482434335771623f, 0.0192973734308649f, 0.0289460601462974f,
+                       0.0192973734308649f, 0.00482434335771623f},
+               .den = {
+                       /* 1 */ -2.36951300718204f, 2.31398841441588f, -1.05466540587857f,
+                       0.187379492368185f}
+               },
+        /* butter(4,0.1); */
+        [2] = {
+               .num = {
+                       0.000416599204406579f, 0.00166639681762631f, 0.00249959522643947f,
+                       0.00166639681762631f, 0.000416599204406579f},
+               /* butter(4,0.1); */
+               .den = {
+                       /*1 */ -3.18063854887472f, 3.86119434899422f, -2.11215535511097f,
+                       0.438265142261981f}
+               }
     };
 
-    
-    arm_iir12_instance_f32 iirInstVCTR;
+    /* init. IIR 4 cascade */
 
-    /* allocate IIR states for Ref and Vector */
-    float32_t iirStateFwdVCTR[MAX_BUF_SZ + IIR_12_ORDER] = { 0 };
-    float32_t iirStateBkwdVCTR[MAX_BUF_SZ + IIR_12_ORDER] = { 0 };
+    /* allocate cascaded IIR instances */
+    arm_iir4_casd_inst_f32 iirCasdVCTR;
 
-    /* MVE extra storage for modified coefs */
-    float32_t modCoefMve[IIR_12_COEF_BUF_SZ] = { 0 };
+    /* allocate IIR states */
+    /* MVE context requires extra storage to hold matrix converted form */
+    float32_t iir4CascStateMve[IIR4_NB_CASCADES * IIR4_F32_CASC_MVE_CONTEXT_SZ];
 
     /* input / output storage */
     float32_t Input[MAX_BUF_SZ], *pInput = Input;
-    float32_t dstVCTR[MAX_BUF_SZ + EXTRA_TAIL_CHK], *pdstVCTR = dstVCTR;
+    float32_t dstVCTR[MAX_BUF_SZ], *pdstVCTR = dstVCTR;
 
-    /* MVE filter init */
-    arm_iir12_init_f32_mve(&iirInstVCTR, iir12FwdCoef_f32,
-                         iir12BckCoef_f32, iirStateFwdVCTR, iirStateBkwdVCTR,
-                         modCoefMve, blockSize);
+    /*
+     * init cascade IIR instances
+     */
+    arm_iir4_cascade_init_f32_mve(&iirCasdVCTR, IIR4_NB_CASCADES,
+                                  (float32_t *) iirCoeffs_f32, iir4CascStateMve);
 
 
-    /* generate white noise */
+
+    /* generate white noise input */
     set_input(RAND, blockSize, pInput, powf(2.0, -28.0), float32_t);
 
+    
     /* MVE filter run */
-    arm_iir12_f32_mve(&iirInstVCTR, pInput, pdstVCTR, blockSize);
+    arm_iir4_cascade_f32_mve(&iirCasdVCTR, pInput, pdstVCTR, blockSize);
+    
 
 ```
