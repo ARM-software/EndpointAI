@@ -6,7 +6,8 @@
 [CMSIS-DSP](https://github.com/ARM-software/CMSIS-DSP) with ARMv8.1M **Helium** assembly (relies on [CMSIS-5](https://github.com/ARM-software/CMSIS_5) Core)
 
 
-12th order IIR filter for single-precision floating-point values
+IIR filter for single-precision floating-point values
+To be used with care for high order filters as precision is decreasing compared to 64-bit float references
 
 
 
@@ -15,22 +16,22 @@
  - GCC 10.3-2021.10 example
 
 ```cpp
-  arm-none-eabi-gcc -DUSE_ASM -mcpu=cortex-m55 -O3 -mfloat-abi=hard -c arm_iir8th_order_f32.c -o arm_iir8th_order_f32.o -I . -I$(CMSIS_DSP_ROOT)/PrivateInclude/ -I $(CMSIS_DSP_ROOT)/Include/ -I $(CMSIS_5_ROOT)/CMSIS/Core/Include/Include
-  arm-none-eabi-gcc -DUSE_ASM -mcpu=cortex-m55 -O3 -mfloat-abi=hard -c arm_iir8th_order_init_f32.c -o arm_iir8th_order_init_f32.o -I . -I$(CMSIS_DSP_ROOT)/PrivateInclude/ -I $(CMSIS_DSP_ROOT)/Include/ -I $(CMSIS_5_ROOT)/CMSIS/Core/Include/Include
+  arm-none-eabi-gcc -DUSE_ASM -mcpu=cortex-m55 -O3 -mfloat-abi=hard -c arm_iir_f32.c -o arm_iir_f32.o -I . -I$(CMSIS_DSP_ROOT)/PrivateInclude/ -I $(CMSIS_DSP_ROOT)/Include/ -I $(CMSIS_5_ROOT)/CMSIS/Core/Include/Include
+  arm-none-eabi-gcc -DUSE_ASM -mcpu=cortex-m55 -O3 -mfloat-abi=hard -c arm_iir_init_f32.c -o arm_iir_init_f32.o -I . -I$(CMSIS_DSP_ROOT)/PrivateInclude/ -I $(CMSIS_DSP_ROOT)/Include/ -I $(CMSIS_5_ROOT)/CMSIS/Core/Include/Include
  ```
 
  - Arm Compiler 6.18 example
 
 ```cpp
- armclang -target arm-arm-none-eabi -mthumb -std=gnu99  -mcpu=cortex-m55 -Ofast -mfloat-abi=hard -DUSE_ASM -c arm_iir8th_order_f32.c -o arm_iir8th_order_f32.o -I . -I$(CMSIS_DSP_ROOT)/PrivateInclude/ -I $(CMSIS_DSP_ROOT)/Include/ -I $(CMSIS_5_ROOT)/CMSIS/Core/Include/Include
- armclang -target arm-arm-none-eabi -mthumb -std=gnu99  -mcpu=cortex-m55 -Ofast -mfloat-abi=hard -DUSE_ASM -c arm_iir8th_order_init_f32.c -o arm_iir8th_order_init_f32.o -I . -I$(CMSIS_DSP_ROOT)/PrivateInclude/ -I $(CMSIS_DSP_ROOT)/Include/ -I $(CMSIS_5_ROOT)/CMSIS/Core/Include/Include
+ armclang -target arm-arm-none-eabi -mthumb -std=gnu99  -mcpu=cortex-m55 -Ofast -mfloat-abi=hard -DUSE_ASM -c arm_iir_f32.c -o arm_iir_f32.o -I . -I$(CMSIS_DSP_ROOT)/PrivateInclude/ -I $(CMSIS_DSP_ROOT)/Include/ -I $(CMSIS_5_ROOT)/CMSIS/Core/Include/Include
+ armclang -target arm-arm-none-eabi -mthumb -std=gnu99  -mcpu=cortex-m55 -Ofast -mfloat-abi=hard -DUSE_ASM -c arm_iir_init_f32.c -o arm_iir_init_f32.o -I . -I$(CMSIS_DSP_ROOT)/PrivateInclude/ -I $(CMSIS_DSP_ROOT)/Include/ -I $(CMSIS_5_ROOT)/CMSIS/Core/Include
 ```
 
 ## TESTBENCH
 
 ```cpp
 
-#include "arm_iir8th_order_f32.h"
+#include "arm_iir_f32.h"
 
     /* Use matlab(c) to design a 8th order lowpass digital filter, cutoff = 0.3 */
 
@@ -49,6 +50,8 @@
        ]
      */
 
+#define IIR_8_ORDER 8
+
     /* create C arrays. Numerator fist element = 1.0f is eluded */       
     float32_t       iir8BckCoef_f32[IIR_8_ORDER] = {
         /*  1 */ -3.18463950057501, 5.18287545236711, -5.21619517783751, 3.49549635777094,
@@ -64,19 +67,19 @@
     
     arm_iir8_instance_f32 iirInstVCTR;
 
-    /* allocate IIR states for Ref and Vector */
+    /* allocate IIR states */
     float32_t iirStateFwdVCTR[MAX_BUF_SZ + IIR_8_ORDER] = { 0 };
     float32_t iirStateBkwdVCTR[MAX_BUF_SZ + IIR_8_ORDER] = { 0 };
 
     /* MVE extra storage for modified coefs */
-    float32_t modCoefMve[IIR_8_COEF_BUF_SZ] = { 0 };
+    float32_t modCoefMve[IIR_COEF_BUF_SZ_F32(IIR_8_ORDER)] = { 0 };
 
     /* input / output storage */
     float32_t Input[MAX_BUF_SZ], *pInput = Input;
     float32_t dstVCTR[MAX_BUF_SZ], *pdstVCTR = dstVCTR;
 
     /* MVE filter init */
-    arm_iir8_init_f32_mve(&iirInstVCTR, iir8FwdCoef_f32,
+    arm_iir_init_f32_mve(&iirInstVCTR, IIR_8_ORDER, iir8FwdCoef_f32,
                          iir8BckCoef_f32, iirStateFwdVCTR, iirStateBkwdVCTR,
                          modCoefMve, blockSize);
 
@@ -84,6 +87,6 @@
     set_input(RAND, blockSize, pInput, powf(2.0, -28.0), float32_t);
 
     /* MVE filter run */
-    arm_iir8_f32_mve(&iirInstVCTR, pInput, pdstVCTR, blockSize);
+    arm_iir_f32_mve(&iirInstVCTR, pInput, pdstVCTR, blockSize);
 
 ```

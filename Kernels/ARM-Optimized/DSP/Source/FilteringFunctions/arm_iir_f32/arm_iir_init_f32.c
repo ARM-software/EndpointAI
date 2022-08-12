@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------
  * Project:      CMSIS DSP Library
- * Title:        arm_iir8th_order_init_f32.c
- * Description:  MVE 8th order IIR (experimental)
+ * Title:        arm_iir_init_f32.c
+ * Description:  MVE IIR init stage (experimental)
  *
  * $Date:        Aug 2022
  * $Revision:    V.1.0.0
@@ -27,12 +27,12 @@
  */
 
 
-#include "arm_iir8th_order_f32.h"
+#include "arm_iir_f32.h"
 
 
 /*
  * @brief  Initialization function for floating-point IIRs.
- * @param[in,out] S             points to an instance of the floating-point IIR8 structure.
+ * @param[in,out] S             points to an instance of the floating-point IIR structure.
  * @param[in]     pNumCoef      points to the filter coefficients numerator.
  * @param[in]     pDenCoef      points to the filter coefficients denominator.
  * @param[in]     pNumState     points to the IIR sample history.
@@ -40,13 +40,12 @@
  * @param[in]     blockSize     IIR block size
  */
 
-void arm_iir8_init_f32(arm_iir8_instance_f32 * S,
+void arm_iir_init_f32(arm_iir_instance_f32 * S, uint16_t order,
                       const float32_t * pNumCoef, const float32_t * pDenCoef,
                       float32_t * pNumState, float32_t * pDenState, uint32_t blockSize)
 {
     // Store filter config
-    uint16_t        order = IIR_8_ORDER;
-
+    S->order = order;
     S->pNumState = pNumState;
     S->pDenState = pDenState;
     S->pNumCoef = pNumCoef;
@@ -66,18 +65,17 @@ void arm_iir8_init_f32(arm_iir8_instance_f32 * S,
  * @param[in]     pDenCoef      points to the filter coefficients denominator.
  * @param[in]     pNumState     points to the IIR sample history.
  * @param[in]     pDenState     points to the IIR output history.
- * @param[in]     pModCoef      points to the MVE reshuffled coefficient storage
+ * @param[in]     pModCoef      points to the MVE reshuffled * 0-padded coefficient storage
  * @param[in]     blockSize     IIR block size
  */
 
-void arm_iir8_init_f32_mve(arm_iir8_instance_f32 * S,
+void arm_iir_init_f32_mve(arm_iir_instance_f32 * S, uint16_t order,
                           const float32_t * pNumCoef, const float32_t * pDenCoef,
                           float32_t * pNumState, float32_t * pDenState, float32_t * pModCoef,
                           uint32_t blockSize)
 {
-    uint16_t        order = IIR_8_ORDER;
-
     // Store filter config
+    S->order = order;
     S->pNumState = pNumState;
     S->pDenState = pDenState;
 
@@ -91,16 +89,15 @@ void arm_iir8_init_f32_mve(arm_iir8_instance_f32 * S,
     S->pNumCoef = pModCoef;
 
     /* round to vector size and 0-pad */
-    for (int i = order + 1; i < (IIR_8_COEF_BUF_SZ / 2); i++)
+    int             round_up = ((order + 1 + 3) / 4) * 4;
+    for (int i = order + 1; i < round_up; i++)
         pModCoef[i] = 0;
 
-    /* copy denominator coefs */
-    pModCoef += (IIR_8_COEF_BUF_SZ / 2);
+    pModCoef += round_up;
 
     S->pDenCoef = pModCoef;
     for (int i = 0; i < order; i++)
         pModCoef[i] = pDenCoef[order - 1 - i];
-
 
     memset(pNumState, 0, (blockSize + order) * sizeof(float32_t));
     memset(pDenState, 0, (blockSize + order - 1) * sizeof(float32_t));
