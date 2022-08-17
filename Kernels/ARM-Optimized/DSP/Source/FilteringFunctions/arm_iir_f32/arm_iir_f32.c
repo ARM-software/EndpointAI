@@ -33,7 +33,7 @@
 
 /**
  * @brief  Nth order floating-point IIR reference.
- * @param[in,out] S             points to an instance of the floating-point IIR4 structure.
+ * @param[in,out] S             points to an instance of the floating-point IIR structure.
  * @param[in]     pSrc          Filter input pointer
  * @param[out]    pDst          Filter output pointer
  * @param[in]     blockSize     Points to the fwd state buffer.
@@ -101,7 +101,7 @@ void arm_iir_f32(const arm_iir_instance_f32 * S, const float32_t * pSrc, float32
 
 /**
  * @brief  4th order floating-point IIR MVE version.
- * @param[in,out] S             points to an instance of the floating-point IIR4 structure.
+ * @param[in,out] S             points to an instance of the floating-point IIR structure.
  * @param[in]     pSrc          Filter input pointer
  * @param[out]    pDst          Filter output pointer
  * @param[in]     blockSize     Points to the fwd state buffer.
@@ -251,7 +251,7 @@ void arm_iir4_f32_mve(const arm_iir_instance_f32 * S, const float32_t * pSrc, fl
 
 /**
  * @brief  8th order floating-point IIR MVE version.
- * @param[in,out] S             points to an instance of the floating-point IIR4 structure.
+ * @param[in,out] S             points to an instance of the floating-point IIR structure.
  * @param[in]     pSrc          Filter input pointer
  * @param[out]    pDst          Filter output pointer
  * @param[in]     blockSize     Points to the fwd state buffer.
@@ -418,7 +418,7 @@ void arm_iir8_f32_mve(const arm_iir_instance_f32 * S, const float32_t * pSrc, fl
 
 /**
  * @brief 12th order floating-point IIR MVE version.
- * @param[in,out] S             points to an instance of the floating-point IIR4 structure.
+ * @param[in,out] S             points to an instance of the floating-point IIR structure.
  * @param[in]     pSrc          Filter input pointer
  * @param[out]    pDst          Filter output pointer
  * @param[in]     blockSize     Points to the fwd state buffer.
@@ -598,7 +598,7 @@ void arm_iir12_f32_mve(const arm_iir_instance_f32 * S, const float32_t * pSrc, f
 
 /**
  * @brief Nth order floating-point IIR MVE version.
- * @param[in,out] S             points to an instance of the floating-point IIR4 structure.
+ * @param[in,out] S             points to an instance of the floating-point IIR structure.
  * @param[in]     pSrc          Filter input pointer
  * @param[out]    pDst          Filter output pointer
  * @param[in]     blockSize     Points to the fwd state buffer.
@@ -762,19 +762,19 @@ void arm_iir_f32_mve(const arm_iir_instance_f32 * S, const float32_t * pSrc, flo
         float32_t    sum;
 
 
-        vecIn0 = vld1q_f32(pFwdCur);
+        vecIn0 = vld1q(pFwdCur);
         pFwdCur += 4;
         acc0 = vmulq(vecIn0, vecCoefNum0);
 
-        vecIn0 = vld1q_f32(pFwdCur);
+        vecIn0 = vld1q(pFwdCur);
         pFwdCur += 4;
         acc0 = vfmaq(acc0, vecIn0, vecCoefNum1);
 
-        vecIn0 = vld1q_f32(pBckCur);
+        vecIn0 = vld1q(pBckCur);
         pBckCur += 4;
         acc0 = vfmsq(acc0, vecIn0, vecCoefDen0);
 
-        vecIn0 = vld1q_f32(pBckCur);
+        vecIn0 = vld1q(pBckCur);
         pBckCur += 4;
         acc0 = vfmsq(acc0, vecIn0, vecCoefDen1);
 
@@ -786,18 +786,18 @@ void arm_iir_f32_mve(const arm_iir_instance_f32 * S, const float32_t * pSrc, flo
         {
             f32x4_t vecCoef;
 
-            vecIn0 = vld1q_f32(pFwdCur);
+            vecIn0 = vld1q(pFwdCur);
             pFwdCur += 4;
 
-            vecCoef = vld1q_f32(pNumCoefCur);
+            vecCoef = vld1q(pNumCoefCur);
             pNumCoefCur += 4;
 
             acc0 = vfmaq(acc0, vecIn0, vecCoef);
 
-            vecCoef = vld1q_f32(pDenCoefCur);
+            vecCoef = vld1q(pDenCoefCur);
             pDenCoefCur += 4;
 
-            vecIn0 = vld1q_f32(pBckCur);
+            vecIn0 = vld1q(pBckCur);
             pBckCur += 4;
             acc0 = vfmsq(acc0, vecIn0, vecCoef);
 

@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------------
  * Project:      CMSIS DSP Library
- * Title:        arm_iir_init_f32.c
+ * Title:        arm_iir_init_q31.c
  * Description:  MVE IIR init stage (experimental)
  *
  * $Date:        Aug 2022
@@ -27,57 +27,59 @@
  */
 
 
-#include "arm_iir_f32.h"
+#include "arm_iir_q31.h"
 
 
 /*
- * @brief  Initialization function for floating-point IIRs.
- * @param[in,out] S             points to an instance of the floating-point IIR structure.
+ * @brief  Initialization function for Q.31 IIRs.
+ * @param[in,out] S             points to an instance of the Q.31 IIR structure.
  * @param[in]     pNumCoef      points to the filter coefficients numerator.
  * @param[in]     pDenCoef      points to the filter coefficients denominator.
  * @param[in]     pNumState     points to the IIR sample history.
  * @param[in]     pDenState     points to the IIR output history.
  * @param[in]     blockSize     IIR block size
+ * @param[in]     postShift     filter coefficients scaling
  */
 
-void arm_iir_init_f32(arm_iir_instance_f32 * S, uint16_t order,
-                      const float32_t * pNumCoef, const float32_t * pDenCoef,
-                      float32_t * pNumState, float32_t * pDenState, uint32_t blockSize)
+void arm_iir_init_q31(arm_iir_instance_q31 * S, uint16_t order,
+                      const q31_t * pNumCoef, const q31_t * pDenCoef,
+                      q31_t * pNumState, q31_t * pDenState, uint32_t blockSize, int8_t postShift)
 {
-    // Store filter config
     S->order = order;
     S->pNumState = pNumState;
     S->pDenState = pDenState;
     S->pNumCoef = pNumCoef;
     S->pDenCoef = pDenCoef;
+    S->postShift = postShift;
 
-    memset(pNumState, 0, (blockSize + order) * sizeof(float32_t));
-    memset(pDenState, 0, (blockSize + order - 1) * sizeof(float32_t));
+    memset(pNumState, 0, (blockSize + order) * sizeof(q31_t));
+    memset(pDenState, 0, (blockSize + order - 1) * sizeof(q31_t));
 }
 
 
 #if defined(ARM_MATH_MVEF)
 
 /*
- * @brief  Initialization function for floating-point IIRs (MVE specific)
- * @param[in,out] S             points to an instance of the floating-point IIR structure.
+ * @brief  Initialization function for Q.31 IIRs (MVE specific)
+ * @param[in,out] S             points to an instance of the Q.31 IIR structure.
  * @param[in]     pNumCoef      points to the filter coefficients numerator.
  * @param[in]     pDenCoef      points to the filter coefficients denominator.
  * @param[in]     pNumState     points to the IIR sample history.
  * @param[in]     pDenState     points to the IIR output history.
  * @param[in]     pModCoef      points to the MVE reshuffled * 0-padded coefficient storage
  * @param[in]     blockSize     IIR block size
+ * @param[in]     postShift     filter coefficients scaling
  */
 
-void arm_iir_init_f32_mve(arm_iir_instance_f32 * S, uint16_t order,
-                          const float32_t * pNumCoef, const float32_t * pDenCoef,
-                          float32_t * pNumState, float32_t * pDenState, float32_t * pModCoef,
-                          uint32_t blockSize)
+void arm_iir_init_q31_mve(arm_iir_instance_q31 * S, uint16_t order,
+                          const q31_t * pNumCoef, const q31_t * pDenCoef,
+                          q31_t * pNumState, q31_t * pDenState, q31_t * pModCoef,
+                          uint32_t blockSize, int8_t postShift)
 {
-    // Store filter config
     S->order = order;
     S->pNumState = pNumState;
     S->pDenState = pDenState;
+    S->postShift = postShift;
 
     /* Reorganize coef for vector processing */
     /* pad with 0 if not size if noy aligned with vector size */
@@ -97,10 +99,12 @@ void arm_iir_init_f32_mve(arm_iir_instance_f32 * S, uint16_t order,
 
     S->pDenCoef = pModCoef;
     for (int i = 0; i < order; i++)
-        pModCoef[i] = pDenCoef[order - 1 - i];
+        /* negate */
+        pModCoef[i] = __QSUB(0, pDenCoef[order - 1 - i]);
+//        pModCoef[i] = pDenCoef[order - 1 - i];
 
-    memset(pNumState, 0, (blockSize + order) * sizeof(float32_t));
-    memset(pDenState, 0, (blockSize + order - 1) * sizeof(float32_t));
+    memset(pNumState, 0, (blockSize + order) * sizeof(q31_t));
+    memset(pDenState, 0, (blockSize + order - 1) * sizeof(q31_t));
 
 }
 
