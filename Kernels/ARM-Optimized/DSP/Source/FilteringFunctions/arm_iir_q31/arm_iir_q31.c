@@ -550,9 +550,8 @@ void arm_iir12_q31_mve(const arm_iir_instance_q31 * S, const q31_t * pSrc, q31_t
          [lastNumC] "r" (lastNumCoef), [order] "r" (order),
          [shift] "r" (-(1+pShift))
         :"q0", "q1", "q2", "q3",
-         "q5", "q6",
+         "q4", "q5", "q6", "q7",
          "memory");
-
 
 #else                           /* MVE intrinsics */
 
@@ -632,7 +631,6 @@ void arm_iir12_q31_mve(const arm_iir_instance_q31 * S, const q31_t * pSrc, q31_t
 
 
 
-
 /**
  * @brief Nth order Q.31 IIR MVE version.
  * @param[in,out] S             points to an instance of the Q.31 IIR structure.
@@ -701,8 +699,19 @@ void arm_iir_q31_mve(const arm_iir_instance_q31 * S, const q31_t * pSrc, q31_t *
     q31_t      *bck = &(S->pDenState[1]);
     q63_t       sum;
 
-#if 0 //def USE_ASM
-    /* to be completed */
+#ifdef USE_ASM
+
+    /* scratch area to minimize nb of registers to be passed to the inline asm block */
+    int32_t     scratch[4];
+
+    scratch[0] = order;
+    /* history pointer rewind offset */
+    scratch[1] = ((order-1)*sizeof(q31_t));
+    /* coef pointer rewind offset */
+    scratch[2] = ((order-8)*sizeof(q31_t));
+    /* scale */
+    scratch[3] =  (-(1+pShift));
+
     __asm volatile  (
         /* Preload 8x2 coefficients */
         "   vldrw.32        q2, [%[coef_fwd]], #16                              \n"
@@ -711,6 +720,10 @@ void arm_iir_q31_mve(const arm_iir_instance_q31 * S, const q31_t * pSrc, q31_t *
         "   vldrw.32        q5, [%[coef_bck]], #16                              \n"
         "   vldrw.32        q6, [%[coef_bck]], #16                              \n"
 
+        /* load fwd[order] */
+        "   ldr             r0, [%[scratch], #0]                                \n"
+        "   ldr             %Q[sum], [%[input_hist], r0, lsl #2]                \n"
+
 
         ".p2align 2                                                             \n"
         "iir_loop_%=:                                                           \n"
@@ -718,14 +731,14 @@ void arm_iir_q31_mve(const arm_iir_instance_q31 * S, const q31_t * pSrc, q31_t *
         "   smull           %Q[sum], %R[sum], %Q[sum], %[lastNumC]              \n"
 
         "   vldrw.u32       q0, [%[input_hist]], #16                            \n"
-        "   vmlalva.s32     %Q[sum], %R[sum], q0, q2                            \n"
+        "   vmlaldava.s32   %Q[sum], %R[sum], q0, q2                            \n"
         "   vldrw.u32       q0, [%[input_hist]], #16                            \n"
-        "   vmlalva.s32     %Q[sum], %R[sum], q0, q3                            \n"
+        "   vmlaldava.s32   %Q[sum], %R[sum], q0, q3                            \n"
 
         "   vldrw.u32       q0, [%[output_hist]], #16                           \n"
-        "   vmlalva.s32     %Q[sum], %R[sum], q0, q5                            \n"
+        "   vmlaldava.s32   %Q[sum], %R[sum], q0, q5                            \n"
         "   vldrw.u32       q0, [%[output_hist]], #16                           \n"
-        "   vmlalva.s32     %Q[sum], %R[sum], q0, q6                            \n"
+        "   vmlaldava.s32   %Q[sum], %R[sum], q0, q6                            \n"
 
         /* num/den coefs >= 8 */
         "   wls             lr, %[loop_cnt], 1f                                 \n"
@@ -733,41 +746,51 @@ void arm_iir_q31_mve(const arm_iir_instance_q31 * S, const q31_t * pSrc, q31_t *
 
         "   vldrw.u32       q0, [%[input_hist]], #16                            \n"
         "   vldrw.32        q4, [%[coef_fwd]], #16                              \n"
-        "   vmlalva.s32     %Q[sum], %R[sum], , q0, q4                          \n"
+        "   vmlaldava.s32   %Q[sum], %R[sum], q0, q4                            \n"
         "   vldrw.u32       q0, [%[output_hist]], #16                           \n"
         "   vldrw.32        q4, [%[coef_bck]], #16                              \n"
-        "   vmlalva.s32     %Q[sum], %R[sum], q0, q4                            \n"
+        "   vmlaldava.s32   %Q[sum], %R[sum], q0, q4                            \n"
         "   le              lr, 2b                                              \n"
         "1:                                                                     \n"
 
 
-
+        /* reload scale */
+        "   ldr             r0, [%[scratch], #(3*4)]                            \n"
         /* scale output and extract high part */
-        "   sqrshrl         %Q[sum], %R[sum], #64, %[shift]                     \n"
-        "   ldr             %Q[sum], [%[input_hist], %[order], lsl #2]          \n"
+        "   sqrshrl         %Q[sum], %R[sum], #64, r0                           \n"
+
+        /*  history pointer rewind offset */
+        "   ldr             r0, [%[scratch], #(1*4)]                            \n"
 
         /* populate destination and output history */
         "   str             %R[sum], [%[pDst]], #4                              \n"
         "   str             %R[sum], [%[pResult]], #4                           \n"
 
         /* rewind coef and history pointers */
-        "   sub             %[input_hist], %[rew_hist]                          \n"
-        "   sub             %[output_hist], %[rew_hist]                         \n"
-        "   sub             %[coef_fwd], %[rew_coef]                            \n"
-        "   sub             %[coef_bck], %[rew_coef]                            \n"
+        "   sub             %[input_hist], r0                                   \n"
+        "   sub             %[output_hist], r0                                  \n"
+
+        /* reload order */
+        "   ldr             r0, [%[scratch], #0]                                \n"
+        "   ldr             %Q[sum], [%[input_hist], r0, lsl #2]                \n"
+
+        /* reload coef pointer rewind offset */
+        "   ldr             r0, [%[scratch], #(2*4)]                            \n"
+        "   sub             %[coef_fwd], r0                                     \n"
+        "   sub             %[coef_bck], r0                                     \n"
 
         "   subs            %[sample_cnt], %[sample_cnt], #1                    \n"
         "   bne             iir_loop_%=                                         \n"
 
         : [input_hist] "+r"(fwd),[output_hist] "+r"(bck),
           [sample_cnt] "+r"(blockSize),[pDst] "+r"(pTmpDst),
-          [pResult] "+r"(pResult)
+          [pResult] "+r"(pResult),
+          [sum] "=&r"(sum)
         :[coef_fwd] "r" (pNumCoef),[coef_bck] "r"(pDenCoef),
           [loop_cnt] "r" (((order + 3) / 4) - 2),
-          [rew_hist] "r" ((order-1)*sizeof(q31_t)),
-          [rew_coef] "r" ((order-8)*sizeof(q31_t))
+          [lastNumC] "r" (lastNumCoef), [scratch] "r" (scratch)
         :"q0", "q1", "q2", "q3",
-         "q4", "q5", "q6",
+         "q4", "q5", "q6", "r0",
          "r14", "memory", "cc");
 
 #else                           /* MVE intrinsics */
