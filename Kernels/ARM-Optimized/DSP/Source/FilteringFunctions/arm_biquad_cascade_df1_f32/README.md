@@ -8,7 +8,9 @@
 
 Single-precision DF1 Biquad processing function
 
-This version allows boosting F32 DF1 Biquad performance when using compilers having suboptimal Helium intrinsic code generation and can be sustitued to CMSIS DSP intrinsic variant.
+- This version allows boosting F32 DF1 Biquad performance when using compilers having suboptimal Helium intrinsic code generation and can be sustitued to CMSIS DSP intrinsic variant.
+- It also provide efficient Neon Implementations
+- Helium and Neon functions have respectively _mve and _neon prefix
 
 [see API details](https://www.keil.com/pack/doc/CMSIS/DSP/html/group__BiquadCascadeDF1.html)
 

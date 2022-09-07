@@ -487,6 +487,485 @@ void arm_biquad_cascade_df1_f32_mve(
 #endif
 }
 
+
+#else
+#if defined(ARM_MATH_NEON)  && !defined(ARM_MATH_AUTOVECTORIZE)
+
+#ifndef USE_ASM
+
+void arm_biquad_cascade_df1_f32_neon(const arm_biquad_casd_df1_inst_f32 * S,
+                                     const float32_t * pSrc, float32_t * pDst,
+                                     uint32_t blockSize)
+{
+    const float32_t *pIn = pSrc;            /*  source pointer            */
+    float32_t      *pOut = pDst;            /*  destination pointer       */
+    float32_t      *pState = S->pState;     /*  pState pointer            */
+    const float32_t *pCoeffs = S->pCoeffs;  /*  coefficient pointer       */
+    float32_t       Xn1, Xn2, Yn1, Yn2;     /*  Filter pState variables   */
+    float32_t       lastX, lastY;           /*  X,Y history for tail handling */
+    float32_t       X0, X1, X2, X3;         /*  temporary input           */
+    uint32_t        sample, stage;          /*  loop counters             */
+
+    stage = S->numStages;
+    do {
+
+        f32x4_t         x0Vec, x1Vec;
+        f32x4_t         accSumVec, accVec0, accVec1, accVec2, accVec3;
+        f32x4_t         coeffs[8];
+
+        /*
+         * Reading the pState values
+         */
+        x0Vec[3] = pState[0];           // Xn1
+        x0Vec[2] = pState[1];           // Xn2
+        accSumVec[3] = pState[2];       // Yn1
+        accSumVec[2] = pState[3];       // Yn2
+
+        /* save last input before being corrupted when running in-place */
+        Xn1 = pIn[blockSize - 1];
+        Xn2 = pIn[blockSize - 2];
+
+        sample = blockSize >> 3U;
+
+        for (int i = 0; i < 8; i++)
+            coeffs[i] = vld1q_f32(&pCoeffs[4 * i]);
+
+        /*
+         * First part of the processing
+         * Compute 8 outputs at a time.
+         * SW design is motivated by vector MAC latency constraint
+         * It allows partial interleaving of 2 x 4 elements vectors
+         * allowing to add space between 2 depending MAC operations
+         */
+        while (sample > 0U) {
+
+            /*
+             * load next 4 inputs
+             */
+            x1Vec = vld1q_f32(pIn);
+            pIn += 4;
+
+            /* split processing using 2 accumulators */
+            /* to absorb MAC latency (Core specific) */
+            accVec0 = vmulq_n_f32(coeffs[0], x1Vec[3]);
+            accVec0 = vfmaq_n_f32(accVec0, coeffs[1], x1Vec[2]);
+            accVec0 = vfmaq_n_f32(accVec0, coeffs[4], x0Vec[3]);
+            accVec0 = vfmaq_n_f32(accVec0, coeffs[5], x0Vec[2]);
+
+            accVec1 = vmulq_n_f32(coeffs[2], x1Vec[1]);
+            accVec1 = vfmaq_n_f32(accVec1, coeffs[3], x1Vec[0]);
+            accVec1 = vfmaq_n_f32(accVec1, coeffs[6], accSumVec[3]);
+            accVec1 = vfmaq_n_f32(accVec1, coeffs[7], accSumVec[2]);
+
+            accSumVec = vaddq_f32(accVec0, accVec1);
+            vst1q_f32(pOut, accSumVec);
+            pOut += 4;
+
+
+            /*
+             * load next 4 inputs
+             */
+            x0Vec = vld1q_f32(pIn);
+            pIn += 4;
+
+            /* same process as before, X vectors are toggled */
+            accVec2 = vmulq_n_f32(coeffs[0], x0Vec[3]);
+            accVec2 = vfmaq_n_f32(accVec2, coeffs[1], x0Vec[2]);
+            accVec2 = vfmaq_n_f32(accVec2, coeffs[4], x1Vec[3]);
+            accVec2 = vfmaq_n_f32(accVec2, coeffs[5], x1Vec[2]);
+
+            accVec3 = vmulq_n_f32(coeffs[2], x0Vec[1]);
+            accVec3 = vfmaq_n_f32(accVec3, coeffs[3], x0Vec[0]);
+            accVec3 = vfmaq_n_f32(accVec3, coeffs[6], accSumVec[3]);
+            accVec3 = vfmaq_n_f32(accVec3, coeffs[7], accSumVec[2]);
+
+            accSumVec = vaddq_f32(accVec2, accVec3);
+            vst1q_f32(pOut, accSumVec);
+            pOut += 4;
+
+            /*
+             * decrement the loop counter
+             */
+            sample--;
+        }
+
+        Yn1 = accSumVec[3];
+        Yn2 = accSumVec[2];
+
+
+        /*
+         * If the blockSize is not a multiple of 8,
+         * compute any remaining output samples here.
+         */
+        sample = blockSize & 0x7U;
+        if (sample > 4) {
+
+            x1Vec = vld1q_f32(pIn);
+            pIn += 4;
+
+            accVec0 = vmulq_n_f32(coeffs[0], x1Vec[3]);
+            accVec0 = vfmaq_n_f32(accVec0, coeffs[1], x1Vec[2]);
+            accVec0 = vfmaq_n_f32(accVec0, coeffs[4], x0Vec[3]);
+            accVec0 = vfmaq_n_f32(accVec0, coeffs[5], x0Vec[2]);
+
+            accVec1 = vmulq_n_f32(coeffs[2], x1Vec[1]);
+            accVec1 = vfmaq_n_f32(accVec1, coeffs[3], x1Vec[0]);
+            accVec1 = vfmaq_n_f32(accVec1, coeffs[6], accSumVec[3]);
+            accVec1 = vfmaq_n_f32(accVec1, coeffs[7], accSumVec[2]);
+
+            accSumVec = vaddq_f32(accVec0, accVec1);
+            lastY = vgetq_lane_f32(accSumVec, 3);
+            vst1q_f32(pOut, accSumVec);
+            pOut += 4;
+
+
+            x0Vec = vld1q_f32(pIn);
+            pIn += 4;
+
+            accVec2 = vmulq_n_f32(coeffs[0], x0Vec[3]);
+            accVec2 = vfmaq_n_f32(accVec2, coeffs[1], x0Vec[2]);
+            accVec2 = vfmaq_n_f32(accVec2, coeffs[4], x1Vec[3]);
+            accVec2 = vfmaq_n_f32(accVec2, coeffs[5], x1Vec[2]);
+
+            accVec3 = vmulq_n_f32(coeffs[2], x0Vec[1]);
+            accVec3 = vfmaq_n_f32(accVec3, coeffs[3], x0Vec[0]);
+            accVec3 = vfmaq_n_f32(accVec3, coeffs[6], accSumVec[3]);
+            accVec3 = vfmaq_n_f32(accVec3, coeffs[7], accSumVec[2]);
+
+            accSumVec = vaddq_f32(accVec2, accVec3);
+
+            if (sample == 5) {
+                *pOut++ = vgetq_lane_f32(accSumVec, 0);
+                Yn1 = vgetq_lane_f32(accSumVec, 0);
+                Yn2 = lastY;
+            } else if (sample == 6) {
+                *pOut++ = vgetq_lane_f32(accSumVec, 0);
+                *pOut++ = vgetq_lane_f32(accSumVec, 1);
+                Yn1 = vgetq_lane_f32(accSumVec, 1);
+                Yn2 = vgetq_lane_f32(accSumVec, 0);
+            } else {
+                *pOut++ = vgetq_lane_f32(accSumVec, 0);
+                *pOut++ = vgetq_lane_f32(accSumVec, 1);
+                *pOut++ = vgetq_lane_f32(accSumVec, 2);
+                Yn1 = vgetq_lane_f32(accSumVec, 2);
+                Yn2 = vgetq_lane_f32(accSumVec, 1);
+            }
+        } else if (sample > 0) {
+
+            x1Vec = vld1q_f32(pIn);
+            pIn += 4;
+
+            accVec0 = vmulq_n_f32(coeffs[0], x1Vec[3]);
+            accVec0 = vfmaq_n_f32(accVec0, coeffs[1], x1Vec[2]);
+            accVec0 = vfmaq_n_f32(accVec0, coeffs[4], x0Vec[3]);
+            accVec0 = vfmaq_n_f32(accVec0, coeffs[5], x0Vec[2]);
+
+            accVec1 = vmulq_n_f32(coeffs[2], x1Vec[1]);
+            accVec1 = vfmaq_n_f32(accVec1, coeffs[3], x1Vec[0]);
+            accVec1 = vfmaq_n_f32(accVec1, coeffs[6], accSumVec[3]);
+            accVec1 = vfmaq_n_f32(accVec1, coeffs[7], accSumVec[2]);
+
+            accSumVec = vaddq_f32(accVec0, accVec1);
+            lastY = vgetq_lane_f32(accSumVec, 3);
+
+            if (sample == 1) {
+                *pOut++ = vgetq_lane_f32(accSumVec, 0);
+                Yn2 = Yn1;
+                Yn1 = vgetq_lane_f32(accSumVec, 0);
+            } else if (sample == 2) {
+                *pOut++ = vgetq_lane_f32(accSumVec, 0);
+                *pOut++ = vgetq_lane_f32(accSumVec, 1);
+                Yn1 = vgetq_lane_f32(accSumVec, 1);
+                Yn2 = vgetq_lane_f32(accSumVec, 0);
+            } else if (sample == 3) {
+                *pOut++ = vgetq_lane_f32(accSumVec, 0);
+                *pOut++ = vgetq_lane_f32(accSumVec, 1);
+                *pOut++ = vgetq_lane_f32(accSumVec, 2);
+                Yn1 = vgetq_lane_f32(accSumVec, 2);
+                Yn2 = vgetq_lane_f32(accSumVec, 1);
+            } else if (sample == 4) {
+                vst1q_f32(pOut, accSumVec);
+                Yn1 = vgetq_lane_f32(accSumVec, 3);
+                Yn2 = vgetq_lane_f32(accSumVec, 2);
+            }
+        }
+
+        /*
+         * Store the updated state variables back into the pState array
+         */
+        *pState++ = Xn1;
+        *pState++ = Xn2;
+        *pState++ = Yn1;
+        *pState++ = Yn2;
+
+
+        pCoeffs += sizeof(arm_biquad_mod_coef_f32) / sizeof(float32_t);
+        /*
+         * The first stage goes from the input buffer to the output buffer.
+         * Subsequent numStages  occur in-place in the output buffer
+         */
+        pIn = pDst;
+        /*
+         * Reset the output pointer
+         */
+        pOut = pDst;
+        /*
+         * decrement the loop counter
+         */
+        stage--;
+    }
+    while (stage > 0U);
+}
+
+#else   // USE_ASM
+
+#ifdef __aarch64__
+
+#else  // __aarch64__
+
+void arm_biquad_cascade_df1_f32_neon(const arm_biquad_casd_df1_inst_f32 * S,
+                                     const float32_t * pSrc, float32_t * pDst, uint32_t blockSize)
+{
+    const float32_t *pIn = pSrc;            /*  source pointer            */
+    float32_t      *pOut = pDst;            /*  destination pointer       */
+    float32_t      *pState = S->pState;     /*  pState pointer            */
+    const float32_t *pCoeffs = S->pCoeffs;  /*  coefficient pointer       */
+    float32_t       Xn1, Xn2, Yn1, Yn2;     /*  Filter pState variables   */
+    float32_t       lastX, lastY;           /*  X,Y history for tail handling */
+    float32_t       X0, X1, X2, X3;         /*  temporary input           */
+    f32x4_t         coeffs[8];
+    f32x4_t         accVec;                 /* accumulator vector */
+    uint32_t        sample, stage = S->numStages;     /*  loop counters             */
+    uint32_t        tail = blockSize & 0x7U;
+
+
+    do {
+        /* main loop produces blocks of 8 samples */
+
+        sample = blockSize >> 3U;
+        const float32_t *pCoeffsCur =  pCoeffs;
+
+        /* save last input before being corrupted when running in-place */
+        Xn1 = pIn[blockSize - 1];
+        Xn2 = pIn[blockSize - 2];
+
+    __asm volatile (
+            ".p2align 2                                           \n"
+            /* restore state */
+            "   vld1.64         {d0,d1},[%[pState]]               \n"
+            "   vrev64.32       d5, d0                            \n"
+            "   vrev64.32       d7, d1                            \n"
+
+
+            /* load 8 vector coefs in Q4-Q11*/
+            "   vld1.64         {q4}, [%[pCoeffsCur]:128]!        \n"
+            "   vld1.64         {q5}, [%[pCoeffsCur]:128]!        \n"
+            "   vld1.64         {q6}, [%[pCoeffsCur]:128]!        \n"
+            "   vld1.64         {q7}, [%[pCoeffsCur]:128]!        \n"
+            "   vld1.64         {q8}, [%[pCoeffsCur]:128]!        \n"
+            "   vld1.64         {q9}, [%[pCoeffsCur]:128]!        \n"
+            "   vld1.64         {q10},[%[pCoeffsCur]:128]!        \n"
+            "   vld1.64         {q11},[%[pCoeffsCur]:128]!        \n"
+
+            /* preloading + precomputing for efficient pipelining */
+            "   vld1.64         {d0,d1},[%[pIn]:128]!             \n"
+            "   vmul.f32        q14, q8, d5[1]                    \n"
+            "   vmla.f32        q14, q9, d5[0]                    \n"
+            "   vld1.64         {d4,d5},[%[pIn]:128]!             \n"
+            "   vmul.f32        q15,q5,d1[0]                      \n"
+            "   vmla.f32        q15,q7,d0[0]                      \n"
+            "   vmul.f32        q12,q8,d1[1]                      \n"
+            "   vmla.f32        q12,q9,d1[0]                      \n"
+
+            /* Core loop
+             * Compute 8 outputs at a time.
+             * SW design is motivated by vector MAC latency constraint
+             * It allows partial interleaving of 2 x 4 elements vectors
+             * allowing to add space between 2 depending MAC operations
+             * 1st half is doing partial accumulation in Q14-Q15
+             * 2nd half is doing partial accumulation in Q12-Q13
+             */
+            "1:                                                   \n"
+            "   vmla.f32        q14,q4,d1[1]                      \n"
+            "   vmla.f32        q15,q10,d7[1]                     \n"
+            "   vmul.f32        q13,q4,d5[1]                      \n"
+            "   vmla.f32        q13,q5,d5[0]                      \n"
+            "   vmla.f32        q14,q6,d0[1]                      \n"
+            "   vmla.f32        q15,q11,d7[0]                     \n"
+
+            "   vld1.64         {d0,d1},[%[pIn]:128]!             \n"
+            "   vmla.f32        q12,q6,d4[1]                      \n"
+            "   vmla.f32        q13,q7,d4[0]                      \n"
+            /* sum partial 1st half partial accumulators */
+            "   vadd.f32        q3,q14,q15                        \n"
+
+            /* decrement loop counter */
+            "   subs            %[sample],#1                      \n"
+            "   vmul.f32        q14,q8,d5[1]                      \n"
+            "   vmla.f32        q14,q9,d5[0]                      \n"
+            "   vmla.f32        q12,q10,d7[1]                     \n"
+            "   vmla.f32        q13,q11,d7[0]                     \n"
+            "   vmul.f32        q15,q7,d0[0]                      \n"
+            "   vst1.64         {d6,d7},[%[pOut]:128]!            \n"
+            "   vld1.64         {d4,d5},[%[pIn]:128]!             \n"
+            "   vmla.f32        q15,q5,d1[0]                      \n"
+            /* sum partial 2nd half partial accumulators */
+            "   vadd.f32        q3,q12,q13                        \n"
+            "   vmul.f32        q12,q8,d1[1]                      \n"
+            "   vmla.f32        q12,q9,d1[0]                      \n"
+            "   vst1.64         {d6,d7},[%[pOut]:128]!            \n"
+            "   bgt             1b                                \n"
+
+
+            /*
+             * If the blockSize is not a multiple of 8,
+             * compute any remaining output samples here.
+             */
+            "   cmp             %[tail], #5                       \n"
+            "   blo             tail_le4%=                        \n"
+
+
+            /* tail bigger than 4 */
+            "   vmla.f32        q14,q4,d1[1]                      \n"
+            "   vmla.f32        q15,q10,d7[1]                     \n"
+            "   vmul.f32        q13,q4,d5[1]                      \n"
+            "   vmla.f32        q13,q5,d5[0]                      \n"
+            "   vmla.f32        q14,q6,d0[1]                      \n"
+            "   vmla.f32        q15,q11,d7[0]                     \n"
+            "   vld1.64         {d0,d1},[%[pIn]:128]!             \n"
+            "   vmla.f32        q12,q6,d4[1]                      \n"
+            "   vmla.f32        q13,q7,d4[0]                      \n"
+            /* sum partial 1st half partial accumulators */
+            "   vadd.f32        q3,q14,q15                        \n"
+            "   vmla.f32        q12,q10,d7[1]                     \n"
+            "   vmla.f32        q13,q11,d7[0]                     \n"
+            "   vst1.64         {d6,d7},[%[pOut]:128]!            \n"
+            /* save Yn2 for state*/
+            "   vmov            d2, d7                            \n"
+            /* sum partial 2nd half partial accumulators */
+            "   vadd.f32        q3,q12,q13                        \n"
+
+
+            "   cmp             %[tail], #5                       \n"
+            "   beq             5f                                \n"
+            "   cmp             %[tail], #6                       \n"
+            "   beq             6f                                \n"
+
+            /* save remaining samples + state for different residuals */
+            "7:                                                   \n"
+            "   vst1.64         d6, [%[pOut]]!                    \n"
+            "   vst1.32         d7[0], [%[pOut]]                  \n"
+            "   vstr            s14,[%[pState], #(2*4)]           \n"
+            "   vstr            s13,[%[pState], #(3*4)]           \n"
+            "   b               cont%=                            \n"
+
+            "5:                                                   \n"
+            "   vst1.32         d6[0], [%[pOut]:32]               \n"
+            "   vstr            s5,[%[pState], #(3*4)]            \n"
+            "   vstr            s12,[%[pState], #(2*4)]           \n"
+            "   b               cont%=                            \n"
+
+            "6:                                                   \n"
+            "   vrev64.32       d0, d6                            \n"
+            "   vstr            d0,[%[pState], #(2*4)]            \n"
+            "   vst1.64         d6, [%[pOut]]                     \n"
+            "   b               cont%=                            \n"
+
+
+            /* tail lower or equal than 4 */
+            "tail_le4%=:                                          \n"
+            "   cmp.w           %[tail], #0                       \n"
+            /* exact multiple of 8 */
+            "   beq             tail_0%=                          \n"
+
+            /* save Yn2 */
+            "   vmov            d2, d7                            \n"
+            "   vmla.f32        q14,q4,d1[1]                      \n"
+            "   vmla.f32        q15,q10,d7[1]                     \n"
+            "   vmla.f32        q14,q6,d0[1]                      \n"
+            "   vmla.f32        q15,q11,d7[0]                     \n"
+            /* sum partial 1st half partial accumulators */
+            "   vadd.f32        q3,q14,q15                        \n"
+
+            "   cmp             %[tail], #1                       \n"
+            "   beq             1f                                \n"
+            "   cmp             %[tail], #2                       \n"
+            "   beq             2f                                \n"
+            "   cmp             %[tail], #3                       \n"
+            "   beq             3f                                \n"
+
+            /* save remaining samples + state for different residuals */
+            "4:                                                   \n"
+            "   vst1.64         {d6,d7},[%[pOut]:128]!            \n"
+            "   vrev64.32       d0, d7                            \n"
+            "   vstr            d0,[%[pState], #(2*4)]            \n"
+            "   b               cont%=                            \n"
+
+            "1:                                                   \n"
+            "   vst1.32         d6[0], [%[pOut]:32]               \n"
+            "   vstr            s5,[%[pState], #(3*4)]            \n"
+            "   vstr            s12,[%[pState], #(2*4)]           \n"
+            "   b               cont%=                            \n"
+
+            "2:                                                   \n"
+            "   vrev64.32       d0, d6                            \n"
+            "   vstr            d0,[%[pState], #(2*4)]            \n"
+            "   vst1.64         d6, [%[pOut]]                     \n"
+            "   b               cont%=                            \n"
+
+            "3:                                                   \n"
+            "   vst1.64         d6, [%[pOut]]!                    \n"
+            "   vst1.32         d7[0], [%[pOut]]                  \n"
+            "   vstr            s14,[%[pState], #(2*4)]           \n"
+            "   vstr            s13,[%[pState], #(3*4)]           \n"
+            "   b               cont%=                            \n"
+
+
+            "tail_0%=:                                            \n"
+            "   vrev64.32       d6, d7                            \n"
+            "   vstr            d6,[%[pState], #(2*4)]            \n"
+
+            /* save last inputs + increment state pointer */
+            "cont%=:                                              \n"
+            "   strd            %[Xn1], %[Xn2], [%[pState]], #16  \n"
+
+        : [sample] "+r" (sample), [pCoeffsCur] "+r" (pCoeffsCur),
+          [pIn] "+r" (pIn), [pOut] "+r" (pOut),
+          [pState] "+r" (pState)
+        : [Xn1] "r" (Xn1), [Xn2] "r" (Xn2), [tail] "r" (tail)
+        : "q0","d2","q2","q3",
+          "q4","q5","q6","q7",
+          "q8","q9","q10","q11",
+          "q12","q13","q14","q15",
+          "cc", "memory"
+        );
+
+
+        pCoeffs += sizeof(arm_biquad_mod_coef_f32) / sizeof(float32_t);
+        /*
+         * The first stage goes from the input buffer to the output buffer.
+         * Subsequent numStages  occur in-place in the output buffer
+         */
+        pIn = pDst;
+        /*
+         * Reset the output pointer
+         */
+        pOut = pDst;
+        /*
+         * decrement the loop counter
+         */
+        stage--;
+    }
+    while (stage > 0U);
+}
+
+
+#endif // __aarch64__
+
+#endif
+
+#endif // ARM_MATH_NEON
+
 #endif
 /**
   @} end of BiquadCascadeDF1 group
