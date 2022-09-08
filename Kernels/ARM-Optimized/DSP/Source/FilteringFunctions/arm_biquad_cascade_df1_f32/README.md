@@ -16,9 +16,37 @@ Single-precision DF1 Biquad processing function
 
 ## BUILD
 
- - GCC 10.3-2021.10 example
+GCC 10.3-2021.10 examples (ASM enabled)
+  - Cortex-m55 with MVE
 
 ```cpp
  arm-none-eabi-gcc -DUSE_ASM -mcpu=cortex-m55 -O3 -mfloat-abi=hard -flax-vector-conversions -c arm_biquad_cascade_df1_f32.c -o arm_biquad_cascade_df1_f32.o -I$(CMSIS5ROOT)/CMSIS/DSP/PrivateInclude/ -I $(CMSIS5ROOT)/CMSIS/DSP/Include/ -I $(CMSIS5ROOT)/CMSIS/Core/Include/
  ```
+
+   - Cortex-A53 with aarch64
+
+```cpp
+ aarch64-none-elf-gcc -DARM_MATH_NEON -DUSE_ASM  -Ofast -I -I$(CMSIS5ROOT)/CMSIS/DSP/PrivateInclude/ -I $(CMSIS5ROOT)/CMSIS/DSP/Include/ -I $(CMSIS5ROOT)/CMSIS/Core/Include -mcpu=cortex-a53   -c arm_biquad_cascade_df1_f32.c
+ ```
+
+   - Cortex-A53 with aarch32
+
+```cpp
+ arm-none-eabi-gcc -DARM_MATH_NEON -DUSE_ASM  -Ofast -I$(CMSIS5ROOT)/CMSIS/DSP/PrivateInclude/ -I $(CMSIS5ROOT)/CMSIS/DSP/Include/ -I $(CMSIS5ROOT)/CMSIS/Core/Include -mcpu=cortex-a53 -mfloat-abi=hard  -c arm_biquad_cascade_df1_f32.c
+ ```
+
+Arm Compiler examples (Intrinsics)
+
+   - Cortex-A53 with aarch64
+
+```cpp
+armclang -DARM_MATH_NEON  -g -Ofast -I -I$(CMSIS5ROOT)/CMSIS/DSP/PrivateInclude/ -I $(CMSIS5ROOT)/CMSIS/DSP/Include/ -I $(CMSIS5ROOT)/CMSIS/Core/Include --target=aarch64-arm-none-eabi  -c arm_biquad_cascade_df1_f32.c
+ ```
+
+   - Cortex-A53 with aarch32
+
+```cpp
+armclang -DARM_MATH_NEON  -g -Ofast -I -I$(CMSIS5ROOT)/CMSIS/DSP/PrivateInclude/ -I $(CMSIS5ROOT)/CMSIS/DSP/Include/ -I $(CMSIS5ROOT)/CMSIS/Core/Include --target=arm-arm-none-eabi  -c arm_biquad_cascade_df1_f32.c
+ ```
+
 

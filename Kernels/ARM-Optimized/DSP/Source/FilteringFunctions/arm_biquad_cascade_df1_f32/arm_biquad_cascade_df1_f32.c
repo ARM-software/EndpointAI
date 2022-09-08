@@ -491,6 +491,9 @@ void arm_biquad_cascade_df1_f32_mve(
 #else
 #if defined(ARM_MATH_NEON)  && !defined(ARM_MATH_AUTOVECTORIZE)
 
+#include <arm_neon.h>
+#include "arm_biquad_cascade_df1_f32.h"
+
 #ifndef USE_ASM
 
 void arm_biquad_cascade_df1_f32_neon(const arm_biquad_casd_df1_inst_f32 * S,
@@ -719,24 +722,21 @@ void arm_biquad_cascade_df1_f32_neon(const arm_biquad_casd_df1_inst_f32 * S,
 
 #else   // USE_ASM
 
-#ifdef __aarch64__
-
-#else  // __aarch64__
 
 void arm_biquad_cascade_df1_f32_neon(const arm_biquad_casd_df1_inst_f32 * S,
                                      const float32_t * pSrc, float32_t * pDst, uint32_t blockSize)
 {
-    const float32_t *pIn = pSrc;            /*  source pointer            */
-    float32_t      *pOut = pDst;            /*  destination pointer       */
-    float32_t      *pState = S->pState;     /*  pState pointer            */
-    const float32_t *pCoeffs = S->pCoeffs;  /*  coefficient pointer       */
-    float32_t       Xn1, Xn2, Yn1, Yn2;     /*  Filter pState variables   */
-    float32_t       lastX, lastY;           /*  X,Y history for tail handling */
-    float32_t       X0, X1, X2, X3;         /*  temporary input           */
+    const float32_t *pIn = pSrc;        /*  source pointer            */
+    float32_t      *pOut = pDst;        /*  destination pointer       */
+    float32_t      *pState = S->pState; /*  pState pointer            */
+    const float32_t *pCoeffs = S->pCoeffs;      /*  coefficient pointer       */
+    float32_t       Xn1, Xn2, Yn1, Yn2; /*  Filter pState variables   */
+    float32_t       lastX, lastY;       /*  X,Y history for tail handling */
+    float32_t       X0, X1, X2, X3;     /*  temporary input           */
     f32x4_t         coeffs[8];
-    f32x4_t         accVec;                 /* accumulator vector */
-    uint32_t        sample, stage = S->numStages;     /*  loop counters             */
-    uint32_t        tail = blockSize & 0x7U;
+    f32x4_t         accVec;             /* accumulator vector */
+    uint32_t        sample, stage = S->numStages;       /*  loop counters             */
+    uint32_t tail = blockSize & 0x7U;
 
 
     do {
@@ -749,7 +749,213 @@ void arm_biquad_cascade_df1_f32_neon(const arm_biquad_casd_df1_inst_f32 * S,
         Xn1 = pIn[blockSize - 1];
         Xn2 = pIn[blockSize - 2];
 
-    __asm volatile (
+#ifdef __aarch64__
+        __asm volatile (
+            ".p2align 2                                           \n"
+
+            /* restore state */
+
+            /* Xn1 */
+            "   ld1             { v2.s }[3], [%[pState]], #4      \n"
+            /* Xn2 */
+            "   ld1             { v2.s }[2], [%[pState]], #4      \n"
+
+            /* Yn1 */
+            "   ld1             { v3.s }[3], [%[pState]], #4      \n"
+            /* Yn2 */
+            "   ld1             { v3.s }[2], [%[pState]]          \n"
+            "   sub             %[pState], %[pState], #12         \n"
+
+            /* load 8 vector coefs in V4-Q11*/
+            "   ld1             {v4.4s-v7.4s},[%[pCoeffsCur]],#64 \n"
+            "   ld1             {v8.4s-v11.4s},[%[pCoeffsCur]]    \n"
+
+            /* preloading + precomputing for efficient pipelining */
+            "   ld1             {v0.4s},[%[pIn]],#16              \n"
+
+            "   fmul            v14.4s,v8.4s,v2.s[3]              \n"
+            "   fmla            v14.4s,v9.4s,v2.s[2]              \n"
+
+            "   ld1             {v2.4s},[%[pIn]],#16              \n"
+
+            "   fmul            v15.4s,v5.4s,v0.s[2]              \n"
+            "   fmla            v15.4s,v7.4s,v0.s[0]              \n"
+            "   fmul            v12.4s,v8.4s,v0.s[3]              \n"
+            "   fmla            v12.4s,v9.4s,v0.s[2]              \n"
+
+
+            /* Core loop
+             * Compute 8 outputs at a time.
+             * SW design is motivated by vector MAC latency constraint
+             * It allows partial interleaving of 2 x 4 elements vectors
+             * allowing to add space between 2 depending MAC operations
+             * 1st half is doing partial accumulation in V14-V15
+             * 2nd half is doing partial accumulation in V12-V13
+             */
+            "1:                                                   \n"
+            "   fmla            v14.4s,v4.4s,v0.s[3]              \n"
+            "   fmla            v15.4s,v10.4s,v3.s[3]             \n"
+            "   fmul            v13.4s,v4.4s,v2.s[3]              \n"
+            "   fmla            v13.4s,v5.4s,v2.s[2]              \n"
+            "   fmla            v14.4s,v6.4s,v0.s[1]              \n"
+            "   fmla            v15.4s,v11.4s,v3.s[2]             \n"
+            "   ld1             {v0.4s},[%[pIn]],#16              \n"
+            "   fmla            v12.4s,v6.4s,v2.s[1]              \n"
+            "   fmla            v13.4s,v7.4s,v2.s[0]              \n"
+
+            /* sum partial 1st half partial accumulators */
+            "   fadd            v3.4s,v14.4s,v15.4s               \n"
+
+            /* decrement loop counter */
+            "   subs            %w[sample], %w[sample], #1        \n"
+
+            "   fmul            v14.4s,v8.4s,v2.s[3]              \n"
+            "   fmla            v14.4s,v9.4s,v2.s[2]              \n"
+            "   fmla            v12.4s,v10.4s,v3.s[3]             \n"
+            "   fmla            v13.4s,v11.4s,v3.s[2]             \n"
+            "   fmul            v15.4s,v7.4s,v0.s[0]              \n"
+            "   st1             {v3.4s},[%[pOut]],#16             \n"
+            "   ld1             {v2.4s},[%[pIn]],#16              \n"
+            "   fmla            v15.4s,v5.4s,v0.s[2]              \n"
+            /* sum partial 2nd half partial accumulators */
+            "   fadd            v3.4s,v12.4s,v13.4s               \n"
+            "   fmul            v12.4s,v8.4s,v0.s[3]              \n"
+            "   fmla            v12.4s,v9.4s,v0.s[2]              \n"
+            "   st1             {v3.4s},[%[pOut]],#16             \n"
+            "   bgt             1b                                \n"
+
+
+            /*
+             * If the blockSize is not a multiple of 8,
+             * compute any remaining output samples here.
+             */
+            "   add             %[pState], %[pState], #8         \n"
+
+            "   cmp             %w[tail], #5                     \n"
+            "   blo             tail_le4%=                       \n"
+
+
+            "   fmla            v14.4s,v4.4s,v0.s[3]             \n"
+            "   fmla            v15.4s,v10.4s,v3.s[3]            \n"
+            "   fmul            v13.4s,v4.4s,v2.s[3]             \n"
+            "   fmla            v13.4s,v5.4s,v2.s[2]             \n"
+            "   fmla            v14.4s,v6.4s,v0.s[1]             \n"
+            "   fmla            v15.4s,v11.4s,v3.s[2]            \n"
+            "   fmla            v12.4s,v6.4s,v2.s[1]             \n"
+            "   fmla            v13.4s,v7.4s,v2.s[0]             \n"
+
+            /* sum partial 1st half partial accumulators */
+            "   fadd            v3.4s,v14.4s,v15.4s              \n"
+
+            "   fmla            v12.4s,v10.4s,v3.s[3]            \n"
+            "   fmla            v13.4s,v11.4s,v3.s[2]            \n"
+            "   st1            {v3.4s},[%[pOut]],#16             \n"
+
+            /* save Yn2 for state*/
+            "   mov             v1.s[0], v3.s[3]                 \n"
+            /* sum partial 2nd half partial accumulators */
+            "   fadd            v3.4s,v12.4s,v13.4s              \n"
+
+
+            "   cmp             %w[tail], #5                     \n"
+            "   beq             5f                               \n"
+            "   cmp             %w[tail], #6                     \n"
+            "   beq             6f                               \n"
+
+            /* save remaining samples + state for different residuals */
+            "7:                                                  \n"
+            "   st1             {v3.2s},[%[pOut]],#8             \n"
+            "   st1             { v3.s }[2], [%[pOut]]           \n"
+            "   st1             { v3.s }[2], [%[pState]], #4     \n"
+            "   st1             { v3.s }[1], [%[pState]], #4     \n"
+            "   b               cont%=                           \n"
+
+            "5:                                                  \n"
+            "   st1             { v3.s }[0], [%[pOut]]           \n"
+            "   st1             { v3.s }[0], [%[pState]], #4     \n"
+            "   st1             { v1.s }[0], [%[pState]], #4     \n"
+            "   b               cont%=                           \n"
+
+            "6:                                                  \n"
+            "   st1             {v3.2s},[%[pOut]]                \n"
+            "   rev64           v3.2s, v3.2s                     \n"
+            "   st1             {v3.2s},[%[pState]], #8          \n"
+            "   b               cont%=                           \n"
+
+            /* tail lower or equal than 4 */
+            "tail_le4%=:                                         \n"
+            "   cmp             %w[tail], #0                     \n"
+            /* exact multiple of 8 */
+            "   beq             tail_0%=                         \n"
+
+            /* save Yn2 */
+            "   mov             v1.s[0], v3.s[3]                 \n"
+
+            "   fmla            v14.4s,v4.4s,v0.s[3]             \n"
+            "   fmla            v15.4s,v10.4s,v3.s[3]            \n"
+            "   fmla            v14.4s,v6.4s,v0.s[1]             \n"
+            "   fmla            v15.4s,v11.4s,v3.s[2]            \n"
+            /* sum partial 1st half partial accumulators */
+            "   fadd            v3.4s,v14.4s,v15.4s              \n"
+
+
+            "   cmp             %w[tail], #1                     \n"
+            "   beq             1f                               \n"
+            "   cmp             %w[tail], #2                     \n"
+            "   beq             2f                               \n"
+            "   cmp             %w[tail], #3                     \n"
+            "   beq             3f                               \n"
+
+            /* save remaining samples + state for different residuals */
+            "4:                                                  \n"
+            "   st1             {v3.4s},[%[pOut]]                \n"
+            "   st1             {v3.s}[3], [%[pState]], #4       \n"
+            "   st1             {v3.s}[2], [%[pState]], #4       \n"
+            "   b               cont%=                           \n"
+
+            "1:                                                  \n"
+            "   st1             {v3.s}[0], [%[pOut]]             \n"
+            "   st1             {v3.s}[0], [%[pState]], #4       \n"
+            "   st1             {v1.s}[0], [%[pState]], #4       \n"
+            "   b               cont%=                           \n"
+
+            "2:                                                  \n"
+            "   st1             {v3.2s},[%[pOut]]                \n"
+            "   rev64           v3.2s, v3.2s                     \n"
+            "   st1             {v3.2s},[%[pState]], #8          \n"
+            "   b               cont%=                           \n"
+
+            "3:                                                  \n"
+            "   st1             {v3.2s},[%[pOut]],#8             \n"
+            "   st1             {v3.s}[2], [%[pOut]]             \n"
+            "   st1             {v3.s}[2], [%[pState]], #4       \n"
+            "   st1             {v3.s}[1], [%[pState]], #4       \n"
+            "   b               cont%=                           \n"
+
+            "tail_0%=:                                           \n"
+            "   st1             {v3.s}[3], [%[pState]], #4       \n"
+            "   st1             {v3.s}[2], [%[pState]], #4       \n"
+
+            /* save last inputs + increment state pointer */
+            "cont%=:                                             \n"
+            "   sub             %[pState], %[pState], #16        \n"
+            "   stp             %w[Xn1], %w[Xn2],[%[pState]],#16 \n"
+
+
+        : [sample] "+r" (sample), [pCoeffsCur] "+r" (pCoeffsCur),
+          [pIn] "+r" (pIn), [pOut] "+r" (pOut),
+          [pState] "+r" (pState)
+        : [Xn1] "r" (Xn1), [Xn2] "r" (Xn2), [tail] "r" (tail)
+        : "v0", "v1", "v2", "v3",
+          "v4", "v5", "v6", "v7",
+          "v8", "v9", "v10", "v11",
+          "v12", "v13", "v14", "v15",
+          "cc", "memory"
+        );
+
+#else  // __aarch32__
+
+        __asm volatile (
             ".p2align 2                                           \n"
             /* restore state */
             "   vld1.64         {d0,d1},[%[pState]]               \n"
@@ -832,7 +1038,7 @@ void arm_biquad_cascade_df1_f32_neon(const arm_biquad_casd_df1_inst_f32 * S,
             "   vmla.f32        q13,q5,d5[0]                      \n"
             "   vmla.f32        q14,q6,d0[1]                      \n"
             "   vmla.f32        q15,q11,d7[0]                     \n"
-            "   vld1.64         {d0,d1},[%[pIn]:128]!             \n"
+
             "   vmla.f32        q12,q6,d4[1]                      \n"
             "   vmla.f32        q13,q7,d4[0]                      \n"
             /* sum partial 1st half partial accumulators */
@@ -874,7 +1080,7 @@ void arm_biquad_cascade_df1_f32_neon(const arm_biquad_casd_df1_inst_f32 * S,
 
             /* tail lower or equal than 4 */
             "tail_le4%=:                                          \n"
-            "   cmp.w           %[tail], #0                       \n"
+            "   cmp             %[tail], #0                       \n"
             /* exact multiple of 8 */
             "   beq             tail_0%=                          \n"
 
@@ -927,7 +1133,9 @@ void arm_biquad_cascade_df1_f32_neon(const arm_biquad_casd_df1_inst_f32 * S,
 
             /* save last inputs + increment state pointer */
             "cont%=:                                              \n"
-            "   strd            %[Xn1], %[Xn2], [%[pState]], #16  \n"
+            //  strd            %[Xn1], %[Xn2], [%[pState]], #16
+            "   str             %[Xn1], [%[pState]], #4           \n"
+            "   str             %[Xn2], [%[pState]], #12          \n"
 
         : [sample] "+r" (sample), [pCoeffsCur] "+r" (pCoeffsCur),
           [pIn] "+r" (pIn), [pOut] "+r" (pOut),
@@ -940,6 +1148,7 @@ void arm_biquad_cascade_df1_f32_neon(const arm_biquad_casd_df1_inst_f32 * S,
           "cc", "memory"
         );
 
+#endif  // __aarch64__
 
         pCoeffs += sizeof(arm_biquad_mod_coef_f32) / sizeof(float32_t);
         /*
@@ -958,9 +1167,6 @@ void arm_biquad_cascade_df1_f32_neon(const arm_biquad_casd_df1_inst_f32 * S,
     }
     while (stage > 0U);
 }
-
-
-#endif // __aarch64__
 
 #endif
 
