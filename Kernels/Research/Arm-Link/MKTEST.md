@@ -8,10 +8,10 @@ Italicized text is the _cat's meow_.
 this text is ***really important***
 
 |      |      |      |
-|      |      |      |
 | ---- | ---- | ---- |
 |      |      |      |
-
+|      |      |      |
+| ---- | ---- | ---- |
 
 |      |      |      |
 | ---- | ---- | ---- |
