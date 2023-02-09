@@ -29,6 +29,71 @@
 
 # Contents {#contents .TOC-Heading}
 
+[Overview [1](#overview)](#overview)
+
+[Compute Streaming Interface
+[2](#compute-streaming-interface)](#compute-streaming-interface)
+
+[Entry-point Functions
+[2](#entry-point-functions)](#entry-point-functions)
+
+[Two entry points [3](#two-entry-points)](#two-entry-points)
+
+[Calling sequence [3](#calling-sequence)](#calling-sequence)
+
+[1) Platform and SWC manifests
+[4](#platform-and-swc-manifests)](#platform-and-swc-manifests)
+
+[1.1 Platform manifests [4](#platform-manifests)](#platform-manifests)
+
+[1.2 Plaform IO manifest
+[4](#plaform-io-manifest)](#plaform-io-manifest)
+
+[1.3 SWC manifests [5](#swc-manifests)](#swc-manifests)
+
+[2) The graph boundaries
+[6](#the-graph-boundaries)](#the-graph-boundaries)
+
+[3) Linked list of SWC [7](#linked-list-of-swc)](#linked-list-of-swc)
+
+[3.1 SWC interface [7](#swc-interface)](#swc-interface)
+
+[3.1.1 SWC parameter "MEMREQ"
+[7](#swc-parameter-memreq)](#swc-parameter-memreq)
+
+[3.1.2 SWC parameter "RESET"
+[7](#swc-parameter-reset)](#swc-parameter-reset)
+
+[3.1.3 SWC parameter "SET_PARAMETER"
+[7](#swc-parameter-set_parameter)](#swc-parameter-set_parameter)
+
+[3.1.4 SWC parameter "READ_PARAMETER"
+[7](#swc-parameter-read_parameter)](#swc-parameter-read_parameter)
+
+[3.1.5 SWC parameter "RUN" [7](#swc-parameter-run)](#swc-parameter-run)
+
+[3.1.6 SWC parameter "STOP"
+[7](#swc-parameter-stop)](#swc-parameter-stop)
+
+[3.2 ARC descriptors [7](#arc-descriptors)](#arc-descriptors)
+
+[3.3 SWC parameters [7](#swc-parameters)](#swc-parameters)
+
+[3.4 SWC test patterns [7](#swc-test-patterns)](#swc-test-patterns)
+
+[A Data types [8](#a-data-types)](#a-data-types)
+
+[A.1Raw data types [8](#a.1raw-data-types)](#a.1raw-data-types)
+
+[A.2 Array of Raw data types
+[8](#a.2-array-of-raw-data-types)](#a.2-array-of-raw-data-types)
+
+[A.3 Stream digital "data formats\" [9](#_Toc126861480)](#_Toc126861480)
+
+[A.4 Memory types [9](#a.4-memory-types)](#a.4-memory-types)
+
+[B SWC delivery [10](#_Toc126861482)](#_Toc126861482)
+
 **Compute Streaming Interface**
 
 **Entry-point Functions**
@@ -45,21 +110,37 @@
 
 **3) Linked list of SWC**
 
-> **SWC interface**
+> **3.1 SWC interface**
 >
-> **SWC parameters**
+> **3.1.1 SWC parameter "MEMREQ"**
 >
-> **SWC test patterns**
+> **3.1.2 SWC parameter "RESET"**
+>
+> **3.1.3 SWC parameter "SET_PARAMETER"**
+>
+> **3.1.4 SWC parameter "READ_PARAMETER"**
+>
+> **3.1.5 SWC parameter "RUN"**
+>
+> **3.1.6 SWC parameter "STOP"**
+>
+> **3.2 ARC descriptors**
+>
+> **3.3 SWC parameters**
+>
+> **3.4 SWC test patterns**
 
 **A Data types**
 
-> **A.1Raw data types**
+> **A.1 Raw data types**
 >
 > **A.2 Array of Raw data types**
 >
 > **A.3 Stream digital "data formats\"**
 >
 > **A.4 Memory types**
+
+**B SWC deliveries**
 
 # Compute Streaming Interface 
 
@@ -128,15 +209,21 @@ command with values :
             drivers : "set", "start", "stop" (see "2) The graph
             boundaries")
 
+    ```{=html}
+    <!-- -->
+    ```
     -   Read the time information computed from a SYSTICK global counter
         increment.
-    
+
     -   A pointer to the list of SWC entry points, and a pointer to
         their respective manifests (see "1.3 SWC manifests")
 
     -   A pointer to the "graph description text" to be compiled to
         "binary graph structure"
 
+```{=html}
+<!-- -->
+```
 -   **STREAM_RESET** : pointers memory banks are provided to
     "arm_stream()" which can initialize its instances and the SWC
     instances of the graph.
@@ -249,7 +336,7 @@ holding:
 -   **1.1.3 The number of I/O** interfaces and the way to use them
     (paragraph below)
 
-### 1.2 Platform IO manifest
+### 1.2 Plaform IO manifest
 
 The platform_io_manifest is a structure of bit-field (28 Bytes min.)
 holding :
@@ -459,7 +546,8 @@ driver :
 
 -   **3) \"start / continue\"** The scheduler initiates the data
     transfers with \"io_start()\" with two parameters : a pointer to the
-    base address of buffer, the size in bytes to tell :
+    base address of buffer, the size in bytes to tell (\"io_start()\"
+    returns a boolean telling if the data transfer is possible):
 
     -   **RX case** : \"this memory address and buffer size, exchanged
         during io_set() , is proposed for receiving new data\".
@@ -468,9 +556,9 @@ driver :
         during io_set() (or the previous ack(), see below) is the first
         data to be transmitted\".
 
-> \"io_start()\" returns a boolean telling if the data transfer is
-> possible.
-
+```{=html}
+<!-- -->
+```
 -   **4) \"ack\"** Once new data are ready (or have just been
     transferred out), the device driver calls the callback (managed by
     the application, and encapsulating "arm_stream_io(int,\*,int)")with
@@ -595,25 +683,6 @@ Sample of raw data type
 [here](https://github.com/ARM-software/EndpointAI/blob/master/Kernels/Research/CMSIS-Stream/Stream_type.h).
 
 ### A.2 Array of Raw data types
-
-typedef uint32_t stream_array; /\* on 32b container, used for array of
-parameters \*/
-
-#define \_\_UNUSED_ARRAY_MSB 31
-
-#define \_\_UNUSED_ARRAY_LSB 30
-
-#define NBELEM_ARRAY_MSB 29
-
-#define NBELEM_ARRAY_LSB 16 /\* 14 bits linear \*/
-
-#define DATA_TYPE_ARRAY_MSB 15
-
-#define DATA_TYPE_ARRAY_LSB 8 /\* 8 bits stream_raw_data_type \*/
-
-#define ZERO_ARRAY_MSB 7
-
-#define ZERO_ARRAY_LSB 0 /\* 8 STREAM_DATA_ARRAY = 00 \*/
 
 ### A.3 Stream digital "data formats\"
 
@@ -762,4 +831,3 @@ A SWC delivery consists in :
 
 -   the code of the SWC (source or binary) using one entry point with
     the template func(int,\*,\*,\*);
-    
