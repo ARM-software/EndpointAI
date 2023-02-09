@@ -72,7 +72,7 @@ int32_t arm_beamformer_f32 (int32_t command, void *instance, void *data, void *p
                  *in/out stacked STREAM_DOMAIN_FORMAT_SIZE_W32 
                         (buffer sizes) ending with 0x00,
                  parameters: input : the swc_execution_option code   
-                        output : returned KEY256
+                        output : returned KEY256 (optional)
                 ) 
            The first request is the instance which holds the other pointers 
         */
@@ -90,10 +90,6 @@ int32_t arm_beamformer_f32 (int32_t command, void *instance, void *data, void *p
             *memreq++ = 0;  /* end */
 
             execution_option = *u32_param;  /* partial / full execution code */
-            *u32_param++ = 2902803550;      /* returned key */
-            *u32_param++ = 1069229832;
-            *u32_param++ = 2043483706;
-            *u32_param++ = 1714015047;
             break;
         }
     
