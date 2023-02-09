@@ -1,40 +1,75 @@
 # Overview 
 
--   CMSIS-Stream is a scheduler of DSP/ML software components using an
-    interface standard. CMSIS-Stream will be open-source in Apache
-    license, and portable to Cortex-M, Cortex-R, Cortex-A and Laptop
-    computers.
+-   CMSIS-Stream is a scheduler of DSP/ML software components using a
+    standard callaing interface, and arranged in for stream-based
+    processing. CMSIS-Stream is open-source, and portable to Cortex-M,
+    Cortex-R, Cortex-A and Laptop computers.
 
     -   Example of scheduled software components : image and voice
         codec, data conditioning, motion classifiers, data mixers, etc
         \...
 
 -   **From the developer point of view**, it creates opaque memory
-    interfaces to the input/output streams, and arranges data are
-    exchanged in the desired formats of each component. CMSIS-Stream
-    manages the memory mapping with speed constraints provided by the
-    developer at instance creation. This lets software run with maximum
+    interfaces to the input/output streams of a graph, and arranges data
+    are exchanged in the desired formats of each component. CMSIS-Stream
+    manages the memory mapping with speed constraints, provided by the
+    developer, at instance creation. This lets software run with maximum
     performance in rising situations of memory bounded problems.
     CMSIS-Stream will accept code in binary format and software
-    protection with keys. In future releases CMSIS-Stream will provide
-    memory protection between software components.
+    protection with keys. It is ready to integrate memory protection
+    between software components.
 
 -   **From the system integrator view**, it eases the tuning and the
     replacement of one component by another one, and is made to ease
     processing split with multiprocessors. The stream is described with
-    a graph (a text file) which can be designed with a graphical tool.
-    The development of DSP/ML processing will be possible without need
-    to write code, and allow graph adaptation and tuning without
+    a graph (a text file) designed with a graphical tool. The
+    development of DSP/ML processing will be possible without need to
+    write code, and allow graph changes and tuning without
     recompilation.
+
+# Contents {#contents .TOC-Heading}
+
+**Compute Streaming Interface**
+
+**Entry-point Functions**
+
+**1) Platform and SWC manifests**
+
+> **1.1 Platform manifests**
+>
+> **1.2 Plaform IO manifest**
+>
+> **1.3 SWC manifests**
+
+**2) The graph boundaries**
+
+**3) Linked list of SWC**
+
+> **SWC interface**
+>
+> **SWC parameters**
+>
+> **SWC test patterns**
+
+**A Data types**
+
+> **A.1Raw data types**
+>
+> **A.2 Array of Raw data types**
+>
+> **A.3 Stream digital "data formats\"**
+>
+> **A.4 Memory types**
 
 # Compute Streaming Interface 
 
 CMSIS-Stream is scheduling the software components of a graph. The nodes
-of the graph are **software components** ("SWC ") designed to be
-independent of the platform capabilities
+of the graph are **software components** ("SWC ") independent of the
+platform capabilities
 
-The graph description is a text file (example *here*) and results from
-the translation made in a GUI tool, using :
+The graph description is a text file (example
+[*here*](https://github.com/ARM-software/EndpointAI/blob/master/Kernels/Research/CMSIS-Stream/graph.txt))
+and is the result from the translation made in a GUI tool, using :
 
 -   a **manifest of the platform** (details on processors, memory,
     peripherals)
@@ -42,17 +77,17 @@ the translation made in a GUI tool, using :
 -   a **manifest of each SWC** : description of the data formats of the
     interfaces
 
-CMSIS-Stream is translating the graph description text file to a binary
-data structure, with the help of the data in the manifests. This result
-is placed in shared memory area to all processes and processors.
+CMSIS-Stream is translating the **graph description text** file to a
+binary data structure, with the help of the data in the manifests. This
+result is placed in shared memory area to all processes and processors.
 
-This shared binary **graph structure** consists in :
+This shared **binary** **graph structure** consists in :
 
 -   the linked list of arcs and nodes (the SWC) of the graph
 
 -   the arcs descriptors (read and write indexes to circular buffers)
 
--   the memory of the CMSIS-Stream instances scheduling the graph
+-   the memory of the CMSIS-Stream instances scheduled the graph
 
 -   the structure describing the operations at the boundary of the graph
     (the graph "IOs")
@@ -60,27 +95,89 @@ This shared binary **graph structure** consists in :
 -   registers used to synchronize the different CMSIS-Stream instances,
     if any
 
+## Entry-point Functions 
+
+CMSIS-Stream has two entry-points, one for controls and services, and a
+second one used as callback for notifications of data transfers :
+
+void arm_stream (uint32_t command, PTR_INT ptr1, PTR_INT ptr2, PTR_INT
+ptr3);
+
+void arm_stream_io (uint32_t fw_io_idx, void \*data, uint32_t length);
+
+### Two entry points 
+
+The first control API has four parameters, three data parameters and a
+command with values :
+
+-   **STREAM_MEMREQ** : the application asks for the amount of memory
+    needed to schedule the graph, the function returns the amount of
+    memory for each memory bank (see "1.1.2 processor characteristics").
+    The other parameters are :
+
+    -   A function pointer to the **firmware of the platform**, in
+        charge of the low-level abstraction of the hardware controls.
+        Example of commands for "fw_entry_point (int,\*,\*,\*)":
+
+        -   Return the details of current processor: its index,
+            architecture and FPU options
+
+        -   Control a semaphore
+
+        -   Call one on the three functions used to control the device
+            drivers : "set", "start", "stop" (see "2) The graph
+            boundaries")
+
+    -   Read the time information computed from a SYSTICK global counter
+        increment.
+    
+    -   A pointer to the list of SWC entry points, and a pointer to
+        their respective manifests (see "1.3 SWC manifests")
+
+    -   A pointer to the "graph description text" to be compiled to
+        "binary graph structure"
+
+-   **STREAM_RESET** : pointers memory banks are provided to
+    "arm_stream()" which can initialize its instances and the SWC
+    instances of the graph.
+
+-   **STREAM_RUN** : the graph of components is scheduled (the
+    linked-list of the "binary graph structure" is parsed, see "3)
+    Linked list of SWC")
+
+-   STREAM_END : the application releases memory
+
+The second control API has three parameters : the index of the device
+driver calling this function, the base address of the buffer, the size
+of the buffer. The "index" is given in the platform IO manifest (see
+"1.2.4 The ID of the hardware port"). Data format and interleaving is
+described at "A.3.1 Data format fields common to all streams".
+
+### Calling sequence
+
 The main CMSIS-Stream instance is called by the application to compute
-the amount of memory needed to execute the graph : memory of the arcs
-and each SWC instances of the graph.
+the amount of memory needed to execute the graph : memory of the arcs,
+the SWC instances of the graph, the buffers used for IOs (command
+"STREAM_MEMREQ" above).
 
 In a second step, the application provides memory pointers to the memory
-banks requested, and calls the CMSIS-Stream instance for the activation
-of the IOs at the boundary of the graph, the memory initialization of
-each CMSIS-Stream instances and all SWC. Finally the application lets
-the graph being scheduled by CMSIS-Stream.
+banks requested, and calls the CMSIS-Stream instance to activate of the
+IOs at the boundary of the graph, for the memory initialization of each
+CMSIS-Stream instances and all SWC (command "STREAM_RESET" above)
 
-The description of the scheduling of the graph consists in explainations
-of
+Finally the application lets the graph being scheduled by CMSIS-Stream
+(command "STREAM_RUN" above).
 
--   the content of the manifests of the platform and the manifests of
-    the SWC
+The description of the scheduling of the graph consists in :
 
--   the way the IOs are sharing data with the ring buffers at the
-    boundary of the graph
+-   the content of the **manifests** of the platform and the manifests
+    of the SWC (below paragraph "1) Platform and SWC manifests").
 
--   the description of the linked-list and the connexions between arcs
-    and nodes
+-   the way the **IOs** are sharing data with the ring buffers at the
+    boundary of the graph (below paragraph "2) The graph boundaries").
+
+-   the description of the **linked-list** and the connexions between
+    arcs and nodes (below paragraph "3) Linked list of SWC").
 
 ## 1) Platform and SWC manifests
 
@@ -99,12 +196,12 @@ binary graph and execute it :
 The platform manisfest is structure of bit-fields (20 Bytes min.)
 holding:
 
--   the list of services delivered through CMSIS-Stream and its APIs, in
-    two categories : the DSP/ML services and the Application services.
-    This allows SWC delivered in binary to use libraries without
-    incorporating them in the code. One example of use-case is to let a
-    code written for the architecture ARMv7-M to run on ARM-v8.2-M with
-    acceleration.
+-   **1.1.1 the list of services** delivered through CMSIS-Stream and
+    its APIs, in two categories : the DSP/ML services and the
+    Application services. This allows SWC delivered in binary to use
+    libraries without incorporating them in the code. One example of
+    use-case is to let a code written for the architecture ARMv7-M to
+    run on ARM-v8.2-M with acceleration.
 
     -   DSP/ML services : abstraction to a short-list of kernels from
         CMSIS-DSP (filtering, spectral analysis, linear algebra)
@@ -115,10 +212,10 @@ holding:
     -   Application services: interface to IO (LED, Digit, GPIO),
         storage and timer services
 
--   processor characteristics : number of processors and pointer to
-    description of each, number of different archictures and a pointer
-    to the table of description, the memory bank used for the shared
-    memory access
+-   **1.1.2 processor characteristics** : number of processors and
+    pointer to description of each, number of different archictures and
+    a pointer to the table of description, the memory bank used for the
+    shared memory access
 
     -   CMSIS-Stream uses several memory banks for the memory allocation
         of SWC :
@@ -149,29 +246,31 @@ holding:
 
         -   The memory banks (above) able to be addressed
 
--   The number of I/O interfaces (see below)
+-   **1.1.3 The number of I/O** interfaces and the way to use them
+    (paragraph below)
 
-### 1.2 Plaform IO manifest
+### 1.2 Platform IO manifest
 
 The platform_io_manifest is a structure of bit-field (28 Bytes min.)
 holding :
 
--   Four characters used for debug and trace purpose indentifying the IO
-    interface
+-   **Four characters** used for debug and trace purpose indentifying
+    the IO interface
 
--   The "domain" of the IO interface. This information is used
+-   **1.2.1 The "domain"** of the IO interface. This information is used
     differentiate the standard tuning of the interface (see A.4
     Domain-specific stream data types) :
 
-    -   Audio recording stream, and the control of the number of
+    -   **Audio recording** stream, and the control of the number of
         channels, sampling rate, frame size, acoustic sensitivity, gain
         and automatic gain control, high-pass filtering, routing
 
-    -   Audio playing stream, and the control of the number of channels,
-        sampling rate, frame size, voltage sensitivity, gain and
-        automatic gain, three bands frequency and gain control, routing
+    -   **Audio playing** stream, and the control of the number of
+        channels, sampling rate, frame size, voltage sensitivity, gain
+        and automatic gain, three bands frequency and gain control,
+        routing
 
-    -   Motion recording stream to control the number of channels
+    -   **Motion recording** stream to control the number of channels
         (accelerometer, gyroscope, magnetometer, metadata), sampling
         rate, frame size, sensitivity, averager, vector magnitude
         computation, metadata (free fall, shock, tap, transient
@@ -196,16 +295,33 @@ holding :
         mono mode, LFE audio, BFI flags, fast forward, final padding,
         VBR control
 
--   The default digital stream setting (8 Bytes) : see "A.3 Stream
-    digital data types" for the description of the bit-fields giving the
-    frame-size, data interleaving configuration, the raw data format in
-    the frame, the number of channels, the sampling rate and the
-    optional time-stamping format.
+-   **1.2.2 The device driver capabilities**:
 
--   The default sensor configuration (8 Bytes) related to the domain
-    (see above). An a table of configuration control structured by lines
-    (number of fields, data). To initialize a data stream to the
-    boundary of the graph, the graph description text file gives the
+    -   **data flow initiatiator** either made by the hardware (device
+        driver is master, for example with the frames from an audio
+        Codec) or initiated by the graph (device driver is follower, for
+        example when polling the temperature from application requests).
+
+    -   **buffer allocation** : tells if the buffer used for the
+        communication with the application is reserved by the device
+        driver or needs to be allocated during the graph initialization
+        steps, and in which platform memory area (one of the memory
+        banks given in "1.1 Platform manifests").
+
+-   **1.2.3 The default digital stream setting** (8 Bytes) : see "A.3
+    Stream digital data types" for the description of the bit-fields
+    giving the frame-size, data interleaving configuration, the raw data
+    format in the frame, the number of channels, the sampling rate and
+    the optional time-stamping format.
+
+-   **1.2.4 The ID of the hardware port** used as parameter of the
+    callback to notify the graph of new data (receive), or completion of
+    the previous transfter (transmit).
+
+-   **1.2.5 The default sensor configuration** (8 Bytes) related to the
+    domain (see above). An a table of configuration control structured
+    by lines (number of fields, data). To initialize a data stream at
+    the boundary of the graph, the graph description text file gives the
     bit-fields of the desired configuration, or let all the bits at "0",
     for the default configuration of the platform firmware. In the
     example below a microphone path can be configure with the number of
@@ -244,16 +360,17 @@ holding :
 
 ### 1.3 SWC manifests
 
-Three formats of Software Component manifests are possible : normal
-format with maximum 4 streams connected to the component, compact format
-limited to 2 streams, fat-binary delivery of the SWC.
+There are three formats of Software Component manifests: normal with
+maximum 4 streams connected to the component (minimum 76 Bytes), compact
+format limited to 2 streams (40 Bytes), fat-binary delivery of the SWC
+(minimum 80 Bytes).
 
--   Format selection, 2 bits, for normal, compact, binary format
+-   **Format** selection, 2 bits, for normal, compact, binary format
 
--   Version of the CMSIS-Stream used for the design of this component, 4
-    bits.
+-   **Version** of the CMSIS-Stream used for the design of this
+    component, 4 bits.
 
--   Number of input streams and output streams managed by this component
+-   **Number of stream** (input and output) managed by this component
 
 -   Bit-field of dependencies to CMSIS-Stream for DSP/ML and Application
     services (see 1.1 Platform manifests)
@@ -263,7 +380,7 @@ limited to 2 streams, fat-binary delivery of the SWC.
 -   The processor architectures and architecture options the component
     is compatible with
 
--   The SWC identification code and subversion
+-   **The SWC identification code and revision**
 
 -   A short name for debug, 4 characters
 
@@ -272,21 +389,25 @@ limited to 2 streams, fat-binary delivery of the SWC.
     address of the instance, and if the code and its the inlined
     assembly is made ready for "position independent execution".
 
--   The stream format of each input and output ports of the components
-    (see "A.3 Stream digital data types -- "data formats\""), giving the
-    default values.
+-   **The stream format of each input and output stream** of the
+    components (see "A.3 Stream digital "data formats\""), giving the
+    default values. The stream format field "frame size" is used to
+    define the minimum amount of data (in Bytes) needed on input streams
+    before trying to call the SWC. Or the minimum amount of free space
+    to reserve on the output buffer.
 
 -   The allowed stream deviations from the above default value,
     concerning the maximum number of channels and the sampling rate.
 
-The short format of SWC manifest stops here
+The short format of SWC manifest stops here, and manifests data
+continues for normal and binary formats:
 
--   The number of presets : configuration of parameters, on 6 bits.
+-   The number of **parameter presets**, on 6 bits.
 
 -   The optional need to reset the component when loading new
     parameters.
 
--   The size of the parameter preset array, on 18 bits (\<256kBytes)
+-   The size of the parameter presets, on 18 bits (\<256kBytes)
 
 -   A pointer to the beginning of the parameter presets
 
@@ -295,445 +416,174 @@ The short format of SWC manifest stops here
 
 -   A key to unlock the SWC or the full feature list, *TBD*
 
-The binary manifest format have extra fields (offsets).
+The binary manifest format are using offsets instead of pointers.
 
-## 2) IOs at the graph boundary
+## 2) The graph boundaries
 
-A SWC manifest is ..
+The below IO protocol facilitates code portability when switching
+between hardware platforms. CMSIS-Stream provides an interface to the
+firmware. It hides to the graph scheduler the way the samples are
+generated or consumed (DMA, USB, files of the application, ..).
 
-### Protocol
+The board designer validates the operations of its sensors and
+transducers in several configurations, which are saved in the "platform
+IO manifest" (see "1.2.5 The default sensor configuration") and used
+during the graph creation. If the IO stream do not deliver the data in
+the format desired by the SWC consumer, CMSIS-Stream GUI tool will
+insert a node for the format conversion. This automatic conversion
+scheme applies between SWC in the middle of the graph too.
 
-We want to ease code portability when switching between hardware
-platforms, with a combination of predefined subroutines and features
-manifests.
+Sequence of functions called between the application and the device
+driver :
 
-Our focus is to create abstraction means with : the processor(s), the
-memory map (TCM, external RAM,..), the embedded peripherals (DMA,
-GPIO,..), the mixed-signal components (audio Codec, accelerometers,
-camera,..), PCB routing.
+-   **1) \"init\"** The GUI has a copy of the IO manifest and decides
+    how the buffer used for exchanges will be defined, the domain
+    settings. The type of data move to operate once receiving the
+    information from the device driver (data to copy or the application
+    will access the data \"in place\") was decided during the software
+    architecture definition.
 
-Practically, we want to reuse as much of the code used during the
-platform validation, and couple this code with a manifest, a binary
-description of the features of the interface, of the possible
-configurations (analog setting, data format, frame format).
+-   **2) \"set\"** The scheduler calls \"io_set()\" through the platform
+    firmware interface, see "Entry-point Functions" with STREAM_MEMREQ
+    parameters, for this desired configuration with calling parameters:
 
-configurations (analog setting, data format, frame format).
+    -   the domain settings
 
-+-----------------------------------------------------------------------+
-| information provided by the device driver to the application (\"IO    |
-| manifest\")                                                           |
-+=======================================================================+
-| domain of operation : audio play (audio samples to                    |
-| loudspeaker/line-out), audio record (audio sample from                |
-| microphone/line-in), motion (1 to 9-Axis IMU), electrical (voltage,   |
-| current, power sensors), position (linear, circular position          |
-| sensors), chemical (air, gas, radiation, agricultural sensor),        |
-| control (data flow of the trace and remote control UART), image       |
-| (picture sensor), voice compressed (ITU/3GPP compressed stream),      |
-| audio compressed  (MPEG and Bluetooth compressed stream), MIDI, image |
-| compressed (JPG/PNG encoded stream), video compressed (TBD).          |
-|                                                                       |
-| master / follower stream : tells if the data flow is initiated by the |
-| hardware (device driver is master, for example with the frames from   |
-| an audio Codec) or initiated by the application (device driver is     |
-| follower, for example when polling the temperature from application   |
-| requests).                                                            |
-|                                                                       |
-| buffer allocation : tells if the buffer used for the communication    |
-| with the application is reserved by the device driver, and in which   |
-| platform memory area (for hardware design constraint).                |
-|                                                                       |
-| stream format : raw data format, frame size, number of channels,      |
-| insertion of time-stamps in the frames, type of interleaving.         |
-|                                                                       |
-| domain settings : different for each domain. For audio recording :    |
-| allowed number of channels, allowed sampling rates, filtering         |
-| options. For motion sensing : sensitivity options, sampling rates,    |
-| averaging options.                                                    |
-|                                                                       |
-| default domain settings : default setting applied at reset.           |
-|                                                                       |
-| validated settings : documentation of list of validated settings      |
-|                                                                       |
-| functions entry points : for io_start / io_stop / io_set              |
-| configuration                                                         |
-|                                                                       |
-| index : the \"ID\", index of the IO port                              |
-|                                                                       |
-| callback : entry point to the application for the notification of     |
-| data transfers completion.                                            |
-+-----------------------------------------------------------------------+
+    -   a proposed buffer address and size (if needed, see previous
+        \"buffer allocation\").
 
-+-----------------------------------------------------------------------+
-| sequence of functions called between the application and the device   |
-| driver                                                                |
-+=======================================================================+
-| 1\) \"init\" The application reads the IO manifest and decides the    |
-| location of the buffer, the domain settings. The type of data move to |
-| operate once receiving the information from the device driver (data   |
-| to copy or the application will access the data \"in place\") was     |
-| decided during the software architecture definition.                  |
-|                                                                       |
-| 2\) \"set\" The application calls \"io_set()\" for this desired       |
-| configuration with calling parameters: the domain settings, a         |
-| proposed buffer address and size (if needed, see previous \"buffer    |
-| allocation\"). \"RX\" means a flow of data from external sensor to    |
-| the application, \"TX\" means a flow of data generated by the         |
-| application to the external transducer.                               |
-|                                                                       |
-| 3\) \"start / continue\" The application initiates the data transfers |
-| with \"io_start()\" with two parameters : a pointer to the base       |
-| address of buffer, the size in bytes to tell :                        |
-|                                                                       |
-| RX case : \"this memory address and buffer size, exchanged during     |
-| io_set() , is proposed for receiving new data\".                      |
-|                                                                       |
-| TX case : \"this base address and buffer size, exchanged during       |
-| io_set() (or the previous ack(), see below) is the first data to be   |
-| transmitted\".                                                        |
-|                                                                       |
-|    \"io_start()\" returns a boolean telling if the data transfer is   |
-| possible.                                                             |
-|                                                                       |
-| 4\) \"ack\" Once new data are ready (or have just been transferred    |
-| out), the device driver calls the callback with three parameters : ID |
-| (the device driver index), a pointer to a base address of a buffer,   |
-| the size in bytes to tell,:                                           |
-|                                                                       |
-| RX case : \"I prepared for you a buffer of data, copy the data or use |
-| it directly from this place, and for this amount of bytes\". The      |
-| address can change from last callback in case the device driver is    |
-| using a ping-pong buffer protocol (or more buffers).                  |
-|                                                                       |
-| TX case : \"I have completed the transfer of this buffer with this    |
-| amount of bytes you told me to move out, and you can refill this new  |
-| (or the same) buffer for the next transfer\".                         |
-|                                                                       |
-| 5\) \"stop\" The application ends up the use-case with a call to      |
-| io_stop(). The device driver acknowledges the end of on-going         |
-| transfers with a call to the callback, with no parameter.             |
-+-----------------------------------------------------------------------+
+> \"RX\" means a flow of data from external sensor to the application,
+>
+> \"TX\" means a flow of data generated by the application to the
+> external transducer.
 
-Interfaces
+-   **3) \"start / continue\"** The scheduler initiates the data
+    transfers with \"io_start()\" with two parameters : a pointer to the
+    base address of buffer, the size in bytes to tell :
 
-+-----------------------------------------------------------------------+
-| The manifest (in Flash)                                               |
-+=======================================================================+
-| struct platform_io_manifest           \                               |
-| {\                                                                    |
-|     /\* name of the IO interface \*/\                                 |
-|     const char io_name\[16\];   \                                     |
-|     \                                                                 |
-|     /\* start/move, stop, set stream \*/\                             |
-|     const swc_function_ptr io_controls\[3\];                          |
-|                                                                       |
-|     /\* bit-fields: physical domains, memory plane, master/follower   |
-| \*/\                                                                  |
-|     const uint32_t io_domain;                                         |
-|                                                                       |
-|     /\* bit-fields: digital formats and mixed-signal settings \*/\    |
-|     const uint32_t stream_settings_default\[4\];                      |
-|                                                                       |
-|     /\* unit and RMS level corresponding to integer full-scale or     |
-| 1.0f \*/\                                                             |
-|     const uint32_t \*unit;\                                           |
-|     const float \*sensitivity;                                        |
-|                                                                       |
-|     /\* list of options \*/\                                          |
-|     const float \*stream_setting_extension;\                          |
-| };                                                                    |
-+-----------------------------------------------------------------------+
+    -   **RX case** : \"this memory address and buffer size, exchanged
+        during io_set() , is proposed for receiving new data\".
 
-### IOs at the graph boundary
+    -   **TX case** : \"this base address and buffer size, exchanged
+        during io_set() (or the previous ack(), see below) is the first
+        data to be transmitted\".
+
+> \"io_start()\" returns a boolean telling if the data transfer is
+> possible.
+
+-   **4) \"ack\"** Once new data are ready (or have just been
+    transferred out), the device driver calls the callback (managed by
+    the application, and encapsulating "arm_stream_io(int,\*,int)")with
+    three parameters : ID (the device driver index), a pointer to a base
+    address of a buffer, the size in bytes to tell,:
+
+    -   **RX case** : \"I prepared for you a buffer of data, copy the
+        data or use it directly from this place, and for this amount of
+        bytes\". The address can change from last callback in case the
+        device driver is using a ping-pong buffer protocol (or more
+        buffers).
+
+    -   **TX case** : \"I have completed the transfer of this buffer
+        with this amount of bytes you told me to move out, and you can
+        refill this new (or the same) buffer for the next transfer\".
+
+-   **5) \"stop\"** The application ends up the use-case with a call to
+    io_stop(). The device driver acknowledges the end of on-going
+    transfers with a call to the callback, with no parameter.
 
 ## 3) Linked list of SWC 
 
-A SWC delivery consists in :
+After translation, binary graph structure holds different buffers, in a
+shared memory space, incluing the linked-list representation of the
+graph, as a table with the following format:
 
--   a description of the parameter, and some presets
+-   Header 32bits word
 
--   the input test pattern and expected results
+    -   12 bits to address the entry point of the component
 
--   a documentation for the GUI
+    -   7 bits to quickly help the scheduler know if the component is
+        executatble on the current processor (4 bits for the processor
+        ID, 3 bits for the architecture ID)
 
--   the code of the SWC (source or binary)
+    -   2 bits to set debug options (counter of cache-miss of this SWC,
+        patch the input for self-test, ..)
 
-3bits status, only bit-field in write access, at the end of \_RUN
+    -   1 bit (debug) to force the scratch memory area of the component
+        to be cleared before execution
 
-1bits verbose level, 0=quiet, 1=full details
+    -   1 bit to activate a verbose mode of execution trace
 
-1bits clear working areas at SWC transitions (debug)
+    -   3 bits of SWC execution status :
 
-2bits 2 bit-field to enable debug options : counter of PMU cache-miss,
-patch in/out
+        -   swc_status_boot : during memory reset and
 
-3bits bit-field : this swc usable on architectures \[0..6\] 0=any (=same
-as main_proc) 7=script
+        -   swc_status_reset : SWC reported its memory allocation
+            requests
 
-4bits this swc to proc-1 (among 15), 0=any from this architecture
+        -   swc_status_idle : SWC instance was created and initialized,
+            not running
 
-12bits SWIDX swc index of swc_entry_points\[\]\[\] and
-swc_manifest_all\[\]
+        -   swc_status_active : SWC is running
 
-### SWC interface
+        -   swc_status_need_rerun: SWC returned but was partly executed
+            to let higher priority tasks run for situation where there
+            is no RTOS
 
-int32_t arm_beamformer_f32 (int32_t command, void \*instance, void
-\*data, void \*parameters)
+        -   swc_status_stopped: disabled
 
-{
+    -   1 bit to pack the SWC description for 2 arcs
 
-int32_t swc_returned_status = 0;
+    -   1 bit to tell there a boot parameter index (32bits) to used at
+        reset time
 
-switch (command)
+    -   1 bit to tell the SWC needs or not a MEMREQ initialization if
+        there is not need for declaration of an instance (no instance,
+        no static memory used for this component)
 
-{
+-   Optional instance index to a memory space of the binary graph
+    structure.
 
-case STREAM_MEMREQ:
+-   Optional parameter set of data to a memory space of the binary graph
+    structure.
 
-/\* func (STREAM_MEMREQ,
+-   The first two 16 bits arc descriptors with the format :
 
-\*pointer to memory_request =\> the first pointer is the instance
+    -   12 bits to index the arc descriptor in the binary graph
+        structure (see "3.2 ARC descriptors")
 
-\*in/out stacked STREAM_DOMAIN_FORMAT_SIZE_W32
+    -   1 bit "ready flag" used accelerate the scheduler decision : for
+        input arcs of the SWC the flag is set when at least a minimum of
+        data is available in the buffer. For output arcs of the SWC the
+        flag is set when at least a minimum of free area is available in
+        the output buffer.
 
-(buffer sizes) ending with 0x00,
+    -   1 bit "high QoS flag" indicating the SWC can be executed even if
+        the other streams do not have yet their "ready flag" set. The
+        arcs descriptors with flow errors give indications on the
+        operation to do to interpolate the data.
 
-parameters: input : the swc_execution_option code
+### 3.1 SWC interface
 
-output : returned KEY256
+Example of SWC API
+[here](https://github.com/ARM-software/EndpointAI/blob/master/Kernels/Research/CMSIS-Stream/SWC_sample.c).
 
-)
+### 3.1.1 SWC parameter "MEMREQ"
 
-The first request is the instance which holds the other pointers
+### 3.1.2 SWC parameter "RESET"
 
-\*/
+### 3.1.3 SWC parameter "SET_PARAMETER"
 
-{ uint32_t \*memreq = (uint32_t \*)instance; /\* table of memory
-requests \*/
+### 3.1.4 SWC parameter "READ_PARAMETER"
 
-uint32_t \*format_of_io = (uint32_t \*)data; /\* not used here \*/
+### 3.1.5 SWC parameter "RUN"
 
-uint32_t \*u32_param = (uint32_t \*)parameters, execution_option;
+### 3.1.6 SWC parameter "STOP"
 
-/\* 1st memory request = SWC instance , 2nd..= data pointers \*/
+### 3.2 ARC descriptors
 
-\*memreq++ = sizeof(beamformer_f32_instance);
+### 3.3 SWC parameters
 
-\*memreq++ =
-PACKSWCMEM(MEM_TYPE_STATIC,MEM_REQ_DATA,MEM_SPEED_REQ_CRITICAL_FAST,
-
-MEM_REQ_4BYTES_ALIGNMENT,0,sizeof(beamformer_f32_fastdata_static));
-
-\*memreq++ =
-PACKSWCMEM(MEM_TYPE_WORKING,MEM_REQ_DATA,MEM_SPEED_REQ_CRITICAL_FAST,
-
-MEM_REQ_4BYTES_ALIGNMENT,0,sizeof(beamformer_f32_fastdata_working));
-
-\*memreq++ = 0; /\* end \*/
-
-execution_option = \*u32_param; /\* partial / full execution code \*/
-
-\*u32_param++ = 2902803550; /\* returned key \*/
-
-\*u32_param++ = 1069229832;
-
-\*u32_param++ = 2043483706;
-
-\*u32_param++ = 1714015047;
-
-break;
-
-}
-
-case STREAM_RESET:
-
-/\* func(STREAM_RESET,
-
-\*instance, pointer a size defined in the 1st parameter memreq
-
-\*memory_results, pointers defined in the 2nd.. parameters of memreq
-(above)
-
-\*Stream) address of Stream
-
-memory pointers are in the same order as in MEMREQ,
-
-the SWC can access the system time and other services using the \@Stream
-APIs
-
-\*/
-
-{
-
-uint32_t \*memresults = (uint32_t \*)data;
-
-beamformer_f32_instance \*pinstance = (beamformer_f32_instance
-\*)instance;
-
-pinstance-\>st = (beamformer_f32_fastdata_static \*) \*memresults++;
-
-pinstance-\>w = (beamformer_f32_fastdata_working \*) \*memresults++;
-
-pinstance-\>st-\>STREAM = parameters;
-
-arm_beamformer_f32_reset(instance);
-
-break;
-
-}
-
-case STREAM_SET_PARAMETER:
-
-/\* func(STREAM_SET_PARAMETER,
-
-\*instance,
-
-\*parameter(s) (one or all)
-
-Index of parameter :
-
-index/tag of a single parameter to set
-
-255 means \"all the parameters are changed\"
-
-256+N means preset N
-
-\*/
-
-{
-
-uint8_t \*new_parameters = (uint8_t \*)data;
-
-break;
-
-}
-
-case STREAM_READ_PARAMETER: /\* func(STREAM_SET_PARAMETER,
-
-\*instance,
-
-\*parameter(s) (one or all)
-
-Index of parameter :
-
-index/tag of a single parameter to set
-
-255 means \"all the parameters are read\" \*/
-
-{
-
-uint8_t \*new_parameters = (uint8_t \*)data;
-
-break;
-
-}
-
-case STREAM_RUN:
-
-/\* When data format is FMT_INTERLEAVED
-
-Left and Right samples are in this order : LRLRLRLRLRLR ..
-
-func(STREAM_RUN, instance, ptr to stereo data, nBytes buffer size)
-
-When data format is FMT_DEINTERLEAVED_1PTR
-
-Left and Right samples are in this order : LLLL..LLLLRRRR\...RRRR
-
-Size of the first buffer : \<\--size\--\>
-
-func(STREAM_RUN, instance, ptr to the Left buffer, Size in Bytes)
-
-When data format is FMT_DEINTERLEAVED_NPTR
-
-Left and Right samples are independent : LLLLL..LLLLL .. RRRRR\...RRRRR
-
-Size of the first buffer : \<\--size L\--\> \<\--size R\-\--\>
-
-Pointer to a structure : \[ {\*ptr_L, size L}, {\*ptr_R, size R} \]
-
-func(STREAM_RUN, instance, XDAIS PTR_INT, 0)
-
-\*/
-
-{
-
-uint32_t buffer1_size, buffer2_size, bufferout_free, increment,
-\*pt_pt=0;
-
-int32_t nb_input_samples, input_samples_consumed,
-output_samples_produced;
-
-uint8_t \*inBufs1stChannel=0, \*inBufs2ndChannel=0, \*outBufs;
-
-/\* input pointers { (\*,n),(\*,n),..} updated at the end \*/
-
-pt_pt = (uint32_t \*)data;
-
-inBufs1stChannel = (uint8_t \*)(\*pt_pt++); /\* FMT_DEINTERLEAVED_NPTR
-\*/
-
-buffer1_size = (uint32_t )(\*pt_pt++);
-
-inBufs2ndChannel = (uint8_t \*)(\*pt_pt++);
-
-buffer2_size = (uint32_t )(\*pt_pt++);
-
-outBufs = (uint8_t \*)(\*pt_pt++);
-
-bufferout_free = (uint32_t) (\*pt_pt++);
-
-nb_input_samples = buffer1_size / sizeof(int16_t);
-
-arm_beamformer_f32_run(instance, (int16_t \*)inBufs1stChannel,
-
-(int16_t \*)inBufs2ndChannel, nb_input_samples,
-
-(int16_t \*)outBufs,
-
-&input_samples_consumed,
-
-&output_samples_produced,
-
-&swc_returned_status);
-
-pt_pt = (uint32_t \*)data;
-
-increment = (input_samples_consumed \* sizeof(int16_t)\*MONO);
-
-\*pt_pt++ = (uint32_t)(inBufs1stChannel += increment);
-
-\*pt_pt++ = (buffer1_size -= increment);
-
-\*pt_pt++ = (uint32_t)(inBufs2ndChannel += increment);
-
-\*pt_pt++ = (buffer2_size -= increment);
-
-\*pt_pt++ = (uint32_t)(outBufs += increment);
-
-\*pt_pt++ = (bufferout_free -= increment);
-
-break;
-
-}
-
-case STREAM_END: /\* func(STREAM_END, instance, 0) \*/
-
-{ arm_beamformer_f32_memory_free(instance);
-
-break;
-
-}
-
-}
-
-return swc_returned_status;
-
-}
-
-### SWC parameters
-
-### SWC test patterns
+### 3.4 SWC test patterns
 
 ## A Data types
 
@@ -741,149 +591,8 @@ return swc_returned_status;
 
 ### A.1Raw data types
 
-enum stream_raw_data_type {
-
-STREAM_DATA_ARRAY = 0, /\* see stream_array: \[0NNNTT00\] 0, type, nb
-\*/
-
-/\* one bit per data \*/
-
-STREAM_S1, /\* S, one signed bit \*/
-
-STREAM_U1, /\* one bit unsigned \*/
-
-/\* two bits per data \*/
-
-STREAM_S2, /\* SX \*/
-
-STREAM_U2, /\* XX \*/
-
-STREAM_Q1, /\* Sx \~stream_s2 with saturation management\*/
-
-/\* four bits per data \*/
-
-STREAM_S4, /\* Sxxx \*/
-
-STREAM_U4, /\* xxxx \*/
-
-STREAM_Q3, /\* Sxxx \*/
-
-STREAM_FP4_E2M1, /\* Seem micro-float \[8 .. 64\] \*/
-
-STREAM_FP4_E3M0, /\* Seee \[8 .. 512\] \*/
-
-/\* eight bits per data \*/
-
-STREAM_S8, /\* Sxxxxxxx \*/
-
-STREAM_U8, /\* xxxxxxxx \*/
-
-STREAM_Q7, /\* Sxxxxxxx \*/
-
-STREAM_CHAR, /\* xxxxxxxx \*/
-
-STREAM_FP8_E4M3, /\* Seeeemmm tiny-float \[0.02 .. 448\] \*/
-
-STREAM_FP8_E5M2, /\* Seeeeemm \[0.0001 .. 57344\] for NN training \*/
-
-/\* 2 bytes per data \*/
-
-STREAM_S16, /\* Sxxxxxxx.xxxxxxxx \*/
-
-STREAM_U16, /\* xxxxxxxx.xxxxxxxx \*/
-
-STREAM_Q15, /\*19 Sxxxxxxx.xxxxxxxx \*/
-
-STREAM_FP16, /\* Seeeeemm.mmmmmmmm half-precision float \*/
-
-STREAM_BF16, /\* Seeeeeee.mmmmmmmm bfloat \*/
-
-/\* 3 bytes per data \*/
-
-STREAM_Q23, /\* Sxxxxxxx.xxxxxxxx.xxxxxxxx in a 24bits container ! \*/
-
-/\* 4 bytes per data \*/
-
-STREAM_Q23_32, /\* SSSSSSSS.Sxxxxxxx.xxxxxxxx.xxxxxxxx \*/
-
-STREAM_S32, /\* one long word \*/
-
-STREAM_U32, /\* xxxxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx \*/
-
-STREAM_Q31, /\* Sxxxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx \*/
-
-STREAM_FP32, /\*27 Seeeeeee.mmmmmmmm.mmmmmmmm.mmmmmmmm float \*/
-
-STREAM_CQ15, /\* Sxxxxxxx.xxxxxxxx Sxxxxxxx.xxxxxxxx (I Q) \*/
-
-STREAM_CFP16, /\* Seeeeemm.mmmmmmmm Seeeeemm.mmmmmmmm (I Q) \*/
-
-/\* 8 bytes per data \*/
-
-STREAM_S64, /\* long long \*/
-
-STREAM_U64, /\* unsigned 64 bits \*/
-
-STREAM_Q63, /\* Sxxxxxxx.xxxxxx \...\.... xxxxx.xxxxxxxx \*/
-
-STREAM_CQ31, /\* Sxxxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx Sxxxxxxx.xxxxxxxx..
-\*/
-
-STREAM_FP64, /\* Seeeeeee.eeemmmmm.mmmmmmm \... double \*/
-
-STREAM_CFP32, /\* Seeeeeee.mmmmmmmm.mmmmmmmm.mmmmmmmm Seeeeeee.mmm.. (I
-Q) \*/
-
-/\* 16 bytes per data \*/
-
-STREAM_FP128, /\* Seeeeeee.eeeeeeee.mmmmmmm \... quadruple precision \*/
-
-STREAM_CFP64, /\* fp64 fp64 (I Q) \*/
-
-/\* 32 bytes per data \*/
-
-STREAM_FP256, /\* Seeeeeee.eeeeeeee.eeeeemm \... octuple precision \*/
-
-/\* 2D formats \*/
-
-STREAM_YUV420P, /\*39 Luminance, Blue projection, Red projection, 6
-bytes per 4 pixels, reordered \*/
-
-STREAM_YUV422P, /\* 8 bytes per 4 pixels, or 16bpp, Y0 Cb Y1 Cr (1 Cr &
-Cb sample per 2x1 Y samples) \*/
-
-STREAM_YUV444P, /\* 12 bytes per 4 pixels, or 24bpp, (1 Cr & Cb sample
-per 1x1 Y samples) \*/
-
-STREAM_CYM24, /\* cyan yellow magenta \*/
-
-STREAM_CYMK32, /\* cyan yellow magenta black \*/
-
-STREAM_RGB8, /\* RGB 3:3:2, 8bpp, (msb)2B 3G 3R(lsb) \*/
-
-STREAM_RGB16, /\* RGB 5:6:5, 16bpp, (msb)5R 6G 5B(lsb) \*/
-
-STREAM_RGBA16, /\* RGBA 4:4:4:4 32bpp (msb)4R \*/
-
-STREAM_RGB24, /\* BBGGRR 24bpp (msb)8B \*/
-
-STREAM_RGBA32, /\* BBGGRRAA 32bpp (msb)8B \*/
-
-STREAM_RGBA8888, /\* AABBRRGG OpenGL/PNG format R=lsb A=MSB (\"ABGR32\"
-little endian) \*/
-
-STREAM_BW1B, /\* Y, 1bpp, 0 is black, 1 is white, ordered from the msb
-to the lsb. \*/
-
-STREAM_BW1BINV, /\* Y, 1bpp, 0 is white, 1 is black \*/
-
-STREAM_GREY8B, /\* Grey 8b \*/
-
-STREAM_GREY8BINV, /\*53 Grey 8b inverted 0 is white \*/
-
-LAST_RAW_TYPE = 64, /\* coded on 6bits RAW_FMT0_LSB \*/
-
-};
+Sample of raw data type
+[here](https://github.com/ARM-software/EndpointAI/blob/master/Kernels/Research/CMSIS-Stream/Stream_type.h).
 
 ### A.2 Array of Raw data types
 
@@ -906,7 +615,7 @@ parameters \*/
 
 #define ZERO_ARRAY_LSB 0 /\* 8 STREAM_DATA_ARRAY = 00 \*/
 
-### A.3 Stream digital data types -- "data formats\"
+### A.3 Stream digital "data formats\"
 
 The description of a full data format is made on 16 Bytes (4 words of
 32bits): 8 Bytes for the digital format (frame-size, data interleaving,
@@ -1040,3 +749,16 @@ enum buffer_relocation_type
 RELOCATABLE= 1,
 
 };
+
+## B SWC delivery
+
+A SWC delivery consists in :
+
+-   a description of the parameter, and some presets
+
+-   the input test pattern and expected results
+
+-   a documentation for the GUI
+
+-   the code of the SWC (source or binary) using one entry point with
+    the template func(int,\*,\*,\*);
