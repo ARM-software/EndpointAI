@@ -120,7 +120,7 @@ int32_t arm_beamformer_f32 (int32_t command, void *instance, void *data, void *p
                 *parameter(s) (one or all)
                 Index of parameter : 
                 index/tag of a single parameter to set
-                    256+N means preset N from the SWC manifest
+                    256 means "set all the parameters"
         */ 
         {   
             uint8_t *new_parameters = (uint8_t *)data;
