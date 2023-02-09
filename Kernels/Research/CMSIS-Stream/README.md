@@ -762,3 +762,4 @@ A SWC delivery consists in :
 
 -   the code of the SWC (source or binary) using one entry point with
     the template func(int,\*,\*,\*);
+    
