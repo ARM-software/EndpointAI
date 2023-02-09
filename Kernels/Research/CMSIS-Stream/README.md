@@ -144,9 +144,6 @@ command with values :
             drivers : "set", "start", "stop" (see "2) The graph
             boundaries")
 
-    ```{=html}
-    <!-- -->
-    ```
     -   Read the time information computed from a SYSTICK global counter
         increment.
 
@@ -156,9 +153,6 @@ command with values :
     -   A pointer to the "graph description text" to be compiled to
         "binary graph structure"
 
-```{=html}
-<!-- -->
-```
 -   **STREAM_RESET** : pointers memory banks are provided to
     "arm_stream()" which can initialize its instances and the SWC
     instances of the graph.
