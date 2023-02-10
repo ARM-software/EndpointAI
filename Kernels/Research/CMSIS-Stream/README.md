@@ -29,30 +29,31 @@
 
 # Contents 
 
-Contents
-Overview  1
-Compute Streaming Interface  2
-Entry-point Functions 2
-Two entry points  2
-Calling sequence  3
-1) Platform and SWC manifests  3
-11 Platform manifests  3
-12 Platform IO manifest  4
-13 SWC manifests  5
-2) The graph boundaries  6
-3) Linked list of SWC 6
-31 SWC interface  7
-311 SWC parameter “MEMREQ”  7
-312 SWC parameter “RESET”  8
-313 SWC parameter “SET_PARAMETER”  8
-314 SWC parameter “READ_PARAMETER”  8
-315 SWC parameter “RUN”  8
-316 SWC parameter “END”  9
-A Data types  9
-A1 Raw data types 10
-A2 Array of Raw data types  10
-A3 Stream digital “data formats"  10
-A4 Memory types  11
+- Contents
+- Overview  1
+- Compute Streaming Interface  2
+- Entry-point Functions 2
+- Two entry points  2
+- Calling sequence  3
+- 1) Platform and SWC manifests  3
+- 11 Platform manifests  3
+- 12 Platform IO manifest  4
+- 13 SWC manifests  5
+- 2) The graph boundaries  6
+- 3) Linked list of SWC 6
+- 31 SWC interface  7
+- 311 SWC parameter “MEMREQ”  7
+- 312 SWC parameter “RESET”  8
+- 313 SWC parameter “SET_PARAMETER”  8
+- 314 SWC parameter “READ_PARAMETER”  8
+- 315 SWC parameter “RUN”  8
+- 316 SWC parameter “END”  9
+- A Data types  9
+- A1 Raw data types 10
+- A2 Array of Raw data types  10
+- A3 Stream digital “data formats"  10
+- A4 Memory types  11
+
 
 # Compute Streaming Interface 
 
