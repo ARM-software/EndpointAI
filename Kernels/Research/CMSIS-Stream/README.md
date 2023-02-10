@@ -27,31 +27,32 @@
     write code, and allow graph changes and tuning without
     recompilation.
 
-# Contents
+# Contents 
 
-- Overview  1
-- Compute Streaming Interface  2
--   Entry-point Functions 2
--   Two entry points  2
--   Calling sequence  3
-- Platform and SWC manifests  3
-- 11 Platform manifests  3
--   12 Platform IO manifest  4
--   13 SWC manifests  5
-- The graph boundaries  5
-- Linked list of SWC 6
-- 31 SWC interface  7
--   311 SWC parameter “MEMREQ”  7
--   312 SWC parameter “RESET”  7
--   313 SWC parameter “SET_PARAMETER”  8
--   314 SWC parameter “READ_PARAMETER”  8
--   315 SWC parameter “RUN”  8
--   316 SWC parameter “END”  9
--   A Data types  9
--   A1 Raw data types 9
--   A2 Array of Raw data types  9
--   A3 Stream digital “data formats"  9
--   A4 Memory types  10
+Contents
+Overview  1
+Compute Streaming Interface  2
+Entry-point Functions 2
+Two entry points  2
+Calling sequence  3
+1) Platform and SWC manifests  3
+11 Platform manifests  3
+12 Platform IO manifest  4
+13 SWC manifests  5
+2) The graph boundaries  6
+3) Linked list of SWC 6
+31 SWC interface  7
+311 SWC parameter “MEMREQ”  7
+312 SWC parameter “RESET”  8
+313 SWC parameter “SET_PARAMETER”  8
+314 SWC parameter “READ_PARAMETER”  8
+315 SWC parameter “RUN”  8
+316 SWC parameter “END”  9
+A Data types  9
+A1 Raw data types 10
+A2 Array of Raw data types  10
+A3 Stream digital “data formats"  10
+A4 Memory types  11
 
 # Compute Streaming Interface 
 
@@ -102,44 +103,65 @@ void arm_stream_io (uint32_t fw_io_idx, void \*data, uint32_t length);
 The first control API has four parameters, three data parameters and a
 command with values :
 
--   **STREAM_MEMREQ** : the application asks for the amount of memory
+a)  **STREAM_MEMREQ** : the application asks for the amount of memory
     needed to schedule the graph; the function returns the amount of
     memory for each memory bank (see "1.1.2 processor characteristics").
     The other parameters are :
 
-    -   A function pointer to the **firmware of the platform**, in
-        charge of the low-level abstraction of the hardware controls.
-        Example of commands for "fw_entry_point (int,\*,\*,\*)":
+ -   A function pointer to the **firmware of the platform**, in
+     charge of the low-level abstraction of the hardware controls.
+     Example of commands for "fw_entry_point (int,\*,\*,\*)":
 
-        -   Return the details of current processor: its index,
-            architecture and FPU options
+     -   Return the details of current processor: its index,
+         architecture and FPU options
 
-        -   Control a semaphore.
+     -   Control a semaphore.
 
-        -   Call one on the three functions used to control the device
-            drivers : "set", "start", "stop" (see "2) The graph
-            boundaries")
+     -   Call one on the three functions used to control the device
+         drivers : "set", "start", "stop" (see "2) The graph
+         boundaries")
 
-    -   Read the time information computed from a SYSTICK global counter
-        increment.
-    
-    -   A pointer to the list of SWC entry points, and a pointer to
-        their respective manifests (see "1.3 SWC manifests")
+ -   Read the time information computed from a SYSTICK global counter
+     increment.
 
-    -   A pointer to the "graph description text" to be compiled to
-        "binary graph structure"
+ -   A pointer to the list of SWC entry points, and a pointer to
+     their respective manifests (see "1.3 SWC manifests")
 
--   **STREAM_RESET** : pointers memory banks are provided to
+ -   A pointer to the "graph description text" to be compiled to
+     "binary graph structure"
+
+b)  **STREAM_RESET** : pointers memory banks are provided to
     "arm_stream()" which can initialize its instances and the SWC
     instances of the graph. In a similar way described for SWC (see
-    "3.1.2 SWC parameter RESET") the application is prividing to the
-    CMSIS-Stream a callback mechanism
+    "3.1.2 SWC parameter RESET") the application is providing to the
+    CMSIS-Stream a callback mechanism. Each CMSIS-Stream instance is
+    stored in the shared memory of "binary graph structure" with the
+    format:
 
--   **STREAM_RUN** : the graph of components is scheduled (the
+-   7 offsets to the physical memory banks (see "1.1.2 processor
+    characteristics"). This information lets the arc's buffer being
+    address with indexes instead of physical pointers, it allows sharing
+    the same arc's descriptors among processors having different memory
+    address decoding (including arch64 processors).
+
+-   Debug information and the execution state of the instance, the
+    current SWC under processing.
+
+-   A 32bits-field of the graph IO ports to have look to. Most
+    CMSIS-Stream instances will not be given access to the peripherals.
+    Those indexes are used to address the platform IO manifest and
+    checking the associated graph's ring buffers are not having flow
+    problems.
+
+-   A function point to the firmware of the platform (see above).
+
+-   The list of SWC entry points
+
+c)  **STREAM_RUN** : the graph of components is scheduled (the
     linked-list of the "binary graph structure" is parsed, see "3)
     Linked list of SWC")
 
--   STREAM_END : the application releases memory
+d)  STREAM_END : the application releases memory
 
 The second control API has three parameters : the index of the device
 driver calling this function, the base address of the buffer, the size
@@ -463,25 +485,21 @@ driver :
         during io_set() (or the previous ack(), see below) is the first
         data to be transmitted\".
 
-```{=html}
-<!-- -->
-```
 -   **4) \"ack\"** Once new data are ready (or have just been
     transferred out), the device driver calls the callback (managed by
     the application, and encapsulating "arm_stream_io(int,\*,int)")with
     three parameters : ID (the device driver index), a pointer to a base
     address of a buffer, the size in bytes to tell,:
-
     -   **RX case** : \"I prepared for you a buffer of data, copy the
         data or use it directly from this place, and for this amount of
         bytes\". The address can change from last callback in case the
         device driver is using a ping-pong buffer protocol (or more
         buffers).
-
+    
     -   **TX case** : \"I have completed the transfer of this buffer
         with this amount of bytes you told me to move out, and you can
         refill this new (or the same) buffer for the next transfer\".
-
+    
 -   **5) \"stop\"** The application ends up the use-case with a call to
     io_stop(). The device driver acknowledges the end of on-going
     transfers with a call to the callback, with no parameter.
@@ -719,21 +737,104 @@ example with stereo audio : {data stream} points to a structure : \[
 {\*ptr_L, size L}, {\*ptr_R, size R} \], this is the format used in
 EEMBC-audiomark.
 
+[]{#_Toc126251473 .anchor}
+
 ### 3.1.6 SWC parameter "END"
 
 This command is used to free the allocated memory. The format is : func
 (STREAM_END, instance pointer, 0, 0).
 
-## A Data types
+### 3.2 ARCs descriptors
 
-### 
+Two types of arcs are used in the graph : simple linear buffers and ring
+buffers. Simple arcs are described with two words of 32bits, Ring
+descriptors are using 6 words (the first 2 words are identical to the
+ones of simple arcs) with the purpose of managing complex situation with
+peripherals, multiprocessing, drift compensations, data monitoring. Ring
+buffers are used at the boundary of the graph, their content is
+realigned to the base address to avoid the SWC to manage folding
+addresses. The data format is:
+
+-   Word 0 : 27 bits for the buffer base address and 5bits for the data
+    format
+
+    -   The base address is computed in 3 sub-fields of a linear 22bits
+        address shifted with an exponent of E = 2bits and 3bits
+        selecting one of the 7 memory banks (see "1.1.2 processor
+        characteristics"). Each CMSIS-Stream instance (see "Two entry
+        points b) STREAM_RESET") has its table of offset to physical
+        memory banks. The base address value is
+        physical_address\[offset\] + (linear address \<\< (E\<\<2)).
+
+    -   The 5bits data format field is a compact way to give the data
+        format details (see "A.3.1 Data format fields common to all
+        streams") which is 128bits long. This data is an index to the
+        table of data formats used in the graph. This table is part of
+        the shared binary graph structure.
+
+-   Word 1 : 24bits buffer size, 2bits to select the arc type, 8 bits
+    for debug
+
+    -   The buffer length is computed with a 22bits linear address and a
+        2 bits shifter to extend the length.
+
+    -   The 2 bits selector give the indication of linear or ring
+        descriptor format
+
+    -   For debug, 4bits are ging the debug task to proceed, and 4 bits
+        to select the debug register of the result. The debug register
+        array is in the shared binary graph structure. The debug tasks
+        are *TBD* and could be : estimation of the data rate, the
+        time-stamp of the last acces, the peak / min / absmax data
+        values with different forgetting factors.
+
+-   Word 2: read index on 24bits, flow management on 4bits, data
+    alignment decision bit
+
+    -   The read index is a plain 24bit index in Bytes, and allows to
+        manage 16MB buffers
+
+    -   There are 2bits for underflow and 2bits for overflow management
+        during read/write access. The decision thresholds ("crumb_in",
+        "crumb_out") are given in the Word-3. The underflow options are
+        : repeat last frames, generate zeroes (default), extrapolate
+        last frame. The overflow options are : skip last frame,
+        interpolate last frame.
+
+    -   To avoid data to fold when the write pointer is too close to the
+        top of the buffer a data realignement will be proceeded based on
+        a selection of '0' the crumb-in threshold, '1' the crumb-out
+        threshold.
+
+-   Word 3: write index on 24bits, 4 bits of crumb_in, crumb_out
+
+    -   The write index is a plain 24bit index in Bytes. Buffer full
+        condition corresponds to (W-R) = (Size-1).
+
+    -   Crumb_in (2bits) is used to set the "ready flag" (see "3) Linked
+        list of SWC") of the consumer SWC when the amount of data in the
+        buffer is either larger the buffer size /2 /4 /8 /16.
+
+    -   Crumb_out (2bits) is used to set the "ready flag" (see "3)
+        Linked list of SWC") of the producer SWC when the amount of free
+        area in the buffer is either larger the buffer size /2 /4 /8
+        /16.
+
+-   Word 4: offset (19 bits) to the linked-list header of the SWC
+    consumer of this arc.
+
+-   Word 5: Debug address field (27bits, format of the base address)
+
+## A Data types
 
 ### A.1 Raw data types
 
-Sample of raw data type
-[here](https://github.com/ARM-software/EndpointAI/blob/master/Kernels/Research/CMSIS-Stream/Stream_type.h).
+Sample of raw data type [here](https://github.com/ARM-software/EndpointAI/blob/master/Kernels/Research/CMSIS-Stream/Stream_type.h).
 
 ### A.2 Array of Raw data types
+
+When the raw data type is null, the next byte is the raw data type and
+the next 2 bytes are the number of raw data as array.
 
 ### A.3 Stream digital "data formats\"
 
@@ -898,9 +999,11 @@ RELOCATABLE= 1,
 
 *TBD*
 
-*Scripts provide a simple mean of taking decision, defining state-machines, read and set parameters of SWC, trigger actions for the application. Scripts are an interpreted language limited to very few commands (inspiration from [here](https://en.wikipedia.org/wiki/FOCAL_(programming_language)#Comparison_with_BASIC) and [here](https://en.wikipedia.org/wiki/TI-57)), and with only the capability to call CMSIS-Stream services.
+Scripts provide a simple mean of taking decision, defining state-machines, read and set parameters of SWC, trigger actions for the application. Scripts are an interpreted language limited to very few commands (inspiration from [here](https://en.wikipedia.org/wiki/FOCAL_(programming_language)#Comparison_with_BASIC) and [here](https://en.wikipedia.org/wiki/TI-57)), and with only the capability to call CMSIS-Stream services.
 
-**Linked-List description for scripts :*   *Word 0 "header" : (32bits) , with arch=7*
+*Linked-List description for scripts :*
+
+-   *Word 0 "header" : (32bits) , with arch=7*
 
 -   *Word 1 "header2" : size of the script, register use*
 
