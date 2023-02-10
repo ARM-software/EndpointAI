@@ -142,20 +142,36 @@ int32_t arm_beamformer_f32 (int32_t command, void *instance, void *data, void *p
         }
         
         case STREAM_RUN:   
-        /*  When data format is FMT_INTERLEAVED
-            Left and Right samples are in this order : LRLRLRLRLRLR ..
-                func(STREAM_RUN, instance, ptr to stereo data, nBytes buffer size)    
+        /*  
+            The "*data" field points to a structure : 
+                [{data stream1} {data stream2} .. ]
+            The "*parameter" field points to a similar structure : 
+                [{parameter stream1} {parameter stream2} .. ]
 
-            When data format is FMT_DEINTERLEAVED_1PTR
-            Left and Right samples are in this order : LLLL..LLLLRRRR...RRRR
-            Size of the first buffer :                 <--size-->
-                func(STREAM_RUN, instance, ptr to the Left buffer, Size in Bytes)
+            Simple components have two streams : one as input, the other as output
+              other can have up to 4 streams (several input/output combinations)
+ 
+            When a stream data format is FMT_INTERLEAVED 
+            For example Left and Right audio samples are in this order : LRLRLRLRLRLR ..
+              then {data stream} is a pointer to the base address, 
+                   {parameter stream} is the number bytes in the buffer
 
-            When data format is FMT_DEINTERLEAVED_NPTR
-            Left and Right samples are independent : LLLLL..LLLLL  ..  RRRRR...RRRRR
-            Size of the first buffer :               <--size L-->      <--size R--->
-            Pointer to a structure : [ {*ptr_L, size L}, {*ptr_R, size R} ]
-                func(STREAM_RUN, instance, XDAIS PTR_INT, 0)
+            When a stream data format is FMT_DEINTERLEAVED_1PTR 
+            For example Left and Right audio samples are in this order : LLLL..LLLLRRRR...RRRR
+              and the size of the first buffer (the "frame") is :        <--size-->
+              then {data stream} is a pointer to the base address, 
+                   {parameter stream} is the number bytes for a single frame 
+              The SWC will address the second and following channels by incrementing the base 
+                pointer address with the size of the frame.
+
+            When a stream data format is FMT_DEINTERLEAVED_NPTR 
+            The buffers have independent positions, for example color planes of images
+              then {data stream} is a combination of the pointer to the base address, 
+                and the size of the corresponding buffer. 
+                   {parameter stream} is unused 
+                For example with stereo audio :
+                {data stream} points to a structure : [ {*ptr_L, size L}, {*ptr_R, size R} ]
+            This is the format used in EEMBC-audiomark
         */         
         {
             uint32_t buffer1_size, buffer2_size, bufferout_free, increment, *pt_pt=0;
