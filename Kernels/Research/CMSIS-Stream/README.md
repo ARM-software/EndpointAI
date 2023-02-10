@@ -27,7 +27,7 @@
     write code, and allow graph changes and tuning without
     recompilation.
 
-# Contents {#contents .TOC-Heading}
+# Contents
 
 1) Overview  1
   Compute Streaming Interface  2
