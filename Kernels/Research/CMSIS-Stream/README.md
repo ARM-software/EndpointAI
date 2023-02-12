@@ -29,31 +29,32 @@
 
 # Contents 
 
-- Contents
-- Overview  1
-- Compute Streaming Interface  2
-- Entry-point Functions 2
-- Two entry points  2
-- Calling sequence  3
-- 1) Platform and SWC manifests  3
-- 11 Platform manifests  3
-- 12 Platform IO manifest  4
-- 13 SWC manifests  5
-- 2) The graph boundaries  6
-- 3) Linked list of SWC 6
-- 31 SWC interface  7
-- 311 SWC parameter “MEMREQ”  7
-- 312 SWC parameter “RESET”  8
-- 313 SWC parameter “SET_PARAMETER”  8
-- 314 SWC parameter “READ_PARAMETER”  8
-- 315 SWC parameter “RUN”  8
-- 316 SWC parameter “END”  9
-- A Data types  9
-- A1 Raw data types 10
-- A2 Array of Raw data types  10
-- A3 Stream digital “data formats"  10
-- A4 Memory types  11
-
+-Overview . 1
+-Compute Streaming Interface . 2
+-Entry-point Functions 2
+-Two entry points . 2
+-Calling sequence . 3
+-1) Platform and SWC manifests  3
+-1.1 Platform manifests  3
+-1.2 Platform IO manifest . 4
+-1.3 SWC manifests  5
+-2) The graph boundaries . 6
+-3) Linked list of SWC 6
+-3.1 SWC interface  7
+-3.1.1 SWC parameter “MEMREQ”  7
+-3.1.2 SWC parameter “RESET”  8
+-3.1.3 SWC parameter “SET_PARAMETER”  8
+-3.1.4 SWC parameter “READ_PARAMETER” . 8
+-3.1.5 SWC parameter “RUN”  8
+-3.1.6 SWC parameter “END” . 9
+-3.2 ARCs descriptors . 9
+-A Data types . 10
+-A.1 Raw data types 10
+-A.2 Array of Raw data types  10
+-A.3 Stream digital “data formats" . 10
+-A.4 Memory types . 11
+-B Scripts  11
+-C SWC delivery . 12
 
 # Compute Streaming Interface 
 
@@ -61,7 +62,7 @@ CMSIS-Stream is scheduling the software components of a graph. The nodes
 of the graph are **software components** ("SWC ") independent of the
 platform capabilities.
 
-The graph description is a text file (example
+The **graph description is a text** file (example
 [*here*](https://github.com/ARM-software/EndpointAI/blob/master/Kernels/Research/CMSIS-Stream/graph.txt))
 and is the result from the translation made in a GUI tool, using :
 
@@ -71,17 +72,19 @@ and is the result from the translation made in a GUI tool, using :
 -   a **manifest of each SWC** : description of the data formats of the
     interfaces
 
-CMSIS-Stream is translating the **graph description text** file to a
-binary data structure, with the help of the data in the manifests. This
-result is placed in shared memory area to all processes and processors.
+CMSIS-Stream is translating the graph description text file to a
+**binary graph structure**, with the help of the data in the manifests.
+This result is placed in shared memory area to all processes and
+processors.
 
 This shared **binary** **graph structure** consists in :
 
--   the linked list of arcs and nodes (the SWC) of the graph
+-   the **linked lis**t of arcs and nodes (the SWC) of the graph
 
--   the arcs descriptors (read and write indexes to circular buffers)
+-   the **arcs descriptors** (read and write indexes to circular
+    buffers)
 
--   the memory of the CMSIS-Stream instances scheduled the graph.
+-   the memory of the **CMSIS-Stream instances** scheduled the graph.
 
 -   the structure describing the operations at the boundary of the graph
     (the graph "IOs")
@@ -89,49 +92,59 @@ This shared **binary** **graph structure** consists in :
 -   registers used to synchronize the different CMSIS-Stream instances,
     if any
 
-## Entry-point Functions 
+## Two entry-points 
 
-CMSIS-Stream has two entry-points, one for controls and services, and a
-second one used as callback for notifications of data transfers :
+CMSIS-Stream has two entry-points, one for controling and asking for
+services, and a second one used as callback for notifications of data
+transfers :
 
 void arm_stream (uint32_t command, PTR_INT ptr1, PTR_INT ptr2, PTR_INT
 ptr3);
 
 void arm_stream_io (uint32_t fw_io_idx, void \*data, uint32_t length);
 
-### Two entry points 
+### Calling sequence
+
+The main CMSIS-Stream instance (the one located in the main process or
+processor) is called by the application to compute the amount of memory
+needed to execute the graph : the buffers of the arcs, the SWC instances
+of the graph, the buffers used for IOs (command "STREAM_MEMREQ" below).
+
+In a second step, the application provides the memory pointers to the
+requested memory banks. The CMSIS-Stream instances are now allowed to
+activate of the IOs at the boundary of the graph, do the memory
+initialization of all SWC (command "STREAM_RESET" below).
+
+Finally, the application lets the graph being scheduled by CMSIS-Stream
+(command "STREAM_RUN" above).
 
 The first control API has four parameters, three data parameters and a
 command with values :
 
-a)  **STREAM_MEMREQ** : the application asks for the amount of memory
-    needed to schedule the graph; the function returns the amount of
-    memory for each memory bank (see "1.1.2 processor characteristics").
-    The other parameters are :
+**STREAM_MEMREQ** : the application asks for the amount of memory needed
+to schedule the graph; the function returns the needed amount of memory
+for each memory bank (see "1.1.2 processor characteristics"). The
+parameters are :
 
- -   A function pointer to the **firmware of the platform**, in
-     charge of the low-level abstraction of the hardware controls.
-     Example of commands for "fw_entry_point (int,\*,\*,\*)":
+-   A function pointer to the firmware of the platform, in charge of the
+    low-level abstraction of the hardware controls:
 
-     -   Return the details of current processor: its index,
-         architecture and FPU options
+    -   Returns the details of current processor: its index in the
+        manifest table, its architecture and the FPU options
 
-     -   Control a semaphore.
+    -   Call one on the three functions used to control the device
+        drivers : "set", "start", "stop" (see "2) The graph boundaries")
 
-     -   Call one on the three functions used to control the device
-         drivers : "set", "start", "stop" (see "2) The graph
-         boundaries")
+    -   Read the time information, for example computed from a SYSTICK
+        global counter.
 
- -   Read the time information computed from a SYSTICK global counter
-     increment.
+-   A pointer to the list of SWC entry points, and a pointer to their
+    respective manifests (see "1.3 SWC manifests")
 
- -   A pointer to the list of SWC entry points, and a pointer to
-     their respective manifests (see "1.3 SWC manifests")
+-   A pointer to the "graph description text" to be compiled to "binary
+    graph structure"
 
- -   A pointer to the "graph description text" to be compiled to
-     "binary graph structure"
-
-b)  **STREAM_RESET** : pointers memory banks are provided to
+a)  **STREAM_RESET** : pointers memory banks are provided to
     "arm_stream()" which can initialize its instances and the SWC
     instances of the graph. In a similar way described for SWC (see
     "3.1.2 SWC parameter RESET") the application is providing to the
@@ -145,8 +158,8 @@ b)  **STREAM_RESET** : pointers memory banks are provided to
     the same arc's descriptors among processors having different memory
     address decoding (including arch64 processors).
 
--   Debug information and the execution state of the instance, the
-    current SWC under processing.
+-   Debug informations, the execution state of the instance, the current
+    SWC under processing.
 
 -   A 32bits-field of the graph IO ports to have look to. Most
     CMSIS-Stream instances will not be given access to the peripherals.
@@ -154,47 +167,40 @@ b)  **STREAM_RESET** : pointers memory banks are provided to
     checking the associated graph's ring buffers are not having flow
     problems.
 
--   A function point to the firmware of the platform (see above).
+-   A function pointer to the firmware of the platform (see above).
 
 -   The list of SWC entry points
 
-c)  **STREAM_RUN** : the graph of components is scheduled (the
+b)  **STREAM_RUN** : the graph of components is scheduled (the
     linked-list of the "binary graph structure" is parsed, see "3)
     Linked list of SWC")
 
-d)  STREAM_END : the application releases memory
+c)  STREAM_END : command forwarded to each SWC to release memory
+    allocated with stdlib.
 
-The second control API has three parameters : the index of the device
-driver calling this function, the base address of the buffer, the size
-of the buffer. The "index" is given in the platform IO manifest (see
-"1.2.4 The ID of the hardware port"). Data format and interleaving is
-described at "A.3.1 Data format fields common to all streams".
-
-### Calling sequence
-
-The main CMSIS-Stream instance is called by the application to compute
-the amount of memory needed to execute the graph : memory of the arcs,
-the SWC instances of the graph, the buffers used for IOs (command
-"STREAM_MEMREQ" above).
-
-In a second step, the application provides memory pointers to the memory
-banks requested, and calls the CMSIS-Stream instance to activate of the
-IOs at the boundary of the graph, for the memory initialization of each
-CMSIS-Stream instances and all SWC (command "STREAM_RESET" above)
-
-Finally, the application lets the graph being scheduled by CMSIS-Stream
-(command "STREAM_RUN" above).
+The second control API (arm_stream_io) has three parameters : the index
+of the device driver calling this function, the base address of the
+buffer, the size of the buffer. The "index" is given in the platform IO
+manifest (see "1.2.4 The ID of the hardware port"). Data format and
+interleaving is described at "A.3.1 Data format fields common to all
+streams".
 
 The description of the scheduling of the graph consists in :
 
 -   the content of the **manifests** of the platform and the manifests
-    of the SWC (below paragraph "1) Platform and SWC manifests").
+    of the SWC
+
+    -   paragraph below "1) Platform and SWC manifests"
 
 -   the way the **IOs** are sharing data with the ring buffers at the
-    boundary of the graph (below paragraph "2) The graph boundaries").
+    boundary of the graph
+
+    -   paragraph below "2) The graph boundaries"
 
 -   the description of the **linked-list** and the connexions between
-    arcs and nodes (below paragraph "3) Linked list of SWC").
+    arcs and nodes
+
+    -   paragraph below "3) Linked list of SWC"
 
 ## 1) Platform and SWC manifests
 
@@ -204,9 +210,9 @@ binary graph and execute it :
 -   the table of entry points to SWC, and the code. This data is
     different for each processor architecture of the device.
 
--   the platform manifest : a combination of the description of the
-    processor and a "platform_io_manifest" for the details of the
-    sensors addressed by the device.
+-   the **platform manifest** : a combination of the **description of
+    the processor** and a "**platform_io_manifest**" for the details of
+    the sensors used by the platform.
 
 ### 1.1 Platform manifests
 
@@ -214,28 +220,40 @@ The platform manifest is structure of bit-fields (20 Bytes min.)
 holding:
 
 -   **1.1.1 the list of services** delivered through CMSIS-Stream and
-    its APIs, in two categories : the DSP/ML services and the
-    Application services. This allows SWC delivered in binary to use
-    libraries without incorporating them in the code. One example of
-    use-case is to let a code written for the architecture ARMv7-M to
-    run on ARM-v8.2-M with acceleration.
+    its APIs, in two categories : the DSP/ML services and the HAL
+    services. This allows SWC delivered in binary to use libraries
+    without incorporating them in the code. One example of use-case is
+    to let a code written for the architecture ARMv7-M to run on
+    ARM-v8.2-M with acceleration.
 
     -   DSP/ML services : abstraction to a short-list of kernels from
         CMSIS-DSP (filtering, spectral analysis, linear algebra)
 
-    -   Multimedia audio and image compression: abstraction to audio
-        codecs
+    -   Basic multimedia audio and image compression: abstraction to
+        audio codecs
 
-    -   Application services: interface to IO (LED, Digit, GPIO),
-        storage and timer services
+    -   HAL services: interface to IO (LED, Digit, GPIO), storage and
+        timer services
 
 -   **1.1.2 processor characteristics** : number of processors and
     pointer to description of each, number of different architectures
     and a pointer to the table of description, the memory bank used for
     the shared memory access
 
-    -   CMSIS-Stream uses several memory banks for the memory allocation
-        of SWC :
+    -   The processor and architecture tables give:
+
+        -   The processor architecture (ARMv6-M, ARMv7-M.. ARMv9-A)
+
+        -   The architecture options (FPU options, Vector processing
+            options)
+
+        -   The indexes used to differentiate each processor.
+
+        -   The memory banks (above) able to be addressed.
+
+    -   CMSIS-Stream uses several virtual memory banks for the memory
+        allocation of SWC. The responsibility of the application is to
+        map those names to physical memory :
 
         -   "Internal memory"
 
@@ -252,19 +270,8 @@ holding:
         -   "Backup memory" used to save critical data fast restore on
             warm boot.
 
-    -   The processor and architecture tables give:
-
-        -   The processor architecture (ARMv6-M, ARMv7-M.. ARMv9-A)
-
-        -   The architecture options (FPU options, Vector processing
-            options)
-
-        -   The indexes used to differentiate each processor.
-
-        -   The memory banks (above) able to be addressed.
-
 -   **1.1.3 The number of I/O** interfaces and the way to use them
-    (paragraph below)
+    (paragraph 1.2)
 
 ### 1.2 Platform IO manifest
 
@@ -275,8 +282,8 @@ holding :
     IO interface.
 
 -   **1.2.1 The "domain"** of the IO interface. This information is used
-    differentiate the standard tuning of the interface (see A.4
-    Domain-specific stream data types) :
+    differentiate the different tuning parameters of the sensors /
+    transducers (see A.3.2 Domain-specific stream data types) :
 
     -   **Audio recording** stream, and the control of the number of
         channels, sampling rate, frame size, acoustic sensitivity, gain
@@ -293,7 +300,10 @@ holding :
         computation, metadata (free fall, shock, tap, transient
         detection..)
 
-    -   Electrical domain, *TBD*, focus on motor control.
+    -   **Generic data moves** used streams generated by the application
+
+    -   Electrical domain, *TBD*, synchronous I/V sensing for motor
+        control.
 
     -   Position domain, *TBD*, linear, angular, rotary position sensor
 
@@ -320,10 +330,10 @@ holding :
         example when polling the temperature from application requests).
 
     -   **buffer allocation**: tells if the buffer used for the
-        communication with the application is reserved by the device
-        driver or needs to be allocated during the graph initialization
-        steps, and in which platform memory area (one of the memory
-        banks given in "1.1 Platform manifests").
+        communication with CMSIS-Stream is reserved by the device driver
+        or needs to be allocated during the graph initialization steps,
+        and in which platform memory area (one of the memory banks given
+        in "1.1 Platform manifests").
 
 -   **1.2.3 The default digital stream setting** (8 Bytes) : see "A.3
     Stream digital data types" for the description of the bit-fields
@@ -336,16 +346,16 @@ holding :
     the previous transfer (transmit).
 
 -   **1.2.5 The default sensor configuration** (8 Bytes) related to the
-    domain (see above). An a table of configuration control structured
-    by lines (number of fields, data). To initialize a data stream at
-    the boundary of the graph, the graph description text file gives the
-    bit-fields of the desired configuration, or let all the bits at "0",
-    for the default configuration of the platform firmware. In the
-    example below a microphone path can be configure with the number of
-    channels (3 bits on the LSB, 8 configurations possible), the
-    manifest proposes 3 options with 1, 2 and 8 channels. The two bits
-    (4 options) allocated to the frame-size options have only 2 options:
-    10ms and 16ms frame lengths :
+    domain (see above). This is a table of configuration controls
+    structured by lines (number of fields, data). To initialize a data
+    stream at the boundary of the graph, the graph description text file
+    gives the bit-fields of the desired configuration, for the default
+    configuration of the platform firmware. In the example below a
+    microphone path can be configure with the number of channels (3 bits
+    on the LSB, 8 configurations possible), the manifest proposes 3
+    options with 1, 2 and 8 channels. The two bits (4 options) allocated
+    to the frame-size options have only 2 options: 10ms and 16ms frame
+    lengths :
 
 > /\* tuning of AUDIO_REC_STREAM_SETTING \*/
 >
@@ -389,7 +399,7 @@ format limited to 2 streams (40 Bytes), fat-binary delivery of the SWC
 
 -   **Number of stream** (input and output) managed by this component
 
--   Bit-field of dependencies to CMSIS-Stream for DSP/ML and Application
+-   Bit-field of dependencies to CMSIS-Stream for DSP/ML and HAL
     services (see 1.1 Platform manifests)
 
 -   The developer identification, 21 bits
@@ -401,10 +411,11 @@ format limited to 2 streams (40 Bytes), fat-binary delivery of the SWC
 
 -   A short name for debug, 4 characters
 
--   A flag telling if the SWC data instance is relocatable and can be
-    moved between calls (the code allays making reference to the base
-    address of the instance, and if the code and it's the inline
-    assembly is made ready for "position independent execution".
+-   A flag telling if the SWC data instance is relocatable and/or can be
+    moved between calls (the SWC is always reading instance data with a
+    reference to the base address of the instance), and if the code and
+    it's the inline assembly is made ready for "position independent
+    execution".
 
 -   **The stream format of each input and output stream** of the
     components (see "A.3 Stream digital "data formats\""), giving the
@@ -416,17 +427,18 @@ format limited to 2 streams (40 Bytes), fat-binary delivery of the SWC
 -   The allowed stream deviations from the above default value,
     concerning the maximum number of channels and the sampling rate.
 
-The short format of SWC manifest stops here, and manifests data
-continues for normal and binary formats:
+The short format of SWC manifest stops here, and continues for normal
+and binary formats:
 
--   The number of **parameter presets**, on 6 bits.
+-   The number of **parameter presets**, on 6 bits (64 parameter presets
+    possible)
 
--   The optional need to reset the component when loading new
+-   The optional need to reset the component after loading new
     parameters.
 
 -   The size of the parameter presets, on 18 bits (\<256kBytes)
 
--   A pointer to the beginning of the parameter presets
+-   A pointer to the beginning of the array of parameter presets
 
 -   A pointer to the test pattern, expected results, the configuration
     and replay options, *TBD*
@@ -438,80 +450,108 @@ The binary manifest format are using offsets instead of pointers.
 ## 2) The graph boundaries
 
 The below IO protocol facilitates code portability when switching
-between hardware platforms. CMSIS-Stream provides an interface to the
-firmware. It hides to the graph scheduler the way the samples are
+between hardware platforms. The firmware of the device proposes 3
+functions ("set", "start", "stop") for all interfaces. The protocol
+described below hides to the graph scheduler the way the samples are
 generated or consumed (DMA, USB, files of the application, ..).
 
 The board designer validates the operations of its sensors and
-transducers in several configurations, which are saved in the "platform
-IO manifest" (see "1.2.5 The default sensor configuration") and used
-during the graph creation. If the IO stream do not deliver the data in
-the format desired by the SWC consumer, CMSIS-Stream GUI tool will
-insert a node for the format conversion. This automatic conversion
-scheme applies between SWC in the middle of the graph too.
+transducers in several configurations. Those configurations are saved in
+the "platform IO manifest" (see "1.2.5 The default sensor
+configuration"). If the IO stream do not deliver the data in the format
+desired by the consumer SWC then CMSIS-Stream GUI tool will insert a
+node for the format conversion. This automatic conversion scheme applies
+between SWC in the middle of the graph too.
 
-Sequence of functions called between the application and the device
+Sequence of functions called between the CMSIS-Stream and the device
 driver :
 
--   **1) \"init\"** The GUI has a copy of the IO manifest and decides
-    how the buffer used for exchanges will be defined, the domain
-    settings. The type of data move to operate once receiving the
-    information from the device driver (data to copy or the application
-    will access the data \"in place\") was decided during the software
-    architecture definition.
+-   **1) \"init\"** The GUI holds a copy of the IO manifest and decides
+    how the buffer is created and used for exchanges. The GUI sets the
+    type of data move to operate once receiving the information from the
+    device driver (data to copy to the ring buffers or let the SWC have
+    the processing being made \"in place\").
 
--   **2) \"set\"** The scheduler calls \"io_set()\" through the platform
-    firmware interface, see "Entry-point Functions" with STREAM_MEMREQ
-    parameters, for this desired configuration with calling parameters:
+-   **2) \"set\"** The scheduler calls the firmware with a "set\"
+    command with the desired sensor configuration with parameters:
 
     -   the domain settings
 
-    -   a proposed buffer address and size (if needed, see previous
-        \"buffer allocation\").
+    -   a proposed buffer address and size (if needed).
 
-> \"RX\" means a flow of data from external sensor to the application,
+> \"RX\" means a flow of data from external sensor to the CMSIS-Stream,
 >
-> \"TX\" means a flow of data generated by the application to the
+> \"TX\" means a flow of data generated by the CMSIS-Stream to the
 > external transducer.
 
 -   **3) \"start / continue\"** The scheduler initiates the data
-    transfers with \"io_start()\" with two parameters : a pointer to the
-    base address of buffer, the size in bytes to tell (\"io_start()\"
-    returns a Boolean telling if the data transfer is possible):
+    transfers with a call to the firmware using "start" command with two
+    parameters (the function returns a Boolean telling if the data
+    transfer is possible):
 
-    -   **RX case** : \"this memory address and buffer size, exchanged
-        during io_set() , is proposed for receiving new data\".
+    -   a pointer to the base address of buffer, the size in bytes to
+        tell :
 
-    -   **TX case** : \"this base address and buffer size, exchanged
-        during io_set() (or the previous ack(), see below) is the first
-        data to be transmitted\".
+        -   **RX case** : \"this memory address and buffer size, is
+            proposed for receiving new data\"
 
--   **4) \"ack\"** Once new data are ready (or have just been
-    transferred out), the device driver calls the callback (managed by
-    the application, and encapsulating "arm_stream_io(int,\*,int)")with
-    three parameters : ID (the device driver index), a pointer to a base
-    address of a buffer, the size in bytes to tell,:
-    -   **RX case** : \"I prepared for you a buffer of data, copy the
-        data or use it directly from this place, and for this amount of
-        bytes\". The address can change from last callback in case the
-        device driver is using a ping-pong buffer protocol (or more
-        buffers).
-    
-    -   **TX case** : \"I have completed the transfer of this buffer
-        with this amount of bytes you told me to move out, and you can
-        refill this new (or the same) buffer for the next transfer\".
-    
--   **5) \"stop\"** The application ends up the use-case with a call to
-    io_stop(). The device driver acknowledges the end of on-going
-    transfers with a call to the callback, with no parameter.
+        -   **TX case** : \"this base address and buffer size is the
+            first data to be transmitted\"
+
+-   **4) \"ack\"** When new data is ready (or have just been transferred
+    out), the device driver calls the application callback (which is a
+    wrapper to "**arm_stream_io**(int,\*,int)") with three parameters :
+
+    -   ID (the device driver index), a pointer to a base address of a
+        buffer, the size in bytes to tell,:
+
+        -   **RX case** : \"I prepared for you a buffer of data, copy
+            the data or use it directly from this place, and for this
+            amount of bytes\". The address can change from last callback
+            for example in case the device driver is using a ping-pong
+            buffer protocol (or more buffers).
+
+        -   **TX case** : \"I have completed the transfer of this buffer
+            with this amount of bytes you told me to move out, and you
+            can refill this new (or the same) buffer for the next
+            transfer\".
+
+-   **5) \"stop\"** CMSIS-Stream stops the use-case with a call to
+    firmware and "stop" command. The device driver acknowledges the end
+    of on-going transfers with a call to the callback, with no
+    parameter.
 
 ## 3) Linked list of SWC 
 
-After translation, binary graph structure holds different buffers, in a
-shared memory space, including the linked-list representation of the
-graph. This table will be continuously parsed by the scheduler to find
-which SWC needs to be executed, and which with higher priority from
-others.
+After translation from the text format, the binary graph structure holds
+different data, in a shared memory space, with the linked-list (a table)
+representation of the graph. This table will be continuously parsed by
+the schedulers to find which SWC needs to be executed, and which with
+higher priority from others.
+
+The linked-list is a succession of data records : a 32bits header (H),
+an index to the location of the SWC instance (I), and to the boot
+parameters to use (B). And finally two pairs of arcs index (A). The
+header tells if a compact representation is used (SWC with no instance,
+no parameters, and only two arcs). The size varies 8 to 20bytes:
+
+> ADDR LIST
+>
+> \-\-\-\-\-\-\-\--
+>
+> 0000 HHHH standard format
+>
+> 0004 IIII
+>
+> 0008 BBBB
+>
+> 000C A1A0
+>
+> 0010 A3A3
+>
+> 0000 HHHH compact format
+>
+> 0004 A1A0
 
 This linked-list table gives the index of the SWC for the table of
 entry-points and table of manifests, the index of the arcs connected to
@@ -522,11 +562,10 @@ to pack the content to the minimum size possible. The data format is :
 
     -   12 bits to **index** the entry point of the component.
 
-    -   7 bits to quickly help the scheduler if the component is
-        executable on the current processor (4 bits for the processor
-        ID, 3 bits for the architecture ID with the value 0 meaning
-        "any" and 7 meaning this is a script file (see "Annexe B
-        Scripts").
+    -   7 bits to indicate if the component is executable on the current
+        processor (4 bits for the processor ID, 3 bits for the
+        architecture ID with the value 0 meaning "any" and 7 meaning
+        this is a script file (see "Annexe B Scripts").
 
     -   2 bits to set debug options (counter of cache-miss of this SWC,
         patch the input for self-test, ..)
@@ -556,8 +595,8 @@ to pack the content to the minimum size possible. The data format is :
 
     -   1 bit to pack the SWC description for 2 arcs.
 
-    -   1 bit to tell there a boot parameter index (32bits) to use at
-        reset time
+    -   1 bit to tell there a boot parameter array index (32bits) to use
+        at reset time
 
     -   1 bit to tell the SWC needs or not a MEMREQ initialization if
         there is no need for declaration of an instance (no instance, no
@@ -566,42 +605,41 @@ to pack the content to the minimum size possible. The data format is :
 -   Optional **instance** index to a memory space of the binary graph
     structure.
 
--   Optional parameter set of data to a memory space of the binary graph
-    structure.
+-   Optional index to a set of parameters.
 
 -   The first two 16 bits **arc descriptors** with the format :
 
     -   12 bits to index the arc descriptor in the binary graph
         structure (see "3.2 ARC descriptors")
 
-    -   1 bit "ready flag" used accelerate the scheduler decision : for
-        input arcs of the SWC the flag is set when at least a minimum of
-        data is available in the buffer. For output arcs of the SWC the
-        flag is set when at least a minimum of free area is available in
-        the output buffer.
+    -   1 bit "**ready flag**" used accelerate the scheduler decision :
+        for input arcs of the SWC the flag is set when at least a
+        minimum of data is available in the buffer. For output arcs of
+        the SWC the flag is set when at least a minimum of free area is
+        available in the output buffer.
 
-    -   1 bit "high QoS flag" indicating the SWC can be executed even if
-        the other streams do not have yet their "ready flag" set. The
-        arcs descriptors with flow errors give indications on the
-        operation to do to interpolate the data.
+    -   1 bit "**high QoS flag**" indicating the SWC can be executed
+        even if the other streams do not have yet their "ready flag"
+        set. The arcs descriptors with flow errors give indications on
+        the operation to do to interpolate the data.
 
 The main loop of the scheduler consists in checking the list of ring
-buffer at the boundary of the graph, and activating the firmware for
+buffers at the boundary of the graph, and activating the firmware for
 data exchanges. Then, parsing the linked-list, finding the SWC having
 its "ready flags" set and call it, until the end of the table, loop
-until the situation is stable and return the caller.
+until the situation is stable and return to the caller.
 
 ### 3.1 SWC interface
 
 The SWC have a single entry point in the format "func (int, \*,\*,\*)".
-The first parameter is the execution command (reset, set parameters,
-run, stop). The SWC can call CMSIS-Stream through a dedicated function
-pointer provided at reset time. An example of SWC API
+The first parameter is the execution command (memory request, reset, set
+parameters, run, stop). The SWC can call CMSIS-Stream through a
+dedicated function pointer provided at reset time. An example of SWC API
 [here](https://github.com/ARM-software/EndpointAI/blob/master/Kernels/Research/CMSIS-Stream/SWC_sample.c).
 
 ### 3.1.1 SWC parameter "MEMREQ"
 
-The first operation asked by the scheduler is to ask for memory
+The first operation asked by the scheduler is to ask the SWC for memory
 allocation with respect to parameters associated to the input and output
 stream format (the SWC may ask for working memory buffer size in
 relation with the frame size of the streams).
@@ -614,21 +652,21 @@ command "STREAM_END".
 
 The format is : func (STREAM_MEMREQ, \*ptr1, \*ptr2, \*ptr3):
 
--   The first pointer is preallocated by the scheduler to a memory space
-    of 7 words of 32bits. The SWC will fill this area with up to 6
-    memory allocation requests terminated with "0". Each word is a
-    bit-field (description in "A.4 Memory types") giving the size of the
-    memory buffer, the byte alignment and the recommended speed. The
-    memory can be declared "static" or "working"(or "scratch memory
-    area"), depending if the content needs to be preserved between two
-    calls. The first memory request is the "instance", which holds
-    pointers to static and working memory buffers. The pointer to this
-    memory area is reused in all the other SWC commands.
+-   The first pointer is a memory space of 7 words of 32bits. The SWC
+    will fill this area with up to 6 memory allocation requests
+    terminated with "0". Each word is a bit-field (description in "A.4
+    Memory types") giving the size of the memory buffer, the byte
+    alignment and the recommended speed. The memory can be declared
+    "static" or "working"(or "scratch memory area"), depending if the
+    content needs to be preserved between two calls. The first memory
+    request is the "instance", which holds pointers to static and
+    working memory buffers. The pointer to this memory area is reused in
+    all the other SWC commands.
 
--   The second parameter is pointing to an table of the stream formats
+-   The second parameter is pointing to a table of the stream formats
     used (see "A.3 Stream digital "data formats\""). This information
     (buffer size, sampling rate, interleaving scheme) can be used by the
-    SWC to request the minimum amount of memory.
+    SWC to adjust the request to the minimum amount of memory.
 
 -   The last parameter is *TBD* and reserved for a SWC activation
     protocol with key exchanges
@@ -641,18 +679,19 @@ memory being allocated.
 The format is : func (STREAM_RESET, \*ptr1, \*ptr2, \*ptr3):
 
 -   The first parameter points to the SWC instance, with memory
-    allocation corresponding to the first word of the STREAM_MEMREQ.
+    allocation corresponding to the first word of the STREAM_MEMREQ. The
+    following data is a vector of pointers corresponding the memory
+    allocation requested in the same following order provided by the
+    STREAM_MEMREQ.
 
--   The second parameter is a vector of pointers corresponding the
-    memory allocation requested in the same following order provided by
-    the STREAM_MEMREQ.
-
--   The last parameter is a pointer to the entry point of CMSIS-Stream,
-    and giving access to optional services in computing, signal
-    compression. There is a protocol *TBD* to activate this link : the
-    SWC will use a single subroutine as calling address and will
+-   The second parameter is a pointer to the entry point of
+    CMSIS-Stream, and giving access to optional services in computing,
+    signal compression. There is a protocol *TBD* to activate this link
+    : the SWC will use a single subroutine as calling address and will
     register the return address (seen by CMSIS-Stream) with a dummy call
     during this initialization sequence.
+
+-   The last parameter is unused.
 
 ### 3.1.3 SWC parameter "SET_PARAMETER"
 
@@ -670,8 +709,8 @@ The format is : func (STREAM_SET_PARAMETERS, \*ptr1, \*ptr2, \*ptr3):
     the index or the tag used by the SWC documentation to change one
     parameter. The value 256 tells the full parameter list will be set.
 
-The scheduler has no way to decide when to change a parameter, but the
-"scr
+The scheduler has no way to decide to change a parameter during the
+execution of the graph. The **Scripts** are used for this purpose.
 
 ### 3.1.4 SWC parameter "READ_PARAMETER"
 
@@ -699,46 +738,45 @@ common to all streams").\
 The calling format is : func (STREAM_RUN, \*ptr1, \*ptr2, \*ptr3).
 
 As previously "ptr1" is the instance pointer of the component. "ptr2" is
-a pointer to a structure, the size of which depends on the stream format
-and number of channels.
+a pointer to a structure.
 
-The \"\*ptr2\" field points to a structure : \[{data stream1} {data
-stream2} .. \]
+The \"\*ptr2\" field points to a structure : \[{data pointer stream1}
+{data pointer stream2} .. \]
 
-The \"\*ptr3\" field points to a similar structure : \[{parameter
-stream1} {parameter stream2} .. \]
+The \"\*ptr3\" field points to a similar structure : \[{parameter of
+stream1} {parameter of stream2} .. \]
 
 Simple components have two streams : one as input, the other as output
 other can have up to 4 streams (several input/output combinations).
 
-The "size" information of output streams is the amount of free space in
-the output buffer.
+A data buffer is combination of a pointer and size. For input streams
+the size is the amount of data in the buffer. For output streams this is
+the amount of free space in the output buffer starting from the pointer
+address,
 
 The SWC is updating the base address pointers and data sizes before
 returning to caller.
 
-When a stream data format is **FMT_INTERLEAVED**, for example Left and
-Right audio samples are in this order : LRLRLRLRLRLR .. then {data
+When a stream data format is **FMT_INTERLEAVED**, (for example Left and
+Right audio samples are in this order : LRLRLRLRLRLR .. ) then {data
 stream} is a pointer to the base address, {parameter stream} is the
 number bytes in the buffer.
 
-When a stream data format is **FMT_DEINTERLEAVED_1PTR**, for example
+When a stream data format is **FMT_DEINTERLEAVED_1PTR**, (for example
 Left and Right audio samples are in this order : LLLL..LLLLRRRR\...RRRR
-and the size of the first buffer (the \"frame\") then {data stream} is a
+) the size of the first buffer (the \"frame\") then {data stream} is a
 pointer to the base address, {parameter stream} is the number bytes for
 a single frame (the size of the Left sample portion). The SWC will
 address the second and following channels by incrementing the base
 pointer address with the size of the frame.
 
 When a stream data format is **FMT_DEINTERLEAVED_NPTR**. The buffers
-have independent positions, for example color planes of images. The
+have independent positions (for example color planes of images). The
 {data stream} is a combination of the pointer to the base address, and
 the size of the corresponding buffer. {parameter stream} is unused. For
 example with stereo audio : {data stream} points to a structure : \[
 {\*ptr_L, size L}, {\*ptr_R, size R} \], this is the format used in
-EEMBC-audiomark.
-
-[]{#_Toc126251473 .anchor}
+**EEMBC-audiomark**.
 
 ### 3.1.6 SWC parameter "END"
 
@@ -828,9 +866,12 @@ addresses. The data format is:
 
 ## A Data types
 
+### 
+
 ### A.1 Raw data types
 
-Sample of raw data type [here](https://github.com/ARM-software/EndpointAI/blob/master/Kernels/Research/CMSIS-Stream/Stream_type.h).
+Sample of raw data type
+[here](https://github.com/ARM-software/EndpointAI/blob/master/Kernels/Research/CMSIS-Stream/Stream_type.h).
 
 ### A.2 Array of Raw data types
 
@@ -899,7 +940,7 @@ The second word of the common data format has the fields:
 
 -   Four bits unused
 
-#### A.4 Domain-specific stream data format
+#### A.3.2 Domain-specific stream data format
 
 The third word of the domain-specific data format has the fields :
 
@@ -918,89 +959,84 @@ The third word of the domain-specific data format has the fields :
 
 ### A.4 Memory types
 
-enum prog_data_type
+Memory requests bit-fields :
 
-{ MEM_REQ_DATA = 0,
+-   Size 20bits : 18bits linear and 2bits shifter. The size is
+    (linear-18b) \<\< (shift x 4). Allowing a size range up to 1GB.
 
-MEM_REQ_PROG = 1,
+-   Buffer byte alignment 3bits
 
-};
+-   Speed memory requirement 2bits
 
-enum mem_speed_type /\* memory requirements associated to enum
-memory_banks \*/
+-   Data/Program 1bit
 
-{ MEM_SPEED_REQ_ANY = 0, /\* best effort \*/
+-   Working/static 2bits
 
-MEM_SPEED_REQ_NORMAL = 1, /\* can be external memory \*/
+enum mem_speed_type memory requirements associated to enum memory_banks
 
-MEM_SPEED_REQ_FAST = 2, /\* will be internal SRAM when possible \*/
+-   MEM_SPEED_REQ_ANY = 0, best effort
 
-MEM_SPEED_REQ_CRITICAL_FAST = 3, /\* will be TCM when possible \*/
+-   MEM_SPEED_REQ_NORMAL = 1, can be external memory
 
-};
+-   MEM_SPEED_REQ_FAST = 2, will be internal SRAM when possible
+
+-   MEM_SPEED_REQ_CRITICAL_FAST = 3, will be TCM when possibl
 
 enum mem_mapping_type
 
-{ MEM_TYPE_STATIC = 0, /\* (LSB) memory content is preserved (default )
-\*/
+-   MEM_TYPE_STATIC = 0, (LSB) memory content is preserved (default )
 
-MEM_TYPE_WORKING = 1, /\* scratch memory content is not preserved
-between two calls \*/
+-   MEM_TYPE_WORKING = 1, scratch memory content is not preserved
+    between two calls
 
-MEM_TYPE_PSEUDO_WORKING = 2, /\* static only during the uncompleted
-execution state of the SWC, see "NODE_RUN" \*/
+-   MEM_TYPE_PSEUDO_WORKING = 2, static only during the uncompleted
+    execution state of the SWC, see "NODE_RUN"
 
-MEM_TYPE_PERIODIC_BACKUP = 3, /\* static parameters to reload for warm
-boot after a crash, holding for example
+-   MEM_TYPE_PERIODIC_BACKUP = 3, static parameters to reload for warm
+    boot after a crash, holding for example
 
-long-term estimators. This memory area is cleared at cold NODE_RESET and
+    -   long-term estimators. This memory area is cleared at cold
+        NODE_RESET and
 
-refreshed for warm NODE_RESET. The SWC should not reset it (there is
+    -   refreshed for warm NODE_RESET. The SWC should not reset it
+        (there is
 
-no \"warm boot reset\" entry point.
+    -   no \"warm boot reset\" entry point.
 
-the period of backup is in the range of 15 seconds \*/
+    -   the period of backup is in the range of 15 seconds
 
 };
 
 enum buffer_alignment_type
 
-{ MEM_REQ_4BYTES_ALIGNMENT = 0, /\* 0 placed here as default value \*/
+-   MEM_REQ_4BYTES_ALIGNMENT = 0, 0 placed here as default value
 
-MEM_REQ_8BYTES_ALIGNMENT = 1,
+-   MEM_REQ_8BYTES_ALIGNMENT = 1,
 
-MEM_REQ_16BYTES_ALIGNMENT = 2,
+-   MEM_REQ_16BYTES_ALIGNMENT = 2,
 
-MEM_REQ_32BYTES_ALIGNMENT = 3,
+-   MEM_REQ_32BYTES_ALIGNMENT = 3,
 
-MEM_REQ_64BYTES_ALIGNMENT = 4,
+-   MEM_REQ_64BYTES_ALIGNMENT = 4,
 
-MEM_REQ_128BYTES_ALIGNMENT = 5,
+-   MEM_REQ_128BYTES_ALIGNMENT = 5,
 
-MEM_REQ_NOALIGNMENT_REQ = 6, /\* address binary mask : \*/
+-   MEM_REQ_NOALIGNMENT_REQ = 6, address binary mask :
 
-MEM_REQ_2BYTES_ALIGNMENT = 7, /\* mask = \~((1 \<\<
-(7&(mem_req_2bytes_alignment+2)) -1) \*/
-
-};
-
-enum { SWC_CONTROLS = 4, };
-
-enum { SWC_CONTROLS_NAME = 8, };
-
-enum buffer_relocation_type
-
-{ NOT_RELOCATABLE = 0,
-
-RELOCATABLE= 1,
-
-};
+-   MEM_REQ_2BYTES_ALIGNMENT = 7, mask = \~((1 \<\<
+    (7&(mem_req_2bytes_alignment+2)) -1)
 
 ## B Scripts 
 
 *TBD*
 
-Scripts provide a simple mean of taking decision, defining state-machines, read and set parameters of SWC, trigger actions for the application. Scripts are an interpreted language limited to very few commands (inspiration from [here](https://en.wikipedia.org/wiki/FOCAL_(programming_language)#Comparison_with_BASIC) and [here](https://en.wikipedia.org/wiki/TI-57)), and with only the capability to call CMSIS-Stream services.
+*Scripts provide a simple mean of taking decision, defining
+state-machines, read and set parameters of SWC, trigger actions for the
+application. Scripts are an interpreted language limited to very few
+commands (inspiration from
+[here](https://en.wikipedia.org/wiki/FOCAL_(programming_language)#Comparison_with_BASIC)
+and [here](https://en.wikipedia.org/wiki/TI-57)), and with only the
+capability to call CMSIS-Stream services.*
 
 *Linked-List description for scripts :*
 
