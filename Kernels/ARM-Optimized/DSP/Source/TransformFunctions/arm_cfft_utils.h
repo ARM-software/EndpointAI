@@ -150,12 +150,12 @@
     ".p2align 2                                             \n"\
                                                                \
     "    vldrw.32        q4, [%[pSrcA0]]                    \n"\
-    "    sub.w           lr, %[count], #1                   \n"\
     "    vldrw.32        q5, [%[pSrcA3]]                    \n"\
     "    vldrw.32        q1, [%[pSrcA2]]                    \n"\
     "    vsub.f"#sz"     q3, q4, q1                         \n"\
     "    vldrw.32        q0, [%[pSrcA1]]                    \n"\
     "    vsub.f"#sz"     q6, q0, q5                         \n"\
+    "    wls             lr, %[count], 1f                   \n"\
     "2:                                                     \n"\
     "    vcadd.f"#sz"    q7, q3, q6, #"#rot2"               \n"\
     "    vldrw.32        q2, [%[t2]] , #16                  \n"\
@@ -278,10 +278,9 @@
     "                                                       \n"\
     ".p2align 2                                             \n"\
     "   vldrw.32            q0, [inA]                       \n"\
-    "   sub.w               lr, %[count], #1                \n"\
     "   vldrw.32            q1, [inD]                       \n"\
     "   vldrw.32            q2, [inC]                       \n"\
-                                                               \
+    "   wls                 lr, %[count], 1f                \n"\
     "   2:                                                  \n"\
     "   vadd.f"#sz"         q6, q0, q2                      \n"\
     "   vsub.f"#sz"         q3, q0, q2                      \n"\
@@ -317,7 +316,7 @@
     "   vldrw.32            q0, [inB]                       \n"\
     "   vadd.f"#sz"         q3, q0, q1                      \n"\
     "   vadd.f"#sz"         q7, q6, q3                      \n"\
-    "   vstrw.32            q7,inA] , #16                   \n"\
+    "   vstrw.32            q7, [inA] , #16                 \n"\
     "   vsub.f"#sz"         q1, q0, q1                      \n"\
     "   vsub.f"#sz"         q7, q6, q3                      \n"\
     "   vldrw.32            q0, [pW0] , #16                 \n"\

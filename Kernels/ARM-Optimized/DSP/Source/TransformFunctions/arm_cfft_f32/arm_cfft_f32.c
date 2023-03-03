@@ -197,7 +197,7 @@ static void _arm_radix4_butterfly_f32_mve(const arm_cfft_instance_f32 * S,float3
             float32_t    *inD = inC + n2 * CMPLX_DIM;
 
 #ifdef USE_ASM
-            register unsigned count  __asm("lr") = (n2 / 2);
+            register unsigned count  __asm("lr") = (n2 / 2) - 1;
             __asm volatile(
 
                 RAD4_BFLY_STG_FLT_FWD_MVE(32)
@@ -490,7 +490,7 @@ static void _arm_radix4_butterfly_inverse_f32_mve(const arm_cfft_instance_f32 * 
             float32_t    *inD = inC + n2 * CMPLX_DIM;
 
 #ifdef USE_ASM
-            register unsigned count  __asm("lr") = (n2 / 2);
+            register unsigned count  __asm("lr") = (n2 / 2) - 1;
             __asm volatile(
 
                 RAD4_BFLY_STG_FLT_BKWD_MVE(32)
