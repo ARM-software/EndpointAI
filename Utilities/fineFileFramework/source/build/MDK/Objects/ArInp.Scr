@@ -1,4 +1,0 @@
---create .\Objects\fff_armv6m_lib.lib
-.\objects\fake_file_framework.o
-.\objects\file_retarget.o
-.\objects\__memory_file.o
