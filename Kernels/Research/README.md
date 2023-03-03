@@ -19,15 +19,11 @@ the [CMSIS-DSP](https://github.com/ARM-software/CMSIS_5/tree/develop/CMSIS/DSP) 
 
 The new features compared to the [CMSIS-DSP](https://github.com/ARM-software/CMSIS_5/tree/develop/CMSIS/DSP) are the support of more radixes, the FFT 2D and the configuration scripts.
 
-
-
-### 2. Arm-2D
-
-[Deprecated]Arm-2D for acceleration of low-level 2D image processing.
-
-- It has been moved to https://github.com/ARM-software/Arm-2D
-
-### 3. EigenMVE 
+### 2. EigenMVE 
 
 This project is adding a MVE backend to the [Eigen library](https://eigen.tuxfamily.org/index.php?title=Main_Page) which is a C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms.
+
+### 3. Arm-2D
+
+Arm-2D for acceleration of low-level 2D image processing has been moved to https://github.com/ARM-software/Arm-2D
 
