@@ -11,3 +11,10 @@ Kernels/Research/.DS_Store
 Kernels/.DS_Store
 Kernels/Research/Arm-2D/.DS_Store
 .DS_Store
+*.d
+*.o
+*.lst
+*.crf
+*.dep
+*.gabwan01
+*.map
