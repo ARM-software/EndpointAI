@@ -3,14 +3,14 @@
 ![CMSIS](http://www.keil.com/pack/doc/CMSIS/General/html/CMSIS_Logo_Final.png)
 
 
-[CMSIS-DSP](https://github.com/ARM-software/CMSIS_5/tree/develop/CMSIS/DSP) with ARMv8.1M **Helium** assembly
+[CMSIS-DSP](https://github.com/ARM-software/CMSIS_5/tree/develop/CMSIS/DSP) with **Helium** and **Neon** assembly
 
 
 Single-precision DF1 Biquad processing function
 
-- This version allows boosting F32 DF1 Biquad performance when using compilers having suboptimal Helium intrinsic code generation and can be sustitued to CMSIS DSP intrinsic variant.
-- It also provide efficient Neon Implementations
-- Helium and Neon functions have respectively _mve and _neon prefix
+- This version allows boosting DF1 Biquad performance when using compilers having suboptimal Helium intrinsic code generation and can be sustitued to CMSIS DSP intrinsic variant.
+- Efficient Neon Implementations are also provided. In order cores should use ASM variants while out of order cores can rely on intrinsic variant.
+- Helium and Neon functions have respectively *_mve* and *_neon* prefix
 
 [see API details](https://www.keil.com/pack/doc/CMSIS/DSP/html/group__BiquadCascadeDF1.html)
 

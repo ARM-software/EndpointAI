@@ -20,3 +20,8 @@ This version allows boosting CFFT F32 performance when using compilers having su
  arm-none-eabi-gcc -DUSE_ASM -mcpu=cortex-m55 -O3 -mfloat-abi=hard -flax-vector-conversions -c arm_cfft_f32.c -o arm_cfft_f32.o -I$(CMSIS5ROOT)/CMSIS/DSP/PrivateInclude/ -I $(CMSIS5ROOT)/CMSIS/DSP/Include/ -I $(CMSIS5ROOT)/CMSIS/Core/Include/
  ```
 
+ - Arm Compiler 6.19 or above example (CM85 build)
+
+```cpp
+armclang -target arm-arm-none-eabi -mthumb -std=gnu99  -mcpu=cortex-m85 -Ofast -mfloat-abi=hard -DUSE_ASM -DARM_CM85_OPT -c arm_cfft_f32.c -o arm_cfft_f32.o -I$(CMSIS5ROOT)/CMSIS/DSP/PrivateInclude/ -I $(CMSIS5ROOT)/CMSIS/DSP/Include/ -I $(CMSIS5ROOT)/CMSIS/Core/Include/
+ ```
