@@ -6,13 +6,13 @@
  *               This version allows boosting CFFT Q15 performance when using compilers having suboptimal
  *               Helium intrinsic code generation.
  *
- * $Date:        Jan 2022
- * $Revision:    V1.0.1
+ * $Date:        Mar 2023
+ * $Revision:    V1.0.2
  *
  * Target Processor: Cortex-M with Helium
  * -------------------------------------------------------------------- */
 /*
- * Copyright (C) 2010-2022 ARM Limited or its affiliates. All rights reserved.
+ * Copyright (C) 2010-2023 ARM Limited or its affiliates. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -37,25 +37,7 @@
 
 #ifdef USE_ASM
 
-/*
- * Fx point multiplication, 2nd elt conjugated
- * Qd = Qn * Qm'
- */
-
-#undef cmplx_fx_mul_r_conj
-#undef cmplx_fx_mul_i_conj
-#define cmplx_fx_mul_r_conj(qd, qn, qm) " vqdmladh.s16    " #qd "," #qn "," #qm " \n"
-#define cmplx_fx_mul_i_conj(qd, qn, qm) " vqdmlsdhx.s16   " #qd "," #qn "," #qm " \n"
-
-/*
- * Fx point multiplication
- * Qd = Qn * Qm
- */
-#undef cmplx_fx_mul_r_
-#undef cmplx_fx_mul_i_
-#define cmplx_fx_mul_r_(qd, qn, qm)     " vqdmlsdh.s16    " #qd "," #qm "," #qn " \n"
-#define cmplx_fx_mul_i_(qd, qn, qm)     " vqdmladhx.s16   " #qd "," #qm "," #qn " \n"
-
+#include "../arm_cfft_utils.h"
 
 /*
  Helium CFFT Radix 2
@@ -181,7 +163,6 @@ static void arm_bitreversal_q15_inpl_mve_asm(
 
 #endif
 
-
 static void _arm_radix4_butterfly_q15_mve(
     const arm_cfft_instance_q15 * S,
     q15_t   *pSrc,
@@ -231,79 +212,24 @@ static void _arm_radix4_butterfly_q15_mve(
             q15_t    *inB = inA + n2 * CMPLX_DIM;
             q15_t    *inC = inB + n2 * CMPLX_DIM;
             q15_t    *inD = inC + n2 * CMPLX_DIM;
-            q15_t const *pW1 = p_rearranged_twiddle_tab_stride1;
-            q15_t const *pW2 = p_rearranged_twiddle_tab_stride2;
-            q15_t const *pW3 = p_rearranged_twiddle_tab_stride3;
 
 #ifdef USE_ASM
             register unsigned count  __asm("lr") = (n2 / 4);
             __asm volatile(
-                ".p2align 2                                             \n"
-                "   wls                 lr, %[count], 1f                \n"
-                "   vldrh.16            q1, [%[pSrcA0]]                 \n"
-                "   vldrh.16            q6, [%[pSrcA2]]                 \n"
-                /* low overhead loop start */
-                "2:                                                     \n"
-                /* = R(xa + xc), I(ya + yc) */
-                "   vhadd.s16           q0, q1, q6                      \n"
-                /* q4 = yb2, xb2, yb1, xb1 */
-                "    vldrh.16           q4, [%[pSrcA1]]                 \n"
-                /* = R(xa - xc), I(ya - yc)  */
-                "   vhsub.s16           q2, q1, q6                      \n"
-                /* q5 = yd2, xd2, yd1, xd1  */
-                "   vldrh.16            q5, [%[pSrcA3]]                 \n"
-                /* = R(xb + xd), I(yb + yd)  */
-                "   vhadd.s16           q1, q4, q5                      \n"
-                /* = R(xb - xd), I(yb - yd)  */
-                "   vhsub.s16           q3, q4, q5                      \n"
-                /* xa' = (xa + xc) + (xb + xd)  */
-                /* ya' = (ya + yc) + (yb + yd)   */
-                /* load twiddle factors  */
-                "   vldrh.16            q7, [%[t1]], #16                \n"
-                "   vhadd.s16           q4, q0, q1                      \n"
-                "   vstrh.16            q4, [%[pSrcA0]], #16            \n"
-                /* xc' = (xa + xc) - (xb + xd)  */
-                /* yc' = (ya + yc) - (yb + yd)  */
-                "   vhsub.s16           q4, q0, q1                      \n"
-                /* load twiddle factors  */
-                "   vldrh.16            q5, [%[t0]], #16                \n"
-                /* xc' = (xa-xb+xc-xd)co2 + (ya-yb+yc-yd)(si2)  */
-                /* yc' = (ya-yb+yc-yd)co2 - (xa-xb+xc-xd)(si2)  */
-                "   vqdmlsdh.s16        q0, q4, q5                      \n"
-                "   vhcadd.s16          q6, q2, q3, #270                \n"
-                "   vqdmladhx.s16       q0, q4, q5                      \n"
-                "   vstrh.16            q0, [%[pSrcA1]], #16            \n"
-                /* xb' = (xa - xc) + (yb - yd)  */
-                /* yb' = (ya - yc) - (xb - xd)  */
-                /* xb' = (xa+yb-xc-yd)co1 + (ya-xb-yc+xd)(si1)  */
-                /* yb' = (ya-xb-yc+xd)co1 - (xa+yb-xc-yd)(si1)  */
-                "   vqdmlsdh.s16        q0, q6, q7                      \n"
-                "   vldrh.16            q1, [%[pSrcA0]]                 \n"
-                "   vqdmladhx.s16       q0, q6, q7                      \n"
-                "   vstrh.16            q0, [%[pSrcA2]], #16            \n"
-                /* xd' = (xa - xc) - (yb - yd)  */
-                /* yd' = (ya - yc) + (xb - xd)  */
-                "   vhcadd.s16          q4, q2, q3, #90                 \n"
-                /* load twiddle factors  */
-                "   vldrh.16            q5, [%[t2]], #16                \n"
-                /* xd' = (xa-yb-xc+yd)* co3 + (ya+xb-yc-xd)* (sa3)  */
-                /* yd' = (ya+xb-yc-xd)* co3 - (xa-yb-xc+yd)* (sa3)  */
-                "   vqdmlsdh.s16        q0, q4, q5                      \n"
-                "   vldrh.16            q6, [%[pSrcA2]]                 \n"
-                "   vqdmladhx.s16       q0, q4, q5                      \n"
-                "   vstrh.16            q0, [%[pSrcA3]], #16            \n"
-                "   le                  lr, 2b                          \n"
-                /* low overhead loop end */
-                "1:                                                     \n"
+
+                 RAD4_BFLY_STG_FX_FWD_MVE(16)
 
                 : [pSrcA0] "+r"(inA), [pSrcA1] "+r"(inB),
                   [pSrcA2] "+r"(inC), [pSrcA3] "+r"(inD),
                   [count] "+r" (count),
-                  [t0] "+r"(pW2) , [t1] "+r"(pW1), [t2] "+r"(pW3)
+                  [t0] "+r"(p_rearranged_twiddle_tab_stride2),
+                  [t1] "+r"(p_rearranged_twiddle_tab_stride1),
+                  [t2] "+r"(p_rearranged_twiddle_tab_stride3)
                 :
                 : "q0", "q1", "q2", "q3",
                   "q4", "q5", "q6", "q7",
                   "memory");
+
 #else
 
             blkCnt = n2 / 4;
@@ -335,8 +261,8 @@ static void _arm_radix4_butterfly_q15_mve(
                 /*
                  * [ 1 -1 1 -1 ] * [ A B C D ]'.* W2
                  */
-                vecW = vld1q(pW2);
-                pW2 += 8;
+                vecW = vld1q(p_rearranged_twiddle_tab_stride2);
+                p_rearranged_twiddle_tab_stride2 += 8;
                 vecTmp1 = MVE_CMPLX_MULT_FX_AxB(vecW, vecTmp0, q15x8_t);
 
                 vst1q(inB, vecTmp1);
@@ -348,8 +274,8 @@ static void _arm_radix4_butterfly_q15_mve(
                 /*
                  * [ 1 -i -1 +i ] * [ A B C D ]'.* W1
                  */
-                vecW = vld1q(pW1);
-                pW1 += 8;
+                vecW = vld1q(p_rearranged_twiddle_tab_stride1);
+                p_rearranged_twiddle_tab_stride1 += 8;
                 vecTmp1 = MVE_CMPLX_MULT_FX_AxB(vecW, vecTmp0, q15x8_t);
                 vst1q(inC, vecTmp1);
                 inC += 8;
@@ -361,8 +287,8 @@ static void _arm_radix4_butterfly_q15_mve(
                 /*
                  * [ 1 +i -1 -i ] * [ A B C D ]'.* W3
                  */
-                vecW = vld1q(pW3);
-                pW3 += 8;
+                vecW = vld1q(p_rearranged_twiddle_tab_stride3);
+                p_rearranged_twiddle_tab_stride3 += 8;
                 vecTmp1 = MVE_CMPLX_MULT_FX_AxB(vecW, vecTmp0, q15x8_t);
                 vst1q(inD, vecTmp1);
                 inD += 8;
@@ -373,8 +299,14 @@ static void _arm_radix4_butterfly_q15_mve(
                 blkCnt--;
             }
 #endif
+
+            p_rearranged_twiddle_tab_stride1 -= n2 * CMPLX_DIM;
+            p_rearranged_twiddle_tab_stride2 -= n2 * CMPLX_DIM;
+            p_rearranged_twiddle_tab_stride3 -= n2 * CMPLX_DIM;
+
             pBase +=  CMPLX_DIM * n1;
         }
+
         n1 = n2;
         n2 >>= 2u;
         iter = iter << 2;
@@ -608,73 +540,17 @@ static void _arm_radix4_butterfly_inverse_q15_mve(const arm_cfft_instance_q15 *S
             q15_t    *inB = inA + n2 * CMPLX_DIM;
             q15_t    *inC = inB + n2 * CMPLX_DIM;
             q15_t    *inD = inC + n2 * CMPLX_DIM;
-            q15_t const *pW1 = p_rearranged_twiddle_tab_stride1;
-            q15_t const *pW2 = p_rearranged_twiddle_tab_stride2;
-            q15_t const *pW3 = p_rearranged_twiddle_tab_stride3;
 
 #ifdef USE_ASM
             register unsigned count  __asm("lr") = (n2 / 4);
             __asm volatile(
 
-                ".p2align 2                                             \n"
-                "   wls                     lr, %[count], 1f            \n"
-                "   vldrh.16                q1, [%[pSrcA0]]             \n"
-                "   vldrh.16                q6, [%[pSrcA2]]             \n"
-                "2:                                                     \n"
-                /* = R(xa + xc), I(ya + yc) */
-                "   vhadd.s16               q0, q1, q6                  \n"
-                /* q4 = yb2, xb2, yb1, xb1 */
-                "    vldrh.16               q4, [%[pSrcA1]]             \n"
-                /* = R(xa - xc), I(ya - yc)  */
-                "   vhsub.s16               q2, q1, q6                  \n"
-                /* q5 = yd2, xd2, yd1, xd1  */
-                "   vldrh.16                q5, [%[pSrcA3]]             \n"
-                /* = R(xb + xd), I(yb + yd)  */
-                "   vhadd.s16               q1, q4, q5                  \n"
-                /* = R(xb - xd), I(yb - yd)  */
-                "   vhsub.s16               q3, q4, q5                  \n"
-                /* xa' = (xa + xc) + (xb + xd)  */
-                /* ya' = (ya + yc) + (yb + yd)   */
-                /* load twiddle factors  */
-                "   vldrh.16                q7, [%[t1]], #16            \n"
-                "   vhadd.s16               q4, q0, q1                  \n"
-                "   vstrh.16                q4, [%[pSrcA0]], #16        \n"
-                /* xc' = (xa + xc) - (xb + xd)  */
-                /* yc' = (ya + yc) - (yb + yd)  */
-                "   vhsub.s16               q4, q0, q1                  \n"
-                /* load twiddle factors  */
-                "   vldrh.16                q5, [%[t0]], #16            \n"
-                /* xc' = (xa-xb+xc-xd)co2 + (ya-yb+yc-yd)(si2)  */
-                /* yc' = (ya-yb+yc-yd)co2 - (xa-xb+xc-xd)(si2)  */
-                "   vqdmladh.s16            q0, q4, q5                  \n"
-                "   vhcadd.s16              q6, q2, q3, #90             \n"
-                "   vqdmlsdhx.s16           q0, q4, q5                  \n"
-                "   vstrh.16                q0, [%[pSrcA1]], #16        \n"
-                /* xb' = (xa - xc) + (yb - yd)  */
-                /* yb' = (ya - yc) - (xb - xd)  */
-                /* xb' = (xa+yb-xc-yd)co1 + (ya-xb-yc+xd)(si1)  */
-                /* yb' = (ya-xb-yc+xd)co1 - (xa+yb-xc-yd)(si1)  */
-                "   vqdmladh.s16            q0, q6, q7                  \n"
-                "   vldrh.16                q1, [%[pSrcA0]]             \n"
-                "   vqdmlsdhx.s16           q0, q6, q7                  \n"
-                "   vstrh.16                q0, [%[pSrcA2]], #16        \n"
-                /* xd' = (xa - xc) - (yb - yd)  */
-                /* yd' = (ya - yc) + (xb - xd)  */
-                "   vhcadd.s16              q4, q2, q3, #270            \n"
-                /* load twiddle factors  */
-                "   vldrh.16                q5, [%[t2]], #16            \n"
-                /* xd' = (xa-yb-xc+yd)* co3 + (ya+xb-yc-xd)* (sa3)  */
-                /* yd' = (ya+xb-yc-xd)* co3 - (xa-yb-xc+yd)* (sa3)  */
-                "   vqdmladh.s16            q0, q4, q5                  \n"
-                "   vldrh.16                q6, [%[pSrcA2]]             \n"
-                "   vqdmlsdhx.s16           q0, q4, q5                  \n"
-                "   vstrh.16                q0, [%[pSrcA3]], #16        \n"
-                "   le                      lr, 2b                      \n"
-                "1:                                                     \n"
+                RAD4_BFLY_STG_FX_BKWD_MVE(16)
+
                 : [pSrcA0] "+r"(inA), [pSrcA1] "+r"(inB),
                   [pSrcA2] "+r"(inC), [pSrcA3] "+r"(inD),
                   [count] "+r" (count),
-                  [t0] "+r"(pW2) , [t1] "+r"(pW1), [t2] "+r"(pW3)
+                  [t0] "+r"(p_rearranged_twiddle_tab_stride2) , [t1] "+r"(p_rearranged_twiddle_tab_stride1), [t2] "+r"(p_rearranged_twiddle_tab_stride3)
                 :
                 : "q0", "q1", "q2", "q3",
                   "q4", "q5", "q6", "q7",
@@ -709,8 +585,8 @@ static void _arm_radix4_butterfly_inverse_q15_mve(const arm_cfft_instance_q15 *S
                 /*
                  * [ 1 -1 1 -1 ] * [ A B C D ]'.* W2
                  */
-                vecW = vld1q(pW2);
-                pW2 += 8;
+                vecW = vld1q(p_rearranged_twiddle_tab_stride2);
+                p_rearranged_twiddle_tab_stride2 += 8;
                 vecTmp1 = MVE_CMPLX_MULT_FX_AxConjB(vecTmp0, vecW, q15x8_t);
 
                 vst1q(inB, vecTmp1);
@@ -722,8 +598,8 @@ static void _arm_radix4_butterfly_inverse_q15_mve(const arm_cfft_instance_q15 *S
                 /*
                  * [ 1 -i -1 +i ] * [ A B C D ]'.* W1
                  */
-                vecW = vld1q(pW1);
-                pW1 += 8;
+                vecW = vld1q(p_rearranged_twiddle_tab_stride1);
+                p_rearranged_twiddle_tab_stride1 += 8;
                 vecTmp1 = MVE_CMPLX_MULT_FX_AxConjB(vecTmp0, vecW, q15x8_t);
                 vst1q(inC, vecTmp1);
                 inC += 8;
@@ -734,8 +610,8 @@ static void _arm_radix4_butterfly_inverse_q15_mve(const arm_cfft_instance_q15 *S
                 /*
                  * [ 1 +i -1 -i ] * [ A B C D ]'.* W3
                  */
-                vecW = vld1q(pW3);
-                pW3 += 8;
+                vecW = vld1q(p_rearranged_twiddle_tab_stride3);
+                p_rearranged_twiddle_tab_stride3 += 8;
                 vecTmp1 = MVE_CMPLX_MULT_FX_AxConjB(vecTmp0, vecW, q15x8_t);
                 vst1q(inD, vecTmp1);
                 inD += 8;
@@ -746,6 +622,9 @@ static void _arm_radix4_butterfly_inverse_q15_mve(const arm_cfft_instance_q15 *S
                 blkCnt--;
             }
 #endif
+            p_rearranged_twiddle_tab_stride1 -= n2 * CMPLX_DIM;
+            p_rearranged_twiddle_tab_stride2 -= n2 * CMPLX_DIM;
+            p_rearranged_twiddle_tab_stride3 -= n2 * CMPLX_DIM;
             pBase +=  CMPLX_DIM * n1;
         }
         n1 = n2;
