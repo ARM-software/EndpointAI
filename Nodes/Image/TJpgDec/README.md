@@ -56,6 +56,41 @@ The TJpgDec module is a free software opened for education, research and develop
 
 ## 2. Deploy using CMSIS-Pack
 
+### 2.1 In MDK
+
+Find and install the cmsis-pack, i.e. `ELM.TJpgDec.x.x.x.pack`. 
+
+**NOTE**: Here `x.x.x` is the version of the cmsis-pack but not the actual version of **TJpgDec**.
+
+In the MDK project that you want to deploy the **TJpgDec**, open **RTE** dialog as shown below:
+
+![](./documents/pictures/RTE.png) 
+
+Expand the `Codec`, `TJpgDec` and select the `Core`. Click OK to close this dialog. In the Project manager, you will see two files have been added:
+
+![](./documents/pictures/Project_Manager_Codec.png) 
+
+Now the **TJpgDec** is added to the project. 
+
+**NOTE**: 
+
+1. Please make sure you have at least enabled the `c99` standard to compile it correctly. 
+2. By clicking the **description in blue**, you can open the official application note which explains how to use this library.
+
+
+
+In order to configure the **TJpgDec**, you can open the `tjpgdcnf.h` and switch to the **Configuration Wizard** as shown below:
+
+
+
+![](./documents/pictures/ConfigurationWizard.png)  
+
+Enjoy~
+
+
+
+### 2.2 Using CMSIS-Tools
+
 
 
 ## 3. CMSIS-Stream Interface
