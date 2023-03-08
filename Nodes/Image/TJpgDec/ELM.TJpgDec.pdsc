@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<package schemaVersion="1.4" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="PACK.xsd">
+  <vendor>ELM</vendor>
+  <name>TJpgDec</name>
+  <description>This is NOT an official package. TJpgDec is a generic JPEG image decompressor module that highly optimized for small embedded systems. It works with very low memory consumption, so that it can be incorporated into tiny microcontrollers, such as AVR, 8051, PIC, Z80, Cortex-M0 and etc.</description>
+  <url>https://raw.githubusercontent.com/ARM-software/EndpointAI/tree/master/Nodes/Image/TJpgDec/cmsis-pack/</url>
+  <supportContact>http://elm-chan.org/bbs/?lang=en</supportContact>
+  <license>tjpgd3/LICENSE</license>
+  <!-- optional license file -->
+  <!-- 
+  <license>
+  </license>
+  -->
+  
+  <repository type="git"></repository>
+  
+  <releases>
+    <release date="2023-03-08" version="0.9.0" tag="0.9.0" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/tree/master/Nodes/Image/TJpgDec/cmsis-pack/ELM.TJpdDec.0.9.0.pack">
+      - TJpgDec R0.03
+    </release>
+  </releases>
+
+  <keywords>
+    <!-- keywords for indexing -->
+    <keyword>Cortex-M</keyword>
+    <keyword>JPEG</keyword>
+    <keyword>Decoder</keyword>
+  </keywords>
+  
+  <!--
+    <conditions> 
+        <condition id="Arm Compiler">
+            <description>Arm Compiler 5 (armcc) or Arm Compiler 6 (armclang).</description>
+            <accept Tcompiler="ARMCC" Toptions="AC6"/>
+            <accept Tcompiler="ARMCC" Toptions="AC6LTO"/>
+            <accept Tcompiler="ARMCC" Toptions="AC5"/>
+        </condition>
+        <condition id="Arm GCC">
+            <description>GNU Tools for Arm Embedded Processors.</description>
+            <accept Tcompiler="GCC"/>
+        </condition>
+
+        
+        <condition id="Armv8-M Processors">
+            <accept  Dcore="ARMV8MBL"/>
+            <accept  Dcore="ARMV8MML"/>
+            <accept  Dcore="ARMV81MML"/>
+            <accept  Dcore="Star-MC1"/>
+            <accept  Dcore="Cortex-M23"/>
+            <accept  Dcore="Cortex-M33"/>
+            <accept  Dcore="Cortex-M35P"/>
+            <accept  Dcore="Cortex-M55"/>
+            <accept  Dcore="Cortex-M85"/>
+        </condition>
+
+        <condition id="Previous Generation Cortex-M Processors">
+            <accept  Dcore="Cortex-M0"/>
+            <accept  Dcore="Cortex-M0+"/>
+            <accept  Dcore="Cortex-M1"/>
+            <accept  Dcore="Cortex-M3"/>
+            <accept  Dcore="Cortex-M4"/>
+            <accept  Dcore="Cortex-M7"/>
+            <accept  Dcore="SC000"/>
+            <accept  Dcore="SC300"/>
+        </condition>
+
+        <condition id="Cortex-M Processors">
+            <description>Support All Cortex-M based processors</description>
+            <accept condition="Previous Generation Cortex-M Processors"/>
+            <accept condition="Armv8-M Processors"/>
+        </condition>
+
+        <condition id="CMSIS-CORE">
+            <description>Require CMSIS-CORE Support</description>
+            <require Cclass="CMSIS" Cgroup="CORE"/>
+        </condition>
+        
+        <condition id="RTX5 Patch">
+            <description>Require RTX5 Support</description>
+            <accept Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Source"/>
+            <require Cclass="Utilities" Cgroup="perf_counter" Csub="Core"/>
+        </condition>
+        
+        <condition id="FreeRTOS Patch">
+            <description>Require FreeRTOS Support</description>
+            <accept Cbundle="FreeRTOS" Cclass="RTOS" Cgroup="Core"/>
+            <require Cclass="Utilities" Cgroup="perf_counter" Csub="Core"/>
+        </condition>
+        
+        <condition id="perf_counter">
+            <description>Require Perf_Counter Core</description>
+            <require Cclass="Utilities" Cgroup="perf_counter" Csub="Core"/>
+        </condition>
+        
+        <condition id="Cortex-M Arm GCC">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm GCC"/>
+            <require condition="Cortex-M Processors"/>
+        </condition>
+        <condition id="Cortex-M Arm Compiler">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Cortex-M Processors"/>
+        </condition>
+        
+        <condition id="Previous Generation Cortex-M Arm Compiler">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Previous Generation Cortex-M Processors"/>
+        </condition>
+        
+        <condition id="Armv8-M Arm Compiler">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Armv8-M Processors"/>
+        </condition>
+        
+        <condition id="Cortex-M Arm GCC CMSIS-CORE">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm GCC"/>
+            <require condition="Cortex-M Processors"/>
+            <require condition="CMSIS-CORE"/>
+        </condition>
+        <condition id="Cortex-M Arm Compiler CMSIS-CORE">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Cortex-M Processors"/>
+            <require condition="CMSIS-CORE"/>
+        </condition>
+        
+        <condition id="Previous Generation Cortex-M Arm Compiler CMSIS-CORE">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Previous Generation Cortex-M Processors"/>
+            <require condition="CMSIS-CORE"/>
+        </condition>
+        <condition id="Armv8-M Arm Compiler CMSIS-CORE">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Armv8-M Processors"/>
+            <require condition="CMSIS-CORE"/>
+        </condition>
+        
+        
+    </conditions>
+  -->
+ 
+  <!-- apis section (optional - for Application Programming Interface descriptions) -->
+  <!-- 
+  <apis>
+  </apis>
+  -->
+
+  <!-- boards section (mandatory for Board Support Packs) -->
+  <!-- 
+  <boards>
+  </boards>
+  -->
+
+  <!-- devices section (mandatory for Device Family Packs) -->
+  <!--
+  <devices>
+  </devices>
+  -->
+
+  <!-- examples section (optional for all Software Packs)-->
+  <!--
+  <examples>
+  </examples>
+  -->
+  
+  <!-- conditions section (optional for all Software Packs)-->
+  <!--
+  <conditions>
+  </conditions>
+  -->
+
+    <components>
+
+        <component Cclass="Codec" Cgroup="TJpgDec" Csub="Core" Cvariant="Source" Cversion="1.0.0-R0.03" >
+          <description>TJpgDec is a generic JPEG image decompressor module that highly optimized for small embedded systems.</description>
+          <files>
+            <file category="header"     name="tjpgd3/src/tjpgd.h"/>
+            <file category="source"     name="tjpgd3/src/tjpgd.c"/>
+            <file category="header"     name="tjpgd3/tjpgdcnf.h"     attr="config" version="1.0.0"/>
+            <file category="doc"        name="tjpgd3/doc/00index.html"/>
+          </files>
+          <RTE_Components_h>
+
+#define __TINY_JPEG_DECODER__ 1
+          </RTE_Components_h>
+
+          <!--
+          <Pre_Include_Global_h>
+          </Pre_Include_Global_h>
+          -->
+        </component>
+
+
+    </components>
+  
+  <!-- optional taxonomy section for defining new component Class and Group names -->
+  <!--
+  <taxonomy>
+  </taxonomy>
+  -->
+  
+</package>
