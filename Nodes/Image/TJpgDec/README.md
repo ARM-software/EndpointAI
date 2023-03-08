@@ -1,0 +1,61 @@
+# TJpgDec - Tiny JPEG Decompressor 
+
+
+
+## 1. Overview
+
+### 1.1 About this repository
+
+This is a fork of the TJpgDec from http://elm-chan.org/fsw/tjpgd/00index.html. The vesion is [R0.03](http://elm-chan.org/fsw/tjpgd/arc/tjpgd3.zip)
+
+
+
+### 1.2 The Original Readme
+
+TJpgDec is a generic JPEG image decompressor module that highly optimized for small embedded systems. It works with very low memory consumption, so that it can be incorporated into tiny microcontrollers, such as AVR, 8051, PIC, Z80, Cortex-M0 and etc.
+
+#### Features
+
+- Platform Independent. Written in Plain C (C99).
+- Easy to Use Master Mode Operation.
+- Fully Re-entrant Architecture.
+- Configurable Optimization Level for both 8/16-bit and 32-bit MCUs.
+- Very Small Memory Footprint:
+  - 3.5K Bytes of RAM for Work Area Independent of Image Dimensions.
+  - 3.5-8.5K Bytes of ROM for Text and Constants.
+- Output Format:
+  - Pixel Format: RGB888, RGB565 or Grayscale Pre-configurable.
+  - Scaling Ratio: 1/1, 1/2, 1/4 or 1/8 Selectable on Decompression.
+
+### Application Interface
+
+There are two API functions to analyze and decompress the JPEG image.
+
+- [jd_prepare](http://elm-chan.org/fsw/tjpgd/en/prepare.html) - Prepare decompression of the JPEG image
+- [jd_decomp](http://elm-chan.org/fsw/tjpgd/en/decomp.html) - Execute decompression of the JPEG image
+
+### I/O functions
+
+To input the JPEG data and output the decompressed image, TJpgDec requires two user defined I/O functions. These are called back from the TJpgDec module in the decompression process.
+
+- [Input Funciotn](http://elm-chan.org/fsw/tjpgd/en/input.html) - Read JPEG data from the input stream
+- [Output Function](http://elm-chan.org/fsw/tjpgd/en/output.html) - Output the decompressed image to the destination object
+
+### Resources
+
+The TJpgDec module is a free software opened for education, research and development. You can use, modify and/or redistribute it for personal projects or commercial products without any restriction under your responsibility.
+
+- Getting Started: [TJpgDec Application Note](http://elm-chan.org/fsw/tjpgd/en/appnote.html) July 18, 2021
+- Download: [TJpgDec R0.03](http://elm-chan.org/fsw/tjpgd/arc/tjpgd3.zip) July 1, 2021
+- Download: [Archives](http://elm-chan.org/fsw/tjpgd/archives.html)
+- Download: [TJpgDec Sample Projects](http://elm-chan.org/fsw/tjpgd/tjsample.zip) (AVR, PIC24, LPC1114 and Win32) July 1, 2021
+- [Demo Movie](http://elm-chan.org/fsw/tjpgd/tjdemo.mp4) (MP4/3MB)
+- [TJpgDec highly optimized for ESP32 MCUs by lovyan03](https://github.com/lovyan03/ESP32_ScreenShotReceiver) ↗
+
+
+
+## 2. Deploy using CMSIS-Pack
+
+
+
+## 3. CMSIS-Stream Interface
