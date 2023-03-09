@@ -335,8 +335,8 @@
 
 #endif // ARM_CM85_OPT
 
-#define RAD4_BFLY_STG_FLT_FWD_MVE(sz)       RAD4_BFLY_STG_FLT_MVE_SUBOPT(sz, 270, 90)
-#define RAD4_BFLY_STG_FLT_BKWD_MVE(sz)      RAD4_BFLY_STG_FLT_MVE_SUBOPT(sz, 90, 270)
+#define RAD4_BFLY_STG_FLT_FWD_MVE(sz)       RAD4_BFLY_STG_FLT_MVE(sz, 270, 90)
+#define RAD4_BFLY_STG_FLT_BKWD_MVE(sz)      RAD4_BFLY_STG_FLT_MVE(sz, 90, 270)
 
 #endif  // USE_ASM
 
@@ -356,17 +356,17 @@
 
 #undef cmplx_fx_mul_r_conj
 #undef cmplx_fx_mul_i_conj
-#define cmplx_fx_mul_r_conj(qd, qn, qm) " vqrdmladh.s32    " #qd "," #qn "," #qm " \n"
-#define cmplx_fx_mul_i_conj(qd, qn, qm) " vqrdmlsdhx.s32   " #qd "," #qn "," #qm " \n"
+#define cmplx_fx_mul_r_conj(sz, qd, qn, qm) " vqrdmladh.s" #sz "    " #qd "," #qn "," #qm " \n"
+#define cmplx_fx_mul_i_conj(sz, qd, qn, qm) " vqrdmlsdhx.s" #sz "   " #qd "," #qn "," #qm " \n"
 
 /*
  * Fx point multiplication
  * Qd = Qn * Qm
  */
 #undef cmplx_fx_mul_r_
-#undef cmplx_fx_mul_i_
-#define cmplx_fx_mul_r_(qd, qn, qm)     " vqrdmlsdh.s32    " #qd "," #qm "," #qn " \n"
-#define cmplx_fx_mul_i_(qd, qn, qm)     " vqrdmladhx.s32   " #qd "," #qm "," #qn " \n"
+#define cmplx_fx_mul_r_(sz, qd, qn, qm) " vqrdmlsdh.s" #sz "    " #qd "," #qm "," #qn " \n"
+#define cmplx_fx_mul_i_(sz, qd, qn, qm) " vqrdmladhx.s" #sz "   " #qd "," #qm "," #qn " \n"
+
 
 
 /* original hand-optimized loop kept for reference */

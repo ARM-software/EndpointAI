@@ -79,9 +79,9 @@
     /* xt,yt */                                                               \
     "   vhsub.s32           q3, q0, q1                                     \n"\
     "   vldrw.32            q0, [%[pIn0], #16]                             \n"\
-    cmplx_fx_mul_r_##conj(q4, q3, q7)                                         \
+    cmplx_fx_mul_r_##conj(32, q4, q3, q7)                                     \
     "   vstrw.32            q2, [%[pIn0]], 16                              \n"\
-    cmplx_fx_mul_i_##conj(q4, q3, q7)                                         \
+    cmplx_fx_mul_i_##conj(32, q4, q3, q7)                                     \
     "   vstrw.32            q4, [%[pIn1]], 16                              \n"\
     /* low overhead loop end */                                               \
     "   le                  lr, 2b                                         \n"\

@@ -1,0 +1,108 @@
+project:
+  groups:
+    - group: App
+      files:
+        - file: arm_transform_tests.c
+        - file: ../TransformFunctions.c
+        - file: ../TransformFunctionsF16.c
+
+      define:
+        - BENCH=GENERIC_BLENDING
+
+  add-path:
+    - .
+
+  components:
+
+    - component: perf_counter:Core&Source
+
+    - component: ARM::CMSIS:CORE
+    - component: ARM::CMSIS:DSP&Source
+      define:
+        - ARM_DSP_CONFIG_TABLES
+        - ARM_FAST_ALLOW_TABLES
+        - ARM_FFT_ALLOW_TABLES
+        - ARM_ALL_FAST_TABLES
+        - ARM_MATH_LOOPUNROLL
+        - ARM_TABLE_TWIDDLECOEF_F32_64  
+        - ARM_TABLE_BITREVIDX_FLT_64 
+        - ARM_TABLE_TWIDDLECOEF_F16_64  
+        - ARM_TABLE_BITREVIDX_FXT_64 
+        - ARM_TABLE_TWIDDLECOEF_F64_64  
+        - ARM_TABLE_BITREVIDX_FLT64_64 
+        - ARM_TABLE_TWIDDLECOEF_Q31_64  
+        - ARM_TABLE_TWIDDLECOEF_Q15_64 
+        - ARM_TABLE_TWIDDLECOEF_F32_128  
+        - ARM_TABLE_BITREVIDX_FLT_128 
+        - ARM_TABLE_TWIDDLECOEF_F16_128  
+        - ARM_TABLE_BITREVIDX_FXT_128 
+        - ARM_TABLE_TWIDDLECOEF_F64_128  
+        - ARM_TABLE_BITREVIDX_FLT64_128 
+        - ARM_TABLE_TWIDDLECOEF_Q31_128  
+        - ARM_TABLE_TWIDDLECOEF_Q15_128 
+        - ARM_TABLE_TWIDDLECOEF_F32_256  
+        - ARM_TABLE_BITREVIDX_FLT_256 
+        - ARM_TABLE_TWIDDLECOEF_F16_256  
+        - ARM_TABLE_BITREVIDX_FXT_256 
+        - ARM_TABLE_TWIDDLECOEF_F64_256  
+        - ARM_TABLE_BITREVIDX_FLT64_256 
+        - ARM_TABLE_TWIDDLECOEF_Q31_256  
+        - ARM_TABLE_TWIDDLECOEF_Q15_256 
+        - ARM_TABLE_TWIDDLECOEF_F32_512  
+        - ARM_TABLE_BITREVIDX_FLT_512 
+        - ARM_TABLE_TWIDDLECOEF_F16_512  
+        - ARM_TABLE_BITREVIDX_FXT_512 
+        - ARM_TABLE_TWIDDLECOEF_F64_512  
+        - ARM_TABLE_BITREVIDX_FLT64_512 
+        - ARM_TABLE_TWIDDLECOEF_Q31_512  
+        - ARM_TABLE_TWIDDLECOEF_Q15_512 
+        - ARM_TABLE_TWIDDLECOEF_F32_1024  
+        - ARM_TABLE_BITREVIDX_FLT_1024 
+        - ARM_TABLE_TWIDDLECOEF_F16_1024  
+        - ARM_TABLE_BITREVIDX_FXT_1024 
+        - ARM_TABLE_TWIDDLECOEF_F64_1024  
+        - ARM_TABLE_BITREVIDX_FLT64_1024 
+        - ARM_TABLE_TWIDDLECOEF_Q31_1024  
+        - ARM_TABLE_TWIDDLECOEF_Q15_1024 
+        - ARM_TABLE_TWIDDLECOEF_F64_32  
+        - ARM_TABLE_BITREVIDX_FLT64_32 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F64_64  
+        - ARM_TABLE_TWIDDLECOEF_F32_32 
+        - ARM_TABLE_BITREVIDX_FLT_32  
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F32_64 
+        - ARM_TABLE_TWIDDLECOEF_F16_32  
+        - ARM_TABLE_BITREVIDX_FXT_32 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F16_64 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F64_128 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F32_128 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F16_128 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F64_256 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F32_256 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F16_256 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F64_512 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F32_512 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F16_512 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F64_1024 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F32_1024 
+        - ARM_TABLE_TWIDDLECOEF_RFFT_F16_1024  
+        - ARM_TABLE_REALCOEF_Q31 
+        - ARM_TABLE_TWIDDLECOEF_Q31_32 
+        - ARM_TABLE_REALCOEF_Q15 
+        - ARM_TABLE_TWIDDLECOEF_Q15_32  
+        - ARM_MATH_LOOPUNROLL
+
+
+    - component: Keil::Compiler&ARM Compiler:Event Recorder&Semihosting
+      for-type:
+        - +VHT-Corstone-300
+        - +VHT-Corstone-310
+    - component: Keil::Compiler&ARM Compiler:Event Recorder&DAP
+      for-type:
+        - +MPS3-Corstone-300
+
+  layers:
+    - layer: boot.clayer.yml
+    - layer: printf_mps3.clayer.yml
+      for-type:
+        - +MPS3-Corstone-300
+

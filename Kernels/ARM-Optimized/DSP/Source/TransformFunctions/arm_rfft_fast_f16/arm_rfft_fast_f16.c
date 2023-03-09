@@ -63,7 +63,7 @@ static void stage_rfft_f16_mve(const arm_rfft_fast_instance_f16 * S,
     float16x8_t     tmp1, tmp2, res;
 #endif
     uint32x4_t      vecStridesBkwd;
-    float16x8_t     conj = vcvtq_f16_s16(vsubq_n_s16(vdwdupq_u16(2, 4, 2), 1));
+    float16x8_t     conj = vcvtq_f16_s16(vsubq_n_s16(vdwdupq_n_u16(2, 4, 2), 1));
     int32_t         blockCnt;
     uint32_t        fftSize;
 
@@ -216,7 +216,7 @@ void merge_rfft_f16_mve(
     float16x8_t     tmp1, tmp2, res;
 #endif
     uint32x4_t      vecStridesBkwd;
-    float16x8_t     conj = vcvtq_f16_s16(vsubq_n_s16(vdwdupq_u16(2, 4, 2), 1));
+    float16x8_t     conj = vcvtq_f16_s16(vsubq_n_s16(vdwdupq_n_u16(2, 4, 2), 1));
     int32_t         blockCnt;
     uint32_t        fftSize;
 

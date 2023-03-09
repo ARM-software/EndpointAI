@@ -65,23 +65,23 @@
 #define RAD2_BFLY_FX16_MVE(conj)                                       \
     ".p2align 2                                                            \n"\
     "   wls                 lr, %[count], 1f                               \n"\
-    "   vldrw.32            q0, [%[pIn0]]                                  \n"\
+    "   vldrh.16            q0, [%[pIn0]]                                  \n"\
     /* low overhead loop start */                                             \
     "2:                                                                    \n"\
     "   vshr.s16            q0, q0, #1                                     \n"\
-    "   vldrw.32            q1, [%[pIn1]]                                  \n"\
+    "   vldrh.16            q1, [%[pIn1]]                                  \n"\
     "   vshr.s16            q1, q1, #1                                     \n"\
     /* a0,a1 */                                                               \
     "   vhadd.s16           q2, q0, q1                                     \n"\
     /* twiddle */                                                             \
-    "   vldrw.32            q7, [%[pCoef]], #16                            \n"\
+    "   vldrh.16            q7, [%[pCoef]], #16                            \n"\
     /* xt,yt */                                                               \
     "   vhsub.s16           q3, q0, q1                                     \n"\
-    "   vldrw.32            q0, [%[pIn0], #16]                             \n"\
-    cmplx_fx_mul_r_##conj(q4, q3, q7)                                         \
-    "   vstrw.32            q2, [%[pIn0]], 16                              \n"\
-    cmplx_fx_mul_i_##conj(q4, q3, q7)                                         \
-    "   vstrw.32            q4, [%[pIn1]], 16                              \n"\
+    "   vldrh.16            q0, [%[pIn0], #16]                             \n"\
+    cmplx_fx_mul_r_##conj(16, q4, q3, q7)                                     \
+    "   vstrh.16            q2, [%[pIn0]], 16                              \n"\
+    cmplx_fx_mul_i_##conj(16, q4, q3, q7)                                     \
+    "   vstrh.16            q4, [%[pIn1]], 16                              \n"\
     /* low overhead loop end */                                               \
     "   le                  lr, 2b                                         \n"\
     "1:                                                                    \n"
@@ -214,6 +214,7 @@ static void _arm_radix4_butterfly_q15_mve(
             q15_t    *inD = inC + n2 * CMPLX_DIM;
 
 #ifdef USE_ASM
+
             register unsigned count  __asm("lr") = (n2 / 4);
             __asm volatile(
 
@@ -479,7 +480,7 @@ static void arm_cfft_radix4by2_q15_mve(const arm_cfft_instance_q15 *S, q15_t *pS
         "   letp                 lr, 2b                            \n"
         "1:                                                        \n"
         : [p] "+r"(pIn0)
-        : [count] "r"(fftLen << 2)
+        : [count] "r"(fftLen * CMPLX_DIM)
         : "q0", "lr", "memory");
 #else
 
