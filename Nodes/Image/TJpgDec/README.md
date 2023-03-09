@@ -41,18 +41,6 @@ To input the JPEG data and output the decompressed image, TJpgDec requires two u
 - [Input Funciotn](http://elm-chan.org/fsw/tjpgd/en/input.html) - Read JPEG data from the input stream
 - [Output Function](http://elm-chan.org/fsw/tjpgd/en/output.html) - Output the decompressed image to the destination object
 
-### Resources
-
-The TJpgDec module is a free software opened for education, research and development. You can use, modify and/or redistribute it for personal projects or commercial products without any restriction under your responsibility.
-
-- Getting Started: [TJpgDec Application Note](http://elm-chan.org/fsw/tjpgd/en/appnote.html) July 18, 2021
-- Download: [TJpgDec R0.03](http://elm-chan.org/fsw/tjpgd/arc/tjpgd3.zip) July 1, 2021
-- Download: [Archives](http://elm-chan.org/fsw/tjpgd/archives.html)
-- Download: [TJpgDec Sample Projects](http://elm-chan.org/fsw/tjpgd/tjsample.zip) (AVR, PIC24, LPC1114 and Win32) July 1, 2021
-- [Demo Movie](http://elm-chan.org/fsw/tjpgd/tjdemo.mp4) (MP4/3MB)
-- [TJpgDec highly optimized for ESP32 MCUs by lovyan03](https://github.com/lovyan03/ESP32_ScreenShotReceiver) ↗
-
-
 
 ## 2. Deploy using CMSIS-Pack
 
