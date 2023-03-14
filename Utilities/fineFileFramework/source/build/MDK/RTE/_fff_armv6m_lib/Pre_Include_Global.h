@@ -4,20 +4,14 @@
  *      *** Do not modify ! ***
  *
  * Project: 'fineFileFramework' 
- * Target:  'mps2_cortex_m55' 
+ * Target:  'fff_armv6m_lib' 
  */
 
-#ifndef RTE_COMPONENTS_H
-#define RTE_COMPONENTS_H
-
-
-/*
- * Define the Device Header File: 
- */
-#define CMSIS_device_header "ARMCM55.h"
+#ifndef PRE_INCLUDE_GLOBAL_H
+#define PRE_INCLUDE_GLOBAL_H
 
 /* GorgonMeducer.Performance Counter::Utilities:perf_counter:Core:Source:2.1.0-dev */
-#define __PERF_COUNTER__ 1
+#define __PERF_COUNTER_CFG_USE_SYSTICK_WRAPPER__ 1
 
 
-#endif /* RTE_COMPONENTS_H */
+#endif /* PRE_INCLUDE_GLOBAL_H */

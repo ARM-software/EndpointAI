@@ -3,7 +3,7 @@
  * Auto generated Run-Time-Environment Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'fakeFileFramework' 
+ * Project: 'fineFileFramework' 
  * Target:  'fff_armv6m_lib' 
  */
 
@@ -16,6 +16,8 @@
  */
 #define CMSIS_device_header "ARMCM0.h"
 
+/* GorgonMeducer.Performance Counter::Utilities:perf_counter:Core:Source:2.1.0-dev */
+#define __PERF_COUNTER__ 1
 
 
 #endif /* RTE_COMPONENTS_H */

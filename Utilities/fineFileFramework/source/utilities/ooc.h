@@ -26,11 +26,15 @@
 #undef __PLOOC_CLASS_USE_SIMPLE_TEMPLATE__
 #undef __PLOOC_CLASS_USE_BLACK_BOX_TEMPLATE__
 
+#ifndef __PLOOC_I_KNOW_BLACK_BOX_IS_INCOMPATIBLE_WITH_OTHER_TEMPLATES__
+#define __PLOOC_I_KNOW_BLACK_BOX_IS_INCOMPATIBLE_WITH_OTHER_TEMPLATES__     1
+#endif
+
 #if     !defined(__PLOOC_CLASS_USE_STRICT_TEMPLATE__)                           \
     &&  !defined(__PLOOC_CLASS_USE_SIMPLE_TEMPLATE__)
 #define __PLOOC_CLASS_USE_BLACK_BOX_TEMPLATE__
 #endif
-#include "./3rd-party/PLOOC/plooc_class.h"
+#include "plooc_class.h"
 
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/                   

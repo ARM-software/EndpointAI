@@ -23,7 +23,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
-#include "fake_file_framework/fake_file_framework.h"
+#include "fine_file_framework/fine_file_framework.h"
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
@@ -31,6 +31,10 @@
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ PROTOTYPES ====================================*/
 /*============================ IMPLEMENTATION ================================*/
+
+void SysTick_Handler(void)
+{
+}
 
 static void print_path(const arm_file_node_t *ptPathNode)
 {
