@@ -22,6 +22,11 @@
 #include <stdio.h>
 
 #include "fine_file_framework.h"
+#include <RTE_Components.h>
+#if defined(RTE_Compiler_EventRecorder) && defined(RTE_Compiler_IO_STDOUT_EVR)
+#   include <EventRecorder.h>
+#endif
+
 
 #ifdef   __cplusplus
 extern "C" {
@@ -47,8 +52,6 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wmissing-field-initializers"
 #   pragma clang diagnostic ignored "-Wundef"
 
-/* todo: need to fix this issue later */
-#   pragma clang diagnostic ignored "-Wsign-conversion"
 #elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 1296,174
 #endif
@@ -151,8 +154,8 @@ static uint_fast16_t __read_file_to_buffer( FILE *ptInputFile,
     uint8_t *pchBuffer = (uint8_t *)pBuffer;
     uint_fast16_t hwSizeLeft = hwSize;
     while(!feof(ptInputFile)) {
-        int_fast32_t nSize = fread(pchBuffer, 1, hwSizeLeft, ptInputFile);
-        if (nSize < 0) {
+        size_t nSize = fread(pchBuffer, 1, hwSizeLeft, ptInputFile);
+        if (nSize == 0) {
             break;
         } 
         pchBuffer += nSize;
@@ -174,8 +177,8 @@ static uint_fast16_t __write_buffer_to_file(FILE *ptOutputFile,
     uint8_t *pchBuffer = (uint8_t *)pBuffer;
     uint_fast16_t hwSizeLeft = hwSize;
     while(true) {
-        int_fast32_t nSize = fwrite(pchBuffer, 1, hwSizeLeft, ptOutputFile);
-        if (nSize < 0) {
+        size_t nSize = fwrite(pchBuffer, 1, hwSizeLeft, ptOutputFile);
+        if (nSize == 0) {
             break;
         } 
         pchBuffer += nSize;
@@ -217,15 +220,15 @@ static void file_copy_demo(void)
     while(!feof(ptInput)) {
         static uint8_t s_chBuffer[1024];
         
-        int_fast32_t nSize = 
+        size_t nSize = 
             __read_file_to_buffer(ptInput, s_chBuffer, sizeof(s_chBuffer));
-        if (nSize < 0) {
+        if (nSize == 0) {
             bError = true;
             break;
         }
         
         nSize = __write_buffer_to_file(ptOutput, s_chBuffer, nSize);
-        if (nSize < 0) {
+        if (nSize == 0) {
             bError = true;
             break;
         }
@@ -247,9 +250,17 @@ static void file_copy_demo(void)
 
 int main(int argc, char **argv)
 {
+#if defined(RTE_Compiler_EventRecorder) && defined(RTE_Compiler_IO_STDOUT_EVR)
+    EventRecorderInitialize(0, 1);
+#endif
+
+    int32_t example = 0;
+    fwrite("hello", 1, 5, stderr);
+    fread(&example, 1, 4, stdin);
+
     //! parsing input command line
     do {
-        uint_fast8_t chArgc = argc;
+        uint_fast8_t chArgc = (uint_fast8_t)argc;
         printf("\r\nEntering main...\r\n"
                "--------------------------------------------------\r\n");
         if (0 == argc) {

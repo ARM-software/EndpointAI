@@ -24,6 +24,11 @@
 #include <rt_sys.h>
 #include <stdlib.h>
 
+#include <RTE_Components.h>
+#if defined(RTE_Compiler_EventRecorder) && defined(RTE_Compiler_IO_STDOUT_EVR)
+#   include <EventRecorder.h>
+#endif
+
 #ifdef   __cplusplus
 extern "C" {
 #endif
@@ -74,18 +79,69 @@ static volatile int getchar_ch   = -1;
 /*============================ PROTOTYPES ====================================*/
 
 /* enforced interface we relys on */
+#if   (defined(RTE_Compiler_IO_STDOUT) && defined(RTE_Compiler_IO_STDOUT_User)) \
+    || !defined(RTE_Compiler_IO_STDOUT)
 extern int stdout_putchar (int ch) ;
-extern int stderr_putchar (int ch) ;
-extern int stdin_getchar (void);
+#endif
 
+extern int stderr_putchar (int ch) ;
+
+#if   (defined(RTE_Compiler_IO_STDIN) && defined(RTE_Compiler_IO_STDIN_User)) \
+    || !defined(RTE_Compiler_IO_STDIN)
+extern int stdin_getchar (void);
+#endif
 /*============================ IMPLEMENTATION ================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
 
+#if   (defined(RTE_Compiler_IO_STDOUT) && defined(RTE_Compiler_IO_STDOUT_User)) \
+    || !defined(RTE_Compiler_IO_STDOUT)
 __attribute__((weak)) 
 int stdout_putchar(int_fast8_t chByte)
 {
+    asm volatile ("NOP");
     return chByte;
 }
+
+#endif
+
+
+
+
+/**
+  Put a character to the stdout
+ 
+  \param[in]   ch  Character to output
+  \return          The character written, or -1 on write error.
+*/
+#if   defined(RTE_Compiler_IO_STDOUT)
+#if   defined(RTE_Compiler_IO_STDOUT_User)
+extern int stdout_putchar (int ch);
+#elif defined(RTE_Compiler_IO_STDOUT_ITM)
+static int stdout_putchar (int ch) {
+  return (ITM_SendChar(ch));
+}
+#elif defined(RTE_Compiler_IO_STDOUT_EVR)
+static int stdout_putchar (int ch) {
+  static uint32_t index = 0U;
+  static uint8_t  buffer[8];
+ 
+  if (index >= 8U) {
+    return (-1);
+  }
+  buffer[index++] = (uint8_t)ch;
+  if ((index == 8U) || (ch == '\n')) {
+    EventRecordData(EventID(EventLevelOp, 0xFE, 0x00), buffer, index);
+    index = 0U;
+  }
+  return (ch);
+}
+#elif defined(RTE_Compiler_IO_STDOUT_BKPT)
+static int stdout_putchar (int ch) {
+  __asm("BKPT 0");
+  return (ch);
+}
+#endif
+#endif
 
 __attribute__((weak))  
 int stderr_putchar(int_fast8_t chByte)
@@ -93,11 +149,43 @@ int stderr_putchar(int_fast8_t chByte)
     return stdout_putchar(chByte);
 }
 
+
+/**
+  Get a character from the stdio
+ 
+  \return     The next character from the input, or -1 on read error.
+*/
+#if   defined(RTE_Compiler_IO_STDIN)
+#if   defined(RTE_Compiler_IO_STDIN_User)
+extern int stdin_getchar (void);
+#elif defined(RTE_Compiler_IO_STDIN_ITM)
+static int stdin_getchar (void) {
+  int32_t ch;
+ 
+  do {
+    ch = ITM_ReceiveChar();
+  } while (ch == -1);
+  return (ch);
+}
+#elif defined(RTE_Compiler_IO_STDIN_BKPT)
+static int stdin_getchar (void) {
+  int32_t ch = -1;
+ 
+  __asm("BKPT 0");
+  return (ch);
+}
+#endif
+#endif
+
+#if !defined(RTE_Compiler_IO_STDIN) ||                                          \
+    (defined(RTE_Compiler_IO_STDIN) && defined(RTE_Compiler_IO_STDIN_User))
 __attribute__((weak))  
 int stdin_getchar(void)
 {
     return -1;
 }
+#endif
+
 /*
 * opens the file whose name is the string pointed to by filename, and
 * associates a stream with it.
@@ -253,7 +341,9 @@ _ARMABI size_t fwrite(  const void * __restrict pchBuffer,
                         pchBuffer, 
                         tElementSize * tElementCount,
                         0);
-    
+    if (nResult < 0) {
+        return 0;
+    }
     return nResult;
 }
 
@@ -280,6 +370,9 @@ _ARMABI size_t fread(void * __restrict pchBuffer,
                         pchBuffer, 
                         tElementSize * tElementCount,
                         0);
+    if (nResult < 0) {
+        return 0;
+    }
     return nResult;
  }
  
@@ -403,6 +496,27 @@ int __stdout_string(const unsigned char *buf,
 }
 
 __attribute__((weak)) 
+int __stdin_data(unsigned char *buf,
+                 unsigned len)
+{
+    if (NULL == buf || 0 == len) {
+        return -1;
+    }
+    
+    do {
+        int data = stdin_getchar();
+        if ( data < 0) {
+            return data;
+        }
+        
+        *buf++ = (uint8_t)data;
+    } while(--len);
+    
+    return 0;
+}
+
+
+__attribute__((weak)) 
 int __stderr_string(const unsigned char *buf,
                     unsigned len)
 {
@@ -508,7 +622,7 @@ int _sys_read(FILEHANDLE fh, unsigned char *buf,
     } else if (fh == (FILEHANDLE)&__stderr) {
         return -1;
     } else if (fh == (FILEHANDLE)&__stdin) {
-        ptFile = &(((FILE *)fh)->use_as__arm_file_node_t);
+        return __stdin_data(buf, len);
     }
 
     FFF_ASSERT(NULL != FFF_IO.Read);
@@ -525,7 +639,7 @@ int _sys_read(FILEHANDLE fh, unsigned char *buf,
   \param[in] file  source file of the assertion
   \param[in] line  source line of the assertion
 */
-__attribute__((weak,noreturn))
+__attribute__((noreturn))
 void __aeabi_assert (const char *expr, const char *file, int line) {
   char str[12], *p;
  

@@ -390,11 +390,6 @@
               <FilePath>..\..\example_main.c</FilePath>
             </File>
             <File>
-              <FileName>app_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\app_cfg.h</FilePath>
-            </File>
-            <File>
               <FileName>printf_retarget.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\printf_retarget.c</FilePath>
@@ -458,6 +453,9 @@
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::Compiler</GroupName>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -772,7 +770,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>0</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -781,7 +779,7 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>3</wLevel>
+            <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>0</uC99>
@@ -791,11 +789,11 @@
             <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
-            <v6Lto>1</v6Lto>
+            <v6Lto>0</v6Lto>
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Omax</MiscControls>
+              <MiscControls></MiscControls>
               <Define>__USE_COMPILER_SPECIFIED_CMSIS_PATH__, __FILE_INCOMPLETE=1</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\;..\..\incbin;..\..\fine_file_framework</IncludePath>
@@ -848,14 +846,60 @@
               <FilePath>..\..\example_main.c</FilePath>
             </File>
             <File>
-              <FileName>app_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\app_cfg.h</FilePath>
-            </File>
-            <File>
               <FileName>printf_retarget.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\printf_retarget.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <uGnu>2</uGnu>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>2</v6Lto>
+                    <v6WtE>2</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
           </Files>
         </Group>
@@ -954,6 +998,9 @@
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::Compiler</GroupName>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -1413,11 +1460,6 @@
               <FilePath>..\..\example_main.c</FilePath>
             </File>
             <File>
-              <FileName>app_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\app_cfg.h</FilePath>
-            </File>
-            <File>
               <FileName>printf_retarget.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\printf_retarget.c</FilePath>
@@ -1570,6 +1612,9 @@
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::Compiler</GroupName>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -2029,11 +2074,6 @@
               <FilePath>..\..\example_main.c</FilePath>
             </File>
             <File>
-              <FileName>app_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\app_cfg.h</FilePath>
-            </File>
-            <File>
               <FileName>printf_retarget.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\printf_retarget.c</FilePath>
@@ -2250,6 +2290,9 @@
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
+        </Group>
+        <Group>
+          <GroupName>::Compiler</GroupName>
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
@@ -2709,11 +2752,6 @@
               <FilePath>..\..\example_main.c</FilePath>
             </File>
             <File>
-              <FileName>app_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\app_cfg.h</FilePath>
-            </File>
-            <File>
               <FileName>printf_retarget.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\printf_retarget.c</FilePath>
@@ -2868,6 +2906,9 @@
           <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
+          <GroupName>::Compiler</GroupName>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
           <GroupOption>
             <CommonProperty>
@@ -2968,6 +3009,26 @@
           <targetInfo name="mps2_cortex_m55"/>
         </targetInfos>
       </component>
+      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" Cversion="1.5.1" condition="Cortex-M Device">
+        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
+        <targetInfos>
+          <targetInfo name="fff_armv6m_lib"/>
+          <targetInfo name="fff_armv7m_lib"/>
+          <targetInfo name="mps2_armv7m"/>
+          <targetInfo name="mps2_armv7m_template"/>
+          <targetInfo name="mps2_cortex_m55"/>
+        </targetInfos>
+      </component>
+      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="EVR" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M with EVR">
+        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
+        <targetInfos>
+          <targetInfo name="fff_armv6m_lib"/>
+          <targetInfo name="fff_armv7m_lib"/>
+          <targetInfo name="mps2_armv7m"/>
+          <targetInfo name="mps2_armv7m_template"/>
+          <targetInfo name="mps2_cortex_m55"/>
+        </targetInfos>
+      </component>
       <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.1.0" condition="CMSDK_CM3 CMSIS">
         <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.8.0"/>
         <targetInfos>
@@ -2983,6 +3044,18 @@
       </component>
     </components>
     <files>
+      <file attr="config" category="header" name="Config\EventRecorderConf.h" version="1.1.0">
+        <instance index="0">RTE\Compiler\EventRecorderConf.h</instance>
+        <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" Cversion="1.5.1" condition="Cortex-M Device"/>
+        <package name="ARM_Compiler" schemaVersion="1.7.7" url="https://www.keil.com/pack/" vendor="Keil" version="1.7.2"/>
+        <targetInfos>
+          <targetInfo name="fff_armv6m_lib"/>
+          <targetInfo name="fff_armv7m_lib"/>
+          <targetInfo name="mps2_armv7m"/>
+          <targetInfo name="mps2_armv7m_template"/>
+          <targetInfo name="mps2_cortex_m55"/>
+        </targetInfos>
+      </file>
       <file attr="config" category="sourceAsm" condition="ARMCC" name="Device\ARM\ARMCM0\Source\ARM\startup_ARMCM0.s" version="1.0.1">
         <instance index="0">RTE\Device\ARMCM0\startup_ARMCM0.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="ARM" Cversion="1.2.2" condition="ARMCM0 CMSIS"/>
