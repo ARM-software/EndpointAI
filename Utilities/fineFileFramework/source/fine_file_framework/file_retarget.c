@@ -24,7 +24,6 @@
 #include <rt_sys.h>
 #include <stdlib.h>
 
-#include <RTE_Components.h>
 #if defined(RTE_Compiler_EventRecorder) && defined(RTE_Compiler_IO_STDOUT_EVR)
 #   include <EventRecorder.h>
 #endif

@@ -254,10 +254,6 @@ int main(int argc, char **argv)
     EventRecorderInitialize(0, 1);
 #endif
 
-    int32_t example = 0;
-    fwrite("hello", 1, 5, stderr);
-    fread(&example, 1, 4, stdin);
-
     //! parsing input command line
     do {
         uint_fast8_t chArgc = (uint_fast8_t)argc;
