@@ -53,8 +53,6 @@ extern "C" {
 #   define NOP()            __asm volatile ("nop");
 #endif
 
-
-
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 
@@ -121,17 +119,6 @@ void _sys_exit(int ch)
     while(1) {
         NOP();
     }
-}
-
-void _ttywrch(int ch)
-{
-    FFF_UNUSED(ch);
-  //your_device_write(&c, 1);
-}
-int _sys_istty(FILEHANDLE fh)
-{
-    FFF_UNUSED(fh);
-    return -1; /* buffered output */
 }
 
 

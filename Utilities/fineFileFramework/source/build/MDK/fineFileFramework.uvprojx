@@ -449,6 +449,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\fine_file_framework\fff_cfg.h</FilePath>
             </File>
+            <File>
+              <FileName>hotel_ual.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\fine_file_framework\hotel_ual.s</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -770,7 +775,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>2</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -779,14 +784,14 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>2</wLevel>
+            <wLevel>3</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
-            <uGnu>0</uGnu>
+            <uC99>1</uC99>
+            <uGnu>1</uGnu>
             <useXO>0</useXO>
-            <v6Lang>6</v6Lang>
-            <v6LangP>3</v6LangP>
+            <v6Lang>3</v6Lang>
+            <v6LangP>5</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
@@ -849,57 +854,6 @@
               <FileName>printf_retarget.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\printf_retarget.c</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Cads>
-                    <interw>2</interw>
-                    <Optim>0</Optim>
-                    <oTime>2</oTime>
-                    <SplitLS>2</SplitLS>
-                    <OneElfS>2</OneElfS>
-                    <Strict>2</Strict>
-                    <EnumInt>2</EnumInt>
-                    <PlainCh>2</PlainCh>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <wLevel>0</wLevel>
-                    <uThumb>2</uThumb>
-                    <uSurpInc>2</uSurpInc>
-                    <uC99>2</uC99>
-                    <uGnu>2</uGnu>
-                    <useXO>2</useXO>
-                    <v6Lang>0</v6Lang>
-                    <v6LangP>0</v6LangP>
-                    <vShortEn>2</vShortEn>
-                    <vShortWch>2</vShortWch>
-                    <v6Lto>2</v6Lto>
-                    <v6WtE>2</v6WtE>
-                    <v6Rtti>2</v6Rtti>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Cads>
-                </FileArmAds>
-              </FileOption>
             </File>
           </Files>
         </Group>
@@ -993,6 +947,49 @@
               <FileName>fff_cfg.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\fine_file_framework\fff_cfg.h</FilePath>
+            </File>
+            <File>
+              <FileName>hotel_ual.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\fine_file_framework\hotel_ual.s</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Aads>
+                    <interw>2</interw>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <thumb>2</thumb>
+                    <SplitLS>2</SplitLS>
+                    <SwStkChk>2</SwStkChk>
+                    <NoWarn>2</NoWarn>
+                    <uSurpInc>2</uSurpInc>
+                    <useXO>2</useXO>
+                    <ClangAsOpt>0</ClangAsOpt>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Aads>
+                </FileArmAds>
+              </FileOption>
             </File>
           </Files>
         </Group>
@@ -1607,6 +1604,11 @@
               <FileName>fff_cfg.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\fine_file_framework\fff_cfg.h</FilePath>
+            </File>
+            <File>
+              <FileName>hotel_ual.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\fine_file_framework\hotel_ual.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -2286,6 +2288,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\fine_file_framework\fff_cfg.h</FilePath>
             </File>
+            <File>
+              <FileName>hotel_ual.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\fine_file_framework\hotel_ual.s</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2900,6 +2907,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\fine_file_framework\fff_cfg.h</FilePath>
             </File>
+            <File>
+              <FileName>hotel_ual.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\..\fine_file_framework\hotel_ual.s</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3003,7 +3015,7 @@
           <targetInfo name="fff_armv6m_lib"/>
         </targetInfos>
       </component>
-      <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.1.0" condition="ARMCM55 CMSIS" isDefaultVariant="1">
+      <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.1.0" condition="ARMCM55 CMSIS">
         <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
         <targetInfos>
           <targetInfo name="mps2_cortex_m55"/>
@@ -3073,12 +3085,10 @@
         </targetInfos>
       </file>
       <file attr="config" category="linkerScript" condition="Startup ARMCC6 Unsecure" name="Device\ARM\ARMCM55\Source\ARM\ARMCM55_ac6.sct" version="1.1.0">
-        <instance index="0">RTE\Device\ARMCM55\ARMCM55_ac6.sct</instance>
+        <instance index="0" removed="1">RTE\Device\ARMCM55\ARMCM55_ac6.sct</instance>
         <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.1.0" condition="ARMCM55 CMSIS" isDefaultVariant="1"/>
         <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
-        <targetInfos>
-          <targetInfo name="mps2_cortex_m55"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="sourceC" name="Device\ARM\ARMCM55\Source\startup_ARMCM55.c" version="1.1.0">
         <instance index="0">RTE\Device\ARMCM55\startup_ARMCM55.c</instance>
@@ -3105,20 +3115,16 @@
         </targetInfos>
       </file>
       <file attr="config" category="linkerScript" condition="ARMCC" name="Device\CMSDK_CM3\Source\ARM\ac6_arm.sct" version="1.0.0">
-        <instance index="0">RTE\Device\CMSDK_CM3\ac6_arm.sct</instance>
+        <instance index="0" removed="1">RTE\Device\CMSDK_CM3\ac6_arm.sct</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.1.0" condition="CMSDK_CM3 CMSIS"/>
         <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.8.0"/>
-        <targetInfos>
-          <targetInfo name="fff_armv7m_lib"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="sourceAsm" condition="ARMCC" name="Device\CMSDK_CM3\Source\ARM\startup_CMSDK_CM3.S" version="1.0.0">
-        <instance index="0">RTE\Device\CMSDK_CM3\startup_CMSDK_CM3.S</instance>
+        <instance index="0" removed="1">RTE\Device\CMSDK_CM3\startup_CMSDK_CM3.S</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.1.0" condition="CMSDK_CM3 CMSIS"/>
         <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.8.0"/>
-        <targetInfos>
-          <targetInfo name="fff_armv7m_lib"/>
-        </targetInfos>
+        <targetInfos/>
       </file>
       <file attr="config" category="sourceC" name="Device\CMSDK_CM3\Source\system_CMSDK_CM3.c" version="1.1.0">
         <instance index="0">RTE\Device\CMSDK_CM3\system_CMSDK_CM3.c</instance>
@@ -3143,7 +3149,6 @@
         <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.8.0"/>
         <targetInfos>
           <targetInfo name="mps2_armv7m"/>
-          <targetInfo name="mps2_armv7m_template"/>
         </targetInfos>
       </file>
       <file attr="config" category="sourceAsm" condition="ARMCC" name="Device\CMSDK_CM4\Source\ARM\startup_CMSDK_CM4.S" version="1.0.0">
@@ -3152,7 +3157,6 @@
         <package name="V2M-MPS2_CMx_BSP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.8.0"/>
         <targetInfos>
           <targetInfo name="mps2_armv7m"/>
-          <targetInfo name="mps2_armv7m_template"/>
         </targetInfos>
       </file>
       <file attr="config" category="sourceC" name="Device\CMSDK_CM4\Source\system_CMSDK_CM4.c" version="1.1.0">

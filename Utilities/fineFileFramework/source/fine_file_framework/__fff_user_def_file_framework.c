@@ -12,12 +12,17 @@
 /*============================ PROTOTYPES ====================================*/
 /*============================ IMPLEMENTATION ================================*/
 
+#if __IS_COMPILER_ARM_COMPILER_5__
+extern const uint8_t HOTEL_MP3_ROM_data[];
+extern const uint32_t HOTEL_MP3_ROM_size;
+
+#else
 #define INCBIN_PREFIX
 #define INCBIN_STYLE INCBIN_STYLE_SNAKE
 #include "incbin.h"
 
-
 INCBIN(HOTEL_MP3_ROM, "../../fine_file_framework/hotel.mp3");
+#endif
 
 def_fff(MPSx_Local_Disk,
     use_fff_disk(disk_c,

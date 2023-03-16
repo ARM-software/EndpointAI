@@ -63,11 +63,11 @@ extern "C" {
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
-#if __IS_COMPILER_ARM_COMPILER_5__
-struct __FILE {
-    arm_file_node_t *ptStream;
-};
-#endif
+//#if __IS_COMPILER_ARM_COMPILER_5__
+//struct __FILE {
+//    arm_file_node_t *ptStream;
+//};
+//#endif
 
 
 /*============================ LOCAL VARIABLES ===============================*/ 
@@ -97,7 +97,6 @@ extern int stdin_getchar (void);
 __attribute__((weak)) 
 int stdout_putchar(int_fast8_t chByte)
 {
-    asm volatile ("NOP");
     return chByte;
 }
 
@@ -148,6 +147,17 @@ int stderr_putchar(int_fast8_t chByte)
     return stdout_putchar(chByte);
 }
 
+__attribute__((weak)) 
+void _ttywrch(int ch)
+{
+    stdout_putchar(ch);
+}
+
+int _sys_istty(FILEHANDLE fh)
+{
+    FFF_UNUSED(fh);
+    return -1; /* buffered output */
+}
 
 /**
   Get a character from the stdio

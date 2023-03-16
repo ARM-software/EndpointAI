@@ -18,6 +18,7 @@
 /*============================ INCLUDES ======================================*/
 #include <stdint.h>
 #include <stdio.h>
+#include <RTE_Components.h>
 
 #ifdef   __cplusplus
 extern "C" {
@@ -170,6 +171,9 @@ typedef struct
 /*============================ PROTOTYPES ====================================*/
 /*============================ IMPLEMENTATION ================================*/
 
+#if   (defined(RTE_Compiler_IO_STDOUT) && defined(RTE_Compiler_IO_STDOUT_User)) \
+    || !defined(RTE_Compiler_IO_STDOUT)
+
 static void stdout_init(void)
 {
     CMSDK_UART0->CTRL = 0;         /* Disable UART when changing configuration */
@@ -197,6 +201,7 @@ void platform_init(void)
 {
     stdout_init();
 }
+#endif
 
 #ifdef   __cplusplus
 }
