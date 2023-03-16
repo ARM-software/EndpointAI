@@ -440,11 +440,6 @@
               <FilePath>..\..\fine_file_framework\__memory_file.c</FilePath>
             </File>
             <File>
-              <FileName>hotel.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\fine_file_framework\hotel.s</FilePath>
-            </File>
-            <File>
               <FileName>fff_armv6m_lib.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\release\fff_library\fff_armv6m_lib.lib</FilePath>
@@ -777,7 +772,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>0</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -796,12 +791,12 @@
             <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
-            <v6Lto>1</v6Lto>
+            <v6Lto>0</v6Lto>
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Omax</MiscControls>
-              <Define>_MSC_VER,__USE_COMPILER_SPECIFIED_CMSIS_PATH__, __FILE_INCOMPLETE=1</Define>
+              <MiscControls></MiscControls>
+              <Define>__USE_COMPILER_SPECIFIED_CMSIS_PATH__, __FILE_INCOMPLETE=1</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\;..\..\incbin</IncludePath>
             </VariousControls>
@@ -901,11 +896,6 @@
               <FileName>__memory_file.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\fine_file_framework\__memory_file.c</FilePath>
-            </File>
-            <File>
-              <FileName>hotel.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\fine_file_framework\hotel.s</FilePath>
             </File>
             <File>
               <FileName>fff_armv6m_lib.lib</FileName>
@@ -1522,49 +1512,6 @@
               <FileName>__memory_file.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\fine_file_framework\__memory_file.c</FilePath>
-            </File>
-            <File>
-              <FileName>hotel.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\fine_file_framework\hotel.s</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Aads>
-                    <interw>2</interw>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <thumb>2</thumb>
-                    <SplitLS>2</SplitLS>
-                    <SwStkChk>2</SwStkChk>
-                    <NoWarn>2</NoWarn>
-                    <uSurpInc>2</uSurpInc>
-                    <useXO>2</useXO>
-                    <ClangAsOpt>0</ClangAsOpt>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Aads>
-                </FileArmAds>
-              </FileOption>
             </File>
             <File>
               <FileName>fff_armv6m_lib.lib</FileName>
@@ -2285,11 +2232,6 @@
               </FileOption>
             </File>
             <File>
-              <FileName>hotel.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\fine_file_framework\hotel.s</FilePath>
-            </File>
-            <File>
               <FileName>fff_armv6m_lib.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\release\fff_library\fff_armv6m_lib.lib</FilePath>
@@ -2866,49 +2808,6 @@
               <FileName>__memory_file.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\fine_file_framework\__memory_file.c</FilePath>
-            </File>
-            <File>
-              <FileName>hotel.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\fine_file_framework\hotel.s</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds>
-                  <Aads>
-                    <interw>2</interw>
-                    <Ropi>2</Ropi>
-                    <Rwpi>2</Rwpi>
-                    <thumb>2</thumb>
-                    <SplitLS>2</SplitLS>
-                    <SwStkChk>2</SwStkChk>
-                    <NoWarn>2</NoWarn>
-                    <uSurpInc>2</uSurpInc>
-                    <useXO>2</useXO>
-                    <ClangAsOpt>0</ClangAsOpt>
-                    <VariousControls>
-                      <MiscControls></MiscControls>
-                      <Define></Define>
-                      <Undefine></Undefine>
-                      <IncludePath></IncludePath>
-                    </VariousControls>
-                  </Aads>
-                </FileArmAds>
-              </FileOption>
             </File>
             <File>
               <FileName>fff_armv6m_lib.lib</FileName>
