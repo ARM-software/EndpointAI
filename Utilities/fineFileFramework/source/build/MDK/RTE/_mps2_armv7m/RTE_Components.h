@@ -16,8 +16,6 @@
  */
 #define CMSIS_device_header "CMSDK_CM4_FP.h"
 
-/* GorgonMeducer.Performance Counter::Utilities:perf_counter:Core:Source:2.1.0-dev */
-#define __PERF_COUNTER__ 1
 
 
 #endif /* RTE_COMPONENTS_H */

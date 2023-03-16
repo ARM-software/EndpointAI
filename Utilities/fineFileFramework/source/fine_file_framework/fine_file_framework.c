@@ -16,7 +16,7 @@
 ****************************************************************************/
 
 /*============================ INCLUDES ======================================*/
-#include "./app_cfg.h"
+//#include "./app_cfg.h"
 
 #include "./fine_file_framework.h"
 
@@ -24,25 +24,58 @@
 #include <stdbool.h>
 #include <rt_sys.h>
 #include "file_io.h"
+#include <string.h>
+#include <stdlib.h>
+#ifdef   __cplusplus
+extern "C" {
+#endif
 
-#define __PLOOC_CLASS_USE_STRICT_TEMPLATE__
-#define __PLOOC_CLASS_IMPLEMENT
-#include "./utilities/ooc.h"
+/* suppress some warnings for user applications when using arm-2d.
+ */
+#if defined(__clang__)
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wgnu-variable-sized-type-not-at-end"
+#   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#   pragma clang diagnostic ignored "-Wextra-semi-stmt"
+#   pragma clang diagnostic ignored "-Wcompound-token-split-by-macro"
+#   pragma clang diagnostic ignored "-Winitializer-overrides"
+#   pragma clang diagnostic ignored "-Wgcc-compat"
+#   pragma clang diagnostic ignored "-Wundef"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
+#   pragma clang diagnostic ignored "-Wflexible-array-extensions"
+#   pragma clang diagnostic ignored "-Wcast-qual"
+#   pragma clang diagnostic ignored "-Wmissing-prototypes"
+#   pragma clang diagnostic ignored "-Wmissing-field-initializers"
+#   pragma clang diagnostic ignored "-Wundef"
+#   pragma clang diagnostic ignored "-Wextra-semi"
+#   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
+#   pragma diag_suppress 1296,174
+#endif
 
 /*============================ MACROS ========================================*/
+#undef this
+#define this        (*ptThis)
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 
-declare_class(__arm_fff_t)
+//declare_class(__arm_fff_t)
 
-def_class(__arm_fff_t,
+//def_class(__arm_fff_t,
 
-    private_member(
-        implement_ex(arm_fff_cfg_t, tConfig);
-        const arm_file_node_t *ptCurrent;
-    )
-)
-end_def_class(__arm_fff_t)
+//    private_member(
+//        implement_ex(arm_fff_cfg_t, tConfig);
+//        const arm_file_node_t *ptCurrent;
+//    )
+//)
+//end_def_class(__arm_fff_t)
+
+typedef struct __arm_fff_t  {
+    implement_ex(arm_fff_cfg_t, tConfig);
+    const arm_file_node_t *ptCurrent;
+}__arm_fff_t;
 
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ PROTOTYPES ====================================*/
@@ -51,7 +84,7 @@ extern void _sys_exit(int ch);
 
 
 /*============================ GLOBAL VARIABLES ==============================*/
-NO_INIT static __arm_fff_t s_tLocalFFF;
+ARM_NOINIT static __arm_fff_t s_tLocalFFF;
 FILE __stdout, __stdin, __stderr;
 
 const i_file_io_t FFF_IO = {
@@ -79,7 +112,7 @@ struct {
 typedef union {
     uint64_t dwValue;
     struct {
-        uint32_t argc;
+        int32_t argc;
         char** argv;
     };
 }str_arg_t;
@@ -88,7 +121,7 @@ typedef union {
 static 
 size_t __arm_get_token(const char **ppchPath, const char *pchSeparator)
 {   
-    size_t wLength;
+    size_t wLength = 0;
     do {
         if (NULL == ppchPath || NULL == pchSeparator) {
             break;
@@ -131,7 +164,7 @@ static str_arg_t get_arg(void)
     const char *pchSrc = pchCommandLine;
     str_arg_t tResult = {0};
     do {
-        uint32_t nTokenCount = 0;
+        int32_t nTokenCount = 0;
         
         if (NULL == pchSrc) {
             break;
@@ -149,7 +182,7 @@ static str_arg_t get_arg(void)
         } while(true);
         tResult.argc = nTokenCount;
         
-        char **argv = malloc(sizeof(char *) * nTokenCount);
+        char **argv = malloc(sizeof(char *) * (size_t)nTokenCount);
         char **arvTemp = argv;
         pchSrc = pchCommandLine;
         
@@ -205,15 +238,14 @@ static bool __arm_fff_alias_check(  const char *const* ppchPathString,
 }
 
 static const arm_file_node_t *__arm_fff_find_node(  
-                                            __arm_fff_t *ptObj, 
+                                            __arm_fff_t *ptThis, 
                                             const char *pchPath,
                                             const arm_file_node_t *ptStartPoint)
 {
     const arm_file_node_t * ptTargetNode = NULL, *ptNode = ptStartPoint;
-    class_internal(ptObj, ptThis, __arm_fff_t);
 
     do {
-        if (NULL == pchPath || NULL == ptObj) {
+        if (NULL == pchPath || NULL == ptThis) {
             break;
         } else if (NULL == ptStartPoint) {
             break;
@@ -312,20 +344,19 @@ static const arm_file_node_t *__arm_fff_find_node(
     return ptTargetNode;
 }
 
-static const arm_file_node_t * __arm_fff_find_path( __arm_fff_t *ptObj, 
+static const arm_file_node_t * __arm_fff_find_path( __arm_fff_t *ptThis, 
                                                     const char *pchPath)
 {
-    class_internal(ptObj, ptThis, __arm_fff_t);
     const arm_file_node_t * ptNode = NULL;
     
     do {
-        if (NULL == ptObj || NULL == pchPath) {
+        if (NULL == ptThis || NULL == pchPath) {
             break;
         } 
     
         if (NULL != this.ptCurrent) {
             //! search current position
-            ptNode = __arm_fff_find_node(ptObj, pchPath, this.ptCurrent->ptList);
+            ptNode = __arm_fff_find_node(ptThis, pchPath, this.ptCurrent->ptList);
             if (NULL != ptNode) {
                 //! find the target node
                 break;
@@ -334,7 +365,7 @@ static const arm_file_node_t * __arm_fff_find_path( __arm_fff_t *ptObj,
         
         if (NULL != this.ptRoot) {
             //! search root 
-            ptNode = __arm_fff_find_node(ptObj, pchPath, this.ptRoot->ptList);
+            ptNode = __arm_fff_find_node(ptThis, pchPath, this.ptRoot->ptList);
             if (NULL != ptNode) {
                 //! find the target node
                 break;
@@ -358,19 +389,18 @@ static void run_main(void)
 
 
 static 
-arm_fff_err_t __arm_fff_init(__arm_fff_t *ptObj, 
+arm_fff_err_t __arm_fff_init(__arm_fff_t *ptThis, 
                                     const arm_fff_cfg_t *ptCFG)
 {
-    class_internal(ptObj, ptThis, __arm_fff_t);
     
-    if (NULL == ptObj || NULL == ptCFG) {
+    if (NULL == ptThis || NULL == ptCFG) {
         return ARM_FFF_ERR_INVALID_PTR;
     } 
-    memset(ptObj, 0, sizeof(__arm_fff_t));
+    memset(ptThis, 0, sizeof(__arm_fff_t));
     
     this.tConfig = (*ptCFG);
     
-    this.ptCurrent = __arm_fff_find_path(ptObj, this.pchWorkingPath);
+    this.ptCurrent = __arm_fff_find_path(ptThis, this.pchWorkingPath);
     
     if (NULL == this.ptCurrent) {
         this.ptCurrent = this.ptRoot->ptList;
@@ -382,16 +412,15 @@ arm_fff_err_t __arm_fff_init(__arm_fff_t *ptObj,
 }
 
 static 
-arm_fff_err_t __arm_fff_set_working_path(   __arm_fff_t *ptObj,
+arm_fff_err_t __arm_fff_set_working_path(   __arm_fff_t *ptThis,
                                             const char *pchWorkingPath)
 {
-    class_internal(ptObj, ptThis, __arm_fff_t);
     
-    if (NULL == ptObj || NULL == pchWorkingPath) {
+    if (NULL == ptThis || NULL == pchWorkingPath) {
         return ARM_FFF_ERR_INVALID_PTR;
     } 
     
-    const arm_file_node_t *ptNode = __arm_fff_find_path(ptObj,pchWorkingPath);
+    const arm_file_node_t *ptNode = __arm_fff_find_path(ptThis,pchWorkingPath);
     if (NULL == ptNode) {
         return ARM_FFF_ERR_INVALID_PATH;
     }
@@ -401,13 +430,12 @@ arm_fff_err_t __arm_fff_set_working_path(   __arm_fff_t *ptObj,
 }
 
 static 
-const arm_file_node_t * __arm_fff_get_working_path(__arm_fff_t *ptObj)
+const arm_file_node_t * __arm_fff_get_working_path(__arm_fff_t *ptThis)
 {
     const arm_file_node_t *ptNode = NULL;
-    class_internal(ptObj, ptThis, __arm_fff_t);
     
     do {
-        if (NULL == ptObj) {
+        if (NULL == ptThis) {
             break;
         } 
         ptNode = this.ptCurrent;
@@ -425,12 +453,11 @@ const arm_file_node_t * __arm_fff_get_working_path(__arm_fff_t *ptObj)
 }
 
 static 
-const arm_file_node_t *__arm_fff_open(  __arm_fff_t *ptObj, 
+const arm_file_node_t *__arm_fff_open(  __arm_fff_t *ptThis, 
                                         const char *pchPath, 
                                         uint16_t wFeature)
 {
-    const arm_file_node_t * ptNode = __arm_fff_find_path(ptObj,pchPath);
-    class_internal(ptObj, ptThis, __arm_fff_t);
+    const arm_file_node_t * ptNode = __arm_fff_find_path(ptThis,pchPath);
     
     do {
         if (NULL == ptNode) {
@@ -478,10 +505,9 @@ const arm_file_node_t *__arm_fff_open(  __arm_fff_t *ptObj,
 }
 
 static 
-arm_fff_err_t __arm_fff_close(  __arm_fff_t *ptObj, const arm_file_node_t * ptNode)
+arm_fff_err_t __arm_fff_close(  __arm_fff_t *ptThis, const arm_file_node_t * ptNode)
 {
     arm_fff_err_t tErr = ARM_FFF_ERR_NONE;
-    class_internal(ptObj, ptThis, __arm_fff_t);
     
     do {
         if (NULL == ptNode) {
@@ -516,10 +542,9 @@ arm_fff_err_t __arm_fff_close(  __arm_fff_t *ptObj, const arm_file_node_t * ptNo
 
 
 static 
-bool __arm_fff_eof(  __arm_fff_t *ptObj, const arm_file_node_t * ptNode)
+bool __arm_fff_eof(  __arm_fff_t *ptThis, const arm_file_node_t * ptNode)
 {
     bool bResult = true;
-    class_internal(ptObj, ptThis, __arm_fff_t);
     
     do {
         if (NULL == ptNode) {
@@ -553,10 +578,9 @@ bool __arm_fff_eof(  __arm_fff_t *ptObj, const arm_file_node_t * ptNode)
 }
 
 static 
-bool __arm_fff_flush(  __arm_fff_t *ptObj, const arm_file_node_t * ptNode)
+bool __arm_fff_flush(  __arm_fff_t *ptThis, const arm_file_node_t * ptNode)
 {
     bool bResult = true;
-    class_internal(ptObj, ptThis, __arm_fff_t);
     
     do {
         if (NULL == ptNode) {
@@ -588,13 +612,12 @@ bool __arm_fff_flush(  __arm_fff_t *ptObj, const arm_file_node_t * ptNode)
 
 
 static 
-int_fast32_t __arm_fff_read(__arm_fff_t *ptObj, 
+int_fast32_t __arm_fff_read(__arm_fff_t *ptThis, 
                             const arm_file_node_t *ptNode,
                             void *pBuffer,
                             int_fast32_t nSize)
 {
     int_fast32_t nResult = -1;
-    class_internal(ptObj, ptThis, __arm_fff_t);
     
     do {
         if (NULL == ptNode) {
@@ -631,13 +654,12 @@ int_fast32_t __arm_fff_read(__arm_fff_t *ptObj,
 }
 
 static 
-int_fast32_t __arm_fff_write(__arm_fff_t *ptObj, 
+int_fast32_t __arm_fff_write(__arm_fff_t *ptThis, 
                             const arm_file_node_t *ptNode,
                             void *pBuffer,
                             int_fast32_t nSize)
 {
     int_fast32_t nResult = -1;
-    class_internal(ptObj, ptThis, __arm_fff_t);
     
     do {
         if (NULL == ptNode) {
@@ -803,6 +825,9 @@ bool arm_fff_write_byte(arm_file_node_t *ptNode, uint_fast8_t chByte)
     return true;
 }
 
+#ifdef   __cplusplus
+}
+#endif
 
 
 

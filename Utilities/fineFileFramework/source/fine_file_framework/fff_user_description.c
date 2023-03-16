@@ -16,12 +16,36 @@
 ****************************************************************************/
 
 /*============================ INCLUDES ======================================*/
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
 
 #include "fine_file_framework.h"
+#include <string.h>
+#include <rt_sys.h>
 
+#ifdef   __cplusplus
+extern "C" {
+#endif
+
+/* suppress some warnings for user applications when using arm-2d.
+ */
+#if defined(__clang__)
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wgnu-variable-sized-type-not-at-end"
+#   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#   pragma clang diagnostic ignored "-Wextra-semi-stmt"
+#   pragma clang diagnostic ignored "-Wcompound-token-split-by-macro"
+#   pragma clang diagnostic ignored "-Winitializer-overrides"
+#   pragma clang diagnostic ignored "-Wgcc-compat"
+#   pragma clang diagnostic ignored "-Wundef"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
+#   pragma clang diagnostic ignored "-Wflexible-array-extensions"
+#   pragma clang diagnostic ignored "-Wcast-qual"
+#   pragma clang diagnostic ignored "-Wmissing-prototypes"
+#   pragma clang diagnostic ignored "-Wmissing-field-initializers"
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
+#   pragma diag_suppress 1296,174
+#endif
 
 /*============================ MACROS ========================================*/
 #ifndef NOP
@@ -121,6 +145,8 @@ __asm(".global __ARM_use_no_argv\n\t");
 __attribute__((used))
 char *_sys_command_string(char *cmd, int len)
 {
+    (void)cmd;
+    (void)len;
     /* write a command line here, which will be passed to main */
     return "--input_file hotel.mp3";
 }
@@ -129,7 +155,7 @@ char *_sys_command_string(char *cmd, int len)
  * Compiler Specific Code to run __vsf_main_entry() before main()             *
  *----------------------------------------------------------------------------*/
 __attribute__((used))
-__attribute__((constructor(255)))
+__attribute__((constructor, noreturn))
 void __platform_main_entry(void)
 {
     const arm_fff_cfg_t tCFG = {
@@ -146,11 +172,29 @@ void __platform_main_entry(void)
 }
 
 __attribute__((used))
+__attribute__((noreturn))
 void _sys_exit(int ch)
 {
+    (void)ch;
     while(1) {
         NOP();
     }
 }
 
+void _ttywrch(int ch)
+{
+    FFF_UNUSED(ch);
+  //your_device_write(&c, 1);
+}
+int _sys_istty(FILEHANDLE fh)
+{
+    FFF_UNUSED(fh);
+    return -1; /* buffered output */
+}
+
+
+
+#ifdef   __cplusplus
+}
+#endif
 

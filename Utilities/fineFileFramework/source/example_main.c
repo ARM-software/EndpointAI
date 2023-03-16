@@ -24,6 +24,37 @@
 #include <string.h>
 #include <stdlib.h>
 #include "fine_file_framework/fine_file_framework.h"
+
+#ifdef   __cplusplus
+extern "C" {
+#endif
+
+/* suppress some warnings for user applications when using arm-2d.
+ */
+#if defined(__clang__)
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wgnu-variable-sized-type-not-at-end"
+#   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#   pragma clang diagnostic ignored "-Wextra-semi-stmt"
+#   pragma clang diagnostic ignored "-Wcompound-token-split-by-macro"
+#   pragma clang diagnostic ignored "-Winitializer-overrides"
+#   pragma clang diagnostic ignored "-Wgcc-compat"
+#   pragma clang diagnostic ignored "-Wundef"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
+#   pragma clang diagnostic ignored "-Wflexible-array-extensions"
+#   pragma clang diagnostic ignored "-Wcast-qual"
+#   pragma clang diagnostic ignored "-Wmissing-prototypes"
+#   pragma clang diagnostic ignored "-Wmissing-field-initializers"
+#   pragma clang diagnostic ignored "-Wundef"
+
+/* todo: need to fix this issue later */
+#   pragma clang diagnostic ignored "-Wsign-conversion"
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
+#   pragma diag_suppress 1296,174
+#endif
+
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
@@ -31,6 +62,8 @@
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ PROTOTYPES ====================================*/
 /*============================ IMPLEMENTATION ================================*/
+
+void SysTick_Handler(void);
 
 void SysTick_Handler(void)
 {
@@ -237,3 +270,8 @@ int main(int argc, char **argv)
     
     return 0;
 }
+
+
+#ifdef   __cplusplus
+{
+#endif

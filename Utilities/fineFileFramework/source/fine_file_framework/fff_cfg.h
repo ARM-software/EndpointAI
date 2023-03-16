@@ -15,16 +15,12 @@
 *                                                                           *
 ****************************************************************************/
 
-#include "../app_cfg.h"
-
-#ifndef __FAKE_FILE_FRAMEWORK_CFG_H__
-#define __FAKE_FILE_FRAMEWORK_CFG_H__
+#ifndef __FINE_FILE_FRAMEWORK_CFG_H__
+#define __FINE_FILE_FRAMEWORK_CFG_H__
 
 /*============================ INCLUDES ======================================*/
+#include <assert.h>
 /*============================ MACROS ========================================*/
-#ifndef USE_FAKE_FILE_FRAMEWORK
-#   define USE_FAKE_FILE_FRAMEWORK                  ENABLED
-#endif
 
 #ifndef FFF_ASSERT   
 #   define FFF_ASSERT      assert

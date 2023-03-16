@@ -17,13 +17,83 @@
 
 /*============================ INCLUDES ======================================*/
 
-#ifndef __FAKE_FILE_FRAMEWORK_H__
-#define __FAKE_FILE_FRAMEWORK_H__
+#ifndef __FINE_FILE_FRAMEWORK_H__
+#define __FINE_FILE_FRAMEWORK_H__
 
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+
+#ifdef   __cplusplus
+extern "C" {
+#endif
+
+/* suppress some warnings for user applications when using arm-2d.
+ */
+#if defined(__clang__)
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wgnu-variable-sized-type-not-at-end"
+#   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#   pragma clang diagnostic ignored "-Wextra-semi-stmt"
+#   pragma clang diagnostic ignored "-Wcompound-token-split-by-macro"
+#   pragma clang diagnostic ignored "-Winitializer-overrides"
+#   pragma clang diagnostic ignored "-Wgcc-compat"
+#   pragma clang diagnostic ignored "-Wundef"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
+#   pragma clang diagnostic ignored "-Wpadded"
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
+#   pragma diag_suppress 1296,174
+#endif
+/*============================ INCLUDES ======================================*/
+
+#ifndef __FFF_CFG_SKIP_CFG_FILE__
+#include "fff_cfg.h"
+#endif
+
 /*============================ MACROS ========================================*/
+// for IAR
+#undef __IS_COMPILER_IAR__
+#if defined(__IAR_SYSTEMS_ICC__)
+#   define __IS_COMPILER_IAR__                  1
+#endif
+
+// for arm compiler 5
+#undef __IS_COMPILER_ARM_COMPILER_5__
+#if ((__ARMCC_VERSION >= 5000000) && (__ARMCC_VERSION < 6000000))
+#   define __IS_COMPILER_ARM_COMPILER_5__       1
+#endif
+
+
+//for arm compiler 6
+
+#undef __IS_COMPILER_ARM_COMPILER_6__
+#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+#   define __IS_COMPILER_ARM_COMPILER_6__       1
+#endif
+#undef __IS_COMPILER_ARM_COMPILER__
+#if defined(__IS_COMPILER_ARM_COMPILER_5__) && __IS_COMPILER_ARM_COMPILER_5__   \
+||  defined(__IS_COMPILER_ARM_COMPILER_6__) && __IS_COMPILER_ARM_COMPILER_6__
+#   define __IS_COMPILER_ARM_COMPILER__         1
+#endif
+
+// for clang
+#undef  __IS_COMPILER_LLVM__
+#if defined(__clang__) && !__IS_COMPILER_ARM_COMPILER_6__
+#   define __IS_COMPILER_LLVM__                 1
+#else
+
+// for gcc
+#   undef __IS_COMPILER_GCC__
+#   if defined(__GNUC__) && !(  defined(__IS_COMPILER_ARM_COMPILER__)           \
+                            ||  defined(__IS_COMPILER_LLVM__)                   \
+                            ||  defined(__IS_COMPILER_IAR__))
+#       define __IS_COMPILER_GCC__              1
+#   endif
+#endif
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 #undef __implement_ex
 #undef __implement
@@ -42,6 +112,85 @@
 #define implement(__type)               __implement(__type)
 #define implement_ex(__type, __name)    __implement_ex(__type, __name)
 
+#ifndef dimof
+#   define dimof(__array)               (sizeof(__array) / sizeof(__array[0]))
+#endif
+
+#ifndef FFF_UNUSED
+#   define FFF_UNUSED(__VAR)            (void)(__VAR)
+#endif
+
+/*!
+ * \brief a wrapper for __attribute__((nonnull))
+ */
+#ifndef ARM_NONNULL
+#   if  defined(__IS_COMPILER_ARM_COMPILER_5__) ||\
+        defined(__IS_COMPILER_ARM_COMPILER_6__) ||\
+        defined(__IS_COMPILER_GCC__)            ||\
+        defined(__IS_COMPILER_LLVM__)
+#       define ARM_NONNULL(...)     __attribute__((nonnull(__VA_ARGS__)))
+#   else
+#       define ARM_NONNULL(...)
+#   endif
+#endif
+
+/*!
+ * \brief an attribute for static variables that no initialisation is required 
+ *        in the C startup process.
+ */
+#ifndef ARM_NOINIT
+#   if     defined(__IS_COMPILER_ARM_COMPILER_5__)
+#       define ARM_NOINIT   __attribute__(( section( ".bss.noinit"),zero_init))
+#   elif   defined(__IS_COMPILER_ARM_COMPILER_6__)
+#       define ARM_NOINIT   __attribute__(( section( ".bss.noinit")))
+#   elif   defined(__IS_COMPILER_IAR__)
+#       define ARM_NOINIT   __no_init
+#   elif   defined(__IS_COMPILER_GCC__) || defined(__IS_COMPILER_LLVM__)
+#       define ARM_NOINIT   __attribute__(( section( ".bss.noinit")))
+#   else
+#       define ARM_NOINIT
+#   endif
+#endif
+
+/*!
+ * \brief a wrapper for __attribute__((nonnull))
+ */
+#ifndef ARM_NONNULL
+#   if  defined(__IS_COMPILER_ARM_COMPILER_5__) ||\
+        defined(__IS_COMPILER_ARM_COMPILER_6__) ||\
+        defined(__IS_COMPILER_GCC__)            ||\
+        defined(__IS_COMPILER_LLVM__)
+#       define ARM_NONNULL(...)     __attribute__((nonnull(__VA_ARGS__)))
+#   else
+#       define ARM_NONNULL(...)
+#   endif
+#endif
+
+/*!
+ * \brief an attribute for static variables that no initialisation is required 
+ *        in the C startup process.
+ */
+#ifndef ARM_NOINIT
+#   if     defined(__IS_COMPILER_ARM_COMPILER_5__)
+#       define ARM_NOINIT   __attribute__(( section( ".bss.noinit"),zero_init))
+#   elif   defined(__IS_COMPILER_ARM_COMPILER_6__)
+#       define ARM_NOINIT   __attribute__(( section( ".bss.noinit")))
+#   elif   defined(__IS_COMPILER_IAR__)
+#       define ARM_NOINIT   __no_init
+#   elif   defined(__IS_COMPILER_GCC__) || defined(__IS_COMPILER_LLVM__)
+#       define ARM_NOINIT   __attribute__(( section( ".bss.noinit")))
+#   else
+#       define ARM_NOINIT
+#   endif
+#endif
+
+#ifndef MAX
+#   define MAX(a,b) ((a) > (b) ? (a) : (b))
+#endif
+
+#ifndef MIN
+#   define MIN(a,b) ((a) < (b) ? (a) : (b))
+#endif
 
 /*----------------------------------------------------------------------------*
  * Common Wrapper                                                             *
@@ -303,5 +452,14 @@ bool arm_fff_write_byte(arm_file_node_t *ptNode, uint_fast8_t chByte);
 
 /*============================ INCLUDES ======================================*/
 #include "./__memory_file.h"
+
+
+#if defined(__clang__)
+#   pragma clang diagnostic pop
+#endif
+
+#ifdef   __cplusplus
+}
+#endif
 
 #endif

@@ -405,11 +405,6 @@
           <GroupName>fine_file_framework</GroupName>
           <Files>
             <File>
-              <FileName>app_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\fine_file_framework\app_cfg.h</FilePath>
-            </File>
-            <File>
               <FileName>fine_file_framework.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\fine_file_framework\fine_file_framework.c</FilePath>
@@ -459,6 +454,11 @@
               <FileType>4</FileType>
               <FilePath>..\..\..\release\fff_library\fff_armv7m_lib.lib</FilePath>
             </File>
+            <File>
+              <FileName>fff_cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\fine_file_framework\fff_cfg.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -466,12 +466,6 @@
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Language Extension</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Utilities</GroupName>
         </Group>
       </Groups>
     </Target>
@@ -792,13 +786,13 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>1</wLevel>
+            <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>0</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
-            <v6Lang>4</v6Lang>
+            <v6Lang>6</v6Lang>
             <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
@@ -874,11 +868,6 @@
           <GroupName>fine_file_framework</GroupName>
           <Files>
             <File>
-              <FileName>app_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\fine_file_framework\app_cfg.h</FilePath>
-            </File>
-            <File>
               <FileName>fine_file_framework.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\fine_file_framework\fine_file_framework.c</FilePath>
@@ -922,11 +911,54 @@
               <FileName>fff_armv6m_lib.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\release\fff_library\fff_armv6m_lib.lib</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds/>
+              </FileOption>
             </File>
             <File>
               <FileName>fff_armv7m_lib.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\release\fff_library\fff_armv7m_lib.lib</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds/>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>fff_cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\fine_file_framework\fff_cfg.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -935,12 +967,6 @@
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Language Extension</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Utilities</GroupName>
         </Group>
       </Groups>
     </Target>
@@ -1412,11 +1438,6 @@
           <GroupName>fine_file_framework</GroupName>
           <Files>
             <File>
-              <FileName>app_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\fine_file_framework\app_cfg.h</FilePath>
-            </File>
-            <File>
               <FileName>fine_file_framework.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\fine_file_framework\fine_file_framework.c</FilePath>
@@ -1593,6 +1614,11 @@
                 <FileArmAds/>
               </FileOption>
             </File>
+            <File>
+              <FileName>fff_cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\fine_file_framework\fff_cfg.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1669,12 +1695,6 @@
               </Aads>
             </GroupArmAds>
           </GroupOption>
-        </Group>
-        <Group>
-          <GroupName>::Language Extension</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Utilities</GroupName>
         </Group>
       </Groups>
     </Target>
@@ -2077,11 +2097,6 @@
           <GroupName>fine_file_framework</GroupName>
           <Files>
             <File>
-              <FileName>app_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\fine_file_framework\app_cfg.h</FilePath>
-            </File>
-            <File>
               <FileName>fine_file_framework.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\fine_file_framework\fine_file_framework.c</FilePath>
@@ -2284,6 +2299,11 @@
               <FileType>4</FileType>
               <FilePath>..\..\..\release\fff_library\fff_armv7m_lib.lib</FilePath>
             </File>
+            <File>
+              <FileName>fff_cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\fine_file_framework\fff_cfg.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2291,12 +2311,6 @@
         </Group>
         <Group>
           <GroupName>::Device</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Language Extension</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Utilities</GroupName>
         </Group>
       </Groups>
     </Target>
@@ -2768,11 +2782,6 @@
           <GroupName>fine_file_framework</GroupName>
           <Files>
             <File>
-              <FileName>app_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\fine_file_framework\app_cfg.h</FilePath>
-            </File>
-            <File>
               <FileName>fine_file_framework.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\fine_file_framework\fine_file_framework.c</FilePath>
@@ -2949,6 +2958,11 @@
                 <FileArmAds/>
               </FileOption>
             </File>
+            <File>
+              <FileName>fff_cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\fine_file_framework\fff_cfg.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3026,12 +3040,6 @@
             </GroupArmAds>
           </GroupOption>
         </Group>
-        <Group>
-          <GroupName>::Language Extension</GroupName>
-        </Group>
-        <Group>
-          <GroupName>::Utilities</GroupName>
-        </Group>
       </Groups>
     </Target>
   </Targets>
@@ -3058,26 +3066,6 @@
       <component Cclass="Device" Cgroup="Startup" Cvariant="C Startup" Cvendor="ARM" Cversion="1.1.0" condition="ARMCM55 CMSIS" isDefaultVariant="1">
         <package name="CMSIS" schemaVersion="1.7.7" url="http://www.keil.com/pack/" vendor="ARM" version="5.9.0"/>
         <targetInfos>
-          <targetInfo name="mps2_cortex_m55"/>
-        </targetInfos>
-      </component>
-      <component Cbundle="Performance Counter" Cclass="Utilities" Cgroup="perf_counter" Csub="Core" Cvariant="Source" Cvendor="GorgonMeducer" Cversion="2.1.0-dev" condition="CMSIS-CORE">
-        <package name="perf_counter" schemaVersion="1.4" url="https://raw.githubusercontent.com/GorgonMeducer/perf_counter/CMSIS-Pack/cmsis-pack/" vendor="GorgonMeducer" version="2.1.0-dev2"/>
-        <targetInfos>
-          <targetInfo name="fff_armv6m_lib"/>
-          <targetInfo name="fff_armv7m_lib"/>
-          <targetInfo name="mps2_armv7m"/>
-          <targetInfo name="mps2_armv7m_template"/>
-          <targetInfo name="mps2_cortex_m55"/>
-        </targetInfos>
-      </component>
-      <component Cclass="Language Extension" Cgroup="PLOOC" Cvendor="GorgonMeducer" Cversion="4.6.2">
-        <package name="PLOOC" schemaVersion="1.4" url="https://raw.githubusercontent.com/GorgonMeducer/PLOOC/master/cmsis-pack/" vendor="GorgonMeducer" version="4.6.3"/>
-        <targetInfos>
-          <targetInfo name="fff_armv6m_lib"/>
-          <targetInfo name="fff_armv7m_lib"/>
-          <targetInfo name="mps2_armv7m"/>
-          <targetInfo name="mps2_armv7m_template"/>
           <targetInfo name="mps2_cortex_m55"/>
         </targetInfos>
       </component>

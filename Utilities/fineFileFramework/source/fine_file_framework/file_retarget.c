@@ -16,12 +16,43 @@
 ****************************************************************************/
 
 /*============================ INCLUDES ======================================*/
-#include "app_cfg.h"
+#include "fff_cfg.h"
 
 #include "file_io.h"
 #include <string.h>
 #include <stdio.h>
 #include <rt_sys.h>
+#include <stdlib.h>
+#ifdef   __cplusplus
+extern "C" {
+#endif
+
+/* suppress some warnings for user applications when using arm-2d.
+ */
+#if defined(__clang__)
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wgnu-variable-sized-type-not-at-end"
+#   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#   pragma clang diagnostic ignored "-Wextra-semi-stmt"
+#   pragma clang diagnostic ignored "-Wcompound-token-split-by-macro"
+#   pragma clang diagnostic ignored "-Winitializer-overrides"
+#   pragma clang diagnostic ignored "-Wgcc-compat"
+#   pragma clang diagnostic ignored "-Wundef"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
+#   pragma clang diagnostic ignored "-Wflexible-array-extensions"
+#   pragma clang diagnostic ignored "-Wcast-qual"
+#   pragma clang diagnostic ignored "-Wmissing-prototypes"
+#   pragma clang diagnostic ignored "-Wmissing-field-initializers"
+#   pragma clang diagnostic ignored "-Wunused-parameter"
+#   pragma clang diagnostic ignored "-Wtautological-pointer-compare"
+#   pragma clang diagnostic ignored "-Wpadded"
+#   pragma clang diagnostic ignored "-Wimplicit-function-declaration"
+#   pragma clang diagnostic ignored "-Wsign-conversion"
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
+#   pragma diag_suppress 1296,174
+#endif
 
 /*============================ MACROS ========================================*/
 
@@ -49,17 +80,20 @@ extern int stdin_getchar (void);
 /*============================ IMPLEMENTATION ================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
 
-WEAK int stdout_putchar(int_fast8_t chByte)
+__attribute__((weak)) 
+int stdout_putchar(int_fast8_t chByte)
 {
     return chByte;
 }
 
-WEAK int stderr_putchar(int_fast8_t chByte)
+__attribute__((weak))  
+int stderr_putchar(int_fast8_t chByte)
 {
     return stdout_putchar(chByte);
 }
 
-WEAK int stdin_getchar(void)
+__attribute__((weak))  
+int stdin_getchar(void)
 {
     return -1;
 }
@@ -105,7 +139,8 @@ WEAK int stdin_getchar(void)
 * Returns: a pointer to the object controlling the stream. If the open
 *          operation fails, fopen returns a null pointer.
 */
-WEAK _ARMABI FILE *fopen(const char * __restrict pchName,
+__attribute__((weak)) 
+_ARMABI FILE *fopen(const char * __restrict pchName,
                     const char * __restrict pchMode)
 {
     FILE *ptResult = NULL;
@@ -145,12 +180,12 @@ WEAK _ARMABI FILE *fopen(const char * __restrict pchName,
             {"ab+", OPEN_R| OPEN_W| OPEN_A| OPEN_B| OPEN_PLUS},
         }, *ptItem = c_tLookupTable;
 
-        uint_fast8_t n = UBOUND(c_tLookupTable);
+        uint_fast8_t n = dimof(c_tLookupTable);
         do {
             if (0 == strcmp(pchMode, ptItem->pchStr)) {
                 
                 //! call _sys_open to open file
-                ptResult = (FILE *) _sys_open(pchName, ptItem->chMode);
+                ptResult = (FILE *) (_sys_open(pchName, ptItem->chMode));
                 break;
             }
             ptItem++;
@@ -159,7 +194,7 @@ WEAK _ARMABI FILE *fopen(const char * __restrict pchName,
     } while(false);
     
     return ptResult;
-};
+}
 
 /*
 * causes the stream pointed to by stream to be flushed and the associated
@@ -171,7 +206,8 @@ WEAK _ARMABI FILE *fopen(const char * __restrict pchName,
 *          errors were detected or if the stream was already closed.
 */
 
-WEAK __attribute__((__nonnull__(1)))
+__attribute__((weak)) 
+__attribute__((__nonnull__(1)))
 _ARMABI int fclose(FILE * ptFile)
 {
     return _sys_close((FILEHANDLE)ptFile);
@@ -186,7 +222,8 @@ _ARMABI int fclose(FILE * ptFile)
 * on the stream.
 * Returns: nonzero if a write error occurs.
 */
-WEAK __attribute__((__nonnull__(1)))
+__attribute__((weak)) 
+__attribute__((__nonnull__(1)))
 _ARMABI int fflush(FILE * ptFile)
 {
     return _sys_ensure((FILEHANDLE)ptFile);
@@ -203,13 +240,13 @@ _ARMABI int fflush(FILE * ptFile)
 * Returns: the number of members successfully written, which will be less
 *          than nmemb only if a write error is encountered.
 */
-WEAK __attribute__((__nonnull__(1,4)))
+__attribute__((weak)) 
+__attribute__((__nonnull__(1,4)))
 _ARMABI size_t fwrite(  const void * __restrict pchBuffer,
                         size_t tElementSize, 
                         size_t tElementCount, 
                         FILE * __restrict ptFile) 
 {
-    size_t tSize = tElementSize * tElementCount;
     int nResult = 
     _sys_write(( FILEHANDLE)ptFile, 
                         pchBuffer, 
@@ -232,11 +269,11 @@ _ARMABI size_t fwrite(  const void * __restrict pchBuffer,
  *          nmemb is zero, fread returns zero and the contents of the array
  *          and the state of the stream remain unchanged.
  */
-WEAK __attribute__((__nonnull__(1,4)))
+__attribute__((weak)) 
+__attribute__((__nonnull__(1,4)))
 _ARMABI size_t fread(void * __restrict pchBuffer,
                     size_t tElementSize, size_t tElementCount, FILE * __restrict ptFile)
  {
-    uint_fast32_t wSize = tElementSize * tElementCount;
     int nResult = 
     _sys_read(( FILEHANDLE)ptFile, 
                         pchBuffer, 
@@ -271,7 +308,7 @@ FILEHANDLE _sys_open(const char *pchName, int nOpenMode)
 {
 
     FILEHANDLE tResult = -1;
-    uint_fast16_t hwFeature = 0;
+    //uint_fast16_t hwFeature = 0;
     do {
         if (NULL == pchName) {
             break;
@@ -302,7 +339,7 @@ FILEHANDLE _sys_open(const char *pchName, int nOpenMode)
  */
 
         FFF_ASSERT(NULL != FFF_IO.Open);
-        tResult = (FILEHANDLE)FFF_IO.Open(pchName, nOpenMode);
+        tResult = (FILEHANDLE)(FFF_IO.Open(pchName, (uint16_t)nOpenMode));
 
     } while(false);
     return tResult; /* everything goes to the same output */
@@ -329,8 +366,8 @@ int _sys_close(FILEHANDLE fh)
 */
 int fputc (int c, FILE * stream) {
 #if (!defined(RTE_Compiler_IO_STDOUT) && !defined(RTE_Compiler_IO_STDERR))
-  (void)c;
-  (void)stream;
+    FFF_UNUSED(c);
+    FFF_UNUSED(stream);
 #endif
     
     if (stream == &__stdout) {
@@ -346,7 +383,7 @@ int fputc (int c, FILE * stream) {
     return c;
 }
 
-WEAK
+__attribute__((weak)) 
 int __stdout_string(const unsigned char *buf,
                     unsigned len)
 {
@@ -364,7 +401,7 @@ int __stdout_string(const unsigned char *buf,
     return 0;
 }
 
-WEAK
+__attribute__((weak)) 
 int __stderr_string(const unsigned char *buf,
                     unsigned len)
 {
@@ -509,24 +546,6 @@ void __aeabi_assert (const char *expr, const char *file, int line) {
   abort();
 }
 
-void _ttywrch(int ch)
-{
-  char c = ch;
-  //your_device_write(&c, 1);
-}
-int _sys_istty(FILEHANDLE fh)
-{
-  return -1; /* buffered output */
-}
-int _sys_seek(FILEHANDLE fh, long pos)
-{
-  return -1; /* not supported */
-}
-long _sys_flen(FILEHANDLE fh)
-{
-  return -1; /* not supported */
-}
-
 /*
  * Flush any OS buffers associated with fh, ensuring that the file
  * is up to date on disk. Result is >=0 if OK, negative for an
@@ -536,3 +555,20 @@ int _sys_ensure(FILEHANDLE fn)
 {
     return FFF_IO.Flush((arm_file_node_t *)fn) ? 0 : -1;
 }
+
+int _sys_seek(FILEHANDLE fh, long pos)
+{
+    FFF_UNUSED(fh);
+    FFF_UNUSED(pos);
+    return -1; /* not supported */
+}
+long _sys_flen(FILEHANDLE fh)
+{
+    FFF_UNUSED(fh);
+    return -1; /* not supported */
+}
+
+#ifdef   __cplusplus
+}
+#endif
+

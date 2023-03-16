@@ -16,17 +16,47 @@
 ****************************************************************************/
 
 /*============================ INCLUDES ======================================*/
-#include "./app_cfg.h"
 
 #include "./fine_file_framework.h"
 #include "./__memory_file.h"
 
-#include <stdint.h>
-#include <stdbool.h>
 #include <rt_sys.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "file_io.h"
 
+
+
+#ifdef   __cplusplus
+extern "C" {
+#endif
+
+/* suppress some warnings for user applications when using arm-2d.
+ */
+#if defined(__clang__)
+#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+#   pragma clang diagnostic ignored "-Wreserved-identifier"
+#   pragma clang diagnostic ignored "-Wgnu-variable-sized-type-not-at-end"
+#   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+#   pragma clang diagnostic ignored "-Wextra-semi-stmt"
+#   pragma clang diagnostic ignored "-Wcompound-token-split-by-macro"
+#   pragma clang diagnostic ignored "-Winitializer-overrides"
+#   pragma clang diagnostic ignored "-Wgcc-compat"
+#   pragma clang diagnostic ignored "-Wundef"
+#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
+#   pragma clang diagnostic ignored "-Wimplicit-int-conversion"
+#   pragma clang diagnostic ignored "-Wcast-qual"
+#   pragma clang diagnostic ignored "-Wsign-conversion"
+#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
+#   pragma diag_suppress 1296,174
+#endif
+
 /*============================ MACROS ========================================*/
+#undef this
+#define this        (*ptThis)
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 /*============================ LOCAL VARIABLES ===============================*/
@@ -251,3 +281,8 @@ bool arm_fff_mem_file_eof(const arm_file_node_t *ptNode)
     
     return true;
 }
+
+
+#ifdef   __cplusplus
+}
+#endif
