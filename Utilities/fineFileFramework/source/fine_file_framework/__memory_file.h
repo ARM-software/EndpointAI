@@ -51,8 +51,8 @@
 #define __fff_mem_file(__NAME, __PARENT, __NEXT, ...)                           \
     .__NAME = {                                                                 \
         /*! default configuration */                                            \
-        fff_attribute(chID,FFF_FILE_TYPE_ID_MEM_FILE),                          \
-        fff_attribute(bIsVisible,true),                                         \
+        fff_attribute(use_as__arm_file_node_t.chID,FFF_FILE_TYPE_ID_MEM_FILE),  \
+        fff_attribute(use_as__arm_file_node_t.bIsVisible,true),                 \
         fff_access(FFF_READ_WRITE),                                             \
         .ptRuntime = &(arm_fff_mem_file_cb_t){.hwPageSize = 256},               \
                                                                                 \
@@ -60,10 +60,12 @@
         __VA_ARGS__                                                             \
                                                                                 \
         /*! override user definition */                                         \
-        fff_attribute(bIsValid,true),                                           \
-        .ptParent = (const arm_file_node_t *)(__PARENT),                        \
-        .ptNext = (const arm_file_node_t *)&((__PARENT)->__NEXT),               \
-        .ptList = NULL,                                                         \
+        fff_attribute(use_as__arm_file_node_t.bIsValid,true),                   \
+        .use_as__arm_file_node_t                                                \
+            .ptParent = (const arm_file_node_t *)(__PARENT),                    \
+        .use_as__arm_file_node_t                                                \
+            .ptNext = (const arm_file_node_t *)&((__PARENT)->__NEXT),           \
+        .use_as__arm_file_node_t.ptList = NULL,                                 \
     }
 #define fff_mem_file(__NAME, __PARENT, __NEXT, ...)                             \
             __fff_mem_file(__NAME, __PARENT, __NEXT, __VA_ARGS__)

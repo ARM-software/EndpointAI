@@ -16,8 +16,6 @@
 ****************************************************************************/
 
 /*============================ INCLUDES ======================================*/
-//#include "./app_cfg.h"
-
 #include "./fine_file_framework.h"
 
 #include <stdint.h>
@@ -51,6 +49,7 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wundef"
 #   pragma clang diagnostic ignored "-Wextra-semi"
 #   pragma clang diagnostic ignored "-Wmissing-variable-declarations"
+#   pragma clang diagnostic ignored "-Wmissing-declarations"
 #elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 1296,174
 #endif
@@ -363,9 +362,9 @@ static const arm_file_node_t * __arm_fff_find_path( __arm_fff_t *ptThis,
             }
         }
         
-        if (NULL != this.ptRoot) {
+        if (NULL != this.tConfig.ptRoot) {
             //! search root 
-            ptNode = __arm_fff_find_node(ptThis, pchPath, this.ptRoot->ptList);
+            ptNode = __arm_fff_find_node(ptThis, pchPath, this.tConfig.ptRoot->ptList);
             if (NULL != ptNode) {
                 //! find the target node
                 break;
@@ -400,10 +399,10 @@ arm_fff_err_t __arm_fff_init(__arm_fff_t *ptThis,
     
     this.tConfig = (*ptCFG);
     
-    this.ptCurrent = __arm_fff_find_path(ptThis, this.pchWorkingPath);
+    this.ptCurrent = __arm_fff_find_path(ptThis, this.tConfig.pchWorkingPath);
     
     if (NULL == this.ptCurrent) {
-        this.ptCurrent = this.ptRoot->ptList;
+        this.ptCurrent = this.tConfig.ptRoot->ptList;
     }
     
     run_main();

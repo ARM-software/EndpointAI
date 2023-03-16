@@ -777,7 +777,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>7</Optim>
+            <Optim>0</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -800,10 +800,10 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>-Omax -fms-extensions -Wno-missing-declarations -Wno-microsoft-anon-tag -Wno-empty-body -Wno-initializer-overrides</MiscControls>
+              <MiscControls>-Omax</MiscControls>
               <Define>_MSC_VER,__USE_COMPILER_SPECIFIED_CMSIS_PATH__, __FILE_INCOMPLETE=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\</IncludePath>
+              <IncludePath>..\..\;..\..\incbin</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

@@ -43,6 +43,7 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wcast-qual"
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wmissing-field-initializers"
+#   pragma clang diagnostic ignored "-Wmissing-declarations"
 #elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 1296,174
 #endif
@@ -51,6 +52,8 @@ extern "C" {
 #ifndef NOP
 #   define NOP()            __asm volatile ("nop");
 #endif
+
+
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
@@ -68,6 +71,17 @@ enum {
     FFF_USER_TYPE_COUNT,
 };
 
+
+
+/*============================ GLOBAL VARIABLES ==============================*/
+extern const uint8_t HOTEL_MP3_ROM[];
+extern const uint32_t HOTEL_MP3_ROM_Length;
+
+/*============================ LOCAL VARIABLES ===============================*/
+/*============================ PROTOTYPES ====================================*/
+/*============================ IMPLEMENTATION ================================*/
+
+
 def_fff(MPSx_Local_Disk,
     use_fff_disk(disk_c,
         arm_mem_file_node_t         hotel_mp3;
@@ -81,20 +95,12 @@ def_fff(MPSx_Local_Disk,
             arm_mem_file_node_t     no_4_mp3;
         );
     );
-)    
-
-/*============================ GLOBAL VARIABLES ==============================*/
-extern const uint8_t HOTEL_MP3_ROM[];
-extern const uint32_t HOTEL_MP3_ROM_Length;
-
-/*============================ LOCAL VARIABLES ===============================*/
-/*============================ PROTOTYPES ====================================*/
-/*============================ IMPLEMENTATION ================================*/
+)
 
 imp_fff(MPSx_Local_Disk,
 
     fff_disk(disk_c, &MPSx_Local_Disk, disk_d,
-        fff_path("C:"),
+        fff_disk_path("C:"),
         fff_list(
             //! memory file: cannon.mp3, read-only
             fff_mem_file(hotel_mp3, &MPSx_Local_Disk.disk_c, hotel_mp3, 
@@ -107,10 +113,14 @@ imp_fff(MPSx_Local_Disk,
     ),
     
     fff_disk(disk_d, &MPSx_Local_Disk, disk_d,
-        fff_path("D:"),
+        fff_disk_path("D:"),
         fff_list(
             fff_folder(symphony, &MPSx_Local_Disk.disk_d, symphony,
-                fff_path("symphony\\music\\beethoven", "symphony/music/beethoven"),
+                fff_folder_path(
+                    "symphony\\music\\beethoven", 
+                    "symphony/music/beethoven"
+                ),
+
                 fff_list(
                     fff_mem_file(no_1_mp3, &MPSx_Local_Disk.disk_d.symphony, no_2_mp3, 
                         fff_path("no_1.mp3"),
@@ -134,13 +144,6 @@ imp_fff(MPSx_Local_Disk,
     ),
 );
 
-
-#if ((__ARMCC_VERSION >= 6000000) && (__ARMCC_VERSION < 7000000))
-__asm(".global __use_no_semihosting\n\t");
-#   ifndef __MICROLIB
-__asm(".global __ARM_use_no_argv\n\t");
-#   endif
-#endif
 
 __attribute__((used))
 char *_sys_command_string(char *cmd, int len)
@@ -170,6 +173,16 @@ void __platform_main_entry(void)
         NOP();
     }
 }
+
+/* disable semihosting */
+#if defined(__IS_COMPILER_ARM_COMPILER_5__) && __IS_COMPILER_ARM_COMPILER_5__
+#   pragma import(__use_no_semihosting)
+#elif defined(__IS_COMPILER_ARM_COMPILER_6__) && __IS_COMPILER_ARM_COMPILER_6__
+__asm(".global __use_no_semihosting\n\t");
+#   ifndef __MICROLIB
+__asm(".global __ARM_use_no_argv\n\t");
+#   endif
+#endif
 
 __attribute__((used))
 __attribute__((noreturn))
