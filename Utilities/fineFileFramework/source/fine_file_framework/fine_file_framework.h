@@ -209,7 +209,7 @@ extern "C" {
 #define fff_path(...)       __fff_path(__VA_ARGS__)
 
 
-#define __fff_folder_path(...)                                                    \
+#define __fff_folder_path(...)                                                  \
             .use_as__arm_folder_node_t                                          \
                 .use_as__arm_file_node_t                                        \
                     .ppchPathString = (const char *const []){__VA_ARGS__},      \

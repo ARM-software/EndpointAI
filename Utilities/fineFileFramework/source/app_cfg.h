@@ -19,12 +19,6 @@
 #define __APP_CFG_H__
 
 /*============================ INCLUDES ======================================*/
-
-#include "./utilities/compiler.h"
-#include "./utilities/ooc.h"
-#include "./utilities/simple_fsm.h"
-#include "./utilities/template/template.h"
-
 /*============================ MACROS ========================================*/
 #define ENABLED                 1
 #define DISABLED                0

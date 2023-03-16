@@ -20,10 +20,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include <assert.h>
-#include <string.h>
-#include <stdlib.h>
-#include "fine_file_framework/fine_file_framework.h"
+
+#include "fine_file_framework.h"
 
 #ifdef   __cplusplus
 extern "C" {
