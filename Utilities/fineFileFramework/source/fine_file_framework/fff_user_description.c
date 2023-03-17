@@ -44,6 +44,7 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wmissing-prototypes"
 #   pragma clang diagnostic ignored "-Wmissing-field-initializers"
 #   pragma clang diagnostic ignored "-Wmissing-declarations"
+#   pragma clang diagnostic ignored "-Wmicrosoft-anon-tag"
 #elif defined(__IS_COMPILER_ARM_COMPILER_5__)
 #   pragma diag_suppress 1296,174
 #endif
@@ -76,6 +77,7 @@ enum {
 /*============================ PROTOTYPES ====================================*/
 /*============================ IMPLEMENTATION ================================*/
 
+#undef _MSC_VER
 #define __FFF_USER_DEFINE_FILE_FRAMEWORK__
 #include "__fff_user_def_file_framework.c"
 #undef __FFF_USER_DEFINE_FILE_FRAMEWORK__
