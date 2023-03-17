@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<package schemaVersion="1.4" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="PACK.xsd">
+  <vendor>ARM</vendor>
+  <name>fineFileFramework</name>
+  <description>A tiny framework for emulating a file system for bare-metal environment.</description>
+  <url>https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/</url>
+  <supportContact>https://github.com/ARM-software/EndpointAI/issues</supportContact>
+  <license>LICENSE</license>
+  <!-- optional license file -->
+  <!-- 
+  <license>
+  </license>
+  -->
+  
+  <repository type="git"></repository>
+  
+  <releases>
+    <release date="2023-03-08" version="0.9.0" tag="0.9.0" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/ARM.fineFileFramework.0.9.0.pack">
+      - First release
+    </release>
+  </releases>
+
+  <keywords>
+    <!-- keywords for indexing -->
+    <keyword>FileSystem</keyword>
+  </keywords>
+  
+
+    <conditions> 
+ 
+        <condition id="Arm Compiler">
+            <description>Arm Compiler 5 (armcc) or Arm Compiler 6 (armclang).</description>
+            <accept Tcompiler="ARMCC" Toptions="AC6"/>
+            <accept Tcompiler="ARMCC" Toptions="AC6LTO"/>
+            <accept Tcompiler="ARMCC" Toptions="AC5"/>
+        </condition>
+        <condition id="Arm Compiler 6">
+            <description>Arm Compiler 6 (armclang).</description>
+            <accept Tcompiler="ARMCC" Toptions="AC6"/>
+            <accept Tcompiler="ARMCC" Toptions="AC6LTO"/>
+        </condition>
+        <condition id="Arm Compiler 5">
+            <description>Arm Compiler 6 (armclang).</description>
+            <accept Tcompiler="ARMCC" Toptions="AC5"/>
+        </condition>
+        <condition id="Arm GCC">
+            <description>GNU Tools for Arm Embedded Processors.</description>
+            <accept Tcompiler="GCC"/>
+        </condition>
+
+  <!--
+        <condition id="Armv8-M Processors">
+            <accept  Dcore="ARMV8MBL"/>
+            <accept  Dcore="ARMV8MML"/>
+            <accept  Dcore="ARMV81MML"/>
+            <accept  Dcore="Star-MC1"/>
+            <accept  Dcore="Cortex-M23"/>
+            <accept  Dcore="Cortex-M33"/>
+            <accept  Dcore="Cortex-M35P"/>
+            <accept  Dcore="Cortex-M55"/>
+            <accept  Dcore="Cortex-M85"/>
+        </condition>
+
+        <condition id="Previous Generation Cortex-M Processors">
+            <accept  Dcore="Cortex-M0"/>
+            <accept  Dcore="Cortex-M0+"/>
+            <accept  Dcore="Cortex-M1"/>
+            <accept  Dcore="Cortex-M3"/>
+            <accept  Dcore="Cortex-M4"/>
+            <accept  Dcore="Cortex-M7"/>
+            <accept  Dcore="SC000"/>
+            <accept  Dcore="SC300"/>
+        </condition>
+
+        <condition id="Cortex-M Processors">
+            <description>Support All Cortex-M based processors</description>
+            <accept condition="Previous Generation Cortex-M Processors"/>
+            <accept condition="Armv8-M Processors"/>
+        </condition>
+
+        <condition id="CMSIS-CORE">
+            <description>Require CMSIS-CORE Support</description>
+            <require Cclass="CMSIS" Cgroup="CORE"/>
+        </condition>
+        
+        <condition id="RTX5 Patch">
+            <description>Require RTX5 Support</description>
+            <accept Cclass="CMSIS" Cgroup="RTOS2" Csub="Keil RTX5" Cvariant="Source"/>
+            <require Cclass="Utilities" Cgroup="perf_counter" Csub="Core"/>
+        </condition>
+        
+        <condition id="FreeRTOS Patch">
+            <description>Require FreeRTOS Support</description>
+            <accept Cbundle="FreeRTOS" Cclass="RTOS" Cgroup="Core"/>
+            <require Cclass="Utilities" Cgroup="perf_counter" Csub="Core"/>
+        </condition>
+        
+        <condition id="perf_counter">
+            <description>Require Perf_Counter Core</description>
+            <require Cclass="Utilities" Cgroup="perf_counter" Csub="Core"/>
+        </condition>
+        
+        <condition id="Cortex-M Arm GCC">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm GCC"/>
+            <require condition="Cortex-M Processors"/>
+        </condition>
+        <condition id="Cortex-M Arm Compiler">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Cortex-M Processors"/>
+        </condition>
+        
+        <condition id="Previous Generation Cortex-M Arm Compiler">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Previous Generation Cortex-M Processors"/>
+        </condition>
+        
+        <condition id="Armv8-M Arm Compiler">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Armv8-M Processors"/>
+        </condition>
+        
+        <condition id="Cortex-M Arm GCC CMSIS-CORE">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm GCC"/>
+            <require condition="Cortex-M Processors"/>
+            <require condition="CMSIS-CORE"/>
+        </condition>
+        <condition id="Cortex-M Arm Compiler CMSIS-CORE">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Cortex-M Processors"/>
+            <require condition="CMSIS-CORE"/>
+        </condition>
+        
+        <condition id="Previous Generation Cortex-M Arm Compiler CMSIS-CORE">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Previous Generation Cortex-M Processors"/>
+            <require condition="CMSIS-CORE"/>
+        </condition>
+        <condition id="Armv8-M Arm Compiler CMSIS-CORE">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Armv8-M Processors"/>
+            <require condition="CMSIS-CORE"/>
+        </condition>
+        
+  -->  
+    </conditions>
+
+ 
+  <!-- apis section (optional - for Application Programming Interface descriptions) -->
+  <!-- 
+  <apis>
+  </apis>
+  -->
+
+  <!-- boards section (mandatory for Board Support Packs) -->
+  <!-- 
+  <boards>
+  </boards>
+  -->
+
+  <!-- devices section (mandatory for Device Family Packs) -->
+  <!--
+  <devices>
+  </devices>
+  -->
+
+  <!-- examples section (optional for all Software Packs)-->
+  <!--
+  <examples>
+  </examples>
+  -->
+  
+  <!-- conditions section (optional for all Software Packs)-->
+  <!--
+  <conditions>
+  </conditions>
+  -->
+
+    <components>
+
+        <bundle Cbundle="fine File Framework" Cclass="File System" Cversion="1.0.0">
+            <description>fine File Framework enables you to use file APIs defined stdio.h and you can embedd your resource files into the project and define a folder structure.</description>
+            <doc></doc>
+            <component Cgroup="fine File Framework" Csub="Core" Cvariant="Stdio" condition="Arm Compiler">
+              <description>fine File Framework enables you to use file APIs defined stdio.h and you can embedd your resource files into the project and define a folder structure.</description>
+              <files>
+                <file category="header"     name="fine_file_framework/fine_file_framework.h"/>
+                <file category="include"    name="incbin"/>
+                <file category="sourceC"    name="fine_file_framework/fine_file_framework.c"/>
+                <file category="sourceC"    name="fine_file_framework/__memory_file.c"/>
+                <file category="sourceC"    name="fine_file_framework/file_retarget.c"/>
+                
+                <file category="header"     name="fine_file_framework/template/fff_cfg.h"                       attr="config" version="1.0.0"/>
+                <file category="header"     name="fine_file_framework/template/__fff_user_def_file_framework.c" attr="config" version="1.0.0"/>
+                <file category="sourceC"     name="fine_file_framework/fff_user_description.c"                  attr="config" version="1.0.0"/>
+                <file category="other"      name="fine_file_framework/template/hotel.mp3"                       attr="config"/>
+                <file category="sourceAsm"  name="fine_file_framework/template/hotel_ual.s"                     attr="config" condition="Arm Compiler 5"/>
+              </files>
+              <RTE_Components_h>
+
+#define RTE_File_System_fine_File_Framework
+          #define RTE_File_System_FFF_STDIO
+              </RTE_Components_h>
+
+              <Pre_Include_Global_h>
+#define __FILE_INCOMPLETE  1
+              </Pre_Include_Global_h>
+
+            </component>
+        </bundle>
+
+    </components>
+  
+  <!-- optional taxonomy section for defining new component Class and Group names -->
+  <!--
+  <taxonomy>
+  </taxonomy>
+  -->
+  
+</package>

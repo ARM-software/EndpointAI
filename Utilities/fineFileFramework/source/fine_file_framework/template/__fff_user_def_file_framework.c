@@ -21,7 +21,7 @@ extern const uint32_t HOTEL_MP3_ROM_size;
 #define INCBIN_STYLE INCBIN_STYLE_SNAKE
 #include "incbin.h"
 
-INCBIN(HOTEL_MP3_ROM, "../../fine_file_framework/hotel.mp3");
+INCBIN(HOTEL_MP3_ROM, "RTE/File_System/hotel.mp3");
 #endif
 
 def_fff(MPSx_Local_Disk,
