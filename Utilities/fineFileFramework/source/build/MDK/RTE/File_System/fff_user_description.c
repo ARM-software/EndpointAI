@@ -79,7 +79,12 @@ enum {
 
 #undef _MSC_VER
 #define __FFF_USER_DEFINE_FILE_FRAMEWORK__
-#include "__fff_user_def_file_framework.c"
+
+#if defined(__FFF_CFG_INCLUDE_USER_DEFINE_FILE_FRAMEWORK__)
+#   include __FFF_CFG_INCLUDE_USER_DEFINE_FILE_FRAMEWORK__
+#else
+#   include "__fff_user_def_file_framework.c"
+#endif
 #undef __FFF_USER_DEFINE_FILE_FRAMEWORK__
 
 
