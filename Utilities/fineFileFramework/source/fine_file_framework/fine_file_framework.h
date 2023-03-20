@@ -533,6 +533,8 @@ int_fast32_t arm_fff_read_byte(arm_file_node_t *ptNode);
 extern
 bool arm_fff_write_byte(arm_file_node_t *ptNode, uint_fast8_t chByte);
 
+extern
+void *arm_fff_malloc(size_t tSize);
 
 /*============================ INCLUDES ======================================*/
 #include "./__memory_file.h"

@@ -68,8 +68,8 @@ static __arm_fff_mem_block_t *__arm_fff_mem_file_request_new_block(
                                                 arm_fff_mem_file_cb_t *ptThis)
 {
     //! allocate a new memory block for write
-    __arm_fff_mem_block_t *ptBlock = malloc(    sizeof(__arm_fff_mem_block_t) 
-                    +   this.hwPageSize);
+    __arm_fff_mem_block_t *ptBlock 
+        = arm_fff_malloc(sizeof(__arm_fff_mem_block_t) + this.hwPageSize);
     do {
         if (NULL == ptBlock) {
             break;

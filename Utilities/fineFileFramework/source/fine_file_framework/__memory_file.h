@@ -32,7 +32,7 @@
         .ptRuntime = &(arm_fff_mem_file_cb_t){                                  \
                         .ptBlockList = &(__arm_fff_mem_block_t){                \
                                 .pchBuffer = (uint8_t *)(__BUFFER),             \
-                                .nSize = (__SIZE),                              \
+                                .nBufferSize = (__SIZE),                        \
                             },                                                  \
                         .hwPageSize = 256,                                      \
                         __VA_ARGS__                                             \

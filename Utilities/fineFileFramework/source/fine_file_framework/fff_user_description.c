@@ -96,8 +96,14 @@ __attribute__((constructor, noreturn))
 void __platform_main_entry(void)
 {
     const arm_fff_cfg_t tCFG = {
-        (const arm_file_node_t *)&MPSx_Local_Disk,
-        "c:\\",
+        .ptRoot = (const arm_file_node_t *)&MPSx_Local_Disk,
+        .pchWorkingPath = "c:\\",
+        
+        /* user defined file types */
+        .tTypes = {
+            .ptList = NULL,
+            .chCount = 0,
+        },
     };
 
     arm_fff_init(&tCFG);

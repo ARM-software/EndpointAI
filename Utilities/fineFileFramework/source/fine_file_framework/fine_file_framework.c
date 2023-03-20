@@ -182,7 +182,7 @@ static str_arg_t get_arg(void)
         } while(true);
         tResult.argc = nTokenCount;
         
-        char **argv = malloc(sizeof(char *) * (size_t)nTokenCount);
+        char **argv = arm_fff_malloc(sizeof(char *) * (size_t)nTokenCount);
         char **arvTemp = argv;
         pchSrc = pchCommandLine;
         
@@ -193,7 +193,7 @@ static str_arg_t get_arg(void)
                 break;
             }
             
-            char *pchOption = malloc(wTokenSize+1);
+            char *pchOption = arm_fff_malloc(wTokenSize+1);
             FFF_ASSERT(NULL != pchOption);
             memcpy(pchOption, pchSrc, wTokenSize);
             pchOption[wTokenSize] = 0;
@@ -748,6 +748,13 @@ char * arm_fff_get_path_string( const arm_file_node_t *ptPathNode,
 
     return pchReturn;
 }
+
+__attribute__((weak))
+void *arm_fff_malloc(size_t tSize)
+{
+    return malloc(tSize);
+}
+
 
 /*----------------------------------------------------------------------------*
  * Wrapper Functions                                                          *
