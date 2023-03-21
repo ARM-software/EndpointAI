@@ -58,11 +58,6 @@ extern "C" {
 #   define NOP()            __asm volatile ("nop");
 #endif
 
-
-#if !defined(__FFF_CFG_SEMIHOSTING_CMD_LINE_BUFFER_SIZE__)
-#   define __FFF_CFG_SEMIHOSTING_CMD_LINE_BUFFER_SIZE__         80
-#endif
-
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 

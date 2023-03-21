@@ -204,7 +204,7 @@
                 <file category="sourceC"    name="fine_file_framework/file_retarget.c"/>
                 
                 <file category="header"     name="fine_file_framework/template/fff_cfg.h"                       attr="config" version="1.0.4"/>
-                <file category="header"     name="fine_file_framework/template/__fff_user_def_file_framework.c" attr="config" version="1.0.1"/>
+                <file category="header"     name="fine_file_framework/template/__fff_user_def_file_framework.c" attr="config" version="1.0.0"/>
                 <file category="sourceC"     name="fine_file_framework/fff_user_description.c"                  attr="config" version="1.0.7"/>
                 <file category="other"      name="fine_file_framework/template/hotel.mp3"                       attr="config"/>
                 <file category="sourceAsm"  name="fine_file_framework/template/hotel_ual.s"                     attr="config" condition="Arm Compiler 5"/>

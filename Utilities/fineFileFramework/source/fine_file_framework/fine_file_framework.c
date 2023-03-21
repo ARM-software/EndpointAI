@@ -24,6 +24,11 @@
 #include "file_io.h"
 #include <string.h>
 #include <stdlib.h>
+
+#if __IS_COMPILER_ARM_COMPILER_6__
+#include <arm_compat.h>
+#endif
+
 #ifdef   __cplusplus
 extern "C" {
 #endif
@@ -58,6 +63,11 @@ extern "C" {
 /*============================ MACROS ========================================*/
 #undef this
 #define this        (*ptThis)
+
+
+#if !defined(__FFF_CFG_SEMIHOSTING_CMD_LINE_BUFFER_SIZE__)
+#   define __FFF_CFG_SEMIHOSTING_CMD_LINE_BUFFER_SIZE__         80
+#endif
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 
@@ -157,10 +167,36 @@ size_t __arm_get_token(const char **ppchPath, const char *pchSeparator)
     return wLength;
 }
 
+#if __FFF_CFG_IGNORE_NO_SEMIHOSTING__
+static char *__semihost_command_string(void)
+{
+    static char s_cBuffer[__FFF_CFG_SEMIHOSTING_CMD_LINE_BUFFER_SIZE__ + 1];
+
+    struct {
+        char *pchCMDLine;
+        size_t tSize;
+    } tCMDLine = {
+        .pchCMDLine = s_cBuffer,
+        .tSize = sizeof(s_cBuffer)
+    };
+    
+    if (0 == __semihost(15, &tCMDLine) && (tCMDLine.tSize > 0)) {
+        return tCMDLine.pchCMDLine;
+    }
+    return NULL;
+}
+#endif
 
 static str_arg_t get_arg(void)
 {
+#if __FFF_CFG_IGNORE_NO_SEMIHOSTING__
+    const char *pchCommandLine = __semihost_command_string();
+    if (NULL == pchCommandLine) {
+        pchCommandLine = _sys_command_string(NULL, 0);
+    }
+#else
     const char *pchCommandLine = _sys_command_string(NULL, 0);
+#endif
     const char *pchSrc = pchCommandLine;
     str_arg_t tResult = {0};
     do {

@@ -1964,7 +1964,7 @@
         <package name="Yamin_DFP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="ARM" version="1.0.0"/>
         <targetInfos/>
       </file>
-      <file attr="config" category="header" name="fine_file_framework\template\__fff_user_def_file_framework.c" version="1.0.1">
+      <file attr="config" category="header" name="fine_file_framework\template\__fff_user_def_file_framework.c" version="1.0.0">
         <instance index="0">RTE\File_System\__fff_user_def_file_framework.c</instance>
         <component Cbundle="fine File Framework" Cclass="File System" Cgroup="fine File Framework" Csub="Core" Cvariant="Stdio" Cvendor="ARM" Cversion="1.0.0" condition="Arm Compiler"/>
         <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="0.9.7"/>
