@@ -21,6 +21,10 @@
 #include <string.h>
 #include <rt_sys.h>
 
+#if __IS_COMPILER_ARM_COMPILER_6__
+#include <arm_compat.h>
+#endif
+ 
 #ifdef   __cplusplus
 extern "C" {
 #endif
@@ -46,7 +50,7 @@ extern "C" {
 #   pragma clang diagnostic ignored "-Wmissing-declarations"
 #   pragma clang diagnostic ignored "-Wmicrosoft-anon-tag"
 #elif defined(__IS_COMPILER_ARM_COMPILER_5__)
-#   pragma diag_suppress 1296,174
+#   pragma diag_suppress 1296,174,64,381
 #endif
 
 /*============================ MACROS ========================================*/
@@ -132,9 +136,11 @@ __attribute__((noreturn))
 void _sys_exit(int ch)
 {
     (void)ch;
-    
-    __asm volatile ("BKPT 0xAB");
-    
+
+#if __FFF_CFG_IGNORE_NO_SEMIHOSTING__
+    __semihost(0x18, (const void *)0x20026);
+#endif
+ 
     while(1) {
         NOP();
     }
