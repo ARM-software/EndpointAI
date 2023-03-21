@@ -27,6 +27,10 @@
 #   define FFF_ASSERT      assert
 #endif
 
+#ifndef __FFF_CFG_IGNORE_NO_SEMIHOSTING__
+#   define __FFF_CFG_IGNORE_NO_SEMIHOSTING__        1
+#endif
+
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/

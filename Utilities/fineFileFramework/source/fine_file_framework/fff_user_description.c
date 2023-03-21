@@ -123,9 +123,6 @@ void __platform_main_entry(void)
 #   pragma import(__use_no_semihosting)
 #elif defined(__IS_COMPILER_ARM_COMPILER_6__) && __IS_COMPILER_ARM_COMPILER_6__
 __asm(".global __use_no_semihosting\n\t");
-#   ifndef __MICROLIB
-__asm(".global __ARM_use_no_argv\n\t");
-#   endif
 #endif
 
 #endif
