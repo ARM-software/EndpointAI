@@ -16,8 +16,9 @@
  */
 #define CMSIS_device_header "ARMCM55.h"
 
-/* GorgonMeducer.Performance Counter::Utilities:perf_counter:Core:Source:2.1.0-dev */
-#define __PERF_COUNTER__ 1
+/* ARM.fine File Framework::File System:fine File Framework:Core:Stdio:1.0.0 */
+#define RTE_File_System_fine_File_Framework
+          #define RTE_File_System_FFF_STDIO
 
 
 #endif /* RTE_COMPONENTS_H */
