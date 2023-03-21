@@ -36,13 +36,6 @@
 #endif
 
 
-/* macro validation, please do not modify */
-#if !__FFF_CFG_IGNORE_NO_SEMIHOSTING__
-#undef __FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__
-#define __FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__      0
-#endif
-
-
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
