@@ -16,10 +16,10 @@
   <repository type="git"></repository>
   
   <releases>
-    <release date="2023-03-21" version="0.9.4" tag="0.9.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/ARM.fineFileFramework.0.9.4.pack">
+    <release date="2023-03-21" version="0.9.5" tag="0.9.5" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/ARM.fineFileFramework.0.9.5.pack">
       - First release
       - Minor fixes
-      - Introduce macro __FFF_CFG_IGNORE_NO_SEMIHOSTING__
+      - Introduce macro __FFF_CFG_IGNORE_NO_SEMIHOSTING__ and __FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__
     </release>
   </releases>
 
@@ -200,9 +200,9 @@
                 <file category="sourceC"    name="fine_file_framework/__memory_file.c"/>
                 <file category="sourceC"    name="fine_file_framework/file_retarget.c"/>
                 
-                <file category="header"     name="fine_file_framework/template/fff_cfg.h"                       attr="config" version="1.0.1"/>
+                <file category="header"     name="fine_file_framework/template/fff_cfg.h"                       attr="config" version="1.0.2"/>
                 <file category="header"     name="fine_file_framework/template/__fff_user_def_file_framework.c" attr="config" version="1.0.0"/>
-                <file category="sourceC"     name="fine_file_framework/fff_user_description.c"                  attr="config" version="1.0.3"/>
+                <file category="sourceC"     name="fine_file_framework/fff_user_description.c"                  attr="config" version="1.0.4"/>
                 <file category="other"      name="fine_file_framework/template/hotel.mp3"                       attr="config"/>
                 <file category="sourceAsm"  name="fine_file_framework/template/hotel_ual.s"                     attr="config" condition="Arm Compiler 5"/>
               </files>

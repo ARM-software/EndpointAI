@@ -454,6 +454,9 @@ int _sys_close(FILEHANDLE fh)
 }
 
 
+#if (   (   defined(__FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__)                     \
+        &&  !__FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__)                            \
+    ||  !defined(__FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__))
 /**
    Writes the character specified by c (converted to an unsigned char) to
    the output stream pointed to by stream, at the position indicated by the
@@ -485,6 +488,8 @@ int fputc (int c, FILE * stream) {
     }
     return c;
 }
+#endif
+
 
 __attribute__((weak)) 
 int __stdout_string(const unsigned char *buf,
