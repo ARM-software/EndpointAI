@@ -115,7 +115,7 @@ void __platform_main_entry(void)
 }
 
 #if (   (   defined(__FFF_CFG_IGNORE_NO_SEMIHOSTING__)                          \
-        &&  __FFF_CFG_IGNORE_NO_SEMIHOSTING__))                                 \
+        &&  !__FFF_CFG_IGNORE_NO_SEMIHOSTING__))                                \
     || !defined(__FFF_CFG_IGNORE_NO_SEMIHOSTING__)
 
 /* disable semihosting */

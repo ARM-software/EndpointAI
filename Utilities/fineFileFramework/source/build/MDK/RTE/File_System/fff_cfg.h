@@ -28,11 +28,11 @@
 #endif
 
 #ifndef __FFF_CFG_IGNORE_NO_SEMIHOSTING__
-#   define __FFF_CFG_IGNORE_NO_SEMIHOSTING__        0
+#   define __FFF_CFG_IGNORE_NO_SEMIHOSTING__        1
 #endif
 
 #ifndef __FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__
-#   define __FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__   0
+#   define __FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__   1
 #endif
 
 
