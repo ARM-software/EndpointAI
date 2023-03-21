@@ -23,6 +23,10 @@
 #include <stdio.h>
 #include <rt_sys.h>
 #include <stdlib.h>
+#if __IS_COMPILER_ARM_COMPILER_6__
+#include <arm_compat.h>
+#endif
+
 
 #if defined(RTE_Compiler_EventRecorder) && defined(RTE_Compiler_IO_STDOUT_EVR)
 #   include <EventRecorder.h>
@@ -60,14 +64,6 @@ extern "C" {
 #endif
 
 /*============================ MACROS ========================================*/
-
-
-/* macro validation, please do not modify */
-#if !__FFF_CFG_IGNORE_NO_SEMIHOSTING__
-#undef __FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__
-#define __FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__      0
-#endif
-
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 //#if __IS_COMPILER_ARM_COMPILER_5__
@@ -104,6 +100,11 @@ extern int stdin_getchar (void);
 __attribute__((weak)) 
 int stdout_putchar(int_fast8_t chByte)
 {
+
+#if __FFF_CFG_IGNORE_NO_SEMIHOSTING__
+    __semihost(0x03, &chByte);
+#endif
+
     return chByte;
 }
 
@@ -198,7 +199,11 @@ static int stdin_getchar (void) {
 __attribute__((weak))  
 int stdin_getchar(void)
 {
+#if __FFF_CFG_IGNORE_NO_SEMIHOSTING__
+    return __semihost(0x07, 0);
+#else
     return -1;
+#endif
 }
 #endif
 
@@ -461,9 +466,7 @@ int _sys_close(FILEHANDLE fh)
 }
 
 
-#if (   (   defined(__FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__)                     \
-        &&  !__FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__)                            \
-    ||  !defined(__FFF_CFG_USE_SEMIHOSTING_FOR_PRINTF__))
+
 /**
    Writes the character specified by c (converted to an unsigned char) to
    the output stream pointed to by stream, at the position indicated by the
@@ -495,7 +498,6 @@ int fputc (int c, FILE * stream) {
     }
     return c;
 }
-#endif
 
 
 __attribute__((weak)) 
