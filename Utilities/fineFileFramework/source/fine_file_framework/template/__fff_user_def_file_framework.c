@@ -92,6 +92,23 @@ char *_sys_command_string(char *cmd, int len)
 {
     (void)cmd;
     (void)len;
+
+#if __FFF_CFG_IGNORE_NO_SEMIHOSTING__
+    static char s_cBuffer[__FFF_CFG_SEMIHOSTING_CMD_LINE_BUFFER_SIZE__ + 1];
+
+struct {
+    char *pchCMDLine;
+    size_t tSize;
+} tCMDLine = {
+    .pchCMDLine = s_cBuffer,
+    .tSize = sizeof(s_cBuffer)
+};
+    
+    if (0 == __semihost(15, &tCMDLine)) {
+        return tCMDLine.pchCMDLine;
+    }
+#endif
+    
     /* write a command line here, which will be passed to main */
     return "--input_file hotel.mp3";
 }

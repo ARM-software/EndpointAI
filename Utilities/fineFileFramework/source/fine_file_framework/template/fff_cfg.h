@@ -28,7 +28,11 @@
 #endif
 
 #ifndef __FFF_CFG_IGNORE_NO_SEMIHOSTING__
-#   define __FFF_CFG_IGNORE_NO_SEMIHOSTING__        1
+#   define __FFF_CFG_IGNORE_NO_SEMIHOSTING__                0
+#endif
+
+#ifndef __FFF_CFG_SEMIHOSTING_CMD_LINE_BUFFER_SIZE__
+#   define  __FFF_CFG_SEMIHOSTING_CMD_LINE_BUFFER_SIZE__    80
 #endif
 
 /*============================ MACROFIED FUNCTIONS ===========================*/
