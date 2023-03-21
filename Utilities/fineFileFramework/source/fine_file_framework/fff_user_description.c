@@ -114,6 +114,10 @@ void __platform_main_entry(void)
     }
 }
 
+#if (   (   defined(__FFF_CFG_IGNORE_NO_SEMIHOSTING__)                          \
+        &&  __FFF_CFG_IGNORE_NO_SEMIHOSTING__))                                 \
+    || !defined(__FFF_CFG_IGNORE_NO_SEMIHOSTING__)
+
 /* disable semihosting */
 #if defined(__IS_COMPILER_ARM_COMPILER_5__) && __IS_COMPILER_ARM_COMPILER_5__
 #   pragma import(__use_no_semihosting)
@@ -124,16 +128,20 @@ __asm(".global __ARM_use_no_argv\n\t");
 #   endif
 #endif
 
+#endif
+
 __attribute__((used))
 __attribute__((noreturn))
 void _sys_exit(int ch)
 {
     (void)ch;
+    
+    __asm volatile ("BKPT 0xAB");
+    
     while(1) {
         NOP();
     }
 }
-
 
 
 #ifdef   __cplusplus
