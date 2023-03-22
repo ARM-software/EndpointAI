@@ -185,7 +185,7 @@ static char *__semihost_command_string(void)
         .tSize = sizeof(s_cBuffer)
     };
     
-    if (0 == __semihost(15, &tCMDLine) && (tCMDLine.tSize > 0)) {
+    if (0 == __semihost(0x15, &tCMDLine) && (tCMDLine.tSize > 0)) {
         return tCMDLine.pchCMDLine;
     }
     return NULL;

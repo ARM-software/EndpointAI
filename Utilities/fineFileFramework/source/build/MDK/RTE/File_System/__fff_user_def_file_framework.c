@@ -87,14 +87,14 @@ imp_fff(MPSx_Local_Disk,
 );
 
 
-__attribute__((used))
-char *_sys_command_string(char *cmd, int len)
-{
-    (void)cmd;
-    (void)len;
-    
-    /* write a command line here, which will be passed to main */
-    return "--input_file hotel.mp3";
-}
+//__attribute__((used))
+//char *_sys_command_string(char *cmd, int len)
+//{
+//    (void)cmd;
+//    (void)len;
+//    
+//    /* write a command line here, which will be passed to main */
+//    return "--input_file hotel.mp3";
+//}
 
 #endif

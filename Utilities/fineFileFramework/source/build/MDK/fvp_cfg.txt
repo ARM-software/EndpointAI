@@ -1,0 +1,473 @@
+# Parameters:
+# instance.parameter=value       #(type, mode) default = 'def value' : description : [min..max]
+#------------------------------------------------------------------------------
+REMOTE_CONNECTION.CADIServer.enable_remote_cadi=0     # (bool  , init-time) default = '0'      : Allow connections from remote hosts
+REMOTE_CONNECTION.CADIServer.listen_address=127.0.0.1  # (string, init-time) default = '127.0.0.1' : Network address the server should listen on if enable_remote_cadi is set ("127.0.0.1" by default)
+REMOTE_CONNECTION.CADIServer.port=31627               # (int   , init-time) default = '0x7b8b' : TCP port the server should listen on if enable_remote_cadi is set (31627 by default)
+REMOTE_CONNECTION.CADIServer.range=0                  # (int   , init-time) default = '0x0'    : If requested port is not avaliable, search for next avaliable port in range: [port:port+range] (0 by default, only try specified port)
+ambapv2pvbus_vsocket.base_addr=0                      # (int   , init-time) default = '0x0'    : Base address
+ambapv2pvbus_vsocket.shareable=1                      # (bool  , init-time) default = '1'      : Shareable default
+ambapv2pvbusx8_vsi.ambapv2pvbus_0.base_addr=0         # (int   , init-time) default = '0x0'    : Base address
+ambapv2pvbusx8_vsi.ambapv2pvbus_0.shareable=1         # (bool  , init-time) default = '1'      : Shareable default
+ambapv2pvbusx8_vsi.ambapv2pvbus_1.base_addr=0         # (int   , init-time) default = '0x0'    : Base address
+ambapv2pvbusx8_vsi.ambapv2pvbus_1.shareable=1         # (bool  , init-time) default = '1'      : Shareable default
+ambapv2pvbusx8_vsi.ambapv2pvbus_2.base_addr=0         # (int   , init-time) default = '0x0'    : Base address
+ambapv2pvbusx8_vsi.ambapv2pvbus_2.shareable=1         # (bool  , init-time) default = '1'      : Shareable default
+ambapv2pvbusx8_vsi.ambapv2pvbus_3.base_addr=0         # (int   , init-time) default = '0x0'    : Base address
+ambapv2pvbusx8_vsi.ambapv2pvbus_3.shareable=1         # (bool  , init-time) default = '1'      : Shareable default
+ambapv2pvbusx8_vsi.ambapv2pvbus_4.base_addr=0         # (int   , init-time) default = '0x0'    : Base address
+ambapv2pvbusx8_vsi.ambapv2pvbus_4.shareable=1         # (bool  , init-time) default = '1'      : Shareable default
+ambapv2pvbusx8_vsi.ambapv2pvbus_5.base_addr=0         # (int   , init-time) default = '0x0'    : Base address
+ambapv2pvbusx8_vsi.ambapv2pvbus_5.shareable=1         # (bool  , init-time) default = '1'      : Shareable default
+ambapv2pvbusx8_vsi.ambapv2pvbus_6.base_addr=0         # (int   , init-time) default = '0x0'    : Base address
+ambapv2pvbusx8_vsi.ambapv2pvbus_6.shareable=1         # (bool  , init-time) default = '1'      : Shareable default
+ambapv2pvbusx8_vsi.ambapv2pvbus_7.base_addr=0         # (int   , init-time) default = '0x0'    : Base address
+ambapv2pvbusx8_vsi.ambapv2pvbus_7.shareable=1         # (bool  , init-time) default = '1'      : Shareable default
+armcortexm4ct.BB_PRESENT=1                            # (bool  , init-time) default = '1'      : Enable bitbanding
+armcortexm4ct.BIGENDINIT=0                            # (bool  , init-time) default = '0'      : Initialize processor to big endian mode
+armcortexm4ct.DBGLVL=3                                # (int   , init-time) default = '0x3'    : 0: No debug; 1: Minimal debug; 2: Full debug without DWT address matching; 3: Full debug support with, DWT can compare data as well as address
+armcortexm4ct.LVL_WIDTH=3                             # (int   , init-time) default = '0x3'    : Number of bits of interrupt priority
+armcortexm4ct.NUM_IRQ=232                             # (int   , init-time) default = '0xe8'   : Number of user interrupts
+armcortexm4ct.NUM_MPU_REGION=8                        # (int   , init-time) default = '0x8'    : Number of MPU regions
+armcortexm4ct.TRACE_LVL=1                             # (int   , init-time) default = '0x1'    : Level of instrumentation trace supported. 0: No trace, 1: Standard trace. ITM, TPIU and DWT triggers and counters present, 2: Full trace. ITM, TPIU, ETM and DWT triggers and counters present
+armcortexm4ct.WIC=1                                   # (bool  , init-time) default = '1'      : Include support for WIC-mode deep sleep
+armcortexm4ct.cpi_div=1                               # (int   , run-time ) default = '0x1'    : divider for calculating CPI (Cycles Per Instruction)
+armcortexm4ct.cpi_mul=1                               # (int   , run-time ) default = '0x1'    : multiplier for calculating CPI (Cycles Per Instruction)
+armcortexm4ct.master_id=0                             # (int   , init-time) default = '0x0'    : Master ID presented in bus transactions
+armcortexm4ct.min_sync_level=0                        # (int   , run-time ) default = '0x0'    : force minimum syncLevel (0=off=default,1=syncState,2=postInsnIO,3=postInsnAll)
+armcortexm4ct.scheduler_mode=0                        # (int   , init-time) default = '0x0'    : Control the interleaving of instructions in this processor (0=default long quantum, 1=low latency mode, short quantum and signal checking, 2=lock-breaking mode, long quantum with additional context switches near load-exclusive instructions, 3=ISSCompare) WARNING: This parameter is intended for validation purposes and may result in unwanted behaviour if altered!
+armcortexm4ct.semihosting-Thumb_SVC=0xab              # (int   , init-time) default = '0xab'   : T32 SVC number for semihosting
+armcortexm4ct.semihosting-cmd_line="abc efg"          # (string, init-time) default = ''       : Command line available to semihosting SVC calls
+armcortexm4ct.semihosting-cwd=                        # (string, init-time) default = ''       : Base directory for semihosting file access.
+armcortexm4ct.semihosting-enable=1                    # (bool  , init-time) default = '1'      : Enable semihosting SVC traps. Applications that do not use semihosting must set this parameter to false.
+armcortexm4ct.semihosting-heap_base=0                 # (int   , init-time) default = '0x0'    : Virtual address of heap base
+armcortexm4ct.semihosting-heap_limit=544210944        # (int   , init-time) default = '0x20700000' : Virtual address of top of heap
+armcortexm4ct.semihosting-prefix=0                    # (bool  , init-time) default = '0'      : Prefix semihosting output with target instance name
+armcortexm4ct.semihosting-stack_base=544210944        # (int   , init-time) default = '0x20700000' : Virtual address of base of descending stack
+armcortexm4ct.semihosting-stack_limit=545259520       # (int   , init-time) default = '0x20800000' : Virtual address of stack limit
+armcortexm4ct.vfp-present=1                           # (bool  , init-time) default = '1'      : Set whether the model has VFP support
+dap.ap0_set_paddrdbg31=0                              # (bool  , init-time) default = '0'      : Set paddrdbg31 signal during accesses on AP0
+dap.ap1_has_debug_rom=0                               # (bool  , init-time) default = '0'      : Whether AP1 has a Debug ROM
+dap.ap1_rom_base_address=0                            # (int   , init-time) default = '0x0'    : ROM base address for AP 1
+dap.ap1_set_paddrdbg31=0                              # (bool  , init-time) default = '0'      : Set paddrdbg31 signal during accesses on AP1
+fvp_mps2.AHBPPCEXP_DIS0=0                             # (int   , init-time) default = '0x0'    : Disables support for individual bits on the AHBNSPPCEXP0 and AHBPPPCEXP0 buses
+fvp_mps2.AHBPPCEXP_DIS1=0                             # (int   , init-time) default = '0x0'    : Disables support for individual bits on the AHBNSPPCEXP1 and AHBPPPCEXP1 buses
+fvp_mps2.AHBPPCEXP_DIS2=0                             # (int   , init-time) default = '0x0'    : Disables support for individual bits on the AHBNSPPCEXP2 and AHBPPPCEXP2 buses
+fvp_mps2.AHBPPCEXP_DIS3=0                             # (int   , init-time) default = '0x0'    : Disables support for individual bits on the AHBNSPPCEXP3 and AHBPPPCEXP3 buses
+fvp_mps2.APBPPCEXP_DIS0=0                             # (int   , init-time) default = '0x0'    : Disables support for individual bits on the APBNSPPCEXP0 and APBPPPCEXP0 buses
+fvp_mps2.APBPPCEXP_DIS1=0                             # (int   , init-time) default = '0x0'    : Disables support for individual bits on the APBNSPPCEXP1 and APBPPPCEXP1 buses
+fvp_mps2.APBPPCEXP_DIS2=0                             # (int   , init-time) default = '0x0'    : Disables support for individual bits on the APBNSPPCEXP2 and APBPPPCEXP2 buses
+fvp_mps2.APBPPCEXP_DIS3=0                             # (int   , init-time) default = '0x0'    : Disables support for individual bits on the APBNSPPCEXP3 and APBPPPCEXP3 buses
+fvp_mps2.DISABLE_GATING=1                             # (bool  , init-time) default = '1'      : Disable Memory gating logic
+fvp_mps2.GPIO_test_enable=0                           # (bool  , init-time) default = '0'      : Enable GPIO connection test
+fvp_mps2.NSC_CFG_0=0                                  # (bool  , init-time) default = '0'      : Whether 0x10000000..0x1FFFFFFF is non-secure-callable
+fvp_mps2.NSC_CFG_1=0                                  # (bool  , init-time) default = '0'      : Whether 0x30000000..0x3FFFFFFF is non-secure-callable
+fvp_mps2.PSRAM.enable_atomic_ops=0                    # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.PSRAM.fill1=3755990991                       # (int   , init-time) default = '0xdfdfdfcf' : Fill pattern 1, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.PSRAM.fill2=3487555551                       # (int   , init-time) default = '0xcfdfdfdf' : Fill pattern 2, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.PSRAM.size=4294967296                        # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.PSRAM_M7.enable_atomic_ops=0                 # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.PSRAM_M7.fill1=3755990991                    # (int   , init-time) default = '0xdfdfdfcf' : Fill pattern 1, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.PSRAM_M7.fill2=3487555551                    # (int   , init-time) default = '0xcfdfdfdf' : Fill pattern 2, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.PSRAM_M7.size=4294967296                     # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.SCC_ID.Revision=1                            # (int   , init-time) default = '0x1'    : SCC_ID[3:0], Y in the FGPA version 'rXpY'
+fvp_mps2.SCC_ID.Variant=0                             # (int   , init-time) default = '0x0'    : SCC_ID[23:20], X in the FGPA version 'rXpY'
+fvp_mps2.UART0.clk_divider.div=1                      # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.UART0.clk_divider.mul=1                      # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.UART0.in_file=                               # (string, init-time) default = ''       : Input file for data to be read by the UART
+fvp_mps2.UART0.in_file_escape_sequence=##             # (string, init-time) default = '##'     : Input file escape sequence
+fvp_mps2.UART0.out_file=                              # (string, init-time) default = ''       : Output file to hold data written by the UART (use '-' to send all output to stdout)
+fvp_mps2.UART0.rx_overrun_mode=2                      # (int   , init-time) default = '0x2'    : Block receive on RX_OVERRUN - 0:Never; 1:Before overrun; 2:After overrun
+fvp_mps2.UART0.shutdown_on_eot=0                      # (bool  , init-time) default = '0'      : Shutdown simulation when a EOT (ASCII 4) char is transmitted (useful for regression tests when semihosting is not available)
+fvp_mps2.UART0.shutdown_tag=                          # (string, run-time ) default = ''       : Shutdown simulation when a string is transmitted
+fvp_mps2.UART0.unbuffered_output=0                    # (bool  , init-time) default = '0'      : Unbuffered output
+fvp_mps2.UART1.clk_divider.div=1                      # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.UART1.clk_divider.mul=1                      # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.UART1.in_file=                               # (string, init-time) default = ''       : Input file for data to be read by the UART
+fvp_mps2.UART1.in_file_escape_sequence=##             # (string, init-time) default = '##'     : Input file escape sequence
+fvp_mps2.UART1.out_file=                              # (string, init-time) default = ''       : Output file to hold data written by the UART (use '-' to send all output to stdout)
+fvp_mps2.UART1.rx_overrun_mode=2                      # (int   , init-time) default = '0x2'    : Block receive on RX_OVERRUN - 0:Never; 1:Before overrun; 2:After overrun
+fvp_mps2.UART1.shutdown_on_eot=0                      # (bool  , init-time) default = '0'      : Shutdown simulation when a EOT (ASCII 4) char is transmitted (useful for regression tests when semihosting is not available)
+fvp_mps2.UART1.shutdown_tag=                          # (string, run-time ) default = ''       : Shutdown simulation when a string is transmitted
+fvp_mps2.UART1.unbuffered_output=0                    # (bool  , init-time) default = '0'      : Unbuffered output
+fvp_mps2.UART2.clk_divider.div=1                      # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.UART2.clk_divider.mul=1                      # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.UART2.in_file=                               # (string, init-time) default = ''       : Input file for data to be read by the UART
+fvp_mps2.UART2.in_file_escape_sequence=##             # (string, init-time) default = '##'     : Input file escape sequence
+fvp_mps2.UART2.out_file=                              # (string, init-time) default = ''       : Output file to hold data written by the UART (use '-' to send all output to stdout)
+fvp_mps2.UART2.rx_overrun_mode=2                      # (int   , init-time) default = '0x2'    : Block receive on RX_OVERRUN - 0:Never; 1:Before overrun; 2:After overrun
+fvp_mps2.UART2.shutdown_on_eot=0                      # (bool  , init-time) default = '0'      : Shutdown simulation when a EOT (ASCII 4) char is transmitted (useful for regression tests when semihosting is not available)
+fvp_mps2.UART2.shutdown_tag=                          # (string, run-time ) default = ''       : Shutdown simulation when a string is transmitted
+fvp_mps2.UART2.unbuffered_output=0                    # (bool  , init-time) default = '0'      : Unbuffered output
+fvp_mps2.ahb_ppc_iotss_expansion0.NONSEC_MASK=0       # (int   , init-time) default = '0x0'    : 16-bit wide mask for security checking of ports: 0 = check, 1 = mask
+fvp_mps2.ahb_ppc_iotss_expansion0.diagnostics=0       # (int   , run-time ) default = '0x0'    : Diagnostics
+fvp_mps2.ahb_ppc_iotss_expansion1.NONSEC_MASK=0       # (int   , init-time) default = '0x0'    : 16-bit wide mask for security checking of ports: 0 = check, 1 = mask
+fvp_mps2.ahb_ppc_iotss_expansion1.diagnostics=0       # (int   , run-time ) default = '0x0'    : Diagnostics
+fvp_mps2.apb_ppc_iotss_expansion0.NONSEC_MASK=0       # (int   , init-time) default = '0x0'    : 16-bit wide mask for security checking of ports: 0 = check, 1 = mask
+fvp_mps2.apb_ppc_iotss_expansion0.diagnostics=0       # (int   , run-time ) default = '0x0'    : Diagnostics
+fvp_mps2.apb_ppc_iotss_expansion1.NONSEC_MASK=0       # (int   , init-time) default = '0x0'    : 16-bit wide mask for security checking of ports: 0 = check, 1 = mask
+fvp_mps2.apb_ppc_iotss_expansion1.diagnostics=0       # (int   , run-time ) default = '0x0'    : Diagnostics
+fvp_mps2.apb_ppc_iotss_expansion2.NONSEC_MASK=0       # (int   , init-time) default = '0x0'    : 16-bit wide mask for security checking of ports: 0 = check, 1 = mask
+fvp_mps2.apb_ppc_iotss_expansion2.diagnostics=0       # (int   , run-time ) default = '0x0'    : Diagnostics
+fvp_mps2.clock50Hz.div=1                              # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.clockdivider.div=1                           # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.cmsdk_watchdog.simhalt=0                     # (bool  , run-time ) default = '0'      : Halt on reset.
+fvp_mps2.dma0.activate_delay=0                        # (int   , init-time) default = '0x0'    : request delay
+fvp_mps2.dma0.fifo_size=16                            # (int   , init-time) default = '0x10'   : Channel FIFO size in bytes
+fvp_mps2.dma0.generate_clear=0                        # (bool  , init-time) default = '0'      : Generate clear response
+fvp_mps2.dma0.max_transfer=256                        # (int   , init-time) default = '0x100'  : Largest atomic transfer
+fvp_mps2.dma0_idau_labeller.diagnostics=0             # (int   , init-time) default = '0x0'    : Diagnostics
+fvp_mps2.dma0_securitymodifier.behaviour_ns_to_s=0    # (int   , init-time) default = '0x0'    : Behaviour for NS transactions to S space : 0:block 1:transmit 2:convert to S
+fvp_mps2.dma1.activate_delay=0                        # (int   , init-time) default = '0x0'    : request delay
+fvp_mps2.dma1.fifo_size=16                            # (int   , init-time) default = '0x10'   : Channel FIFO size in bytes
+fvp_mps2.dma1.generate_clear=0                        # (bool  , init-time) default = '0'      : Generate clear response
+fvp_mps2.dma1.max_transfer=256                        # (int   , init-time) default = '0x100'  : Largest atomic transfer
+fvp_mps2.dma1_idau_labeller.diagnostics=0             # (int   , init-time) default = '0x0'    : Diagnostics
+fvp_mps2.dma1_securitymodifier.behaviour_ns_to_s=0    # (int   , init-time) default = '0x0'    : Behaviour for NS transactions to S space : 0:block 1:transmit 2:convert to S
+fvp_mps2.dma2.activate_delay=0                        # (int   , init-time) default = '0x0'    : request delay
+fvp_mps2.dma2.fifo_size=16                            # (int   , init-time) default = '0x10'   : Channel FIFO size in bytes
+fvp_mps2.dma2.generate_clear=0                        # (bool  , init-time) default = '0'      : Generate clear response
+fvp_mps2.dma2.max_transfer=256                        # (int   , init-time) default = '0x100'  : Largest atomic transfer
+fvp_mps2.dma2_idau_labeller.diagnostics=0             # (int   , init-time) default = '0x0'    : Diagnostics
+fvp_mps2.dma2_securitymodifier.behaviour_ns_to_s=0    # (int   , init-time) default = '0x0'    : Behaviour for NS transactions to S space : 0:block 1:transmit 2:convert to S
+fvp_mps2.dma3.activate_delay=0                        # (int   , init-time) default = '0x0'    : request delay
+fvp_mps2.dma3.fifo_size=16                            # (int   , init-time) default = '0x10'   : Channel FIFO size in bytes
+fvp_mps2.dma3.generate_clear=0                        # (bool  , init-time) default = '0'      : Generate clear response
+fvp_mps2.dma3.max_transfer=256                        # (int   , init-time) default = '0x100'  : Largest atomic transfer
+fvp_mps2.dma3_idau_labeller.diagnostics=0             # (int   , init-time) default = '0x0'    : Diagnostics
+fvp_mps2.dma3_securitymodifier.behaviour_ns_to_s=0    # (int   , init-time) default = '0x0'    : Behaviour for NS transactions to S space : 0:block 1:transmit 2:convert to S
+fvp_mps2.exclusive_monitor_psram.apply_access_width_criteria_to_non_excl_stores=1  # (bool  , init-time) default = '1'      : Apply the given exclusive store width matching criteria to non-exclusive stores
+fvp_mps2.exclusive_monitor_psram.clear_on_strex_address_mismatch=1  # (bool  , init-time) default = '1'      : Whether monitor is cleared when strex fails due to address mismatch
+fvp_mps2.exclusive_monitor_psram.enable_component=1   # (bool  , init-time) default = '1'      : Enable component
+fvp_mps2.exclusive_monitor_psram.exclusive_monitor_clear_on_atomic_from_same_master=1  # (bool  , init-time) default = '1'      : Monitor atomics from the same master
+fvp_mps2.exclusive_monitor_psram.log2_granule_size=0  # (int   , init-time) default = '0x0'    : log2 of address granule size
+fvp_mps2.exclusive_monitor_psram.match_secure_state=1  # (bool  , init-time) default = '1'      : Treat the secure state like an address bit
+fvp_mps2.exclusive_monitor_psram.monitor_access_level=0  # (int   , init-time) default = '0x0'    : 0: Monitor all accesses, 1: Monitor all accesses except WriteBack, 2: Only monitor accesses with memory type NonCacheable or Device
+fvp_mps2.exclusive_monitor_psram.monitor_non_excl_stores=0  # (bool  , init-time) default = '0'      : Monitor non-exclusive stores from the same master
+fvp_mps2.exclusive_monitor_psram.number_of_monitors=8  # (int   , init-time) default = '0x8'    : Number of monitors
+fvp_mps2.exclusive_monitor_psram.shareability_domain=3  # (int   , init-time) default = '0x3'    : Maximum shareability domain of interest, transactions outside of the domain will pass through un-monitored (0-non-shared, 1-inner, 2-outer, 3-system)
+fvp_mps2.exclusive_monitor_psram_iotss.apply_access_width_criteria_to_non_excl_stores=1  # (bool  , init-time) default = '1'      : Apply the given exclusive store width matching criteria to non-exclusive stores
+fvp_mps2.exclusive_monitor_psram_iotss.clear_on_strex_address_mismatch=1  # (bool  , init-time) default = '1'      : Whether monitor is cleared when strex fails due to address mismatch
+fvp_mps2.exclusive_monitor_psram_iotss.enable_component=1  # (bool  , init-time) default = '1'      : Enable component
+fvp_mps2.exclusive_monitor_psram_iotss.exclusive_monitor_clear_on_atomic_from_same_master=1  # (bool  , init-time) default = '1'      : Monitor atomics from the same master
+fvp_mps2.exclusive_monitor_psram_iotss.log2_granule_size=0  # (int   , init-time) default = '0x0'    : log2 of address granule size
+fvp_mps2.exclusive_monitor_psram_iotss.match_secure_state=1  # (bool  , init-time) default = '1'      : Treat the secure state like an address bit
+fvp_mps2.exclusive_monitor_psram_iotss.monitor_access_level=0  # (int   , init-time) default = '0x0'    : 0: Monitor all accesses, 1: Monitor all accesses except WriteBack, 2: Only monitor accesses with memory type NonCacheable or Device
+fvp_mps2.exclusive_monitor_psram_iotss.monitor_non_excl_stores=0  # (bool  , init-time) default = '0'      : Monitor non-exclusive stores from the same master
+fvp_mps2.exclusive_monitor_psram_iotss.number_of_monitors=8  # (int   , init-time) default = '0x8'    : Number of monitors
+fvp_mps2.exclusive_monitor_psram_iotss.shareability_domain=3  # (int   , init-time) default = '0x3'    : Maximum shareability domain of interest, transactions outside of the domain will pass through un-monitored (0-non-shared, 1-inner, 2-outer, 3-system)
+fvp_mps2.exclusive_monitor_zbtsram1.apply_access_width_criteria_to_non_excl_stores=1  # (bool  , init-time) default = '1'      : Apply the given exclusive store width matching criteria to non-exclusive stores
+fvp_mps2.exclusive_monitor_zbtsram1.clear_on_strex_address_mismatch=1  # (bool  , init-time) default = '1'      : Whether monitor is cleared when strex fails due to address mismatch
+fvp_mps2.exclusive_monitor_zbtsram1.enable_component=1  # (bool  , init-time) default = '1'      : Enable component
+fvp_mps2.exclusive_monitor_zbtsram1.exclusive_monitor_clear_on_atomic_from_same_master=1  # (bool  , init-time) default = '1'      : Monitor atomics from the same master
+fvp_mps2.exclusive_monitor_zbtsram1.log2_granule_size=0  # (int   , init-time) default = '0x0'    : log2 of address granule size
+fvp_mps2.exclusive_monitor_zbtsram1.match_secure_state=1  # (bool  , init-time) default = '1'      : Treat the secure state like an address bit
+fvp_mps2.exclusive_monitor_zbtsram1.monitor_access_level=0  # (int   , init-time) default = '0x0'    : 0: Monitor all accesses, 1: Monitor all accesses except WriteBack, 2: Only monitor accesses with memory type NonCacheable or Device
+fvp_mps2.exclusive_monitor_zbtsram1.monitor_non_excl_stores=0  # (bool  , init-time) default = '0'      : Monitor non-exclusive stores from the same master
+fvp_mps2.exclusive_monitor_zbtsram1.number_of_monitors=8  # (int   , init-time) default = '0x8'    : Number of monitors
+fvp_mps2.exclusive_monitor_zbtsram1.shareability_domain=3  # (int   , init-time) default = '0x3'    : Maximum shareability domain of interest, transactions outside of the domain will pass through un-monitored (0-non-shared, 1-inner, 2-outer, 3-system)
+fvp_mps2.exclusive_monitor_zbtsram2.apply_access_width_criteria_to_non_excl_stores=1  # (bool  , init-time) default = '1'      : Apply the given exclusive store width matching criteria to non-exclusive stores
+fvp_mps2.exclusive_monitor_zbtsram2.clear_on_strex_address_mismatch=1  # (bool  , init-time) default = '1'      : Whether monitor is cleared when strex fails due to address mismatch
+fvp_mps2.exclusive_monitor_zbtsram2.enable_component=1  # (bool  , init-time) default = '1'      : Enable component
+fvp_mps2.exclusive_monitor_zbtsram2.exclusive_monitor_clear_on_atomic_from_same_master=1  # (bool  , init-time) default = '1'      : Monitor atomics from the same master
+fvp_mps2.exclusive_monitor_zbtsram2.log2_granule_size=0  # (int   , init-time) default = '0x0'    : log2 of address granule size
+fvp_mps2.exclusive_monitor_zbtsram2.match_secure_state=1  # (bool  , init-time) default = '1'      : Treat the secure state like an address bit
+fvp_mps2.exclusive_monitor_zbtsram2.monitor_access_level=0  # (int   , init-time) default = '0x0'    : 0: Monitor all accesses, 1: Monitor all accesses except WriteBack, 2: Only monitor accesses with memory type NonCacheable or Device
+fvp_mps2.exclusive_monitor_zbtsram2.monitor_non_excl_stores=0  # (bool  , init-time) default = '0'      : Monitor non-exclusive stores from the same master
+fvp_mps2.exclusive_monitor_zbtsram2.number_of_monitors=8  # (int   , init-time) default = '0x8'    : Number of monitors
+fvp_mps2.exclusive_monitor_zbtsram2.shareability_domain=3  # (int   , init-time) default = '0x3'    : Maximum shareability domain of interest, transactions outside of the domain will pass through un-monitored (0-non-shared, 1-inner, 2-outer, 3-system)
+fvp_mps2.expansion_warning_memory.abort_on_reads=0    # (bool  , init-time) default = '0'      : Generate Abort on reads
+fvp_mps2.expansion_warning_memory.abort_on_writes=0   # (bool  , init-time) default = '0'      : Generate Abort on writes
+fvp_mps2.expansion_warning_memory.diagnostics=2       # (int   , init-time) default = '0x2'    : Diagnostics 0-4 (0:FATAL 1:ERROR 2:WARNING 3:INFO 4:DEBUG - DEFAULT==2)
+fvp_mps2.expansion_warning_memory.read_data=0         # (int   , init-time) default = '0x0'    : Data to return on reads, if not aborting
+fvp_mps2.extra_psram_size=33554432                    # (int   , init-time) default = '0x2000000' : Size of extra PSRAM RAM for IOT,SSE-200 and  SVOS
+fvp_mps2.hostbridge.interfaceName=                    # (string, init-time) default = ''       : Host Interface
+fvp_mps2.hostbridge.userNetOptions=                   # (string, init-time) default = ''       : Control options for UserNet TCP/IP (for internal use only, please do not use)
+fvp_mps2.hostbridge.userNetPorts=                     # (string, init-time) default = ''       : Listening ports to expose in user-mode networking
+fvp_mps2.hostbridge.userNetSubnet=172.20.51.0/24      # (string, init-time) default = '172.20.51.0/24' : Virtual subnet for user-mode networking
+fvp_mps2.hostbridge.userNetworking=0                  # (bool  , init-time) default = '0'      : Enable user-mode networking
+fvp_mps2.iotss_systemcontrol.cpu0wait=0               # (bool  , init-time) default = '0'      : Whether to hold cpu0 in reset at boot
+fvp_mps2.iotss_systemcontrol.cpu1wait=1               # (bool  , init-time) default = '1'      : Whether to hold cpu1 in reset at boot
+fvp_mps2.is_m7=0                                      # (bool  , init-time) default = '0'      : Enable PSRAM_M7 if current core is M7
+fvp_mps2.mps2_cmsdk_dualtimer.clk_div0.div=1          # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.mps2_cmsdk_dualtimer.clk_div0.mul=1          # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.mps2_cmsdk_dualtimer.clk_div1.div=1          # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.mps2_cmsdk_dualtimer.clk_div1.mul=1          # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.mps2_exclusive_monitor_zbtsram1.apply_access_width_criteria_to_non_excl_stores=1  # (bool  , init-time) default = '1'      : Apply the given exclusive store width matching criteria to non-exclusive stores
+fvp_mps2.mps2_exclusive_monitor_zbtsram1.clear_on_strex_address_mismatch=1  # (bool  , init-time) default = '1'      : Whether monitor is cleared when strex fails due to address mismatch
+fvp_mps2.mps2_exclusive_monitor_zbtsram1.enable_component=1  # (bool  , init-time) default = '1'      : Enable component
+fvp_mps2.mps2_exclusive_monitor_zbtsram1.exclusive_monitor_clear_on_atomic_from_same_master=1  # (bool  , init-time) default = '1'      : Monitor atomics from the same master
+fvp_mps2.mps2_exclusive_monitor_zbtsram1.log2_granule_size=0  # (int   , init-time) default = '0x0'    : log2 of address granule size
+fvp_mps2.mps2_exclusive_monitor_zbtsram1.match_secure_state=1  # (bool  , init-time) default = '1'      : Treat the secure state like an address bit
+fvp_mps2.mps2_exclusive_monitor_zbtsram1.monitor_access_level=0  # (int   , init-time) default = '0x0'    : 0: Monitor all accesses, 1: Monitor all accesses except WriteBack, 2: Only monitor accesses with memory type NonCacheable or Device
+fvp_mps2.mps2_exclusive_monitor_zbtsram1.monitor_non_excl_stores=0  # (bool  , init-time) default = '0'      : Monitor non-exclusive stores from the same master
+fvp_mps2.mps2_exclusive_monitor_zbtsram1.number_of_monitors=8  # (int   , init-time) default = '0x8'    : Number of monitors
+fvp_mps2.mps2_exclusive_monitor_zbtsram1.shareability_domain=3  # (int   , init-time) default = '0x3'    : Maximum shareability domain of interest, transactions outside of the domain will pass through un-monitored (0-non-shared, 1-inner, 2-outer, 3-system)
+fvp_mps2.mps2_exclusive_monitor_zbtsram2.apply_access_width_criteria_to_non_excl_stores=1  # (bool  , init-time) default = '1'      : Apply the given exclusive store width matching criteria to non-exclusive stores
+fvp_mps2.mps2_exclusive_monitor_zbtsram2.clear_on_strex_address_mismatch=1  # (bool  , init-time) default = '1'      : Whether monitor is cleared when strex fails due to address mismatch
+fvp_mps2.mps2_exclusive_monitor_zbtsram2.enable_component=1  # (bool  , init-time) default = '1'      : Enable component
+fvp_mps2.mps2_exclusive_monitor_zbtsram2.exclusive_monitor_clear_on_atomic_from_same_master=1  # (bool  , init-time) default = '1'      : Monitor atomics from the same master
+fvp_mps2.mps2_exclusive_monitor_zbtsram2.log2_granule_size=0  # (int   , init-time) default = '0x0'    : log2 of address granule size
+fvp_mps2.mps2_exclusive_monitor_zbtsram2.match_secure_state=1  # (bool  , init-time) default = '1'      : Treat the secure state like an address bit
+fvp_mps2.mps2_exclusive_monitor_zbtsram2.monitor_access_level=0  # (int   , init-time) default = '0x0'    : 0: Monitor all accesses, 1: Monitor all accesses except WriteBack, 2: Only monitor accesses with memory type NonCacheable or Device
+fvp_mps2.mps2_exclusive_monitor_zbtsram2.monitor_non_excl_stores=0  # (bool  , init-time) default = '0'      : Monitor non-exclusive stores from the same master
+fvp_mps2.mps2_exclusive_monitor_zbtsram2.number_of_monitors=8  # (int   , init-time) default = '0x8'    : Number of monitors
+fvp_mps2.mps2_exclusive_monitor_zbtsram2.shareability_domain=3  # (int   , init-time) default = '0x3'    : Maximum shareability domain of interest, transactions outside of the domain will pass through un-monitored (0-non-shared, 1-inner, 2-outer, 3-system)
+fvp_mps2.mps2_secure_control_register_block.AHBPPCEXP_DIS0=0  # (int   , init-time) default = '0x0'    : Disables support for individual bits on the AHBNSPPCEXP0 and AHBPPPCEXP0 buses
+fvp_mps2.mps2_secure_control_register_block.AHBPPCEXP_DIS1=0  # (int   , init-time) default = '0x0'    : Disables support for individual bits on the AHBNSPPCEXP1 and AHBPPPCEXP1 buses
+fvp_mps2.mps2_secure_control_register_block.AHBPPCEXP_DIS2=0  # (int   , init-time) default = '0x0'    : Disables support for individual bits on the AHBNSPPCEXP2 and AHBPPPCEXP2 buses
+fvp_mps2.mps2_secure_control_register_block.AHBPPCEXP_DIS3=0  # (int   , init-time) default = '0x0'    : Disables support for individual bits on the AHBNSPPCEXP3 and AHBPPPCEXP3 buses
+fvp_mps2.mps2_secure_control_register_block.APBPPCEXP_DIS0=0  # (int   , init-time) default = '0x0'    : Disables support for individual bits on the APBNSPPCEXP0 and APBPPPCEXP0 buses
+fvp_mps2.mps2_secure_control_register_block.APBPPCEXP_DIS1=0  # (int   , init-time) default = '0x0'    : Disables support for individual bits on the APBNSPPCEXP1 and APBPPPCEXP1 buses
+fvp_mps2.mps2_secure_control_register_block.APBPPCEXP_DIS2=0  # (int   , init-time) default = '0x0'    : Disables support for individual bits on the APBNSPPCEXP2 and APBPPPCEXP2 buses
+fvp_mps2.mps2_secure_control_register_block.APBPPCEXP_DIS3=0  # (int   , init-time) default = '0x0'    : Disables support for individual bits on the APBNSPPCEXP3 and APBPPPCEXP3 buses
+fvp_mps2.mps2_secure_control_register_block.FLASH_BLOCK_CFG=3  # (int   , init-time) default = '0x3'    : Flash Block size configuration
+fvp_mps2.mps2_secure_control_register_block.FLASH_WATERMARK_SUPPORTED=1  # (bool  , init-time) default = '1'      : Flash Watermark supported
+fvp_mps2.mps2_secure_control_register_block.SRAM_BLOCK_CFG=3  # (int   , init-time) default = '0x3'    : SRAM Block size configuration
+fvp_mps2.mps2_secure_control_register_block.SRAM_WATERMARK_SUPPORTED=1  # (bool  , init-time) default = '1'      : SRAM Watermark supported
+fvp_mps2.mps2_timer0.clk_div.div=1                    # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.mps2_timer0.clk_div.mul=1                    # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.mps2_timer1.clk_div.div=1                    # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.mps2_timer1.clk_div.mul=1                    # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.mps2_visualisation.disable-visualisation=0   # (bool  , init-time) default = '0'      : Enable/disable visualisation
+fvp_mps2.mps2_visualisation.idler.delay_ms=50         # (int   , init-time) default = '0x32'   : Determines the period, in milliseconds of real time, between gui_callback() calls.
+fvp_mps2.mps2_visualisation.rate_limit-enable=1       # (bool  , init-time) default = '1'      : Rate limit simulation.
+fvp_mps2.mps2_visualisation.window_title=CLCD %cpu%   # (string, init-time) default = 'CLCD %cpu%' : Window title (%cpu% is replaced by cpu_name)
+fvp_mps2.pl022_ssp_mps2.prescaler.div=1               # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.pl022_ssp_mps2.prescaler.mul=1               # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.platform_type=0                              # (int   , init-time) default = '0x0'    : 0:Original MPS2 ; 1:IoT Kit (cut-down SSE-200) ; 2:Full SSE-200; 3:SVOS
+fvp_mps2.smsc_91c111.cache_size=65536                 # (int   , init-time) default = '0x10000' : Size of cache memory in SMSC MMU
+fvp_mps2.smsc_91c111.enabled=0                        # (bool  , init-time) default = '0'      : Host interface connection enabled
+fvp_mps2.smsc_91c111.mac_address=00:02:f7:ef:6e:1d    # (string, init-time) default = '00:02:f7:ef:6e:1d' : Host/model MAC address
+fvp_mps2.smsc_91c111.not_lan911x=0                    # (bool  , init-time) default = '0'      : Gracefully fail SMSC LAN911x driver probe
+fvp_mps2.smsc_91c111.promiscuous=1                    # (bool  , init-time) default = '1'      : Put host into promiscuous mode
+fvp_mps2.sse200.apb_ppc_iotss_subsystem0.NONSEC_MASK=0  # (int   , init-time) default = '0x0'    : 16-bit wide mask for security checking of ports: 0 = check, 1 = mask
+fvp_mps2.sse200.apb_ppc_iotss_subsystem0.PORTx_ENABLE=65535  # (int   , init-time) default = '0xffff' : Enable (1) or disable (0) port x (where x is between 0-15): enable = 1, disable = 0
+fvp_mps2.sse200.apb_ppc_iotss_subsystem0.diagnostics=0  # (int   , run-time ) default = '0x0'    : Diagnostics
+fvp_mps2.sse200.apb_ppc_iotss_subsystem1.NONSEC_MASK=0  # (int   , init-time) default = '0x0'    : 16-bit wide mask for security checking of ports: 0 = check, 1 = mask
+fvp_mps2.sse200.apb_ppc_iotss_subsystem1.PORTx_ENABLE=65535  # (int   , init-time) default = '0xffff' : Enable (1) or disable (0) port x (where x is between 0-15): enable = 1, disable = 0
+fvp_mps2.sse200.apb_ppc_iotss_subsystem1.diagnostics=0  # (int   , run-time ) default = '0x0'    : Diagnostics
+fvp_mps2.sse200.bus_error_warning_memory.diagnostics=2  # (int   , init-time) default = '0x2'    : Diagnostics 0-4 (0:FATAL 1:ERROR 2:WARNING 3:INFO 4:DEBUG - DEFAULT==2)
+fvp_mps2.sse200.bus_error_warning_memory.read_data=0  # (int   , init-time) default = '0x0'    : Data to return on reads, if not aborting
+fvp_mps2.sse200.clock32kHz.div=1                      # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.sse200.clockdivider.div=1                    # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.sse200.cmsdk_dualtimer.clk_div0.div=1        # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.sse200.cmsdk_dualtimer.clk_div0.mul=1        # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.sse200.cmsdk_dualtimer.clk_div1.div=1        # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.sse200.cmsdk_dualtimer.clk_div1.mul=1        # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.sse200.cordio_ppu.revision=r0p0              # (string, init-time) default = 'r0p0'   : Revision
+fvp_mps2.sse200.cordio_ppu.use_active_signal=0        # (bool  , init-time) default = '0'      : Use device-active signal
+fvp_mps2.sse200.cpu0core_ppu.revision=r0p0            # (string, init-time) default = 'r0p0'   : Revision
+fvp_mps2.sse200.cpu0dbg_ppu.revision=r0p0             # (string, init-time) default = 'r0p0'   : Revision
+fvp_mps2.sse200.cpu1core_ppu.revision=r0p0            # (string, init-time) default = 'r0p0'   : Revision
+fvp_mps2.sse200.cpu1core_ppu.use_active_signal=0      # (bool  , init-time) default = '0'      : Use device-active signal
+fvp_mps2.sse200.cpu1dbg_ppu.revision=r0p0             # (string, init-time) default = 'r0p0'   : Revision
+fvp_mps2.sse200.cpu1dbg_ppu.use_active_signal=0       # (bool  , init-time) default = '0'      : Use device-active signal
+fvp_mps2.sse200.crypto_ppu.revision=r0p0              # (string, init-time) default = 'r0p0'   : Revision
+fvp_mps2.sse200.crypto_ppu.use_active_signal=0        # (bool  , init-time) default = '0'      : Use device-active signal
+fvp_mps2.sse200.dbg_ppu.revision=r0p0                 # (string, init-time) default = 'r0p0'   : Revision
+fvp_mps2.sse200.dbg_ppu.use_active_signal=0           # (bool  , init-time) default = '0'      : Use device-active signal
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram0.apply_access_width_criteria_to_non_excl_stores=1  # (bool  , init-time) default = '1'      : Apply the given exclusive store width matching criteria to non-exclusive stores
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram0.clear_on_strex_address_mismatch=1  # (bool  , init-time) default = '1'      : Whether monitor is cleared when strex fails due to address mismatch
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram0.enable_component=1  # (bool  , init-time) default = '1'      : Enable component
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram0.exclusive_monitor_clear_on_atomic_from_same_master=1  # (bool  , init-time) default = '1'      : Monitor atomics from the same master
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram0.log2_granule_size=0  # (int   , init-time) default = '0x0'    : log2 of address granule size
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram0.match_secure_state=1  # (bool  , init-time) default = '1'      : Treat the secure state like an address bit
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram0.monitor_access_level=0  # (int   , init-time) default = '0x0'    : 0: Monitor all accesses, 1: Monitor all accesses except WriteBack, 2: Only monitor accesses with memory type NonCacheable or Device
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram0.monitor_non_excl_stores=0  # (bool  , init-time) default = '0'      : Monitor non-exclusive stores from the same master
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram0.number_of_monitors=8  # (int   , init-time) default = '0x8'    : Number of monitors
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram0.shareability_domain=3  # (int   , init-time) default = '0x3'    : Maximum shareability domain of interest, transactions outside of the domain will pass through un-monitored (0-non-shared, 1-inner, 2-outer, 3-system)
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram1.apply_access_width_criteria_to_non_excl_stores=1  # (bool  , init-time) default = '1'      : Apply the given exclusive store width matching criteria to non-exclusive stores
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram1.clear_on_strex_address_mismatch=1  # (bool  , init-time) default = '1'      : Whether monitor is cleared when strex fails due to address mismatch
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram1.enable_component=1  # (bool  , init-time) default = '1'      : Enable component
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram1.exclusive_monitor_clear_on_atomic_from_same_master=1  # (bool  , init-time) default = '1'      : Monitor atomics from the same master
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram1.log2_granule_size=0  # (int   , init-time) default = '0x0'    : log2 of address granule size
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram1.match_secure_state=1  # (bool  , init-time) default = '1'      : Treat the secure state like an address bit
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram1.monitor_access_level=0  # (int   , init-time) default = '0x0'    : 0: Monitor all accesses, 1: Monitor all accesses except WriteBack, 2: Only monitor accesses with memory type NonCacheable or Device
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram1.monitor_non_excl_stores=0  # (bool  , init-time) default = '0'      : Monitor non-exclusive stores from the same master
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram1.number_of_monitors=8  # (int   , init-time) default = '0x8'    : Number of monitors
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram1.shareability_domain=3  # (int   , init-time) default = '0x3'    : Maximum shareability domain of interest, transactions outside of the domain will pass through un-monitored (0-non-shared, 1-inner, 2-outer, 3-system)
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram2.apply_access_width_criteria_to_non_excl_stores=1  # (bool  , init-time) default = '1'      : Apply the given exclusive store width matching criteria to non-exclusive stores
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram2.clear_on_strex_address_mismatch=1  # (bool  , init-time) default = '1'      : Whether monitor is cleared when strex fails due to address mismatch
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram2.enable_component=1  # (bool  , init-time) default = '1'      : Enable component
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram2.exclusive_monitor_clear_on_atomic_from_same_master=1  # (bool  , init-time) default = '1'      : Monitor atomics from the same master
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram2.log2_granule_size=0  # (int   , init-time) default = '0x0'    : log2 of address granule size
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram2.match_secure_state=1  # (bool  , init-time) default = '1'      : Treat the secure state like an address bit
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram2.monitor_access_level=0  # (int   , init-time) default = '0x0'    : 0: Monitor all accesses, 1: Monitor all accesses except WriteBack, 2: Only monitor accesses with memory type NonCacheable or Device
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram2.monitor_non_excl_stores=0  # (bool  , init-time) default = '0'      : Monitor non-exclusive stores from the same master
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram2.number_of_monitors=8  # (int   , init-time) default = '0x8'    : Number of monitors
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram2.shareability_domain=3  # (int   , init-time) default = '0x3'    : Maximum shareability domain of interest, transactions outside of the domain will pass through un-monitored (0-non-shared, 1-inner, 2-outer, 3-system)
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram3.apply_access_width_criteria_to_non_excl_stores=1  # (bool  , init-time) default = '1'      : Apply the given exclusive store width matching criteria to non-exclusive stores
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram3.clear_on_strex_address_mismatch=1  # (bool  , init-time) default = '1'      : Whether monitor is cleared when strex fails due to address mismatch
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram3.enable_component=1  # (bool  , init-time) default = '1'      : Enable component
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram3.exclusive_monitor_clear_on_atomic_from_same_master=1  # (bool  , init-time) default = '1'      : Monitor atomics from the same master
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram3.log2_granule_size=0  # (int   , init-time) default = '0x0'    : log2 of address granule size
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram3.match_secure_state=1  # (bool  , init-time) default = '1'      : Treat the secure state like an address bit
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram3.monitor_access_level=0  # (int   , init-time) default = '0x0'    : 0: Monitor all accesses, 1: Monitor all accesses except WriteBack, 2: Only monitor accesses with memory type NonCacheable or Device
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram3.monitor_non_excl_stores=0  # (bool  , init-time) default = '0'      : Monitor non-exclusive stores from the same master
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram3.number_of_monitors=8  # (int   , init-time) default = '0x8'    : Number of monitors
+fvp_mps2.sse200.exclusive_monitor_iotss_internal_sram3.shareability_domain=3  # (int   , init-time) default = '0x3'    : Maximum shareability domain of interest, transactions outside of the domain will pass through un-monitored (0-non-shared, 1-inner, 2-outer, 3-system)
+fvp_mps2.sse200.has_crypto=0                          # (bool  , init-time) default = '0'      : CryptoCell Included. 0:No, 1: Yes
+fvp_mps2.sse200.idau_labeller.diagnostics=0           # (int   , init-time) default = '0x0'    : Diagnostics
+fvp_mps2.sse200.iotss_cpuidentity.debugger_master_id=4294967295  # (int   , init-time) default = '0xffffffff' : 
+fvp_mps2.sse200.iotss_internal_sram0.enable_atomic_ops=0  # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.sse200.iotss_internal_sram0.fill1=3755990991  # (int   , init-time) default = '0xdfdfdfcf' : Fill pattern 1, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.sse200.iotss_internal_sram0.fill2=3487555551  # (int   , init-time) default = '0xcfdfdfdf' : Fill pattern 2, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.sse200.iotss_internal_sram0.size=4294967296  # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.sse200.iotss_internal_sram1.enable_atomic_ops=0  # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.sse200.iotss_internal_sram1.fill1=3755990991  # (int   , init-time) default = '0xdfdfdfcf' : Fill pattern 1, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.sse200.iotss_internal_sram1.fill2=3487555551  # (int   , init-time) default = '0xcfdfdfdf' : Fill pattern 2, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.sse200.iotss_internal_sram1.size=4294967296  # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.sse200.iotss_internal_sram2.enable_atomic_ops=0  # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.sse200.iotss_internal_sram2.fill1=3755990991  # (int   , init-time) default = '0xdfdfdfcf' : Fill pattern 1, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.sse200.iotss_internal_sram2.fill2=3487555551  # (int   , init-time) default = '0xcfdfdfdf' : Fill pattern 2, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.sse200.iotss_internal_sram2.size=4294967296  # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.sse200.iotss_internal_sram3.enable_atomic_ops=0  # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.sse200.iotss_internal_sram3.fill1=3755990991  # (int   , init-time) default = '0xdfdfdfcf' : Fill pattern 1, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.sse200.iotss_internal_sram3.fill2=3487555551  # (int   , init-time) default = '0xcfdfdfdf' : Fill pattern 2, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.sse200.iotss_internal_sram3.size=4294967296  # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.sse200.nonsecure_watchdog.simhalt=0          # (bool  , run-time ) default = '0'      : Halt on reset.
+fvp_mps2.sse200.ram0_ppu.revision=r0p0                # (string, init-time) default = 'r0p0'   : Revision
+fvp_mps2.sse200.ram0_ppu.use_active_signal=0          # (bool  , init-time) default = '0'      : Use device-active signal
+fvp_mps2.sse200.ram1_ppu.revision=r0p0                # (string, init-time) default = 'r0p0'   : Revision
+fvp_mps2.sse200.ram1_ppu.use_active_signal=0          # (bool  , init-time) default = '0'      : Use device-active signal
+fvp_mps2.sse200.ram2_ppu.revision=r0p0                # (string, init-time) default = 'r0p0'   : Revision
+fvp_mps2.sse200.ram2_ppu.use_active_signal=0          # (bool  , init-time) default = '0'      : Use device-active signal
+fvp_mps2.sse200.ram3_ppu.revision=r0p0                # (string, init-time) default = 'r0p0'   : Revision
+fvp_mps2.sse200.ram3_ppu.use_active_signal=0          # (bool  , init-time) default = '0'      : Use device-active signal
+fvp_mps2.sse200.s32k_timer.clk_div.div=1              # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.sse200.s32k_timer.clk_div.mul=1              # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.sse200.s32k_watchdog.simhalt=0               # (bool  , run-time ) default = '0'      : Halt on reset.
+fvp_mps2.sse200.secure_control_register_block.FLASH_BLOCK_CFG=3  # (int   , init-time) default = '0x3'    : Flash Block size configuration
+fvp_mps2.sse200.secure_control_register_block.FLASH_WATERMARK_SUPPORTED=1  # (bool  , init-time) default = '1'      : Flash Watermark supported
+fvp_mps2.sse200.secure_control_register_block.SRAM_BLOCK_CFG=3  # (int   , init-time) default = '0x3'    : SRAM Block size configuration
+fvp_mps2.sse200.secure_control_register_block.SRAM_WATERMARK_SUPPORTED=1  # (bool  , init-time) default = '1'      : SRAM Watermark supported
+fvp_mps2.sse200.secure_watchdog.simhalt=0             # (bool  , run-time ) default = '0'      : Halt on reset.
+fvp_mps2.sse200.sys_ppu.revision=r0p0                 # (string, init-time) default = 'r0p0'   : Revision
+fvp_mps2.sse200.sys_ppu.use_active_signal=0           # (bool  , init-time) default = '0'      : Use device-active signal
+fvp_mps2.sse200.timer0.clk_div.div=1                  # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.sse200.timer0.clk_div.mul=1                  # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.sse200.timer1.clk_div.div=1                  # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.sse200.timer1.clk_div.mul=1                  # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.ssram1.enable_atomic_ops=0                   # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.ssram1.fill1=3755990991                      # (int   , init-time) default = '0xdfdfdfcf' : Fill pattern 1, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.ssram1.fill2=3487555551                      # (int   , init-time) default = '0xcfdfdfdf' : Fill pattern 2, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.ssram1.size=4294967296                       # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.ssram2.enable_atomic_ops=0                   # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.ssram2.fill1=3755990991                      # (int   , init-time) default = '0xdfdfdfcf' : Fill pattern 1, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.ssram2.fill2=3487555551                      # (int   , init-time) default = '0xcfdfdfdf' : Fill pattern 2, initialise memory at start of simulation with alternating fill1, fill2 pattern
+fvp_mps2.ssram2.size=4294967296                       # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.stub0.enable_atomic_ops=0                    # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.stub0.size=4294967296                        # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.stub1.enable_atomic_ops=0                    # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.stub1.size=4294967296                        # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.stub_i2c1.enable_atomic_ops=0                # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.stub_i2c1.size=4294967296                    # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.stub_i2s.enable_atomic_ops=0                 # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.stub_i2s.size=4294967296                     # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.stub_spi0.enable_atomic_ops=0                # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.stub_spi0.size=4294967296                    # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.stub_spi2.enable_atomic_ops=0                # (bool  , init-time) default = '0'      : Supports Atomic Operations
+fvp_mps2.stub_spi2.size=4294967296                    # (int   , init-time) default = '0x100000000' : Memory Size
+fvp_mps2.svos_dualtimer.svos_dualtimer0.clk_div0.div=1  # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer0.clk_div0.mul=1  # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer0.clk_div1.div=1  # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer0.clk_div1.mul=1  # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer1.clk_div0.div=1  # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer1.clk_div0.mul=1  # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer1.clk_div1.div=1  # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer1.clk_div1.mul=1  # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer2.clk_div0.div=1  # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer2.clk_div0.mul=1  # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer2.clk_div1.div=1  # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer2.clk_div1.mul=1  # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer3.clk_div0.div=1  # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer3.clk_div0.mul=1  # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer3.clk_div1.div=1  # (int   , init-time) default = '0x1'    : Clock Rate Divider. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.svos_dualtimer.svos_dualtimer3.clk_div1.mul=1  # (int   , init-time) default = '0x1'    : Clock Rate Multiplier. This parameter is not exposed via CADI and can only be set in LISA
+fvp_mps2.telnetterminal0.mode=telnet                  # (string, init-time) default = 'telnet' : Terminal initialisation mode
+fvp_mps2.telnetterminal0.quiet=0                      # (bool  , init-time) default = '0'      : Avoid output on stdout/stderr
+fvp_mps2.telnetterminal0.start_port=5000              # (int   , init-time) default = '0x1388' : Telnet TCP Port Number
+fvp_mps2.telnetterminal0.start_telnet=1               # (bool  , init-time) default = '1'      : Start telnet if nothing connected
+fvp_mps2.telnetterminal0.terminal_command=            # (string, init-time) default = ''       : Commandline to launch a terminal application and connect to the opened TCP port. Keywords %port and %title will be replaced with the opened port number and component name respectively. An empty string (default behaviour) will launch xterm (Linux) or telnet.exe (Windows)
+fvp_mps2.telnetterminal1.mode=telnet                  # (string, init-time) default = 'telnet' : Terminal initialisation mode
+fvp_mps2.telnetterminal1.quiet=0                      # (bool  , init-time) default = '0'      : Avoid output on stdout/stderr
+fvp_mps2.telnetterminal1.start_port=5000              # (int   , init-time) default = '0x1388' : Telnet TCP Port Number
+fvp_mps2.telnetterminal1.start_telnet=1               # (bool  , init-time) default = '1'      : Start telnet if nothing connected
+fvp_mps2.telnetterminal1.terminal_command=            # (string, init-time) default = ''       : Commandline to launch a terminal application and connect to the opened TCP port. Keywords %port and %title will be replaced with the opened port number and component name respectively. An empty string (default behaviour) will launch xterm (Linux) or telnet.exe (Windows)
+fvp_mps2.telnetterminal2.mode=telnet                  # (string, init-time) default = 'telnet' : Terminal initialisation mode
+fvp_mps2.telnetterminal2.quiet=0                      # (bool  , init-time) default = '0'      : Avoid output on stdout/stderr
+fvp_mps2.telnetterminal2.start_port=5000              # (int   , init-time) default = '0x1388' : Telnet TCP Port Number
+fvp_mps2.telnetterminal2.start_telnet=1               # (bool  , init-time) default = '1'      : Start telnet if nothing connected
+fvp_mps2.telnetterminal2.terminal_command=            # (string, init-time) default = ''       : Commandline to launch a terminal application and connect to the opened TCP port. Keywords %port and %title will be replaced with the opened port number and component name respectively. An empty string (default behaviour) will launch xterm (Linux) or telnet.exe (Windows)
+pvbus2ambapv_vio.counters-file-name=                  # (string, init-time) default = ''       : Prefix of the file name to store counters at the end of simulation
+pvbus2ambapv_vio.dmi-container-type=TZAttr            # (string, init-time) default = 'TZAttr' : Type of the DMI cache. Allowed values: TZAttr and FullAttr
+pvbus2ambapv_vio.dump-dmi-cache=0                     # (bool  , run-time ) default = '0'      : Dumps the content of the DMI cache into a file
+pvbus2ambapv_vio.dump-dmi-file-name=                  # (string, init-time) default = ''       : Prefix of the file name to dump the content of the DMI when requested
+pvbus2ambapv_vio.force-dmi-size=1                     # (bool  , init-time) default = '1'      : Force DMI start and end address to be 4kB-aligned
+pvbus2ambapv_vio.min-range-to-cache=65536             # (int   , init-time) default = '0x10000' : Min DMI range size to cache in the bridge
+pvbus2ambapv_vio.size=281474976710656                 # (int   , init-time) default = '0x1000000000000' : Maximum size of memory region
+pvbus2ambapv_vsocket.counters-file-name=              # (string, init-time) default = ''       : Prefix of the file name to store counters at the end of simulation
+pvbus2ambapv_vsocket.dmi-container-type=TZAttr        # (string, init-time) default = 'TZAttr' : Type of the DMI cache. Allowed values: TZAttr and FullAttr
+pvbus2ambapv_vsocket.dump-dmi-cache=0                 # (bool  , run-time ) default = '0'      : Dumps the content of the DMI cache into a file
+pvbus2ambapv_vsocket.dump-dmi-file-name=              # (string, init-time) default = ''       : Prefix of the file name to dump the content of the DMI when requested
+pvbus2ambapv_vsocket.force-dmi-size=1                 # (bool  , init-time) default = '1'      : Force DMI start and end address to be 4kB-aligned
+pvbus2ambapv_vsocket.min-range-to-cache=65536         # (int   , init-time) default = '0x10000' : Min DMI range size to cache in the bridge
+pvbus2ambapv_vsocket.size=281474976710656             # (int   , init-time) default = '0x1000000000000' : Maximum size of memory region
+pvbus2ambapvx8_vsi.pvbus2ambapv_0.counters-file-name=  # (string, init-time) default = ''       : Prefix of the file name to store counters at the end of simulation
+pvbus2ambapvx8_vsi.pvbus2ambapv_0.dmi-container-type=TZAttr  # (string, init-time) default = 'TZAttr' : Type of the DMI cache. Allowed values: TZAttr and FullAttr
+pvbus2ambapvx8_vsi.pvbus2ambapv_0.dump-dmi-cache=0    # (bool  , run-time ) default = '0'      : Dumps the content of the DMI cache into a file
+pvbus2ambapvx8_vsi.pvbus2ambapv_0.dump-dmi-file-name=  # (string, init-time) default = ''       : Prefix of the file name to dump the content of the DMI when requested
+pvbus2ambapvx8_vsi.pvbus2ambapv_0.force-dmi-size=1    # (bool  , init-time) default = '1'      : Force DMI start and end address to be 4kB-aligned
+pvbus2ambapvx8_vsi.pvbus2ambapv_0.min-range-to-cache=65536  # (int   , init-time) default = '0x10000' : Min DMI range size to cache in the bridge
+pvbus2ambapvx8_vsi.pvbus2ambapv_0.size=281474976710656  # (int   , init-time) default = '0x1000000000000' : Maximum size of memory region
+pvbus2ambapvx8_vsi.pvbus2ambapv_1.counters-file-name=  # (string, init-time) default = ''       : Prefix of the file name to store counters at the end of simulation
+pvbus2ambapvx8_vsi.pvbus2ambapv_1.dmi-container-type=TZAttr  # (string, init-time) default = 'TZAttr' : Type of the DMI cache. Allowed values: TZAttr and FullAttr
+pvbus2ambapvx8_vsi.pvbus2ambapv_1.dump-dmi-cache=0    # (bool  , run-time ) default = '0'      : Dumps the content of the DMI cache into a file
+pvbus2ambapvx8_vsi.pvbus2ambapv_1.dump-dmi-file-name=  # (string, init-time) default = ''       : Prefix of the file name to dump the content of the DMI when requested
+pvbus2ambapvx8_vsi.pvbus2ambapv_1.force-dmi-size=1    # (bool  , init-time) default = '1'      : Force DMI start and end address to be 4kB-aligned
+pvbus2ambapvx8_vsi.pvbus2ambapv_1.min-range-to-cache=65536  # (int   , init-time) default = '0x10000' : Min DMI range size to cache in the bridge
+pvbus2ambapvx8_vsi.pvbus2ambapv_1.size=281474976710656  # (int   , init-time) default = '0x1000000000000' : Maximum size of memory region
+pvbus2ambapvx8_vsi.pvbus2ambapv_2.counters-file-name=  # (string, init-time) default = ''       : Prefix of the file name to store counters at the end of simulation
+pvbus2ambapvx8_vsi.pvbus2ambapv_2.dmi-container-type=TZAttr  # (string, init-time) default = 'TZAttr' : Type of the DMI cache. Allowed values: TZAttr and FullAttr
+pvbus2ambapvx8_vsi.pvbus2ambapv_2.dump-dmi-cache=0    # (bool  , run-time ) default = '0'      : Dumps the content of the DMI cache into a file
+pvbus2ambapvx8_vsi.pvbus2ambapv_2.dump-dmi-file-name=  # (string, init-time) default = ''       : Prefix of the file name to dump the content of the DMI when requested
+pvbus2ambapvx8_vsi.pvbus2ambapv_2.force-dmi-size=1    # (bool  , init-time) default = '1'      : Force DMI start and end address to be 4kB-aligned
+pvbus2ambapvx8_vsi.pvbus2ambapv_2.min-range-to-cache=65536  # (int   , init-time) default = '0x10000' : Min DMI range size to cache in the bridge
+pvbus2ambapvx8_vsi.pvbus2ambapv_2.size=281474976710656  # (int   , init-time) default = '0x1000000000000' : Maximum size of memory region
+pvbus2ambapvx8_vsi.pvbus2ambapv_3.counters-file-name=  # (string, init-time) default = ''       : Prefix of the file name to store counters at the end of simulation
+pvbus2ambapvx8_vsi.pvbus2ambapv_3.dmi-container-type=TZAttr  # (string, init-time) default = 'TZAttr' : Type of the DMI cache. Allowed values: TZAttr and FullAttr
+pvbus2ambapvx8_vsi.pvbus2ambapv_3.dump-dmi-cache=0    # (bool  , run-time ) default = '0'      : Dumps the content of the DMI cache into a file
+pvbus2ambapvx8_vsi.pvbus2ambapv_3.dump-dmi-file-name=  # (string, init-time) default = ''       : Prefix of the file name to dump the content of the DMI when requested
+pvbus2ambapvx8_vsi.pvbus2ambapv_3.force-dmi-size=1    # (bool  , init-time) default = '1'      : Force DMI start and end address to be 4kB-aligned
+pvbus2ambapvx8_vsi.pvbus2ambapv_3.min-range-to-cache=65536  # (int   , init-time) default = '0x10000' : Min DMI range size to cache in the bridge
+pvbus2ambapvx8_vsi.pvbus2ambapv_3.size=281474976710656  # (int   , init-time) default = '0x1000000000000' : Maximum size of memory region
+pvbus2ambapvx8_vsi.pvbus2ambapv_4.counters-file-name=  # (string, init-time) default = ''       : Prefix of the file name to store counters at the end of simulation
+pvbus2ambapvx8_vsi.pvbus2ambapv_4.dmi-container-type=TZAttr  # (string, init-time) default = 'TZAttr' : Type of the DMI cache. Allowed values: TZAttr and FullAttr
+pvbus2ambapvx8_vsi.pvbus2ambapv_4.dump-dmi-cache=0    # (bool  , run-time ) default = '0'      : Dumps the content of the DMI cache into a file
+pvbus2ambapvx8_vsi.pvbus2ambapv_4.dump-dmi-file-name=  # (string, init-time) default = ''       : Prefix of the file name to dump the content of the DMI when requested
+pvbus2ambapvx8_vsi.pvbus2ambapv_4.force-dmi-size=1    # (bool  , init-time) default = '1'      : Force DMI start and end address to be 4kB-aligned
+pvbus2ambapvx8_vsi.pvbus2ambapv_4.min-range-to-cache=65536  # (int   , init-time) default = '0x10000' : Min DMI range size to cache in the bridge
+pvbus2ambapvx8_vsi.pvbus2ambapv_4.size=281474976710656  # (int   , init-time) default = '0x1000000000000' : Maximum size of memory region
+pvbus2ambapvx8_vsi.pvbus2ambapv_5.counters-file-name=  # (string, init-time) default = ''       : Prefix of the file name to store counters at the end of simulation
+pvbus2ambapvx8_vsi.pvbus2ambapv_5.dmi-container-type=TZAttr  # (string, init-time) default = 'TZAttr' : Type of the DMI cache. Allowed values: TZAttr and FullAttr
+pvbus2ambapvx8_vsi.pvbus2ambapv_5.dump-dmi-cache=0    # (bool  , run-time ) default = '0'      : Dumps the content of the DMI cache into a file
+pvbus2ambapvx8_vsi.pvbus2ambapv_5.dump-dmi-file-name=  # (string, init-time) default = ''       : Prefix of the file name to dump the content of the DMI when requested
+pvbus2ambapvx8_vsi.pvbus2ambapv_5.force-dmi-size=1    # (bool  , init-time) default = '1'      : Force DMI start and end address to be 4kB-aligned
+pvbus2ambapvx8_vsi.pvbus2ambapv_5.min-range-to-cache=65536  # (int   , init-time) default = '0x10000' : Min DMI range size to cache in the bridge
+pvbus2ambapvx8_vsi.pvbus2ambapv_5.size=281474976710656  # (int   , init-time) default = '0x1000000000000' : Maximum size of memory region
+pvbus2ambapvx8_vsi.pvbus2ambapv_6.counters-file-name=  # (string, init-time) default = ''       : Prefix of the file name to store counters at the end of simulation
+pvbus2ambapvx8_vsi.pvbus2ambapv_6.dmi-container-type=TZAttr  # (string, init-time) default = 'TZAttr' : Type of the DMI cache. Allowed values: TZAttr and FullAttr
+pvbus2ambapvx8_vsi.pvbus2ambapv_6.dump-dmi-cache=0    # (bool  , run-time ) default = '0'      : Dumps the content of the DMI cache into a file
+pvbus2ambapvx8_vsi.pvbus2ambapv_6.dump-dmi-file-name=  # (string, init-time) default = ''       : Prefix of the file name to dump the content of the DMI when requested
+pvbus2ambapvx8_vsi.pvbus2ambapv_6.force-dmi-size=1    # (bool  , init-time) default = '1'      : Force DMI start and end address to be 4kB-aligned
+pvbus2ambapvx8_vsi.pvbus2ambapv_6.min-range-to-cache=65536  # (int   , init-time) default = '0x10000' : Min DMI range size to cache in the bridge
+pvbus2ambapvx8_vsi.pvbus2ambapv_6.size=281474976710656  # (int   , init-time) default = '0x1000000000000' : Maximum size of memory region
+pvbus2ambapvx8_vsi.pvbus2ambapv_7.counters-file-name=  # (string, init-time) default = ''       : Prefix of the file name to store counters at the end of simulation
+pvbus2ambapvx8_vsi.pvbus2ambapv_7.dmi-container-type=TZAttr  # (string, init-time) default = 'TZAttr' : Type of the DMI cache. Allowed values: TZAttr and FullAttr
+pvbus2ambapvx8_vsi.pvbus2ambapv_7.dump-dmi-cache=0    # (bool  , run-time ) default = '0'      : Dumps the content of the DMI cache into a file
+pvbus2ambapvx8_vsi.pvbus2ambapv_7.dump-dmi-file-name=  # (string, init-time) default = ''       : Prefix of the file name to dump the content of the DMI when requested
+pvbus2ambapvx8_vsi.pvbus2ambapv_7.force-dmi-size=1    # (bool  , init-time) default = '1'      : Force DMI start and end address to be 4kB-aligned
+pvbus2ambapvx8_vsi.pvbus2ambapv_7.min-range-to-cache=65536  # (int   , init-time) default = '0x10000' : Min DMI range size to cache in the bridge
+pvbus2ambapvx8_vsi.pvbus2ambapv_7.size=281474976710656  # (int   , init-time) default = '0x1000000000000' : Maximum size of memory region
+#------------------------------------------------------------------------------
