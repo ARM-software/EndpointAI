@@ -255,53 +255,41 @@ _ARMABI FILE *fopen(const char * __restrict pchName,
 {
     FILE *ptResult = NULL;
     do {
+        uint8_t chMode = 0;
         if (NULL == pchName || NULL == pchMode) {
             break;
         }
-        
-        struct {
-            const char *pchStr;
-            uint8_t chMode;
-        } const c_tLookupTable[] = {
-        
-/*
-    #define OPEN_R 0
-    #define OPEN_W 4
-    #define OPEN_A 8
-    #define OPEN_B 1
-    #define OPEN_PLUS 2
-*/
-        
-            {"r",   OPEN_R},
-            {"w",           OPEN_W},
-            {"a",           OPEN_W| OPEN_A},
-            {"rw",  OPEN_R| OPEN_W},
-            {"r+",  OPEN_R|                         OPEN_PLUS},                          
-            {"w+",          OPEN_W|                 OPEN_PLUS},
-            {"a+",                  OPEN_A|         OPEN_PLUS},
-            
-            {"rb",  OPEN_R|                 OPEN_B},
-            {"wb",          OPEN_W|         OPEN_B},
-            {"ab",                  OPEN_A| OPEN_B},
-            {"r+b", OPEN_R|                 OPEN_B| OPEN_PLUS},        
-            {"rb+", OPEN_R|                 OPEN_B| OPEN_PLUS},        
-            {"w+b",         OPEN_W|         OPEN_B| OPEN_PLUS},
-            {"wb+",         OPEN_W|         OPEN_B| OPEN_PLUS},
-            {"a+b",                 OPEN_A| OPEN_B| OPEN_PLUS},
-            {"ab+",                 OPEN_A| OPEN_B| OPEN_PLUS},
-        }, *ptItem = c_tLookupTable;
 
-        uint_fast8_t n = dimof(c_tLookupTable);
-        do {
-            if (0 == strcmp(pchMode, ptItem->pchStr)) {
-                
-                //! call _sys_open to open file
-                ptResult = (FILE *) (_sys_open(pchName, ptItem->chMode));
-                break;
-            }
-            ptItem++;
-        } while(--n);
-        
+        /* filter stdout */
+        if (strcmp(pchName, __stdout_name) >= 0) {
+            return &__stdout;
+        }
+        /* filter stdin */
+        if (strcmp(pchName, __stdin_name) >= 0) {
+            return &__stdin;
+        }
+        /* filter stderr */
+        if (strcmp(pchName, __stderr_name) >= 0) {
+            return &__stderr;
+        }
+
+        if (strchr(pchMode, 'r')) {
+            chMode |= OPEN_R;
+        }
+        if (strchr(pchMode, 'w')) {
+            chMode |= OPEN_W;
+        }
+        if (strchr(pchMode, 'a')) {
+            chMode |= OPEN_A;
+        }
+        if (strchr(pchMode, 'b')) {
+            chMode |= OPEN_B;
+        }
+        if (strchr(pchMode, '+')) {
+            chMode |= OPEN_PLUS;
+        }
+        ptResult = (FILE *) (_sys_open(pchName, chMode));
+
     } while(false);
     
     return ptResult;
@@ -415,10 +403,10 @@ _ARMABI int feof(FILE * ptFile)
  * As we define _sys_open() to always return the same file handle,
  * these can be left as their default values.
  */
-/*WEAK const char __stdin_name[] =  ":tt";
-WEAK const char __stdout_name[] =  ":tt";
-WEAK const char __stderr_name[] =  ":tt";
-*/
+__attribute__((weak)) const char __stdin_name[] =  "stdin";
+__attribute__((weak)) const char __stdout_name[] =  "stdout";
+__attribute__((weak)) const char __stderr_name[] =  "stderr";
+
 
 FILEHANDLE _sys_open(const char *pchName, int nOpenMode)
 {
