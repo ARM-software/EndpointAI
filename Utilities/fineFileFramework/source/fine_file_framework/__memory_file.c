@@ -290,6 +290,7 @@ int_fast32_t arm_fff_mem_file_write(const arm_file_node_t *ptNode,
          */
         FFF_ASSERT(NULL != this.tAccess.ptCurrent);
 
+#if 0
         int_fast32_t nWritableWithinBlock = 
                 this.tAccess.ptCurrent->nBufferSize 
             -   this.tAccess.ptCurrent->nContentSize;
@@ -325,6 +326,49 @@ int_fast32_t arm_fff_mem_file_write(const arm_file_node_t *ptNode,
             this.tAccess.ptCurrent->nContentSize += nWrittenSize;
             this.nTotalSize += nWrittenSize;
         }
+#else
+
+        int_fast32_t nWritableWithinBlock = 
+                this.tAccess.ptCurrent->nBufferSize 
+            -   this.tAccess.nInblockOffset;
+        
+        while (nWritableWithinBlock <= 0) {
+            FFF_ASSERT(0 == nWritableWithinBlock);
+
+            if (NULL == this.tAccess.ptCurrent->ptNext) {
+                //! try to get a new block
+                __arm_fff_mem_block_t * ptBlock 
+                    = __arm_fff_mem_file_request_new_block(ptThis);
+                if (NULL == ptBlock) {
+                    //! not enough resource
+                    return -1;
+                }
+                
+                //! connect the node to the list
+                ptBlock->ptPrevious = this.tAccess.ptCurrent;
+                this.tAccess.ptCurrent->ptNext = ptBlock;
+            }
+            this.tAccess.ptCurrent = this.tAccess.ptCurrent->ptNext;
+            this.tAccess.nInblockOffset = 0;
+            this.tAccess.ptCurrent->nContentSize = 0;
+            nWritableWithinBlock = this.tAccess.ptCurrent->nBufferSize;
+        }
+
+        nWrittenSize = MIN(nWritableWithinBlock, nSize);
+        
+        if (nWrittenSize > 0) {
+            //! copy content
+            memcpy( this.tAccess.ptCurrent->pchBuffer + this.tAccess.nInblockOffset, 
+                    pBuffer, 
+                    nWrittenSize);
+            this.tAccess.nInblockOffset += nWrittenSize;
+            this.tAccess.nPosition += nWrittenSize;
+
+            /* update size info*/
+            this.tAccess.ptCurrent->nContentSize = MAX( this.tAccess.nInblockOffset, this.tAccess.ptCurrent->nContentSize);
+            this.nTotalSize = MAX(this.nTotalSize, this.tAccess.nPosition);
+        }
+#endif
     } while(0);
 
     return nWrittenSize;

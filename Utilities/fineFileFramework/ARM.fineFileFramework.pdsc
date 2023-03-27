@@ -16,13 +16,14 @@
   <repository type="git"></repository>
   
   <releases>
-    <release date="2023-03-27" version="0.9.8" tag="0.9.8" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/ARM.fineFileFramework.0.9.8.pack">
+    <release date="2023-03-27" version="0.9.9" tag="0.9.9" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/ARM.fineFileFramework.0.9.9.pack">
       - First release
       - Minor fixes
       - Introduce macro __FFF_CFG_IGNORE_NO_SEMIHOSTING__ 
       - Support exit simulation via semihosting.
       - Support stdout and stdin via semihosting
       - Support command line via semihosting
+      - Implement full feature fwrite
     </release>
   </releases>
 
