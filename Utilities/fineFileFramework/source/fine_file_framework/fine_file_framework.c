@@ -803,6 +803,13 @@ void *arm_fff_malloc(size_t tSize)
     return malloc(tSize);
 }
 
+__attribute__((weak))
+void arm_fff_free(void *pAddress)
+{
+    if (NULL != pAddress) {
+        free(pAddress);
+    }
+}
 
 size_t arm_fff_helper_read_file(arm_file_node_t *ptInputFile, 
                                 void *pBuffer, 

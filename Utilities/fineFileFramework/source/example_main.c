@@ -135,7 +135,7 @@ static void file_path_demo(void)
     print_path(arm_fff_get_working_path());
     
     printf("Try to open file with relative path : [no_2.mp3] ...");
-    ptInput = fopen("no_2.mp3", "r");
+    ptInput = fopen("no_2.mp3", "rb");
     if (NULL == ptInput) {
         printf("Failed\r\n");
     } else {
@@ -225,7 +225,7 @@ int main(int argc, char **argv)
     
     file_path_demo();
     file_copy_demo();
-    
+    file_copy_demo();
     return 0;
 }
 

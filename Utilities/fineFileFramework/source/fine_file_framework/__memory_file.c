@@ -67,6 +67,7 @@ extern "C" {
 static __arm_fff_mem_block_t *__arm_fff_mem_file_request_new_block(
                                                 arm_fff_mem_file_cb_t *ptThis)
 {
+    FFF_ASSERT(NULL != ptThis);
     //! allocate a new memory block for write
     __arm_fff_mem_block_t *ptBlock 
         = arm_fff_malloc(sizeof(__arm_fff_mem_block_t) + this.hwPageSize);
@@ -81,6 +82,24 @@ static __arm_fff_mem_block_t *__arm_fff_mem_file_request_new_block(
         ptBlock->nBufferSize = this.hwPageSize;
     } while(0);
     return ptBlock;
+}
+
+static void __arm_fff_mem_file_free_block(  arm_fff_mem_file_cb_t *ptThis, 
+                                            __arm_fff_mem_block_t *ptBlock)
+{
+    //! allocate a new memory block for write
+    FFF_ASSERT(NULL != ptThis);
+
+    do {
+        if (NULL == ptBlock) {
+            break;
+        }
+        if (NULL != ptBlock->pwExternalSize) {  /* external block */
+            break;
+        }
+
+        arm_fff_free(ptBlock);
+    } while(0);
 }
 
 arm_fff_err_t arm_fff_mem_file_open(const arm_file_node_t *ptNode,  
@@ -101,41 +120,72 @@ arm_fff_err_t arm_fff_mem_file_open(const arm_file_node_t *ptNode,
             if (    (OPEN_R == (chAttribute & OPEN_R))
                 ||  (OPEN_PLUS == (chAttribute & OPEN_PLUS))) {
 
-                if (NULL == this.ptBlockList) {
+                if (    (NULL == this.ptBlockList)
+                    &&  (0 == (chAttribute & (OPEN_PLUS | OPEN_W | OPEN_A)))) {
+                    /* only read */
                     tResult = ARM_FFF_ERR_NO_BUFFER;
                     break;
                 }
-                if (    (NULL == this.ptBlockList->pchBuffer) 
-                    ||  (   (NULL == this.ptBlockList->pwExternalSize)
-                        &&  (0 == this.ptBlockList->nBufferSize))){
-                    tResult = ARM_FFF_ERR_NO_BUFFER;
-                    break;
-                }
-                
-                //! update nSize
-                if (NULL != this.ptBlockList->pwExternalSize) {
-                    this.ptBlockList->nBufferSize = *this.ptBlockList->pwExternalSize;
-                    this.ptBlockList->nContentSize = this.ptBlockList->nBufferSize;
+
+                if (NULL != this.ptBlockList) {
+                    if (    (NULL == this.ptBlockList->pchBuffer) 
+                        ||  (   (NULL == this.ptBlockList->pwExternalSize)
+                            &&  (0 == this.ptBlockList->nBufferSize))){
+                        tResult = ARM_FFF_ERR_NO_BUFFER;
+                        break;
+                    }
+                    
+                    //! update nSize
+                    if (NULL != this.ptBlockList->pwExternalSize) {
+                        this.ptBlockList->nBufferSize = *this.ptBlockList->pwExternalSize;
+                        this.ptBlockList->nContentSize = this.ptBlockList->nBufferSize;
+                    }
+
+                    //! calculate the total size
+                    do {
+                        int_fast32_t nTotalSize = 0;
+                        __arm_fff_mem_block_t *ptBlock = this.ptBlockList;
+                        do {
+                            nTotalSize += ptBlock->nContentSize;
+                            ptBlock = ptBlock->ptNext;
+                        } while(ptBlock != NULL);
+                        
+                        this.nTotalSize = nTotalSize;
+                    } while(0);
+                } else {
+                    this.nTotalSize = 0;
                 }
                 
                 /* move to the start of the file */
                 this.tAccess.ptCurrent = this.ptBlockList;
                 this.tAccess.nInblockOffset = 0;
                 this.tAccess.nPosition = 0;
-                
-                //! calculate the total size
-                do {
-                    int_fast32_t nTotalSize = 0;
-                    __arm_fff_mem_block_t *ptBlock = this.ptBlockList;
-                    do {
-                        nTotalSize += ptBlock->nContentSize;
-                        ptBlock = ptBlock->ptNext;
-                    } while(ptBlock != NULL);
-                    
-                    this.nTotalSize = nTotalSize;
-                } while(0);
             }
         } while(0);
+
+
+        //! truncate to zero length
+        if (OPEN_W == (chAttribute & OPEN_W)) {
+            if (NULL != this.ptBlockList) {
+                /* free existing mem blocks */
+                __arm_fff_mem_block_t *ptBlock = this.ptBlockList;
+                this.ptBlockList = NULL;
+                do {
+                    __arm_fff_mem_block_t *ptFreeBlock = ptBlock;
+                    ptBlock = ptBlock->ptNext;
+
+                    /* clean pointers before release */
+                    ptFreeBlock->ptNext = NULL;
+                    ptFreeBlock->ptPrevious = NULL;
+
+                    __arm_fff_mem_file_free_block(ptThis, ptFreeBlock);
+                } while(ptBlock != NULL);
+            }
+            this.tAccess.ptCurrent = NULL;
+            this.tAccess.nInblockOffset = 0;
+            this.tAccess.nPosition = 0;
+            this.nTotalSize = 0;
+        }
 
         /* prepare for write */
         if (    (OPEN_W == (chAttribute & OPEN_W))
@@ -150,18 +200,7 @@ arm_fff_err_t arm_fff_mem_file_open(const arm_file_node_t *ptNode,
                     break;
                 }
             }
-        }
-
-        //! truncate to zero length
-        if (OPEN_W == (chAttribute & OPEN_W)) {
-            if (NULL != this.ptBlockList) {
-                /* free existing mem blocks */
-            }
-
             this.tAccess.ptCurrent = this.ptBlockList;
-            this.tAccess.nInblockOffset = 0;
-            this.tAccess.nPosition = 0;
-            this.nTotalSize = 0;
         }
 
         /* append */
@@ -199,7 +238,11 @@ int_fast32_t arm_fff_mem_file_read( const arm_file_node_t *ptNode,
         if (NULL == ptThis) {
             break;
         }
-        
+
+        if (NULL == this.tAccess.ptCurrent) {
+            break;
+        }
+
         //! calculate the readable length
         int_fast32_t nReadableLenght = this.nTotalSize - this.tAccess.nPosition;
         int_fast32_t nReadableWithinBlock = 
@@ -241,7 +284,12 @@ int_fast32_t arm_fff_mem_file_write(const arm_file_node_t *ptNode,
         if (NULL == ptThis) {
             break;
         }
-        
+
+        /* for file opened with write mode, there should be at least one memory 
+         * block 
+         */
+        FFF_ASSERT(NULL != this.tAccess.ptCurrent);
+
         int_fast32_t nWritableWithinBlock = 
                 this.tAccess.ptCurrent->nBufferSize 
             -   this.tAccess.ptCurrent->nContentSize;
