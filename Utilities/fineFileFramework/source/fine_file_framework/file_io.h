@@ -38,12 +38,12 @@ typedef struct
     int_fast32_t    (*ReadByte)         (   arm_file_node_t *ptObj);
     bool            (*WriteByte)        (   arm_file_node_t *ptObj, 
                                             uint_fast8_t chByte);   
-    int_fast32_t    (*Read)             (   arm_file_node_t *ptObj, 
-                                            uint8_t *pchSrc, 
-                                            int_fast32_t nSize);
-    int_fast32_t    (*Write)            (   arm_file_node_t *ptObj, 
-                                            uint8_t *pchSrc, 
-                                            int_fast32_t nSize);
+    size_t          (*Read)             (   arm_file_node_t *ptObj, 
+                                            void *pSrc, 
+                                            size_t tSize);
+    size_t          (*Write)            (   arm_file_node_t *ptObj, 
+                                            void *pSrc, 
+                                            size_t tSize);
     bool            (*Flush)            (   arm_file_node_t *ptObj);
     bool            (*EndOfStream)      (   arm_file_node_t *ptObj);
 } i_file_io_t;

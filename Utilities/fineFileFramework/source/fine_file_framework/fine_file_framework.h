@@ -526,11 +526,22 @@ extern
 int_fast32_t arm_fff_read(  arm_file_node_t *ptNode,
                             uint8_t *pchBuffer,
                             int_fast32_t nSize);
+
+extern
+size_t arm_fff_helper_read_file(arm_file_node_t *ptInputFile, 
+                                void *pBuffer, 
+                                size_t tSize);
+
 extern
 int_fast32_t arm_fff_write( arm_file_node_t *ptNode,
                             uint8_t *pchBuffer,
                             int_fast32_t nSize);
-                            
+
+extern
+size_t arm_fff_helper_write_file(   arm_file_node_t *ptOutputFile, 
+                                    void *pBuffer, 
+                                    size_t tSize);
+
 extern
 int_fast32_t arm_fff_read_byte(arm_file_node_t *ptNode);
 

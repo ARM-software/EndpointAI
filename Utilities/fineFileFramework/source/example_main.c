@@ -145,52 +145,6 @@ static void file_path_demo(void)
 }
 
 
-static uint_fast16_t __read_file_to_buffer( FILE *ptInputFile, 
-                                            void *pBuffer, 
-                                            uint_fast16_t hwSize)
-{
-    assert(NULL != ptInputFile);
-    
-    uint8_t *pchBuffer = (uint8_t *)pBuffer;
-    uint_fast16_t hwSizeLeft = hwSize;
-    while(!feof(ptInputFile)) {
-        size_t nSize = fread(pchBuffer, 1, hwSizeLeft, ptInputFile);
-        if (nSize == 0) {
-            break;
-        } 
-        pchBuffer += nSize;
-        hwSizeLeft -= nSize;
-        if (0 == hwSizeLeft) {
-            break;
-        }
-    } 
-    
-    return hwSize - hwSizeLeft;
-}
-
-static uint_fast16_t __write_buffer_to_file(FILE *ptOutputFile, 
-                                            void *pBuffer, 
-                                            uint_fast16_t hwSize)
-{
-    assert(NULL != ptOutputFile);
-    
-    uint8_t *pchBuffer = (uint8_t *)pBuffer;
-    uint_fast16_t hwSizeLeft = hwSize;
-    while(true) {
-        size_t nSize = fwrite(pchBuffer, 1, hwSizeLeft, ptOutputFile);
-        if (nSize == 0) {
-            break;
-        } 
-        pchBuffer += nSize;
-        hwSizeLeft -= nSize;
-        if (0 == hwSizeLeft) {
-            break;
-        }
-    } 
-    
-    return hwSize - hwSizeLeft;
-}
-
 static void file_copy_demo(void)
 {
     printf("\r\n");
@@ -220,14 +174,13 @@ static void file_copy_demo(void)
     while(!feof(ptInput)) {
         static uint8_t s_chBuffer[1024];
         
-        size_t nSize = 
-            __read_file_to_buffer(ptInput, s_chBuffer, sizeof(s_chBuffer));
+        size_t nSize = fread(s_chBuffer, 1, sizeof(s_chBuffer), ptInput);
         if (nSize == 0) {
             bError = true;
             break;
         }
         
-        nSize = __write_buffer_to_file(ptOutput, s_chBuffer, nSize);
+        nSize = fwrite(s_chBuffer, 1, nSize, ptOutput);
         if (nSize == 0) {
             bError = true;
             break;

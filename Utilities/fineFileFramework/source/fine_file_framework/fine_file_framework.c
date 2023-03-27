@@ -107,8 +107,8 @@ const i_file_io_t FFF_IO = {
     .Close          = &arm_fff_close,
     .ReadByte       = &arm_fff_read_byte,
     .WriteByte      = &arm_fff_write_byte,
-    .Read           = &arm_fff_read,
-    .Write          = &arm_fff_write,
+    .Read           = &arm_fff_helper_read_file,
+    .Write          = &arm_fff_helper_write_file,
     .Flush          = &arm_fff_flush,
     .EndOfStream    = &arm_fff_eof,
 };
@@ -798,6 +798,52 @@ void *arm_fff_malloc(size_t tSize)
     return malloc(tSize);
 }
 
+
+size_t arm_fff_helper_read_file(arm_file_node_t *ptInputFile, 
+                                void *pBuffer, 
+                                size_t tSize)
+{
+    assert(NULL != ptInputFile);
+    
+    uint8_t *pchBuffer = (uint8_t *)pBuffer;
+    size_t tSizeLeft = tSize;
+    while(!arm_fff_eof(ptInputFile)) {
+        size_t nSize = arm_fff_read(ptInputFile, pchBuffer, tSizeLeft);
+        if (nSize == 0) {
+            break;
+        }
+        pchBuffer += nSize;
+        tSizeLeft -= nSize;
+        if (0 == tSizeLeft) {
+            break;
+        }
+    } 
+    
+    return tSize - tSizeLeft;
+}
+
+size_t arm_fff_helper_write_file(   arm_file_node_t *ptOutputFile, 
+                                    void *pBuffer, 
+                                    size_t tSize)
+{
+    assert(NULL != ptOutputFile);
+    
+    uint8_t *pchBuffer = (uint8_t *)pBuffer;
+    size_t tSizeLeft = tSize;
+    while(true) {
+        size_t nSize = arm_fff_write(ptOutputFile, pchBuffer, tSizeLeft);
+        if (nSize == 0) {
+            break;
+        } 
+        pchBuffer += nSize;
+        tSizeLeft -= nSize;
+        if (0 == tSizeLeft) {
+            break;
+        }
+    } 
+    
+    return tSize - tSizeLeft;
+}
 
 /*----------------------------------------------------------------------------*
  * Wrapper Functions                                                          *
