@@ -683,12 +683,13 @@ int _sys_ensure(FILEHANDLE fn)
     return FFF_IO.Flush((arm_file_node_t *)fn) ? 0 : -1;
 }
 
+
 int _sys_seek(FILEHANDLE fh, long pos)
 {
-    FFF_UNUSED(fh);
-    FFF_UNUSED(pos);
-    return -1; /* not supported */
+    return FFF_IO.Seek((arm_file_node_t *)fh, pos, SEEK_SET);
 }
+
+
 long _sys_flen(FILEHANDLE fh)
 {
     FFF_UNUSED(fh);

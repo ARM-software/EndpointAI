@@ -111,6 +111,7 @@ const i_file_io_t FFF_IO = {
     .Write          = &arm_fff_helper_write_file,
     .Flush          = &arm_fff_flush,
     .EndOfStream    = &arm_fff_eof,
+    .Seek           = &arm_fff_seek,
 };
 /*============================ IMPLEMENTATION ================================*/
 
@@ -660,6 +661,46 @@ bool __arm_fff_flush(  __arm_fff_t *ptThis, const arm_file_node_t * ptNode)
 
 
 static 
+int __arm_fff_seek(__arm_fff_t *ptThis, 
+                    const arm_file_node_t * ptNode,
+                    int32_t nOffset,
+                    int32_t nWhence)
+{
+    int nResult = -1;
+    
+    do {
+        if (NULL == ptNode) {
+            //! cannot find the target node
+            break;
+        } else if (0 == ptNode->chID) {         
+            //! you are not allowed to open a default folder
+            break;
+        } else if (ptNode->chID > this.tConfig.tTypes.chCount + 1) {
+            //! illegal ID
+            break;
+        }
+        
+        if (ptNode->chID >= 2) {
+            //! user defined type
+            const i_arm_file_node_t *ptType = 
+                &this.tConfig.tTypes.ptList[ptNode->chID - 2];
+            
+            //! call user defined flush method
+            if (NULL != ptType->Position.Set){
+                nResult = (*(ptType->Position.Set))(ptNode, nOffset, nWhence);
+            }
+        } else {
+            nResult = arm_fff_mem_file_seek(ptNode, nOffset, nWhence);
+        }
+
+    } while(0);
+    
+    return nResult;
+}
+
+
+
+static 
 int_fast32_t __arm_fff_read(__arm_fff_t *ptThis, 
                             const arm_file_node_t *ptNode,
                             void *pBuffer,
@@ -900,6 +941,13 @@ bool arm_fff_eof( arm_file_node_t * ptNode)
 bool arm_fff_flush( arm_file_node_t * ptNode)
 {
     return __arm_fff_flush(&s_tLocalFFF, ptNode);
+}
+
+int arm_fff_seek(   arm_file_node_t * ptNode,
+                    int32_t nOffset,
+                    int32_t nWhence)
+{
+    return __arm_fff_seek(&s_tLocalFFF, ptNode, nOffset, nWhence);
 }
 
 int_fast32_t arm_fff_read(  arm_file_node_t *ptNode,

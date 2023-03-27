@@ -125,4 +125,9 @@ int_fast32_t arm_fff_mem_file_write(const arm_file_node_t *ptNode,
                                     
 extern
 bool arm_fff_mem_file_eof(const arm_file_node_t *ptNode);
+
+extern
+int arm_fff_mem_file_seek(  const arm_file_node_t *ptNode, 
+                            int_fast32_t nOffset,
+                            int_fast32_t nWhence);
 #endif

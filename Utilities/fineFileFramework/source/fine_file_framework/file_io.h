@@ -46,6 +46,10 @@ typedef struct
                                             size_t tSize);
     bool            (*Flush)            (   arm_file_node_t *ptObj);
     bool            (*EndOfStream)      (   arm_file_node_t *ptObj);
+    
+    int             (*Seek)             (   arm_file_node_t *ptFile, 
+                                            int32_t nOffset, 
+                                            int32_t nWhence);
 } i_file_io_t;
 //! @}
     

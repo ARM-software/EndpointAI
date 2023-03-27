@@ -523,6 +523,11 @@ extern
 bool arm_fff_flush( arm_file_node_t * ptNode);
 
 extern
+int arm_fff_seek(   arm_file_node_t * ptNode,
+                    int32_t nOffset,
+                    int32_t nWhence);
+
+extern
 int_fast32_t arm_fff_read(  arm_file_node_t *ptNode,
                             uint8_t *pchBuffer,
                             int_fast32_t nSize);

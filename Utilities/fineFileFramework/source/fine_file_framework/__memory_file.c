@@ -350,6 +350,26 @@ bool arm_fff_mem_file_eof(const arm_file_node_t *ptNode)
     return true;
 }
 
+int arm_fff_mem_file_seek(  const arm_file_node_t *ptNode, 
+                            int_fast32_t nOffset,
+                            int_fast32_t nWhence)
+{
+    arm_fff_mem_file_cb_t *ptThis = ((arm_mem_file_node_t *)ptNode)->ptRuntime;
+    
+    do {
+        if (NULL == ptThis) {
+            break;
+        }
+        
+        
+        
+        
+        return 0;
+    } while(0);
+    
+    return -1;
+}
+
 
 #ifdef   __cplusplus
 }
