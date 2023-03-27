@@ -115,53 +115,52 @@ arm_fff_err_t arm_fff_mem_file_open(const arm_file_node_t *ptNode,
         }
         
         this.chAttribute = chAttribute;
-        do {
-            //! read
-            if (    (OPEN_R == (chAttribute & OPEN_R))
-                ||  (OPEN_PLUS == (chAttribute & OPEN_PLUS))) {
 
-                if (    (NULL == this.ptBlockList)
-                    &&  (0 == (chAttribute & (OPEN_PLUS | OPEN_W | OPEN_A)))) {
-                    /* only read */
+        //! read
+        if (    (OPEN_R == (chAttribute & OPEN_R))
+            ||  (OPEN_PLUS == (chAttribute & OPEN_PLUS))) {
+
+            if (    (NULL == this.ptBlockList)
+                &&  (0 == (chAttribute & (OPEN_PLUS | OPEN_W | OPEN_A)))) {
+                /* only read */
+                tResult = ARM_FFF_ERR_NO_BUFFER;
+                break;
+            }
+
+            if (NULL != this.ptBlockList) {
+                if (    (NULL == this.ptBlockList->pchBuffer) 
+                    ||  (   (NULL == this.ptBlockList->pwExternalSize)
+                        &&  (0 == this.ptBlockList->nBufferSize))){
                     tResult = ARM_FFF_ERR_NO_BUFFER;
                     break;
                 }
-
-                if (NULL != this.ptBlockList) {
-                    if (    (NULL == this.ptBlockList->pchBuffer) 
-                        ||  (   (NULL == this.ptBlockList->pwExternalSize)
-                            &&  (0 == this.ptBlockList->nBufferSize))){
-                        tResult = ARM_FFF_ERR_NO_BUFFER;
-                        break;
-                    }
-                    
-                    //! update nSize
-                    if (NULL != this.ptBlockList->pwExternalSize) {
-                        this.ptBlockList->nBufferSize = *this.ptBlockList->pwExternalSize;
-                        this.ptBlockList->nContentSize = this.ptBlockList->nBufferSize;
-                    }
-
-                    //! calculate the total size
-                    do {
-                        int_fast32_t nTotalSize = 0;
-                        __arm_fff_mem_block_t *ptBlock = this.ptBlockList;
-                        do {
-                            nTotalSize += ptBlock->nContentSize;
-                            ptBlock = ptBlock->ptNext;
-                        } while(ptBlock != NULL);
-                        
-                        this.nTotalSize = nTotalSize;
-                    } while(0);
-                } else {
-                    this.nTotalSize = 0;
-                }
                 
-                /* move to the start of the file */
-                this.tAccess.ptCurrent = this.ptBlockList;
-                this.tAccess.nInblockOffset = 0;
-                this.tAccess.nPosition = 0;
+                //! update nSize
+                if (NULL != this.ptBlockList->pwExternalSize) {
+                    this.ptBlockList->nBufferSize = *this.ptBlockList->pwExternalSize;
+                    this.ptBlockList->nContentSize = this.ptBlockList->nBufferSize;
+                }
+
+                //! calculate the total size
+                do {
+                    int_fast32_t nTotalSize = 0;
+                    __arm_fff_mem_block_t *ptBlock = this.ptBlockList;
+                    do {
+                        nTotalSize += ptBlock->nContentSize;
+                        ptBlock = ptBlock->ptNext;
+                    } while(ptBlock != NULL);
+                    
+                    this.nTotalSize = nTotalSize;
+                } while(0);
+            } else {
+                this.nTotalSize = 0;
             }
-        } while(0);
+            
+            /* move to the start of the file */
+            this.tAccess.ptCurrent = this.ptBlockList;
+            this.tAccess.nInblockOffset = 0;
+            this.tAccess.nPosition = 0;
+        }
 
 
         //! truncate to zero length
@@ -290,43 +289,6 @@ int_fast32_t arm_fff_mem_file_write(const arm_file_node_t *ptNode,
          */
         FFF_ASSERT(NULL != this.tAccess.ptCurrent);
 
-#if 0
-        int_fast32_t nWritableWithinBlock = 
-                this.tAccess.ptCurrent->nBufferSize 
-            -   this.tAccess.ptCurrent->nContentSize;
-            
-        while (0 == nWritableWithinBlock) {
-            if (NULL == this.tAccess.ptCurrent->ptNext) {
-                //! try to get a new block
-                __arm_fff_mem_block_t * ptBlock 
-                    = __arm_fff_mem_file_request_new_block(ptThis);
-                if (NULL == ptBlock) {
-                    //! not enough resource
-                    return -1;
-                }
-                
-                //! connect the node to the list
-                ptBlock->ptPrevious = this.tAccess.ptCurrent;
-                this.tAccess.ptCurrent->ptNext = ptBlock;
-            }
-            this.tAccess.ptCurrent = this.tAccess.ptCurrent->ptNext;
-            this.tAccess.nInblockOffset = 0;
-            this.tAccess.ptCurrent->nContentSize = 0;
-            nWritableWithinBlock = this.tAccess.ptCurrent->nBufferSize;
-        }
-        
-        nWrittenSize = MIN(nWritableWithinBlock, nSize);
-        
-        if (nWrittenSize > 0) {
-            //! copy content
-            memcpy( this.tAccess.ptCurrent->pchBuffer + this.tAccess.nInblockOffset, 
-                    pBuffer, 
-                    nWrittenSize);
-            this.tAccess.nInblockOffset += nWrittenSize;
-            this.tAccess.ptCurrent->nContentSize += nWrittenSize;
-            this.nTotalSize += nWrittenSize;
-        }
-#else
 
         int_fast32_t nWritableWithinBlock = 
                 this.tAccess.ptCurrent->nBufferSize 
@@ -350,7 +312,6 @@ int_fast32_t arm_fff_mem_file_write(const arm_file_node_t *ptNode,
             }
             this.tAccess.ptCurrent = this.tAccess.ptCurrent->ptNext;
             this.tAccess.nInblockOffset = 0;
-            this.tAccess.ptCurrent->nContentSize = 0;
             nWritableWithinBlock = this.tAccess.ptCurrent->nBufferSize;
         }
 
@@ -368,7 +329,7 @@ int_fast32_t arm_fff_mem_file_write(const arm_file_node_t *ptNode,
             this.tAccess.ptCurrent->nContentSize = MAX( this.tAccess.nInblockOffset, this.tAccess.ptCurrent->nContentSize);
             this.nTotalSize = MAX(this.nTotalSize, this.tAccess.nPosition);
         }
-#endif
+
     } while(0);
 
     return nWrittenSize;

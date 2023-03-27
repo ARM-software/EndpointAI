@@ -103,7 +103,7 @@ static void file_path_demo(void)
     printf("--------------------------------------------------\r\n\r\n");
     
     printf("Try to open file with absolute path: [d:\\symphony\\music\\beethoven\\no_2.mp3] ...");
-    FILE *ptInput = fopen("d:\\symphony\\music\\beethoven\\no_2.mp3", "rb");
+    FILE *ptInput = fopen("d:\\symphony\\music\\beethoven\\no_2.mp3", "r+b");
     if (NULL == ptInput) {
         printf("Failed\r\n");
     } else {
@@ -115,7 +115,7 @@ static void file_path_demo(void)
     print_path(arm_fff_get_working_path());
     
     printf("Try to open file with relative path : [no_2.mp3] ...");
-    ptInput = fopen("no_2.mp3", "rb");
+    ptInput = fopen("no_2.mp3", "r+b");
     if (NULL == ptInput) {
         printf("Failed\r\n");
     } else {
@@ -135,7 +135,7 @@ static void file_path_demo(void)
     print_path(arm_fff_get_working_path());
     
     printf("Try to open file with relative path : [no_2.mp3] ...");
-    ptInput = fopen("no_2.mp3", "rb");
+    ptInput = fopen("no_2.mp3", "r+b");
     if (NULL == ptInput) {
         printf("Failed\r\n");
     } else {
@@ -161,7 +161,7 @@ static void file_copy_demo(void)
     }
     
     printf("Try to open file with relative path: [no_1.mp3] ...");
-    FILE *ptOutput = fopen("no_1.mp3", "w+b");
+    FILE *ptOutput = fopen("no_1.mp3", "r+b");
     if (NULL == ptOutput) {
         printf("Failed\r\n");
     } else {
