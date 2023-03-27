@@ -161,7 +161,7 @@ static void file_copy_demo(void)
     }
     
     printf("Try to open file with relative path: [no_1.mp3] ...");
-    FILE *ptOutput = fopen("no_1.mp3", "wb");
+    FILE *ptOutput = fopen("no_1.mp3", "w+b");
     if (NULL == ptOutput) {
         printf("Failed\r\n");
     } else {

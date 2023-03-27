@@ -98,7 +98,9 @@ arm_fff_err_t arm_fff_mem_file_open(const arm_file_node_t *ptNode,
         this.chAttribute = chAttribute;
         do {
             //! read
-            if (OPEN_R == (chAttribute & OPEN_R)) {
+            if (    (OPEN_R == (chAttribute & OPEN_R))
+                ||  (OPEN_PLUS == (chAttribute & OPEN_PLUS))) {
+
                 if (NULL == this.ptBlockList) {
                     tResult = ARM_FFF_ERR_NO_BUFFER;
                     break;
@@ -116,6 +118,7 @@ arm_fff_err_t arm_fff_mem_file_open(const arm_file_node_t *ptNode,
                     this.ptBlockList->nContentSize = this.ptBlockList->nBufferSize;
                 }
                 
+                /* move to the start of the file */
                 this.tAccess.ptCurrent = this.ptBlockList;
                 this.tAccess.nInblockOffset = 0;
                 this.tAccess.nPosition = 0;
@@ -133,9 +136,12 @@ arm_fff_err_t arm_fff_mem_file_open(const arm_file_node_t *ptNode,
                 } while(0);
             }
         } while(0);
-        
-        //! write
-        if (OPEN_W == (chAttribute & OPEN_W)) {
+
+        /* prepare for write */
+        if (    (OPEN_W == (chAttribute & OPEN_W))
+            ||  (OPEN_A == (chAttribute & OPEN_A))
+            ||  (OPEN_PLUS == (chAttribute & OPEN_PLUS))) {
+
             if (NULL == this.ptBlockList) {
                 this.ptBlockList = __arm_fff_mem_file_request_new_block(ptThis);
                 //! allocate a new memory block for write
@@ -143,16 +149,25 @@ arm_fff_err_t arm_fff_mem_file_open(const arm_file_node_t *ptNode,
                     tResult = ARM_FFF_ERR_NOT_ENOUGH_RESOURCE;
                     break;
                 }
-                this.tAccess.ptCurrent = this.ptBlockList;
-                this.tAccess.nInblockOffset = 0;
-                this.tAccess.nPosition = 0;
-                this.nTotalSize = 0;
             }
         }
-        
+
+        //! truncate to zero length
+        if (OPEN_W == (chAttribute & OPEN_W)) {
+            if (NULL != this.ptBlockList) {
+                /* free existing mem blocks */
+            }
+
+            this.tAccess.ptCurrent = this.ptBlockList;
+            this.tAccess.nInblockOffset = 0;
+            this.tAccess.nPosition = 0;
+            this.nTotalSize = 0;
+        }
+
+        /* append */
         if (OPEN_A == (chAttribute & OPEN_A)) {
             //! move to the end of the file
-            
+
             this.tAccess.ptCurrent = this.ptBlockList;
             int_fast32_t nTotalSize = 0;
             do {

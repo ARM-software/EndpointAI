@@ -514,12 +514,17 @@ const arm_file_node_t *__arm_fff_open(  __arm_fff_t *ptThis,
             break;
         }
         
-        if ((OPEN_R == (wFeature & OPEN_R)) && !(ptNode->bCanRead)) {
+        if (    (   (OPEN_R == (wFeature & OPEN_R))
+                ||  (OPEN_PLUS == (wFeature & OPEN_PLUS)))
+            &&  !(ptNode->bCanRead)) {
             //! doesn't support read
             break;
         }
         
-        if ((OPEN_W == (wFeature & OPEN_W)) && !(ptNode->bCanWrite)) {
+        if (    (   (OPEN_W == (wFeature & OPEN_W))
+                ||  (OPEN_A == (wFeature & OPEN_A))
+                ||  (OPEN_PLUS == (wFeature & OPEN_PLUS)))
+            &&  !(ptNode->bCanWrite)) {
             //! doesn't support write
             break;
         }
