@@ -32,7 +32,8 @@
         .ptRuntime = &(arm_fff_mem_file_cb_t){                                  \
                         .ptBlockList = &(__arm_fff_mem_block_t){                \
                                 .pchBuffer = (uint8_t *)(__BUFFER),             \
-                                .nBufferSize = (__SIZE),                        \
+                                .u31BufferSize = (__SIZE),                      \
+                                .bIsExternal = true,                            \
                             },                                                  \
                         .hwPageSize = 256,                                      \
                         __VA_ARGS__                                             \
@@ -42,6 +43,7 @@
                         .ptBlockList = &(__arm_fff_mem_block_t){                \
                                 .pchBuffer = (uint8_t *)(__BUFFER),             \
                                 .pwExternalSize = (&(__SIZE_VAR)),              \
+                                .bIsExternal = true,                            \
                             },                                                  \
                         .hwPageSize = 256,                                      \
                         __VA_ARGS__                                             \
@@ -77,7 +79,8 @@ typedef struct __arm_fff_mem_block_t __arm_fff_mem_block_t;
 struct __arm_fff_mem_block_t {
     uint8_t         *pchBuffer;
     const uint32_t  *pwExternalSize;
-    int_fast32_t    nBufferSize;
+    uint32_t        u31BufferSize       : 31;
+    uint32_t        bIsExternal         : 1;
     
     int_fast32_t    nContentSize;
     

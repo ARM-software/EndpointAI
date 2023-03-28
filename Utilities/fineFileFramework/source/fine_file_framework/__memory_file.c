@@ -79,7 +79,7 @@ static __arm_fff_mem_block_t *__arm_fff_mem_file_request_new_block(
                 0, 
                 (sizeof(__arm_fff_mem_block_t) + this.hwPageSize));
         ptBlock->pchBuffer = (uint8_t *)(ptBlock + 1);
-        ptBlock->nBufferSize = this.hwPageSize;
+        ptBlock->u31BufferSize = this.hwPageSize;
     } while(0);
     return ptBlock;
 }
@@ -94,7 +94,8 @@ static void __arm_fff_mem_file_free_block(  arm_fff_mem_file_cb_t *ptThis,
         if (NULL == ptBlock) {
             break;
         }
-        if (NULL != ptBlock->pwExternalSize) {  /* external block */
+        if (NULL != ptBlock->pwExternalSize || ptBlock->bIsExternal) {
+            /* external block */
             break;
         }
 
@@ -128,17 +129,17 @@ arm_fff_err_t arm_fff_mem_file_open(const arm_file_node_t *ptNode,
             }
 
             if (NULL != this.ptBlockList) {
-                if (    (NULL == this.ptBlockList->pchBuffer) 
-                    ||  (   (NULL == this.ptBlockList->pwExternalSize)
-                        &&  (0 == this.ptBlockList->nBufferSize))){
+                if (    (NULL == this.ptBlockList->pchBuffer)
+                    ||  (   (!this.ptBlockList->bIsExternal)
+                        &&  (0 == this.ptBlockList->u31BufferSize))){
                     tResult = ARM_FFF_ERR_NO_BUFFER;
                     break;
                 }
                 
                 //! update nSize
                 if (NULL != this.ptBlockList->pwExternalSize) {
-                    this.ptBlockList->nBufferSize = *this.ptBlockList->pwExternalSize;
-                    this.ptBlockList->nContentSize = this.ptBlockList->nBufferSize;
+                    this.ptBlockList->u31BufferSize = *this.ptBlockList->pwExternalSize;
+                    this.ptBlockList->nContentSize = this.ptBlockList->u31BufferSize;
                 }
 
                 //! calculate the total size
@@ -291,7 +292,7 @@ int_fast32_t arm_fff_mem_file_write(const arm_file_node_t *ptNode,
 
 
         int_fast32_t nWritableWithinBlock = 
-                this.tAccess.ptCurrent->nBufferSize 
+                this.tAccess.ptCurrent->u31BufferSize 
             -   this.tAccess.nInblockOffset;
         
         while (nWritableWithinBlock <= 0) {
@@ -312,7 +313,7 @@ int_fast32_t arm_fff_mem_file_write(const arm_file_node_t *ptNode,
             }
             this.tAccess.ptCurrent = this.tAccess.ptCurrent->ptNext;
             this.tAccess.nInblockOffset = 0;
-            nWritableWithinBlock = this.tAccess.ptCurrent->nBufferSize;
+            nWritableWithinBlock = this.tAccess.ptCurrent->u31BufferSize;
         }
 
         nWrittenSize = MIN(nWritableWithinBlock, nSize);
