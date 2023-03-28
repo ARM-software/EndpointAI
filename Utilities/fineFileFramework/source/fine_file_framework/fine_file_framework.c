@@ -99,7 +99,7 @@ extern void _sys_exit(int ch);
 
 
 /*============================ GLOBAL VARIABLES ==============================*/
-ARM_NOINIT static __arm_fff_t s_tLocalFFF;
+static __arm_fff_t s_tLocalFFF = {0};
 FILE __stdout, __stdin, __stderr;
 
 const i_file_io_t FFF_IO = {
@@ -112,6 +112,7 @@ const i_file_io_t FFF_IO = {
     .Flush          = &arm_fff_flush,
     .EndOfStream    = &arm_fff_eof,
     .Seek           = &arm_fff_seek,
+    .Tell           = &arm_fff_tell,
 };
 /*============================ IMPLEMENTATION ================================*/
 
@@ -433,8 +434,8 @@ static void run_main(void)
 
 
 static 
-arm_fff_err_t __arm_fff_init(__arm_fff_t *ptThis, 
-                                    const arm_fff_cfg_t *ptCFG)
+arm_fff_err_t __arm_fff_init(   __arm_fff_t *ptThis, 
+                                const arm_fff_cfg_t *ptCFG)
 {
     
     if (NULL == ptThis || NULL == ptCFG) {
@@ -661,7 +662,7 @@ bool __arm_fff_flush(  __arm_fff_t *ptThis, const arm_file_node_t * ptNode)
 
 
 static 
-int __arm_fff_seek(__arm_fff_t *ptThis, 
+int __arm_fff_seek( __arm_fff_t *ptThis, 
                     const arm_file_node_t * ptNode,
                     int32_t nOffset,
                     int32_t nWhence)
@@ -694,7 +695,42 @@ int __arm_fff_seek(__arm_fff_t *ptThis,
         }
 
     } while(0);
+
+    return nResult;
+}
+
+static
+long int __arm_fff_tell(__arm_fff_t *ptThis, arm_file_node_t * ptNode)
+{
+    int nResult = -1;
     
+    do {
+        if (NULL == ptNode) {
+            //! cannot find the target node
+            break;
+        } else if (0 == ptNode->chID) {         
+            //! you are not allowed to open a default folder
+            break;
+        } else if (ptNode->chID > this.tConfig.tTypes.chCount + 1) {
+            //! illegal ID
+            break;
+        }
+        
+        if (ptNode->chID >= 2) {
+            //! user defined type
+            const i_arm_file_node_t *ptType = 
+                &this.tConfig.tTypes.ptList[ptNode->chID - 2];
+            
+            //! call user defined flush method
+            if (NULL != ptType->Position.Get){
+                nResult = (*(ptType->Position.Get))(ptNode);
+            }
+        } else {
+            nResult = arm_fff_mem_file_tell(ptNode);
+        }
+
+    } while(0);
+
     return nResult;
 }
 
@@ -948,6 +984,11 @@ int arm_fff_seek(   arm_file_node_t * ptNode,
                     int32_t nWhence)
 {
     return __arm_fff_seek(&s_tLocalFFF, ptNode, nOffset, nWhence);
+}
+
+long int arm_fff_tell(arm_file_node_t * ptNode)
+{
+    return __arm_fff_tell(&s_tLocalFFF, ptNode);
 }
 
 int_fast32_t arm_fff_read(  arm_file_node_t *ptNode,

@@ -50,6 +50,7 @@ typedef struct
     int             (*Seek)             (   arm_file_node_t *ptFile, 
                                             int32_t nOffset, 
                                             int32_t nWhence);
+    long int        (*Tell)             (   arm_file_node_t *ptFile);
 } i_file_io_t;
 //! @}
     

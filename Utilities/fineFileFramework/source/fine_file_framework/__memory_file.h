@@ -88,14 +88,17 @@ struct __arm_fff_mem_block_t {
     __arm_fff_mem_block_t *ptPrevious;
 };
 
+typedef struct __arm_fff_mem_file_pos_t {
+    __arm_fff_mem_block_t *ptCurrent;
+    int_fast32_t nInblockOffset;
+    int_fast32_t nPosition;
+} __arm_fff_mem_file_pos_t;
+
+
 typedef struct arm_fff_mem_file_cb_t {
     __arm_fff_mem_block_t *ptBlockList;
     
-    struct {
-        __arm_fff_mem_block_t *ptCurrent;
-        int_fast32_t nInblockOffset;
-        int_fast32_t nPosition;
-    } tAccess;
+    __arm_fff_mem_file_pos_t tAccess;
     
     const uint16_t  hwPageSize;
     uint8_t         chAttribute;
@@ -130,7 +133,10 @@ extern
 bool arm_fff_mem_file_eof(const arm_file_node_t *ptNode);
 
 extern
-int arm_fff_mem_file_seek(  const arm_file_node_t *ptNode, 
-                            int_fast32_t nOffset,
-                            int_fast32_t nWhence);
+int_fast32_t arm_fff_mem_file_seek( const arm_file_node_t *ptNode, 
+                                    int_fast32_t nOffset,
+                                    int_fast32_t nWhence);
+
+extern
+int_fast32_t arm_fff_mem_file_tell(const arm_file_node_t *ptNode);
 #endif

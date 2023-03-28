@@ -678,15 +678,63 @@ void __aeabi_assert (const char *expr, const char *file, int line) {
  * is up to date on disk. Result is >=0 if OK, negative for an
  * error.
  */
-int _sys_ensure(FILEHANDLE fn)
+int _sys_ensure(FILEHANDLE fh)
 {
-    return FFF_IO.Flush((arm_file_node_t *)fn) ? 0 : -1;
+    return FFF_IO.Flush((arm_file_node_t *)fh) ? 0 : -1;
 }
 
 
 int _sys_seek(FILEHANDLE fh, long pos)
 {
     return FFF_IO.Seek((arm_file_node_t *)fh, pos, SEEK_SET);
+}
+
+__attribute__((__nonnull__(1)))
+_ARMABI 
+int fseek(FILE * fh, long int offset, int whence)
+{
+    if (    (fh == &__stdout)
+        ||  (fh == &__stdin)
+        ||  (fh == &__stderr))  {
+        return -1;
+    }
+
+    return FFF_IO.Seek((arm_file_node_t *)fh, offset, whence);
+}
+
+ __attribute__((__nonnull__(1)))
+_ARMABI void rewind(FILE * stream)
+{
+    fseek(stream, 0, SEEK_SET);
+}
+
+__attribute__((__nonnull__(1)))
+_ARMABI long int ftell(FILE * fh) 
+{
+    if (    (fh == &__stdout)
+        ||  (fh == &__stdin)
+        ||  (fh == &__stderr))  {
+        return -1;
+    }
+
+   return FFF_IO.Tell((arm_file_node_t *)fh);
+}
+
+__attribute__((__nonnull__(1,2)))
+_ARMABI int fgetpos(FILE * __restrict fh, fpos_t * __restrict ptPos)
+{
+    FFF_ASSERT(NULL != ptPos);
+    memset(ptPos, 0, sizeof(fpos_t));
+    ptPos->__pos = ftell(fh);
+    return ptPos->__pos;
+}
+
+__attribute__((__nonnull__(1,2)))
+_ARMABI int fsetpos(FILE * __restrict fh, const fpos_t * __restrict ptPos)
+{
+    FFF_ASSERT(NULL != ptPos);
+    
+    return fseek(fh, ptPos->__pos, SEEK_SET);
 }
 
 

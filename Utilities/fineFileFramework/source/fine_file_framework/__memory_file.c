@@ -351,10 +351,96 @@ bool arm_fff_mem_file_eof(const arm_file_node_t *ptNode)
     return true;
 }
 
-int arm_fff_mem_file_seek(  const arm_file_node_t *ptNode, 
-                            int_fast32_t nOffset,
-                            int_fast32_t nWhence)
+#undef arm_fff_abs
+#define arm_fff_abs(__N)            ((__N) < 0 ? -(__N) : (__N))
+
+int_fast32_t arm_fff_mem_file_seek( const arm_file_node_t *ptNode, 
+                                    int_fast32_t nOffset,
+                                    int_fast32_t nWhence)
 {
+    int nResult = -1;
+    arm_fff_mem_file_cb_t *ptThis = ((arm_mem_file_node_t *)ptNode)->ptRuntime;
+    
+    /* read original postion */
+    __arm_fff_mem_file_pos_t tAccess = this.tAccess;
+    
+    do {
+        if (NULL == ptThis) {
+            break;
+        }
+        
+        switch (nWhence) {
+            case SEEK_CUR:
+                if (arm_fff_abs(nOffset) > this.nTotalSize) {
+                    goto __seek_exit;
+                }
+
+                /* calculate new offset and fall-through to SEEK_END: */
+                nOffset = (tAccess.nPosition + nOffset) - this.nTotalSize;
+
+                /* fall-through */
+            case SEEK_END:
+                if (nOffset > 0) {
+                    goto __seek_exit;
+                }
+
+                /* empty file, for example "rw", "r+", "w+" etc. */
+                if (NULL == tAccess.ptCurrent) {
+                    tAccess.nPosition = 0;
+                    tAccess.nInblockOffset = 0;
+                    break;
+                }
+                
+                /* calculate new offset and fall-through to SEEK_SET */
+                nOffset = this.nTotalSize + nOffset;
+                /* fall-through */
+            case SEEK_SET:
+                if (nOffset < 0) {
+                    goto __seek_exit;
+                }
+                /* move to the begining */
+                tAccess.ptCurrent = this.ptBlockList;
+                tAccess.nPosition = 0;
+                tAccess.nInblockOffset = 0;
+
+                while (nOffset > 0) {
+                    if (NULL == tAccess.ptCurrent) {
+                        goto __seek_exit;
+                    }
+                    
+                    int32_t nBlockSize = tAccess.ptCurrent->nContentSize;
+                    if (nBlockSize >= nOffset) {
+                        /* finish moving */
+                        tAccess.nPosition += nOffset;
+                        tAccess.nInblockOffset = nOffset;
+                        break;
+                    }
+
+                    /* move to next block */
+                    nOffset -= nBlockSize;
+                    tAccess.nPosition += nBlockSize;
+                    tAccess.nInblockOffset = 0;
+                    tAccess.ptCurrent = tAccess.ptCurrent->ptNext;
+                }
+                break;
+            default:
+                goto __seek_exit;
+        }
+        
+        /* save new position */
+        this.tAccess = tAccess;
+        
+        return tAccess.nPosition;
+    } while(0);
+
+__seek_exit:
+
+    return nResult;
+}
+
+int_fast32_t arm_fff_mem_file_tell(const arm_file_node_t *ptNode)
+{
+    int_fast32_t nResult = -1;
     arm_fff_mem_file_cb_t *ptThis = ((arm_mem_file_node_t *)ptNode)->ptRuntime;
     
     do {
@@ -362,15 +448,11 @@ int arm_fff_mem_file_seek(  const arm_file_node_t *ptNode,
             break;
         }
         
-        
-        
-        
-        return 0;
+        nResult = this.tAccess.nPosition;
     } while(0);
     
-    return -1;
+    return nResult;
 }
-
 
 #ifdef   __cplusplus
 }

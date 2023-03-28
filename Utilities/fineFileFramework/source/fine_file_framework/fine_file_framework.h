@@ -462,9 +462,9 @@ typedef struct i_arm_file_node_t {
     
     struct {
         int_fast32_t        (*Get)          (const arm_file_node_t *ptNode);
-        arm_fff_err_t       (*Set)          (const arm_file_node_t *ptNode, 
-                                             int_fast32_t nPosition, 
-                                             int_fast32_t nOffset);
+        int_fast32_t        (*Set)          (const arm_file_node_t *ptNode, 
+                                             int_fast32_t nOffset,
+                                             int_fast32_t nWhence);
     }Position; 
     
     struct {
@@ -526,6 +526,9 @@ extern
 int arm_fff_seek(   arm_file_node_t * ptNode,
                     int32_t nOffset,
                     int32_t nWhence);
+
+extern
+long int arm_fff_tell(arm_file_node_t * ptNode);
 
 extern
 int_fast32_t arm_fff_read(  arm_file_node_t *ptNode,

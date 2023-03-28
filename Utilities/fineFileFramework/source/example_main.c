@@ -20,6 +20,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "fine_file_framework.h"
 #include <RTE_Components.h>
@@ -171,16 +172,22 @@ static void file_copy_demo(void)
     printf("Copying file...");
     int_fast32_t nTotalSize = 0;
     bool bError = false;
+    static union {
+        uint8_t chBuffer[1024];
+        struct {
+            uint8_t chBuffer1[512];
+            uint8_t chBuffer2[512];
+        };
+    }s_tBuffer;
+
     while(!feof(ptInput)) {
-        static uint8_t s_chBuffer[1024];
-        
-        size_t nSize = fread(s_chBuffer, 1, sizeof(s_chBuffer), ptInput);
+        size_t nSize = fread(s_tBuffer.chBuffer, 1, sizeof(s_tBuffer.chBuffer), ptInput);
         if (nSize == 0) {
             bError = true;
             break;
         }
         
-        nSize = fwrite(s_chBuffer, 1, nSize, ptOutput);
+        nSize = fwrite(s_tBuffer.chBuffer, 1, nSize, ptOutput);
         if (nSize == 0) {
             bError = true;
             break;
@@ -194,11 +201,59 @@ static void file_copy_demo(void)
     } else {
         printf("Complete");
     }
-    printf("\r\nTotal Size: %d Bytes \r\n"
-            "Close files.\r\n", nTotalSize );
+    printf("\r\nTotal Size: %d Bytes \r\n" , nTotalSize );
+
+
+    fseek(ptInput, -ftell(ptInput), SEEK_END);
+    //fseek(ptOutput, 0, SEEK_SET);
+    //rewind(ptInput);
+    rewind(ptOutput);
+    
+
+
+    bError = false;
+
+    printf("Verifying...");
+    /* verify */
+    while(!feof(ptInput)) {
+        size_t nSize1 = fread(s_tBuffer.chBuffer1, 1, sizeof(s_tBuffer.chBuffer1), ptInput);
+        if (nSize1 == 0) {
+            bError = true;
+            break;
+        }
+        
+        size_t nSize2 = fread(s_tBuffer.chBuffer2, 1, nSize1, ptOutput);
+        if (nSize2 == 0 || nSize1 != nSize2) {
+            bError = true;
+            break;
+        }
+        
+        if (0 != memcmp(s_tBuffer.chBuffer1, s_tBuffer.chBuffer2, nSize1)) {
+            bError = true;
+        }
+    }
+
+    /* get file size */
+    do {
+        fpos_t tPos; 
+        fgetpos(ptOutput, &tPos);
+        
+        fseek(ptOutput, 0, SEEK_END);
+        nTotalSize = ftell(ptOutput);
+        
+        fsetpos(ptOutput, &tPos);
+    } while(0);
+
+    if (bError) {
+        printf("Failed");
+    } else {
+        printf("Complete...%d bytes were verified", nTotalSize);
+    }
 
     fclose(ptOutput);
     fclose(ptInput);
+    
+    printf("\r\nClose files.\r\n");
 }
 
 int main(int argc, char **argv)
@@ -222,6 +277,8 @@ int main(int argc, char **argv)
             } while(--chArgc);
         }
     } while(0);
+    
+    printf("sizeof(long): %d\r\n", sizeof(long));
     
     file_path_demo();
     file_copy_demo();
