@@ -21,7 +21,11 @@
 #include "file_io.h"
 #include <string.h>
 #include <stdio.h>
-#include <rt_sys.h>
+
+#if __IS_COMPILER_ARM_COMPILER_6__
+#   include <rt_sys.h>
+#endif
+
 #include <stdlib.h>
 #if __IS_COMPILER_ARM_COMPILER_6__
 #include <arm_compat.h>
@@ -295,6 +299,7 @@ _ARMABI FILE *fopen(const char * __restrict pchName,
     return ptResult;
 }
 
+
 /*
 * causes the stream pointed to by stream to be flushed and the associated
 * file to be closed. Any unwritten buffered data for the stream are
@@ -305,8 +310,7 @@ _ARMABI FILE *fopen(const char * __restrict pchName,
 *          errors were detected or if the stream was already closed.
 */
 
-__attribute__((weak)) 
-__attribute__((__nonnull__(1)))
+__attribute__((nonnull(1)))
 _ARMABI int fclose(FILE * ptFile)
 {
     return _sys_close((FILEHANDLE)ptFile);
@@ -322,7 +326,7 @@ _ARMABI int fclose(FILE * ptFile)
 * Returns: nonzero if a write error occurs.
 */
 __attribute__((weak)) 
-__attribute__((__nonnull__(1)))
+__attribute__((nonnull(1)))
 _ARMABI int fflush(FILE * ptFile)
 {
     return _sys_ensure((FILEHANDLE)ptFile);
@@ -340,7 +344,7 @@ _ARMABI int fflush(FILE * ptFile)
 *          than nmemb only if a write error is encountered.
 */
 __attribute__((weak)) 
-__attribute__((__nonnull__(1,4)))
+__attribute__((nonnull(1,4)))
 _ARMABI size_t fwrite(  const void * __restrict pchBuffer,
                         size_t tElementSize, 
                         size_t tElementCount, 
@@ -371,7 +375,7 @@ _ARMABI size_t fwrite(  const void * __restrict pchBuffer,
  *          and the state of the stream remain unchanged.
  */
 __attribute__((weak)) 
-__attribute__((__nonnull__(1,4)))
+__attribute__((nonnull(1,4)))
 _ARMABI size_t fread(void * __restrict pchBuffer,
                     size_t tElementSize, size_t tElementCount, FILE * __restrict ptFile)
  {
@@ -385,13 +389,15 @@ _ARMABI size_t fread(void * __restrict pchBuffer,
     }
     return nResult;
  }
- 
+
+
  /*
  * tests the end-of-file indicator for the stream pointed to by stream.
  * Returns: nonzero iff the end-of-file indicator is set for stream.
  */
- __attribute__((__nonnull__(1)))
-_ARMABI int feof(FILE * ptFile)
+__attribute__((nonnull(1)))
+_ARMABI 
+int feof(FILE * ptFile)
 {
     FFF_ASSERT(NULL != FFF_IO.EndOfStream);
     return FFF_IO.EndOfStream((arm_file_node_t *)ptFile);
@@ -454,7 +460,14 @@ int _sys_close(FILEHANDLE fh)
     return !FFF_IO.Close((arm_file_node_t *)fh);
 }
 
-
+#if __IS_COMPILER_GCC__
+int _fclose_r ( struct _reent *rptr,
+            register FILE * fp)
+{
+    FFF_ASSERT(NULL != FFF_IO.Close);
+    return !FFF_IO.Close((arm_file_node_t *)fp);
+}
+#endif
 
 /**
    Writes the character specified by c (converted to an unsigned char) to
@@ -689,7 +702,7 @@ int _sys_seek(FILEHANDLE fh, long pos)
     return FFF_IO.Seek((arm_file_node_t *)fh, pos, SEEK_SET);
 }
 
-__attribute__((__nonnull__(1)))
+__attribute__((nonnull(1)))
 _ARMABI 
 int fseek(FILE * fh, long int offset, int whence)
 {
@@ -702,13 +715,13 @@ int fseek(FILE * fh, long int offset, int whence)
     return FFF_IO.Seek((arm_file_node_t *)fh, offset, whence);
 }
 
- __attribute__((__nonnull__(1)))
+ __attribute__((nonnull(1)))
 _ARMABI void rewind(FILE * stream)
 {
     fseek(stream, 0, SEEK_SET);
 }
 
-__attribute__((__nonnull__(1)))
+__attribute__((nonnull(1)))
 _ARMABI long int ftell(FILE * fh) 
 {
     if (    (fh == &__stdout)
@@ -720,21 +733,35 @@ _ARMABI long int ftell(FILE * fh)
    return FFF_IO.Tell((arm_file_node_t *)fh);
 }
 
-__attribute__((__nonnull__(1,2)))
+__attribute__((nonnull(1,2)))
 _ARMABI int fgetpos(FILE * __restrict fh, fpos_t * __restrict ptPos)
 {
     FFF_ASSERT(NULL != ptPos);
     memset(ptPos, 0, sizeof(fpos_t));
+
+#if __IS_COMPILER_ARM_COMPILER__
+    
     ptPos->__pos = ftell(fh);
     return ptPos->__pos;
+#elif __IS_COMPILER_GCC__
+    *ptPos = ftell(fh);
+    return *ptPos;
+#else
+    return -1;
+#endif
 }
 
-__attribute__((__nonnull__(1,2)))
+__attribute__((nonnull(1,2)))
 _ARMABI int fsetpos(FILE * __restrict fh, const fpos_t * __restrict ptPos)
 {
     FFF_ASSERT(NULL != ptPos);
-    
+#if __IS_COMPILER_ARM_COMPILER__
     return fseek(fh, ptPos->__pos, SEEK_SET);
+#elif __IS_COMPILER_GCC__
+    return fseek(fh, *ptPos, SEEK_SET);
+#else
+    return -1;
+#endif
 }
 
 

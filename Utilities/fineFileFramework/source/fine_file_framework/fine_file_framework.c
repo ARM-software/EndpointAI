@@ -20,7 +20,11 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <rt_sys.h>
+
+#if __IS_COMPILER_ARM_COMPILER_6__
+#   include <rt_sys.h>
+#endif
+
 #include "file_io.h"
 #include <string.h>
 #include <stdlib.h>

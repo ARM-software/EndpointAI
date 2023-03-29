@@ -23,7 +23,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
-
+#include <stdio.h>
 #ifdef   __cplusplus
 extern "C" {
 #endif
@@ -197,6 +197,9 @@ extern "C" {
 #ifndef MIN
 #   define MIN(a,b) ((a) < (b) ? (a) : (b))
 #endif
+
+
+
 
 /*----------------------------------------------------------------------------*
  * Common Wrapper                                                             *
@@ -397,40 +400,42 @@ extern "C" {
 #define imp_fff(__NAME, ...)           __imp_fff(__NAME, __VA_ARGS__)
 
 /*============================ TYPES =========================================*/
-typedef struct arm_file_node_t arm_file_node_t;
 
-struct arm_file_node_t {
-    uint8_t chID;
-    union {
-        struct {
-            uint8_t bIsValid        : 1;
-            uint8_t bIsVisible      : 1;
-            uint8_t                 : 2;
-            uint8_t bCanRead        : 1;
-            uint8_t bCanWrite       : 1;
-            uint8_t bCanSeek        : 1;
-            uint8_t bIsStream       : 1; /* whether we know size or not */
-        };
-        uint8_t chAttribute;
-    };
-    
-    uint8_t    chAliasCount;
-    const char *const* ppchPathString;
-    
-    const arm_file_node_t *ptParent;        //!< parent
-    const arm_file_node_t *ptNext;          //!< next file in the same folder
-    const arm_file_node_t *ptList;          //!< !NULL means folder
-} ;
+#include "sys/custom_file.h"
+//typedef struct arm_file_node_t arm_file_node_t;
 
-typedef struct arm_folder_node_t {
-    implement(arm_file_node_t)
-    const arm_file_node_t ptFirstNode[];
-} arm_folder_node_t;
+//struct arm_file_node_t {
+//    uint8_t chID;
+//    union {
+//        struct {
+//            uint8_t bIsValid        : 1;
+//            uint8_t bIsVisible      : 1;
+//            uint8_t                 : 2;
+//            uint8_t bCanRead        : 1;
+//            uint8_t bCanWrite       : 1;
+//            uint8_t bCanSeek        : 1;
+//            uint8_t bIsStream       : 1; /* whether we know size or not */
+//        };
+//        uint8_t chAttribute;
+//    };
+//    
+//    uint8_t    chAliasCount;
+//    const char *const* ppchPathString;
+//    
+//    const arm_file_node_t *ptParent;        //!< parent
+//    const arm_file_node_t *ptNext;          //!< next file in the same folder
+//    const arm_file_node_t *ptList;          //!< !NULL means folder
+//} ;
+
+//typedef struct arm_folder_node_t {
+//    implement(arm_file_node_t)
+//    const arm_file_node_t ptFirstNode[];
+//} arm_folder_node_t;
 
 
-struct __FILE {
-    implement(arm_file_node_t)
-};
+//typedef struct __FILE {
+//    implement(arm_file_node_t)
+//}__FILE;
 
 typedef struct arm_file_status_t {
     uint32_t bIsReady          : 1;
@@ -490,9 +495,33 @@ typedef struct arm_fff_cfg_t {
     arm_user_file_type_list_t   tTypes;
 } arm_fff_cfg_t;
 
+
+#if !__IS_COMPILER_ARM_COMPILER__
+
+/*
+ * This type is used by the _sys_ I/O functions to denote an open
+ * file.
+ */
+typedef int FILEHANDLE;
+
+typedef __FILE FILE;
+
+#endif
+
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ PROTOTYPES ====================================*/
+
+/*
+ * These names should be special strings which will be recognised
+ * by _sys_open and will cause it to return the standard I/O
+ * handles, instead of opening a real file.
+ */
+extern const char __stdin_name[];
+extern const char __stdout_name[];
+extern const char __stderr_name[];
+
+extern FILE __stdin, __stdout, __stderr;
 
 extern 
 arm_fff_err_t arm_fff_init( const arm_fff_cfg_t *ptCFG);

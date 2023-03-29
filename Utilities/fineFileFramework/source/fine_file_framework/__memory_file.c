@@ -20,7 +20,11 @@
 #include "./fine_file_framework.h"
 #include "./__memory_file.h"
 
-#include <rt_sys.h>
+#if __IS_COMPILER_ARM_COMPILER_6__
+#   include <rt_sys.h>
+#endif
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 

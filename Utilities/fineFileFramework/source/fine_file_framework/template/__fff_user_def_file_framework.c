@@ -53,7 +53,7 @@ imp_fff(MPSx_Local_Disk,
             ),
         ),
     ),
-    
+
     fff_disk(disk_d, &MPSx_Local_Disk, disk_d,
         fff_disk_path("D:"),
         fff_list(

@@ -43,8 +43,7 @@ PACK_BUILD=build/
 
 # alternative: specify directory names to be added to pack base directory
 PACK_DIRS="
-    source/fine_file_framework
-    source/incbin
+    source
 "
 
 
@@ -181,7 +180,9 @@ PACKNAME=`cat PackName.txt`
 rm -rf PackName.txt
 
 
-
+rm -rf $PACK_BUILD/source/build
+rm -rf $PACK_BUILD/source/example_main.c
+rm -rf $PACK_BUILD/source/printf_retarget.c
 # echo apply patches...
 
 # Archiving
