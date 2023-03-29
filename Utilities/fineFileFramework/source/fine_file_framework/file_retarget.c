@@ -116,7 +116,6 @@ int stdout_putchar(int_fast8_t chByte)
 
 
 
-
 /**
   Put a character to the stdout
  
@@ -502,6 +501,7 @@ int fputc (int c, FILE * stream) {
 }
 
 
+
 __attribute__((weak)) 
 int __stdout_string(const unsigned char *buf,
                     unsigned len)
@@ -539,6 +539,21 @@ int __stdin_data(unsigned char *buf,
     
     return 0;
 }
+
+#if __IS_COMPILER_GCC__ || __IS_CONPMILER_LLVM__
+__attribute__((section(".text._write"),used))
+int _write(int fd, char *str, int len)
+{
+    return __stdout_string(str, len);
+}
+
+__attribute__((section(".text._read"),used))
+int _read(int fd, char *str, int len)
+{
+    return __stdin_data(str, len);
+}
+
+#endif
 
 
 __attribute__((weak)) 
