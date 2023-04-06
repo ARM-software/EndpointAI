@@ -1,0 +1,282 @@
+build:
+  solution: ../unittest.csolution.yml
+  project: ../unittest_filtering.cproject.yml
+  context: unittest_filtering.Release+VHT-Corstone-310
+  compiler: AC6
+  device: ARM::SSE-310-MPS3
+  processor:
+    fpu: on
+    trustzone: non-secure
+  packs:
+    - pack: ARM::CMSIS-DSP@1.14.3
+      path: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3
+    - pack: ARM::CMSIS@5.9.0
+      path: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0
+    - pack: ARM::DMA350@1.0.0
+      path: ${CMSIS_PACK_ROOT}/ARM/DMA350/1.0.0
+    - pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      path: ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0
+    - pack: GorgonMeducer::perf_counter@1.9.11
+      path: ${CMSIS_PACK_ROOT}/GorgonMeducer/perf_counter/1.9.11
+    - pack: Keil::ARM_Compiler@1.7.2
+      path: ${CMSIS_PACK_ROOT}/Keil/ARM_Compiler/1.7.2
+  optimize: speed
+  debug: off
+  misc:
+    ASM:
+      - -masm=auto
+    C:
+      - -std=gnu11
+      - -fshort-enums
+      - -fshort-wchar
+      - -Ofast
+      - -ffast-math
+    CPP:
+      - -std=c++11
+      - -fno-rtti
+      - -Ofast
+      - -ffast-math
+    Link:
+      - --entry=Reset_Handler
+      - --info=summarysizes
+      - --info=sizes
+      - --info=totals
+      - --info=unused
+      - --info=veneers
+  define:
+    - ARM_CM85_OPT
+    - USE_ASM
+    - _RTE_
+  add-path:
+    - ..
+    - ../RTE/Device/SSE-310-MPS3
+    - ../RTE/Compiler
+    - ../RTE/_Release_VHT-Corstone-310
+    - ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Include
+    - ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/PrivateInclude
+    - ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+    - ${CMSIS_PACK_ROOT}/ARM/DMA350/1.0.0/MDH_API
+    - ${CMSIS_PACK_ROOT}/ARM/DMA350/1.0.0/Native_Driver
+    - ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0/Board/Device_Definition
+    - ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0/Board/Platform
+    - ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0/Device/Include
+    - ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0/MDH_Driver
+    - ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0/Native_Driver
+    - ${CMSIS_PACK_ROOT}/GorgonMeducer/perf_counter/1.9.11/lib
+    - ${CMSIS_PACK_ROOT}/Keil/ARM_Compiler/1.7.2/Include
+  output-type: exe
+  output-dirs:
+    gendir: ..
+    intdir: intdir
+    outdir: outdir
+    rtedir: ../RTE
+  components:
+    - component: ARM::CMSIS:CORE@5.6.0
+      condition: ARMv6_7_8-M Device
+      from-pack: ARM::CMSIS@5.9.0
+      selected-by: ARM::CMSIS:CORE
+    - component: ARM::CMSIS:DSP&Source@1.14.3
+      condition: CMSISCORE
+      from-pack: ARM::CMSIS-DSP@1.14.3
+      selected-by: ARM::CMSIS:DSP&Source
+      define:
+        - ARM_DSP_CONFIG_TABLES
+        - ARM_FAST_ALLOW_TABLES
+        - ARM_FFT_ALLOW_TABLES
+        - ARM_ALL_FAST_TABLES
+        - ARM_MATH_LOOPUNROLL
+      files:
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/BasicMathFunctions/BasicMathFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/BasicMathFunctions/BasicMathFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/BayesFunctions/BayesFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/BayesFunctions/BayesFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/CommonTables/CommonTables.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/CommonTables/CommonTablesF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/ComplexMathFunctions/ComplexMathFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/ComplexMathFunctions/ComplexMathFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/ControllerFunctions/ControllerFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/DistanceFunctions/DistanceFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/DistanceFunctions/DistanceFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/FastMathFunctions/FastMathFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/FastMathFunctions/FastMathFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/FilteringFunctions/FilteringFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/FilteringFunctions/FilteringFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/InterpolationFunctions/InterpolationFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/InterpolationFunctions/InterpolationFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/MatrixFunctions/MatrixFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/MatrixFunctions/MatrixFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/QuaternionMathFunctions/QuaternionMathFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/SVMFunctions/SVMFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/SVMFunctions/SVMFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/StatisticsFunctions/StatisticsFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/StatisticsFunctions/StatisticsFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/SupportFunctions/SupportFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/SupportFunctions/SupportFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/TransformFunctions/TransformFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/TransformFunctions/TransformFunctionsF16.c
+          category: source
+    - component: ARM::Device:Definition@1.1.0
+      condition: SSE-310-MPS3 Device
+      from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      selected-by: ARM::Device:Definition
+      files:
+        - file: ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0/Board/Device_Definition/device_definition.c
+          category: source
+        - file: ../RTE/Device/SSE-310-MPS3/platform_base_address.h
+          category: header
+          attr: config
+          version: 1.0.0
+    - component: ARM::Device:Startup&Baremetal@1.0.1
+      condition: SSE-310-MPS3 Device
+      from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      selected-by: ARM::Device:Startup&Baremetal
+      files:
+        - file: ../RTE/Device/SSE-310-MPS3/cmsis_driver_config.h
+          category: header
+          attr: config
+          version: 1.0.0
+        - file: ../RTE/Device/SSE-310-MPS3/RTE_Device.h
+          category: header
+          attr: config
+          version: 1.0.0
+        - file: ../RTE/Device/SSE-310-MPS3/device_cfg.h
+          category: header
+          attr: config
+          version: 1.0.0
+        - file: ../RTE/Device/SSE-310-MPS3/region_defs.h
+          category: header
+          attr: config
+          version: 1.0.0
+        - file: ../RTE/Device/SSE-310-MPS3/region_limits.h
+          category: header
+          attr: config
+          version: 1.0.0
+        - file: ../RTE/Device/SSE-310-MPS3/system_SSE310MPS3.h
+          category: header
+          attr: config
+          version: 1.0.0
+        - file: ../RTE/Device/SSE-310-MPS3/corstone310_mps3_s.sct
+          category: linkerScript
+          attr: config
+          version: 1.0.0
+        - file: ../RTE/Device/SSE-310-MPS3/startup_SSE310MPS3.c
+          category: source
+          attr: config
+          version: 1.0.0
+        - file: ../RTE/Device/SSE-310-MPS3/system_SSE310MPS3.c
+          category: source
+          attr: config
+          version: 1.0.0
+    - component: ARM::MCU Driver HAL:DMA350@1.0.0
+      condition: SSE-310-MPS3 MDH DMA350
+      from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      selected-by: ARM::MCU Driver HAL:DMA350
+      files:
+        - file: ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0/MDH_Driver/mps3_dma.c
+          category: source
+    - component: ARM::Native Driver:DMA350 Remap:Custom@1.0.0
+      condition: DMA350 Remap
+      from-pack: ARM::DMA350@1.0.0
+      selected-by: ARM::Native Driver:DMA350 Remap
+    - component: ARM::Native Driver:DMA350 Remap:SSE-310 Remap@1.0.0
+      condition: SSE-310-MPS3 DMA350
+      from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      selected-by: ARM::Native Driver:DMA350 Remap:SSE-310
+      files:
+        - file: ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0/Device/Source/dma350_address_remap.c
+          category: source
+    - component: ARM::Native Driver:DMA350@1.1.0
+      condition: DMA350
+      from-pack: ARM::DMA350@1.0.0
+      selected-by: ARM::Native Driver:DMA350
+      files:
+        - file: ${CMSIS_PACK_ROOT}/ARM/DMA350/1.0.0/Native_Driver/dma350_ch_drv.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/DMA350/1.0.0/Native_Driver/dma350_drv.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/DMA350/1.0.0/Native_Driver/dma350_lib.c
+          category: source
+    - component: ARM::Native Driver:SysCounter@1.0.0
+      condition: SSE-310-MPS3 Device
+      from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      selected-by: ARM::Native Driver:SysCounter
+      files:
+        - file: ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0/Native_Driver/syscounter_armv8-m_cntrl_drv.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0/Native_Driver/syscounter_armv8-m_read_drv.c
+          category: source
+    - component: ARM::Native Driver:SysTimer@1.0.0
+      condition: SSE-310-MPS3 Device
+      from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      selected-by: ARM::Native Driver:SysTimer
+      files:
+        - file: ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0/Native_Driver/systimer_armv8-m_drv.c
+          category: source
+    - component: ARM::Native Driver:Timeout@1.0.0
+      condition: SSE-310-MPS3 Systimer Syscounter
+      from-pack: ARM::V2M_MPS3_SSE_310_BSP@1.1.0
+      selected-by: ARM::Native Driver:Timeout
+      files:
+        - file: ${CMSIS_PACK_ROOT}/ARM/V2M_MPS3_SSE_310_BSP/1.1.0/Native_Driver/systimer_armv8-m_timeout.c
+          category: source
+    - component: GorgonMeducer::Utilities&Performance Counter:perf_counter:Core&Source@1.9.11
+      condition: CMSIS-CORE
+      from-pack: GorgonMeducer::perf_counter@1.9.11
+      selected-by: perf_counter:Core&Source
+      files:
+        - file: ${CMSIS_PACK_ROOT}/GorgonMeducer/perf_counter/1.9.11/perf_counter.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/GorgonMeducer/perf_counter/1.9.11/systick_wrapper_gnu.s
+          category: source
+    - component: Keil::Compiler&ARM Compiler:Event Recorder&Semihosting@1.5.1
+      condition: Cortex-M Device
+      from-pack: Keil::ARM_Compiler@1.7.2
+      selected-by: Keil::Compiler&ARM Compiler:Event Recorder&Semihosting
+      files:
+        - file: ${CMSIS_PACK_ROOT}/Keil/ARM_Compiler/1.7.2/Source/EventRecorder.c
+          category: source
+        - file: ../RTE/Compiler/EventRecorderConf.h
+          category: header
+          attr: config
+          version: 1.1.0
+  groups:
+    - group: App
+      files:
+        - file: ../arm_filtering_tests.c
+          category: sourceC
+        - file: ../../FilteringFunctions.c
+          category: sourceC
+        - file: ../../FilteringFunctionsF16.c
+          category: sourceC
+  constructed-files:
+    - file: ../RTE/_Release_VHT-Corstone-310/Pre_Include_Global.h
+      category: preIncludeGlobal
+    - file: ../RTE/_Release_VHT-Corstone-310/RTE_Components.h
+      category: header

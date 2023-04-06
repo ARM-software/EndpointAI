@@ -8,7 +8,7 @@
 
 #define CCAT(A, B)              A ## B
 #define CAT(A, B)               CCAT(A, B)
-#define ADD_FCT_SUFFIX(x,y) CAT(x,y)
+#define ADD_FCT_SUFFIX(x,y)     CAT(x,y)
 
 #define PRINT(fmt, args...)
 
@@ -142,16 +142,14 @@ static short     sin250_48[SIN250_48_PERIOD] = {
 
 #define check_for_error(a, b,buf_sz, thresh )                                     \
 {                                                                                 \
-    if(!alignOffs) {                                                              \
-        for (int i = 0; i < buf_sz; i++)                                          \
-            if (ABS(a[i] - b[i]) > thresh)                                        \
-            {                                                                     \
-                PRINT("[%s] error idx %d %.2f %.2f\n",                            \
-                #a, i,(float)a[i],(float)b[i]);                                   \
-                errorCnt++;                                                       \
-                break;                                                            \
-            }                                                                     \
-    }                                                                             \
+    for (int i = 0; i < buf_sz; i++)                                              \
+        if (ABS(a[i] - b[i]) > thresh)                                            \
+        {                                                                         \
+            printf("[%s] error idx %d %.2f %.2f\n",                               \
+            #a, i,(float)a[i],(float)b[i]);                                       \
+            errorCnt++;                                                           \
+            break;                                                                \
+        }                                                                         \
 }
 
 #define dump_buf_matlab(a, buf_sz, wrap, format )                                 \
@@ -163,109 +161,78 @@ static short     sin250_48[SIN250_48_PERIOD] = {
 }
 
 
-#define check_error(a, b,buf_sz, thresh,format )                                  \
-{                                                                                 \
-    __typeof__(*a) maxdiff = 0;                                                   \
-        for (int i = 0; i < buf_sz; i++) {                                        \
-            if (ABS(a[i] - b[i]) > maxdiff)                                       \
-                maxdiff = ABS(a[i] - b[i]);                                       \
-            if (ABS(a[i] - b[i]) > thresh)                                        \
-            {                                                                     \
-                PRINT("[%d] : %s = "#format" %s = "#format"\n",                   \
-                                                           #a,a[i],#b,b[i]);      \
-                errorCnt++;                                                       \
-                break;                                                            \
-            }                                                                     \
-        }                                                                         \
-       PRINT("maxdiff %d\n",(int)maxdiff);                                        \
+#define check_error(a, b,buf_sz, thresh,format )                                    \
+{                                                                                   \
+    __typeof__(*a) maxdiff = 0;                                                     \
+        for (int i = 0; i < buf_sz; i++) {                                          \
+            if (ABS(a[i] - b[i]) > maxdiff)                                         \
+                maxdiff = ABS(a[i] - b[i]);                                         \
+            if (ABS(a[i] - b[i]) > thresh)                                          \
+            {                                                                       \
+                PRINT("[%d] : %s = "#format" %s = "#format"\n", i,#a,a[i],#b,b[i]); \
+                errorCnt++;                                                         \
+                break;                                                              \
+            }                                                                       \
+        }                                                                           \
+       PRINT("maxdiff %d\n",(int)maxdiff);                                          \
 }
 
-
-#define SETUP_SINGLE_VECTORS_CMPLX(TYP, size, dstOffs)                            \
-        int       vectorSize = size;                                              \
-        ALIGN16 TYP A[CMPLX_DIM * MAX_FFT_LENGTH ], *pA;                          \
-        ALIGN16 TYP dstScal[CMPLX_DIM * MAX_FFT_LENGTH + 2*EXTRA_TAIL_CHK]        \
-                                                             = {0}, *pdstScal;    \
-        ALIGN16 TYP dstVec[CMPLX_DIM*MAX_FFT_LENGTH + 2*EXTRA_TAIL_CHK]           \
-                                                         = {0}, *pdstVec;         \
-        pA = A;                                                                   \
-        pdstScal = dstScal + dstOffs;                                             \
-        pdstVec = dstVec + dstOffs;
-
-
-
-
-#define SETUP_FIXED_RFFT(TYP, userInput1, userInput4, userInput5)                               \
-        uint16_t  fftLen = userInput1;                                                          \
-        uint8_t   ifftFlag = userInput4;                                                        \
-        uint8_t   bitReverseFlag = !userInput5;                                                 \
-        arm_rfft_instance_##TYP rfftInstanceScal;                                               \
-        arm_rfft_instance_##TYP rfftInstanceVec;                                                \
-        PRINT("RFFT "#TYP" : fftLen %d ifftFlag %d bitReverseFlag %d ", fftLen,                 \
-                                                                ifftFlag, bitReverseFlag);      \
-        if (arm_rfft_init_##TYP(&rfftInstanceScal, fftLen,ifftFlag,bitReverseFlag) !=           \
-                                                                           ARM_MATH_SUCCESS)    \
-        {                                                                                       \
-            printf("Error: Init failed\n");                                                     \
-            return 1;                                                                           \
-        }                                                                                       \
-        if (arm_rfft_init_##TYP(&rfftInstanceVec, fftLen,                                       \
-                                              ifftFlag,bitReverseFlag) != ARM_MATH_SUCCESS)     \
-        {                                                                                       \
-            printf("Error: Init failed\n");                                                     \
-            return 1;                                                                           \
-        }
+#define SETUP_FIR(TYP, EXT, blockSize, numTaps)                                        \
+    arm_fir_instance_##EXT SOPT, SREF;                                                 \
+    ALIGN16 TYP     Coeffs[numTaps + 16], *pCoeffs;                                    \
+    ALIGN16 TYP     Input[MAX_BUF_SZ], *pInput;                                        \
+    ALIGN16 TYP     firStateOPT[MAX_BUF_SZ + MAX_BUF_SZ + EXTRA_TAIL_CHK] = {0},       \
+        *pfirStOPT;                                                                    \
+    ALIGN16 TYP     firStateREF[MAX_BUF_SZ + MAX_BUF_SZ + EXTRA_TAIL_CHK] = {0},       \
+        *pfirStREF;                                                                    \
+    ALIGN16 TYP     dstOPT[MAX_BUF_SZ + EXTRA_TAIL_CHK] = {0}, *pdstOPT;               \
+    ALIGN16 TYP     dstREF[MAX_BUF_SZ + EXTRA_TAIL_CHK] = {0}, *pdstREF;               \
+                                                                                       \
+    if (!numTaps || !blockSize) {                                                      \
+        printf("invalid taps / blocksz\n"); exit(1);}                                  \
+    PRINT("Test : blockSize %d numTaps %d off %d\n", blockSize, numTaps, alignOffs);   \
+    seed += blockSize + numTaps;                                                       \
+    pCoeffs     = Coeffs;                                                              \
+    pfirStOPT   = firStateOPT + alignOffs;                                             \
+    pfirStREF = firStateREF + alignOffs ;                                              \
+    pInput      = Input;                                                               \
+    pdstOPT     = dstOPT + alignOffs;                                                  \
+    pdstREF   = dstREF+ alignOffs;                                                     \
+    arm_fir_init_##EXT(&SOPT, numTaps, pCoeffs, pfirStOPT, blockSize);                 \
+    arm_fir_init_##EXT(&SREF, numTaps, pCoeffs, pfirStREF, blockSize);
 
 
-#define SETUP_FLOAT_RFFT(TYP, size, ifft, bitReverse)                                           \
-    uint16_t  fftLen = size;                                                                    \
-    uint8_t   ifftFlag = ifft;                                                                  \
-    uint8_t   bitReverseFlag = !bitReverse;                                                     \
-    arm_rfft_fast_instance_##TYP rfftInstanceScal;                                              \
-    arm_rfft_fast_instance_##TYP rfftInstanceVec;                                               \
-    PRINT("Test : fftLen %d ifftFlag %d bitReverseFlag %d\n", fftLen, ifftFlag,                 \
-                                                     bitReverseFlag);                           \
-    if (arm_rfft_fast_init_##TYP(&rfftInstanceScal, fftLen) != ARM_MATH_SUCCESS)                \
-    {                                                                                           \
-        printf("Error: sc Init failed\n");                                                      \
-        return 1;                                                                               \
-    }                                                                                           \
-    if (arm_rfft_fast_init_##TYP(&rfftInstanceVec, fftLen)                                      \
-                                                != ARM_MATH_SUCCESS)                            \
-    {                                                                                           \
-        printf("Error: vec Init failed\n");                                                     \
-        return 1;                                                                               \
-    }
+#define CLEAR_COEF_TAIL(TYP, numTaps)                                                  \
+    TYP * ptail =&pCoeffs[numTaps];                                                    \
+    for(int i = 0;i < 16 - (numTaps & 0xf);i++)                                        \
+        *ptail++ = 0;
 
-#define SETUP_RADMIXED_FFT(TYP, userInput1, ifft, noBitRev)                                     \
-        uint16_t  fftLen = userInput1;                                                          \
-        uint8_t   ifftFlag = ifft;                                                              \
-        uint8_t   bitReverseFlag = !noBitRev;                                                   \
-        arm_cfft_instance_##TYP cfftInstanceRMScal;                                             \
-        PRINT("Test : fftLen %d ifftFlag %d bitReverseFlag %d\n", fftLen, ifftFlag,             \
-                bitReverseFlag);                                                                \
-        if (arm_cfft_init_##TYP(&cfftInstanceRMScal, fftLen) != ARM_MATH_SUCCESS)               \
-        {                                                                                       \
-            printf("Error: Init failed\n");                                                     \
-            return 1;                                                                           \
-        }
 
-#define RUN_OPT_VS_REF(fct, thresh,ifftFlag,bitReverseFlag,format)                              \
-    int64_t         ref, opt;                                                                   \
-    ref = get_system_ticks();                                                                   \
-    fct(&cfftInstanceRMScal, pdstScal,ifftFlag,bitReverseFlag);                                 \
-    ref = get_system_ticks() - ref;                                                             \
-                                                                                                \
-    /* pA corrupted, restore */                                                                 \
-    memcpy(pA, pdstVec, vectorSize * sizeof(q15_t));                                            \
-    opt = get_system_ticks();                                                                   \
-    ADD_FCT_SUFFIX(fct, _mve) (&cfftInstanceRMScal, pdstVec, ifftFlag, bitReverseFlag);         \
-    opt = get_system_ticks() - opt;                                                             \
-                                                                                                \
-    check_error(pdstScal, pdstVec, (fftLen * CMPLX_DIM + EXTRA_TAIL_CHK), thresh, format);      \
-    p->ref = ref;                                                                               \
+
+#define RUN_FIR_VS_REF(fct, thresh)                                                    \
+    int64_t         ref, opt;                                                          \
+    ref = get_system_ticks();                                                          \
+    fct(&SREF, pInput, pdstREF, blockSize);                                            \
+    ref = get_system_ticks() - ref;                                                    \
+                                                                                       \
+    opt = get_system_ticks();                                                          \
+    ADD_FCT_SUFFIX(fct,_mve)(&SOPT, pInput, pdstOPT, blockSize);                       \
+    opt = get_system_ticks() - opt;                                                    \
+                                                                                       \
+    check_for_error(pdstOPT, pdstREF, (blockSize + EXTRA_TAIL_CHK),                    \
+        ( __typeof__ (Input[0]))(thresh));                                             \
+    p->ref = ref;                                                                      \
     p->opt = opt;
 
+
+#define DUMP_ON_FIR_ERROR(format, numTaps)                                             \
+    if (errorCnt || dump)                                                              \
+    {                                                                                  \
+        dump_buf_matlab(dstOPT, blockSize, 8, format);                                 \
+        dump_buf_matlab(dstREF, blockSize, 8, format);                                 \
+        dump_buf_matlab(firStateOPT, (numTaps - 1), 8, format);                        \
+        dump_buf_matlab(firStateREF, (numTaps - 1), 8, format);                        \
+    }
 
 
 

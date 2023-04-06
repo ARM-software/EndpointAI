@@ -1,0 +1,169 @@
+build:
+  solution: ../unittest.csolution.yml
+  project: ../unittest_filtering.cproject.yml
+  context: unittest_filtering.Release+VHT_M55
+  compiler: AC6
+  device: ARMCM55
+  processor:
+    fpu: on
+    trustzone: non-secure
+  packs:
+    - pack: ARM::CMSIS-DSP@1.14.3
+      path: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3
+    - pack: ARM::CMSIS@5.9.0
+      path: ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0
+    - pack: GorgonMeducer::perf_counter@1.9.11
+      path: ${CMSIS_PACK_ROOT}/GorgonMeducer/perf_counter/1.9.11
+  optimize: speed
+  debug: off
+  misc:
+    ASM:
+      - -masm=auto
+    C:
+      - -std=gnu11
+      - -fshort-enums
+      - -fshort-wchar
+      - -Ofast
+      - -ffast-math
+    CPP:
+      - -std=c++11
+      - -fno-rtti
+      - -Ofast
+      - -ffast-math
+    Link:
+      - --entry=Reset_Handler
+      - --info=summarysizes
+      - --info=sizes
+      - --info=totals
+      - --info=unused
+      - --info=veneers
+  define:
+    - USE_ASM
+    - ARMCM55
+    - _RTE_
+  add-path:
+    - ..
+    - ../RTE/_Release_VHT_M55
+    - ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Include
+    - ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/PrivateInclude
+    - ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+    - ${CMSIS_PACK_ROOT}/ARM/CMSIS/5.9.0/Device/ARM/ARMCM55/Include
+    - ${CMSIS_PACK_ROOT}/GorgonMeducer/perf_counter/1.9.11/lib
+  output-type: exe
+  output-dirs:
+    gendir: ..
+    intdir: intdir
+    outdir: outdir
+    rtedir: ../RTE
+  components:
+    - component: ARM::CMSIS:CORE@5.6.0
+      condition: ARMv6_7_8-M Device
+      from-pack: ARM::CMSIS@5.9.0
+      selected-by: ARM::CMSIS:CORE
+    - component: ARM::CMSIS:DSP&Source@1.14.3
+      condition: CMSISCORE
+      from-pack: ARM::CMSIS-DSP@1.14.3
+      selected-by: ARM::CMSIS:DSP&Source
+      define:
+        - ARM_DSP_CONFIG_TABLES
+        - ARM_FAST_ALLOW_TABLES
+        - ARM_FFT_ALLOW_TABLES
+        - ARM_ALL_FAST_TABLES
+        - ARM_MATH_LOOPUNROLL
+      files:
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/BasicMathFunctions/BasicMathFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/BasicMathFunctions/BasicMathFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/BayesFunctions/BayesFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/BayesFunctions/BayesFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/CommonTables/CommonTables.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/CommonTables/CommonTablesF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/ComplexMathFunctions/ComplexMathFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/ComplexMathFunctions/ComplexMathFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/ControllerFunctions/ControllerFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/DistanceFunctions/DistanceFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/DistanceFunctions/DistanceFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/FastMathFunctions/FastMathFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/FastMathFunctions/FastMathFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/FilteringFunctions/FilteringFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/FilteringFunctions/FilteringFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/InterpolationFunctions/InterpolationFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/InterpolationFunctions/InterpolationFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/MatrixFunctions/MatrixFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/MatrixFunctions/MatrixFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/QuaternionMathFunctions/QuaternionMathFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/SVMFunctions/SVMFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/SVMFunctions/SVMFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/StatisticsFunctions/StatisticsFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/StatisticsFunctions/StatisticsFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/SupportFunctions/SupportFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/SupportFunctions/SupportFunctionsF16.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/TransformFunctions/TransformFunctions.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/ARM/CMSIS-DSP/1.14.3/Source/TransformFunctions/TransformFunctionsF16.c
+          category: source
+    - component: ARM::Device:Startup&C Startup@1.1.0
+      condition: ARMCM55 CMSIS
+      from-pack: ARM::CMSIS@5.9.0
+      selected-by: Device:Startup&C Startup
+      files:
+        - file: ../RTE/Device/ARMCM55/ARMCM55_ac6.sct
+          category: linkerScript
+          attr: config
+          version: 1.1.0
+        - file: ../RTE/Device/ARMCM55/startup_ARMCM55.c
+          category: sourceC
+          attr: config
+          version: 1.1.0
+        - file: ../RTE/Device/ARMCM55/system_ARMCM55.c
+          category: sourceC
+          attr: config
+          version: 1.1.0
+    - component: GorgonMeducer::Utilities&Performance Counter:perf_counter:Core&Source@1.9.11
+      condition: CMSIS-CORE
+      from-pack: GorgonMeducer::perf_counter@1.9.11
+      selected-by: perf_counter:Core&Source
+      files:
+        - file: ${CMSIS_PACK_ROOT}/GorgonMeducer/perf_counter/1.9.11/perf_counter.c
+          category: source
+        - file: ${CMSIS_PACK_ROOT}/GorgonMeducer/perf_counter/1.9.11/systick_wrapper_gnu.s
+          category: source
+  groups:
+    - group: App
+      files:
+        - file: ../arm_filtering_tests.c
+          category: sourceC
+        - file: ../../FilteringFunctions.c
+          category: sourceC
+        - file: ../../FilteringFunctionsF16.c
+          category: sourceC
+  constructed-files:
+    - file: ../RTE/_Release_VHT_M55/Pre_Include_Global.h
+      category: preIncludeGlobal
+    - file: ../RTE/_Release_VHT_M55/RTE_Components.h
+      category: header

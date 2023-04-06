@@ -71,7 +71,7 @@ int test_cfft_q31(int size, int dump, int ifft, prof * p)
     memcpy(pdstScal, pA, vectorSize * CMPLX_DIM * sizeof(q31_t));
     memcpy(pdstVec, pA, vectorSize * CMPLX_DIM * sizeof(q31_t));
 
-    RUN_Scal_VS_Vec_FFT_WITH_FLAGS(arm_cfft_q31, 16, ifftFlag, bitReverseFlag, "%d");
+    RUN_OPT_VS_REF(arm_cfft_q31, 16, ifftFlag, bitReverseFlag, "%d");
 
     DUMP_ON_ERROR_CMPLX("%d");
 
@@ -92,7 +92,7 @@ int test_cfft_q15(int size, int dump, int ifft, prof * p)
     memcpy(pdstScal, pA, vectorSize * CMPLX_DIM * sizeof(q15_t));
     memcpy(pdstVec, pA, vectorSize * CMPLX_DIM * sizeof(q15_t));
 
-    RUN_Scal_VS_Vec_FFT_WITH_FLAGS(arm_cfft_q15, 16, ifftFlag, bitReverseFlag, "%d");
+    RUN_OPT_VS_REF(arm_cfft_q15, 16, ifftFlag, bitReverseFlag, "%d");
 
     DUMP_ON_ERROR_CMPLX("%d");
 
@@ -116,7 +116,7 @@ int test_cfft_f16(int size, int dump, int ifft, prof * p)
     memcpy(pdstScal, pA, vectorSize * CMPLX_DIM * sizeof(float16_t));
     memcpy(pdstVec, pA, vectorSize * CMPLX_DIM * sizeof(float16_t));
 
-    RUN_Scal_VS_Vec_FFT_WITH_FLAGS(arm_cfft_f16, 16, ifftFlag, bitReverseFlag, "%f");
+    RUN_OPT_VS_REF(arm_cfft_f16, 16, ifftFlag, bitReverseFlag, "%f");
 
     DUMP_ON_ERROR_CMPLX("%f");
 
@@ -137,7 +137,7 @@ int test_cfft_f32(int size, int dump, int ifft, prof * p)
     memcpy(pdstScal, pA, vectorSize * CMPLX_DIM * sizeof(float32_t));
     memcpy(pdstVec, pA, vectorSize * CMPLX_DIM * sizeof(float32_t));
 
-    RUN_Scal_VS_Vec_FFT_WITH_FLAGS(arm_cfft_f32, 16, ifftFlag, bitReverseFlag, "%f");
+    RUN_OPT_VS_REF(arm_cfft_f32, 16, ifftFlag, bitReverseFlag, "%f");
 
     DUMP_ON_ERROR_CMPLX("%f");
 

@@ -89,7 +89,6 @@ project:
         - ARM_TABLE_TWIDDLECOEF_Q31_32 
         - ARM_TABLE_REALCOEF_Q15 
         - ARM_TABLE_TWIDDLECOEF_Q15_32  
-        - ARM_MATH_LOOPUNROLL
 
 
     - component: Keil::Compiler&ARM Compiler:Event Recorder&Semihosting

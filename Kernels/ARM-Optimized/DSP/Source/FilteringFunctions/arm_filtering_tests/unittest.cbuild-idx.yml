@@ -1,0 +1,12 @@
+build-idx:
+  cdefault: unittest.cdefault.yml
+  csolution: unittest.csolution.yml
+  cprojects:
+    - cproject: unittest_filtering.cproject.yml
+      clayers:
+        - clayer: boot.clayer.yml
+        - clayer: printf_mps3.clayer.yml
+  cbuilds:
+    - cbuild: unittest_filtering.Release+VHT-Corstone-300-AC6/unittest_filtering.Release+VHT-Corstone-300.cbuild.yml
+    - cbuild: unittest_filtering.Release+VHT-Corstone-310-AC6/unittest_filtering.Release+VHT-Corstone-310.cbuild.yml
+    - cbuild: unittest_filtering.Release+VHT_M55-AC6/unittest_filtering.Release+VHT_M55.cbuild.yml
