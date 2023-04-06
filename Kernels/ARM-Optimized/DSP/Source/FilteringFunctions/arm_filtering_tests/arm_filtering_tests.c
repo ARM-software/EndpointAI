@@ -95,7 +95,7 @@ int test_fir_f16(int blockSize, int nbTaps, int dump, prof * p)
     // clear coef end to deal with non-multiple of vector elements
     CLEAR_COEF_TAIL(float16_t, nbTaps);
 
-    RUN_FIR_VS_REF(arm_fir_f16, 0.5f);
+    RUN_FIR_VS_REF(arm_fir_f16, 1.0f);
 
     DUMP_ON_FIR_ERROR("%.2f", nbTaps);
 
@@ -149,17 +149,17 @@ int main(void)
 {
     prof            p;
     test            testlist[] = {
-        {test_fir_f32, "firf32", 256, 256, 32, 32},
-        {test_fir_f16, "firf16", 256, 256, 32, 32},
-        {test_fir_q31, "firq31", 256, 256, 32, 32},
-        {test_fir_q15, "firq15", 256, 256, 32, 32},
+        {test_fir_f32, "firf32", 64, 256, 8, 32},
+        {test_fir_f16, "firf16", 64, 256, 8, 32},
+        {test_fir_q31, "firq31", 64, 256, 8, 32},
+        {test_fir_q15, "firq15", 64, 256, 8, 32},
         {NULL, NULL}
     };
     test           *curtest = testlist;
 
-
     init_cycle_counter(false);
 
+		printf("test, blksz, filter sz., cmsis-dsp, opt., status\n");
     while (curtest->f != NULL) {
         testfct         curfct = curtest->f;
         for (int blksz = curtest->minBlkSize; blksz <= curtest->maxBlkSize; blksz <<= 1) {

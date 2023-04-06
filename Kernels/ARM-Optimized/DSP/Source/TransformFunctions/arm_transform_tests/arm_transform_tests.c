@@ -313,10 +313,11 @@ int main(void)
 
     init_cycle_counter(false);
 
+    printf("test, len, no bitrev., inverse, cmsisdsp, opt, status\n");
 
     while (curtest->f != NULL) {
         testfct         curfct = curtest->f;
-        for (int sz = 64; sz <= MAX_FFT_LENGTH; sz <<= 1) {
+        for (int sz = 128; sz <= MAX_FFT_LENGTH; sz <<= 1) {
             int             errorCnt = curfct(sz, 0, 0, &p);
 
             printf("%s, %d, 0, 0, %d, %d, %s\n", curtest->name, sz, (uint32_t)p.ref, (uint32_t)p.opt,
