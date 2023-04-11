@@ -181,9 +181,9 @@ static short     sin250_48[SIN250_48_PERIOD] = {
     arm_fir_instance_##EXT SOPT, SREF;                                                 \
     ALIGN16 TYP     Coeffs[numTaps + 16], *pCoeffs;                                    \
     ALIGN16 TYP     Input[MAX_BUF_SZ], *pInput;                                        \
-    ALIGN16 TYP     firStateOPT[MAX_BUF_SZ + MAX_BUF_SZ + EXTRA_TAIL_CHK] = {0},       \
+    ALIGN16 TYP     firStateOPT[2*MAX_BUF_SZ + MAX_BUF_SZ + EXTRA_TAIL_CHK] = {0},       \
         *pfirStOPT;                                                                    \
-    ALIGN16 TYP     firStateREF[MAX_BUF_SZ + MAX_BUF_SZ + EXTRA_TAIL_CHK] = {0},       \
+    ALIGN16 TYP     firStateREF[2*MAX_BUF_SZ + MAX_BUF_SZ + EXTRA_TAIL_CHK] = {0},       \
         *pfirStREF;                                                                    \
     ALIGN16 TYP     dstOPT[MAX_BUF_SZ + EXTRA_TAIL_CHK] = {0}, *pdstOPT;               \
     ALIGN16 TYP     dstREF[MAX_BUF_SZ + EXTRA_TAIL_CHK] = {0}, *pdstREF;               \
