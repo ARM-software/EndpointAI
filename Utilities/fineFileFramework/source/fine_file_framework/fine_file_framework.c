@@ -275,12 +275,18 @@ static bool __arm_fff_alias_check(  const char *const* ppchPathString,
             ppchPathString++;
             continue;
         }
-        size_t wLength = strlen(*ppchPathString);
+
+        const char *pchStr = *ppchPathString;
+        size_t wSize = strspn(pchStr, ".\\/");
+        pchStr += wSize;
+
+        size_t wLength = strlen(pchStr);
         wLength = MAX(wLength, nTokenLength);
-        if (0 == strncasecmp(*ppchPathString++, pchToken, wLength)) {
+        if (0 == strncasecmp(pchStr, pchToken, wLength)) {
             *pnTokenLength = wLength;
             return true;
         }
+        ppchPathString++;
     } while(--chAliasCount);
 
     return false;
@@ -291,7 +297,7 @@ static const arm_file_node_t *__arm_fff_find_node(
                                             const char *pchPath,
                                             const arm_file_node_t *ptStartPoint)
 {
-    const arm_file_node_t * ptTargetNode = NULL, *ptNode = ptStartPoint;
+    const arm_file_node_t * ptTargetNode = ptStartPoint, *ptNode = ptStartPoint;
 
     do {
         if (NULL == pchPath || NULL == ptThis) {
@@ -308,7 +314,7 @@ static const arm_file_node_t *__arm_fff_find_node(
         
         //! if the first token is "\"
         do {
-            size_t wSize = strspn(pchPath, "\\/");
+            size_t wSize = strspn(pchPath, "\\/ ");
             pchPath += wSize;
             if (1 == wSize) {
                 //! the first token is '\' or "/", go to root
@@ -370,12 +376,18 @@ static const arm_file_node_t *__arm_fff_find_node(
                         }
                         break;
                     }
-                    
+
                     //! the final node
                     if (NULL == ptNode->ptNext || ptNode == ptNode->ptNext) {
-                        //! could not find the file
-                        ptNode = NULL;
-                        ptTargetNode = NULL;
+                    
+                        if (NULL == ptNode->ptParent && NULL != ptNode->ptList) {
+                            /* root or disk */
+                            ptNode = ptNode->ptList;
+                        } else {
+                            //! could not find the file
+                            ptNode = NULL;
+                            ptTargetNode = NULL;
+                        }
                     } else {
                         //! check next file
                         ptNode = ptNode->ptNext;
@@ -414,7 +426,7 @@ static const arm_file_node_t * __arm_fff_find_path( __arm_fff_t *ptThis,
         
         if (NULL != this.tConfig.ptRoot) {
             //! search root 
-            ptNode = __arm_fff_find_node(ptThis, pchPath, this.tConfig.ptRoot->ptList);
+            ptNode = __arm_fff_find_node(ptThis, pchPath, this.tConfig.ptRoot);
             if (NULL != ptNode) {
                 //! find the target node
                 break;

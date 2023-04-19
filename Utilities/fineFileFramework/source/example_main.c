@@ -153,8 +153,8 @@ static void file_copy_demo(void)
     printf("   Demo for File Copy                             \r\n");
     printf("--------------------------------------------------\r\n\r\n");
     
-    printf("Try to open file with absolute path: [c:\\hotel.mp3] ...");
-    FILE *ptInput = fopen("c:\\hotel.mp3", "rb");
+    printf("Try to open file with absolute path: [c:\\fffyml2c.py] ...");
+    FILE *ptInput = fopen("c:\\fffyml2c.py", "rb");
     if (NULL == ptInput) {
         printf("Failed\r\n");
     } else {

@@ -5,6 +5,10 @@
 
 /*============================ INCLUDES ======================================*/
 /*============================ MACROS ========================================*/
+
+#define __FFF_CFG_ROOT__            MPSx_Local_Disk
+#define __FFF_CFG_WORKING_PATH__    "C:"
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
@@ -13,20 +17,20 @@
 /*============================ IMPLEMENTATION ================================*/
 
 #if __IS_COMPILER_ARM_COMPILER_5__
-extern const uint8_t HOTEL_MP3_ROM_data[];
-extern const uint32_t HOTEL_MP3_ROM_size;
+extern const uint8_t FFFYML2C_ROM_data[];
+extern const uint32_t FFFYML2C_ROM_size;
 
 #else
 #define INCBIN_PREFIX
 #define INCBIN_STYLE INCBIN_STYLE_SNAKE
 #include "incbin.h"
 
-INCBIN(HOTEL_MP3_ROM, "RTE/File_System/hotel.mp3");
+INCBIN(FFFYML2C_ROM, "RTE/File_System/fffyml2c.py");
 #endif
 
 def_fff(MPSx_Local_Disk,
     use_fff_disk(disk_c,
-        arm_mem_file_node_t         hotel_mp3;
+        arm_mem_file_node_t         fffyml2c_py;
     );
     
     use_fff_disk(disk_d,
@@ -45,11 +49,11 @@ imp_fff(MPSx_Local_Disk,
         fff_disk_path("C:"),
         fff_list(
             //! memory file: cannon.mp3, read-only
-            fff_mem_file(hotel_mp3, &MPSx_Local_Disk.disk_c, hotel_mp3, 
-                fff_path("hotel.mp3"),
+            fff_mem_file(fffyml2c_py, &MPSx_Local_Disk.disk_c, fffyml2c_py, 
+                fff_path("fffyml2c.py"),
                 fff_access(FFF_READ_ONLY),
                 
-                fff_mem_content(HOTEL_MP3_ROM_data, HOTEL_MP3_ROM_size),
+                fff_mem_content(FFFYML2C_ROM_data, FFFYML2C_ROM_size),
             ),
         ),
     ),

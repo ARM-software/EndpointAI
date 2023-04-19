@@ -1,11 +1,11 @@
 
         AREA    fff_mem_file, DATA, READONLY
-        EXPORT  HOTEL_MP3_ROM_data
+        EXPORT  FFFYML2C_ROM_data
 
 ; Includes the binary file MyBinFile1.bin from the current source folder
-HOTEL_MP3_ROM_data
-        INCBIN  .\hotel.mp3
-HOTEL_MP3_ROM_end
+FFFYML2C_ROM_data
+        INCBIN  .\fffyml2c.py
+FFFYML2C_ROM_end
 
 ; Use a relative or absolute path to other folders if necessary
 ;       INCBIN  c:\project\MyBinFile1.bin
@@ -14,9 +14,9 @@ HOTEL_MP3_ROM_end
 
         ALIGN 4
 ; define a constant which contains the size of the image above
-HOTEL_MP3_ROM_size
-        DCD     HOTEL_MP3_ROM_end - HOTEL_MP3_ROM_data
+FFFYML2C_ROM_size
+        DCD     FFFYML2C_ROM_end - FFFYML2C_ROM_data
 
-        EXPORT  HOTEL_MP3_ROM_size
+        EXPORT  FFFYML2C_ROM_size
 
         END

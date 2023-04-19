@@ -264,15 +264,15 @@ _ARMABI FILE *fopen(const char * __restrict pchName,
         }
 
         /* filter stdout */
-        if (strcmp(pchName, __stdout_name) >= 0) {
+        if (strcmp(pchName, __stdout_name) == 0) {
             return &__stdout;
         }
         /* filter stdin */
-        if (strcmp(pchName, __stdin_name) >= 0) {
+        if (strcmp(pchName, __stdin_name) == 0) {
             return &__stdin;
         }
         /* filter stderr */
-        if (strcmp(pchName, __stderr_name) >= 0) {
+        if (strcmp(pchName, __stderr_name) == 0) {
             return &__stderr;
         }
 

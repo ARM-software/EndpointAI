@@ -92,6 +92,13 @@ enum {
 #undef __FFF_USER_DEFINE_FILE_FRAMEWORK__
 
 
+#ifndef __FFF_CFG_ROOT__    
+#   define __FFF_CFG_ROOT__             MPSx_Local_Disk
+#endif
+#ifndef __FFF_CFG_WORKING_PATH__
+#   define __FFF_CFG_WORKING_PATH__     "."
+#endif
+
 /*----------------------------------------------------------------------------*
  * Compiler Specific Code to run __vsf_main_entry() before main()             *
  *----------------------------------------------------------------------------*/
@@ -100,8 +107,8 @@ __attribute__((constructor, noreturn))
 void __platform_main_entry(void)
 {
     const arm_fff_cfg_t tCFG = {
-        .ptRoot = (const arm_file_node_t *)&MPSx_Local_Disk,
-        .pchWorkingPath = "c:\\",
+        .ptRoot = (const arm_file_node_t *)&__FFF_CFG_ROOT__,
+        .pchWorkingPath = __FFF_CFG_WORKING_PATH__,
         
         /* user defined file types */
         .tTypes = {
