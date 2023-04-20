@@ -337,7 +337,7 @@ static short    sin250_48[SIN250_48_PERIOD] = {
 #define SETUP_BIQUAD_DF1(TYP, EXT,nbCascade, blockSize,alignOffs)                               \
     ALIGN16 TYP     stateRef[4 * MAX_BIQ_STAGES] = { 0 }, *pstateRef;                           \
     ALIGN16 TYP     stateOpt[4 * MAX_BIQ_STAGES] = { 0 }, *pstateOpt;                           \
-    ALIGN16 TYP     coefs[5 * nbCascade], *pcoefs = coefs;                                      \
+    ALIGN16 TYP     coefs[6 * nbCascade], *pcoefs = coefs;                                      \
     arm_biquad_casd_df1_inst_##EXT SRef, SOpt;                                                  \
     ALIGN16 TYP Input[MAX_BUF_SZ], *pInput = Input;                                             \
     ALIGN16 TYP dstRef[MAX_BUF_SZ + EXTRA_TAIL_CHK] = { 0 },                                    \
@@ -359,15 +359,15 @@ static short    sin250_48[SIN250_48_PERIOD] = {
         Q = 2.0f;                                                                               \
         f0 = 200.f * (float32_t)(i + 1);                                                        \
         w = 2 * PI * f0 / 8000.0f;                                                              \
-        alpha = sinf(w) / 2 * Q;                                                                \
+        alpha = arm_sin_f32(w) / 2 * Q;                                                         \
                                                                                                 \
         a0 = 1.0f + alpha;                                                                      \
-        b0 = ((1 - cosf(w)) / 2.f) / a0;                                                        \
+        b0 = ((1 - arm_cos_f32(w)) / 2.f) / a0;                                                 \
         b1 = (2.0f * b0);                                                                       \
         b2 = b0;                                                                                \
                                                                                                 \
         a0 = 1.0f + alpha;                                                                      \
-        a1 = -2.0f * cosf(w) / a0;                                                              \
+        a1 = -2.0f * arm_cos_f32(w) / a0;                                                       \
         a2 = (1.0f - alpha) / a0;                                                               \
                                                                                                 \
         PRINT("coef a1=%f a2=%f b0=%f b1=%f b2=%f \n", a1, a2, b0, b1, b0);                     \
@@ -396,22 +396,22 @@ static short    sin250_48[SIN250_48_PERIOD] = {
         Q = 2.0f;                                                                                   \
         f0 = 400.0f + 100.0f * (float32_t)(i + 1);                                                  \
         w = 2 * PI * f0 / 8000.0f;                                                                  \
-        alpha = sinf(w) / 2.0f * Q;                                                                 \
+        alpha = arm_sin_f32(w) / 2.0f * Q;                                                          \
                                                                                                     \
         a0 = 1.0f + alpha;                                                                          \
-        b0 = ((1 - cosf(w)) / 2.0f) / a0;                                                           \
+        b0 = ((1 - arm_cos_f32(w)) / 2.0f) / a0;                                                    \
         b1 = (2.0f * b0);                                                                           \
         b2 = b0;                                                                                    \
                                                                                                     \
         a0 = (1.0f + alpha);                                                                        \
-        a1 = -2.0f * cosf(w) / a0;                                                                  \
+        a1 = -2.0f * arm_cos_f32(w) / a0;                                                           \
         a2 = (1.0f - alpha) / a0;                                                                   \
                                                                                                     \
-        a1fx = (TYP)(roundf(a1 * powf(2.0, scale)));                                                \
-        a2fx = (TYP)(roundf(a2 * powf(2.0, scale)));                                                \
-        b0fx = (TYP)(roundf(b0 * powf(2.0, scale)));                                                \
-        b1fx = (TYP)(roundf(b1 * powf(2.0, scale)));                                                \
-        b2fx = (TYP)(roundf(b2 * powf(2.0, scale)));                                                \
+        a1fx = (TYP)(roundf(a1 * powf(2.0f, scale)));                                               \
+        a2fx = (TYP)(roundf(a2 * powf(2.0f, scale)));                                               \
+        b0fx = (TYP)(roundf(b0 * powf(2.0f, scale)));                                               \
+        b1fx = (TYP)(roundf(b1 * powf(2.0f, scale)));                                               \
+        b2fx = (TYP)(roundf(b2 * powf(2.0f, scale)));                                               \
                                                                                                     \
         PRINT("coef a1=%f a2=%f b0=%f b1=%f b2=%f : %d %d %d %d %d\n",                              \
         a1, a2, b0, b1, b0, a1fx, a2fx, b0fx, b1fx, b2fx);                                          \

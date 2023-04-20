@@ -451,7 +451,7 @@ void arm_fir_f32_mve(const arm_fir_instance_f32 * S,
         {
             pSamples = pState + sample_offset;
             partial_accu_ptr =  S->pState;
-
+            register unsigned count  __asm("lr") = blockSize;
 
             __asm volatile (
                 /*
@@ -483,12 +483,12 @@ void arm_fir_f32_mve(const arm_fir_instance_f32 * S,
                 FIR_F32_FORGET_8_COEFS()
 
                 :[pSamples] "+r"(pSamples),[partial_accu_ptr] "+r"(partial_accu_ptr),
-                 [pCoeffs] "+r"(pCoeffs)
-                :[cnt] "r"(blockSize)
+                 [pCoeffs] "+r"(pCoeffs), [cnt] "+r"(count)
+                :
                 :"q0", "q1", "q2",
                 "r2", "r3", "r4", "r5",
                 "r6", "r10", "r8", "r9",
-                "r14", "memory");
+                "memory");
 
 
             localTaps -= FIR_F32_MAX_COEF_BLK;
