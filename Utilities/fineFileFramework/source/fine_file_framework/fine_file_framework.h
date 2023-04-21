@@ -250,7 +250,37 @@ extern "C" {
  *----------------------------------------------------------------------------*/
 #define __use_fff_folder(__NAME, ...)                                           \
     struct {                                                                    \
-        implement(arm_folder_node_t)                                            \
+        /*implement(arm_folder_node_t)*/                                        \
+        implement_ex(                                                           \
+            struct {                                                            \
+                /* implement(arm_file_node_t) */                                \
+                implement_ex(                                                   \
+                    struct {                                                    \
+                        uint8_t chID;                                           \
+                        union {                                                 \
+                            struct {                                            \
+                                uint8_t bIsValid        : 1;                    \
+                                uint8_t bIsVisible      : 1;                    \
+                                uint8_t                 : 2;                    \
+                                uint8_t bCanRead        : 1;                    \
+                                uint8_t bCanWrite       : 1;                    \
+                                uint8_t bCanSeek        : 1;                    \
+                                uint8_t bIsStream       : 1;                    \
+                            };                                                  \
+                            uint8_t chAttribute;                                \
+                        };                                                      \
+                                                                                \
+                        uint8_t    chAliasCount;                                \
+                        const char *const* ppchPathString;                      \
+                                                                                \
+                        const arm_file_node_t *ptParent;                        \
+                        const arm_file_node_t *ptNext;                          \
+                        const arm_file_node_t *ptList;                          \
+                    },                                                          \
+                use_as__arm_file_node_t)                                        \
+                const arm_file_node_t ptFirstNode[];                            \
+            },                                                                  \
+        use_as__arm_folder_node_t)                                              \
         implement_ex(                                                           \
             struct {                                                            \
                 __VA_ARGS__                                                     \
