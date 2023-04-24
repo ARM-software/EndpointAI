@@ -1,19 +1,20 @@
-/****************************************************************************
-*  Copyright 2020 Gabriel Wang (Email:gabriel.wang@arm.com)                 *
-*                                                                           *
-*  Licensed under the Apache License, Version 2.0 (the "License");          *
-*  you may not use this file except in compliance with the License.         *
-*  You may obtain a copy of the License at                                  *
-*                                                                           *
-*     http://www.apache.org/licenses/LICENSE-2.0                            *
-*                                                                           *
-*  Unless required by applicable law or agreed to in writing, software      *
-*  distributed under the License is distributed on an "AS IS" BASIS,        *
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
-*  See the License for the specific language governing permissions and      *
-*  limitations under the License.                                           *
-*                                                                           *
-****************************************************************************/
+/*
+ * Copyright (C) 2023 Arm Limited or its affiliates. All rights reserved.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the License); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 /*============================ INCLUDES ======================================*/
 #include "./fine_file_framework.h"
@@ -90,6 +91,13 @@ extern "C" {
 //    )
 //)
 //end_def_class(__arm_fff_t)
+
+enum {
+    FFF_FILE_TYPE_ID_FOLDER     = 0,                                            //!< folder
+    FFF_FILE_TYPE_ID_MEM_FILE,                                                  //!< Memory File
+    FFF_USER_TYPE_ID_START,
+};
+
 
 typedef struct __arm_fff_t  {
     implement_ex(arm_fff_cfg_t, tConfig);
@@ -524,21 +532,21 @@ const arm_file_node_t *__arm_fff_open(  __arm_fff_t *ptThis,
         if (NULL == ptNode) {
             //! cannot find the target node
             break;
-        } else if (0 == ptNode->chID) {         
+        } else if (FFF_FILE_TYPE_ID_FOLDER == ptNode->chID) {         
             //! you are not allowed to open a default folder
             break;
         } else if (ptNode->chID > this.tConfig.tTypes.chCount + 1) {
             //! illegal ID
             break;
         }
-        
+
         if (    (   (OPEN_R == (wFeature & OPEN_R))
                 ||  (OPEN_PLUS == (wFeature & OPEN_PLUS)))
             &&  !(ptNode->bCanRead)) {
             //! doesn't support read
             break;
         }
-        
+
         if (    (   (OPEN_W == (wFeature & OPEN_W))
                 ||  (OPEN_A == (wFeature & OPEN_A))
                 ||  (OPEN_PLUS == (wFeature & OPEN_PLUS)))
@@ -546,11 +554,11 @@ const arm_file_node_t *__arm_fff_open(  __arm_fff_t *ptThis,
             //! doesn't support write
             break;
         }
-        
-        if (ptNode->chID >= 2) {
+
+        if (ptNode->chID >= FFF_USER_TYPE_ID_START) {
             //! user defined type
             const i_arm_file_node_t *ptType = 
-                &this.tConfig.tTypes.ptList[ptNode->chID - 2];
+                &this.tConfig.tTypes.ptList[ptNode->chID - FFF_USER_TYPE_ID_START];
             
             //! call user defined open method
             if (NULL != ptType->Control.Open){
@@ -563,7 +571,7 @@ const arm_file_node_t *__arm_fff_open(  __arm_fff_t *ptThis,
                         arm_fff_mem_file_open(ptNode, wFeature)) {
             break;
         }
-        
+
         return ptNode;
     } while(0);
     
@@ -580,7 +588,7 @@ arm_fff_err_t __arm_fff_close(  __arm_fff_t *ptThis, const arm_file_node_t * ptN
             //! cannot find the target node
             tErr = ARM_FFF_ERR_INVALID_PTR;
             break;
-        } else if (0 == ptNode->chID) {         
+        } else if (FFF_FILE_TYPE_ID_FOLDER == ptNode->chID) {         
             //! you are not allowed to open a default folder
             tErr = ARM_FFF_ERR_UNSUPPORTED;
             break;
@@ -590,10 +598,10 @@ arm_fff_err_t __arm_fff_close(  __arm_fff_t *ptThis, const arm_file_node_t * ptN
             break;
         }
         
-        if (ptNode->chID >= 2) {
+        if (ptNode->chID >= FFF_USER_TYPE_ID_START) {
             //! user defined type
             const i_arm_file_node_t *ptType = 
-                &this.tConfig.tTypes.ptList[ptNode->chID - 2];
+                &this.tConfig.tTypes.ptList[ptNode->chID - FFF_USER_TYPE_ID_START];
             
             //! call user defined close method
             if (NULL != ptType->Control.Close){
@@ -616,7 +624,7 @@ bool __arm_fff_eof(  __arm_fff_t *ptThis, const arm_file_node_t * ptNode)
         if (NULL == ptNode) {
             //! cannot find the target node
             break;
-        } else if (0 == ptNode->chID) {         
+        } else if (FFF_FILE_TYPE_ID_FOLDER == ptNode->chID) {         
             //! you are not allowed to open a default folder
             break;
         } else if (ptNode->chID > this.tConfig.tTypes.chCount + 1) {
@@ -624,10 +632,10 @@ bool __arm_fff_eof(  __arm_fff_t *ptThis, const arm_file_node_t * ptNode)
             break;
         }
         
-        if (ptNode->chID >= 2) {
+        if (ptNode->chID >= FFF_USER_TYPE_ID_START) {
             //! user defined type
             const i_arm_file_node_t *ptType = 
-                &this.tConfig.tTypes.ptList[ptNode->chID - 2];
+                &this.tConfig.tTypes.ptList[ptNode->chID - FFF_USER_TYPE_ID_START];
             
             //! call user defined eof method
             if (NULL != ptType->Control.EndOfStream){
@@ -652,7 +660,7 @@ bool __arm_fff_flush(  __arm_fff_t *ptThis, const arm_file_node_t * ptNode)
         if (NULL == ptNode) {
             //! cannot find the target node
             break;
-        } else if (0 == ptNode->chID) {         
+        } else if (FFF_FILE_TYPE_ID_FOLDER == ptNode->chID) {         
             //! you are not allowed to open a default folder
             break;
         } else if (ptNode->chID > this.tConfig.tTypes.chCount + 1) {
@@ -660,10 +668,10 @@ bool __arm_fff_flush(  __arm_fff_t *ptThis, const arm_file_node_t * ptNode)
             break;
         }
         
-        if (ptNode->chID >= 2) {
+        if (ptNode->chID >= FFF_USER_TYPE_ID_START) {
             //! user defined type
             const i_arm_file_node_t *ptType = 
-                &this.tConfig.tTypes.ptList[ptNode->chID - 2];
+                &this.tConfig.tTypes.ptList[ptNode->chID - FFF_USER_TYPE_ID_START];
             
             //! call user defined flush method
             if (NULL != ptType->Control.Flush){
@@ -689,7 +697,7 @@ int __arm_fff_seek( __arm_fff_t *ptThis,
         if (NULL == ptNode) {
             //! cannot find the target node
             break;
-        } else if (0 == ptNode->chID) {         
+        } else if (FFF_FILE_TYPE_ID_FOLDER == ptNode->chID) {         
             //! you are not allowed to open a default folder
             break;
         } else if (ptNode->chID > this.tConfig.tTypes.chCount + 1) {
@@ -697,10 +705,10 @@ int __arm_fff_seek( __arm_fff_t *ptThis,
             break;
         }
         
-        if (ptNode->chID >= 2) {
+        if (ptNode->chID >= FFF_USER_TYPE_ID_START) {
             //! user defined type
             const i_arm_file_node_t *ptType = 
-                &this.tConfig.tTypes.ptList[ptNode->chID - 2];
+                &this.tConfig.tTypes.ptList[ptNode->chID - FFF_USER_TYPE_ID_START];
             
             //! call user defined flush method
             if (NULL != ptType->Position.Set){
@@ -724,7 +732,7 @@ long int __arm_fff_tell(__arm_fff_t *ptThis, arm_file_node_t * ptNode)
         if (NULL == ptNode) {
             //! cannot find the target node
             break;
-        } else if (0 == ptNode->chID) {         
+        } else if (FFF_FILE_TYPE_ID_FOLDER == ptNode->chID) {         
             //! you are not allowed to open a default folder
             break;
         } else if (ptNode->chID > this.tConfig.tTypes.chCount + 1) {
@@ -732,10 +740,10 @@ long int __arm_fff_tell(__arm_fff_t *ptThis, arm_file_node_t * ptNode)
             break;
         }
         
-        if (ptNode->chID >= 2) {
+        if (ptNode->chID >= FFF_USER_TYPE_ID_START) {
             //! user defined type
             const i_arm_file_node_t *ptType = 
-                &this.tConfig.tTypes.ptList[ptNode->chID - 2];
+                &this.tConfig.tTypes.ptList[ptNode->chID - FFF_USER_TYPE_ID_START];
             
             //! call user defined flush method
             if (NULL != ptType->Position.Get){
@@ -767,7 +775,7 @@ int_fast32_t __arm_fff_read(__arm_fff_t *ptThis,
         } else if (!ptNode->bCanRead) {
             //! cannot read
             break;
-        } else if (0 == ptNode->chID) {         
+        } else if (FFF_FILE_TYPE_ID_FOLDER == ptNode->chID) {         
             //! you are not allowed to open a default folder
             break;
         } else if (ptNode->chID > this.tConfig.tTypes.chCount + 1) {
@@ -775,10 +783,10 @@ int_fast32_t __arm_fff_read(__arm_fff_t *ptThis,
             break;
         } 
         
-        if (ptNode->chID >= 2) {
+        if (ptNode->chID >= FFF_USER_TYPE_ID_START) {
             //! user defined type
             const i_arm_file_node_t *ptType = 
-                &this.tConfig.tTypes.ptList[ptNode->chID - 2];
+                &this.tConfig.tTypes.ptList[ptNode->chID - FFF_USER_TYPE_ID_START];
             
             //! call user defined read method
             if (NULL != ptType->Read){
@@ -795,10 +803,10 @@ int_fast32_t __arm_fff_read(__arm_fff_t *ptThis,
 }
 
 static 
-int_fast32_t __arm_fff_write(__arm_fff_t *ptThis, 
-                            const arm_file_node_t *ptNode,
-                            void *pBuffer,
-                            int_fast32_t nSize)
+int_fast32_t __arm_fff_write(   __arm_fff_t *ptThis, 
+                                const arm_file_node_t *ptNode,
+                                void *pBuffer,
+                                int_fast32_t nSize)
 {
     int_fast32_t nResult = -1;
     
@@ -809,7 +817,7 @@ int_fast32_t __arm_fff_write(__arm_fff_t *ptThis,
         } else if (!ptNode->bCanWrite) {
             //! cannot write
             break;
-        } else if (0 == ptNode->chID) {         
+        } else if (FFF_FILE_TYPE_ID_FOLDER == ptNode->chID) {         
             //! you are not allowed to open a default folder
             break;
         } else if (ptNode->chID > this.tConfig.tTypes.chCount + 1) {
@@ -817,10 +825,10 @@ int_fast32_t __arm_fff_write(__arm_fff_t *ptThis,
             break;
         } 
         
-        if (ptNode->chID >= 2) {
+        if (ptNode->chID >= FFF_USER_TYPE_ID_START) {
             //! user defined type
             const i_arm_file_node_t *ptType = 
-                &this.tConfig.tTypes.ptList[ptNode->chID - 2];
+                &this.tConfig.tTypes.ptList[ptNode->chID - FFF_USER_TYPE_ID_START];
             
             //! call user defined write method
             if (NULL != ptType->Write){
@@ -839,7 +847,7 @@ int_fast32_t __arm_fff_write(__arm_fff_t *ptThis,
 /*----------------------------------------------------------------------------*
  * Utility Functions                                                          *
  *----------------------------------------------------------------------------*/
-char * arm_fff_get_path_string( const arm_file_node_t *ptPathNode,
+char * arm_fff_helper_get_path_string( const arm_file_node_t *ptPathNode,
                                 char *pchBuffer, size_t wBufferSize)
 {
     const arm_file_node_t *ptNode = ptPathNode;
@@ -950,6 +958,43 @@ size_t arm_fff_helper_write_file(   arm_file_node_t *ptOutputFile,
     return tSize - tSizeLeft;
 }
 
+
+static
+void __print_folder_structure(  const arm_file_node_t *ptStart, 
+                                int_fast16_t iLevel)
+{
+    
+}
+
+void __arm_fff_helper_list_folder_structure(__arm_fff_t *ptThis,
+                                            const char *pchPath, 
+                                            int_fast16_t iLevel)
+{
+    const arm_file_node_t * ptNode = NULL;
+    if (0 == strncmp(pchPath, "/", 1)) {
+        /* the root node */
+        ptNode = this.tConfig.ptRoot;
+    } else {
+        if (0 == strncmp(pchPath, "~", 1)) {
+            /* use the working path as "home" */
+            ptNode = __arm_fff_find_path(ptThis, this.tConfig.pchWorkingPath);
+        } else {
+            ptNode = __arm_fff_find_path(ptThis, pchPath);
+        }
+    }
+
+    if (NULL == ptNode) {
+        printf("Cannot find the path [%s] \r\n", pchPath);
+        return ;
+    } else if (ptNode->chID != FFF_FILE_TYPE_ID_FOLDER) {
+        
+    }
+
+    /* list all the files and folders starting from the given node */
+    __print_folder_structure(ptNode, iLevel);
+
+}
+
 /*----------------------------------------------------------------------------*
  * Wrapper Functions                                                          *
  *----------------------------------------------------------------------------*/
@@ -974,6 +1019,7 @@ const arm_file_node_t * arm_fff_find_path(const char *pchPath)
 {
     return __arm_fff_find_path(&s_tLocalFFF, pchPath);
 }
+
 
 const arm_file_node_t *arm_fff_open( const char *pchPath, uint16_t wFeature)
 {

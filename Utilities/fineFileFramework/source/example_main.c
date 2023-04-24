@@ -76,7 +76,7 @@ static void print_path(const arm_file_node_t *ptPathNode)
     static char s_chLineBuffer[256];
     
     printf("%s\r\n",
-        arm_fff_get_path_string(ptPathNode, 
+        arm_fff_helper_get_path_string(ptPathNode, 
                                 s_chLineBuffer, 
                                 sizeof(s_chLineBuffer))
     );
