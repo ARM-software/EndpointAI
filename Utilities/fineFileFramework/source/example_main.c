@@ -113,7 +113,7 @@ static void file_path_demo(void)
     fclose(ptInput);
 
     printf( "Current working path: ");
-    print_path(arm_fff_get_working_path());
+    print_path(arm_fff_helper_get_working_path());
     
     printf("Try to open file with relative path : [no_2.mp3] ...");
     ptInput = fopen("no_2.mp3", "r+b");
@@ -126,14 +126,14 @@ static void file_path_demo(void)
     
     
     printf( "\r\nset working path to d:\\symphony\\music\\beethoven...");
-    if (ARM_FFF_ERR_NONE == arm_fff_set_working_path("d:\\symphony\\music\\beethoven")) {
+    if (ARM_FFF_ERR_NONE == arm_fff_helper_set_working_path("d:\\symphony\\music\\beethoven")) {
         printf("OK\r\n");
     } else {
         printf("Failed\r\n");
     }
     
     printf( "Current working path: ");
-    print_path(arm_fff_get_working_path());
+    print_path(arm_fff_helper_get_working_path());
     
     printf("Try to open file with relative path : [no_2.mp3] ...");
     ptInput = fopen("no_2.mp3", "r+b");

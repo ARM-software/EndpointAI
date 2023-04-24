@@ -540,8 +540,6 @@ typedef __FILE FILE;
 #endif
 
 /*============================ GLOBAL VARIABLES ==============================*/
-/*============================ LOCAL VARIABLES ===============================*/
-/*============================ PROTOTYPES ====================================*/
 
 /*
  * These names should be special strings which will be recognised
@@ -554,21 +552,12 @@ extern const char __stderr_name[];
 
 extern FILE __stdin, __stdout, __stderr;
 
+/*============================ LOCAL VARIABLES ===============================*/
+/*============================ PROTOTYPES ====================================*/
+
+
 extern 
 arm_fff_err_t arm_fff_init( const arm_fff_cfg_t *ptCFG);
-
-extern
-arm_fff_err_t arm_fff_set_working_path(const char *pchWorkingPath);
-
-extern 
-const arm_file_node_t * arm_fff_get_working_path(void);
-
-extern
-const arm_file_node_t * arm_fff_find_path(const char *pchPath);
-
-extern
-char * arm_fff_helper_get_path_string( const arm_file_node_t *ptPathNode,
-                                char *pchBuffer, size_t wBufferSize);
 
 extern
 const arm_file_node_t *arm_fff_open(const char *pchPath, uint16_t wFeature);
@@ -616,6 +605,30 @@ int_fast32_t arm_fff_read_byte(arm_file_node_t *ptNode);
 extern
 bool arm_fff_write_byte(arm_file_node_t *ptNode, uint_fast8_t chByte);
 
+/*----------------------------------------------------------------------------*
+ * Helper Functions                                                           *
+ *----------------------------------------------------------------------------*/
+extern
+arm_fff_err_t arm_fff_helper_set_working_path(const char *pchWorkingPath);
+
+extern 
+const arm_file_node_t * arm_fff_helper_get_working_path(void);
+
+extern
+const arm_file_node_t * arm_fff_helper_find_path(const char *pchPath);
+
+extern
+char *arm_fff_helper_get_path_string(   const arm_file_node_t *ptPathNode,
+                                        char *pchBuffer, 
+                                        size_t wBufferSize);
+
+extern
+bool arm_fff_helper_list_folder_structure(  const char *pchPath, 
+                                            int_fast16_t iLevel);
+
+/*----------------------------------------------------------------------------*
+ * Dependency                                                                 *
+ *----------------------------------------------------------------------------*/
 extern
 void *arm_fff_malloc(size_t tSize);
 
