@@ -221,7 +221,7 @@
                 <file category="sourceC"    name="source/fine_file_framework/file_retarget.c" />
                 
                 <file category="header"     name="source/fine_file_framework/template/fff_cfg.h"                       attr="config" version="1.0.6"/>
-                <file category="other"      name="source/fine_file_framework/template/__fff_user_def_file_framework.c" attr="config" version="1.0.1"/>
+                <file category="other"      name="source/fine_file_framework/template/__fff_user_def_file_framework.c" attr="config" version="1.0.2"/>
                 <file category="sourceC"    name="source/fine_file_framework/fff_user_description.c"                   attr="config" version="1.0.8"/>
                 <file category="other"      name="source/fine_file_framework/template/fffyml2c.py"                     attr="config" version="0.8.0"/>
                 <file category="sourceAsm"  name="source/fine_file_framework/template/fffyml2c.s"                      attr="config" version="1.0.0" condition="Arm Compiler 5"/>
