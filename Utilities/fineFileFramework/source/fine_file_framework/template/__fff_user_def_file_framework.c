@@ -60,45 +60,46 @@ def_fff(MPSx_Local_Disk,
 )
 
 imp_fff(MPSx_Local_Disk,
-
-    fff_disk(disk_c, &MPSx_Local_Disk, disk_d,
-        fff_disk_path("C:"),
-        fff_list(
-            //! memory file: cannon.mp3, read-only
-            fff_mem_file(fffyml2c_py, &MPSx_Local_Disk.disk_c, fffyml2c_py, 
-                fff_path("fffyml2c.py"),
-                fff_access(FFF_READ_ONLY),
-                
-                fff_mem_content(FFFYML2C_ROM_data, FFFYML2C_ROM_size),
+    fff_list(
+        fff_disk(disk_c, &MPSx_Local_Disk, disk_d,
+            fff_path("C:"),
+            fff_list(
+                //! memory file: cannon.mp3, read-only
+                fff_mem_file(fffyml2c_py, &MPSx_Local_Disk.disk_c, fffyml2c_py, 
+                    fff_path("fffyml2c.py"),
+                    fff_access(FFF_READ_ONLY),
+                    
+                    fff_mem_content(FFFYML2C_ROM_data, FFFYML2C_ROM_size),
+                ),
             ),
         ),
-    ),
 
-    fff_disk(disk_d, &MPSx_Local_Disk, disk_d,
-        fff_disk_path("D:"),
-        fff_list(
-            fff_folder(symphony, &MPSx_Local_Disk.disk_d, symphony,
-                fff_folder_path(
-                    "symphony\\music\\beethoven", 
-                    "symphony/music/beethoven"
-                ),
+        fff_disk(disk_d, &MPSx_Local_Disk, disk_d,
+            fff_path("D:"),
+            fff_list(
+                fff_folder(symphony, &MPSx_Local_Disk.disk_d, symphony,
+                    fff_path(
+                        "symphony\\music\\beethoven", 
+                        "symphony/music/beethoven"
+                    ),
 
-                fff_list(
-                    fff_mem_file(no_1_mp3, &MPSx_Local_Disk.disk_d.symphony, no_2_mp3, 
-                        fff_path("no_1.mp3"),
-                        fff_access(FFF_READ_WRITE),
-                    ),
-                    fff_mem_file(no_2_mp3, &MPSx_Local_Disk.disk_d.symphony, no_3_mp3, 
-                        fff_path("no_2.mp3"),
-                        fff_access(FFF_READ_WRITE),
-                    ),
-                    fff_mem_file(no_3_mp3, &MPSx_Local_Disk.disk_d.symphony, no_4_mp3, 
-                        fff_path("no_3.mp3"),
-                        fff_access(FFF_READ_WRITE),
-                    ),
-                    fff_mem_file(no_4_mp3, &MPSx_Local_Disk.disk_d.symphony, no_4_mp3, 
-                        fff_path("no_4.mp3"),
-                        fff_access(FFF_READ_WRITE),
+                    fff_list(
+                        fff_mem_file(no_1_mp3, &MPSx_Local_Disk.disk_d.symphony, no_2_mp3, 
+                            fff_path("no_1.mp3"),
+                            fff_access(FFF_READ_WRITE),
+                        ),
+                        fff_mem_file(no_2_mp3, &MPSx_Local_Disk.disk_d.symphony, no_3_mp3, 
+                            fff_path("no_2.mp3"),
+                            fff_access(FFF_READ_WRITE),
+                        ),
+                        fff_mem_file(no_3_mp3, &MPSx_Local_Disk.disk_d.symphony, no_4_mp3, 
+                            fff_path("no_3.mp3"),
+                            fff_access(FFF_READ_WRITE),
+                        ),
+                        fff_mem_file(no_4_mp3, &MPSx_Local_Disk.disk_d.symphony, no_4_mp3, 
+                            fff_path("no_4.mp3"),
+                            fff_access(FFF_READ_WRITE),
+                        ),
                     ),
                 ),
             ),
