@@ -16,7 +16,7 @@
   <repository type="git"></repository>
   
   <releases>
-    <release date="2023-04-25" version="0.9.14" tag="0.9.14" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/ARM.fineFileFramework.0.9.14.pack">
+    <release date="2023-04-26" version="0.9.15" tag="0.9.15" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/ARM.fineFileFramework.0.9.15.pack">
       - First release
       - Minor fixes
       - Introduce macro __FFF_CFG_IGNORE_NO_SEMIHOSTING__ 
@@ -27,6 +27,8 @@
       - Implement full feature fwrite
       - Implement fseek, ftell, rewind, fsetpos and fgetpos
       - Support Arm Compilers, GCC and LLVM
+      - Simplified helper macros
+      - Add a helper function for list folder structures
     </release>
   </releases>
 

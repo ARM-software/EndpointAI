@@ -215,24 +215,15 @@ extern "C" {
                 .chAliasCount = (sizeof((const char *[]){__VA_ARGS__})          \
                             /   sizeof(const char *))                          
 
-#define fff_path(...)       __fff_path(__VA_ARGS__)
+#define fff_path(...)           __fff_path(__VA_ARGS__)
 
-
-#define __fff_folder_path(...)                                                  \
-            .use_as__arm_folder_node_t                                          \
-                .use_as__arm_file_node_t                                        \
-                    .ppchPathString = (const char *const []){__VA_ARGS__},      \
-            .use_as__arm_folder_node_t                                          \
-                .use_as__arm_file_node_t.                                       \
-                    chAliasCount = (   sizeof((const char *[]){__VA_ARGS__})    \
-                            /   sizeof(const char *))
                             
-#define fff_disk_path(...)      __fff_folder_path(__VA_ARGS__)
-#define fff_folder_path(...)    __fff_folder_path(__VA_ARGS__)
+#define fff_disk_path(...)      __fff_path(__VA_ARGS__)
+#define fff_folder_path(...)    __fff_path(__VA_ARGS__)
 
-#define fff_access(...)       __VA_ARGS__
+#define fff_access(...)         __VA_ARGS__
 
-#define fff_list(...)       .tList = {__VA_ARGS__}
+#define fff_list(...)           .tList = {__VA_ARGS__}
 
 #define FFF_READ_ONLY                                                           \
         fff_attribute(use_as__arm_file_node_t.bCanRead,true),                   \
@@ -294,41 +285,23 @@ extern "C" {
 #define __fff_folder(__NAME, __PARENT, __NEXT, ...)                             \
     .__NAME = {                                                                 \
         /*! default configuration */                                            \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .bIsVisible,                                        \
-                      true),                                                    \
+        fff_attribute(use_as__arm_file_node_t .bIsVisible, true),               \
                                                                                 \
         /*! user configuration */                                               \
         __VA_ARGS__                                                             \
                                                                                 \
         /*! override user definition */                                         \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .chID,                                              \
-                      FFF_FILE_TYPE_ID_FOLDER),                                 \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .bIsValid,                                          \
-                      true),                                                    \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .bCanRead,                                          \
-                      false),                                                   \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .bCanWrite,                                         \
-                      false),                                                   \
-        .use_as__arm_folder_node_t                                              \
-            .use_as__arm_file_node_t                                            \
+        fff_attribute(use_as__arm_file_node_t.chID, FFF_FILE_TYPE_ID_FOLDER),   \
+        fff_attribute(use_as__arm_file_node_t.bIsValid, true),                  \
+        fff_access(FFF_NO_ACCESS),                                              \
+                                                                                \
+        .use_as__arm_file_node_t                                                \
                 .ptParent = (const arm_file_node_t *)(__PARENT),                \
-        .use_as__arm_folder_node_t                                              \
-            .use_as__arm_file_node_t                                            \
+        .use_as__arm_file_node_t                                                \
                 .ptNext = (const arm_file_node_t *)&((__PARENT)->__NEXT),       \
-        .use_as__arm_folder_node_t                                              \
-            .use_as__arm_file_node_t                                            \
+        .use_as__arm_file_node_t                                                \
                 .ptList = (const arm_file_node_t *)                             \
-                    &((__PARENT)->__NAME.use_as__arm_folder_node_t.ptFirstNode),\
+                    &((__PARENT)->__NAME.ptFirstNode),                          \
     }
 #define fff_folder(__NAME, __PARENT, __NEXT, ...)                               \
             __fff_folder(__NAME, __PARENT, __NEXT, __VA_ARGS__)
@@ -342,39 +315,22 @@ extern "C" {
 #define __fff_disk(__NAME, __PARENT, __NEXT, ...)                               \
     .__NAME = {                                                                 \
         /*! default configuration */                                            \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .bIsVisible,                                        \
-                      true),                                                    \
+        fff_attribute(use_as__arm_file_node_t .bIsVisible, true),               \
                                                                                 \
         /*! user configuration */                                               \
         __VA_ARGS__                                                             \
                                                                                 \
         /*! override user definition */                                         \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .chID,                                              \
-                      FFF_FILE_TYPE_ID_FOLDER),                                 \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .bIsValid,                                          \
-                      true),                                                    \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .bCanRead,                                          \
-                      false),                                                   \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .bCanWrite,                                         \
-                      false),                                                   \
-        .use_as__arm_folder_node_t.use_as__arm_file_node_t.ptParent = NULL,     \
-        .use_as__arm_folder_node_t                                              \
-            .use_as__arm_file_node_t                                            \
+        fff_attribute(use_as__arm_file_node_t.chID, FFF_FILE_TYPE_ID_FOLDER),   \
+        fff_attribute(use_as__arm_file_node_t.bIsValid, true),                  \
+        fff_access(FFF_NO_ACCESS),                                              \
+                                                                                \
+        .use_as__arm_file_node_t.ptParent = NULL,                               \
+        .use_as__arm_file_node_t                                                \
                 .ptNext = (const arm_file_node_t *)&((__PARENT)->__NEXT),       \
-        .use_as__arm_folder_node_t                                              \
-            .use_as__arm_file_node_t                                            \
+        .use_as__arm_file_node_t                                                \
                 .ptList = (const arm_file_node_t *)                             \
-                    &((__PARENT)->__NAME.use_as__arm_folder_node_t.ptFirstNode),\
+                    &((__PARENT)->__NAME.ptFirstNode),                          \
     }
 #define fff_disk(__NAME, __PARENT, __NEXT, ...)                                 \
             __fff_disk(__NAME, __PARENT, __NEXT, __VA_ARGS__)
@@ -392,41 +348,23 @@ extern "C" {
 #define __imp_fff(__NAME, ...)                                                  \
     const fff_##__NAME##_t __NAME = {                                           \
         /*! default configuration */                                            \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .bIsVisible,                                        \
-                      true),                                                    \
+        fff_attribute(use_as__arm_file_node_t .bIsVisible, true),               \
                                                                                 \
         /*! user configuration */                                               \
         __VA_ARGS__                                                             \
                                                                                 \
         /*! override user definition */                                         \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .chID,                                              \
-                      FFF_FILE_TYPE_ID_FOLDER),                                 \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .bIsValid,                                          \
-                      true),                                                    \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .bCanRead,                                          \
-                      false),                                                   \
-        fff_attribute(use_as__arm_folder_node_t                                 \
-                        .use_as__arm_file_node_t                                \
-                            .bCanWrite,                                         \
-                      false),                                                   \
-        .use_as__arm_folder_node_t                                              \
-            .use_as__arm_file_node_t                                            \
+        fff_attribute(use_as__arm_file_node_t.chID, FFF_FILE_TYPE_ID_FOLDER),   \
+        fff_attribute(use_as__arm_file_node_t.bIsValid, true),                  \
+        fff_access(FFF_NO_ACCESS),                                              \
+                                                                                \
+        .use_as__arm_file_node_t                                                \
                 .ptParent = NULL,                                               \
-        .use_as__arm_folder_node_t                                              \
-            .use_as__arm_file_node_t                                            \
+        .use_as__arm_file_node_t                                                \
                 .ptNext = NULL,                                                 \
-        .use_as__arm_folder_node_t                                              \
-            .use_as__arm_file_node_t                                            \
+        .use_as__arm_file_node_t                                                \
                 .ptList = (const arm_file_node_t *)                             \
-                    &((__NAME).use_as__arm_folder_node_t.ptFirstNode),          \
+                    &((__NAME).ptFirstNode),          \
     }
 #define imp_fff(__NAME, ...)           __imp_fff(__NAME, __VA_ARGS__)
 

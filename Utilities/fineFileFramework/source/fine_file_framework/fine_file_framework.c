@@ -1082,9 +1082,9 @@ void __print_folder_structure(  const arm_file_node_t *ptStart,
             }
 
             if (0 == n) {
-                printf("- %s", ptNode->ppchPathString[n]);
+                printf("+ %s", ptNode->ppchPathString[n]);
             } else {
-                printf("|   [ALIAS]: %s", ptNode->ppchPathString[n]);
+                printf("| [ALIAS]: %s", ptNode->ppchPathString[n]);
             }
         }
 
