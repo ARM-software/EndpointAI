@@ -45,11 +45,13 @@
             <accept Tcompiler="ARMCC" Toptions="AC6LTO"/>
             <accept Tcompiler="ARMCC" Toptions="AC5"/>
         </condition>
+        <!--
         <condition id="Arm Compiler 6">
             <description>Arm Compiler 6 (armclang).</description>
             <accept Tcompiler="ARMCC" Toptions="AC6"/>
             <accept Tcompiler="ARMCC" Toptions="AC6LTO"/>
         </condition>
+        -->
         <condition id="Arm Compiler 5">
             <description>Arm Compiler 6 (armclang).</description>
             <accept Tcompiler="ARMCC" Toptions="AC5"/>
@@ -209,18 +211,18 @@
             <component Cgroup="fine File Framework" Csub="Core" Cvariant="Stdio" condition="Supported Compilers">
               <description>fine File Framework enables you to use file APIs defined stdio.h and you can embedd your resource files into the project and define a folder structure.</description>
               <files>
-                <file category="header"     name="source/fine_file_framework/fine_file_framework.h"/>
-                <file category="include"    name="source/incbin"/>
+                <file category="header"     name="source/fine_file_framework/fine_file_framework.h" />
+                <file category="include"    name="source/incbin/" />
                 <file category="include"    name="source/fine_file_framework/" />
-                <file category="sourceC"    name="source/fine_file_framework/fine_file_framework.c"/>
-                <file category="sourceC"    name="source/fine_file_framework/__memory_file.c"/>
-                <file category="sourceC"    name="source/fine_file_framework/file_retarget.c"/>
+                <file category="sourceC"    name="source/fine_file_framework/fine_file_framework.c" />
+                <file category="sourceC"    name="source/fine_file_framework/__memory_file.c" />
+                <file category="sourceC"    name="source/fine_file_framework/file_retarget.c" />
                 
                 <file category="header"     name="source/fine_file_framework/template/fff_cfg.h"                       attr="config" version="1.0.6"/>
-                <file category="header"     name="source/fine_file_framework/template/__fff_user_def_file_framework.c" attr="config" version="1.0.1"/>
+                <file category="other"      name="source/fine_file_framework/template/__fff_user_def_file_framework.c" attr="config" version="1.0.1"/>
                 <file category="sourceC"    name="source/fine_file_framework/fff_user_description.c"                   attr="config" version="1.0.8"/>
-                <file category="other"      name="source/fine_file_framework/template/fffyml2c.py"                     attr="config" version="0.8.0"//>
-                <file category="sourceAsm"  name="source/fine_file_framework/template/fffyml2c.s"                      attr="config" condition="Arm Compiler 5"/>
+                <file category="other"      name="source/fine_file_framework/template/fffyml2c.py"                     attr="config" version="0.8.0"/>
+                <file category="sourceAsm"  name="source/fine_file_framework/template/fffyml2c.s"                      attr="config" version="1.0.0" condition="Arm Compiler 5"/>
               </files>
               <RTE_Components_h>
 
