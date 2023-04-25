@@ -452,12 +452,10 @@ arm_fff_err_t __arm_fff_init(   __arm_fff_t *ptThis,
 
 
 static 
-const arm_file_node_t *__arm_fff_open(  __arm_fff_t *ptThis, 
-                                        const char *pchPath, 
-                                        uint16_t wFeature)
+const arm_file_node_t *__arm_fff_open_node(  __arm_fff_t *ptThis, 
+                                            const arm_file_node_t * ptNode, 
+                                            uint16_t wFeature)
 {
-    const arm_file_node_t * ptNode = __arm_fff_find_path(ptThis,pchPath);
-    
     do {
         if (NULL == ptNode) {
             //! cannot find the target node
@@ -506,6 +504,16 @@ const arm_file_node_t *__arm_fff_open(  __arm_fff_t *ptThis,
     } while(0);
     
     return NULL;
+}
+
+static 
+const arm_file_node_t *__arm_fff_open(  __arm_fff_t *ptThis, 
+                                        const char *pchPath, 
+                                        uint16_t wFeature)
+{
+    const arm_file_node_t * ptNode = __arm_fff_find_path(ptThis,pchPath);
+    
+    return __arm_fff_open_node(ptThis, ptNode, wFeature);
 }
 
 static 
@@ -790,6 +798,33 @@ const arm_file_node_t *arm_fff_open( const char *pchPath, uint16_t wFeature)
     return __arm_fff_open(&s_tLocalFFF, pchPath, wFeature);
 }
 
+const arm_file_node_t *arm_fff_open_node(   arm_file_node_t *ptNode, 
+                                            const char *pchMode)
+{
+    uint8_t chMode = 0;
+    if (NULL == ptNode || NULL == pchMode) {
+        return NULL;
+    }
+
+    if (strchr(pchMode, 'r')) {
+        chMode |= OPEN_R;
+    }
+    if (strchr(pchMode, 'w')) {
+        chMode |= OPEN_W;
+    }
+    if (strchr(pchMode, 'a')) {
+        chMode |= OPEN_A;
+    }
+    if (strchr(pchMode, 'b')) {
+        chMode |= OPEN_B;
+    }
+    if (strchr(pchMode, '+')) {
+        chMode |= OPEN_PLUS;
+    }
+
+    return __arm_fff_open_node(&s_tLocalFFF, ptNode, chMode);
+}
+
 bool arm_fff_close(arm_file_node_t * ptNode)
 {
     return ARM_FFF_ERR_NONE == __arm_fff_close(&s_tLocalFFF, ptNode);
@@ -857,11 +892,28 @@ static const arm_file_node_t * __arm_fff_find_path( __arm_fff_t *ptThis,
                                                     const char *pchPath)
 {
     const arm_file_node_t * ptNode = NULL;
-    
+
     do {
         if (NULL == ptThis || NULL == pchPath) {
             break;
         } 
+
+        //! left trim
+        do {
+            size_t wSize = strspn(pchPath, " ");
+            pchPath += wSize;
+        } while(0);
+
+        if (0 == strcmp(pchPath, "/")) {
+            /* the root node */
+            ptNode = this.tConfig.ptRoot;
+            break;
+        } else {
+            if (0 == strcmp(pchPath, "-")) {
+                /* the working path */
+                pchPath = this.tConfig.pchWorkingPath;
+            }
+        }
 
         if (NULL != this.ptCurrent && this.ptCurrent != this.tConfig.ptRoot) {
             //! search current position
@@ -1121,18 +1173,8 @@ bool __arm_fff_helper_list_folder_structure(__arm_fff_t *ptThis,
 {
     const arm_file_node_t * ptNode = NULL;
     assert(NULL != ptThis);
-    
-    if (0 == strncmp(pchPath, "/", 1)) {
-        /* the root node */
-        ptNode = this.tConfig.ptRoot;
-    } else {
-        if (0 == strncmp(pchPath, "-", 1)) {
-            /* the working path */
-            ptNode = __arm_fff_find_path(ptThis, this.tConfig.pchWorkingPath);
-        } else {
-            ptNode = __arm_fff_find_path(ptThis, pchPath);
-        }
-    }
+
+    ptNode = __arm_fff_find_path(ptThis, pchPath);
 
     if (NULL == ptNode) {
         printf("Cannot find the path [%s] \r\n", pchPath);

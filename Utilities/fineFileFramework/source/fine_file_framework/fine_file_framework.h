@@ -200,6 +200,262 @@ extern "C" {
 #endif
 
 
+/*!
+ * \note do NOT use this macro directly
+ */
+#define __FFF_VA_NUM_ARGS_IMPL( _0,_1,_2,_3,_4,_5,_6,_7,_8,_9,_10,_11,_12,      \
+                                _13,_14,_15,_16,__N,...)      __N
+
+/*!
+ * \brief A macro to count the number of parameters
+ * 
+ * \note if GNU extension is not supported or enabled, the following express will
+ *       be false:  (__FFF_VA_NUM_ARGS() != 0)
+ *       This might cause problems when in this library.
+ */
+#define __FFF_VA_NUM_ARGS(...)                                                  \
+            __FFF_VA_NUM_ARGS_IMPL( 0,##__VA_ARGS__,16,15,14,13,12,11,10,9,     \
+                                      8,7,6,5,4,3,2,1,0)
+
+/*!
+ * \note do NOT use this macro directly
+ */
+#define __FFF_CONNECT2(__A, __B)                        __A##__B
+
+/*!
+ * \note do NOT use this macro directly
+ */
+#define __FFF_CONNECT3(__A, __B, __C)                   __A##__B##__C
+
+
+/*! 
+ * \brief connect three symbol names as one
+ */
+#define FFF_CONNECT3(__A, __B, __C)             __FFF_CONNECT3(__A, __B, __C)
+
+/*! 
+ * \brief connect two symbol names as one
+ */
+#define FFF_CONNECT2(__A, __B)                  __FFF_CONNECT2(__A, __B)
+
+/*!
+ * \note do NOT use this macro directly
+ */
+#define __FFF_USING1(__declare)                                                 \
+            for (__declare, *FFF_CONNECT3(__FFF_USING_, __LINE__,_ptr) = NULL;  \
+                 FFF_CONNECT3(__FFF_USING_, __LINE__,_ptr)++ == NULL;           \
+                )
+
+/*!
+ * \note do NOT use this macro directly
+ */
+#define __FFF_USING2(__declare, __on_leave_expr)                                \
+            for (__declare, *FFF_CONNECT3(__FFF_USING_, __LINE__,_ptr) = NULL;  \
+                 FFF_CONNECT3(__FFF_USING_, __LINE__,_ptr)++ == NULL;           \
+                 (__on_leave_expr)                                              \
+                )
+
+/*!
+ * \note do NOT use this macro directly
+ */
+#define __FFF_USING3(__declare, __on_enter_expr, __on_leave_expr)               \
+            for (__declare, *FFF_CONNECT3(__FFF_USING_, __LINE__,_ptr) = NULL;  \
+                 FFF_CONNECT3(__FFF_USING_, __LINE__,_ptr)++ == NULL ?          \
+                    ((__on_enter_expr),1) : 0;                                  \
+                 (__on_leave_expr)                                              \
+                )
+
+/*!
+ * \note do NOT use this macro directly
+ */
+#define __FFF_USING4(__dcl1, __dcl2, __on_enter_expr, __on_leave_expr)          \
+            for (__dcl1,__dcl2,*FFF_CONNECT3(__FFF_USING_, __LINE__,_ptr)= NULL;\
+                 FFF_CONNECT3(__FFF_USING_, __LINE__,_ptr)++ == NULL ?          \
+                    ((__on_enter_expr),1) : 0;                                  \
+                 (__on_leave_expr)                                              \
+                )
+
+/*!
+ * \brief create a code segment with up to two local variables and 
+ *        entering/leaving operations
+ * \note prototype 1
+ *       fff_using(local variable declaration) {
+ *           code body 
+ *       }
+ * 
+ * \note prototype 2
+ *       fff_using(local variable declaration, {code segment before leaving the body}) {
+ *           code body
+ *       }
+ *
+ * \note prototype 3
+ *       fff_using( local variable declaration, 
+ *                 {code segment before entering the body},
+ *                 {code segment before leaving the body}
+ *                 ) {
+ *           code body 
+ *       }
+ *
+ * \note prototype 4
+ *       fff_using( local variable1 declaration,
+                    local variable2 with the same type as the local variable 1,
+ *                 {code segment before entering the body},
+ *                 {code segment before leaving the body}
+ *                 ) {
+ *           code body 
+ *       }
+ */
+#define fff_using(...)                                                          \
+            FFF_CONNECT2(__FFF_USING, __FFF_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)
+
+
+/*!
+ * \brief A macro to generate a safe name, usually used in macro template as the 
+ *        name of local variables
+ * 
+ */
+#define FFF_SAFE_NAME(...)    FFF_CONNECT3(__,__LINE__,##__VA_ARGS__)
+
+#define __fff_foreach1(__PATH)              __fff_foreach3(__PATH, -1, _)
+
+#define __fff_foreach2(__PATH, __LEVEL)     __fff_foreach3(__PATH, __LEVEL, _)
+
+#define __fff_foreach3(__PATH, __LEVEL, __ITEM_NAME)                            \
+    fff_using(  int_fast16_t FFF_SAFE_NAME(iLevel) = (__LEVEL),                 \
+                FFF_SAFE_NAME(iCurrentLevel) = 0,                               \
+                {if (FFF_SAFE_NAME(iLevel) < 0) {                               \
+                    FFF_SAFE_NAME(iLevel) = (INT16_MAX);                        \
+                }},                                                             \
+                (void)FFF_SAFE_NAME(iCurrentLevel))                             \
+        for(const arm_file_node_t                                               \
+                *FFF_SAFE_NAME(ptStart) = arm_fff_helper_find_path((__PATH)),   \
+                *FFF_SAFE_NAME(ptNode) = FFF_SAFE_NAME(ptStart),                \
+                *__ITEM_NAME = FFF_SAFE_NAME(ptNode);                           \
+                                                                                \
+                /* loop end condition */                                        \
+                ({                                                              \
+                    __ITEM_NAME = FFF_SAFE_NAME(ptNode);                        \
+                    ( NULL != FFF_SAFE_NAME(ptNode));                           \
+                 });                                                            \
+                                                                                \
+        ({                                                                      \
+        if (    (NULL != FFF_SAFE_NAME(ptNode)->ptList)                         \
+            &&  (FFF_SAFE_NAME(iCurrentLevel) < FFF_SAFE_NAME(iLevel))) {       \
+            FFF_SAFE_NAME(ptNode) = FFF_SAFE_NAME(ptNode)->ptList;              \
+            FFF_SAFE_NAME(iCurrentLevel)++;                                     \
+        } else do {                                                             \
+            /*! the final node  */                                              \
+            if (   (NULL == FFF_SAFE_NAME(ptNode)->ptNext)                      \
+                || (FFF_SAFE_NAME(ptNode) == FFF_SAFE_NAME(ptNode)->ptNext)) {  \
+                                                                                \
+                if (    (NULL == FFF_SAFE_NAME(ptNode)->ptParent)               \
+                    ||  (0 == FFF_SAFE_NAME(iCurrentLevel))) {                  \
+                    FFF_SAFE_NAME(ptNode) = NULL;                               \
+                    break ;                                                     \
+                } else if (FFF_SAFE_NAME(ptNode) == FFF_SAFE_NAME(ptStart)) {   \
+                    FFF_SAFE_NAME(ptNode) = NULL;                               \
+                    break ;                                                     \
+                }                                                               \
+                                                                                \
+                FFF_SAFE_NAME(iCurrentLevel)--;                                 \
+                FFF_SAFE_NAME(ptNode) = FFF_SAFE_NAME(ptNode)->ptParent;        \
+            } else {                                                            \
+                /*! check next file */                                          \
+                FFF_SAFE_NAME(ptNode) = FFF_SAFE_NAME(ptNode)->ptNext;          \
+                break;                                                          \
+            }                                                                   \
+        } while(true);                                                          \
+        })) 
+
+
+
+/*
+ * HOW TO USE
+ 
+    A example to list all the files and folers, and open all the files
+ 
+    fff_foreach("/", -1, ptItem) {
+        
+        if (ptItem->chID == 0) {
+            printf("Folder: %s\r\n", ptItem->ppchPathString[0]);
+        } else {
+            printf("Open File: %s...", ptItem->ppchPathString[0]);
+            
+            const arm_file_node_t *ptNode = NULL;
+            if (ptItem->bCanRead && ptItem->bCanWrite) {
+                ptNode = arm_fff_open_node((arm_file_node_t *)ptItem, "r+");
+            } else if (ptItem->bCanRead){
+                ptNode = arm_fff_open_node((arm_file_node_t *)ptItem, "r");
+            } else if (ptItem->bCanWrite){
+                ptNode = arm_fff_open_node((arm_file_node_t *)ptItem, "w");
+            }
+            
+            if (NULL == ptNode) {
+                printf("Failed\r\n");
+            } else {
+                printf("OK\r\n");
+            }
+            
+            arm_fff_close((arm_file_node_t *)ptItem);
+        }
+    }
+
+    printf("\r\n\r\n Use stdio.h\r\n");
+    fff_foreach("/", -1, ptItem) {
+        
+        char chPathBuffer[84];
+        arm_fff_helper_get_path_string(ptItem, chPathBuffer, sizeof(chPathBuffer));
+
+        if (ptItem->chID == 0) {
+            printf("Folder: %s\r\n", chPathBuffer);
+        } else {
+            printf("Open File: %s...", chPathBuffer);
+
+            FILE *ptFile = NULL;
+            
+            if (ptItem->bCanRead && ptItem->bCanWrite) {
+                ptFile = fopen(chPathBuffer, "r+");
+            } else if (ptItem->bCanRead){
+                ptFile = fopen(chPathBuffer, "r");
+            } else if (ptItem->bCanWrite){
+                ptFile = fopen(chPathBuffer, "w");
+            }
+            
+            if (NULL == ptFile) {
+                printf("Failed\r\n");
+            } else {
+                printf("OK\r\n");
+            }
+            
+            fclose(ptFile);
+        }
+    }
+ 
+ 
+ */
+
+/*!
+ * \brief access all the file node, including folders and files
+ *
+ * \note prototype 1
+ *       fff_using(path string) {
+ *           code body 
+ *       }
+ * 
+ * \note prototype 2
+ *       fff_using(path string, level) {
+ *           code body
+ *       }
+ *
+ * \note prototype 3
+ *       fff_using( path string, level, item variable name) {
+ *           code body 
+ *       }
+ *
+ */
+#define fff_foreach(...)                                                        \
+            FFF_CONNECT2(   __fff_foreach,                                      \
+                            __FFF_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)
 
 
 /*----------------------------------------------------------------------------*
@@ -349,6 +605,7 @@ extern "C" {
     const fff_##__NAME##_t __NAME = {                                           \
         /*! default configuration */                                            \
         fff_attribute(use_as__arm_file_node_t .bIsVisible, true),               \
+        fff_path("ROOT"),                                                       \
                                                                                 \
         /*! user configuration */                                               \
         __VA_ARGS__                                                             \
@@ -499,6 +756,10 @@ arm_fff_err_t arm_fff_init( const arm_fff_cfg_t *ptCFG);
 
 extern
 const arm_file_node_t *arm_fff_open(const char *pchPath, uint16_t wFeature);
+
+extern
+const arm_file_node_t *arm_fff_open_node(   arm_file_node_t *ptNode, 
+                                            const char *pchMode);
 
 extern
 bool arm_fff_close(arm_file_node_t * ptNode);

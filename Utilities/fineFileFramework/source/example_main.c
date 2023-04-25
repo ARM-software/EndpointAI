@@ -274,7 +274,65 @@ int main(int argc, char **argv)
             } while(--chArgc);
         }
     } while(0);
-    
+
+    fff_foreach("/", -1, ptItem) {
+        
+        if (ptItem->chID == 0) {
+            printf("Folder: %s\r\n", ptItem->ppchPathString[0]);
+        } else {
+            printf("Open File: %s...", ptItem->ppchPathString[0]);
+            
+            const arm_file_node_t *ptNode = NULL;
+            if (ptItem->bCanRead && ptItem->bCanWrite) {
+                ptNode = arm_fff_open_node((arm_file_node_t *)ptItem, "r+");
+            } else if (ptItem->bCanRead){
+                ptNode = arm_fff_open_node((arm_file_node_t *)ptItem, "r");
+            } else if (ptItem->bCanWrite){
+                ptNode = arm_fff_open_node((arm_file_node_t *)ptItem, "w");
+            }
+            
+            if (NULL == ptNode) {
+                printf("Failed\r\n");
+            } else {
+                printf("OK\r\n");
+            }
+            
+            arm_fff_close((arm_file_node_t *)ptItem);
+        }
+    }
+
+    printf("\r\n\r\n Use stdio.h\r\n");
+    fff_foreach("/", -1, ptItem) {
+        
+        char chPathBuffer[84];
+        arm_fff_helper_get_path_string(ptItem, chPathBuffer, sizeof(chPathBuffer));
+
+        if (ptItem->chID == 0) {
+            printf("Folder: %s\r\n", chPathBuffer);
+        } else {
+            printf("Open File: %s...", chPathBuffer);
+
+            FILE *ptFile = NULL;
+            
+            if (ptItem->bCanRead && ptItem->bCanWrite) {
+                ptFile = fopen(chPathBuffer, "r+");
+            } else if (ptItem->bCanRead){
+                ptFile = fopen(chPathBuffer, "r");
+            } else if (ptItem->bCanWrite){
+                ptFile = fopen(chPathBuffer, "w");
+            }
+            
+            if (NULL == ptFile) {
+                printf("Failed\r\n");
+            } else {
+                printf("OK\r\n");
+            }
+            
+            fclose(ptFile);
+        }
+    }
+
+
     arm_fff_helper_list_folder_structure("/", -1);
     
     file_path_demo();
@@ -285,5 +343,5 @@ int main(int argc, char **argv)
 
 
 #ifdef   __cplusplus
-{
+}
 #endif
