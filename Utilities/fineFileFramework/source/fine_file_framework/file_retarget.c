@@ -100,6 +100,16 @@ extern int stdin_getchar (void);
 /*============================ IMPLEMENTATION ================================*/
 /*============================ GLOBAL VARIABLES ==============================*/
 
+#if defined(RTE_Compiler_EventRecorder) && defined(RTE_Compiler_IO_STDOUT_EVR)
+#include <EventRecorder.h>
+__attribute__((constructor))
+void __fff_stdout_init(void) 
+{
+    EventRecorderInitialize(0, 1);
+}
+#endif
+
+
 #if   (defined(RTE_Compiler_IO_STDOUT) && defined(RTE_Compiler_IO_STDOUT_User)) \
     || !defined(RTE_Compiler_IO_STDOUT)
 __attribute__((weak)) 

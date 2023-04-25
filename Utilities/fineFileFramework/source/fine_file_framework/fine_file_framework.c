@@ -862,8 +862,8 @@ static const arm_file_node_t * __arm_fff_find_path( __arm_fff_t *ptThis,
         if (NULL == ptThis || NULL == pchPath) {
             break;
         } 
-    
-        if (NULL != this.ptCurrent) {
+
+        if (NULL != this.ptCurrent && this.ptCurrent != this.tConfig.ptRoot) {
             //! search current position
             ptNode = __arm_fff_find_node(ptThis, pchPath, this.ptCurrent->ptList);
             if (NULL != ptNode) {
@@ -871,7 +871,7 @@ static const arm_file_node_t * __arm_fff_find_path( __arm_fff_t *ptThis,
                 break;
             }
         }
-        
+
         if (NULL != this.tConfig.ptRoot) {
             //! search root 
             ptNode = __arm_fff_find_node(ptThis, pchPath, this.tConfig.ptRoot);
@@ -899,10 +899,18 @@ char * arm_fff_helper_get_path_string(  const arm_file_node_t *ptPathNode,
 {
     const arm_file_node_t *ptNode = ptPathNode;
     char *pchReturn = pchBuffer;
+    memset(pchBuffer, 0, wBufferSize);
+
     if (NULL == ptPathNode || NULL == pchBuffer || wBufferSize < 4) {
         return NULL;
     }
-    
+    if (NULL == ptNode->ppchPathString) {
+        return NULL;
+    } else if (NULL == *(ptNode->ppchPathString)) {
+        return NULL;
+    }
+
+
     //! calculate the total path string length
     size_t wPathSize = 0, wStringSize = 0;
     while(NULL != ptNode) {
@@ -1049,7 +1057,62 @@ static
 void __print_folder_structure(  const arm_file_node_t *ptStart, 
                                 int_fast16_t iLevel)
 {
+    assert(NULL != ptStart);
+    const arm_file_node_t *ptNode = ptStart;
+    if (iLevel < 0) {
+        iLevel = (INT16_MAX);
+    }
+    int_fast16_t iCurrentLevel = 0;
     
+    //! search for the node
+    while( NULL != ptNode) {
+         /* an empty line as the separator */
+        printf("\r\n  ");
+        for (int chIndent = 0; chIndent < iCurrentLevel; chIndent++) {
+            printf("|   ");
+        }
+        printf("|");
+
+
+        /* print prefix */
+        for (int n = 0; n < ptNode->chAliasCount; n++) {
+            printf("\r\n  ");
+            for (int chIndent = 0; chIndent < iCurrentLevel; chIndent++) {
+                printf("|   ");
+            }
+
+            if (0 == n) {
+                printf("- %s", ptNode->ppchPathString[n]);
+            } else {
+                printf("|   [ALIAS]: %s", ptNode->ppchPathString[n]);
+            }
+        }
+
+        if (NULL != ptNode->ptList && iCurrentLevel < iLevel) {
+            ptNode = ptNode->ptList;
+            iCurrentLevel++;
+            continue;
+        }
+        do {
+            //! the final node
+            if (NULL == ptNode->ptNext || ptNode == ptNode->ptNext) {
+            
+                if ((NULL == ptNode->ptParent) || (0 == iCurrentLevel)) {
+                    return ;
+                } else if (ptNode == ptStart) {
+                    return ;
+                }
+
+                iCurrentLevel--;
+                ptNode = ptNode->ptParent;
+            } else {
+                //! check next file
+                ptNode = ptNode->ptNext;
+                break;
+            }
+        } while(true);
+    }
+
 }
 
 bool __arm_fff_helper_list_folder_structure(__arm_fff_t *ptThis,
@@ -1057,15 +1120,14 @@ bool __arm_fff_helper_list_folder_structure(__arm_fff_t *ptThis,
                                             int_fast16_t iLevel)
 {
     const arm_file_node_t * ptNode = NULL;
-    
     assert(NULL != ptThis);
     
     if (0 == strncmp(pchPath, "/", 1)) {
         /* the root node */
         ptNode = this.tConfig.ptRoot;
     } else {
-        if (0 == strncmp(pchPath, "~", 1)) {
-            /* use the working path as "home" */
+        if (0 == strncmp(pchPath, "-", 1)) {
+            /* the working path */
             ptNode = __arm_fff_find_path(ptThis, this.tConfig.pchWorkingPath);
         } else {
             ptNode = __arm_fff_find_path(ptThis, pchPath);
@@ -1082,14 +1144,21 @@ bool __arm_fff_helper_list_folder_structure(__arm_fff_t *ptThis,
 
     /* list all the files and folders inside the given folder */
     do {
-        char chLineBuffer[84];
-        arm_fff_helper_get_path_string(ptNode, chLineBuffer, sizeof(chLineBuffer));
-        
-        printf("\r\n"
-               "List for [%s]\r\n" , chLineBuffer);
+
+        if (ptNode == this.tConfig.ptRoot) {
+            printf("\r\n[ROOT]" );
+        } else {
+            char chLineBuffer[84];
+            arm_fff_helper_get_path_string( ptNode, 
+                                            chLineBuffer, 
+                                            sizeof(chLineBuffer));
+            printf("\r\n[%s]" , chLineBuffer);
+        }
     } while(0);
 
-    __print_folder_structure(ptNode, iLevel);
+    __print_folder_structure(ptNode->ptList, iLevel);
+
+    printf("\r\n\r\n--END--\r\n\r\n");
 
     return true;
 }

@@ -258,9 +258,6 @@ static void file_copy_demo(void)
 
 int main(int argc, char **argv)
 {
-#if defined(RTE_Compiler_EventRecorder) && defined(RTE_Compiler_IO_STDOUT_EVR)
-    EventRecorderInitialize(0, 1);
-#endif
 
     //! parsing input command line
     do {
@@ -278,7 +275,7 @@ int main(int argc, char **argv)
         }
     } while(0);
     
-    printf("sizeof(long): %d\r\n", sizeof(long));
+    arm_fff_helper_list_folder_structure("/", -1);
     
     file_path_demo();
     file_copy_demo();

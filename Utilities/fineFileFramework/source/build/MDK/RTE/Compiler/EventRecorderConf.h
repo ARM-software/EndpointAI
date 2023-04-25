@@ -17,7 +17,7 @@
 //     <65536=>65536
 //   <i>Configures size of Event Record Buffer (each record is 16 bytes)
 //   <i>Must be 2^n (min=8, max=65536)
-#define EVENT_RECORD_COUNT      64U
+#define EVENT_RECORD_COUNT      256U
 
 //   <o>Time Stamp Source
 //      <0=> DWT Cycle Counter  <1=> SysTick  <2=> CMSIS-RTOS2 System Timer
