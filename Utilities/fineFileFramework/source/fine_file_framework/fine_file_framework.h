@@ -481,6 +481,7 @@ extern "C" {
 
 #define fff_list(...)           .tList = {__VA_ARGS__}
 
+
 #define FFF_READ_ONLY                                                           \
         fff_attribute(use_as__arm_file_node_t.bCanRead,true),                   \
         fff_attribute(use_as__arm_file_node_t.bCanWrite,false)
@@ -496,7 +497,49 @@ extern "C" {
 /*----------------------------------------------------------------------------*
  * Folder Wrapper                                                             *
  *----------------------------------------------------------------------------*/
-#define __use_fff_folder(__NAME, ...)                                           \
+//#define __use_fff_folder(__NAME, ...)                                           \
+//    struct {                                                                    \
+//        /*implement(arm_folder_node_t)*/                                        \
+//        implement_ex(                                                           \
+//            struct {                                                            \
+//                /* implement(arm_file_node_t) */                                \
+//                implement_ex(                                                   \
+//                    struct {                                                    \
+//                        uint8_t chID;                                           \
+//                        union {                                                 \
+//                            struct {                                            \
+//                                uint8_t bIsValid        : 1;                    \
+//                                uint8_t bIsVisible      : 1;                    \
+//                                uint8_t                 : 2;                    \
+//                                uint8_t bCanRead        : 1;                    \
+//                                uint8_t bCanWrite       : 1;                    \
+//                                uint8_t bCanSeek        : 1;                    \
+//                                uint8_t bIsStream       : 1;                    \
+//                            };                                                  \
+//                            uint8_t chAttribute;                                \
+//                        };                                                      \
+//                                                                                \
+//                        uint8_t    chAliasCount;                                \
+//                        const char *const* ppchPathString;                      \
+//                                                                                \
+//                        const arm_file_node_t *ptParent;                        \
+//                        const arm_file_node_t *ptNext;                          \
+//                        const arm_file_node_t *ptList;                          \
+//                    },                                                          \
+//                use_as__arm_file_node_t)                                        \
+//                const arm_file_node_t ptFirstNode[];                            \
+//            },                                                                  \
+//        use_as__arm_folder_node_t)                                              \
+//        implement_ex(                                                           \
+//            struct {                                                            \
+//                __VA_ARGS__                                                     \
+//            },                                                                  \
+//        tList)                                                                  \
+//    } __NAME
+//#define use_fff_folder(__NAME, ...)     __use_fff_folder(__NAME, __VA_ARGS__)
+
+
+#define __use_fff_folder_begin(__NAME)                                          \
     struct {                                                                    \
         /*implement(arm_folder_node_t)*/                                        \
         implement_ex(                                                           \
@@ -529,14 +572,14 @@ extern "C" {
                 const arm_file_node_t ptFirstNode[];                            \
             },                                                                  \
         use_as__arm_folder_node_t)                                              \
-        implement_ex(                                                           \
-            struct {                                                            \
-                __VA_ARGS__                                                     \
-            },                                                                  \
-        tList)                                                                  \
-    } __NAME
-#define use_fff_folder(__NAME, ...)     __use_fff_folder(__NAME, __VA_ARGS__)
+        struct {
 
+#define __use_fff_folder_end(__NAME)                                            \
+        } /*tList*/;                                                            \
+    } __NAME
+
+#define use_fff_folder_begin(__NAME)    __use_fff_folder_begin(__NAME)
+#define use_fff_folder_end(__NAME)      __use_fff_folder_end(__NAME)
 
 #define __fff_folder(__NAME, __PARENT, __NEXT, ...)                             \
     .__NAME = {                                                                 \
@@ -568,6 +611,9 @@ extern "C" {
  *----------------------------------------------------------------------------*/
 #define use_fff_disk(__NAME, ...)     __use_fff_folder(__NAME, __VA_ARGS__)
 
+#define use_fff_disk_begin(__NAME)    __use_fff_folder_begin(__NAME)
+#define use_fff_disk_end(__NAME)      __use_fff_folder_end(__NAME)
+
 #define __fff_disk(__NAME, __PARENT, __NEXT, ...)                               \
     .__NAME = {                                                                 \
         /*! default configuration */                                            \
@@ -595,11 +641,22 @@ extern "C" {
  * Disk Wrapper                                                               *
  *----------------------------------------------------------------------------*/
 
-#define __def_fff(__NAME, ...)                                                  \
-    typedef use_fff_folder( fff_##__NAME##_t, __VA_ARGS__);                     \
-    extern const fff_##__NAME##_t __NAME;
-    
-#define def_fff(__NAME, ...)           __def_fff(__NAME, __VA_ARGS__)
+//#define __def_fff(__NAME, ...)                                                  \
+//    typedef use_fff_folder( fff_##__NAME##_t, __VA_ARGS__);                     \
+//    extern const fff_##__NAME##_t __NAME;
+
+//#define def_fff(__NAME, ...)           __def_fff(__NAME, __VA_ARGS__)
+
+
+#define __def_fff_begin(__NAME)                                                 \
+            typedef use_fff_folder_begin( fff_##__NAME##_t)
+
+#define __def_fff_end(__NAME)                                                   \
+            use_fff_folder_end( fff_##__NAME##_t);                              \
+            extern const fff_##__NAME##_t __NAME;
+
+#define def_fff_begin(__NAME)       __def_fff_begin(__NAME)
+#define def_fff_end(__NAME)         __def_fff_end(__NAME)
 
 #define __imp_fff(__NAME, ...)                                                  \
     const fff_##__NAME##_t __NAME = {                                           \

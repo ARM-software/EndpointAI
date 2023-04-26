@@ -40,6 +40,8 @@
 #   define __FFF_CFG_GET_COMMAND_LINE_VIA_SEMIHOSTING__     0
 #endif
 
+//#define __FFF_CFG_INCLUDE_USER_DEFINE_FILE_FRAMEWORK__  "mycustomfs.c"
+
 /*============================ MACROFIED FUNCTIONS ===========================*/
 /*============================ TYPES =========================================*/
 /*============================ GLOBAL VARIABLES ==============================*/

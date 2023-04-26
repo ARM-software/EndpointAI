@@ -44,26 +44,27 @@ extern const uint32_t FFFYML2C_ROM_size;
 INCBIN(FFFYML2C_ROM, "RTE/File_System/fffyml2c.py");
 #endif
 
-def_fff(MPSx_Local_Disk,
-    use_fff_disk(disk_c,
+def_fff_begin(MPSx_Local_Disk)
+    use_fff_disk_begin(disk_c)
         arm_mem_file_node_t         fffyml2c_py;
-    );
+    use_fff_disk_end(disk_c);
     
-    use_fff_disk(disk_d,
-        use_fff_folder(symphony,
+    use_fff_disk_begin(disk_d)
+        use_fff_folder_begin(symphony)
             arm_mem_file_node_t     no_1_mp3;
             arm_mem_file_node_t     no_2_mp3;
             arm_mem_file_node_t     no_3_mp3;
             arm_mem_file_node_t     no_4_mp3;
-        );
-    );
-)
+        use_fff_folder_end(symphony);
+    use_fff_disk_end(disk_d);
+def_fff_end(MPSx_Local_Disk)
+
 
 imp_fff(MPSx_Local_Disk,
-    fff_list(
+    //fff_list(
         fff_disk(disk_c, &MPSx_Local_Disk, disk_d,
             fff_path("C:"),
-            fff_list(
+            //fff_list(
                 //! memory file: cannon.mp3, read-only
                 fff_mem_file(fffyml2c_py, &MPSx_Local_Disk.disk_c, fffyml2c_py, 
                     fff_path("fffyml2c.py"),
@@ -71,19 +72,19 @@ imp_fff(MPSx_Local_Disk,
                     
                     fff_mem_content(FFFYML2C_ROM_data, FFFYML2C_ROM_size),
                 ),
-            ),
+            //),
         ),
 
         fff_disk(disk_d, &MPSx_Local_Disk, disk_d,
             fff_path("D:"),
-            fff_list(
+            //fff_list(
                 fff_folder(symphony, &MPSx_Local_Disk.disk_d, symphony,
                     fff_path(
                         "symphony\\music\\beethoven", 
                         "symphony/music/beethoven"
                     ),
 
-                    fff_list(
+                    //fff_list(
                         fff_mem_file(no_1_mp3, &MPSx_Local_Disk.disk_d.symphony, no_2_mp3, 
                             fff_path("no_1.mp3"),
                             fff_access(FFF_READ_WRITE),
@@ -100,11 +101,11 @@ imp_fff(MPSx_Local_Disk,
                             fff_path("no_4.mp3"),
                             fff_access(FFF_READ_WRITE),
                         ),
-                    ),
+                    //),
                 ),
-            ),
+            //),
         ),
-    ),
+    //),
 );
 
 
