@@ -277,7 +277,13 @@ int main(int argc, char **argv)
 
     fff_foreach("/", -1, ptItem) {
         
+        if (    (NULL == ptItem->ppchPathString) 
+            || (NULL == *(ptItem->ppchPathString))) {
+            continue;
+        }
+        
         if (ptItem->chID == 0) {
+            
             printf("Folder: %s\r\n", ptItem->ppchPathString[0]);
         } else {
             printf("Open File: %s...", ptItem->ppchPathString[0]);
@@ -305,12 +311,16 @@ int main(int argc, char **argv)
     fff_foreach("/", -1, ptItem) {
         
         char chPathBuffer[84];
-        arm_fff_helper_get_path_string(ptItem, chPathBuffer, sizeof(chPathBuffer));
+        char *pchPath = arm_fff_helper_get_path_string(ptItem, chPathBuffer, sizeof(chPathBuffer));
+
+        if (NULL == pchPath) {
+            continue;
+        }
 
         if (ptItem->chID == 0) {
-            printf("Folder: %s\r\n", chPathBuffer);
+            printf("Folder: %s\r\n", pchPath);
         } else {
-            printf("Open File: %s...", chPathBuffer);
+            printf("Open File: %s...", pchPath);
 
             FILE *ptFile = NULL;
             

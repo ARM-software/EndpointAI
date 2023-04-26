@@ -966,10 +966,14 @@ char * arm_fff_helper_get_path_string(  const arm_file_node_t *ptPathNode,
     //! calculate the total path string length
     size_t wPathSize = 0, wStringSize = 0;
     while(NULL != ptNode) {
-        wPathSize += strlen(*(ptNode->ppchPathString))+1;
+        if (    (NULL != ptNode->ppchPathString) 
+            &&  (NULL != *ptNode->ppchPathString)) {
+            wPathSize += strlen(*(ptNode->ppchPathString))+1;
+        }
         if (NULL == ptNode->ptParent || ptNode->ptParent == ptNode){
             break;
         }
+        
         ptNode = ptNode->ptParent;
     }
     
@@ -986,20 +990,21 @@ char * arm_fff_helper_get_path_string(  const arm_file_node_t *ptPathNode,
     }
 
     while(NULL != ptNode && wStringSize) {
-        
-        size_t wLength = strlen(*(ptNode->ppchPathString));
-        if (wStringSize < (wLength + 1)) {
-            memcpy(pchBuffer, *(ptNode->ppchPathString) + wLength - wStringSize, wStringSize);
-            break;
-        } else {
-            wStringSize -= wLength + 1;
-            memcpy(&pchBuffer[wStringSize], *(ptNode->ppchPathString), wLength);
-            
-            if (NULL == ptNode->ptParent || ptNode->ptParent == ptNode){
+        if (    (NULL != ptNode->ppchPathString) 
+            &&  (NULL != *ptNode->ppchPathString)) {
+            size_t wLength = strlen(*(ptNode->ppchPathString));
+            if (wStringSize < (wLength + 1)) {
+                memcpy(pchBuffer, *(ptNode->ppchPathString) + wLength - wStringSize, wStringSize);
                 break;
+            } else {
+                wStringSize -= wLength + 1;
+                memcpy(&pchBuffer[wStringSize], *(ptNode->ppchPathString), wLength);
             }
-            ptNode = ptNode->ptParent;
         }
+        if (NULL == ptNode->ptParent || ptNode->ptParent == ptNode){
+            break;
+        }
+        ptNode = ptNode->ptParent;
     }
 
     return pchReturn;
