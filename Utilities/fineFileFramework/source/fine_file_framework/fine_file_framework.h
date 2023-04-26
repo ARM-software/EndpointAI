@@ -609,7 +609,7 @@ extern "C" {
 /*----------------------------------------------------------------------------*
  * Disk Wrapper                                                               *
  *----------------------------------------------------------------------------*/
-#define use_fff_disk(__NAME, ...)     __use_fff_folder(__NAME, __VA_ARGS__)
+//#define use_fff_disk(__NAME, ...)     __use_fff_folder(__NAME, __VA_ARGS__)
 
 #define use_fff_disk_begin(__NAME)    __use_fff_folder_begin(__NAME)
 #define use_fff_disk_end(__NAME)      __use_fff_folder_end(__NAME)
