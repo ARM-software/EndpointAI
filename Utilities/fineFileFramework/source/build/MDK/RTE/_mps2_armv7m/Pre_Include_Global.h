@@ -10,10 +10,8 @@
 #ifndef PRE_INCLUDE_GLOBAL_H
 #define PRE_INCLUDE_GLOBAL_H
 
-/* ARM.fine File Framework::File System:fine File Framework:Core:Stdio:1.0.0 */
-#define __FILE_INCOMPLETE  1
-#define __CUSTOM_FILE_IO__ 1
-#define __FILE_defined     1
+/* GorgonMeducer::Utilities:perf_counter:Core:Source:2.2.0 */
+#define __PERF_COUNTER_CFG_USE_SYSTICK_WRAPPER__ 1
 
 
 #endif /* PRE_INCLUDE_GLOBAL_H */

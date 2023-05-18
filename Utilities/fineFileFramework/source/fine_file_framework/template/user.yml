@@ -1,0 +1,31 @@
+Root:
+    Disks:
+        - Disk:
+            Path: "C:"
+            Files:
+                - File:
+                    Source: "fffyml2c.py"
+                    Path: "fffyml2c.py"
+                    Access: READ ONLY
+
+
+        - Disk:
+            Path: "D:"
+            Folders:
+               - Folder:
+                   Path:
+                       - Alias: "symphony\\music\\beethoven"
+                       - Alias: "symphony/music/beethoven"
+                   Files:
+                       - File:
+                           Path : "no_1.mp3"
+                       - File:
+                           Path : "no_2.mp3"
+                       - File:
+                           Path : "no_3.mp3"
+                       - File:
+                           Path : "no_4.mp3"
+
+Command-line:
+    - Arg : "--input_file"
+    - Arg : "fffyml2c.py"

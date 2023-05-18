@@ -103,9 +103,14 @@ enum {
 /*----------------------------------------------------------------------------*
  * Compiler Specific Code to run __vsf_main_entry() before main()             *
  *----------------------------------------------------------------------------*/
+
+#if __FFF_CFG_PATCH_MAIN__ && __IS_COMPILER_ARM_COMPILER__
+int $Sub$$main (int argc, const char* argv[])
+#else
 __attribute__((used))
 __attribute__((constructor, noreturn))
 void __platform_main_entry(void)
+#endif
 {
     const arm_fff_cfg_t tCFG = {
         .ptRoot = (const arm_file_node_t *)&__FFF_CFG_ROOT__,

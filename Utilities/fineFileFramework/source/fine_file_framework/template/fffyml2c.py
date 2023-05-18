@@ -362,13 +362,14 @@ class FffYmltoCFsConv:
     class Defaults:
         """ FFF defaults behaviour  """
         FFF_DRIVE_NAME = "Local_Disk"
-        FFF_WORKING_PATH = ".."
+        FFF_WORKING_PATH = "."
         FFF_ACCESS = "FFF_READ_WRITE"
         FFF_HOST_FOLDER_ACCESS = "FFF_READ_WRITE"
         FFF_HOST_FILE_ACCESS = "FFF_READ_ONLY"
         FFF_DUMMY_INS_EMPTY_FOLDER = True
         FFF_SECTION = ".data"
-        FFF_FILE_SECTION = ".data"
+        FFF_FILE_SECTION = ".text"
+        FFF_SECTION_SIZE = 1024 * 1024
 
         FFF_C_HDR = """
 /* Generated on {0} from {1} */
@@ -443,7 +444,7 @@ char *_sys_command_string(char *cmd, int len)
         self._drive_name = FffYmltoCFsConv.Defaults.FFF_DRIVE_NAME
         self._working_path = FffYmltoCFsConv.Defaults.FFF_WORKING_PATH
         self._file_section = FffYmltoCFsConv.Defaults.FFF_FILE_SECTION
-        self._file_section_size = None
+        self._file_section_size = FffYmltoCFsConv.Defaults.FFF_SECTION_SIZE
         self._arglist = []
         self._drive_list = []
 
@@ -505,7 +506,7 @@ char *_sys_command_string(char *cmd, int len)
 
     def _fff_parse_toplvl(self):
         # drive name, file section/size limit extraction
-        root = self._yaml_tree.get('root')
+        root = self._yaml_tree.get('Root')
         assert isinstance(root, dict), 'invalid Yaml toplevel'
         for k, v in root.items():
 
@@ -628,7 +629,7 @@ char *_sys_command_string(char *cmd, int len)
             for key, val in data.items():
                 struct_postfix = ''
 
-                if key == 'root':
+                if key == 'Root':
                     struct_postfix = f'&{self.drive_name}'
 
 
@@ -806,7 +807,7 @@ char *_sys_command_string(char *cmd, int len)
         inc_bin_list = zip([incbin_prefix(v) for v in src_list], src_list)
 
         for tag, src in inc_bin_list:
-            self.fff_write(f'INCBIN({tag}, "{src}");')
+            self.fff_write(f'INCBIN({tag}, "RTE/File_System/{src}");')
 
         self.fff_write("""
 
@@ -1065,7 +1066,7 @@ char *_sys_command_string(char *cmd, int len)
 def main(argv):
 
     parser = ArgumentParser(
-        description="fff yml to c filesystem converter (v1.0.0)")
+        description="fff yml to c filesystem converter (v1.0.1)")
     parser.add_argument(
         '--cfg',
         '-c',

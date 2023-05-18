@@ -70,9 +70,9 @@
             <nStopU2X>0</nStopU2X>
           </BeforeCompile>
           <BeforeMake>
-            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name></UserProg1Name>
+            <UserProg1Name>RTE\File_System\generate.bat</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -862,7 +862,7 @@
             <uC99>1</uC99>
             <uGnu>1</uGnu>
             <useXO>0</useXO>
-            <v6Lang>3</v6Lang>
+            <v6Lang>4</v6Lang>
             <v6LangP>5</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
@@ -1174,9 +1174,9 @@
             <nStopU2X>0</nStopU2X>
           </BeforeCompile>
           <BeforeMake>
-            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name></UserProg1Name>
+            <UserProg1Name>RTE\File_System\generate.bat</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -1687,7 +1687,7 @@
     <apis/>
     <components>
       <component Cbundle="fine File Framework" Cclass="File System" Cgroup="fine File Framework" Csub="Core" Cvariant="Stdio" Cvendor="ARM" Cversion="1.0.0" condition="Supported Compilers">
-        <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="0.10.2"/>
+        <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="1.0.0"/>
         <targetInfos>
           <targetInfo excluded="1" name="mps2_armv7m" versionMatchMode=""/>
           <targetInfo name="mps2_armv7m_pack_test"/>
@@ -1872,37 +1872,47 @@
       <file attr="config" category="other" name="source\fine_file_framework\template\__fff_user_def_file_framework.c" version="1.1.0">
         <instance index="0">RTE\File_System\__fff_user_def_file_framework.c</instance>
         <component Cbundle="fine File Framework" Cclass="File System" Cgroup="fine File Framework" Csub="Core" Cvariant="Stdio" Cvendor="ARM" Cversion="1.0.0" condition="Supported Compilers"/>
-        <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="0.10.2"/>
+        <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="1.0.0"/>
         <targetInfos>
           <targetInfo excluded="1" name="mps2_armv7m"/>
           <targetInfo name="mps2_armv7m_pack_test"/>
           <targetInfo name="mps2_cortex_m55"/>
         </targetInfos>
       </file>
-      <file attr="config" category="header" name="source\fine_file_framework\template\fff_cfg.h" version="1.0.7">
+      <file attr="config" category="header" name="source\fine_file_framework\template\fff_cfg.h" version="1.0.8">
         <instance index="0">RTE\File_System\fff_cfg.h</instance>
         <component Cbundle="fine File Framework" Cclass="File System" Cgroup="fine File Framework" Csub="Core" Cvariant="Stdio" Cvendor="ARM" Cversion="1.0.0" condition="Supported Compilers"/>
-        <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="0.10.2"/>
+        <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="1.0.0"/>
         <targetInfos>
           <targetInfo excluded="1" name="mps2_armv7m"/>
           <targetInfo name="mps2_armv7m_pack_test"/>
           <targetInfo name="mps2_cortex_m55"/>
         </targetInfos>
       </file>
-      <file attr="config" category="sourceC" name="source\fine_file_framework\fff_user_description.c" version="1.0.8">
+      <file attr="config" category="sourceC" name="source\fine_file_framework\fff_user_description.c" version="1.1.0">
         <instance index="0">RTE\File_System\fff_user_description.c</instance>
         <component Cbundle="fine File Framework" Cclass="File System" Cgroup="fine File Framework" Csub="Core" Cvariant="Stdio" Cvendor="ARM" Cversion="1.0.0" condition="Supported Compilers"/>
-        <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="0.10.2"/>
+        <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="1.0.0"/>
         <targetInfos>
           <targetInfo excluded="1" name="mps2_armv7m"/>
           <targetInfo name="mps2_armv7m_pack_test"/>
           <targetInfo name="mps2_cortex_m55"/>
         </targetInfos>
       </file>
-      <file attr="config" category="other" name="source\fine_file_framework\template\fffyml2c.py" version="0.8.0">
+      <file attr="config" category="other" name="source\fine_file_framework\template\fffyml2c.py" version="1.0.1">
         <instance index="0">RTE\File_System\fffyml2c.py</instance>
         <component Cbundle="fine File Framework" Cclass="File System" Cgroup="fine File Framework" Csub="Core" Cvariant="Stdio" Cvendor="ARM" Cversion="1.0.0" condition="Supported Compilers"/>
-        <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="0.10.2"/>
+        <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="1.0.0"/>
+        <targetInfos>
+          <targetInfo excluded="1" name="mps2_armv7m"/>
+          <targetInfo name="mps2_armv7m_pack_test"/>
+          <targetInfo name="mps2_cortex_m55"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="other" name="source\fine_file_framework\template\generate.bat" version="1.0.0">
+        <instance index="0">RTE\File_System\generate.bat</instance>
+        <component Cbundle="fine File Framework" Cclass="File System" Cgroup="fine File Framework" Csub="Core" Cvariant="Stdio" Cvendor="ARM" Cversion="1.0.0" condition="Supported Compilers"/>
+        <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="1.0.0"/>
         <targetInfos>
           <targetInfo excluded="1" name="mps2_armv7m"/>
           <targetInfo name="mps2_armv7m_pack_test"/>
@@ -1920,6 +1930,16 @@
         <component Cbundle="fine File Framework" Cclass="File System" Cgroup="fine File Framework" Csub="Core" Cvariant="Stdio" Cvendor="ARM" Cversion="1.0.0" condition="Arm Compiler"/>
         <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="0.9.6"/>
         <targetInfos/>
+      </file>
+      <file attr="config" category="other" name="source\fine_file_framework\template\user.yml" version="1.0.0">
+        <instance index="0">RTE\File_System\user.yml</instance>
+        <component Cbundle="fine File Framework" Cclass="File System" Cgroup="fine File Framework" Csub="Core" Cvariant="Stdio" Cvendor="ARM" Cversion="1.0.0" condition="Supported Compilers"/>
+        <package name="fineFileFramework" schemaVersion="1.4" url="https://raw.githubusercontent.com/ARM-software/EndpointAI/master/Utilities/fineFileFramework/cmsis-pack/" vendor="ARM" version="1.0.0"/>
+        <targetInfos>
+          <targetInfo excluded="1" name="mps2_armv7m"/>
+          <targetInfo name="mps2_armv7m_pack_test"/>
+          <targetInfo name="mps2_cortex_m55"/>
+        </targetInfos>
       </file>
       <file attr="config" category="header" name="fine_file_framework\template\__fff_user_def_file_framework.c" version="1.0.0">
         <instance index="0" removed="1">RTE\Utility\__fff_user_def_file_framework.c</instance>

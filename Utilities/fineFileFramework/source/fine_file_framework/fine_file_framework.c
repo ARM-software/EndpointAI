@@ -417,12 +417,24 @@ static const arm_file_node_t *__arm_fff_find_node(
 
 
 
+
+#if __FFF_CFG_PATCH_MAIN__ && __IS_COMPILER_ARM_COMPILER__
+extern int $Super$$main (int argc, const char* argv[]);
+#else
 extern int main (int argc, const char* argv[]);
+#endif
 
 static void run_main(void)
 {
     str_arg_t tArgument = get_arg();
-    _sys_exit(main(tArgument.argc, (const char **)tArgument.argv));
+    _sys_exit(
+    #if __FFF_CFG_PATCH_MAIN__ && __IS_COMPILER_ARM_COMPILER__
+        $Super$$main(tArgument.argc, (const char **)tArgument.argv)
+    #else
+        main(tArgument.argc, (const char **)tArgument.argv)
+    #endif
+    
+    );
 }
 
 
