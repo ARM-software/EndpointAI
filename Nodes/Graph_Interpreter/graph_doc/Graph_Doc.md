@@ -55,10 +55,6 @@
 [*Low memory consumption.
 [8](#low-memory-consumption.)*](#low-memory-consumption.)
 
-![A screenshot of a computer program Description automatically
-generated](media/image1.png){width="6.268055555555556in"
-height="2.5194444444444444in"}
-
 ## Introduction 
 
 This document details the implementation of a graph of nodes (computing
