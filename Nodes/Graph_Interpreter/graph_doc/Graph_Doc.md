@@ -344,6 +344,8 @@ returns to the nanoApp later for the termination of the processing.
 
 ## Create an IO-interfaces
 
+Example of stream-flow [here](https://github.com/ARM-software/EndpointAI/blob/master/Nodes/Graph_Interpreter/graph_doc/DataFlow.png)
+
 ## Create a digital platform Abstraction-Layer
 
 ## Scheduler operations and multiprocessing
