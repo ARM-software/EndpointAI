@@ -1,3 +1,64 @@
+## Table of contents
+
+[*Introduction [4](#introduction)*](#introduction)
+
+[*Graph-description [5](#graph-description)*](#graph-description)
+
+[*nanoApps [5](#nanoapps)*](#nanoapps)
+
+[*Scheduler [5](#scheduler)*](#scheduler)
+
+[*Stream-based processing
+[6](#stream-based-processing)*](#stream-based-processing)
+
+[*Graph creation [6](#graph-creation)*](#graph-creation)
+
+[*Create a nanoApps [7](#create-a-nanoapps)*](#create-a-nanoapps)
+
+[*Create an IO-interfaces
+[7](#create-an-io-interfaces)*](#create-an-io-interfaces)
+
+[*Create a digital platform Abstraction-Layer
+[7](#create-a-digital-platform-abstraction-layer)*](#create-a-digital-platform-abstraction-layer)
+
+[*Scheduler operations and multiprocessing
+[7](#scheduler-operations-and-multiprocessing)*](#scheduler-operations-and-multiprocessing)
+
+[*Applications [8](#applications)*](#applications)
+
+[*Last minute tuning. [8](#last-minute-tuning.)*](#last-minute-tuning.)
+
+[*Low-code tuning. [8](#low-code-tuning.)*](#low-code-tuning.)
+
+[*Language agnostic. [8](#language-agnostic.)*](#language-agnostic.)
+
+[*Platform memory abstraction.
+[8](#platform-memory-abstraction.)*](#platform-memory-abstraction.)
+
+[*Stream format conversion.
+[8](#stream-format-conversion.)*](#stream-format-conversion.)
+
+[*Different physical domains.
+[8](#different-physical-domains.)*](#different-physical-domains.)
+
+[*Data flows with drifts.
+[8](#data-flows-with-drifts.)*](#data-flows-with-drifts.)
+
+[*Computing acceleration.
+[8](#computing-acceleration.)*](#computing-acceleration.)
+
+[*Heterogenous architectures.
+[8](#heterogenous-architectures.)*](#heterogenous-architectures.)
+
+[*Multiprocessing. [8](#multiprocessing.)*](#multiprocessing.)
+
+[*Low memory consumption.
+[8](#low-memory-consumption.)*](#low-memory-consumption.)
+
+![A screenshot of a computer program Description automatically
+generated](media/image1.png){width="6.268055555555556in"
+height="2.5194444444444444in"}
+
 ## Introduction 
 
 This document details the implementation of a graph of nodes (computing
@@ -88,7 +149,7 @@ There are seven sections in the graph:
 
 2.  **IO-interfaces.** Index of the arc interfacing the graph
     ("arc-ID"), format of the data and the stream setting, operation to
-    do for data exchanges
+    do for initiating data exchanges
 
 3.  **data and stream formats**. Description of the raw sample format,
     frame-size, interleaving and time-stamp formats, sampling-rate,
@@ -212,6 +273,9 @@ binary. The memory mapping is made in two pass: looking at the static
 memory areas (nanoApps instances and arc buffers), the at the working /
 scratch memory section declared at the end of the graph.
 
+![CompilationProcess](CompilationProcess.png)
+
+
 ## Create a nanoApps
 
 Each nanoApp is seen from the scheduler as a pointer to function of this
@@ -248,7 +312,7 @@ The "stream_handle" parameter has two meanings:
 -   For the other commands it is pointer to the instance (type
     \*intPtr_t)
 
-The "stream_xdmbuffer" parameter has two meanings:
+The "stream_xdmbuffer" parameter has three meanings:
 
 -   During the reset command it is function pointer to "**services**".
     The scheduler offers DSP, ML, a subset of standard libraries : stdio
@@ -256,6 +320,14 @@ The "stream_xdmbuffer" parameter has two meanings:
     reserved for scripts. The calls to services are initiated from a
     single place in the nanoApp to let the scheduler recover the return
     address and make security checks.
+
+-   During "set parameters" commands it is an uint32_t\* pointer to the
+    parameters to set. The first word is a header giving the "preset"
+    configuration to consider before patching it with the new following
+    parameters; the number of uint32_t words to read in the parameter
+    set, and "tag" telling "all the nanoApp parameters will be updated"
+    (code 0xFF) or "this specific parameter indexed from 0 to 0xFE will
+    be updated". The following data is a byte stream of parameters.
 
 -   For the other commands it is a pointer to the list of structures
     with a pointer to the data and the size of the data in Bytes. The
