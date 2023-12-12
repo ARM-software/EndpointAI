@@ -173,8 +173,8 @@ There are seven sections in the graph:
 The scheduler receives a pointer to the Graph-description and interprets
 it. It returns to the application caller when the data flow is completed
 or at nanoApp boundary.
-Example of graph
-[here](https://github.com/ARM-software/EndpointAI/blob/master/Nodes/Graph_Interpreter/graph_doc/graph_example.txt)
+
+Example of graph [here](https://github.com/ARM-software/EndpointAI/blob/master/Nodes/Graph_Interpreter/graph_doc/graph_example.txt)
 
 ## nanoApps
 
