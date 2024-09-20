@@ -15,7 +15,8 @@ Example :
 
 ```
     io_name io_platform_sensor_in_0 
-    io_domain   analog_in           
+    io_domain   analog_in
+    io_frame_length        {1 8 16 32 64 128}
 ```
 
 ## IO Domains
