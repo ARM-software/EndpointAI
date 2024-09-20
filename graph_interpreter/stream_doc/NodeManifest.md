@@ -1,10 +1,4 @@
 [TOC]
-##### Table of Contents  
-[Headers](#headers)  
-[Emphasis](#emphasis)  
-...snip...    
-<a name="headers"/>
-## Headers
 --------------------------------------
 # Node manifest template
 A node manifest file gives the name of the software component, its author, the targeted architecture, the description of input and output streams connected to it. 
