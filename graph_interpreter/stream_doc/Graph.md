@@ -13,6 +13,194 @@ A graph text has several sections :
 - The list of **nodes** ("linked-list" of nodes), without their connexions with other nodes. This section defines also the boot parameters, the memory mapping
 - The list of **arcs**, their relations with two nodes and the minimal type of debug activity on data moves
 
+
+
+## Example of graph
+
+The graph in text format :
+
+```
+;--------------------------------------------------------------------------
+;   Stream-based processing using a graph interpreter :                    
+;   
+;       - The ADC detection is used to toggle a GPIO
+; 
+;   +----------+     +--------+      +--------+     +--------+
+;   | ADC      +-----> filter +------> detect +-----> GPIO   | 
+;   +----------+     +--------+      +--------+     +--------+
+;                
+;----------------------------------------------------------------------
+format_index            0
+format_frame_length     8
+format_index            1
+format_frame_length     16
+;----------------------------------------------------------------------
+stream_io               0                       ; IO0
+stream_io_hwid          1                       ; io_platform_data_in_1.txt
+stream_io               1                       ; IO1
+stream_io_hwid          9                       ; io_platform_data_out_0.txt
+;----------------------------------------------------------------------
+node arm_stream_filter  0 					    ; first node 
+    node_preset         1                       ; Q15 filter
+    node_map_hwblock    1  5                    ; TCM = VID5
+    node_parameters     0                       ; TAG = "all parameters"
+        1  u8;  2                               ; Two biquads
+        1  u8;  1                               ; postShift
+        5 s16; 681   422   681 23853 -15161     ;  elliptic band-pass 1450..1900/16kHz
+        5 s16; 681 -1342   681 26261 -15331     ; 
+    end
+;----------------------------------------------------------------------
+node sigp_stream_detector 0     				; second node
+    node_preset         3               		; detector preset 
+;----------------------------------------------------------------------
+;  arc connexions between IOs and node and between nodes
+arc_input   0 1 0 arm_stream_filter     0 0 0  ; io0 set0copy1 fmt0     ; DETECT => OUTPUT 
+arc_output  1 1 1 sigp_stream_detector  0 1 1  ; io1 set0copy1 fmt1     ; INPUT => IIR
+
+arc arm_stream_filter 0 1 0 sigp_stream_detector 0 0 1                  ; IIR => DETECT
+    arc_jitter_ctrl  1.5  ; factor to apply to the minimum size between the producer and the consumer
+end
+```
+
+
+
+Platform manifest used for the mapping of IOs in the graph above 
+
+```
+; ------------------------------------------------------------------------------------------------------------
+; TOP MANIFEST :
+;   paths to the files
+;   processors manifests (memory and architecture)
+;   IO manifests to use for stream processing
+;   list of the nodes installed in the platform and their affinities with processors
+; ------------------------------------------------------------------------------------------------------------
+; list of paths for the included files
+    3                                               three file paths
+    ../../stream_platform/                           "" path index 0 
+    ../../stream_platform/computer/manifest/         "" path index 1
+    ../../stream_nodes/                              "" path index 2
+; ------------------------------------------------------------------------------------------------------------
+; PLATFORM DIGITAL, MIXED-SIGNAL AND IO MANIFESTS
+
+    1   procmap_manifest_computer.txt       path index + file name
+
+;   path:       path ID 
+;   Manifest    manifests file 
+;   IO IDX      index of the IO used in the graph 
+;   ProcCtrl    processor affinity bit-field 
+;   ClockDomain provision for insertion of ASRC 
+
+    10  : number of IO streams available
+    
+    ;Path      Manifest         IO_AL_idx ProcCtrl clock-domain     Comments               
+    1   io_platform_data_in_0.txt       0     1        0            application processor  
+    1   io_platform_data_in_1.txt       1     1        0            application processor  
+    1   io_platform_analog_sensor_0.txt 2     1        0            ADC                    
+    1   io_platform_motion_in_0.txt     3     1        0            accelero=gyro          
+    1   io_platform_audio_in_0.txt      4     1        0            microphone             
+    1   io_platform_2d_in_0.txt         5     1        0            camera                 
+    1   io_platform_line_out_0.txt      6     1        0            audio out stereo       
+    1   io_platform_gpio_out_0.txt      7     1        0            GPIO/LED               
+    1   io_platform_gpio_out_1.txt      8     1        0            GPIO/PWM               
+    1   io_platform_data_out_0.txt      9     1        0            application processor    
+; ------------------------------------------------------------------------------------------------------------
+; SOFTWARE COMPONENTS MANIFESTS 
+    2                               node_manifest_none.txt               /*  0 ID0 is reserved for by-passes */
+    2                       arm/script/node_manifest_script.txt          /*  1 arm_stream_script          */
+    2                       arm/script/node_manifest_graph_control.txt   /*  2 arm_stream_graph_control   */
+    2                       arm/router/node_manifest_router.txt          /*  3 arm_stream_router          */
+    2    signal-processingFR/converter/node_manifest_converter.txt       /*  4 sigp_stream_converter      */
+    2                    arm/amplifier/node_manifest_amplifier.txt       /*  5 arm_stream_amplifier       */
+    2                        arm/mixer/node_manifest_mixer.txt           /*  6 arm_stream_mixer           */
+    2                       arm/filter/node_manifest_filter.txt          /*  7 arm_stream_filter          */
+    2     signal-processingFR/detector/node_manifest_detector.txt        /*  8 sigp_stream_detector       */
+    2                     arm/rescaler/node_manifest_rescaler.txt        /*  9 arm_stream_rescaler        */
+    2   signal-processingFR/compressor/node_manifest_compressor.txt      /* 10 sigp_stream_compressor     */
+    2 signal-processingFR/decompressor/node_manifest_decompressor.txt    /* 11 sigp_stream_decompressor   */
+    2                    arm/modulator/node_manifest_modulator.txt       /* 12 arm_stream_modulator       */
+    2                  arm/demodulator/node_manifest_demodulator.txt     /* 13 arm_stream_demodulator     */
+    2    signal-processingFR/resampler/node_manifest_resampler.txt       /* 14 sigp_stream_resampler      */
+    2                          arm/qos/node_manifest_qos.txt             /* 15 arm_stream_qos             */
+    2                        arm/split/node_manifest_split.txt           /* 16 arm_stream_split           */
+    2   signal-processingFR/detector2D/node_manifest_detector2D.txt      /* 17 sigp_stream_detector2D     */
+    2                     arm/filter2D/node_manifest_filter2D.txt        /* 18 arm_stream_filter2D        */
+    2                     arm/analysis/node_manifest_analysis.txt        /* 19 arm_stream_analysis        */
+    2                  bitbank/JPEGENC/node_manifest_bitbank_JPEGENC.txt /* 20 JPG encoder                */
+    2                 elm-lang/TJpgDec/node_manifest_TjpgDec.txt         /* 21 JPG decoder                */
+    2             arm/format_converter/node_manifest_format_converter.txt /* 22 arm_stream_format_converter*/
+; ------------------------------------------------------------------------------------------------------------
+```
+The compiled result which will be the input file of the interpreter:
+```
+//--------------------------------------
+//  DATE Thu Sep 19 19:49:37 2024
+//  AUTOMATICALLY GENERATED CODES
+//  DO NOT MODIFY !
+//--------------------------------------
+0x0000003C, // ------- Graph size = Flash=36[W]+RAM24[W]  +Buffers=48[B] 12[W] 
+0x00000000, // 000 000 [0] Destination in RAM 0, and RAM split 0 
+0x00000042, // 004 001 [1] Number of IOs 2, Formats 2, Scripts 0 
+0x00000015, // 008 002 LinkedList size = 21, ongoing IO bytes, Arc debug table size 0 
+0x00000003, // 00C 003 [3] Nb arcs 3  SchedCtrl 0 ScriptCtrl 0   
+0x00000001, // 010 004 [4] Processors allowed 
+0x00000000, // 014 005 [5] memory consumed 0,1,2,3 
+0x00000000, // 018 006 [6] memory consumed 4,5,6,7 ...  
+0x00083000, // 01C 007 IO(graph0) 1 arc 0 set0copy1=1 rx0tx1=0 servant1 1 shared 0 domain 0 
+0x00000000, // 020 008 IO(settings 0, fmtProd 0 (L=8) fmtCons 0 (L=8) 
+0x00000000, // 024 009  
+0x00000000, // 028 00A  
+0x00483801, // 02C 00B IO(graph1) 9 arc 1 set0copy1=1 rx0tx1=1 servant1 1 shared 0 domain 0 
+0x00000000, // 030 00C IO(settings 0, fmtProd 1 (L=16) fmtCons 1 (L=16) 
+0x00000000, // 034 00D  
+0x00000000, // 038 00E  
+0x00C04807, // 03C 00F -----  arm_stream_filter(0) idx:7 Nrx 1 Ntx 1 ArcFmt 1 lockArc 1 
+0x08020000, // 040 010 ARC 0 Rx0Tx1 0 L=8 dbgpage0 -- ARC 2 Rx0Tx1 1 L=16 dbgpage0     
+0x30000048, // 044 011 Nb Memreq-1 1  XDM11_same_rate 1 
+0x0000004C, // 048 012 Reserved static memory bank(0) = bank 0 stat0work1ret2 = 0 size 76  
+0x30800000, // 04C 013  
+0x00000034, // 050 014 Scratch memory bank(1) = bank 2 stat0work1ret2 = 1  size 52  
+0x01000007, // 054 015 ParamLen 6+1 Preset 1 Tag0ALL 0 
+0x02A90102, // 058 016 (0) 
+0x02A901A6, // 05C 017 (1) 
+0xC4C75D2D, // 060 018 (2) 
+0xFAC202A9, // 064 019 (3) 
+0x669502A9, // 068 01A (4) 
+0x0000C41D, // 06C 01B (5) 
+0x00C04808, // 070 01C -----  sigp_stream_detector(0) idx:8 Nrx 1 Ntx 1 ArcFmt 1 lockArc 1 
+0x08010002, // 074 01D ARC 2 Rx0Tx1 0 L=8 dbgpage0 -- ARC 1 Rx0Tx1 1 L=16 dbgpage0     
+0x30000058, // 078 01E Nb Memreq-1 1  XDM11_same_rate 1 
+0x00000034, // 07C 01F Reserved static memory bank(0) = bank 0 stat0work1ret2 = 0 size 52  
+0x30000064, // 080 020  
+0x00000020, // 084 021 Reserved static memory bank(1) = bank 0 stat0work1ret2 = 2 size 32  
+0x03000001, // 088 022 ParamLen 0+1 Preset 3 Tag0ALL 0 
+0x000003FF, // 08C 023 ^^^^^^^^^ LINKED-LIST END ^^^^^^^^^ vvvvvvvvvvv RAM vvvvvvvvvvv 
+0xFFFF7F7F, // 090 024 LinkedList size = 21, ongoing IO bytes, Arc debug table size 0 
+0x00000008, // 094 025 Format  0 frameSize 8  
+0x00004400, // 098 026           nchan 1 raw 17 
+0x00000000, // 09C 027           domain-dependent 
+0x00000000, // 0A0 028           domain-dependent 
+0x00000010, // 0A4 029 Format  1 frameSize 16  
+0x00004400, // 0A8 02A           nchan 1 raw 17 
+0x00000000, // 0AC 02B           domain-dependent 
+0x00000000, // 0B0 02C           domain-dependent 
+0x0000003C, // 0B4 02D IO-ARC descriptor(0) Base 3Ch (Fh words) fmtProd_0 frameL 8.0 
+0x00000008, // 0B8 02E     Size 8h[B] fmtCons_0 FrameL 8.0 jitterScaling 1.0 
+0x00000000, // 0BC 02F  
+0x00000000, // 0C0 030  
+0x00000000, // 0C4 031     fmtCons 0 fmtProd 0 dbgreg 0 dbgcmd 0 
+0x0000003E, // 0C8 032 IO-ARC descriptor(1) Base 3Eh (Fh words) fmtProd_1 frameL 16.0 
+0x00000010, // 0CC 033     Size 10h[B] fmtCons_1 FrameL 16.0 jitterScaling 1.0 
+0x00000000, // 0D0 034  
+0x00000000, // 0D4 035  
+0x00000101, // 0D8 036     fmtCons 1 fmtProd 1 dbgreg 0 dbgcmd 0 
+0x00000042, // 0DC 037 ARC descriptor(2) Base 42h (10h words) fmtProd_0 frameL 8.0 
+0x00000018, // 0E0 038     Size 18h[B] fmtCons_1 FrameL 16.0 jitterScaling 1.5 
+0x00000000, // 0E4 039  
+0x00000000, // 0E8 03A  
+0x00000100, // 0EC 03B     fmtCons 1 fmtProd 0 dbgreg 0 dbgcmd 0 
+```
+
+
 ## Control of the scheduler
 The first words of the binary graph give the portion of the graph to move to RAM.
 To have addresses portability of addresses between processors, the graph interpreter is managing a list of "memory-offsets".
@@ -507,122 +695,4 @@ Arcs are used to node parameters when the inlined way (with the node declaration
     end                                                                                              
 ```
 -----------------------------------------
-
-
-
-# Example of graph
-
-The graph in text format :
-
-```
-;--------------------------------------------------------------------------
-;   Stream-based processing using a graph interpreter :                    
-;   
-;       - The ADC detection is used to toggle a GPIO
-; 
-;   +----------+     +--------+      +--------+     +--------+
-;   | ADC      +-----> filter +------> detect +-----> GPIO   | 
-;   +----------+     +--------+      +--------+     +--------+
-;                
-;----------------------------------------------------------------------
-format_index            0
-format_frame_length     8
-format_index            1
-format_frame_length     16
-;----------------------------------------------------------------------
-stream_io               0                       ; IO0
-stream_io_hwid          1                       ; io_platform_data_in_1.txt
-stream_io               1                       ; IO1
-stream_io_hwid          9                       ; io_platform_data_out_0.txt
-;----------------------------------------------------------------------
-node arm_stream_filter  0 					    ; first node 
-    node_preset         1                       ; Q15 filter
-    node_map_hwblock    1  5                    ; TCM = VID5
-    node_parameters     0                       ; TAG = "all parameters"
-        1  u8;  2                               ; Two biquads
-        1  u8;  1                               ; postShift
-        5 s16; 681   422   681 23853 -15161     ;  elliptic band-pass 1450..1900/16kHz
-        5 s16; 681 -1342   681 26261 -15331     ; 
-    end
-;----------------------------------------------------------------------
-node sigp_stream_detector 0     				; second node
-    node_preset         3               		; detector preset 
-;----------------------------------------------------------------------
-;  arc connexions between IOs and node and between nodes
-arc_input   0 1 0 arm_stream_filter     0 0 0  ; io0 set0copy1 fmt0     ; DETECT => OUTPUT 
-arc_output  1 1 1 sigp_stream_detector  0 1 1  ; io1 set0copy1 fmt1     ; INPUT => IIR
-
-arc arm_stream_filter 0 1 0 sigp_stream_detector 0 0 1                  ; IIR => DETECT
-    arc_jitter_ctrl  1.5  ; factor to apply to the minimum size between the producer and the consumer
-end
-```
-
-
-
-Platform manifest used for the mapping of IOs in the graph above 
-
-```
-; ------------------------------------------------------------------------------------------------------------
-; TOP MANIFEST :
-;   paths to the files
-;   processors manifests (memory and architecture)
-;   IO manifests to use for stream processing
-;   list of the nodes installed in the platform and their affinities with processors
-; ------------------------------------------------------------------------------------------------------------
-; list of paths for the included files
-    3                                               three file paths
-    ../../stream_platform/                           "" path index 0 
-    ../../stream_platform/computer/manifest/         "" path index 1
-    ../../stream_nodes/                              "" path index 2
-; ------------------------------------------------------------------------------------------------------------
-; PLATFORM DIGITAL, MIXED-SIGNAL AND IO MANIFESTS
-
-    1   procmap_manifest_computer.txt       path index + file name
-
-;   path:       path ID 
-;   Manifest    manifests file 
-;   IO IDX      index of the IO used in the graph 
-;   ProcCtrl    processor affinity bit-field 
-;   ClockDomain provision for insertion of ASRC 
-
-    10  : number of IO streams available
-    
-    ;Path      Manifest         IO_AL_idx ProcCtrl clock-domain     Comments               
-    1   io_platform_data_in_0.txt       0     1        0            application processor  
-    1   io_platform_data_in_1.txt       1     1        0            application processor  
-    1   io_platform_analog_sensor_0.txt 2     1        0            ADC                    
-    1   io_platform_motion_in_0.txt     3     1        0            accelero=gyro          
-    1   io_platform_audio_in_0.txt      4     1        0            microphone             
-    1   io_platform_2d_in_0.txt         5     1        0            camera                 
-    1   io_platform_line_out_0.txt      6     1        0            audio out stereo       
-    1   io_platform_gpio_out_0.txt      7     1        0            GPIO/LED               
-    1   io_platform_gpio_out_1.txt      8     1        0            GPIO/PWM               
-    1   io_platform_data_out_0.txt      9     1        0            application processor    
-; ------------------------------------------------------------------------------------------------------------
-; SOFTWARE COMPONENTS MANIFESTS 
-    2                               node_manifest_none.txt               /*  0 ID0 is reserved for by-passes */
-    2                       arm/script/node_manifest_script.txt          /*  1 arm_stream_script          */
-    2                       arm/script/node_manifest_graph_control.txt   /*  2 arm_stream_graph_control   */
-    2                       arm/router/node_manifest_router.txt          /*  3 arm_stream_router          */
-    2    signal-processingFR/converter/node_manifest_converter.txt       /*  4 sigp_stream_converter      */
-    2                    arm/amplifier/node_manifest_amplifier.txt       /*  5 arm_stream_amplifier       */
-    2                        arm/mixer/node_manifest_mixer.txt           /*  6 arm_stream_mixer           */
-    2                       arm/filter/node_manifest_filter.txt          /*  7 arm_stream_filter          */
-    2     signal-processingFR/detector/node_manifest_detector.txt        /*  8 sigp_stream_detector       */
-    2                     arm/rescaler/node_manifest_rescaler.txt        /*  9 arm_stream_rescaler        */
-    2   signal-processingFR/compressor/node_manifest_compressor.txt      /* 10 sigp_stream_compressor     */
-    2 signal-processingFR/decompressor/node_manifest_decompressor.txt    /* 11 sigp_stream_decompressor   */
-    2                    arm/modulator/node_manifest_modulator.txt       /* 12 arm_stream_modulator       */
-    2                  arm/demodulator/node_manifest_demodulator.txt     /* 13 arm_stream_demodulator     */
-    2    signal-processingFR/resampler/node_manifest_resampler.txt       /* 14 sigp_stream_resampler      */
-    2                          arm/qos/node_manifest_qos.txt             /* 15 arm_stream_qos             */
-    2                        arm/split/node_manifest_split.txt           /* 16 arm_stream_split           */
-    2   signal-processingFR/detector2D/node_manifest_detector2D.txt      /* 17 sigp_stream_detector2D     */
-    2                     arm/filter2D/node_manifest_filter2D.txt        /* 18 arm_stream_filter2D        */
-    2                     arm/analysis/node_manifest_analysis.txt        /* 19 arm_stream_analysis        */
-    2                  bitbank/JPEGENC/node_manifest_bitbank_JPEGENC.txt /* 20 JPG encoder                */
-    2                 elm-lang/TJpgDec/node_manifest_TjpgDec.txt         /* 21 JPG decoder                */
-    2             arm/format_converter/node_manifest_format_converter.txt /* 22 arm_stream_format_converter*/
-; ------------------------------------------------------------------------------------------------------------
-```
 
