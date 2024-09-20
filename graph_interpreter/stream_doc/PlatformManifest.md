@@ -56,7 +56,7 @@ The multiprocessor synchronization mechanisms are abstracted outside of the grap
 ; ------------------------------------------------------------------------------------------------------------
 ; PLATFORM DIGITAL, MIXED-SIGNAL AND IO MANIFESTS - max 32 IOs => iomask
 
-    1   procmap_manifest_computer.txt       path index + file name
+    1   procmap_manifest_computer.txt       path index + DIGITAL MANIFEST file name
 
 ;   path:       path ID 
 ;   Manifest    manifests file 
