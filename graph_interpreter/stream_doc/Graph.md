@@ -602,6 +602,13 @@ callsys 17 r1 r2 r3         call a system suboutine and save 3 parameters
 return                      return from subroutine
 ```
 
+The "callsys" instruction gives access to :
+
+- FIFO content (read/write), filling status and access to the arc debug information (last time-stamp access, average of samples, etc ..)
+- Node parameters read and update, with / without a reset of the node
+- Basic compute and data move functions
+- The call-backs provided by the application (use-case, change the graph IO parameters, debug and trace)
+
 The graph declares the script like standard nodes :
 
 ```
