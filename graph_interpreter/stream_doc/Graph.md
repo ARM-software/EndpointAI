@@ -558,52 +558,61 @@ Example of a packed structure of 22 bytes of parameters:
 -----------------------------------------
 
 ## Scripts 
-Scripts are small interpreted byte-codes designed for control and calls to the graph scheduler for node control and parameter settings.
-The declaration is made to tune for a minimum amount of memory consumption : by a limitation of the number of virtual CPU registers, the size of the stack and allowing the same stack memory to be reused for several scripts.
-A script is an instance of the node `arm_stream_script` the parameter of which is holding the byte-codes.
+Scripts are small interpreted byte-codes designed for control and calls to the graph scheduler for node control and parameter settings. Scripts are declared as standard nodes with extra parameters memory size and allowing it to be reused for several scripts. The nodes have arc connected as transmit streams. The arc descriptor points to a buffer used as working area (registers of the virtual machine, stack and heap memory). 
+
+The virtual engine has 20 instructions. There are 12 registers, 2 indexes to the stack and the stack are all 64 bits wide. All the instructions can be executed conditionally. There two main families of instructions :
+
+**Load** registers with arithmetic's operation have a similar syntax as test.
+
+```
+r6 = 3	       			; r6 = 3  (the default litterals type is int32)
+r6 = add r5 3	        ; r6 = ( r5 + 3 )
+r6 = sub r5 r4	        ; r6 = ( r5 - r4 )
+```
+
+**Tests**, the syntax is : {test type) {register to compare}  {optional arithmetic operator} {register 2} {register 3 or a constants}. Examples
+
+```
+testlt r6 3	       	    ; test r6 < 3
+testlt r6 add r5 3	    ; test r6 < ( r5 + 3 )
+testlt r6 sub r5 r4	    ; test r6 < ( r5 - r4 )
+if_yes r6 = #float 3	; conditional load of r6 with 3.0
+```
+
+The last family are a controls (circular addressing, jumps, calls, loops, bit-field extraction, scatter/gather load). Examples
+
+```
+Example of instructions		Comments
+-----------------------     --------
+if_no set r2 type #float 	conditional set of the type of r2 to float
+set r4 base r5 				set the base address of circular buffer
+set r4 size r5 				set the size of the circular buffer
+st r2 [r4] r3 				scatter save with indexes r2[r4] = r3
+ld r2 r3 [r4] 				gather addressing r2 = r3[r4]
+move r2 |len pos| r3 	    store r3 to a bit-field of r2
+move r2 r3 |len pos| 		save in r2 a bit-field from r3
+swap r2 r3 					swap two registers
+delete 4 					remove the last 4 registers from the stack
+save r3 r0 r11 				push 3 registers on the stack
+restore r3 r0 r11 			restore 3 registers from the stack
+jump L_label r1				jump to label and save r1 on the stack
+banz L_Label r0 			decrement r0 and branch if not zero
+call L_Label r1 r2 r3		call a subroutine and save two registers
+callsys 17 r1 r2 r3 	    call a system suboutine and save 3 parameters
+return                    	return from subroutine
+```
+
+The graph declares the script like standard nodes :
 
 ```
 node arm_stream_script 1  ; script (instance) index           
     script_stack      12  ; size of the stack in word64      
-    script_mem_shared  1  ; private memory (0) or shared(1)  
-    script_mem_map     0  ; mapping to VID #0 (default)      
-                                                             
+    script_mem_shared  1  ; default is private memory (0) or shared (1)  
+    script_mem_map     0  ; mapping of the working memory to VID #0 (default)      
+ 
     script_code       
-;   Assembler                            comments 
-;   ---------                          ----------------
-;   "test" operations 
-;     testleq r6 sp                      test r6 <= top of the stack
-;     testgt  r2 max { r4 #float 3.14}	 test r2 > max(r4, 3.14)
-;
-;   "load"
-;     r6 sp                      r6 := top of the stack
-;     r2 mul { r4 #float 3.14}	 r2 := (r4 x 3.14)
-;
-;   "mov"
-;     scatter r2 r3 r4           r2[r4] = r3    indirect, write with indexes 
-;     gather  r2 r3 #k           r2 = r3[k]     indirect, read with indexes 
-;     wr2bf   r2 r3 LEN.POS      r2(bitfield) = r3 
-;
-;   "jump"
-;     if_yes jump L_loop2, r2      jump to label loop2 and push r2 if test=yes
-;     if_not callsys 15            system calls (fifo, time, setparam, io/hw)
-
-;   "system call" use-cases :
-;   - Node Set/ReadParam/Run, patch a field in the header
-;   - FIFO read/set, data amount/free, time-stamp of last access 
-;   - Update Format framesize, FS
-;   - Read Time 16/32/64 from arc/AL, compute differences,
-;   - Jump to +/- N nodes in the list
-;   - Un/Lock a section of the graph
-;   - Select new IO settings (set timer period, change gains)
-;   - AL decides deep sleep with the help of parameters (wake-up in X[s])
-;   - Trace "string" + data
-;   - Callbacks (cmd (cmd+LIbName+Subfunction , X, n) for I2C/Radio .. Libraries 
-;   - Callback returning the current use-case to set parameters
-;   - Call a relocatable binary section in the Param area
-;   - Share Physical HW addresses
-;   - Compute Median from data in a circular buffer + mean/STD    
-
+	...
+	return				  ; return to the graph scheduler
     end                                                      
     node_parameters <ID2>                                    
        include 1 binary_code.txt ; path ID and file name     
