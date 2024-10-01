@@ -40,7 +40,7 @@ stream_io_hwid          1                       ; io_platform_data_in_1.txt
 stream_io               1                       ; IO1
 stream_io_hwid          9                       ; io_platform_data_out_0.txt
 ;----------------------------------------------------------------------
-node arm_stream_filter  0 					    ; first node 
+node arm_stream_filter  0                         ; first node 
     node_preset         1                       ; Q15 filter
     node_map_hwblock    1  5                    ; TCM = VID5
     node_parameters     0                       ; TAG = "all parameters"
@@ -50,8 +50,8 @@ node arm_stream_filter  0 					    ; first node
         5 s16; 681 -1342   681 26261 -15331     ; 
     end
 ;----------------------------------------------------------------------
-node sigp_stream_detector 0     				; second node
-    node_preset         3               		; detector preset 
+node sigp_stream_detector 0                     ; second node
+    node_preset         3                       ; detector preset 
 ;----------------------------------------------------------------------
 ;  arc connexions between IOs and node and between nodes
 arc_input   0 1 0 arm_stream_filter     0 0 0  ; io0 set0copy1 fmt0     ; DETECT => OUTPUT 
@@ -550,7 +550,7 @@ Example of a packed structure of 22 bytes of parameters:
      node_parameters     0                   TAG = "all parameters" 
          1  u8;  2                           Two biquads 
          1  u8;  1                           postShift 
-         5 s16; 681   422   681 23853 -15161  elliptic band-pass 1450..1900/16kHz 
+         5 s16; 681   422   681 23853 -15161 elliptic band-pass 1450..1900/16kHz 
          5 s16; 681 -1342   681 26261 -15331 
      end 
 ```
@@ -565,41 +565,41 @@ The virtual engine has 20 instructions. There are 12 registers, 2 indexes to the
 **Load** registers with arithmetic's operation have a similar syntax as test.
 
 ```
-r6 = 3	       			; r6 = 3  (the default litterals type is int32)
-r6 = add r5 3	        ; r6 = ( r5 + 3 )
-r6 = sub r5 r4	        ; r6 = ( r5 - r4 )
+r6 = 3                   ; r6 = 3  (the default litterals type is int32)
+r6 = add r5 3            ; r6 = ( r5 + 3 )
+r6 = sub r5 r4           ; r6 = ( r5 - r4 )
 ```
 
 **Tests**, the syntax is : {test type) {register to compare}  {optional arithmetic operator} {register 2} {register 3 or a constants}. Examples
 
 ```
-testlt r6 3	       	    ; test r6 < 3
-testlt r6 add r5 3	    ; test r6 < ( r5 + 3 )
-testlt r6 sub r5 r4	    ; test r6 < ( r5 - r4 )
-if_yes r6 = #float 3	; conditional load of r6 with 3.0
+testlt r6 3                ; test r6 < 3
+testlt r6 add r5 3         ; test r6 < ( r5 + 3 )
+testlt r6 sub r5 r4        ; test r6 < ( r5 - r4 )
+if_yes r6 = #float 3       ; conditional load of r6 with 3.0
 ```
 
 The last family are a controls (circular addressing, jumps, calls, loops, bit-field extraction, scatter/gather load). Examples
 
 ```
-Example of instructions		Comments
+Example of instructions        Comments
 -----------------------     --------
-if_no set r2 type #float 	conditional set of the type of r2 to float
-set r4 base r5 				set the base address of circular buffer
-set r4 size r5 				set the size of the circular buffer
-st r2 [r4] r3 				scatter save with indexes r2[r4] = r3
-ld r2 r3 [r4] 				gather addressing r2 = r3[r4]
-move r2 |len pos| r3 	    store r3 to a bit-field of r2
-move r2 r3 |len pos| 		save in r2 a bit-field from r3
-swap r2 r3 					swap two registers
-delete 4 					remove the last 4 registers from the stack
-save r3 r0 r11 				push 3 registers on the stack
-restore r3 r0 r11 			restore 3 registers from the stack
-jump L_label r1				jump to label and save r1 on the stack
-banz L_Label r0 			decrement r0 and branch if not zero
-call L_Label r1 r2 r3		call a subroutine and save two registers
-callsys 17 r1 r2 r3 	    call a system suboutine and save 3 parameters
-return                    	return from subroutine
+if_no set r2 type #float    conditional set of the type of r2 to float
+set r4 base r5              set the base address of circular buffer
+set r4 size r5              set the size of the circular buffer
+st r2 [r4] r3               scatter save with indexes r2[r4] = r3
+ld r2 r3 [r4]               gather addressing r2 = r3[r4]
+move r2 |len pos| r3        store r3 to a bit-field of r2
+move r2 r3 |len pos|        save in r2 a bit-field from r3
+swap r2 r3                  swap two registers
+delete 4                    remove the last 4 registers from the stack
+save r3 r0 r11              push 3 registers on the stack
+restore r3 r0 r11           restore 3 registers from the stack
+jump L_label r1             jump to label and save r1 on the stack
+banz L_Label r0             decrement r0 and branch if not zero
+call L_Label r1 r2 r3       call a subroutine and save two registers
+callsys 17 r1 r2 r3         call a system suboutine and save 3 parameters
+return                      return from subroutine
 ```
 
 The graph declares the script like standard nodes :
@@ -611,8 +611,8 @@ node arm_stream_script 1  ; script (instance) index
     script_mem_map     0  ; mapping of the working memory to VID #0 (default)      
  
     script_code       
-	...
-	return				  ; return to the graph scheduler
+    ...
+    return                ; return to the graph scheduler
     end                                                      
     node_parameters <ID2>                                    
        include 1 binary_code.txt ; path ID and file name     
