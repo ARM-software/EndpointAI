@@ -40,7 +40,7 @@ stream_io_hwid          1                       ; io_platform_data_in_1.txt
 stream_io               1                       ; IO1
 stream_io_hwid          9                       ; io_platform_data_out_0.txt
 ;----------------------------------------------------------------------
-node arm_stream_filter  0                         ; first node 
+node arm_stream_filter  0                       ; first node 
     node_preset         1                       ; Q15 filter
     node_map_hwblock    1  5                    ; TCM = VID5
     node_parameters     0                       ; TAG = "all parameters"
@@ -58,7 +58,7 @@ arc_input   0 1 0 arm_stream_filter     0 0 0  ; io0 set0copy1 fmt0     ; DETECT
 arc_output  1 1 1 sigp_stream_detector  0 1 1  ; io1 set0copy1 fmt1     ; INPUT => IIR
 
 arc arm_stream_filter 0 1 0 sigp_stream_detector 0 0 1                  ; IIR => DETECT
-    arc_jitter_ctrl  1.5  ; factor to apply to the minimum size between the producer and the consumer
+    arc_jitter_ctrl  1.5  ; increase the buffer size between the producer and the consumer
 end
 ```
 
@@ -403,6 +403,7 @@ Example
 ## Memory mapping (TBD)
 Split the memory mapping to ease memory overlays between nodes and arcs by defining new memory-offset index ("ID").
 Format : ID, new ID to use in the node/arc declarations, byte offset within the original ID, length of the new memory offset.
+
 ```
 ;               original_id  new_id    start   length 
 ; memory_mapping      2        100      1024    32700 
@@ -411,6 +412,7 @@ Format : ID, new ID to use in the node/arc declarations, byte offset within the 
 ### Memory fill
 Filling pattern placed after the arc descriptors 
 @@@@ TODO insert a picture of the graph memory map 
+
 ```
     mem_fill_pattern 5 3355AAFF   memory fill 5 word32 value 0x3355AAFF (total 20 Bytes)
 ```
@@ -497,13 +499,12 @@ Example :
     node_trace_id  0      ; IO port 0 is used to send the trace 
 ```
 
-### node_map_proc
-### node_map_arch
-### node_map_rtos
+### node_map_proc, node_map_arch, node_map_rtos
 The graph can be executed in a multiprocessor and multi tasks platform. Those commands allow the graph interpreter scheduler to skip the nodes not associated to the current processor / architecture and task.
 The platform can define 7 architectures and 7 processors. When the parameter is not defined (or with value 0) the scheduler interprets it as "any processor" or "any architecture" can execute this node.
-Several OS threads can interpret the graph at the same time. A parameter "0" means any thread can execute this node, and by convention the value "1" is allocated to low-latency tasks, "3" to background tasks. 
+Several OS threads can interpret the graph at the same time. A parameter "0" means any thread can execute this node, and the value "1" is associated to low-latency tasks, "3" to background tasks. 
 Examples :
+
 ```
     node_map_proc 2 ; run this node on processor 2 defined in the architecture manifest 
     node_map_arch 1 ; run this node on architecture 1 defined in the architecture manifest 
@@ -560,45 +561,47 @@ Example of a packed structure of 22 bytes of parameters:
 ## Scripts 
 Scripts are small interpreted byte-codes designed for control and calls to the graph scheduler for node control and parameter settings. Scripts are declared as standard nodes with extra parameters memory size and allowing it to be reused for several scripts. The nodes have arc connected as transmit streams. The arc descriptor points to a buffer used as working area (registers of the virtual machine, stack and heap memory). 
 
-The virtual engine has 20 instructions. There are 12 registers, 2 indexes to the stack and the stack are all 64 bits wide. All the instructions can be executed conditionally. There two main families of instructions :
+The virtual engine has 20 instructions. There are 12 registers, 2 indexes to the stack and the stack are all 64 bits wide. All the instructions can be executed conditionally. 
+
+The 12 registers are named "r0" .. "r11". Using "sp" means access to the data located at the stack pointer position, "sp1" tells to increment the stack pointer **SP** after a write to and decrement the stack pointer after a read. The updates of the stack pointer are made when reading the instructions from right to left, for example :
+
+` r6 = add sp1 3 `  : the literal constant "3" is added to the data from the stack and SP is decremented after the read ("pop" operation), the result of the addition is saved in r6.
+
+` sp1 = add sp sp1 `  : the right-most operand tells to "pop" data from stack, to add it to the top of the stack, push the result on the stack (SP is incremented, SP keeps the same value from previous instruction).
+
+There two main families of instructions :
 
 **Load** registers with arithmetic's operation have a similar syntax as test.
 
 ```
-r6 = 3                   ; r6 = 3  (the default litterals type is int32)
-r6 = add r5 3            ; r6 = ( r5 + 3 )
-r6 = sub r5 r4           ; r6 = ( r5 - r4 )
+r6 = 3                    r6 = 3  (the default litterals type is int32)
+r6 = add r5 3             r6 = ( r5 + 3 )
+r6 = sub r5 r4            r6 = ( r5 - r4 )
+if_yes r6 = add r5 3      conditional addition of r5 with 3 saved in r6
 ```
 
-**Tests**, the syntax is : {test type) {register to compare}  {optional arithmetic operator} {register 2} {register 3 or a constants}. Examples
+
 
 ```
-testlt r6 3                ; test r6 < 3
-testlt r6 add r5 3         ; test r6 < ( r5 + 3 )
-testlt r6 sub r5 r4        ; test r6 < ( r5 - r4 )
-if_yes r6 = #float 3       ; conditional load of r6 with 3.0
-```
-
-The last family are a controls (circular addressing, jumps, calls, loops, bit-field extraction, scatter/gather load). Examples
-
-```
-Example of instructions        Comments
+Example of instructions     Comments
 -----------------------     --------
 if_no set r2 type #float    conditional set of the type of r2 to float
-set r4 base r5              set the base address of circular buffer
-set r4 size r5              set the size of the circular buffer
-st r2 [r4] r3               scatter save with indexes r2[r4] = r3
-ld r2 r3 [r4]               gather addressing r2 = r3[r4]
-move r2 |len pos| r3        store r3 to a bit-field of r2
-move r2 r3 |len pos|        save in r2 a bit-field from r3
+set r2 type #float          convert r2 to a floating point data
+set r4 base r5              set the base address of circular buffer r4 to r5
+set r4 size 14              set the size of the circular buffer r4 to 14
+r2 [ r4 ] = r3              scatter save with indexes r2[r4] = r3
+r2 = r3 [ r4 ]              gather addressing r2 = r3[r4]
+r2 = r3 [ 2000 ]            gather addressing r2 = r3[2000]
+r2 | 12 2 | = r3            store r3 to a bit-field {2 .. 12} of r2 
+r2 = r3 | 12 2 |            save in r2 a bit-field {2 .. 12} from r3
 swap r2 r3                  swap two registers
 delete 4                    remove the last 4 registers from the stack
-save r3 r0 r11              push 3 registers on the stack
-restore r3 r0 r11           restore 3 registers from the stack
-jump L_label r1             jump to label and save r1 on the stack
+save r3 r0 r11              push 3 (up to 5) registers on the stack
+restore r3 r0 r11           restore 3 (up to 5) registers from the stack
+jump L_label r1             jump to label and save on register (up to 3) on the stack
 banz L_Label r0             decrement r0 and branch if not zero
-call L_Label r1 r2 r3       call a subroutine and save two registers
-callsys 17 r1 r2 r3         call a system suboutine and save 3 parameters
+call L_Label r1 r2 r3       call a subroutine and save three registers
+callsys 17 r1 r2 r3         call a system suboutine and save 3 parameters (up to 4)
 return                      return from subroutine
 ```
 
@@ -612,7 +615,7 @@ The "callsys" instruction gives access to :
 The graph declares the script like standard nodes :
 
 ```
-node arm_stream_script 1  ; script (instance) index           
+script 1  			      ; script (instance) index           
     script_stack      12  ; size of the stack in word64      
     script_mem_shared  1  ; default is private memory (0) or shared (1)  
     script_mem_map     0  ; mapping of the working memory to VID #0 (default)      
@@ -621,10 +624,68 @@ node arm_stream_script 1  ; script (instance) index
     ...
     return                ; return to the graph scheduler
     end                                                      
-    node_parameters <ID2>                                    
+    script_parameters                                    
        include 1 binary_code.txt ; path ID and file name     
     end                                                     
 ```
+
+### Test instructions
+
+The format of the test instructions are: 
+
+1) ` test instruction, register to be compared to, register used as source of comparison`
+
+2) ` test instruction, register to be compared to, literal constants  `
+
+3) ` test instruction, register to be compared to, arithmetic instruction, register used as first operand, second register used as second operand`
+
+4) ` test instruction, register to be compared to, arithmetic instruction, register used as first operand, literal constant used as second operand` 
+
+The test of the condition made with : `if_yes ... `  or ` if_no ... `.
+
+List of test instructions and meaning
+
+```
+test_equ	     test if equal
+test_leq	     test if less or equal
+test_lt 	     test if lower
+test_neq	     test if non equal
+test_geq	     test if great or equal
+test_gt 	     test if greater
+```
+
+ List of arithmetic operations
+
+```
+add   		addition of two operands
+sub   		substraction
+mul   		multiplication
+div   		division
+or    		logical OR floating-point operands are pre-converted to "int"
+nor   		logical NOR
+and   		logical AND
+xor   		logical XOR
+shr   		shift right, sign extension applied on "signed" registers
+shl   		shift left
+set   		set a bit
+clr   		clear a bit
+max   		compute the maximum of two operands
+min   		minimum
+amax  		maximum of absolute values
+amin  		minmum of absolute values
+norm  		normalize to MSB and return the amount of shift
+addmod		addition with modulo defined by instructions "base" and "size"
+submod		subtraction with modulo
+```
+
+
+
+| Examples and explanations                                    |
+| ------------------------------------------------------------ |
+| ` testlt r6 3                 test r6 < 3 ` <br/>` testlt r6 add r5 3          test r6 < ( r5 + 3 ) `<br/>` testlt r6 sub r5 r4         test r6 < ( r5 - r4 ) ` |
+| ` r1 = 16                     initalize r1 `<br/>` r4 = sp1                    pop data to r4 `<br/>` test_equ r1 shl r4 2        test r1 == r4<<2 `<br/>` if_yes call L_sub5 r4       if yes push r4 and call a subroutine `    ` |
+
+
 
 -----------------------------------------
 
