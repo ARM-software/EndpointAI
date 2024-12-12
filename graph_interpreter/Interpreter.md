@@ -40,9 +40,9 @@ Here are some examples of signal processing "pieces" and software portability is
 - an algorithm is extracting metadata from a pressure sensor, the samples of which are a stream of floating-point data at 10Hz sampling rate. Can the algorithm be ported as-is to a platform using a pressure sensor using 16bits integers at 25Hz sampling rate ?
 - a pattern recognition algorithm is using images of format 300x300 pixels RGB888. What happens when the platform is using a sensor with VGA image format ?
 - an industrial proximity detector is using a 25kHz wave generator and an ultrasound echo detector using a stream of Q15 samples at 96kHz normalized at 120dBSPL full-scale. Can we manage the same behavior and performance with a 88.1kHz sampling-rate ?
-- an audio algorithm using 50kB of RAM from which 4kB are critical on speed access and 25kB have no speed constraint. What happens when several algorithms want to use the fast tightly-coupled memory bank (TCM), how do we manage data swapping before/after calling the algorithms ?
+- an audio algorithm using 50kB of RAM from which 4kB are critical on speed access and 25kB have no speed constraint. What happens when several algorithms, or several instances of the same, want to use the fast tightly-coupled memory bank (TCM), how do we manage data swapping before/after calling the algorithms ?
 - a motion sensor subsystem is designed to integrate components from different silicon vendors. How do we manage automatically the scaling factors associated with the sensors, to have the same dynamic range and sampling-rates in the data stream ?
-- a microprocessor has a dot-product and FFT accelerator. Can we offer an abstraction layer to the algorithm designers for such coprocessors : the developer will have one software release and a software implementation of the FFT will be used instead when there is no coprocessor.
+- a microprocessor has a dot-product and an FFT accelerator. Can we offer an abstraction layer to the algorithm designers for such coprocessors : the developer will release one single software. The computation of the FFT will use software libraries when there is no coprocessor. 
 
 Creating standard interfaces allows software component developers to deliver their IP without having to care about the capabilities of the platform used during system integration. 
 
@@ -59,7 +59,7 @@ The data format translators (provided with the graph scheduler) consists in chan
 
 Computing nodes and platforms have to explain in "[Manifests](#Node-manifest)" their interfaces in a formal way.
 
-We want to anticipate the creation of Stores of computing nodes, signed to a specific platform, delivered in a binary format. 
+We want to anticipate the creation of Stores of computing nodes, with a key (specific to a platform) exchange protocol, when the node is delivered in a binary format or obfuscated source code. 
 
 We want to let the graph to be modified without needing to recompile and re-flash the entire application. The graph will incorporate sections of interpreted code to manage state-machines, scripting, parameters updates and to interface with the application.
 
@@ -74,7 +74,7 @@ This binary graph description is a compact data structure using indexes to the p
 1.  [plaform manifest](#Top-Manifest) and [IO manifest](#IO-Manifest) are prepared ahead of the graph design and describe the hardware. The manifests are giving the processing capabilities (processor architecture, minimum guaranteed amount of memory per RAM blocks and their speed, TCM sizes). The platform manifest gives references to [node manifests](#Node-manifest) for each of the installed processing Nodes : developer identification, input/output data formats,
     memory consumption, documentation of the parameters and a list of
     "presets", test-patterns and expected results (see also [node design](#Node-design)). 
-2.  The graph is described in a readable text format (example [here](#Example-of-graph)) and can be manually modified.
+2.  The graph is either written in a text format (syntax example [here](#Example-of-graph)) or is generated from a graphical tool (proof of concept picture of the GUI [here](#GUI-design-tool)).
 3.  **the binary file to be used on the target is generated / compiled**. The
     file format is either a C source file, or a binary table to
     load in a specific flash memory block, to allow quick tuning cycles without
@@ -83,24 +83,23 @@ This binary graph description is a compact data structure using indexes to the p
 **The platform provides and abstraction layer (AL) with the following services:**
 
 1.  **Share the physical memory map base addresses**. The graph is using
-    indexes to the base addresses of 63 different *memory banks*: shared
-    external memory, fast shared internal, fast private per processor (TCM), and indexed the same way for multiprocessing without MMU. The AL has access to the entry points of the nodes installed in the
-    device. 
+    indexes to the base addresses of 63 different *memory banks*: for example shared
+    external memory, fast shared internal, fast private per processor (TCM), and indexed the same way for multiprocessing without MMU. The AL shares the entry points of the nodes installed in the memory space of the processor. 
     
 2.  **Interface with the graph boundary generating/consuming data
     streams,** declared in the platform manifest and addressed as
     indexes from the scheduler when the FIFOs at the boundary of the
     graph are full or empty.
 
-3.  **Share time and low-level information** **for scripts**. The graph embeds byte-codes of
+3.  **Share information** **for scripts**. The graph embeds byte-codes of
     "Scripts" used to implement state-machines, to change nodes
     parameters, to check the arcs data content, trigger GPIO connected
-    to the graph, generated strings of characters to the application,
+    to the graph, generate strings of characters to the application,
     etc. The [Scripts](#Graph-Scripts-byte-codes) provide a simple interface to the application without code recompilation.
 
 Graph-Interpreter is delivered with a generic implementation of the
-above services, with device drivers emulated with precomputed data, time
-information emulated with counters.
+above services for computers, with device drivers emulated using data files, time
+information emulated with counters. The Graph-Interpreter is delivered as open-source.
 
 ------------------------------------------------------------------------------
 
@@ -108,7 +107,7 @@ information emulated with counters.
 
 Stream-based processing is facilitated using Graph-Interpreter:
 
-1.  The Graph Interpreter has only two functions. One entry point for the application ` void arm_graph_interpreter()` , and one entry point for the data moves: a function used to tell the data moves with the outside of the graph are done`void arm_graph_interpreter_io_ack()`. 
+1.  The Graph Interpreter has only **two functions**. One entry point for the application ` void arm_graph_interpreter()` , and one entry point for the data moves: a function used to tell the data moves with the outside of the graph are done `void arm_graph_interpreter_io_ack()`. 
 2.  Nodes can be written in **any computer languages**. The scheduler is
     addressing the nodes from a **single entry point** using a
     4-parameters [API](#Node-parameters) format. There is
@@ -116,15 +115,14 @@ Stream-based processing is facilitated using Graph-Interpreter:
     compiled with "**position independent execution**" option. There is
     no dynamic linking issue: the nodes delivered in binary can still
     have access to a subset of the C standard libraries through a Graph-Interpreter
-    service. The nodes are offered the access to DSP/ML CMSIS kernels
+    **service**. The nodes are offered the access to DSP/ML kernels
     (compiled without the position-independent option) or executed with platform-specific accelerators: the execution
     speed will scale with the targeted processor capabilities without
     recompilation.
 3.  **Drift management.** The streams don't need to be perfectly
-    isochronous (peripherals using different hardware clock trees). Rate conversion service is provided by nodes delivered with the interpreter
-    when the sampling conversion can be expressed with a ratio of integers.
-    The scheduler defines different quality of services (QoS) when a
-    main stream is processed with drifting secondary streams. The
+    isochronous (the situation happens when peripherals are using different clock trees). Drift and rate conversion service is provided by nodes delivered with the interpreter.
+    The graph defines different quality of services (QoS). When a
+    "main" stream is processed with drifted secondary streams the
     time-base is adjusted to the highest-QoS streams (minimum latency
     and distortion), leaving the secondary streams managed with
     interpolators in case of flow issues.
@@ -135,13 +133,12 @@ Stream-based processing is facilitated using Graph-Interpreter:
     after deep-sleep periods. One of the memory banks allows
     developers to save the state of algorithms for fast return to normal
     operations. The node retention memory should be limited to tens of bytes.
-6.  Graph allows memory size optimization
-    with overlays of different nodes' working/scratch memory banks.
+6.  Graph-Interpreter allows memory size optimization
+    with overlays of different nodes' scratch memory banks.
 7.  **Multiprocessing** SMP and AMP with 32+64bits processor architectures. The graph
-    description is placed in a shared memory, and any processor having
-    access to this shared memory can contribute to the processing. The
-    node reservation protocol is lock-free. The nodes are described with
-    bit-fields to map execution on a specific processor and architecture.
+    description is placed in a shared memory. Any processor having
+    access to this shared memory can contribute to the processing. Buffer addresses are described with a 6-bits offset and an index, to let the same address be processed without MMU. The
+    node execution reservation protocol is defined in the AL, with a proposed lock-free algorithm. The nodes execution can be mapped to a specific processor and architecture.
     The buffers associated to arcs can be allocated to a processor's private
     memory-banks.
 8.  **Scripting** are designed to avoid going back and forth with the
@@ -151,7 +148,7 @@ Stream-based processing is facilitated using Graph-Interpreter:
     string\...) the graph scheduler interprets a compact byte-stream of
     codes to execute simple scripts.
 9.  **Process isolation**. The nodes never read the graph description
-    data, the arc descriptors and the memory mapping is designed for the use of hardware
+    data. The arc descriptors and the memory mapping is designed for the use of hardware
     memory protection.
 10.  **Format conversions**. The developer declares, in the manifests,
      the input/output data formats of the node. The Graph Interpreter implements the format
@@ -160,8 +157,7 @@ Stream-based processing is facilitated using Graph-Interpreter:
 11.  Graph-Interpreter manages the various **methods of controlling I/O**
      with one function per IO: parameters setting and buffer allocation, data
      move, stop, mixed-signal components settings. 
-12.  Graph-Interpreter is **open-source**, and portable to Cortex-M,
-     Cortex-R, Cortex-A and computers.
+12.  Graph-Interpreter is **open-source**, and portable to 32-bits processors and computers.
 13.  Example of Nodes: image and voice codec, data
      conditioning, motion classifiers, data mixers. Graph-Interpreter
      comes with short list of components doing data routing, mixing,
@@ -181,15 +177,17 @@ Stream-based processing is facilitated using Graph-Interpreter:
      write code and allow graph changes and tuning without recompilation.
 16.  **Graph-Interpreter design objectives**: Low RAM footprint. Graph
      descriptor can be placed in Flash with a small portion in RAM.
-     Use-cases go from small Cortex-M0 with 1kBytes RAM to SMP/AMP/coprocessor and mix of 32/64bits thanks to the concept of
+     Use-cases go from small Cortex-M0 with 1kBytes RAM (about 200Bytes of stack and 100Bytes of static RAM) to SMP/AMP/coprocessor and mix of 32/64bits thanks to the concept of
      shared RAM and indexes to memory banks provided by the local
-     processor abstraction layer. Each arc descriptors can address buffer sizes of up to 64GBytes. 
-17.  **Computing libraries** are provided under compilation options, to
-     avoid replicating CMSIS-DSP in nodes with binary code deliveries,
-     and to allow arm-v7M codes able to benefit from arm-v8.1M vector
-     processing extensions without the need for code recompilation.
+     processor abstraction layer. Each arc descriptors can address buffer sizes of up to 64GBytes in each of the 64 memory banks. 
 
 ![](ProcessingFlow0.JPG)
+
+The development flow is :
+
+1) The platform provider is producing a manifest of the processor and IO interface, jointly with the AL abstraction layer and an optional list of callbacks giving specific services of the platform.
+2) The node software developer is producing the code and the corresponding manifest
+3) Finally, the system integrator creates a binary file representing the graph of the DSP/ML components of its application. The system integrator adds other callbacks which will be used by the scripting capability of the graph.
 
 --------------------------------------
 
@@ -201,8 +199,8 @@ Interpreter instance structure:
 
 | name of the field     | comments                                                     |
 | --------------------- | ------------------------------------------------------------ |
-| long_offset           | Table of pointer to memory banks (up to 63 indexes). The graph is not using physical memory but offsets to one of those 63 memory banks, defined in the "platform manifest". |
-| graph                 | The pointer to the compiled binary version of the graph remapped in RAM. </br>The original binary graph is usually in a flash memory area. The AL function (`platform_init_stream_instance()`) moves it in RAM starting from the first byte of the above "long_offset" index 0. When the device has a small internal RAM the graph is split with a portion staying in Flash (this graph pointer is pointing to) and a portion RAM  placed at long_offset[0] address. |
+| long_offset           | A pointer to the table of physical addresses of the memory banks (up to 64). The table is in the AL of each processor. The graph is not using physical memory but offsets to one of those 64 memory banks, defined in the "platform manifest". |
+| graph                 | A pointer to the compiled binary version of the graph remapped in RAM. </br>The original binary graph is usually in a flash memory area. The AL function (`platform_init_stream_instance()`) moves it in RAM starting from the first byte of the above "long_offset" index 0. When the device has a small internal RAM the graph can be split with a portion staying in Flash (this graph pointer is pointing to) and a portion RAM placed at long_offset[0] address. |
 | linked_list           | pointer to the linked-list of nodes of the graph             |
 | platform_io           | table of functions ([IO_AL_idx](#Top-Manifest)) associated to each IO stream of the platform |
 | node_entry_points     | table of entry points to each node (see "TOP" manifest)      |
@@ -215,6 +213,10 @@ Interpreter instance structure:
 | all_formats           | pointer to the section of the graph describing the stream formats. This section is in RAM. |
 | ongoing               | pointer to a table of bytes associated to each IO ports of the graph. Each byte tells if a transfer is on-going. |
 
+Graphical view of the memory mapping
+
+![ ](Graph_mapping.png)
+
 # Top Manifest
 
 The "Top" platform manifest has four sections :
@@ -225,68 +227,79 @@ The "Top" platform manifest has four sections :
 - the list of the nodes already installed in the device. This is also a list of manifest files giving a formal way to describe how to connect the nodes each others
 
 ```
-; ---------------------------------------------------------------
+; ----------------------------------------------------------------------------------------------
 ; TOP MANIFEST :
 ;   paths to the files
 ;   processors manifests (memory and architecture)
 ;   IO manifests to use for stream processing
-;   list of the nodes installed in the platform 
-; ---------------------------------------------------------------
+;   list of the nodes installed in the platform and their affinities with processors
+; ----------------------------------------------------------------------------------------------
 ; list of paths for the included files
-2                                               
-../../stream_platform/computer/manifest/        ; path 1
-../../stream_nodes/                             ; path 2
-; ---------------------------------------------------------------
-; PLATFORM DIGITAL, MIXED-SIGNAL AND IO MANIFESTS
+
+    6                                         three file paths
+    ../../stream_platform/                     "" path index 0 is local
+    ../../stream_platform/computer/manifest/   "" path index 1 : platform IO manifests
+    ../../stream_nodes/arm/                    "" path index 2 : arm nodes
+    ../../stream_nodes/signal-processingFR/    "" path index 3 : signal-processingFR nodes
+    ../../stream_nodes/bitbank/                "" path index 4 : bitbank nodes
+    ../../stream_nodes/elm-lang/               "" path index 5 : elm-lang nodes
+
+; ----------------------------------------------------------------------------------------------
+; PLATFORM DIGITAL, MIXED-SIGNAL AND IO MANIFESTS - max 32 IOs => iomask
 
     1   procmap_manifest_computer.txt       path index + file name
 
 ;   path:       path ID 
 ;   Manifest    manifests file 
-;   IO IDX      index of the IO used in the graph 
-;   ProcCtrl    processor affinity bit-field 
-;   ClockDomain provision for insertion of ASRC 
+;   FW IO IDX   index used in the graph 
+;   ProcCtrl    processor ID affinity bit-field 
+;   ClockDomain provision for ASRC (clock-domain)
+;       some IO can be alternatively clocked from the system clock (0) 
+;       or other ones. The system integrator decides with this field to 
+;       manage the flow errors with buffer interpolation (0) or ASRC (other clock domain index)
+;       The clock domain index is just helping to group and synchronize the data flow per domain.
 
-10  : number of IO streams available
+10  number of IO streams available      aligned with struct platform_io_control platform_io[] and platform_computer.h 
 
-;Path      Manifest         IO_AL_idx ProcCtrl clock-domain 
-1   io_platform_data_in_0.txt       0     1        0        
-1   io_platform_data_in_1.txt       1     1        0        
-1   io_platform_analog_sensor_0.txt 2     1        0        
-1   io_platform_motion_in_0.txt     3     1        0        
-1   io_platform_audio_in_0.txt      4     1        0        
-1   io_platform_2d_in_0.txt         5     1        0        
-1   io_platform_line_out_0.txt      6     1        0        
-1   io_platform_gpio_out_0.txt      7     1        0        
-1   io_platform_gpio_out_1.txt      8     1        0        
-1   io_platform_data_out_0.txt      9     1        0        
+;Path      Manifest         IO_AL_idx ProcCtrl clock-domain     Comments               
+1   io_platform_data_in_0.txt       0     1    0   application processor  
+1   io_platform_data_in_1.txt       1     1    0   application processor  
+1   io_platform_analog_sensor_0.txt 2     1    0   ADC                    
+1   io_platform_motion_in_0.txt     3     1    0   accelero=gyro          
+1   io_platform_audio_in_0.txt      4     1    0   microphone             
+1   io_platform_2d_in_0.txt         5     1    0   camera                 
+1   io_platform_line_out_0.txt      6     1    0   audio out stereo       
+1   io_platform_gpio_out_0.txt      7     1    0   GPIO/LED               
+1   io_platform_gpio_out_1.txt      8     1    0   GPIO/PWM               
+1   io_platform_data_out_0.txt      9     1    0   application processor  
 
-; ------------------------------------------------------------------
+; ------------------------------------------------------------------------------------------------------------
 ; PATH + SOFTWARE COMPONENTS MANIFESTS 
-2                               node_manifest_none.txt               
-2                       arm/script/node_manifest_script.txt          
-2                       arm/script/node_manifest_graph_control.txt   
-2                       arm/router/node_manifest_router.txt          
-2    signal-processingFR/converter/node_manifest_converter.txt       
-2                    arm/amplifier/node_manifest_amplifier.txt       
-2                        arm/mixer/node_manifest_mixer.txt           
-2                       arm/filter/node_manifest_filter.txt          
-2     signal-processingFR/detector/node_manifest_detector.txt        
-2                     arm/rescaler/node_manifest_rescaler.txt        
-2   signal-processingFR/compressor/node_manifest_compressor.txt      
-2 signal-processingFR/decompressor/node_manifest_decompressor.txt    
-2                    arm/modulator/node_manifest_modulator.txt       
-2                  arm/demodulator/node_manifest_demodulator.txt     
-2    signal-processingFR/resampler/node_manifest_resampler.txt       
-2                          arm/qos/node_manifest_qos.txt             
-2                        arm/split/node_manifest_split.txt           
-2   signal-processingFR/detector2D/node_manifest_detector2D.txt      
-2                     arm/filter2D/node_manifest_filter2D.txt        
-2                     arm/analysis/node_manifest_analysis.txt        
-2                  bitbank/JPEGENC/node_manifest_bitbank_JPEGENC.txt 
-2                 elm-lang/TJpgDec/node_manifest_TjpgDec.txt         
-2             arm/format_converter/node_manifest_format_converter.txt
-; -------------------------------------------------------------------
+    
+2                   node_manifest_none.txt             
+2            script/node_manifest_script.txt           
+2  format_converter/node_manifest_format_converter.txt 
+2            router/node_manifest_router.txt           
+3         converter/node_manifest_converter.txt        
+2         amplifier/node_manifest_amplifier.txt        
+2             mixer/node_manifest_mixer.txt            
+2            filter/node_manifest_filter.txt           
+3          detector/node_manifest_detector.txt         
+2          rescaler/node_manifest_rescaler.txt         
+3        compressor/node_manifest_compressor.txt       
+3      decompressor/node_manifest_decompressor.txt     
+2         modulator/node_manifest_modulator.txt        
+2       demodulator/node_manifest_demodulator.txt      
+3         resampler/node_manifest_resampler.txt        
+2               qos/node_manifest_qos.txt              
+2             split/node_manifest_split.txt            
+3        detector2D/node_manifest_detector2D.txt       
+2          filter2D/node_manifest_filter2D.txt         
+2          analysis/node_manifest_analysis.txt         
+4           JPEGENC/node_manifest_bitbank_JPEGENC.txt  
+5           TJpgDec/node_manifest_TjpgDec.txt          
+
+; ------------------------------------------------------------------------------------------------------------
 ```
 
 
@@ -377,16 +390,16 @@ Because of the variety of stream data types and setting options, the graph inter
 
 ## IO manifest header 
 
-The "IO manifest" starts with the name which will be used in a design tool, followed by the "domain" (list below). 
+The "IO manifest" starts with the name which will be used in a GUI design tool, followed by the "domain" (list below). 
 
 Example of a simple IO manifest :
 
 ```
-    io_name io_platform_sensor_in_0 	; the IO name
-    io_domain   analog_in				; the domain of operation
+    io_name     io_platform_sensor_in_0  ; the IO name
+    io_domain   analog_in				 ; the domain of operation
 ```
 
-### IO Domains
+### List of IO Domains
 
 | Domain name        | Code | Comments                                                     |
 | ------------------ | ---- | ------------------------------------------------------------ |
@@ -407,7 +420,7 @@ Example of a simple IO manifest :
 | PLATFORM_2         | 14   | platform-specific #2                                         |
 | PLATFORM_1         | 15   | platform-specific #1                                         |
 
-## Declaration of "options"
+## Declaration of options
 
 The manifest gives the list of **options** possible described as a **list**, or as a **range** of values. 
 The syntax is : an index and the list of numbers within brackets "{" and "}". The index gives the default value to consider in the list. Index "1" corresponds to the first element of the list.
@@ -427,7 +440,7 @@ When the index is negative the list is decoded as a "range". A Range is a set of
 
 The absolute index value selects the default value in this range.
 
-Example of is an option list of values (1, 1.2, 1.4, 1.6, 1.8, .. , 4.2), the index is -3 meaning the default value is the third in the list (value = 1.4).
+Example of an option list of values (1, 1.2, 1.4, 1.6, 1.8, .. , 4.2), the index is -3 meaning the default value is the third in the list (value = 1.4).
 
 ```
  { -3    1 0.2 4.2 } 
@@ -437,11 +450,15 @@ Example of is an option list of values (1, 1.2, 1.4, 1.6, 1.8, .. , 4.2), the in
 
 When not mentioned in the manifest the following assumptions are :
 
-- the interface is servant (data move is triggered with a call to the IO_AL_idx function)
-- the interface does not need memory to be reserved from the graph interpreter
-- the data can be processed in-place (no need to copy it in another buffer)
-- the raw data format is int16_t, single channel, one sample per frame
-- the IO is "RX" : the graph is receiving the data stream
+| io manifest command    | default value | comments                          |
+| ---------------------- | ------------- | --------------------------------- |
+| io_commander0_servant1 | 1             | servant                           |
+| io_set0copy1           | 0             | in-place processing               |
+| io_direction_rx0tx1    | 0             | data flow to the graph            |
+| io_raw_format          | int16         | short is the default data format  |
+| io_interleaving        | 0             | raw data interleaving             |
+| io_nb_channels         | 1             | mono                              |
+| io_frame_length        | 1             | one sample (mono or multichannel) |
 
 ## Common information of all digital stream
 
@@ -449,14 +466,18 @@ IO manifests describe the stream data format and how to copy/use the data. This 
 
 ### io_commander0_servant1 "0/1"
 
-The IO is "commander" when it initiates the data exchanges with the graph without the control from the scheduler (for example an audio Codec). It is "servant" when the scheduler needs to pull or push the by calling the IO functions (for example an interface to the main application). 
-IO stream are managed from the graph scheduler with the help of one subroutine per IO ( IO_AL_idx function) using the template : 
+The IO is "commander" when it initiates the data exchanges with the graph without the control from the scheduler (for example an audio Codec). It is "servant" when the scheduler needs to pull or push asynchronously the data by calling the AL IO functions (for example an interface to the main application). 
+IO stream are managed from the graph scheduler with the help of one subroutine per IO ( IO_AL_idx function of the AL) using the template (see also next section): 
 
 ` typedef void (*p_io_function_ctrl) (uint32_t command, void *data, uint32_t length); `
 
-The "command" parameter can be : STREAM_SET_PARAMETER (set the domain-specific IO parameters), STREAM_DATA_START (initiate a data exchange), STREAM_STOP, STREAM_SET_BUFFER (tell the IO interface the location of the next address for the data move).
+The "command" parameter can be : STREAM_SET_PARAMETER (set the domain-specific IO parameters), STREAM_DATA_START (initiate a data exchange), STREAM_STOP, STREAM_SET_BUFFER (tell the scheduler the default IO interface buffer location).
 
 Once the move is done the external IO driver calls `arm_graph_interpreter_io_ack()` to tell the scheduler to update the corresponding arc.
+
+```
+void arm_graph_interpreter_io_ack (uint8_t graph_io_idx, void *data, uint32_t size);
+```
 
 Example :
 
@@ -471,18 +492,6 @@ The "command" parameter can be : STREAM_SET_PARAMETER, STREAM_DATA_START, STREAM
 
 When the IO is "Commander" it calls arm_graph_interpreter_io_ack() when data is read
 When the IO is "Servant" the scheduler call p_io_function_ctrl(STREAM_RUN, ..) to ask for data move. Once the move is done the IO driver calls arm_graph_interpreter_io_ack()
-
-### io_buffer_allocation "x"
-
-When data are exchanged there is a need for a temporary exchange buffer. This buffer can be allocated outside by the graph (in the  IO driver), or during the graph memory mapping preparation. The memory mapping of this allocation is decided in the graph and can be in general-purpose RAM or specific memory bank for speed reason or reserved for DMA processing, etc ..
-
-```
-io_buffer_allocation 2.0  0
-```
-
-This command tells to reserve memory for the data exchanges with the IO function. The parameter value "0" means the buffer is declared outside of the graph. The second parameter is the VID memory bank index, or 0 to tell "any".
-
-The parameter is a floating-point number used has a multiplication factor of the frame size (here 2 frames), the allocated buffer size is computed with rounding (n = floor(X+0.5)).
 
 ### io_set0copy1 "0/1"
 
@@ -500,12 +509,12 @@ Declaration of the direction of the stream from the graph scheduler point of vie
 io_direction_rx0tx1   1  ; direction of the stream  0:input 1:output 
 ```
 
-### io_raw_format "n"
+### io_raw_format "option"
 
-Declaration of the size and type of the raw data.
+Declaration of the size and type of the raw [Data Types](#Data-Types) using the [Declaration of options](#Declaration-of-options) format.
 
 ```
-io_raw_format S16  ; options for the raw arithmetic's computation format here STREAM_S16 
+io_raw_format {1 17}  ; raw arithmetic's computation format is STREAM_S16 
 ```
 
 ### io_interleaving "0/1"
@@ -514,25 +523,31 @@ io_raw_format S16  ; options for the raw arithmetic's computation format here ST
 io_interleaving    1  ; multichannel interleaved (0), deinterleaved by frame-size (1) 
 ```
 
-### io_nb_channels "n"
+### io_nb_channels "option"
+
+Declaration of the possible number of channels using the [Declaration of options](#Declaration-of-options) format.
 
 ```
-io_nb_channels     1  ; options for the number of channels 
+io_nb_channels {2  1 2 3 4}  ; options for the number of channels, stereo default
 ```
 
-### io_frame_length "o"
+### io_frame_length "option"
+
+Declaration of the possible frame length using the [Declaration of options](#Declaration-of-options) format, in samples. A sample can be multichannel but is still counted as one sample.
 
 ```
-io_frame_length   {1 1 2 16 }   ; options of possible frame_size in number of sample (can mono or multi-channel). 
+io_frame_length  {1 1 2 16 }   ; options of possible frame_length in samples
 ```
 
-### io_frame_duration "o"
+### io_frame_duration "U option"
+
+Declaration of the possible frame duration using the [Declaration of options](#Declaration-of-options) format, in a time unit given in the first parameter. See [Standard units](#Standard-units).
 
 ```
-io_frame_duration {1 10 22.5}   ; options of possible frame_size in [milliseconds].     The default frame length is 1 sample
+io_frame_duration  69 {1 1 2 16 }   ; options of possible frame_length in minutes
 ```
 
-### io_setup_time  
+### io_setup_time  "x"
 
 Information of the time it takes before valid / calibrated samples are ready for processing after reset. This is "for information" and given for documentation purpose.
 
@@ -550,11 +565,11 @@ See file "Table.md" for the list of available Units from RFC8798 and RFC8428.
 io_units_rescale  VRMS  0.0135  -10.1  0.15
 
 ; V_physical = a x (X_sample - b) with the default hardware settings
-; V [VRMS] <=> 0.0135 x ( X + 10.1 ), max 0.15 Vrms
-; 0.15 VRMS <=> 0.0135 x (1.0 - (-10.1))
+; V [VRMS] <=> 0.0135 x ( X - (-10.1)) 
+; 0.15 VRMS <=> 0.0135 x (1.0 - (-10.1))  0.15 Vrms corresponds to digital full-scale 
 ```
 
-### io_subtype_multiple "x"
+### io_subtype_multiple "..."
 
 Multiple units interleaved streams with rescaling factors of above "io_units_rescale". Used for example with motion sensors delivering acceleration, speed, magnetic field, temperature, etc ..
 
@@ -562,44 +577,36 @@ Multiple units interleaved streams with rescaling factors of above "io_units_res
 io_subtype_multiple DPS a b max GAUSS a b max
 ```
 
-### io_position "x"
+### io_position "U 3D"
 
-Relative position of the IO in the platform reference space.
-
-```
-io_position meter 1.1 -2.2 0.01 ; unit and relative XYZ position with the platform reference point
-```
-
-### io_euler_angles "x"
-
-Relative angles of the IO in the platform reference space.
+Declaration of the position in a unit given in the first parameter. See [Standard units](#Standard-units).
 
 ```
-io_euler_angles  10 20 90       ; Euler angles with respect to the platform reference orientation, in degrees
+io_position 98  1.1 -2.2 0.01 ; centimeter=98 and relative XYZ position with the platform reference point
 ```
 
-### io_sampling_rate "x"
+### io_euler_angles "U 3A"
 
-IO stream sampling rate in Hertz.
-
-```
-io_sampling_rate       {1 16000 44100 48000} ; sampling rate options (enumeration in Hz)
-```
-
-### io_sampling_period_s "s"
-
-Sampling rate in time unit.
+Relative angles of the IO in the platform reference space.  See [Standard units](#Standard-units).
 
 ```
-io_sampling_period_s   {1 1 60 120 }         ; sampling period options (enumeration in [second])   
+io_euler_angles 66 10 20 88.5  ; degree=66  Euler angles with respect to the platform reference orientation, in degrees
 ```
 
-### io_sampling_period_day "d"
+### io_sampling_rate "U option"
 
-Sampling rate in time unit for long periods in days.
+IO stream sampling rate in a frequency unit given in the first parameter. See [Standard units](#Standard-units).
 
 ```
-io_sampling_period_day {1 0.25 1 7 }         ; sampling period options (enumeration in [day])   
+io_sampling_rate 9 {2 16e3 44.1e3 48000} ; sampling rate options in Hz=9
+```
+
+### io_sampling_period "U option"
+
+Declaration of the sampling period using the [Declaration of options](#Declaration-of-options) format, in a time unit given in the first parameter. See [Standard units](#Standard-units).
+
+```
+io_sampling_period  4 {1 1 60 120 }  ; sampling period, enumeration in seconds (4)   
 ```
 
 ### io_sampling_rate_accuracy "p"
@@ -607,12 +614,12 @@ io_sampling_period_day {1 0.25 1 7 }         ; sampling period options (enumerat
 Percentage of accuracy (or inaccuracy) of the given sampling rate.
 
 ```
-io_sampling_rate_accuracy       0.1          ; in percentage
+io_sampling_rate_accuracy  0.01   ; in percentage, or 100ppm
 ```
 
-### io_time_stamp_format "n"
+### io_time_stamp_format "option"
 
-See file "Table.md" for the definition of time-stamp format :
+See file "Table.md" for the definition of time-stamp format inserted before each frame :
 
 - 0: no time stamp
 - 1: simple counter
@@ -634,15 +641,13 @@ io_time_stamp_format {1 39 41 } ; time-stamp format options
 
 ## IO Controls Bit-fields per domain
 
-Three 32bits words are allocated to each IO stream for time specific items of their domains.
+The graph starts with a table of 4 words per IO. The first word is used to connect the IO with the graph (arc index, direction, index of the AL function associated to). Three 32bits words are reserved for specific tuning items of their domains, they are named W1, W2 and W3 below.
 
-### Domain "general"  
 
-N/A
 
---------------------------------------
+### Domain audio_in and audio_out
 
-### Domain audio_in 
+#### Domain audio_in setting word 1
 
 Channel mapping with a bit-field (20 channels description see [audio channels](#Audio-stream-format)) :
 
@@ -670,92 +675,68 @@ Rear Center Height    TBC        16
 Rear Right Height     TBR        17
 ```
 
-Control of the gains and filters
+Graph syntax example :
 
 ```
-io_analog_gain     {1  0 12 24       }   ; analog gain (PGA)
-io_digital_gain    {-1 -12 1 12      }   ; digital gain range
-io_hp_filter       {1 1 20 50 300    }   ; high-pass filter (DC blocker) ON(1)/OFF(0) 
-io_agc              0                    ; agc automatic gain control, ON(1)/OFF(0) 
-io_router          {1  0 1 2 3       }   ; router  from AMIC0 DMIC1 HS2 LINE3 BT/FM4 
-io_gbass_filter    {1  1  1  0 -3 3 6}   ; ON(1)/OFF(0) options for gains in dB
-io_fbass_filter    {1  20 100 200    }   ; options for frequencies
-io_gmid_filter     {1  1  1  0 -3 3 6}   ; ON(1)/OFF(0) options for gains in dB
-io_fmid_filter     {1  500 1000      }   ; options for frequencies
-io_ghigh_filter    {1  1  0 -3 3 6   }   ; ON(1)/OFF(0) options for gains in dB 
-io_fhigh_filter    {1  4000 8000     }   ; options for frequencies
+stream_io_setting 15 ; selection of the four first channels 
 ```
 
-
-​           
-
---------------------------------------
-
-### Domain audio_out       
-
-Channel mapping with a bit-field (18 channels description, identical to audio_in domain) :
-
-```
-io_channel_mapping  0x0B       ; Front Left + Right + LFE
-
-Name                         bit position 
-Front Left            FL         0
-Front Right           FR         1
-Front Center          FC         2
-Low Frequency         LFE        3
-Back Left             BL         4
-Back Right            BR         5
-Front Left of Center  FLC        6
-Front Right of Center FRC        7
-Back Center           BC         8
-Side Left             SL         9
-Side Right            SR         10
-Top Center            TC         11
-Front Left Height     TFL        12
-Front Center Height   TFC        13
-Front Right Height    TFR        14
-Rear Left Height      TBL        15
-Rear Center Height    TBC        16
-Rear Right Height     TBR        17
-```
+#### Domain audio_in setting word 2
 
 Control of the gains and filters
 
 ```
-io_analog_gain     {1  0 12 24       }   ; analog gain (PGA)
-io_digital_gain    {-1 -12 1 12      }   ; digital gain range
-io_hp_filter       {1 1 20 50 300    }   ; high-pass filter (DC blocker) ON(1)/OFF(0) 
-io_agc              0                    ; agc automatic gain control, ON(1)/OFF(0) 
-io_router          {1  0 1 2 3       }   ; router  from AMIC0 DMIC1 HS2 LINE3 BT/FM4 
-io_gbass_filter    {1  1  1  0 -3 3 6}   ; ON(1)/OFF(0) options for gains in dB
-io_fbass_filter    {1  20 100 200    }   ; options for frequencies
-io_gmid_filter     {1  1  1  0 -3 3 6}   ; ON(1)/OFF(0) options for gains in dB
-io_fmid_filter     {1  500 1000      }   ; options for frequencies
-io_ghigh_filter    {1  1  0 -3 3 6   }   ; ON(1)/OFF(0) options for gains in dB 
-io_fhigh_filter    {1  4000 8000     }   ; options for frequencies
+io_audio_analog_gain     {1  0 12 24       }   ; analog gain (PGA)
+io_audio_digital_gain    {-1 -12 1 12      }   ; digital gain range
+io_audio_hp_filter       {1 1 20 50 300    }   ; high-pass filter (DC blocker) ON(1)/OFF(0) 
+io_audio_agc              0                    ; agc automatic gain control, ON(1)/OFF(0) 
+io_audio_router          {1  0 1 2 3       }   ; router  from AMIC0 DMIC1 HS2 LINE3 BT/FM4 
+io_audio_gbass_filter    {1  1  1  0 -3 3 6}   ; ON(1)/OFF(0) options for gains in dB
+io_audio_fbass_filter    {1  20 100 200    }   ; options for frequencies
+io_audio_gmid_filter     {1  1  1  0 -3 3 6}   ; ON(1)/OFF(0) options for gains in dB
+io_audio_fmid_filter     {1  500 1000      }   ; options for frequencies
+io_audio_ghigh_filter    {1  1  0 -3 3 6   }   ; ON(1)/OFF(0) options for gains in dB 
+io_audio_fhigh_filter    {1  4000 8000     }   ; options for frequencies
 ```
 
---------------------------------------
+| field name | nb bits | comments |
+| ---------- | ------- | ------- |
+| io_analog_gain  | 3  | analog gain (PGA)                             |
+| io_digital_gain | 4  | digital gain range                            |
+| io_hp_filter    | 2  | high-pass filter (DC blocker) ON(1)/OFF(0)    |
+| io_agc          | 1  | agc automatic gain control, ON(1)/OFF(0)      |
+| io_router       | 3  | router  from AMIC0 DMIC1 HS2 LINE3 BT/FM4     |
+| io_gbass_filter | 3  | bass gain in dB                               |
+| io_fbass_filter | 2  | filter frequencies                            |
+| io_gmid_filter  | 3  | mid frequency gains in dB                     |
+| io_fmid_filter  | 2  | filter frequencies                            |
+| io_ghigh_filter | 3  | high frequency gain in dB                     |
+| io_fhigh_filter | 2  | filter frequencies                            |
 
-### Domain gpio_in 
+#### Domain audio_in setting word 3
 
-To be completed
+Not used
 
-    State : High-Z, low, high
-    type : PWM, motor control, GPIO
-    PWM duty, duration, frequency (buzzer)
-    Servo motor control -120 .. +120 deg
-    keep the servo position
 
---------------------------------------
 
-### Domain gpio_out 
+### Domain gpio_in and gpio_out
 
-To be completed
+#### Domain gpio_in setting word 1
+
+| Field name | nb bits | comments |
+| --------- | ------- | -------- |
+|   State        |      3   |      High-Z, low, high    |
+|  type     |    3   |  PWM, motor control, GPIO   |
+|  control         |     3    |   PWM duty, duration, frequency (buzzer)       |
+|           |         |          |
+
+ Domain gpio_in/out setting word 2 and word 3 are not used.
 
 --------------------------------------
 
 ### Domain motion
+
+#### Domain motion setting word 1
 
 Selection of the multichannel interleaving :
 
@@ -767,85 +748,52 @@ aXgXm0 4 A + G
 aXg0mX 5 A + M 
 a0gXmX 6 G + M 
 aXgXmX 7 A + G + M 
+
+offset removal on A,M,G
+Metadata pattern detection activation and sensitivity
 ```
-
---------------------------------------
-
-### Domain 2d_in
-
-To be completed
-
-| Feature name                         | Description                                                  |
-| ------------------------------------ | ------------------------------------------------------------ |
-| io_raw_format_2d                     | (U16 + RGB16) (U8 + Grey) (U8 + YUV422)  https://gstreamer.freedesktop.org/documentation/additional/design/mediatype-video-raw.html?gi-language=c |
-| io_trigger flash                     | activate the flash when polling a new image                  |
-| io_synchronize_IR                    | sync with IR transmitter                                     |
-| io_frame rate per second             |                                                              |
-| io_exposure time                     | The amount of time the photosensor is capturing light, in seconds. |
-| io_image size                        |                                                              |
-| io_modes                             | portrait, landscape, barcode, night modes                    |
-| io_Gain                              | Amplification factor applied to the captured light. >1.0 is brighter <1.0 is darker. |
-| io_WhiteBalanceColorTemp             | Temperature parameter when using the regular HDRP color balancing. |
-| io_MosaicPattern                     | Color Filter Array pattern for the colors                    |
-| io_WhiteBalanceRGBCoefficients       | RGB scaling values for white balance, used only if EnableWhiteBalanceRGBCoefficients is selected. |
-| io_EnableWhiteBalanceRGBCoefficients | Enable using custom RGB scaling values for white balance instead of temperature and tint. |
-| io_Auto White Balance                | Assumes the camera is looking at a white reference, and calibrates the WhiteBalanceRGBCoefficients |
-| io_wdr                               | wide dynamic range                                           |
-| io_watermark                         | watermark insertion                                          |
-| io_flip                              | image format                                                 |
-| io_night_mode                        |                                                              |
-| motion detection                     | sensitivity (low, medium, high)                              |
-| io_detection_zones                   | + {center pixel (in %) radius}, {}, {}                       |
-| io_focus_area                        |                                                              |
-| io_auto exposure                     | on focus area                                                |
-| io_focus_distance                    | forced focus to infinity or xxx meter                        |
-| io_jpeg_quality                      |                                                              |
-|                                      |                                                              |
-
-
---------------------------------------
-
-
-### Domain 2d_out             
-
-    8b backlight brightness control
-
-
---------------------------------------
-
-### Domain analog_in
-
-    /* IO_DOMAIN_ANALOG_IN  */ 
-    
-            detection threshold
-            detection attack time
-            detection release time
-            aging control 
-
-### Domain analog_out     
-
-    aging option (usage counter, time)
-    
-    unit_linear,    PCM and default format  PCM and default format 
-    unit_decibel,   Q11.4 :   1dB <> 0x0010 Q19.12 :   1dB <> 0x0000 1000
-    unit_percentage Q11.4 :   1 % <> 0x0010 Q19.12 :   1 % <> 0x0000 1000
-    unit_meter,     Q11.4 :  10 m <> 0x00A0 Q19.12 :  10 m <> 0x0000 A000
-    unit_g = 20,    Q11.4 :   1g <> 0x0010  Q19.12 :   1g <> 0x0000 1000  
-
-
-### Domain RTC  
+ Domain motion setting word 2 and word 3 are not used.
 
 
 
+### Domain 2d_in and 2d_out
 
-### Domain user_interface_in
+#### Domain 2d setting word 1
+#### Domain 2d setting word 2
+#### Domain 2d setting word 3
 
-   
+| Feature name                         | bits | Description                                                  |
+| -------------------------------------| -- | ------------------------------------------------------------ |
+| io_raw_format_2d                     | 3  | (U16 + RGB16) (U8 + Grey) (U8 + YUV422)  https://gstreamer.freedesktop.org/documentation/additional/design/mediatype-video-raw.html?gi-language=c  <br/> YCbCr 4:2:2 (16b/pixel), RGB 8:8:8 (24b/pixel) |
+| io_trigger flash                     | 4  | activate the flash when polling a new image                  |
+| io_synchronize_IR                    | 2  | sync with IR transmitter                                     |
+| io_frame rate per second             | 1  |                                                              |
+| io_exposure time                     | 3  | The amount of time the photosensor is capturing light, in seconds. |
+| io_image size                        | 3  |                                                              |
+| io_modes                             | 2  | portrait, landscape, barcode, night modes                    |
+| io_Gain                              | 3  | Amplification factor applied to the captured light. >1.0 is brighter <1.0 is darker. |
+| io_WhiteBalanceColor                 | 2  | Temperature parameter when using the regular HDRP color balancing. |
+| io_MosaicPattern                     | 3  | Color Filter Array pattern for the colors                    |
+| io_WhiteBalanceRGBCoef            | 2  | RGB scaling values for white balance, used only if EnableWhiteBalanceRGBCoefficients is selected. |
+| io_WhiteBalanceRGBCoef | 3  | Enable using custom RGB scaling values for white balance instead of temperature and tint. |
+| io_Auto White Balance                | 4  | Assumes the camera is looking at a white reference, and calibrates the WhiteBalanceRGBCoefficients |
+| io_wdr                               | 2  | wide dynamic range                                           |
+| io_watermark                         | 1  | watermark insertion                                          |
+| io_flip                              | 3  | image format                                                 |
+| io_night_mode                        | 3  |                                                              |
+| motion detection                     | 2  | sensitivity (low, medium, high)                              |
+| io_detection_zones                   | 3  | + {center pixel (in %) radius}, {}, {}                       |
+| io_focus_area                        | 2  |                                                              |
+| io_auto exposure                     | 3  | on focus area                                                |
+| io_focus_distance                    | 2  | forced focus to infinity or xxx meter                        |
+| io_jpeg_quality                      | 2  | compression level                        |
+| io_backlight brightness control      | 2  | 2D rendering forced focus to infinity or xxx meter                        |
 
-### Domain user_interface_out 
 
-    0                       ; time-stamp (none)
 
+### Domain analog_in and analog_out
+
+    aging coefficient 
 
 
 ## Comments section for IOs
@@ -854,11 +802,7 @@ Information examples :
 
 - jumpers to set on the board
 - manufacturer references for components and internet URLs
-- any other system integration warning and recommendations
-
-​       
-
-
+- any other system integration warning and recommendations 
 
 --------------------------------------
 
@@ -866,46 +810,19 @@ Information examples :
 
 A node manifest file gives the name of the software component, the author, the targeted architecture, the description of input and output streams connected to it. 
 
-The graph interpreter allocates a predefined amount of memory and this file explains the way to compute the memory allocation. When the first non-blank character is a semi-colon ";" the entire line is skipped as a comment 
-
-## Declaration of "options"
-
-The manifest give the list of compatible options possible. Some options are described as a **list**, or as a **range** of values. </br></br>
-The syntax is : an index and the list of numbers within brackets "{" and "}". The index gives the default value to consider in the list. Index "1" corresponds to the first element of the list.
-Index value "0" means "any value". The list can be empty in that case.
-
-Example of an option list between five values, the index is 2 meaning the default value is the second in the list (value = 6).
-
-```
-{ 2   5 6 7 8 9 }
-```
-
-When the index is negative the list is decoded as a "range". A Range is a set of three numbers : 
-
-- the first option
-- the step to the next possible option
-- the last (included) option
-
-The absolute index value selects the default value in this range.
-
-Example of is an option list of values (1, 1.2, 1.4, 1.6, 1.8, .. , 4.2), the index is -3 meaning the default value is the third in the list (value = 1.4).
-
-```
- { -3   1    0.2   4.2 } 
-```
+The graph compiler allocates a predefined amount of memory and this file explains the way to compute the memory allocation. See [Declaration of options](#Declaration-of-options) for the option syntax.
 
 ## Example of node manifest
 
 ```
 ; --------------------------------------------------------------------------------------
-; SOFTWARE COMPONENT MANIFEST - "arm_stream_filter"
+; SOFTWARE COMPONENT MANIFEST - "stream_filter"
 ; --------------------------------------------------------------------------------------
 ;
-node_developer_name   ARM                    ; developer name
-node_name             arm_stream_filter      ; node name
+node_developer_name    ARM          ; developer name
+node_name             stream_filter ; node name
 
-node_using_arc_format  1           ; to let filter manage q15 and fp32
-node_mask_library     64           ; dependency with DSP services
+node_mask_library      64           ; dependency with DSP services
 
 ;----------------------------------------------------------------------------------------
 ;   MEMORY ALLOCATIONS
@@ -919,16 +836,46 @@ node_mem_type           1           ; working memory
 node_mem_speed          2           ; critical fast 
 ;---------------------------------------------------------------------------------------
 ;    ARCS CONFIGURATION
-node_arc            0
-node_arc_nb_channels      {1 1 2}   ; arc intleaved,  options for the number of channels
+node_arc                0
+node_arc_nb_channels    {1 1 2}     ; arc intleaved,  options for the number of channels
 node_arc_raw_format     {1 17 27}   ; options for the raw arithmetics STREAM_S16, STREAM_FP32
 
-node_arc            1
+node_arc                1
 node_arc_nb_channels    {1 1 2}     ; options for the number of channels
 node_arc_raw_format     {1 17 27}   ; options for the raw arithmetics STREAM_S16, STREAM_FP32
 
 end
 ```
+
+The nodes have the same interface : 
+
+```
+void (node name) (uint32_t command, void *instance, void *data, uint32_t *state);
+```
+
+Node are called with parameter "data" being a table of arc data structures of two fields :
+
+ - a pointers the arc buffer
+ - the amount of data in byte placed after the above address (input arcs) and free space available (output arcs)
+
+The nodes returns after updating the second field of the structures :
+
+ - The amount of data consumed, for RX arcs
+ - The amount of data produced in the TX arcs
+
+## Default values of a node manifest @@@@@
+
+When not mentioned in the manifest the following assumptions are :
+
+| io manifest command    | default value | comments                          |
+| ---------------------- | ------------- | --------------------------------- |
+| io_commander0_servant1 | 1             | servant                           |
+| io_set0copy1           | 0             | in-place processing               |
+| io_direction_rx0tx1    | 0             | data flow to the graph            |
+| io_raw_format          | int16         | short is the default data format  |
+| io_interleaving        | 0             | raw data interleaving             |
+| io_nb_channels         | 1             | mono                              |
+| io_frame_length        | 1             | one sample (mono or multichannel) |
 
 ## Manifest header
 
@@ -969,43 +916,6 @@ Example
 ```
     node_nb_arcs 1 1 ; nb arc input, output, default values "1 1"
 ```
-
-### node_arc_parameter "n"
-
-When the amount of parameters exceeds 256kB (deep-learning models, video file, etc..) the parameters must be read from extra arcs.
-Example 
-
-```
-    node_arc_parameter 2 ; 2 additional arcs for large parameters
-```
-
-### node_variable_rxtx_data_rate "0/1"
-
-The nodes are called with a data structure for each arc giving :
-
- - a pointers on input and out arcs 
- - the amount of data (input arcs) and free space (output arcs)
-
-The nodes returns after updating the data structures, but to lower the computation overhead in the node it can tell here if the data flow can vary between input and output arcs. If the data rate do not change it tells here the scheduler to update the data structure automatically.
-
-Examples of variable data rate (node_variable_rxtx_data_rate 1): MP3 encoder with variable rate encoding option, audio rate converter at using 160/147 ratio.
-Examples of identical data rate (node_variable_rxtx_data_rate 0) : an audio filter, an amplifier receiving and delivering the same data formats and frame sizes.
-
-Parameter value "1" tells the data flow is variable, the scheduler proposes input buffers as large as possible and output buffers with as much free space as possible. It is the responsibility of the node to read and write to good amount of data to avoid underflow on input and overflow on output arcs.
-
-**The default is "0"** : ALL input and output arcs have the same raw data rate (same number of bytes consumed and produced per call), the scheduler arranges to find the minimum common denominator between all arcs. The nodes do not have to update buffer consumption and production which known before the call.
-Example : 
-
-````
- node_variable_rxtx_data_rate   1  ; variable stream rates
-````
-
-
-### node_using_arc_format "0/1"
-
-During the RESET phase of the node, the scheduler will push (with "1" or not with "0") the arc data formats of all the arcs. The arc format is described in the chapter "IO control and stream data formats" of the file "Graph Template".
-Example
-` node_using_arc_format 1  the node is using arc stream format `
 
 ### node_mask_library    "n" 
 
@@ -1466,9 +1376,7 @@ Instance is an opaque memory pointer (void *) to the main static area of the nod
 
 The multichannel data field is a pointer of arcs' data. This is pointer to list of structures of two "INTPTR_T" (32bits or 64bits wide depending on the processor architecture). The first INTPTR_T is a pointer to the data, the second tells the number of bytes to process (for an input arc) or the number of bytes available in the buffer (for output arcs). 
 
-In the default situations all the "size" fields are identical : the number of bytes to process is equal to the amount of memory free to take the computation result. But the node manifest can specify node_variable_rxtx_data_rate=1 and the scheduler may call the node with different "size" fields.
-
-A node can have **4 arcs**. Each of them can have individual format (number of channels, frame length, interleaving scheme, raw sample type, sampling rate, time-stamps).
+A node can have **16 arcs**. Each of them can have individual format (number of channels, frame length, interleaving scheme, raw sample type, sampling rate, time-stamps). Arcs can be used for other purpose than data stream,  like parameter storage.
 
 ### Status
 
@@ -1493,8 +1401,6 @@ Then each processor parses the graph looking nodes associated to him, resets it 
 The multiprocessor synchronization mechanisms are abstracted outside of the graph interpreter (in the platform abstraction layer), a software-based lock is proposed by default.
 
 **The second parameter "instance"** is a pointer to the list of memory banks reserved by the scheduler for the node, in the same sequence order of the declarations made in the node manifest. The first element of the list is the instance of the node, followed by the pointers to the data (or program) memory reservations.
-
-After this list addresses the scheduler will push (when the manifest command *node_using_arc_format* = 1) the arc data formats of all the arcs. The arc format is described in the chapter "IO control and stream data formats" of the file "Graph design". </br>
 
 **The third parameter "data"** is used to share the address of function providing computing services. 
 
@@ -1633,13 +1539,20 @@ Nodes are delivered with a test-bench (code and non-regression database).
             int16_t *inBuf, *outBuf;
 
 
-            /* the node is declared with node_variable_rxtx_data_rate=0, there is no need to update stream_xdmbuffer_t after processing */
             pt_pt = data;   inBuf = (int16_t *)pt_pt->address;   
-                            stream_xdmbuffer_size = pt_pt->size;  /* data amount in the input buffer */
+            stream_xdmbuffer_size = pt_pt->size;  /* data amount in the input buffer */
             pt_pt++;        outBuf = (int16_t *)(pt_pt->address); 
             nb_data = stream_xdmbuffer_size / sizeof(int16_t);
+            
+            /* data processing here  
+                ..
+            */
     
-            /* .. */
+            /* update the data consumption/production */
+            pt_pt = data;
+            *(&(pt_pt->size)) = nb_data * sizeof(SAMP_IN); /* amount of data consumed */
+            pt_pt ++;
+            *(&(pt_pt->size)) = 1 * sizeof(SAMP_OUT);   /* amount of data produced */
             break;
         }
     
@@ -1785,35 +1698,7 @@ The compiled result which will be the input file of the interpreter:
 0x00000000, // 020 008 IO(settings 0, fmtProd 0 (L=8) fmtCons 0 (L=8) 
 0x00000000, // 024 009  
 0x00000000, // 028 00A  
-0x00483801, // 02C 00B IO(graph1) 9 arc 1 set0copy1=1 rx0tx1=1 servant1 1 shared 0 domain 0 
-0x00000000, // 030 00C IO(settings 0, fmtProd 1 (L=16) fmtCons 1 (L=16) 
-0x00000000, // 034 00D  
-0x00000000, // 038 00E  
-0x00C04807, // 03C 00F -----  arm_stream_filter(0) idx:7 Nrx 1 Ntx 1 ArcFmt 1 lockArc 1 
-0x08020000, // 040 010 ARC 0 Rx0Tx1 0 L=8 dbgpage0 -- ARC 2 Rx0Tx1 1 L=16 dbgpage0     
-0x30000048, // 044 011 Nb Memreq-1 1  XDM11_same_rate 1 
-0x0000004C, // 048 012 Reserved static memory bank(0) = bank 0 stat0work1ret2 = 0 size 76  
-0x30800000, // 04C 013  
-0x00000034, // 050 014 Scratch memory bank(1) = bank 2 stat0work1ret2 = 1  size 52  
-0x01000007, // 054 015 ParamLen 6+1 Preset 1 Tag0ALL 0 
-0x02A90102, // 058 016 (0) 
-0x02A901A6, // 05C 017 (1) 
-0xC4C75D2D, // 060 018 (2) 
-0xFAC202A9, // 064 019 (3) 
-0x669502A9, // 068 01A (4) 
-0x0000C41D, // 06C 01B (5) 
-0x00C04808, // 070 01C -----  sigp_stream_detector(0) idx:8 Nrx 1 Ntx 1 ArcFmt 1 lockArc 1 
-0x08010002, // 074 01D ARC 2 Rx0Tx1 0 L=8 dbgpage0 -- ARC 1 Rx0Tx1 1 L=16 dbgpage0     
-0x30000058, // 078 01E Nb Memreq-1 1  XDM11_same_rate 1 
-0x00000034, // 07C 01F Reserved static memory bank(0) = bank 0 stat0work1ret2 = 0 size 52  
-0x30000064, // 080 020  
-0x00000020, // 084 021 Reserved static memory bank(1) = bank 0 stat0work1ret2 = 2 size 32  
-0x03000001, // 088 022 ParamLen 0+1 Preset 3 Tag0ALL 0 
-0x000003FF, // 08C 023 ^^^^^^^^^ LINKED-LIST END ^^^^^^^^^ vvvvvvvvvvv RAM vvvvvvvvvvv 
-0xFFFF7F7F, // 090 024 LinkedList size = 21, ongoing IO bytes, Arc debug table size 0 
-0x00000008, // 094 025 Format  0 frameSize 8  
-0x00004400, // 098 026           nchan 1 raw 17 
-0x00000000, // 09C 027           domain-dependent 
+...
 0x00000000, // 0A0 028           domain-dependent 
 0x00000010, // 0A4 029 Format  1 frameSize 16  
 0x00004400, // 0A8 02A           nchan 1 raw 17 
@@ -2093,14 +1978,17 @@ Example
     stream_io_format 0 
 ```
 
-### stream_io_setting "W32 W32 W32"
+### stream_io_setting "W1 W2 W3"
 
 "IO settings" is a specific bit-field structure, specific to the IO domain, placed at the beginning of the binary graph, and used during the initialization sequence of the graph.
 Up to three control words in hexadecimal can be used.
-Example 
+
+See also [IO Controls Bit-fields per domain](#IO-Controls-Bit-fields-per-domain)
+
+Example
 
 ```
-    stream_io_setting 7812440 
+stream_io_setting 7812440 0 0 
 ```
 
 ### stream_io_setting_callback "cb" "X" 
@@ -2465,6 +2353,14 @@ The `"callsys"` instruction gives access to nodes (set/read parameters) and arc 
 | 9 (time)                         | 1: command and time format <br/>2: parameter1 (depends on CB)<br/>3: parameter2 (depends on CB)<br/>4: parameter3 (depends on CB) |
 
 ------
+
+## GUI design tool
+
+The compiled binary graph can be generated with graphical tool (prototyped in "stream_tools\gui"). The tool creates the compiled binary format and the intermediate text file for later manual tuning.
+
+![c](GUI_PoC.png)
+
+-----
 
 ## Arcs of the graph
 
@@ -3546,7 +3442,7 @@ end
 Filter, rescale/zoom/extract, rotate, exposure compensation
 
 Operation : 2D filters 
-Parameters : convolutional kernels, decimation, distortion, color mapping/effect
+Parameters : spatial and temporal filtering, decimation, distortion, color mapping/log-effect
 
 presets:
 #1 : bypass
@@ -3570,4 +3466,6 @@ From "bitbank"
 ## JPG decoder
 
 From "EML"
+
+Use-case : images decompression, pattern generation.
 
