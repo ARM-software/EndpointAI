@@ -1,5 +1,5 @@
 Optimized trigonometry and logarithm functions for Cortex-M85.
-| Function                           | Measured cycles on FPB-RA8E1 | Comments                                                     |
+| Function                           | Cycles | Comments                                                     |
 | :--------------------------------- | :--------------------------- | :----------------------------------------------------------- |
 | sine (sin(x))                      | 25                           | non constraint on argument                                   |
 | cosine (cos(x))                    | 25                           | non constraint on argument                                   |
