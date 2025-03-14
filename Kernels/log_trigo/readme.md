@@ -1,4 +1,4 @@
-**Optimized trigonometry and logarithm functions for Cortex-M85.**
+**Optimized trigonometry and logarithm functions in C**
 | Function                           | Cycles | Comments                                                     |
 | :--------------------------------- | :--------------------------- | :----------------------------------------------------------- |
 | sine (sin(x))                      | 25                           | no constraint on argument                                   |
