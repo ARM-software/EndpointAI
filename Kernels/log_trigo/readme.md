@@ -1,8 +1,8 @@
-Optimized trigonometry and logarithm functions for Cortex-M85.
+**Optimized trigonometry and logarithm functions for Cortex-M85.**
 | Function                           | Cycles | Comments                                                     |
 | :--------------------------------- | :--------------------------- | :----------------------------------------------------------- |
-| sine (sin(x))                      | 25                           | non constraint on argument                                   |
-| cosine (cos(x))                    | 25                           | non constraint on argument                                   |
+| sine (sin(x))                      | 25                           | no constraint on argument                                   |
+| cosine (cos(x))                    | 25                           | no constraint on argument                                   |
 | sine (sinPi(x))                    | 17                           | argument in the range -pi .. +pi                             |
 | cosine (cosPi(X))                  | 17                           | argument in the range -pi .. +pi                             |
 | arc tangent (atan(x))              | 41                           | errors measured in {-50 .. +50}                              |
@@ -14,7 +14,7 @@ Optimized trigonometry and logarithm functions for Cortex-M85.
 | cartesian arc tangent (atan2(x,y)) | 61                           | errors measured in {-50 .. +50}                              |
 |                                    |                              |                                                              |
 
-The cycle-count is measured on a development board. The code is compiled with arm llvm-v18.1.3, optimization -o1. A function is made of empty code to compute the "overhead" time to jump to the subroutine. The computation cycles each function is subtracted by the "overhead" to give the cycles below. In practice the user will find lower numbers because the subroutines are very small. When inlined with the other parts of the application codes, the compiler will interleave other instructions to remove some the pipeline stalls observed here. Additionally when a program calls two operations like sin(x) and cos(x) there are common constants and table pointer initializations which will be merged. Conclusion, the numbers are conservative.
+The code is compiled with arm llvm-v18.1.3, optimization -o1. The cycle-count is measured on a development board. In practice the user will find lower numbers because the subroutines are very small. When inlined with the other parts of the application codes, the compiler will interleave other instructions to remove some the pipeline stalls observed here. Additionally when a program calls two operations like sin(x) and cos(x) there are common constants and table pointer initializations which will be merged. Conclusion, the numbers are conservative.
 
 The errors are computed from a Matlab reference. From the below table, the computation of sin(x) with a table of 100 points is accurate on 14.3bits, and you need 800 points to reach 20.3bits accuracy.
 
