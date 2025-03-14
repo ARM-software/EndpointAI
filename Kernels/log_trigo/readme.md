@@ -6,9 +6,9 @@
 | sine (sinPi(x))                    | 17                           | argument in the range -pi .. +pi                             |
 | cosine (cosPi(X))                  | 17                           | argument in the range -pi .. +pi                             |
 | arc tangent (atan(x))              | 41                           | errors measured in {-50 .. +50}                              |
-| hyperbolic tangent (tanh(x))       | 41                           | |x|<1, errors measured in {-0.8 .. +0.8}                            |
+| hyperbolic tangent (tanh(x))       | 41                           | ||x||<1, errors measured in {-0.8 .. +0.8}                            |
 | arc tangent hyperbolic (atanh(x))  | 18                           | errors measured in {-0.8 .. +0.8}                            |
-| exponential (exp(x))               | 41                           | |x|<1, error measured in {-[2 .. +2] |
+| exponential (exp(x))               | 41                           | ||x||<1, error measured in {-[2 .. +2] |
 | inverse of square-root (1/sqrt(x)) | 22                           | ASM, no coefficient table                                    |
 | logarithm (log(x))                 | 38                           | x<1, errors measured in {0.1[ .. ]5.1} |
 | cartesian arc tangent (atan2(x,y)) | 61                           | errors measured in {-50 .. +50}                              |
