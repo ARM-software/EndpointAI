@@ -136,58 +136,74 @@ void stage_rfft_f32_mve(const arm_rfft_fast_instance_f32 * S,
         blockCnt -= 4;
     }
 #else
-    /* use memory as "t" / "w" constraints do not allow to convey
-     MVE vectors to inline asm block with GCC */
-    uint32x4_t scratch[2];
-
-    scratch[0] = vecStridesBkwd;
-    scratch[1] = vreinterpretq_u32_f32(conj);
-
-    __asm volatile(
+#ifdef ARM_CM85_OPT
+       __asm volatile(
         ".p2align 2                                             \n"
-
-        " vecStrd       .req  q0                                \n"
-        " conj          .req  q1                                \n"
-
-        "   vldrw.32            vecStrd, [%[scratch], #(0*16)]  \n"
-        "   vldrw.32            conj, [%[scratch], #(1*16)]     \n"
-
          /* preload Xa/Xb */
-         "  vldrw.32           q2, [%[pA]], #16                \n"
-         "  vldrw.32           q3, [%[pB], vecStrd, uxtw #2]   \n"
+         "  vldrw.u32           q4, [%[pA]], #16                \n"
+         "  vldrw.u32           q5, [%[pB], %q[strd], uxtw #2]  \n"
+         "  vmul.f32            q5, q5, %q[conj]                \n"
+        "   wlstp.32            lr, %[count], 1f                \n"
+        "2:                                                     \n"
+         /* complement Xb */
 
-         "   wlstp.32           lr, %[count], 1f                \n"
-        /* low overhead loop start */
-         "2:                                                    \n"
-         /* conjugate Xb */
-         "  vmul.f32            q3, q3, conj                    \n"
-         "  vsub.f32            q5, q3, q2                      \n"
-         /* load twiddle */
-         "  vldrw.32            q6, [%[pCoeff]], #16            \n"
+         "  vsub.f32            q6, q5, q4                      \n"
+         /* load twidle */
+         "  vldrw.u32           q7, [%[pCoeff]], #16            \n"
+         "  vsub.i32            %q[strd], %q[strd], %[four]     \n"
          /* (xB - xA) * Tw */
-         "  vcmul.f32           q4, q6, q5, #0                  \n"
+         "  vcmul.f32           q1, q7, q6, #0                  \n"
          /* decrement gather load index */
-         "  vsub.i32            vecStrd, vecStrd, %[four]       \n"
-         "  vcmla.f32           q4, q6, q5, #90                 \n"
-         "  vadd.f32            q2, q2, q3                      \n"
-         "  vldrw.32            q3, [%[pB], vecStrd, uxtw #2]   \n"
-         "  vadd.f32            q4, q4, q2                      \n"
-         "  vldrw.32            q2, [%[pA]], #16                \n"
-         "  vmul.f32            q4, q4, %[half]                 \n"
-         "  vstrw.32            q4, [%[pOut]], #16              \n"
+         "  vadd.f32            q4, q4, q5                      \n"
+         "  vcmla.f32           q1, q7, q6, #90                 \n"
+         "  vldrw.u32           q5, [%[pB], %q[strd], uxtw #2]  \n"
+         "  vmul.f32            q5, q5, %q[conj]                \n"
+         "  vadd.f32            q1, q1, q4                      \n"
+         "  vldrw.u32           q4, [%[pA]], #16                \n"
+         "  vmul.f32            q1, q1, %[half]                 \n"
+         "  vstrw.32            q1, [%[pOut]], #16              \n"
          "  letp                lr, 2b                          \n"
-
-         /* low overhead loop end */
          "1:                                                    \n"
-         : [pOut] "+r" (pOut), [pA] "+&r" (pA), [pB] "+r" (pB),
-           [pCoeff] "+r" (pCoeff)
+         : [pOut] "+r" (pOut), [pA] "+r" (pA), [pB] "+r" (pB),
+           [strd] "+t" (vecStridesBkwd), [pCoeff] "+r" (pCoeff)
          : [count] "r" (blockCnt), [four] "r" (4), [half] "r" (0.5f),
-           [scratch] "r" (scratch)
-         : "q0", "q1", "q2", "q3",
-           "q4", "q5", "q6",
-           "r14", "memory"
+           [conj] "t" (conj)
+         : "r14", "q4", "q5", "q6", "q7", "q1", "memory"
     );
+#else
+       __asm volatile(
+        ".p2align 2                                             \n"
+         /* preload Xa/Xb */
+         "  vldrw.u32           q4, [%[pA]], #16                \n"
+         "  vldrw.u32           q5, [%[pB], %q[strd], uxtw #2]  \n"
 
+        "   wlstp.32            lr, %[count], 1f                \n"
+        "2:                                                     \n"
+         /* complement Xb */
+         "  vmul.f32            q5, q5, %q[conj]                \n"
+         "  vsub.f32            q6, q5, q4                      \n"
+         /* load twidle */
+         "  vldrw.u32           q7, [%[pCoeff]], #16            \n"
+         /* (xB - xA) * Tw */
+         "  vcmul.f32           q1, q7, q6, #0                  \n"
+         /* decrement gather load index */
+         "  vsub.i32            %q[strd], %q[strd], %[four]     \n"
+         "  vcmla.f32           q1, q7, q6, #90                 \n"
+         "  vadd.f32            q4, q4, q5                      \n"
+         "  vldrw.u32           q5, [%[pB], %q[strd], uxtw #2]  \n"
+         "  vadd.f32            q1, q1, q4                      \n"
+         "  vldrw.u32           q4, [%[pA]], #16                \n"
+         "  vmul.f32            q1, q1, %[half]                 \n"
+         "  vstrw.32            q1, [%[pOut]], #16              \n"
+         "  letp                lr, 2b                          \n"
+         "1:                                                    \n"
+         : [pOut] "+r" (pOut), [pA] "+r" (pA), [pB] "+r" (pB),
+           [strd] "+t" (vecStridesBkwd), [pCoeff] "+r" (pCoeff)
+         : [count] "r" (blockCnt), [four] "r" (4), [half] "r" (0.5f),
+           [conj] "t" (conj)
+         : "r14", "q4", "q5", "q6", "q7", "q1", "memory"
+    );
+#endif
 #endif
 }
 
@@ -264,56 +280,76 @@ void merge_rfft_f32_mve(
         blockCnt -= 4;
     }
 #else
-    /* use memory as "t" / "w" constraints do not allow to convey
-     MVE vectors to inline asm block with GCC */
-    uint32x4_t scratch[2];
-
-    scratch[0] = vecStridesBkwd;
-    scratch[1] = vreinterpretq_u32_f32(conj);
-
-    __asm volatile(
+#ifdef ARM_CM85_OPT
+       __asm volatile(
         ".p2align 2                                             \n"
+         /* preload Xa/Xb */
+         "  vldrw.u32           q4, [%[pA]], #16                \n"
+         "  vldrw.u32           q5, [%[pB], %q[strd], uxtw #2]  \n"
+         "  vmul.f32            q5, q5, %q[conj]                \n"
 
-        " vecStrd       .req  q0                                \n"
-        " conj          .req  q1                                \n"
+         "   wlstp.32            lr, %[count], 1f               \n"
+         "2:                                                    \n"
 
-        "   vldrw.32            vecStrd, [%[scratch], #(0*16)]  \n"
-        "   vldrw.32            conj, [%[scratch], #(1*16)]     \n"
+         "  vsub.f32            q6, q5, q4                      \n"
+         /* load twidle */
+         "  vldrw.u32           q7, [%[pCoeff]], #16            \n"
+         "  vsub.i32            %q[strd], %q[strd], %[four]     \n"
+         /* (xB - xA) * Tw */
+         "  vcmul.f32           q1, q7, q6, #0                  \n"
+         /* decrement gather load index */
+         "  vadd.f32            q4, q4, q5                      \n"
+         "  vcmla.f32           q1, q7, q6, #270                \n"
 
-        /* preload Xa/Xb */
-        "  vldrw.32             q2, [%[pA]], #16                \n"
-        "  vldrw.32             q3, [%[pB], vecStrd, uxtw #2]   \n"
+         "  vldrw.u32           q5, [%[pB], %q[strd], uxtw #2]   \n"
+         "  vmul.f32            q5, q5, %q[conj]                 \n"
+
+         "  vadd.f32            q1, q1, q4                      \n"
+         "  vldrw.u32           q4, [%[pA]], #16                \n"
+         "  vmul.f32            q1, q1, %[half]                 \n"
+         "  vstrw.32            q1, [%[pOut]], #16              \n"
+         "  letp                lr, 2b                          \n"
+         "1:                                                    \n"
+         : [pOut] "+r" (pOut), [pA] "+r" (pA), [pB] "+r" (pB),
+           [strd] "+t" (vecStridesBkwd), [pCoeff] "+r" (pCoeff)
+         : [count] "r" (blockCnt), [four] "r" (4), [half] "r" (0.5f),
+           [conj] "t" (conj)
+         : "r14", "q4", "q5", "q6", "q7", "q1", "memory"
+    );
+#else
+       __asm volatile(
+        ".p2align 2                                             \n"
+         /* preload Xa/Xb */
+         "  vldrw.u32           q4, [%[pA]], #16                \n"
+         "  vldrw.u32           q5, [%[pB], %q[strd], uxtw #2]  \n"
 
         "   wlstp.32            lr, %[count], 1f                \n"
-
-        /* low overhead loop start */
         "2:                                                     \n"
-        "  vmul.f32             q3, q3, conj                    \n"
-        "  vsub.f32             q5, q3, q2                      \n"
-        /* load twiddle */
-        "  vldrw.32             q6, [%[pCoeff]], #16            \n"
-        "  vcmul.f32            q4, q6, q5, #0                  \n"
-        /* decrement gather load index */
-        "  vsub.i32             vecStrd, vecStrd, %[four]       \n"
-        "  vcmla.f32            q4, q6, q5, #270                \n"
-        "  vadd.f32             q2, q2, q3                      \n"
-        "  vldrw.32             q3, [%[pB], vecStrd, uxtw #2]   \n"
-        "  vadd.f32             q4, q4, q2                      \n"
-        "  vldrw.32             q2, [%[pA]], #16                \n"
-        "  vmul.f32             q4, q4, %[half]                 \n"
-        "  vstrw.32             q4, [%[pOut]], #16              \n"
-        "  letp                 lr, 2b                          \n"
-
-        /* low overhead loop end */
-        "1:                                                     \n"
-         : [pOut] "+r" (pOut), [pA] "+&r" (pA), [pB] "+r" (pB),
-           [pCoeff] "+r" (pCoeff)
+         /* complement Xb */
+         "  vmul.f32            q5, q5, %q[conj]                \n"
+         "  vsub.f32            q6, q5, q4                      \n"
+         /* load twidle */
+         "  vldrw.u32           q7, [%[pCoeff]], #16            \n"
+         /* (xB - xA) * Tw */
+         "  vcmul.f32           q1, q7, q6, #0                  \n"
+         /* decrement gather load index */
+         "  vsub.i32            %q[strd], %q[strd], %[four]     \n"
+         "  vcmla.f32           q1, q7, q6, #270                \n"
+         "  vadd.f32            q4, q4, q5                      \n"
+         "  vldrw.u32           q5, [%[pB], %q[strd], uxtw #2]  \n"
+         "  vadd.f32            q1, q1, q4                      \n"
+         "  vldrw.u32           q4, [%[pA]], #16                \n"
+         "  vmul.f32            q1, q1, %[half]                 \n"
+         "  vstrw.32            q1, [%[pOut]], #16              \n"
+         "  letp                lr, 2b                          \n"
+         "1:                                                    \n"
+         : [pOut] "+r" (pOut), [pA] "+r" (pA), [pB] "+r" (pB),
+           [strd] "+t" (vecStridesBkwd), [pCoeff] "+r" (pCoeff)
          : [count] "r" (blockCnt), [four] "r" (4), [half] "r" (0.5f),
-           [scratch] "r" (scratch)
-         : "q0", "q1", "q2", "q3",
-           "q4", "q5", "q6",
-           "r14", "memory"
+           [conj] "t" (conj)
+         : "r14", "q4", "q5", "q6", "q7", "q1", "memory"
     );
+#endif
 #endif
 
 }

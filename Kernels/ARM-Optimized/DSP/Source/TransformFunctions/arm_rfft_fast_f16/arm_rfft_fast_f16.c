@@ -62,19 +62,21 @@ static void stage_rfft_f16_mve(const arm_rfft_fast_instance_f16 * S,
     float16x8_t     tw, xA, xB;
     float16x8_t     tmp1, tmp2, res;
 #endif
-    uint32x4_t      vecStridesBkwd;
+    uint16x8_t      vecStridesBkwd;
     float16x8_t     conj = vcvtq_f16_s16(vsubq_n_s16(vdwdupq_n_u16(2, 4, 2), 1));
     int32_t         blockCnt;
-    uint32_t        fftSize;
 
 
-    fftSize = (S->Sint).fftLen - 1;
+    vecStridesBkwd[0] = 0;
+    vecStridesBkwd[1] = 1;
+    vecStridesBkwd[2] = -2;
+    vecStridesBkwd[3] = -1;
+    vecStridesBkwd[4] = -4;
+    vecStridesBkwd[5] = -3;
+    vecStridesBkwd[6] = -6;
+    vecStridesBkwd[7] = -5;
 
-    vecStridesBkwd[0] = fftSize;
-    vecStridesBkwd[1] = fftSize - 1;
-    vecStridesBkwd[2] = fftSize - 2;
-    vecStridesBkwd[3] = fftSize - 3;
-
+    int32_t k = (S->Sint).fftLen - 1;
 
     /* Pack first and last sample of the frequency domain together */
     xBR = pB[0];
@@ -97,9 +99,10 @@ static void stage_rfft_f16_mve(const arm_rfft_fast_instance_f16 * S,
 
     // XA(1) = 1/2*( U1 - imag(U2) +  i*( U1 +imag(U2) ));
     pB = p;
+    vecStridesBkwd = vaddq(vecStridesBkwd, 2 * k);
     pA += 2;
 
-    blockCnt = fftSize * CMPLX_DIM;
+    blockCnt = k * CMPLX_DIM;
 
 
 #ifndef USE_ASM
@@ -123,10 +126,10 @@ static void stage_rfft_f16_mve(const arm_rfft_fast_instance_f16 * S,
 
         xA = vld1q_z(pA, p);        pA += 8;
 
-        xB = (float16x8_t)vldrwq_gather_shifted_offset_z_f32((float32_t *)pB, vecStridesBkwd, p);
+        xB = (float16x8_t)vldrhq_gather_shifted_offset_z_f16((float32_t *)pB, vecStridesBkwd, p);
         /* conjugate */
         xB = vmulq_x(xB, conj, p);
-        vecStridesBkwd = vsubq_x_n_u32(vecStridesBkwd, 4, p);
+        vecStridesBkwd = vsubq_x_n_u16(vecStridesBkwd, 8, p);
 
         tw = vld1q_z(pCoeff, p);    pCoeff += 8;
 
@@ -145,56 +148,74 @@ static void stage_rfft_f16_mve(const arm_rfft_fast_instance_f16 * S,
     }
 #else
 
-    /* use memory as "t" / "w" constraints do not allow to convey
-     MVE vectors to inline asm block with GCC */
-    uint16x8_t scratch[2];
-
-    scratch[0] = vreinterpretq_u16_u32(vecStridesBkwd);
-    scratch[1] = vreinterpretq_u16_f16(conj);
-
-    __asm volatile(
+#ifdef ARM_CM85_OPT
+       __asm volatile(
         ".p2align 2                                             \n"
+         /* preload Xa/Xb */
+         "  vldrh.u16           q4, [%[pA]], #16                \n"
+         "  vldrh.u16           q5, [%[pB], %q[strd], uxtw #1]  \n"
+         "  vmul.f16            q5, q5, %q[conj]                \n"
+        "   wlstp.16            lr, %[count], 1f                \n"
+        "2:                                                     \n"
+         /* complement Xb */
 
-        " vecStrd       .req  q0                                \n"
-        " conj          .req  q1                                \n"
-
-        "   vldrw.32            vecStrd, [%[scratch], #(0*16)]  \n"
-        "   vldrh.16            conj, [%[scratch], #(1*16)]     \n"
-
-        /* preload Xa/Xb */
-        "  vldrh.16             q2, [%[pA]], #16                \n"
-        "  vldrw.32             q3, [%[pB], vecStrd, uxtw #2]   \n"
+         "  vsub.f16            q6, q5, q4                      \n"
+         /* load twidle */
+         "  vldrh.u16           q7, [%[pCoeff]], #16            \n"
+         "  vsub.i16            %q[strd], %q[strd], %[eight]    \n"
+         /* (xB - xA) * Tw */
+         "  vcmul.f16           q1, q7, q6, #0                  \n"
+         /* decrement gather load index */
+         "  vadd.f16            q4, q4, q5                      \n"
+         "  vcmla.f16           q1, q7, q6, #90                 \n"
+         "  vldrh.u16           q5, [%[pB], %q[strd], uxtw #1]  \n"
+         "  vmul.f16            q5, q5, %q[conj]                \n"
+         "  vadd.f16            q1, q1, q4                      \n"
+         "  vldrh.u16           q4, [%[pA]], #16                \n"
+         "  vmul.f16            q1, q1, %[half]                 \n"
+         "  vstrh.16            q1, [%[pOut]], #16              \n"
+         "  letp                lr, 2b                          \n"
+         "1:                                                    \n"
+         : [pOut] "+r" (pOut), [pA] "+r" (pA), [pB] "+r" (pB),
+           [strd] "+t" (vecStridesBkwd), [pCoeff] "+r" (pCoeff)
+         : [count] "r" (blockCnt), [eight] "r" (8), [half] "r" (0.5f16),
+           [conj] "t" (conj)
+         : "r14", "q4", "q5", "q6", "q7", "q1", "memory"
+    );
+#else
+       __asm volatile(
+        ".p2align 2                                             \n"
+         /* preload Xa/Xb */
+         "  vldrh.u16           q4, [%[pA]], #16                \n"
+         //"  vldrh.u16           q5, [%[pB], %[strd], uxtw #1] \n"
 
         "   wlstp.16            lr, %[count], 1f                \n"
-
-        /* low overhead loop start */
         "2:                                                     \n"
-        "  vmul.f16             q3, q3, conj                    \n"
-        "  vsub.f16             q5, q3, q2                      \n"
-        /* load twiddle */
-        "  vldrh.16             q6, [%[pCoeff]], #16            \n"
-        "  vcmul.f16            q4, q6, q5, #0                  \n"
-        /* decrement gather load index */
-        "  vsub.i32             vecStrd, vecStrd, %[four]       \n"
-        "  vcmla.f16            q4, q6, q5, #90               \n"
-        "  vadd.f16             q2, q2, q3                      \n"
-        "  vldrw.32             q3, [%[pB], vecStrd, uxtw #2]   \n"
-        "  vadd.f16             q4, q4, q2                      \n"
-        "  vldrh.16             q2, [%[pA]], #16                \n"
-        "  vmul.f16             q4, q4, %[half]                 \n"
-        "  vstrh.16             q4, [%[pOut]], #16              \n"
-        "  letp                 lr, 2b                          \n"
-
-        /* low overhead loop end */
-        "1:                                                     \n"
-         : [pOut] "+r" (pOut), [pA] "+&r" (pA), [pB] "+r" (pB),
-           [pCoeff] "+&r" (pCoeff)
-         : [count] "r" (blockCnt), [four] "r" (4), [half] "r" (0.5f16),
-           [scratch] "r" (scratch)
-         : "q0", "q1", "q2", "q3",
-           "q4", "q5", "q6",
-           "r14", "memory"
+	 "  vldrh.u16           q5, [%[pB], %q[strd], uxtw #1]  \n"
+         /* complement Xb */
+         "  vmul.f16            q5, q5, %q[conj]                \n"
+         "  vsub.f16            q6, q5, q4                      \n"
+         /* load twidle */
+         "  vldrh.u16           q7, [%[pCoeff]], #16            \n"
+         /* (xB - xA) * Tw */
+         "  vcmul.f16           q1, q7, q6, #0                  \n"
+         /* decrement gather load index */
+         "  vcmla.f16           q1, q7, q6, #90                 \n"
+         "  vadd.f16            q4, q4, q5                      \n"
+         "  vsub.i16            %q[strd], %q[strd], %[eight]    \n"
+         "  vadd.f16            q1, q1, q4                      \n"
+         "  vldrh.u16           q4, [%[pA]], #16                \n"
+         "  vmul.f16            q1, q1, %[half]                 \n"
+         "  vstrh.16            q1, [%[pOut]], #16              \n"
+         "  letp                lr, 2b                          \n"
+         "1:                                                    \n"
+         : [pOut] "+r" (pOut), [pA] "+r" (pA), [pB] "+r" (pB),
+           [strd] "+t" (vecStridesBkwd), [pCoeff] "+r" (pCoeff)
+         : [count] "r" (blockCnt), [eight] "r" (8), [half] "r" (0.5f16),
+           [conj] "t" (conj)
+         : "r14", "q4", "q5", "q6", "q7", "q1", "memory"
     );
+#endif
 #endif
 }
 
@@ -215,17 +236,20 @@ void merge_rfft_f16_mve(
     float16x8_t     tw, xA, xB;
     float16x8_t     tmp1, tmp2, res;
 #endif
-    uint32x4_t      vecStridesBkwd;
+    uint16x8_t      vecStridesBkwd;
     float16x8_t     conj = vcvtq_f16_s16(vsubq_n_s16(vdwdupq_n_u16(2, 4, 2), 1));
     int32_t         blockCnt;
-    uint32_t        fftSize;
 
-    fftSize = (S->Sint).fftLen - 1;
+    vecStridesBkwd[0] = 0;
+    vecStridesBkwd[1] = 1;
+    vecStridesBkwd[2] = -2;
+    vecStridesBkwd[3] = -1;
+    vecStridesBkwd[4] = -4;
+    vecStridesBkwd[5] = -3;
+    vecStridesBkwd[6] = -6;
+    vecStridesBkwd[7] = -5;
 
-    vecStridesBkwd[0] = fftSize;
-    vecStridesBkwd[1] = fftSize - 1;
-    vecStridesBkwd[2] = fftSize - 2;
-    vecStridesBkwd[3] = fftSize - 3;
+    int32_t k = (S->Sint).fftLen - 1;
 
     xAR = pA[0];
     xAI = pA[1];
@@ -236,9 +260,10 @@ void merge_rfft_f16_mve(
     *pOut++ = 0.5f * (xAR - xAI);
 
     pB = p;
+    vecStridesBkwd = vaddq(vecStridesBkwd, 2 * k);
     pA += 2;
 
-    blockCnt = fftSize * CMPLX_DIM;
+    blockCnt = k * CMPLX_DIM;
 
 
 #ifndef USE_ASM
@@ -248,10 +273,10 @@ void merge_rfft_f16_mve(
 
         xA = vld1q_z(pA, p);            pA += 8;
 
-        xB = (float16x8_t)vldrwq_gather_shifted_offset_z_f32((float32_t *)pB, vecStridesBkwd, p);
+        xB = (float16x8_t)vldrhq_gather_shifted_offset_z_f16(pB, vecStridesBkwd, p);
         /* conjugate */
         xB = vmulq_x(xB, conj, p);
-        vecStridesBkwd = vsubq_x_n_u32(vecStridesBkwd, 4, p);
+        vecStridesBkwd = vsubq_x_n_u16(vecStridesBkwd, 8, p);
 
         tw = vld1q_z(pCoeff, p);        pCoeff += 8;
 
@@ -269,57 +294,77 @@ void merge_rfft_f16_mve(
         blockCnt -= 8;
     }
 #else
-    /* use memory as "t" / "w" constraints do not allow to convey
-     MVE vectors to inline asm block with GCC */
-    uint16x8_t scratch[2];
-
-    scratch[0] = vreinterpretq_u16_u32(vecStridesBkwd);
-    scratch[1] = vreinterpretq_u16_f16(conj);
-
-    __asm volatile(
+#ifdef ARM_CM85_OPT
+       __asm volatile(
         ".p2align 2                                             \n"
+         /* preload Xa/Xb */
+         "  vldrh.u16           q4, [%[pA]], #16                \n"
+         "  vldrh.u16           q5, [%[pB], %q[strd], uxtw #1]  \n"
+         "  vmul.f16            q5, q5, %q[conj]                \n"
 
-        " vecStrd       .req  q0                                \n"
-        " conj          .req  q1                                \n"
+         "   wlstp.16            lr, %[count], 1f               \n"
+         "2:                                                    \n"
+         /* complement Xb */
 
-        "   vldrw.32            vecStrd, [%[scratch], #(0*16)]  \n"
-        "   vldrh.16            conj, [%[scratch], #(1*16)]     \n"
+         "  vsub.f16            q6, q5, q4                      \n"
+         /* load twidle */
+         "  vldrh.u16           q7, [%[pCoeff]], #16            \n"
+         "  vsub.i16            %q[strd], %q[strd], %[eigth]    \n"
+         /* (xB - xA) * Tw */
+         "  vcmul.f16           q1, q7, q6, #0                  \n"
+         /* decrement gather load index */
+         "  vadd.f16            q4, q4, q5                      \n"
+         "  vcmla.f16           q1, q7, q6, #270                \n"
 
-        /* preload Xa/Xb */
-        "  vldrh.16             q2, [%[pA]], #16                \n"
-        "  vldrw.32             q3, [%[pB], vecStrd, uxtw #2]   \n"
+         "  vldrh.u16           q5, [%[pB], %q[strd], uxtw #1]  \n"
+         "  vmul.f16            q5, q5, %q[conj]                \n"
+
+         "  vadd.f16            q1, q1, q4                      \n"
+         "  vldrh.u16           q4, [%[pA]], #16                \n"
+         "  vmul.f16            q1, q1, %[half]                 \n"
+         "  vstrh.16            q1, [%[pOut]], #16              \n"
+         "  letp                lr, 2b                          \n"
+         "1:                                                    \n"
+         : [pOut] "+r" (pOut), [pA] "+r" (pA), [pB] "+r" (pB),
+           [strd] "+t" (vecStridesBkwd), [pCoeff] "+r" (pCoeff)
+         : [count] "r" (blockCnt), [eigth] "r" (8), [half] "r" (0.5f16),
+           [conj] "t" (conj)
+         : "r14", "q4", "q5", "q6", "q7", "q1", "memory"
+    );
+#else
+       __asm volatile(
+        ".p2align 2                                             \n"
+         /* preload Xa/Xb */
+         "  vldrh.u16           q4, [%[pA]], #16                \n"
 
         "   wlstp.16            lr, %[count], 1f                \n"
-
-        /* low overhead loop start */
         "2:                                                     \n"
-        "  vmul.f16             q3, q3, conj                    \n"
-        "  vsub.f16             q5, q3, q2                      \n"
-        /* load twiddle */
-        "  vldrh.16             q6, [%[pCoeff]], #16            \n"
-        "  vcmul.f16            q4, q6, q5, #0                  \n"
-        /* decrement gather load index */
-        "  vsub.i32             vecStrd, vecStrd, %[four]       \n"
-        "  vcmla.f16            q4, q6, q5, #270                \n"
-        "  vadd.f16             q2, q2, q3                      \n"
-        "  vldrw.32             q3, [%[pB], vecStrd, uxtw #2]   \n"
-        "  vadd.f16             q4, q4, q2                      \n"
-        "  vldrh.16             q2, [%[pA]], #16                \n"
-        "  vmul.f16             q4, q4, %[half]                 \n"
-        "  vstrh.16             q4, [%[pOut]], #16              \n"
-        "  letp                 lr, 2b                          \n"
+	"  vldrh.u16           q5, [%[pB], %q[strd], uxtw #1]   \n"
+         /* complement Xb */
+         "  vmul.f16            q5, q5, %q[conj]                \n"
+         "  vsub.f16            q6, q5, q4                      \n"
+         /* load twidle */
+         "  vldrh.u16           q7, [%[pCoeff]], #16            \n"
+         /* (xB - xA) * Tw */
+         "  vcmul.f16           q1, q7, q6, #0                  \n"
+         /* decrement gather load index */
+         "  vsub.i16            %q[strd], %q[strd], %[eigth]    \n"
+         "  vcmla.f16           q1, q7, q6, #270                \n"
+         "  vadd.f16            q4, q4, q5                      \n"
 
-        /* low overhead loop end */
-        "1:                                                     \n"
-         : [pOut] "+r" (pOut), [pA] "+&r" (pA), [pB] "+r" (pB),
-           [pCoeff] "+&r" (pCoeff)
-         : [count] "r" (blockCnt), [four] "r" (4), [half] "r" (0.5f16),
-           [scratch] "r" (scratch)
-         : "q0", "q1", "q2", "q3",
-           "q4", "q5", "q6",
-           "r14", "memory"
+         "  vadd.f16            q1, q1, q4                      \n"
+         "  vldrh.u16           q4, [%[pA]], #16                \n"
+         "  vmul.f16            q1, q1, %[half]                 \n"
+         "  vstrh.16            q1, [%[pOut]], #16              \n"
+         "  letp                lr, 2b                          \n"
+         "1:                                                    \n"
+         : [pOut] "+r" (pOut), [pA] "+r" (pA), [pB] "+r" (pB),
+           [strd] "+t" (vecStridesBkwd), [pCoeff] "+r" (pCoeff)
+         : [count] "r" (blockCnt), [eigth] "r" (8), [half] "r" (0.5f16),
+           [conj] "t" (conj)
+         : "r14", "q4", "q5", "q6", "q7", "q1", "memory"
     );
-
+#endif
 #endif
 
 }
