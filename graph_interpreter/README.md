@@ -16,5 +16,4 @@ It provides an opaque interface of the platform memory hierarchy to the computin
 
 Use the same stream-based processing methodology from devices using 1 Kbytes of internal RAM to multiprocessor heterogeneous architectures. Nodes can be produced in any programming languages. The Graph are portable when interpreted on another platform.
 
- [README]([stream_doc/README.md](https://github.com/llefaucheur/GRAPH_INTERPRETER/blob/main/stream_doc/Interpreter.md))
-
+[DOC](https://github.com/llefaucheur/GRAPH_INTERPRETER/blob/main/stream_doc/Interpreter.md)
